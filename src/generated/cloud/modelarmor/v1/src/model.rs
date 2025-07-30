@@ -32,7 +32,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Message describing Template resource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Template {
     /// Identifier. name of resource
@@ -340,13 +340,29 @@ impl serde::ser::Serialize for Template {
     }
 }
 
+impl std::fmt::Debug for Template {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Template");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("filter_config", &self.filter_config);
+        debug_struct.field("template_metadata", &self.template_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Template].
 pub mod template {
     #[allow(unused_imports)]
     use super::*;
 
     /// Message describing TemplateMetadata
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TemplateMetadata {
         /// Optional. If true, partial detector failures should be ignored.
@@ -785,13 +801,46 @@ pub mod template {
         }
     }
 
+    impl std::fmt::Debug for TemplateMetadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TemplateMetadata");
+            debug_struct.field(
+                "ignore_partial_invocation_failures",
+                &self.ignore_partial_invocation_failures,
+            );
+            debug_struct.field(
+                "custom_prompt_safety_error_code",
+                &self.custom_prompt_safety_error_code,
+            );
+            debug_struct.field(
+                "custom_prompt_safety_error_message",
+                &self.custom_prompt_safety_error_message,
+            );
+            debug_struct.field(
+                "custom_llm_response_safety_error_code",
+                &self.custom_llm_response_safety_error_code,
+            );
+            debug_struct.field(
+                "custom_llm_response_safety_error_message",
+                &self.custom_llm_response_safety_error_message,
+            );
+            debug_struct.field("log_template_operations", &self.log_template_operations);
+            debug_struct.field("log_sanitize_operations", &self.log_sanitize_operations);
+            debug_struct.field("multi_language_detection", &self.multi_language_detection);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [TemplateMetadata].
     pub mod template_metadata {
         #[allow(unused_imports)]
         use super::*;
 
         /// Metadata to enable multi language detection via template.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MultiLanguageDetection {
             /// Required. If true, multi language detection will be enabled.
@@ -939,11 +988,25 @@ pub mod template {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for MultiLanguageDetection {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("MultiLanguageDetection");
+                debug_struct.field(
+                    "enable_multi_language_detection",
+                    &self.enable_multi_language_detection,
+                );
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 }
 
 /// Message describing FloorSetting resource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FloorSetting {
     /// Identifier. The resource name.
@@ -1226,8 +1289,26 @@ impl serde::ser::Serialize for FloorSetting {
     }
 }
 
+impl std::fmt::Debug for FloorSetting {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FloorSetting");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("filter_config", &self.filter_config);
+        debug_struct.field(
+            "enable_floor_setting_enforcement",
+            &self.enable_floor_setting_enforcement,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of Templates
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTemplatesRequest {
     /// Required. Parent value for ListTemplatesRequest
@@ -1474,8 +1555,23 @@ impl serde::ser::Serialize for ListTemplatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListTemplatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTemplatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing Templates
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTemplatesResponse {
     /// The list of Template
@@ -1673,8 +1769,21 @@ impl serde::ser::Serialize for ListTemplatesResponse {
     }
 }
 
+impl std::fmt::Debug for ListTemplatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTemplatesResponse");
+        debug_struct.field("templates", &self.templates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a Template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTemplateRequest {
     /// Required. Name of the resource
@@ -1803,8 +1912,19 @@ impl serde::ser::Serialize for GetTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for GetTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTemplateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a Template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTemplateRequest {
     /// Required. Value for parent.
@@ -2032,8 +2152,22 @@ impl serde::ser::Serialize for CreateTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTemplateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("template_id", &self.template_id);
+        debug_struct.field("template", &self.template);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a Template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTemplateRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -2250,8 +2384,21 @@ impl serde::ser::Serialize for UpdateTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTemplateRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("template", &self.template);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a Template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTemplateRequest {
     /// Required. Name of the resource
@@ -2417,8 +2564,20 @@ impl serde::ser::Serialize for DeleteTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTemplateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a Floor Setting
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFloorSettingRequest {
     /// Required. The name of the floor setting to get, example
@@ -2548,8 +2707,19 @@ impl serde::ser::Serialize for GetFloorSettingRequest {
     }
 }
 
+impl std::fmt::Debug for GetFloorSettingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFloorSettingRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for Updating a Floor Setting
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFloorSettingRequest {
     /// Required. The floor setting being updated.
@@ -2730,8 +2900,20 @@ impl serde::ser::Serialize for UpdateFloorSettingRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateFloorSettingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFloorSettingRequest");
+        debug_struct.field("floor_setting", &self.floor_setting);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Filters configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FilterConfig {
     /// Optional. Responsible AI settings.
@@ -3004,8 +3186,28 @@ impl serde::ser::Serialize for FilterConfig {
     }
 }
 
+impl std::fmt::Debug for FilterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilterConfig");
+        debug_struct.field("rai_settings", &self.rai_settings);
+        debug_struct.field("sdp_settings", &self.sdp_settings);
+        debug_struct.field(
+            "pi_and_jailbreak_filter_settings",
+            &self.pi_and_jailbreak_filter_settings,
+        );
+        debug_struct.field(
+            "malicious_uri_filter_settings",
+            &self.malicious_uri_filter_settings,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Prompt injection and Jailbreak Filter settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PiAndJailbreakFilterSettings {
     /// Optional. Tells whether Prompt injection and Jailbreak filter is enabled or
@@ -3172,6 +3374,18 @@ impl serde::ser::Serialize for PiAndJailbreakFilterSettings {
     }
 }
 
+impl std::fmt::Debug for PiAndJailbreakFilterSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PiAndJailbreakFilterSettings");
+        debug_struct.field("filter_enforcement", &self.filter_enforcement);
+        debug_struct.field("confidence_level", &self.confidence_level);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PiAndJailbreakFilterSettings].
 pub mod pi_and_jailbreak_filter_settings {
     #[allow(unused_imports)]
@@ -3313,7 +3527,7 @@ pub mod pi_and_jailbreak_filter_settings {
 }
 
 /// Malicious URI filter settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaliciousUriFilterSettings {
     /// Optional. Tells whether the Malicious URI filter is enabled or disabled.
@@ -3446,6 +3660,17 @@ impl serde::ser::Serialize for MaliciousUriFilterSettings {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for MaliciousUriFilterSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaliciousUriFilterSettings");
+        debug_struct.field("filter_enforcement", &self.filter_enforcement);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -3589,7 +3814,7 @@ pub mod malicious_uri_filter_settings {
 }
 
 /// Responsible AI Filter settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RaiFilterSettings {
     /// Required. List of Responsible AI filters enabled for template.
@@ -3726,13 +3951,24 @@ impl serde::ser::Serialize for RaiFilterSettings {
     }
 }
 
+impl std::fmt::Debug for RaiFilterSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RaiFilterSettings");
+        debug_struct.field("rai_filters", &self.rai_filters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RaiFilterSettings].
 pub mod rai_filter_settings {
     #[allow(unused_imports)]
     use super::*;
 
     /// Responsible AI filter.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RaiFilter {
         /// Required. Type of responsible AI filter.
@@ -3900,10 +4136,22 @@ pub mod rai_filter_settings {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for RaiFilter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RaiFilter");
+            debug_struct.field("filter_type", &self.filter_type);
+            debug_struct.field("confidence_level", &self.confidence_level);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Sensitive Data Protection settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpFilterSettings {
     /// Either of Sensitive Data Protection basic or advanced configuration.
@@ -4143,6 +4391,17 @@ impl serde::ser::Serialize for SdpFilterSettings {
     }
 }
 
+impl std::fmt::Debug for SdpFilterSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SdpFilterSettings");
+        debug_struct.field("sdp_configuration", &self.sdp_configuration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SdpFilterSettings].
 pub mod sdp_filter_settings {
     #[allow(unused_imports)]
@@ -4166,7 +4425,7 @@ pub mod sdp_filter_settings {
 }
 
 /// Sensitive Data Protection basic configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpBasicConfig {
     /// Optional. Tells whether the Sensitive Data Protection basic config is
@@ -4301,6 +4560,17 @@ impl serde::ser::Serialize for SdpBasicConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for SdpBasicConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SdpBasicConfig");
+        debug_struct.field("filter_enforcement", &self.filter_enforcement);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -4448,7 +4718,7 @@ pub mod sdp_basic_config {
 }
 
 /// Sensitive Data Protection Advanced configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpAdvancedConfig {
     /// Optional. Sensitive Data Protection inspect template resource name
@@ -4627,8 +4897,20 @@ impl serde::ser::Serialize for SdpAdvancedConfig {
     }
 }
 
+impl std::fmt::Debug for SdpAdvancedConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SdpAdvancedConfig");
+        debug_struct.field("inspect_template", &self.inspect_template);
+        debug_struct.field("deidentify_template", &self.deidentify_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sanitize User Prompt request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SanitizeUserPromptRequest {
     /// Required. Represents resource name of template
@@ -4843,8 +5125,24 @@ impl serde::ser::Serialize for SanitizeUserPromptRequest {
     }
 }
 
+impl std::fmt::Debug for SanitizeUserPromptRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SanitizeUserPromptRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("user_prompt_data", &self.user_prompt_data);
+        debug_struct.field(
+            "multi_language_detection_metadata",
+            &self.multi_language_detection_metadata,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sanitize Model Response request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SanitizeModelResponseRequest {
     /// Required. Represents resource name of template
@@ -5084,8 +5382,25 @@ impl serde::ser::Serialize for SanitizeModelResponseRequest {
     }
 }
 
+impl std::fmt::Debug for SanitizeModelResponseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SanitizeModelResponseRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("model_response_data", &self.model_response_data);
+        debug_struct.field("user_prompt", &self.user_prompt);
+        debug_struct.field(
+            "multi_language_detection_metadata",
+            &self.multi_language_detection_metadata,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sanitized User Prompt Response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SanitizeUserPromptResponse {
     /// Output only. Sanitization Result.
@@ -5226,8 +5541,19 @@ impl serde::ser::Serialize for SanitizeUserPromptResponse {
     }
 }
 
+impl std::fmt::Debug for SanitizeUserPromptResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SanitizeUserPromptResponse");
+        debug_struct.field("sanitization_result", &self.sanitization_result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sanitized Model Response Response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SanitizeModelResponseResponse {
     /// Output only. Sanitization Result.
@@ -5368,8 +5694,19 @@ impl serde::ser::Serialize for SanitizeModelResponseResponse {
     }
 }
 
+impl std::fmt::Debug for SanitizeModelResponseResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SanitizeModelResponseResponse");
+        debug_struct.field("sanitization_result", &self.sanitization_result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sanitization result after applying all the filters on input content.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SanitizationResult {
     /// Output only. Overall filter match state for Sanitization.
@@ -5618,13 +5955,27 @@ impl serde::ser::Serialize for SanitizationResult {
     }
 }
 
+impl std::fmt::Debug for SanitizationResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SanitizationResult");
+        debug_struct.field("filter_match_state", &self.filter_match_state);
+        debug_struct.field("filter_results", &self.filter_results);
+        debug_struct.field("invocation_result", &self.invocation_result);
+        debug_struct.field("sanitization_metadata", &self.sanitization_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SanitizationResult].
 pub mod sanitization_result {
     #[allow(unused_imports)]
     use super::*;
 
     /// Message describing Sanitization metadata.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SanitizationMetadata {
         /// Error code if any.
@@ -5840,10 +6191,26 @@ pub mod sanitization_result {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for SanitizationMetadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SanitizationMetadata");
+            debug_struct.field("error_code", &self.error_code);
+            debug_struct.field("error_message", &self.error_message);
+            debug_struct.field(
+                "ignore_partial_invocation_failures",
+                &self.ignore_partial_invocation_failures,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Message for Enabling Multi Language Detection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultiLanguageDetectionMetadata {
     /// Optional. Optional Source language of the user prompt.
@@ -6011,8 +6378,23 @@ impl serde::ser::Serialize for MultiLanguageDetectionMetadata {
     }
 }
 
+impl std::fmt::Debug for MultiLanguageDetectionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MultiLanguageDetectionMetadata");
+        debug_struct.field("source_language", &self.source_language);
+        debug_struct.field(
+            "enable_multi_language_detection",
+            &self.enable_multi_language_detection,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Filter Result obtained after Sanitization operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FilterResult {
     /// Encapsulates one of responsible AI, Sensitive Data Protection, Prompt
@@ -6493,6 +6875,17 @@ impl serde::ser::Serialize for FilterResult {
     }
 }
 
+impl std::fmt::Debug for FilterResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilterResult");
+        debug_struct.field("filter_result", &self.filter_result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FilterResult].
 pub mod filter_result {
     #[allow(unused_imports)]
@@ -6520,7 +6913,7 @@ pub mod filter_result {
 }
 
 /// Responsible AI Result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RaiFilterResult {
     /// Output only. Reports whether the RAI filter was successfully executed or
@@ -6754,13 +7147,27 @@ impl serde::ser::Serialize for RaiFilterResult {
     }
 }
 
+impl std::fmt::Debug for RaiFilterResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RaiFilterResult");
+        debug_struct.field("execution_state", &self.execution_state);
+        debug_struct.field("message_items", &self.message_items);
+        debug_struct.field("match_state", &self.match_state);
+        debug_struct.field("rai_filter_type_results", &self.rai_filter_type_results);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RaiFilterResult].
 pub mod rai_filter_result {
     #[allow(unused_imports)]
     use super::*;
 
     /// Detailed Filter result for each of the responsible AI Filter Types.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RaiFilterTypeResult {
         /// Type of responsible AI filter.
@@ -6950,10 +7357,23 @@ pub mod rai_filter_result {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for RaiFilterTypeResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RaiFilterTypeResult");
+            debug_struct.field("filter_type", &self.filter_type);
+            debug_struct.field("confidence_level", &self.confidence_level);
+            debug_struct.field("match_state", &self.match_state);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Sensitive Data Protection filter result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpFilterResult {
     /// Either of Sensitive Data Protection Inspect result or Deidentify result.
@@ -7191,6 +7611,17 @@ impl serde::ser::Serialize for SdpFilterResult {
     }
 }
 
+impl std::fmt::Debug for SdpFilterResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SdpFilterResult");
+        debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SdpFilterResult].
 pub mod sdp_filter_result {
     #[allow(unused_imports)]
@@ -7209,7 +7640,7 @@ pub mod sdp_filter_result {
 }
 
 /// Sensitive Data Protection Inspection Result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpInspectResult {
     /// Output only. Reports whether Sensitive Data Protection inspection was
@@ -7459,8 +7890,23 @@ impl serde::ser::Serialize for SdpInspectResult {
     }
 }
 
+impl std::fmt::Debug for SdpInspectResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SdpInspectResult");
+        debug_struct.field("execution_state", &self.execution_state);
+        debug_struct.field("message_items", &self.message_items);
+        debug_struct.field("match_state", &self.match_state);
+        debug_struct.field("findings", &self.findings);
+        debug_struct.field("findings_truncated", &self.findings_truncated);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents Data item
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataItem {
     /// Either of text or bytes data.
@@ -7677,6 +8123,17 @@ impl serde::ser::Serialize for DataItem {
     }
 }
 
+impl std::fmt::Debug for DataItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataItem");
+        debug_struct.field("data_item", &self.data_item);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataItem].
 pub mod data_item {
     #[allow(unused_imports)]
@@ -7694,7 +8151,7 @@ pub mod data_item {
 }
 
 /// Represents Byte Data item.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ByteDataItem {
     /// Required. The type of byte data
@@ -7865,6 +8322,18 @@ impl serde::ser::Serialize for ByteDataItem {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ByteDataItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ByteDataItem");
+        debug_struct.field("byte_data_type", &self.byte_data_type);
+        debug_struct.field("byte_data", &self.byte_data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -8042,7 +8511,7 @@ pub mod byte_data_item {
 }
 
 /// Sensitive Data Protection Deidentification Result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpDeidentifyResult {
     /// Output only. Reports whether Sensitive Data Protection deidentification was
@@ -8342,8 +8811,24 @@ impl serde::ser::Serialize for SdpDeidentifyResult {
     }
 }
 
+impl std::fmt::Debug for SdpDeidentifyResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SdpDeidentifyResult");
+        debug_struct.field("execution_state", &self.execution_state);
+        debug_struct.field("message_items", &self.message_items);
+        debug_struct.field("match_state", &self.match_state);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("transformed_bytes", &self.transformed_bytes);
+        debug_struct.field("info_types", &self.info_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Finding corresponding to Sensitive Data Protection filter.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SdpFinding {
     /// Name of Sensitive Data Protection info type for this finding.
@@ -8534,13 +9019,26 @@ impl serde::ser::Serialize for SdpFinding {
     }
 }
 
+impl std::fmt::Debug for SdpFinding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SdpFinding");
+        debug_struct.field("info_type", &self.info_type);
+        debug_struct.field("likelihood", &self.likelihood);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SdpFinding].
 pub mod sdp_finding {
     #[allow(unused_imports)]
     use super::*;
 
     /// Location of this Sensitive Data Protection Finding within input content.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SdpFindingLocation {
         /// Zero-based byte offsets delimiting the finding.
@@ -8724,10 +9222,22 @@ pub mod sdp_finding {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for SdpFindingLocation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SdpFindingLocation");
+            debug_struct.field("byte_range", &self.byte_range);
+            debug_struct.field("codepoint_range", &self.codepoint_range);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Prompt injection and Jailbreak Filter Result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PiAndJailbreakFilterResult {
     /// Output only. Reports whether Prompt injection and Jailbreak filter was
@@ -8945,8 +9455,22 @@ impl serde::ser::Serialize for PiAndJailbreakFilterResult {
     }
 }
 
+impl std::fmt::Debug for PiAndJailbreakFilterResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PiAndJailbreakFilterResult");
+        debug_struct.field("execution_state", &self.execution_state);
+        debug_struct.field("message_items", &self.message_items);
+        debug_struct.field("match_state", &self.match_state);
+        debug_struct.field("confidence_level", &self.confidence_level);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Malicious URI Filter Result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaliciousUriFilterResult {
     /// Output only. Reports whether Malicious URI filter was successfully executed
@@ -9175,6 +9699,23 @@ impl serde::ser::Serialize for MaliciousUriFilterResult {
     }
 }
 
+impl std::fmt::Debug for MaliciousUriFilterResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaliciousUriFilterResult");
+        debug_struct.field("execution_state", &self.execution_state);
+        debug_struct.field("message_items", &self.message_items);
+        debug_struct.field("match_state", &self.match_state);
+        debug_struct.field(
+            "malicious_uri_matched_items",
+            &self.malicious_uri_matched_items,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MaliciousUriFilterResult].
 pub mod malicious_uri_filter_result {
     #[allow(unused_imports)]
@@ -9182,7 +9723,7 @@ pub mod malicious_uri_filter_result {
 
     /// Information regarding malicious URI and its location within the input
     /// content.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MaliciousUriMatchedItem {
         /// Malicious URI.
@@ -9342,10 +9883,22 @@ pub mod malicious_uri_filter_result {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for MaliciousUriMatchedItem {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MaliciousUriMatchedItem");
+            debug_struct.field("uri", &self.uri);
+            debug_struct.field("locations", &self.locations);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Virus scan results.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VirusScanFilterResult {
     /// Output only. Reports whether Virus Scan was successfully executed or not.
@@ -9655,6 +10208,22 @@ impl serde::ser::Serialize for VirusScanFilterResult {
     }
 }
 
+impl std::fmt::Debug for VirusScanFilterResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VirusScanFilterResult");
+        debug_struct.field("execution_state", &self.execution_state);
+        debug_struct.field("message_items", &self.message_items);
+        debug_struct.field("match_state", &self.match_state);
+        debug_struct.field("scanned_content_type", &self.scanned_content_type);
+        debug_struct.field("scanned_size", &self.scanned_size);
+        debug_struct.field("virus_details", &self.virus_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VirusScanFilterResult].
 pub mod virus_scan_filter_result {
     #[allow(unused_imports)]
@@ -9802,7 +10371,7 @@ pub mod virus_scan_filter_result {
 }
 
 /// Details of an identified virus
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VirusDetail {
     /// Name of vendor that produced this virus identification.
@@ -9984,6 +10553,19 @@ impl serde::ser::Serialize for VirusDetail {
     }
 }
 
+impl std::fmt::Debug for VirusDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VirusDetail");
+        debug_struct.field("vendor", &self.vendor);
+        debug_struct.field("names", &self.names);
+        debug_struct.field("threat_type", &self.threat_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VirusDetail].
 pub mod virus_detail {
     #[allow(unused_imports)]
@@ -10148,7 +10730,7 @@ pub mod virus_detail {
 }
 
 /// CSAM (Child Safety Abuse Material) Filter Result
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CsamFilterResult {
     /// Output only. Reports whether the CSAM filter was successfully executed or
@@ -10340,8 +10922,21 @@ impl serde::ser::Serialize for CsamFilterResult {
     }
 }
 
+impl std::fmt::Debug for CsamFilterResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CsamFilterResult");
+        debug_struct.field("execution_state", &self.execution_state);
+        debug_struct.field("message_items", &self.message_items);
+        debug_struct.field("match_state", &self.match_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message item to report information, warning or error messages.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageItem {
     /// Type of message.
@@ -10496,6 +11091,18 @@ impl serde::ser::Serialize for MessageItem {
     }
 }
 
+impl std::fmt::Debug for MessageItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MessageItem");
+        debug_struct.field("message_type", &self.message_type);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MessageItem].
 pub mod message_item {
     #[allow(unused_imports)]
@@ -10642,7 +11249,7 @@ pub mod message_item {
 }
 
 /// Half-open range interval [start, end)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RangeInfo {
     /// For proto3, value cannot be set to 0 unless the field is optional.
@@ -10858,6 +11465,18 @@ impl serde::ser::Serialize for RangeInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for RangeInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RangeInfo");
+        debug_struct.field("start", &self.start);
+        debug_struct.field("end", &self.end);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

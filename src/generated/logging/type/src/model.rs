@@ -27,7 +27,7 @@ extern crate wkt;
 /// A common proto for logging HTTP requests. Only contains semantics
 /// defined by the HTTP specification. Product-specific logging
 /// information MUST be defined in a separate message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRequest {
     /// The request method. Examples: `"GET"`, `"HEAD"`, `"PUT"`, `"POST"`.
@@ -613,6 +613,34 @@ impl serde::ser::Serialize for HttpRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for HttpRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpRequest");
+        debug_struct.field("request_method", &self.request_method);
+        debug_struct.field("request_url", &self.request_url);
+        debug_struct.field("request_size", &self.request_size);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("response_size", &self.response_size);
+        debug_struct.field("user_agent", &self.user_agent);
+        debug_struct.field("remote_ip", &self.remote_ip);
+        debug_struct.field("server_ip", &self.server_ip);
+        debug_struct.field("referer", &self.referer);
+        debug_struct.field("latency", &self.latency);
+        debug_struct.field("cache_lookup", &self.cache_lookup);
+        debug_struct.field("cache_hit", &self.cache_hit);
+        debug_struct.field(
+            "cache_validated_with_origin_server",
+            &self.cache_validated_with_origin_server,
+        );
+        debug_struct.field("cache_fill_bytes", &self.cache_fill_bytes);
+        debug_struct.field("protocol", &self.protocol);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

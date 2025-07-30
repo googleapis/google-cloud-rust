@@ -36,7 +36,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Retrieves a list of all migration jobs in a given project and location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMigrationJobsRequest {
     /// Required. The parent which owns this collection of migrationJobs.
@@ -298,8 +298,23 @@ impl serde::ser::Serialize for ListMigrationJobsRequest {
     }
 }
 
+impl std::fmt::Debug for ListMigrationJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMigrationJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for 'ListMigrationJobs' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMigrationJobsResponse {
     /// The list of migration jobs objects.
@@ -499,8 +514,21 @@ impl serde::ser::Serialize for ListMigrationJobsResponse {
     }
 }
 
+impl std::fmt::Debug for ListMigrationJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMigrationJobsResponse");
+        debug_struct.field("migration_jobs", &self.migration_jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'GetMigrationJob' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMigrationJobRequest {
     /// Required. Name of the migration job resource to get.
@@ -629,9 +657,20 @@ impl serde::ser::Serialize for GetMigrationJobRequest {
     }
 }
 
+impl std::fmt::Debug for GetMigrationJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMigrationJobRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to create a new Database Migration Service migration job
 /// in the specified project and region.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMigrationJobRequest {
     /// Required. The parent which owns this collection of migration jobs.
@@ -857,8 +896,22 @@ impl serde::ser::Serialize for CreateMigrationJobRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMigrationJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMigrationJobRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("migration_job_id", &self.migration_job_id);
+        debug_struct.field("migration_job", &self.migration_job);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'UpdateMigrationJob' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateMigrationJobRequest {
     /// Required. Field mask is used to specify the fields to be overwritten by the
@@ -1067,8 +1120,21 @@ impl serde::ser::Serialize for UpdateMigrationJobRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateMigrationJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateMigrationJobRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("migration_job", &self.migration_job);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'DeleteMigrationJob' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMigrationJobRequest {
     /// Required. Name of the migration job resource to delete.
@@ -1254,8 +1320,21 @@ impl serde::ser::Serialize for DeleteMigrationJobRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteMigrationJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMigrationJobRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'StartMigrationJob' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartMigrationJobRequest {
     /// Name of the migration job resource to start.
@@ -1410,8 +1489,20 @@ impl serde::ser::Serialize for StartMigrationJobRequest {
     }
 }
 
+impl std::fmt::Debug for StartMigrationJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartMigrationJobRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("skip_validation", &self.skip_validation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'StopMigrationJob' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopMigrationJobRequest {
     /// Name of the migration job resource to stop.
@@ -1540,8 +1631,19 @@ impl serde::ser::Serialize for StopMigrationJobRequest {
     }
 }
 
+impl std::fmt::Debug for StopMigrationJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopMigrationJobRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'ResumeMigrationJob' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeMigrationJobRequest {
     /// Name of the migration job resource to resume.
@@ -1670,8 +1772,19 @@ impl serde::ser::Serialize for ResumeMigrationJobRequest {
     }
 }
 
+impl std::fmt::Debug for ResumeMigrationJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeMigrationJobRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'PromoteMigrationJob' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PromoteMigrationJobRequest {
     /// Name of the migration job resource to promote.
@@ -1800,8 +1913,19 @@ impl serde::ser::Serialize for PromoteMigrationJobRequest {
     }
 }
 
+impl std::fmt::Debug for PromoteMigrationJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PromoteMigrationJobRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'VerifyMigrationJob' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyMigrationJobRequest {
     /// Name of the migration job resource to verify.
@@ -2004,8 +2128,21 @@ impl serde::ser::Serialize for VerifyMigrationJobRequest {
     }
 }
 
+impl std::fmt::Debug for VerifyMigrationJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VerifyMigrationJobRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("migration_job", &self.migration_job);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'RestartMigrationJob' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestartMigrationJobRequest {
     /// Name of the migration job resource to restart.
@@ -2160,8 +2297,20 @@ impl serde::ser::Serialize for RestartMigrationJobRequest {
     }
 }
 
+impl std::fmt::Debug for RestartMigrationJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestartMigrationJobRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("skip_validation", &self.skip_validation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'GenerateSshScript' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateSshScriptRequest {
     /// Name of the migration job resource to generate the SSH script.
@@ -2487,6 +2636,20 @@ impl serde::ser::Serialize for GenerateSshScriptRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateSshScriptRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateSshScriptRequest");
+        debug_struct.field("migration_job", &self.migration_job);
+        debug_struct.field("vm", &self.vm);
+        debug_struct.field("vm_port", &self.vm_port);
+        debug_struct.field("vm_config", &self.vm_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GenerateSshScriptRequest].
 pub mod generate_ssh_script_request {
     #[allow(unused_imports)]
@@ -2504,7 +2667,7 @@ pub mod generate_ssh_script_request {
 }
 
 /// VM creation configuration message
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VmCreationConfig {
     /// Required. VM instance machine type to create.
@@ -2683,8 +2846,21 @@ impl serde::ser::Serialize for VmCreationConfig {
     }
 }
 
+impl std::fmt::Debug for VmCreationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VmCreationConfig");
+        debug_struct.field("vm_machine_type", &self.vm_machine_type);
+        debug_struct.field("vm_zone", &self.vm_zone);
+        debug_struct.field("subnet", &self.subnet);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// VM selection configuration message
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VmSelectionConfig {
     /// Required. The Google Cloud Platform zone the VM is located.
@@ -2814,8 +2990,19 @@ impl serde::ser::Serialize for VmSelectionConfig {
     }
 }
 
+impl std::fmt::Debug for VmSelectionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VmSelectionConfig");
+        debug_struct.field("vm_zone", &self.vm_zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for 'GenerateSshScript' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SshScript {
     /// The ssh configuration script.
@@ -2944,8 +3131,19 @@ impl serde::ser::Serialize for SshScript {
     }
 }
 
+impl std::fmt::Debug for SshScript {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SshScript");
+        debug_struct.field("script", &self.script);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'GenerateTcpProxyScript' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateTcpProxyScriptRequest {
     /// Name of the migration job resource to generate the TCP Proxy script.
@@ -3181,8 +3379,23 @@ impl serde::ser::Serialize for GenerateTcpProxyScriptRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateTcpProxyScriptRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateTcpProxyScriptRequest");
+        debug_struct.field("migration_job", &self.migration_job);
+        debug_struct.field("vm_name", &self.vm_name);
+        debug_struct.field("vm_machine_type", &self.vm_machine_type);
+        debug_struct.field("vm_zone", &self.vm_zone);
+        debug_struct.field("vm_subnet", &self.vm_subnet);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for 'GenerateTcpProxyScript' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TcpProxyScript {
     /// The TCP Proxy configuration script.
@@ -3311,8 +3524,19 @@ impl serde::ser::Serialize for TcpProxyScript {
     }
 }
 
+impl std::fmt::Debug for TcpProxyScript {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TcpProxyScript");
+        debug_struct.field("script", &self.script);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'ListConnectionProfiles' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionProfilesRequest {
     /// Required. The parent which owns this collection of connection profiles.
@@ -3573,8 +3797,23 @@ impl serde::ser::Serialize for ListConnectionProfilesRequest {
     }
 }
 
+impl std::fmt::Debug for ListConnectionProfilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectionProfilesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for 'ListConnectionProfiles' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionProfilesResponse {
     /// The response list of connection profiles.
@@ -3778,8 +4017,21 @@ impl serde::ser::Serialize for ListConnectionProfilesResponse {
     }
 }
 
+impl std::fmt::Debug for ListConnectionProfilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectionProfilesResponse");
+        debug_struct.field("connection_profiles", &self.connection_profiles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'GetConnectionProfile' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectionProfileRequest {
     /// Required. Name of the connection profile resource to get.
@@ -3908,8 +4160,19 @@ impl serde::ser::Serialize for GetConnectionProfileRequest {
     }
 }
 
+impl std::fmt::Debug for GetConnectionProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConnectionProfileRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'CreateConnectionProfile' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectionProfileRequest {
     /// Required. The parent which owns this collection of connection profiles.
@@ -4188,8 +4451,24 @@ impl serde::ser::Serialize for CreateConnectionProfileRequest {
     }
 }
 
+impl std::fmt::Debug for CreateConnectionProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateConnectionProfileRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("connection_profile_id", &self.connection_profile_id);
+        debug_struct.field("connection_profile", &self.connection_profile);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("skip_validation", &self.skip_validation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'UpdateConnectionProfile' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectionProfileRequest {
     /// Required. Field mask is used to specify the fields to be overwritten by the
@@ -4453,8 +4732,23 @@ impl serde::ser::Serialize for UpdateConnectionProfileRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateConnectionProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConnectionProfileRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("connection_profile", &self.connection_profile);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("skip_validation", &self.skip_validation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'DeleteConnectionProfile' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectionProfileRequest {
     /// Required. Name of the connection profile resource to delete.
@@ -4639,9 +4933,22 @@ impl serde::ser::Serialize for DeleteConnectionProfileRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteConnectionProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteConnectionProfileRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to create a new private connection in the specified project
 /// and region.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePrivateConnectionRequest {
     /// Required. The parent that owns the collection of PrivateConnections.
@@ -4891,9 +5198,24 @@ impl serde::ser::Serialize for CreatePrivateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePrivateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePrivateConnectionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("private_connection_id", &self.private_connection_id);
+        debug_struct.field("private_connection", &self.private_connection);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("skip_validation", &self.skip_validation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to retrieve a list of private connections in a given project
 /// and location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionsRequest {
     /// Required. The parent that owns the collection of private connections.
@@ -5151,8 +5473,23 @@ impl serde::ser::Serialize for ListPrivateConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListPrivateConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPrivateConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for 'ListPrivateConnections' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionsResponse {
     /// List of private connections.
@@ -5356,8 +5693,21 @@ impl serde::ser::Serialize for ListPrivateConnectionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListPrivateConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPrivateConnectionsResponse");
+        debug_struct.field("private_connections", &self.private_connections);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to delete a private connection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePrivateConnectionRequest {
     /// Required. The name of the private connection to delete.
@@ -5517,8 +5867,20 @@ impl serde::ser::Serialize for DeletePrivateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePrivateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePrivateConnectionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to get a private connection resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPrivateConnectionRequest {
     /// Required. The name of the private connection to get.
@@ -5647,8 +6009,19 @@ impl serde::ser::Serialize for GetPrivateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for GetPrivateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPrivateConnectionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -5956,8 +6329,25 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Retrieve a list of all conversion workspaces in a given project and location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConversionWorkspacesRequest {
     /// Required. The parent which owns this collection of conversion workspaces.
@@ -6191,8 +6581,22 @@ impl serde::ser::Serialize for ListConversionWorkspacesRequest {
     }
 }
 
+impl std::fmt::Debug for ListConversionWorkspacesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConversionWorkspacesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for 'ListConversionWorkspaces' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConversionWorkspacesResponse {
     /// The list of conversion workspace objects.
@@ -6396,8 +6800,21 @@ impl serde::ser::Serialize for ListConversionWorkspacesResponse {
     }
 }
 
+impl std::fmt::Debug for ListConversionWorkspacesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConversionWorkspacesResponse");
+        debug_struct.field("conversion_workspaces", &self.conversion_workspaces);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'GetConversionWorkspace' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConversionWorkspaceRequest {
     /// Required. Name of the conversion workspace resource to get.
@@ -6526,9 +6943,20 @@ impl serde::ser::Serialize for GetConversionWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for GetConversionWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConversionWorkspaceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to create a new Conversion Workspace
 /// in the specified project and region.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConversionWorkspaceRequest {
     /// Required. The parent which owns this collection of conversion workspaces.
@@ -6752,8 +7180,22 @@ impl serde::ser::Serialize for CreateConversionWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateConversionWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateConversionWorkspaceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("conversion_workspace_id", &self.conversion_workspace_id);
+        debug_struct.field("conversion_workspace", &self.conversion_workspace);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'UpdateConversionWorkspace' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConversionWorkspaceRequest {
     /// Required. Field mask is used to specify the fields to be overwritten by the
@@ -6962,8 +7404,21 @@ impl serde::ser::Serialize for UpdateConversionWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateConversionWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConversionWorkspaceRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("conversion_workspace", &self.conversion_workspace);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'DeleteConversionWorkspace' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConversionWorkspaceRequest {
     /// Required. Name of the conversion workspace resource to delete.
@@ -7148,8 +7603,21 @@ impl serde::ser::Serialize for DeleteConversionWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteConversionWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteConversionWorkspaceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'CommitConversionWorkspace' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitConversionWorkspaceRequest {
     /// Required. Name of the conversion workspace resource to commit.
@@ -7303,8 +7771,20 @@ impl serde::ser::Serialize for CommitConversionWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for CommitConversionWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitConversionWorkspaceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("commit_name", &self.commit_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'RollbackConversionWorkspace' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollbackConversionWorkspaceRequest {
     /// Required. Name of the conversion workspace resource to roll back to.
@@ -7433,8 +7913,19 @@ impl serde::ser::Serialize for RollbackConversionWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for RollbackConversionWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RollbackConversionWorkspaceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'ApplyConversionWorkspace' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApplyConversionWorkspaceRequest {
     /// Required. The name of the conversion workspace resource for which to apply
@@ -7716,6 +8207,21 @@ impl serde::ser::Serialize for ApplyConversionWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for ApplyConversionWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApplyConversionWorkspaceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("dry_run", &self.dry_run);
+        debug_struct.field("auto_commit", &self.auto_commit);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ApplyConversionWorkspaceRequest].
 pub mod apply_conversion_workspace_request {
     #[allow(unused_imports)]
@@ -7732,7 +8238,7 @@ pub mod apply_conversion_workspace_request {
 }
 
 /// Retrieve a list of all mapping rules in a given conversion workspace.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMappingRulesRequest {
     /// Required. Name of the conversion workspace resource whose mapping rules are
@@ -7936,8 +8442,21 @@ impl serde::ser::Serialize for ListMappingRulesRequest {
     }
 }
 
+impl std::fmt::Debug for ListMappingRulesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMappingRulesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for 'ListMappingRulesRequest' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMappingRulesResponse {
     /// The list of conversion workspace mapping rules.
@@ -8110,8 +8629,20 @@ impl serde::ser::Serialize for ListMappingRulesResponse {
     }
 }
 
+impl std::fmt::Debug for ListMappingRulesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMappingRulesResponse");
+        debug_struct.field("mapping_rules", &self.mapping_rules);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'GetMappingRule' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMappingRuleRequest {
     /// Required. Name of the mapping rule resource to get.
@@ -8246,8 +8777,19 @@ impl serde::ser::Serialize for GetMappingRuleRequest {
     }
 }
 
+impl std::fmt::Debug for GetMappingRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMappingRuleRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'SeedConversionWorkspace' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SeedConversionWorkspaceRequest {
     /// Name of the conversion workspace resource to seed with new database
@@ -8537,6 +9079,19 @@ impl serde::ser::Serialize for SeedConversionWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for SeedConversionWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SeedConversionWorkspaceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("auto_commit", &self.auto_commit);
+        debug_struct.field("seed_from", &self.seed_from);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SeedConversionWorkspaceRequest].
 pub mod seed_conversion_workspace_request {
     #[allow(unused_imports)]
@@ -8557,7 +9112,7 @@ pub mod seed_conversion_workspace_request {
 }
 
 /// Request message for 'ConvertConversionWorkspace' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConvertConversionWorkspaceRequest {
     /// Name of the conversion workspace resource to convert in the form of:
@@ -8765,8 +9320,22 @@ impl serde::ser::Serialize for ConvertConversionWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for ConvertConversionWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConvertConversionWorkspaceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("auto_commit", &self.auto_commit);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("convert_full_path", &self.convert_full_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'ImportMappingRules' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportMappingRulesRequest {
     /// Required. Name of the conversion workspace resource to import the rules to
@@ -8983,13 +9552,27 @@ impl serde::ser::Serialize for ImportMappingRulesRequest {
     }
 }
 
+impl std::fmt::Debug for ImportMappingRulesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportMappingRulesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("rules_format", &self.rules_format);
+        debug_struct.field("rules_files", &self.rules_files);
+        debug_struct.field("auto_commit", &self.auto_commit);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportMappingRulesRequest].
 pub mod import_mapping_rules_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Details of a single rules file.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RulesFile {
         /// Required. The filename of the rules that needs to be converted. The
@@ -9154,10 +9737,22 @@ pub mod import_mapping_rules_request {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for RulesFile {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RulesFile");
+            debug_struct.field("rules_source_filename", &self.rules_source_filename);
+            debug_struct.field("rules_content", &self.rules_content);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request message for 'DescribeDatabaseEntities' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescribeDatabaseEntitiesRequest {
     /// Required. Name of the conversion workspace resource whose database entities
@@ -9498,6 +10093,24 @@ impl serde::ser::Serialize for DescribeDatabaseEntitiesRequest {
     }
 }
 
+impl std::fmt::Debug for DescribeDatabaseEntitiesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DescribeDatabaseEntitiesRequest");
+        debug_struct.field("conversion_workspace", &self.conversion_workspace);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("tree", &self.tree);
+        debug_struct.field("uncommitted", &self.uncommitted);
+        debug_struct.field("commit_id", &self.commit_id);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DescribeDatabaseEntitiesRequest].
 pub mod describe_database_entities_request {
     #[allow(unused_imports)]
@@ -9644,7 +10257,7 @@ pub mod describe_database_entities_request {
 }
 
 /// Response message for 'DescribeDatabaseEntities' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescribeDatabaseEntitiesResponse {
     /// The list of database entities for the conversion workspace.
@@ -9821,8 +10434,20 @@ impl serde::ser::Serialize for DescribeDatabaseEntitiesResponse {
     }
 }
 
+impl std::fmt::Debug for DescribeDatabaseEntitiesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DescribeDatabaseEntitiesResponse");
+        debug_struct.field("database_entities", &self.database_entities);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'SearchBackgroundJobs' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchBackgroundJobsRequest {
     /// Required. Name of the conversion workspace resource whose jobs are listed,
@@ -10075,8 +10700,25 @@ impl serde::ser::Serialize for SearchBackgroundJobsRequest {
     }
 }
 
+impl std::fmt::Debug for SearchBackgroundJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchBackgroundJobsRequest");
+        debug_struct.field("conversion_workspace", &self.conversion_workspace);
+        debug_struct.field(
+            "return_most_recent_per_job_type",
+            &self.return_most_recent_per_job_type,
+        );
+        debug_struct.field("max_size", &self.max_size);
+        debug_struct.field("completed_until_time", &self.completed_until_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for 'SearchBackgroundJobs' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchBackgroundJobsResponse {
     /// The list of conversion workspace mapping rules.
@@ -10212,8 +10854,19 @@ impl serde::ser::Serialize for SearchBackgroundJobsResponse {
     }
 }
 
+impl std::fmt::Debug for SearchBackgroundJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchBackgroundJobsResponse");
+        debug_struct.field("jobs", &self.jobs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'DescribeConversionWorkspaceRevisions' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescribeConversionWorkspaceRevisionsRequest {
     /// Required. Name of the conversion workspace resource whose revisions are
@@ -10375,8 +11028,20 @@ impl serde::ser::Serialize for DescribeConversionWorkspaceRevisionsRequest {
     }
 }
 
+impl std::fmt::Debug for DescribeConversionWorkspaceRevisionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DescribeConversionWorkspaceRevisionsRequest");
+        debug_struct.field("conversion_workspace", &self.conversion_workspace);
+        debug_struct.field("commit_id", &self.commit_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for 'DescribeConversionWorkspaceRevisions' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescribeConversionWorkspaceRevisionsResponse {
     /// The list of conversion workspace revisions.
@@ -10514,8 +11179,19 @@ impl serde::ser::Serialize for DescribeConversionWorkspaceRevisionsResponse {
     }
 }
 
+impl std::fmt::Debug for DescribeConversionWorkspaceRevisionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DescribeConversionWorkspaceRevisionsResponse");
+        debug_struct.field("revisions", &self.revisions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'CreateMappingRule' command.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMappingRuleRequest {
     /// Required. The parent which owns this collection of mapping rules.
@@ -10738,8 +11414,22 @@ impl serde::ser::Serialize for CreateMappingRuleRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMappingRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMappingRuleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("mapping_rule_id", &self.mapping_rule_id);
+        debug_struct.field("mapping_rule", &self.mapping_rule);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'DeleteMappingRule' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMappingRuleRequest {
     /// Required. Name of the mapping rule resource to delete.
@@ -10899,8 +11589,20 @@ impl serde::ser::Serialize for DeleteMappingRuleRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteMappingRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMappingRuleRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'FetchStaticIps' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchStaticIpsRequest {
     /// Required. The resource name for the location for which static IPs should be
@@ -11098,8 +11800,21 @@ impl serde::ser::Serialize for FetchStaticIpsRequest {
     }
 }
 
+impl std::fmt::Debug for FetchStaticIpsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchStaticIpsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for a 'FetchStaticIps' request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchStaticIpsResponse {
     /// List of static IPs.
@@ -11258,8 +11973,20 @@ impl serde::ser::Serialize for FetchStaticIpsResponse {
     }
 }
 
+impl std::fmt::Debug for FetchStaticIpsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchStaticIpsResponse");
+        debug_struct.field("static_ips", &self.static_ips);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SSL configuration information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslConfig {
     /// Output only. The ssl config type according to 'client_key',
@@ -11474,6 +12201,20 @@ impl serde::ser::Serialize for SslConfig {
     }
 }
 
+impl std::fmt::Debug for SslConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SslConfig");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("client_key", &self.client_key);
+        debug_struct.field("client_certificate", &self.client_certificate);
+        debug_struct.field("ca_certificate", &self.ca_certificate);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SslConfig].
 pub mod ssl_config {
     #[allow(unused_imports)]
@@ -11614,7 +12355,7 @@ pub mod ssl_config {
 }
 
 /// Specifies connection parameters required specifically for MySQL databases.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MySqlConnectionProfile {
     /// Required. The IP or hostname of the source MySQL database.
@@ -11924,9 +12665,26 @@ impl serde::ser::Serialize for MySqlConnectionProfile {
     }
 }
 
+impl std::fmt::Debug for MySqlConnectionProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MySqlConnectionProfile");
+        debug_struct.field("host", &self.host);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("password", &self.password);
+        debug_struct.field("password_set", &self.password_set);
+        debug_struct.field("ssl", &self.ssl);
+        debug_struct.field("cloud_sql_id", &self.cloud_sql_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies connection parameters required specifically for PostgreSQL
 /// databases.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgreSqlConnectionProfile {
     /// Required. The IP or hostname of the source PostgreSQL database.
@@ -12400,6 +13158,25 @@ impl serde::ser::Serialize for PostgreSqlConnectionProfile {
     }
 }
 
+impl std::fmt::Debug for PostgreSqlConnectionProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PostgreSqlConnectionProfile");
+        debug_struct.field("host", &self.host);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("password", &self.password);
+        debug_struct.field("password_set", &self.password_set);
+        debug_struct.field("ssl", &self.ssl);
+        debug_struct.field("cloud_sql_id", &self.cloud_sql_id);
+        debug_struct.field("network_architecture", &self.network_architecture);
+        debug_struct.field("connectivity", &self.connectivity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PostgreSqlConnectionProfile].
 pub mod postgre_sql_connection_profile {
     #[allow(unused_imports)]
@@ -12420,7 +13197,7 @@ pub mod postgre_sql_connection_profile {
 
 /// Specifies connection parameters required specifically for Oracle
 /// databases.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleConnectionProfile {
     /// Required. The IP or hostname of the source Oracle database.
@@ -12927,6 +13704,24 @@ impl serde::ser::Serialize for OracleConnectionProfile {
     }
 }
 
+impl std::fmt::Debug for OracleConnectionProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OracleConnectionProfile");
+        debug_struct.field("host", &self.host);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("password", &self.password);
+        debug_struct.field("password_set", &self.password_set);
+        debug_struct.field("database_service", &self.database_service);
+        debug_struct.field("ssl", &self.ssl);
+        debug_struct.field("connectivity", &self.connectivity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OracleConnectionProfile].
 pub mod oracle_connection_profile {
     #[allow(unused_imports)]
@@ -12947,7 +13742,7 @@ pub mod oracle_connection_profile {
 
 /// Specifies required connection parameters, and, optionally, the parameters
 /// required to create a Cloud SQL destination database instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlConnectionProfile {
     /// Output only. The Cloud SQL instance ID that this connection profile is
@@ -13194,9 +13989,24 @@ impl serde::ser::Serialize for CloudSqlConnectionProfile {
     }
 }
 
+impl std::fmt::Debug for CloudSqlConnectionProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlConnectionProfile");
+        debug_struct.field("cloud_sql_id", &self.cloud_sql_id);
+        debug_struct.field("settings", &self.settings);
+        debug_struct.field("private_ip", &self.private_ip);
+        debug_struct.field("public_ip", &self.public_ip);
+        debug_struct.field("additional_public_ip", &self.additional_public_ip);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies required connection parameters, and the parameters
 /// required to create an AlloyDB destination cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AlloyDbConnectionProfile {
     /// Required. The AlloyDB cluster ID that this connection profile is associated
@@ -13363,8 +14173,20 @@ impl serde::ser::Serialize for AlloyDbConnectionProfile {
     }
 }
 
+impl std::fmt::Debug for AlloyDbConnectionProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AlloyDbConnectionProfile");
+        debug_struct.field("cluster_id", &self.cluster_id);
+        debug_struct.field("settings", &self.settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An entry for an Access Control list.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlAclEntry {
     /// The allowlisted value for the access control list.
@@ -13627,6 +14449,19 @@ impl serde::ser::Serialize for SqlAclEntry {
     }
 }
 
+impl std::fmt::Debug for SqlAclEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SqlAclEntry");
+        debug_struct.field("value", &self.value);
+        debug_struct.field("label", &self.label);
+        debug_struct.field("expiration", &self.expiration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SqlAclEntry].
 pub mod sql_acl_entry {
     #[allow(unused_imports)]
@@ -13646,7 +14481,7 @@ pub mod sql_acl_entry {
 }
 
 /// IP Management configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlIpConfig {
     /// Whether the instance should be assigned an IPv4 address or not.
@@ -13915,8 +14750,23 @@ impl serde::ser::Serialize for SqlIpConfig {
     }
 }
 
+impl std::fmt::Debug for SqlIpConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SqlIpConfig");
+        debug_struct.field("enable_ipv4", &self.enable_ipv4);
+        debug_struct.field("private_network", &self.private_network);
+        debug_struct.field("allocated_ip_range", &self.allocated_ip_range);
+        debug_struct.field("require_ssl", &self.require_ssl);
+        debug_struct.field("authorized_networks", &self.authorized_networks);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings for creating a Cloud SQL database instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlSettings {
     /// The database engine type and version.
@@ -14670,6 +15520,35 @@ impl serde::ser::Serialize for CloudSqlSettings {
     }
 }
 
+impl std::fmt::Debug for CloudSqlSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlSettings");
+        debug_struct.field("database_version", &self.database_version);
+        debug_struct.field("user_labels", &self.user_labels);
+        debug_struct.field("tier", &self.tier);
+        debug_struct.field("storage_auto_resize_limit", &self.storage_auto_resize_limit);
+        debug_struct.field("activation_policy", &self.activation_policy);
+        debug_struct.field("ip_config", &self.ip_config);
+        debug_struct.field("auto_storage_increase", &self.auto_storage_increase);
+        debug_struct.field("database_flags", &self.database_flags);
+        debug_struct.field("data_disk_type", &self.data_disk_type);
+        debug_struct.field("data_disk_size_gb", &self.data_disk_size_gb);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("secondary_zone", &self.secondary_zone);
+        debug_struct.field("source_id", &self.source_id);
+        debug_struct.field("root_password", &self.root_password);
+        debug_struct.field("root_password_set", &self.root_password_set);
+        debug_struct.field("collation", &self.collation);
+        debug_struct.field("cmek_key_name", &self.cmek_key_name);
+        debug_struct.field("availability_type", &self.availability_type);
+        debug_struct.field("edition", &self.edition);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudSqlSettings].
 pub mod cloud_sql_settings {
     #[allow(unused_imports)]
@@ -15394,7 +16273,7 @@ pub mod cloud_sql_settings {
 }
 
 /// Settings for creating an AlloyDB cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AlloyDbSettings {
     /// Required. Input only. Initial user to setup during cluster creation.
@@ -15685,6 +16564,21 @@ impl serde::ser::Serialize for AlloyDbSettings {
     }
 }
 
+impl std::fmt::Debug for AlloyDbSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AlloyDbSettings");
+        debug_struct.field("initial_user", &self.initial_user);
+        debug_struct.field("vpc_network", &self.vpc_network);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("primary_instance_settings", &self.primary_instance_settings);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AlloyDbSettings].
 pub mod alloy_db_settings {
     #[allow(unused_imports)]
@@ -15692,7 +16586,7 @@ pub mod alloy_db_settings {
 
     /// The username/password for a database user. Used for specifying initial
     /// users at cluster creation time.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserPassword {
         /// The database username.
@@ -15873,8 +16767,21 @@ pub mod alloy_db_settings {
         }
     }
 
+    impl std::fmt::Debug for UserPassword {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UserPassword");
+            debug_struct.field("user", &self.user);
+            debug_struct.field("password", &self.password);
+            debug_struct.field("password_set", &self.password_set);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Settings for the cluster's primary instance
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrimaryInstanceSettings {
         /// Required. The ID of the AlloyDB primary instance. The ID must satisfy the
@@ -16150,13 +17057,28 @@ pub mod alloy_db_settings {
         }
     }
 
+    impl std::fmt::Debug for PrimaryInstanceSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PrimaryInstanceSettings");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("machine_config", &self.machine_config);
+            debug_struct.field("database_flags", &self.database_flags);
+            debug_struct.field("labels", &self.labels);
+            debug_struct.field("private_ip", &self.private_ip);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [PrimaryInstanceSettings].
     pub mod primary_instance_settings {
         #[allow(unused_imports)]
         use super::*;
 
         /// MachineConfig describes the configuration of a machine.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MachineConfig {
             /// The number of CPU's in the VM instance.
@@ -16315,11 +17237,22 @@ pub mod alloy_db_settings {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for MachineConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("MachineConfig");
+                debug_struct.field("cpu_count", &self.cpu_count);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// EncryptionConfig describes the encryption config of a cluster that is
     /// encrypted with a CMEK (customer-managed encryption key).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EncryptionConfig {
         /// The fully-qualified resource name of the KMS key.
@@ -16456,13 +17389,24 @@ pub mod alloy_db_settings {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for EncryptionConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EncryptionConfig");
+            debug_struct.field("kms_key_name", &self.kms_key_name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The source database will allow incoming connections from the public IP of the
 /// destination database. You can retrieve the public IP of the Cloud SQL
 /// instance from the Cloud SQL console or using Cloud SQL APIs. No additional
 /// configuration is required.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StaticIpConnectivity {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16564,9 +17508,19 @@ impl serde::ser::Serialize for StaticIpConnectivity {
     }
 }
 
+impl std::fmt::Debug for StaticIpConnectivity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StaticIpConnectivity");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// [Private Service Connect
 /// connectivity](https://cloud.google.com/vpc/docs/private-service-connect#service-attachments)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateServiceConnectConnectivity {
     /// Required. A service attachment that exposes a database, and has the
@@ -16701,13 +17655,24 @@ impl serde::ser::Serialize for PrivateServiceConnectConnectivity {
     }
 }
 
+impl std::fmt::Debug for PrivateServiceConnectConnectivity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrivateServiceConnectConnectivity");
+        debug_struct.field("service_attachment", &self.service_attachment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The details needed to configure a reverse SSH tunnel between the source and
 /// destination databases. These details will be used when calling the
 /// generateSshScript method (see
 /// <https://cloud.google.com/database-migration/docs/reference/rest/v1/projects.locations.migrationJobs/generateSshScript>)
 /// to produce the script that will help set up the reverse SSH tunnel, and to
 /// set up the VPC peering between the Cloud SQL private network and the VPC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReverseSshConnectivity {
     /// Required. The IP of the virtual machine (Compute Engine) used as the
@@ -16931,10 +17896,24 @@ impl serde::ser::Serialize for ReverseSshConnectivity {
     }
 }
 
+impl std::fmt::Debug for ReverseSshConnectivity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReverseSshConnectivity");
+        debug_struct.field("vm_ip", &self.vm_ip);
+        debug_struct.field("vm_port", &self.vm_port);
+        debug_struct.field("vm", &self.vm);
+        debug_struct.field("vpc", &self.vpc);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The details of the VPC where the source database is located in Google Cloud.
 /// We will use this information to set up the VPC peering connection between
 /// Cloud SQL and this VPC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpcPeeringConnectivity {
     /// The name of the VPC network to peer with the Cloud SQL private network.
@@ -17063,8 +18042,19 @@ impl serde::ser::Serialize for VpcPeeringConnectivity {
     }
 }
 
+impl std::fmt::Debug for VpcPeeringConnectivity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VpcPeeringConnectivity");
+        debug_struct.field("vpc", &self.vpc);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Forward SSH Tunnel connectivity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ForwardSshTunnelConnectivity {
     /// Required. Hostname for the SSH tunnel.
@@ -17377,6 +18367,20 @@ impl serde::ser::Serialize for ForwardSshTunnelConnectivity {
     }
 }
 
+impl std::fmt::Debug for ForwardSshTunnelConnectivity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ForwardSshTunnelConnectivity");
+        debug_struct.field("hostname", &self.hostname);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("authentication_method", &self.authentication_method);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ForwardSshTunnelConnectivity].
 pub mod forward_ssh_tunnel_connectivity {
     #[allow(unused_imports)]
@@ -17393,7 +18397,7 @@ pub mod forward_ssh_tunnel_connectivity {
 }
 
 /// Static IP address connectivity configured on service project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StaticServiceIpConnectivity {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -17495,8 +18499,18 @@ impl serde::ser::Serialize for StaticServiceIpConnectivity {
     }
 }
 
+impl std::fmt::Debug for StaticServiceIpConnectivity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StaticServiceIpConnectivity");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Private Connectivity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateConnectivity {
     /// Required. The resource name (URI) of the private connection.
@@ -17629,8 +18643,19 @@ impl serde::ser::Serialize for PrivateConnectivity {
     }
 }
 
+impl std::fmt::Debug for PrivateConnectivity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrivateConnectivity");
+        debug_struct.field("private_connection", &self.private_connection);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A message defining the database engine and provider.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseType {
     /// The database provider.
@@ -17787,8 +18812,20 @@ impl serde::ser::Serialize for DatabaseType {
     }
 }
 
+impl std::fmt::Debug for DatabaseType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseType");
+        debug_struct.field("provider", &self.provider);
+        debug_struct.field("engine", &self.engine);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a Database Migration Service migration job object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationJob {
     /// The name (URI) of this migration job resource, in the form of:
@@ -18759,13 +19796,45 @@ impl serde::ser::Serialize for MigrationJob {
     }
 }
 
+impl std::fmt::Debug for MigrationJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MigrationJob");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("phase", &self.phase);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("dump_path", &self.dump_path);
+        debug_struct.field("dump_flags", &self.dump_flags);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("destination", &self.destination);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("source_database", &self.source_database);
+        debug_struct.field("destination_database", &self.destination_database);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("conversion_workspace", &self.conversion_workspace);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("cmek_key_name", &self.cmek_key_name);
+        debug_struct.field("performance_config", &self.performance_config);
+        debug_struct.field("connectivity", &self.connectivity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MigrationJob].
 pub mod migration_job {
     #[allow(unused_imports)]
     use super::*;
 
     /// Dump flag definition.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DumpFlag {
         /// The name of the flag
@@ -18921,8 +19990,20 @@ pub mod migration_job {
         }
     }
 
+    impl std::fmt::Debug for DumpFlag {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DumpFlag");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("value", &self.value);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Dump flags definition.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DumpFlags {
         /// The flags for the initial dump.
@@ -19062,8 +20143,19 @@ pub mod migration_job {
         }
     }
 
+    impl std::fmt::Debug for DumpFlags {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DumpFlags");
+            debug_struct.field("dump_flags", &self.dump_flags);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Performance configuration definition.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PerformanceConfig {
         /// Initial dump parallelism level.
@@ -19196,6 +20288,17 @@ pub mod migration_job {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for PerformanceConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PerformanceConfig");
+            debug_struct.field("dump_parallel_level", &self.dump_parallel_level);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -19874,7 +20977,7 @@ pub mod migration_job {
 }
 
 /// A conversion workspace's version.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConversionWorkspaceInfo {
     /// The resource name (URI) of the conversion workspace.
@@ -20028,8 +21131,20 @@ impl serde::ser::Serialize for ConversionWorkspaceInfo {
     }
 }
 
+impl std::fmt::Debug for ConversionWorkspaceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConversionWorkspaceInfo");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("commit_id", &self.commit_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A connection profile definition.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectionProfile {
     /// The name of this connection profile resource in the form of
@@ -20692,6 +21807,25 @@ impl serde::ser::Serialize for ConnectionProfile {
     }
 }
 
+impl std::fmt::Debug for ConnectionProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectionProfile");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("provider", &self.provider);
+        debug_struct.field("connection_profile", &self.connection_profile);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConnectionProfile].
 pub mod connection_profile {
     #[allow(unused_imports)]
@@ -20882,7 +22016,7 @@ pub mod connection_profile {
 }
 
 /// Error message of a verification Migration job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationJobVerificationError {
     /// Output only. An instance of ErrorCode specifying the error that occurred.
@@ -21070,6 +22204,19 @@ impl serde::ser::Serialize for MigrationJobVerificationError {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for MigrationJobVerificationError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MigrationJobVerificationError");
+        debug_struct.field("error_code", &self.error_code);
+        debug_struct.field("error_message", &self.error_message);
+        debug_struct.field("error_detail_message", &self.error_detail_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -21434,7 +22581,7 @@ pub mod migration_job_verification_error {
 
 /// The PrivateConnection resource is used to establish private connectivity
 /// with the customer's network.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateConnection {
     /// The name of the resource.
@@ -21833,6 +22980,24 @@ impl serde::ser::Serialize for PrivateConnection {
     }
 }
 
+impl std::fmt::Debug for PrivateConnection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrivateConnection");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("connectivity", &self.connectivity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PrivateConnection].
 pub mod private_connection {
     #[allow(unused_imports)]
@@ -22007,7 +23172,7 @@ pub mod private_connection {
 
 /// The VPC peering configuration is used to create VPC peering with the
 /// consumer's VPC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpcPeeringConfig {
     /// Required. Fully qualified name of the VPC that Database Migration Service
@@ -22162,8 +23327,20 @@ impl serde::ser::Serialize for VpcPeeringConfig {
     }
 }
 
+impl std::fmt::Debug for VpcPeeringConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VpcPeeringConfig");
+        debug_struct.field("vpc_name", &self.vpc_name);
+        debug_struct.field("subnet", &self.subnet);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The type and version of a source or destination database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseEngineInfo {
     /// Required. Engine type.
@@ -22316,8 +23493,20 @@ impl serde::ser::Serialize for DatabaseEngineInfo {
     }
 }
 
+impl std::fmt::Debug for DatabaseEngineInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseEngineInfo");
+        debug_struct.field("engine", &self.engine);
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The main conversion workspace resource entity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConversionWorkspace {
     /// Full name of the workspace resource, in the form of:
@@ -22744,8 +23933,28 @@ impl serde::ser::Serialize for ConversionWorkspace {
     }
 }
 
+impl std::fmt::Debug for ConversionWorkspace {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConversionWorkspace");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("destination", &self.destination);
+        debug_struct.field("global_settings", &self.global_settings);
+        debug_struct.field("has_uncommitted_changes", &self.has_uncommitted_changes);
+        debug_struct.field("latest_commit_id", &self.latest_commit_id);
+        debug_struct.field("latest_commit_time", &self.latest_commit_time);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Execution log of a background job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackgroundJobLogEntry {
     /// The background job log entry ID.
@@ -23324,13 +24533,31 @@ impl serde::ser::Serialize for BackgroundJobLogEntry {
     }
 }
 
+impl std::fmt::Debug for BackgroundJobLogEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackgroundJobLogEntry");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("job_type", &self.job_type);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("finish_time", &self.finish_time);
+        debug_struct.field("completion_state", &self.completion_state);
+        debug_struct.field("completion_comment", &self.completion_comment);
+        debug_struct.field("request_autocommit", &self.request_autocommit);
+        debug_struct.field("job_details", &self.job_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BackgroundJobLogEntry].
 pub mod background_job_log_entry {
     #[allow(unused_imports)]
     use super::*;
 
     /// Details regarding a Seed background job.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SeedJobDetails {
         /// Output only. The connection profile which was used for the seed job.
@@ -23466,8 +24693,19 @@ pub mod background_job_log_entry {
         }
     }
 
+    impl std::fmt::Debug for SeedJobDetails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SeedJobDetails");
+            debug_struct.field("connection_profile", &self.connection_profile);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Details regarding an Import Rules background job.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ImportRulesJobDetails {
         /// Output only. File names used for the import rules job.
@@ -23628,8 +24866,20 @@ pub mod background_job_log_entry {
         }
     }
 
+    impl std::fmt::Debug for ImportRulesJobDetails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ImportRulesJobDetails");
+            debug_struct.field("files", &self.files);
+            debug_struct.field("file_format", &self.file_format);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Details regarding a Convert background job.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConvertJobDetails {
         /// Output only. AIP-160 based filter used to specify the entities to convert
@@ -23761,8 +25011,19 @@ pub mod background_job_log_entry {
         }
     }
 
+    impl std::fmt::Debug for ConvertJobDetails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConvertJobDetails");
+            debug_struct.field("filter", &self.filter);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Details regarding an Apply background job.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ApplyJobDetails {
         /// Output only. The connection profile which was used for the apply job.
@@ -23922,6 +25183,18 @@ pub mod background_job_log_entry {
         }
     }
 
+    impl std::fmt::Debug for ApplyJobDetails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ApplyJobDetails");
+            debug_struct.field("connection_profile", &self.connection_profile);
+            debug_struct.field("filter", &self.filter);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Final state after a job completes.
     ///
     /// # Working with unknown values
@@ -24076,7 +25349,7 @@ pub mod background_job_log_entry {
 /// A filter defining the entities that a mapping rule should be applied to.
 /// When more than one field is specified, the rule is applied only to
 /// entities which match all the fields.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MappingRuleFilter {
     /// Optional. The rule should be applied to entities whose parent entity
@@ -24326,10 +25599,25 @@ impl serde::ser::Serialize for MappingRuleFilter {
     }
 }
 
+impl std::fmt::Debug for MappingRuleFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MappingRuleFilter");
+        debug_struct.field("parent_entity", &self.parent_entity);
+        debug_struct.field("entity_name_prefix", &self.entity_name_prefix);
+        debug_struct.field("entity_name_suffix", &self.entity_name_suffix);
+        debug_struct.field("entity_name_contains", &self.entity_name_contains);
+        debug_struct.field("entities", &self.entities);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Definition of a transformation that is to be applied to a group of entities
 /// in the source schema. Several such transformations can be applied to an
 /// entity sequentially to define the corresponding entity in the target schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MappingRule {
     /// Full name of the mapping rule resource, in the form of:
@@ -25332,6 +26620,25 @@ impl serde::ser::Serialize for MappingRule {
     }
 }
 
+impl std::fmt::Debug for MappingRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MappingRule");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("rule_scope", &self.rule_scope);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("rule_order", &self.rule_order);
+        debug_struct.field("revision_id", &self.revision_id);
+        debug_struct.field("revision_create_time", &self.revision_create_time);
+        debug_struct.field("details", &self.details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MappingRule].
 pub mod mapping_rule {
     #[allow(unused_imports)]
@@ -25520,7 +26827,7 @@ pub mod mapping_rule {
 /// The rule scope can be one of: Database, Schema, Table, Column, Constraint,
 /// Index, View, Function, Stored Procedure, Materialized View, Sequence, UDT,
 /// Synonym
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SingleEntityRename {
     /// Required. The new name of the destination entity
@@ -25650,6 +26957,17 @@ impl serde::ser::Serialize for SingleEntityRename {
     }
 }
 
+impl std::fmt::Debug for SingleEntityRename {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SingleEntityRename");
+        debug_struct.field("new_name", &self.new_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to configure rule type MultiEntityRename.
 /// The rule is used to rename multiple entities.
 ///
@@ -25657,7 +26975,7 @@ impl serde::ser::Serialize for SingleEntityRename {
 ///
 /// The rule scope can be one of: Database, Schema, Table, Column, Constraint,
 /// Index, View, Function, Stored Procedure, Materialized View, Sequence, UDT
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultiEntityRename {
     /// Optional. The pattern used to generate the new entity's name. This pattern
@@ -25829,6 +27147,21 @@ impl serde::ser::Serialize for MultiEntityRename {
     }
 }
 
+impl std::fmt::Debug for MultiEntityRename {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MultiEntityRename");
+        debug_struct.field("new_name_pattern", &self.new_name_pattern);
+        debug_struct.field(
+            "source_name_transformation",
+            &self.source_name_transformation,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to configure rule type EntityMove.
 /// The rule is used to move an entity to a new schema.
 ///
@@ -25836,7 +27169,7 @@ impl serde::ser::Serialize for MultiEntityRename {
 ///
 /// The rule scope can be one of: Table, Column, Constraint, Index, View,
 /// Function, Stored Procedure, Materialized View, Sequence, UDT
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityMove {
     /// Required. The new schema
@@ -25966,6 +27299,17 @@ impl serde::ser::Serialize for EntityMove {
     }
 }
 
+impl std::fmt::Debug for EntityMove {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityMove");
+        debug_struct.field("new_schema", &self.new_schema);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to configure rule type SingleColumnChange.
 /// The rule is used to change the properties of a column.
 ///
@@ -25975,7 +27319,7 @@ impl serde::ser::Serialize for EntityMove {
 ///
 /// When using this rule, if a field is not specified than the destination
 /// column's configuration will be the same as the one in the source column..
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SingleColumnChange {
     /// Optional. Column data type name.
@@ -26561,6 +27905,34 @@ impl serde::ser::Serialize for SingleColumnChange {
     }
 }
 
+impl std::fmt::Debug for SingleColumnChange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SingleColumnChange");
+        debug_struct.field("data_type", &self.data_type);
+        debug_struct.field("charset", &self.charset);
+        debug_struct.field("collation", &self.collation);
+        debug_struct.field("length", &self.length);
+        debug_struct.field("precision", &self.precision);
+        debug_struct.field("scale", &self.scale);
+        debug_struct.field(
+            "fractional_seconds_precision",
+            &self.fractional_seconds_precision,
+        );
+        debug_struct.field("array", &self.array);
+        debug_struct.field("array_length", &self.array_length);
+        debug_struct.field("nullable", &self.nullable);
+        debug_struct.field("auto_generated", &self.auto_generated);
+        debug_struct.field("udt", &self.udt);
+        debug_struct.field("custom_features", &self.custom_features);
+        debug_struct.field("set_values", &self.set_values);
+        debug_struct.field("comment", &self.comment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to configure rule type MultiColumnDatatypeChange.
 /// The rule is used to change the data type and associated properties of
 /// multiple columns at once.
@@ -26574,7 +27946,7 @@ impl serde::ser::Serialize for SingleColumnChange {
 /// filtering capabilities such as the minimum and maximum field length. All
 /// additional filters which are specified are required to be met in order for
 /// the rule to be applied (logical AND between the fields).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultiColumnDatatypeChange {
     /// Required. Filter on source data type.
@@ -27089,6 +28461,27 @@ impl serde::ser::Serialize for MultiColumnDatatypeChange {
     }
 }
 
+impl std::fmt::Debug for MultiColumnDatatypeChange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MultiColumnDatatypeChange");
+        debug_struct.field("source_data_type_filter", &self.source_data_type_filter);
+        debug_struct.field("new_data_type", &self.new_data_type);
+        debug_struct.field("override_length", &self.override_length);
+        debug_struct.field("override_scale", &self.override_scale);
+        debug_struct.field("override_precision", &self.override_precision);
+        debug_struct.field(
+            "override_fractional_seconds_precision",
+            &self.override_fractional_seconds_precision,
+        );
+        debug_struct.field("custom_features", &self.custom_features);
+        debug_struct.field("source_filter", &self.source_filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MultiColumnDatatypeChange].
 pub mod multi_column_datatype_change {
     #[allow(unused_imports)]
@@ -27107,7 +28500,7 @@ pub mod multi_column_datatype_change {
 }
 
 /// Filter for text-based data types like varchar.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceTextFilter {
     /// Optional. The filter will match columns with length greater than or equal
@@ -27312,8 +28705,20 @@ impl serde::ser::Serialize for SourceTextFilter {
     }
 }
 
+impl std::fmt::Debug for SourceTextFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceTextFilter");
+        debug_struct.field("source_min_length_filter", &self.source_min_length_filter);
+        debug_struct.field("source_max_length_filter", &self.source_max_length_filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Filter for fixed point number data types such as NUMERIC/NUMBER
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceNumericFilter {
     /// Optional. The filter will match columns with scale greater than or equal to
@@ -27645,13 +29050,34 @@ impl serde::ser::Serialize for SourceNumericFilter {
     }
 }
 
+impl std::fmt::Debug for SourceNumericFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceNumericFilter");
+        debug_struct.field("source_min_scale_filter", &self.source_min_scale_filter);
+        debug_struct.field("source_max_scale_filter", &self.source_max_scale_filter);
+        debug_struct.field(
+            "source_min_precision_filter",
+            &self.source_min_precision_filter,
+        );
+        debug_struct.field(
+            "source_max_precision_filter",
+            &self.source_max_precision_filter,
+        );
+        debug_struct.field("numeric_filter_option", &self.numeric_filter_option);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to configure rule type ConditionalColumnSetValue.
 /// The rule is used to transform the data which is being replicated/migrated.
 ///
 /// The rule filter field can refer to one or more entities.
 ///
 /// The rule scope can be one of: Column.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConditionalColumnSetValue {
     /// Required. Description of data transformation during migration.
@@ -27957,6 +29383,19 @@ impl serde::ser::Serialize for ConditionalColumnSetValue {
     }
 }
 
+impl std::fmt::Debug for ConditionalColumnSetValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConditionalColumnSetValue");
+        debug_struct.field("value_transformation", &self.value_transformation);
+        debug_struct.field("custom_features", &self.custom_features);
+        debug_struct.field("source_filter", &self.source_filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConditionalColumnSetValue].
 pub mod conditional_column_set_value {
     #[allow(unused_imports)]
@@ -27976,7 +29415,7 @@ pub mod conditional_column_set_value {
 
 /// Description of data transformation during migration as part of the
 /// ConditionalColumnSetValue.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueTransformation {
     pub filter: std::option::Option<crate::model::value_transformation::Filter>,
@@ -28649,6 +30088,18 @@ impl serde::ser::Serialize for ValueTransformation {
     }
 }
 
+impl std::fmt::Debug for ValueTransformation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValueTransformation");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("action", &self.action);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ValueTransformation].
 pub mod value_transformation {
     #[allow(unused_imports)]
@@ -28701,7 +30152,7 @@ pub mod value_transformation {
 /// This rule requires additional filter to be specified beyond the basic rule
 /// filter field, which is whether or not to work on tables which already have a
 /// primary key defined.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConvertRowIdToColumn {
     /// Required. Only work on tables without primary key defined
@@ -28831,6 +30282,17 @@ impl serde::ser::Serialize for ConvertRowIdToColumn {
     }
 }
 
+impl std::fmt::Debug for ConvertRowIdToColumn {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConvertRowIdToColumn");
+        debug_struct.field("only_if_no_primary_key", &self.only_if_no_primary_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to configure rule type SetTablePrimaryKey.
 /// The rule is used to specify the columns and name to configure/alter the
 /// primary key of a table.
@@ -28838,7 +30300,7 @@ impl serde::ser::Serialize for ConvertRowIdToColumn {
 /// The rule filter field can refer to one entity.
 ///
 /// The rule scope can be one of: Table.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetTablePrimaryKey {
     /// Required. List of column names for the primary key
@@ -28996,13 +30458,25 @@ impl serde::ser::Serialize for SetTablePrimaryKey {
     }
 }
 
+impl std::fmt::Debug for SetTablePrimaryKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetTablePrimaryKey");
+        debug_struct.field("primary_key_columns", &self.primary_key_columns);
+        debug_struct.field("primary_key", &self.primary_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to configure rule type SinglePackageChange.
 /// The rule is used to alter the sql code for a package entities.
 ///
 /// The rule filter field can refer to one entity.
 ///
 /// The rule scope can be: Package
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SinglePackageChange {
     /// Optional. Sql code for package description
@@ -29160,13 +30634,25 @@ impl serde::ser::Serialize for SinglePackageChange {
     }
 }
 
+impl std::fmt::Debug for SinglePackageChange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SinglePackageChange");
+        debug_struct.field("package_description", &self.package_description);
+        debug_struct.field("package_body", &self.package_body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to configure rule type SourceSqlChange.
 /// The rule is used to alter the sql code for database entities.
 ///
 /// The rule filter field can refer to one entity.
 ///
 /// The rule scope can be: StoredProcedure, Function, Trigger, View
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceSqlChange {
     /// Required. Sql code for source (stored procedure, function, trigger or view)
@@ -29296,6 +30782,17 @@ impl serde::ser::Serialize for SourceSqlChange {
     }
 }
 
+impl std::fmt::Debug for SourceSqlChange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceSqlChange");
+        debug_struct.field("sql_code", &self.sql_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to configure rule type FilterTableColumns.
 /// The rule is used to filter the list of columns to include or exclude from a
 /// table.
@@ -29305,7 +30802,7 @@ impl serde::ser::Serialize for SourceSqlChange {
 /// The rule scope can be: Table
 ///
 /// Only one of the two lists can be specified for the rule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FilterTableColumns {
     /// Optional. List of columns to be included for a particular table.
@@ -29466,8 +30963,20 @@ impl serde::ser::Serialize for FilterTableColumns {
     }
 }
 
+impl std::fmt::Debug for FilterTableColumns {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilterTableColumns");
+        debug_struct.field("include_columns", &self.include_columns);
+        debug_struct.field("exclude_columns", &self.exclude_columns);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A list of values to filter by in ConditionalColumnSetValue
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueListFilter {
     /// Required. Indicates whether the filter matches rows with values that are
@@ -29652,9 +31161,22 @@ impl serde::ser::Serialize for ValueListFilter {
     }
 }
 
+impl std::fmt::Debug for ValueListFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValueListFilter");
+        debug_struct.field("value_present_list", &self.value_present_list);
+        debug_struct.field("values", &self.values);
+        debug_struct.field("ignore_case", &self.ignore_case);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Filter based on relation between source value and compare value of type
 /// integer in ConditionalColumnSetValue
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IntComparisonFilter {
     /// Required. Relation between source value and compare value
@@ -29829,9 +31351,21 @@ impl serde::ser::Serialize for IntComparisonFilter {
     }
 }
 
+impl std::fmt::Debug for IntComparisonFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IntComparisonFilter");
+        debug_struct.field("value_comparison", &self.value_comparison);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Filter based on relation between source
 /// value and compare value of type double in ConditionalColumnSetValue
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DoubleComparisonFilter {
     /// Required. Relation between source value and compare value
@@ -30006,8 +31540,20 @@ impl serde::ser::Serialize for DoubleComparisonFilter {
     }
 }
 
+impl std::fmt::Debug for DoubleComparisonFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DoubleComparisonFilter");
+        debug_struct.field("value_comparison", &self.value_comparison);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Set to a specific value (value is converted to fit the target data type)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssignSpecificValue {
     /// Required. Specific value to be assigned
@@ -30136,8 +31682,19 @@ impl serde::ser::Serialize for AssignSpecificValue {
     }
 }
 
+impl std::fmt::Debug for AssignSpecificValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AssignSpecificValue");
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Apply a hash function on the value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApplyHash {
     pub hash_function: std::option::Option<crate::model::apply_hash::HashFunction>,
@@ -30309,6 +31866,17 @@ impl serde::ser::Serialize for ApplyHash {
     }
 }
 
+impl std::fmt::Debug for ApplyHash {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApplyHash");
+        debug_struct.field("hash_function", &self.hash_function);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ApplyHash].
 pub mod apply_hash {
     #[allow(unused_imports)]
@@ -30325,7 +31893,7 @@ pub mod apply_hash {
 /// This allows the data to change scale, for example if the source is 2 digits
 /// after the decimal point, specify round to scale value = 2. If for example the
 /// value needs to be converted to an integer, use round to scale value = 0.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RoundToScale {
     /// Required. Scale value to be used
@@ -30472,10 +32040,21 @@ impl serde::ser::Serialize for RoundToScale {
     }
 }
 
+impl std::fmt::Debug for RoundToScale {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RoundToScale");
+        debug_struct.field("scale", &self.scale);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The base entity type for all the database related entities.
 /// The message contains the entity name, the name of its parent, the entity
 /// type, and the specific details per entity type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseEntity {
     /// The short name (e.g. table name) of the entity.
@@ -31375,6 +32954,24 @@ impl serde::ser::Serialize for DatabaseEntity {
     }
 }
 
+impl std::fmt::Debug for DatabaseEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseEntity");
+        debug_struct.field("short_name", &self.short_name);
+        debug_struct.field("parent_entity", &self.parent_entity);
+        debug_struct.field("tree", &self.tree);
+        debug_struct.field("entity_type", &self.entity_type);
+        debug_struct.field("mappings", &self.mappings);
+        debug_struct.field("entity_ddl", &self.entity_ddl);
+        debug_struct.field("issues", &self.issues);
+        debug_struct.field("entity_body", &self.entity_body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DatabaseEntity].
 pub mod database_entity {
     #[allow(unused_imports)]
@@ -31549,7 +33146,7 @@ pub mod database_entity {
 }
 
 /// DatabaseInstance acts as a parent entity to other database entities.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseInstanceEntity {
     /// Custom engine specific features.
@@ -31690,12 +33287,23 @@ impl serde::ser::Serialize for DatabaseInstanceEntity {
     }
 }
 
+impl std::fmt::Debug for DatabaseInstanceEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseInstanceEntity");
+        debug_struct.field("custom_features", &self.custom_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Schema typically has no parent entity, but can have a parent entity
 /// DatabaseInstance (for database engines which support it).  For some database
 /// engines, the terms  schema and user can be used interchangeably when they
 /// refer to a namespace or a collection of other database entities. Can store
 /// additional information which is schema specific.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaEntity {
     /// Custom engine specific features.
@@ -31836,8 +33444,19 @@ impl serde::ser::Serialize for SchemaEntity {
     }
 }
 
+impl std::fmt::Debug for SchemaEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchemaEntity");
+        debug_struct.field("custom_features", &self.custom_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Table's parent is a schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableEntity {
     /// Table columns.
@@ -32114,9 +33733,25 @@ impl serde::ser::Serialize for TableEntity {
     }
 }
 
+impl std::fmt::Debug for TableEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableEntity");
+        debug_struct.field("columns", &self.columns);
+        debug_struct.field("constraints", &self.constraints);
+        debug_struct.field("indices", &self.indices);
+        debug_struct.field("triggers", &self.triggers);
+        debug_struct.field("custom_features", &self.custom_features);
+        debug_struct.field("comment", &self.comment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Column is not used as an independent entity, it is retrieved as part of a
 /// Table entity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ColumnEntity {
     /// Column name.
@@ -32793,9 +34428,40 @@ impl serde::ser::Serialize for ColumnEntity {
     }
 }
 
+impl std::fmt::Debug for ColumnEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnEntity");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data_type", &self.data_type);
+        debug_struct.field("charset", &self.charset);
+        debug_struct.field("collation", &self.collation);
+        debug_struct.field("length", &self.length);
+        debug_struct.field("precision", &self.precision);
+        debug_struct.field("scale", &self.scale);
+        debug_struct.field(
+            "fractional_seconds_precision",
+            &self.fractional_seconds_precision,
+        );
+        debug_struct.field("array", &self.array);
+        debug_struct.field("array_length", &self.array_length);
+        debug_struct.field("nullable", &self.nullable);
+        debug_struct.field("auto_generated", &self.auto_generated);
+        debug_struct.field("udt", &self.udt);
+        debug_struct.field("custom_features", &self.custom_features);
+        debug_struct.field("set_values", &self.set_values);
+        debug_struct.field("comment", &self.comment);
+        debug_struct.field("ordinal_position", &self.ordinal_position);
+        debug_struct.field("default_value", &self.default_value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Constraint is not used as an independent entity, it is retrieved
 /// as part of another entity such as Table or View.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConstraintEntity {
     /// The name of the table constraint.
@@ -33099,9 +34765,26 @@ impl serde::ser::Serialize for ConstraintEntity {
     }
 }
 
+impl std::fmt::Debug for ConstraintEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConstraintEntity");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("table_columns", &self.table_columns);
+        debug_struct.field("custom_features", &self.custom_features);
+        debug_struct.field("reference_columns", &self.reference_columns);
+        debug_struct.field("reference_table", &self.reference_table);
+        debug_struct.field("table_name", &self.table_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Index is not used as an independent entity, it is retrieved as part of a
 /// Table entity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IndexEntity {
     /// The name of the index.
@@ -33343,9 +35026,24 @@ impl serde::ser::Serialize for IndexEntity {
     }
 }
 
+impl std::fmt::Debug for IndexEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IndexEntity");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("table_columns", &self.table_columns);
+        debug_struct.field("unique", &self.unique);
+        debug_struct.field("custom_features", &self.custom_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Trigger is not used as an independent entity, it is retrieved as part of a
 /// Table entity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TriggerEntity {
     /// The name of the trigger.
@@ -33590,8 +35288,23 @@ impl serde::ser::Serialize for TriggerEntity {
     }
 }
 
+impl std::fmt::Debug for TriggerEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TriggerEntity");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("triggering_events", &self.triggering_events);
+        debug_struct.field("trigger_type", &self.trigger_type);
+        debug_struct.field("sql_code", &self.sql_code);
+        debug_struct.field("custom_features", &self.custom_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// View's parent is a schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ViewEntity {
     /// The SQL code which creates the view.
@@ -33788,8 +35501,21 @@ impl serde::ser::Serialize for ViewEntity {
     }
 }
 
+impl std::fmt::Debug for ViewEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ViewEntity");
+        debug_struct.field("sql_code", &self.sql_code);
+        debug_struct.field("custom_features", &self.custom_features);
+        debug_struct.field("constraints", &self.constraints);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sequence's parent is a schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SequenceEntity {
     /// Increment value for the sequence.
@@ -34170,8 +35896,25 @@ impl serde::ser::Serialize for SequenceEntity {
     }
 }
 
+impl std::fmt::Debug for SequenceEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SequenceEntity");
+        debug_struct.field("increment", &self.increment);
+        debug_struct.field("start_value", &self.start_value);
+        debug_struct.field("max_value", &self.max_value);
+        debug_struct.field("min_value", &self.min_value);
+        debug_struct.field("cycle", &self.cycle);
+        debug_struct.field("cache", &self.cache);
+        debug_struct.field("custom_features", &self.custom_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Stored procedure's parent is a schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StoredProcedureEntity {
     /// The SQL code which creates the stored procedure.
@@ -34337,8 +36080,20 @@ impl serde::ser::Serialize for StoredProcedureEntity {
     }
 }
 
+impl std::fmt::Debug for StoredProcedureEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StoredProcedureEntity");
+        debug_struct.field("sql_code", &self.sql_code);
+        debug_struct.field("custom_features", &self.custom_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Function's parent is a schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FunctionEntity {
     /// The SQL code which creates the function.
@@ -34504,8 +36259,20 @@ impl serde::ser::Serialize for FunctionEntity {
     }
 }
 
+impl std::fmt::Debug for FunctionEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FunctionEntity");
+        debug_struct.field("sql_code", &self.sql_code);
+        debug_struct.field("custom_features", &self.custom_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// MaterializedView's parent is a schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaterializedViewEntity {
     /// The SQL code which creates the view.
@@ -34671,8 +36438,20 @@ impl serde::ser::Serialize for MaterializedViewEntity {
     }
 }
 
+impl std::fmt::Debug for MaterializedViewEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaterializedViewEntity");
+        debug_struct.field("sql_code", &self.sql_code);
+        debug_struct.field("custom_features", &self.custom_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Synonym's parent is a schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynonymEntity {
     /// The name of the entity for which the synonym is being created (the source).
@@ -34865,8 +36644,21 @@ impl serde::ser::Serialize for SynonymEntity {
     }
 }
 
+impl std::fmt::Debug for SynonymEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SynonymEntity");
+        debug_struct.field("source_entity", &self.source_entity);
+        debug_struct.field("source_type", &self.source_type);
+        debug_struct.field("custom_features", &self.custom_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Package's parent is a schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PackageEntity {
     /// The SQL code which creates the package.
@@ -35061,8 +36853,21 @@ impl serde::ser::Serialize for PackageEntity {
     }
 }
 
+impl std::fmt::Debug for PackageEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PackageEntity");
+        debug_struct.field("package_sql_code", &self.package_sql_code);
+        debug_struct.field("package_body", &self.package_body);
+        debug_struct.field("custom_features", &self.custom_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// UDT's parent is a schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UDTEntity {
     /// The SQL code which creates the udt.
@@ -35253,8 +37058,21 @@ impl serde::ser::Serialize for UDTEntity {
     }
 }
 
+impl std::fmt::Debug for UDTEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UDTEntity");
+        debug_struct.field("udt_sql_code", &self.udt_sql_code);
+        debug_struct.field("udt_body", &self.udt_body);
+        debug_struct.field("custom_features", &self.custom_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of the mappings of a database entity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityMapping {
     /// Source entity full name.
@@ -35501,8 +37319,23 @@ impl serde::ser::Serialize for EntityMapping {
     }
 }
 
+impl std::fmt::Debug for EntityMapping {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityMapping");
+        debug_struct.field("source_entity", &self.source_entity);
+        debug_struct.field("draft_entity", &self.draft_entity);
+        debug_struct.field("source_type", &self.source_type);
+        debug_struct.field("draft_type", &self.draft_type);
+        debug_struct.field("mapping_log", &self.mapping_log);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single record of a rule which was used for a mapping.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityMappingLogEntry {
     /// Which rule caused this log entry.
@@ -35685,8 +37518,21 @@ impl serde::ser::Serialize for EntityMappingLogEntry {
     }
 }
 
+impl std::fmt::Debug for EntityMappingLogEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityMappingLogEntry");
+        debug_struct.field("rule_id", &self.rule_id);
+        debug_struct.field("rule_revision_id", &self.rule_revision_id);
+        debug_struct.field("mapping_comment", &self.mapping_comment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single DDL statement for a specific entity
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityDdl {
     /// Type of DDL (Create, Alter).
@@ -35918,8 +37764,23 @@ impl serde::ser::Serialize for EntityDdl {
     }
 }
 
+impl std::fmt::Debug for EntityDdl {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityDdl");
+        debug_struct.field("ddl_type", &self.ddl_type);
+        debug_struct.field("entity", &self.entity);
+        debug_struct.field("ddl", &self.ddl);
+        debug_struct.field("entity_type", &self.entity_type);
+        debug_struct.field("issue_id", &self.issue_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Issue related to the entity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityIssue {
     /// Unique Issue ID.
@@ -36242,13 +38103,31 @@ impl serde::ser::Serialize for EntityIssue {
     }
 }
 
+impl std::fmt::Debug for EntityIssue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityIssue");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("message", &self.message);
+        debug_struct.field("code", &self.code);
+        debug_struct.field("ddl", &self.ddl);
+        debug_struct.field("position", &self.position);
+        debug_struct.field("entity_type", &self.entity_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EntityIssue].
 pub mod entity_issue {
     #[allow(unused_imports)]
     use super::*;
 
     /// Issue position.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Position {
         /// Issue line number
@@ -36521,6 +38400,20 @@ pub mod entity_issue {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Position {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Position");
+            debug_struct.field("line", &self.line);
+            debug_struct.field("column", &self.column);
+            debug_struct.field("offset", &self.offset);
+            debug_struct.field("length", &self.length);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 

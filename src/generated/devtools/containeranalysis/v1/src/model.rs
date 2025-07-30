@@ -34,7 +34,7 @@ extern crate wkt;
 
 /// The request to generate and export SBOM. Target must be specified for the
 /// request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportSBOMRequest {
     /// Required. The name of the resource in the form of
@@ -245,6 +245,18 @@ impl serde::ser::Serialize for ExportSBOMRequest {
     }
 }
 
+impl std::fmt::Debug for ExportSBOMRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportSBOMRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("target", &self.target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportSBOMRequest].
 pub mod export_sbom_request {
     #[allow(unused_imports)]
@@ -252,7 +264,7 @@ pub mod export_sbom_request {
 
     /// Empty placeholder to denote that this is a Google Cloud Storage
     /// export request.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudStorageLocation {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -357,6 +369,16 @@ pub mod export_sbom_request {
         }
     }
 
+    impl std::fmt::Debug for CloudStorageLocation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CloudStorageLocation");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The location of the SBOM export.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -370,7 +392,7 @@ pub mod export_sbom_request {
 }
 
 /// The response from a call to ExportSBOM.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportSBOMResponse {
     /// The name of the discovery occurrence in the form
@@ -505,8 +527,19 @@ impl serde::ser::Serialize for ExportSBOMResponse {
     }
 }
 
+impl std::fmt::Debug for ExportSBOMResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportSBOMResponse");
+        debug_struct.field("discovery_occurrence", &self.discovery_occurrence);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get a vulnerability summary for some set of occurrences.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVulnerabilityOccurrencesSummaryRequest {
     /// Required. The name of the project to get a vulnerability summary for in the
@@ -661,9 +694,21 @@ impl serde::ser::Serialize for GetVulnerabilityOccurrencesSummaryRequest {
     }
 }
 
+impl std::fmt::Debug for GetVulnerabilityOccurrencesSummaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVulnerabilityOccurrencesSummaryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A summary of how many vulnerability occurrences there are per resource and
 /// severity type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VulnerabilityOccurrencesSummary {
     /// A listing by resource of the number of fixable and total vulnerabilities.
@@ -798,13 +843,24 @@ impl serde::ser::Serialize for VulnerabilityOccurrencesSummary {
     }
 }
 
+impl std::fmt::Debug for VulnerabilityOccurrencesSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VulnerabilityOccurrencesSummary");
+        debug_struct.field("counts", &self.counts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VulnerabilityOccurrencesSummary].
 pub mod vulnerability_occurrences_summary {
     #[allow(unused_imports)]
     use super::*;
 
     /// Per resource and severity counts of fixable and total vulnerabilities.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FixableTotalByDigest {
         /// The affected resource.
@@ -1053,6 +1109,20 @@ pub mod vulnerability_occurrences_summary {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for FixableTotalByDigest {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FixableTotalByDigest");
+            debug_struct.field("resource_uri", &self.resource_uri);
+            debug_struct.field("severity", &self.severity);
+            debug_struct.field("fixable_count", &self.fixable_count);
+            debug_struct.field("total_count", &self.total_count);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 }

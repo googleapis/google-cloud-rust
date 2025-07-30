@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// The desired input location information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputConfig {
     /// The input data format that used to store the model in Cloud Storage.
@@ -236,6 +236,18 @@ impl serde::ser::Serialize for InputConfig {
     }
 }
 
+impl std::fmt::Debug for InputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InputConfig");
+        debug_struct.field("data_format", &self.data_format);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InputConfig].
 pub mod input_config {
     #[allow(unused_imports)]
@@ -253,7 +265,7 @@ pub mod input_config {
 }
 
 /// The desired output location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputConfig {
     /// The output data format that used to store the results in Cloud Storage.
@@ -462,6 +474,18 @@ impl serde::ser::Serialize for OutputConfig {
     }
 }
 
+impl std::fmt::Debug for OutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputConfig");
+        debug_struct.field("data_format", &self.data_format);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OutputConfig].
 pub mod output_config {
     #[allow(unused_imports)]
@@ -478,7 +502,7 @@ pub mod output_config {
 }
 
 /// The Google Cloud Storage location where the input file will be read from.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsSource {
     /// Required. URI of the Google Cloud Storage location.
@@ -607,8 +631,19 @@ impl serde::ser::Serialize for GcsSource {
     }
 }
 
+impl std::fmt::Debug for GcsSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsSource");
+        debug_struct.field("uri", &self.uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Google Cloud Storage location where the output file will be written to.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDestination {
     /// Required. URI of the Google Cloud Storage location.
@@ -737,8 +772,19 @@ impl serde::ser::Serialize for GcsDestination {
     }
 }
 
+impl std::fmt::Debug for GcsDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsDestination");
+        debug_struct.field("uri", &self.uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The long running operation metadata for async model related methods.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsyncModelMetadata {
     /// The state of the current operation.
@@ -966,6 +1012,20 @@ impl serde::ser::Serialize for AsyncModelMetadata {
     }
 }
 
+impl std::fmt::Debug for AsyncModelMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncModelMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_message", &self.state_message);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AsyncModelMetadata].
 pub mod async_model_metadata {
     #[allow(unused_imports)]
@@ -1120,7 +1180,7 @@ pub mod async_model_metadata {
 
 /// Request to be given to a tour optimization solver which defines the
 /// shipment model to solve as well as optimization parameters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OptimizeToursRequest {
     /// Required. Target project and location to make a call.
@@ -2027,6 +2087,55 @@ impl serde::ser::Serialize for OptimizeToursRequest {
     }
 }
 
+impl std::fmt::Debug for OptimizeToursRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OptimizeToursRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("timeout", &self.timeout);
+        debug_struct.field("model", &self.model);
+        debug_struct.field("solving_mode", &self.solving_mode);
+        debug_struct.field("search_mode", &self.search_mode);
+        debug_struct.field(
+            "injected_first_solution_routes",
+            &self.injected_first_solution_routes,
+        );
+        debug_struct.field(
+            "injected_solution_constraint",
+            &self.injected_solution_constraint,
+        );
+        debug_struct.field("refresh_details_routes", &self.refresh_details_routes);
+        debug_struct.field(
+            "interpret_injected_solutions_using_labels",
+            &self.interpret_injected_solutions_using_labels,
+        );
+        debug_struct.field("consider_road_traffic", &self.consider_road_traffic);
+        debug_struct.field("populate_polylines", &self.populate_polylines);
+        debug_struct.field(
+            "populate_transition_polylines",
+            &self.populate_transition_polylines,
+        );
+        debug_struct.field(
+            "allow_large_deadline_despite_interruption_risk",
+            &self.allow_large_deadline_despite_interruption_risk,
+        );
+        debug_struct.field("use_geodesic_distances", &self.use_geodesic_distances);
+        debug_struct.field(
+            "geodesic_meters_per_second",
+            &self.geodesic_meters_per_second,
+        );
+        debug_struct.field("max_validation_errors", &self.max_validation_errors);
+        debug_struct.field("label", &self.label);
+        debug_struct.field(
+            "populate_travel_step_polylines",
+            &self.populate_travel_step_polylines,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OptimizeToursRequest].
 pub mod optimize_tours_request {
     #[allow(unused_imports)]
@@ -2332,7 +2441,7 @@ pub mod optimize_tours_request {
 /// Response after solving a tour optimization problem containing the routes
 /// followed by each vehicle, the shipments which have been skipped and the
 /// overall cost of the solution.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OptimizeToursResponse {
     /// Routes computed for each vehicle; the i-th route corresponds to the i-th
@@ -2650,13 +2759,29 @@ impl serde::ser::Serialize for OptimizeToursResponse {
     }
 }
 
+impl std::fmt::Debug for OptimizeToursResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OptimizeToursResponse");
+        debug_struct.field("routes", &self.routes);
+        debug_struct.field("request_label", &self.request_label);
+        debug_struct.field("skipped_shipments", &self.skipped_shipments);
+        debug_struct.field("validation_errors", &self.validation_errors);
+        debug_struct.field("metrics", &self.metrics);
+        debug_struct.field("total_cost", &self.total_cost);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OptimizeToursResponse].
 pub mod optimize_tours_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Overall metrics, aggregated over all routes.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Metrics {
         /// Aggregated over the routes. Each metric is the sum (or max, for loads)
@@ -3118,6 +3243,29 @@ pub mod optimize_tours_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Metrics {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Metrics");
+            debug_struct.field("aggregated_route_metrics", &self.aggregated_route_metrics);
+            debug_struct.field(
+                "skipped_mandatory_shipment_count",
+                &self.skipped_mandatory_shipment_count,
+            );
+            debug_struct.field("used_vehicle_count", &self.used_vehicle_count);
+            debug_struct.field(
+                "earliest_vehicle_start_time",
+                &self.earliest_vehicle_start_time,
+            );
+            debug_struct.field("latest_vehicle_end_time", &self.latest_vehicle_end_time);
+            debug_struct.field("costs", &self.costs);
+            debug_struct.field("total_cost", &self.total_cost);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request to batch optimize tours as an asynchronous operation.
@@ -3125,7 +3273,7 @@ pub mod optimize_tours_response {
 /// file will contain one `OptimizeToursResponse`. The request contains
 /// information to read/write and parse the files. All the input and output files
 /// should be under the same project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchOptimizeToursRequest {
     /// Required. Target project and location to make a call.
@@ -3287,13 +3435,25 @@ impl serde::ser::Serialize for BatchOptimizeToursRequest {
     }
 }
 
+impl std::fmt::Debug for BatchOptimizeToursRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchOptimizeToursRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("model_configs", &self.model_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchOptimizeToursRequest].
 pub mod batch_optimize_tours_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Information for solving one optimization model asynchronously.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AsyncModelConfig {
         /// User defined model name, can be used as alias by users to keep track of
@@ -3535,11 +3695,25 @@ pub mod batch_optimize_tours_request {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AsyncModelConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AsyncModelConfig");
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("input_config", &self.input_config);
+            debug_struct.field("output_config", &self.output_config);
+            debug_struct.field("enable_checkpoints", &self.enable_checkpoints);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Response to a `BatchOptimizeToursRequest`. This is returned in
 /// the LRO Operation after the operation is complete.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchOptimizeToursResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3641,6 +3815,16 @@ impl serde::ser::Serialize for BatchOptimizeToursResponse {
     }
 }
 
+impl std::fmt::Debug for BatchOptimizeToursResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchOptimizeToursResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A shipment model contains a set of shipments which must be performed by a
 /// set of vehicles, while minimizing the overall cost, which is the sum of:
 ///
@@ -3648,7 +3832,7 @@ impl serde::ser::Serialize for BatchOptimizeToursResponse {
 ///   travel time, and fixed cost over all vehicles).
 /// * the unperformed shipment penalties.
 /// * the cost of the global duration of the shipments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShipmentModel {
     /// Set of shipments which must be performed in the model.
@@ -4415,6 +4599,48 @@ impl serde::ser::Serialize for ShipmentModel {
     }
 }
 
+impl std::fmt::Debug for ShipmentModel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShipmentModel");
+        debug_struct.field("shipments", &self.shipments);
+        debug_struct.field("vehicles", &self.vehicles);
+        debug_struct.field("max_active_vehicles", &self.max_active_vehicles);
+        debug_struct.field("global_start_time", &self.global_start_time);
+        debug_struct.field("global_end_time", &self.global_end_time);
+        debug_struct.field(
+            "global_duration_cost_per_hour",
+            &self.global_duration_cost_per_hour,
+        );
+        debug_struct.field(
+            "duration_distance_matrices",
+            &self.duration_distance_matrices,
+        );
+        debug_struct.field(
+            "duration_distance_matrix_src_tags",
+            &self.duration_distance_matrix_src_tags,
+        );
+        debug_struct.field(
+            "duration_distance_matrix_dst_tags",
+            &self.duration_distance_matrix_dst_tags,
+        );
+        debug_struct.field("transition_attributes", &self.transition_attributes);
+        debug_struct.field(
+            "shipment_type_incompatibilities",
+            &self.shipment_type_incompatibilities,
+        );
+        debug_struct.field(
+            "shipment_type_requirements",
+            &self.shipment_type_requirements,
+        );
+        debug_struct.field("precedence_rules", &self.precedence_rules);
+        debug_struct.field("break_rules", &self.break_rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ShipmentModel].
 pub mod shipment_model {
     #[allow(unused_imports)]
@@ -4422,7 +4648,7 @@ pub mod shipment_model {
 
     /// Specifies a duration and distance matrix from visit and vehicle start
     /// locations to visit and vehicle end locations.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DurationDistanceMatrix {
         /// Specifies the rows of the duration and distance matrix. It must have as
@@ -4597,13 +4823,25 @@ pub mod shipment_model {
         }
     }
 
+    impl std::fmt::Debug for DurationDistanceMatrix {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DurationDistanceMatrix");
+            debug_struct.field("rows", &self.rows);
+            debug_struct.field("vehicle_start_tag", &self.vehicle_start_tag);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [DurationDistanceMatrix].
     pub mod duration_distance_matrix {
         #[allow(unused_imports)]
         use super::*;
 
         /// Specifies a row of the duration and distance matrix.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Row {
             /// Duration values for a given row. It must have as many elements as
@@ -4807,6 +5045,18 @@ pub mod shipment_model {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Row {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Row");
+                debug_struct.field("durations", &self.durations);
+                debug_struct.field("meters", &self.meters);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// A precedence rule between two events (each event is the pickup or the
@@ -4819,7 +5069,7 @@ pub mod shipment_model {
     ///
     /// Furthermore, precedences only apply when both shipments are performed and
     /// are otherwise ignored.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrecedenceRule {
         /// Shipment index of the "first" event. This field must be specified.
@@ -5127,6 +5377,21 @@ pub mod shipment_model {
         }
     }
 
+    impl std::fmt::Debug for PrecedenceRule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PrecedenceRule");
+            debug_struct.field("first_index", &self.first_index);
+            debug_struct.field("first_is_delivery", &self.first_is_delivery);
+            debug_struct.field("second_index", &self.second_index);
+            debug_struct.field("second_is_delivery", &self.second_is_delivery);
+            debug_struct.field("offset_duration", &self.offset_duration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Deprecated: Use top level
     /// [BreakRule][google.cloud.optimization.v1.ShipmentModel.BreakRule] instead.
     /// Rules to generate time breaks for a vehicle (e.g. lunch
@@ -5142,7 +5407,7 @@ pub mod shipment_model {
     /// * after the vehicle end (ditto, with the vehicle end time).
     ///
     /// [google.cloud.optimization.v1.ShipmentModel.BreakRule]: crate::model::shipment_model::BreakRule
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     #[deprecated]
     pub struct BreakRule {
@@ -5315,6 +5580,18 @@ pub mod shipment_model {
         }
     }
 
+    impl std::fmt::Debug for BreakRule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BreakRule");
+            debug_struct.field("break_requests", &self.break_requests);
+            debug_struct.field("frequency_constraints", &self.frequency_constraints);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [BreakRule].
     pub mod break_rule {
         #[allow(unused_imports)]
@@ -5325,7 +5602,7 @@ pub mod shipment_model {
         /// that sequence, in the order in which they must occur. Their time windows
         /// (`earliest_start_time` / `latest_start_time`) may overlap, but they must
         /// be compatible with the order (this is checked).
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BreakRequest {
             /// Required. Lower bound (inclusive) on the start of the break.
@@ -5550,6 +5827,19 @@ pub mod shipment_model {
             }
         }
 
+        impl std::fmt::Debug for BreakRequest {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("BreakRequest");
+                debug_struct.field("earliest_start_time", &self.earliest_start_time);
+                debug_struct.field("latest_start_time", &self.latest_start_time);
+                debug_struct.field("min_duration", &self.min_duration);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// One may further constrain the frequency and duration of the breaks
         /// specified above, by enforcing a minimum break frequency, such as
         /// "There must be a break of at least 1 hour every 12 hours". Assuming that
@@ -5585,7 +5875,7 @@ pub mod shipment_model {
         ///    .. performing travel and visits ..
         ///   23:59 vehicle end
         /// ```
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FrequencyConstraint {
             /// Required. Minimum break duration for this constraint. Nonnegative.
@@ -5782,6 +6072,18 @@ pub mod shipment_model {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for FrequencyConstraint {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("FrequencyConstraint");
+                debug_struct.field("min_break_duration", &self.min_break_duration);
+                debug_struct.field("max_inter_break_duration", &self.max_inter_break_duration);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 }
 
@@ -5790,7 +6092,7 @@ pub mod shipment_model {
 /// must visit one of its pickup locations (and decrease its spare capacities
 /// accordingly), then visit one of its delivery locations later on (and
 /// therefore re-increase its spare capacities accordingly).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Shipment {
     /// Set of pickup alternatives associated to the shipment. If not specified,
@@ -6579,6 +6881,39 @@ impl serde::ser::Serialize for Shipment {
     }
 }
 
+impl std::fmt::Debug for Shipment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Shipment");
+        debug_struct.field("pickups", &self.pickups);
+        debug_struct.field("deliveries", &self.deliveries);
+        debug_struct.field("load_demands", &self.load_demands);
+        debug_struct.field("penalty_cost", &self.penalty_cost);
+        debug_struct.field("allowed_vehicle_indices", &self.allowed_vehicle_indices);
+        debug_struct.field("costs_per_vehicle", &self.costs_per_vehicle);
+        debug_struct.field("costs_per_vehicle_indices", &self.costs_per_vehicle_indices);
+        debug_struct.field(
+            "pickup_to_delivery_relative_detour_limit",
+            &self.pickup_to_delivery_relative_detour_limit,
+        );
+        debug_struct.field(
+            "pickup_to_delivery_absolute_detour_limit",
+            &self.pickup_to_delivery_absolute_detour_limit,
+        );
+        debug_struct.field(
+            "pickup_to_delivery_time_limit",
+            &self.pickup_to_delivery_time_limit,
+        );
+        debug_struct.field("shipment_type", &self.shipment_type);
+        debug_struct.field("label", &self.label);
+        debug_struct.field("ignore", &self.ignore);
+        debug_struct.field("demands", &self.demands);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Shipment].
 pub mod shipment {
     #[allow(unused_imports)]
@@ -6588,7 +6923,7 @@ pub mod shipment {
     /// (or two, see below), opening and closing times represented by time windows,
     /// and a service duration time (time spent by the vehicle once it has arrived
     /// to pickup or drop off goods).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VisitRequest {
         /// The geo-location where the vehicle arrives when performing this
@@ -7153,13 +7488,35 @@ pub mod shipment {
         }
     }
 
+    impl std::fmt::Debug for VisitRequest {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VisitRequest");
+            debug_struct.field("arrival_location", &self.arrival_location);
+            debug_struct.field("arrival_waypoint", &self.arrival_waypoint);
+            debug_struct.field("departure_location", &self.departure_location);
+            debug_struct.field("departure_waypoint", &self.departure_waypoint);
+            debug_struct.field("tags", &self.tags);
+            debug_struct.field("time_windows", &self.time_windows);
+            debug_struct.field("duration", &self.duration);
+            debug_struct.field("cost", &self.cost);
+            debug_struct.field("load_demands", &self.load_demands);
+            debug_struct.field("visit_types", &self.visit_types);
+            debug_struct.field("label", &self.label);
+            debug_struct.field("demands", &self.demands);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// When performing a visit, a predefined amount may be added to the vehicle
     /// load if it's a pickup, or subtracted if it's a delivery. This message
     /// defines such amount. See
     /// [load_demands][google.cloud.optimization.v1.Shipment.load_demands].
     ///
     /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Load {
         /// The amount by which the load of the vehicle performing the corresponding
@@ -7310,12 +7667,23 @@ pub mod shipment {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Load {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Load");
+            debug_struct.field("amount", &self.amount);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Specifies incompatibilties between shipments depending on their
 /// shipment_type. The appearance of incompatible shipments on the same route is
 /// restricted based on the incompatibility mode.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShipmentTypeIncompatibility {
     /// List of incompatible types. Two shipments having different `shipment_types`
@@ -7476,6 +7844,18 @@ impl serde::ser::Serialize for ShipmentTypeIncompatibility {
     }
 }
 
+impl std::fmt::Debug for ShipmentTypeIncompatibility {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShipmentTypeIncompatibility");
+        debug_struct.field("types", &self.types);
+        debug_struct.field("incompatibility_mode", &self.incompatibility_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ShipmentTypeIncompatibility].
 pub mod shipment_type_incompatibility {
     #[allow(unused_imports)]
@@ -7629,7 +8009,7 @@ pub mod shipment_type_incompatibility {
 
 /// Specifies requirements between shipments based on their shipment_type.
 /// The specifics of the requirement are defined by the requirement mode.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShipmentTypeRequirement {
     /// List of alternative shipment types required by the
@@ -7837,6 +8217,22 @@ impl serde::ser::Serialize for ShipmentTypeRequirement {
     }
 }
 
+impl std::fmt::Debug for ShipmentTypeRequirement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShipmentTypeRequirement");
+        debug_struct.field(
+            "required_shipment_type_alternatives",
+            &self.required_shipment_type_alternatives,
+        );
+        debug_struct.field("dependent_shipment_types", &self.dependent_shipment_types);
+        debug_struct.field("requirement_mode", &self.requirement_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ShipmentTypeRequirement].
 pub mod shipment_type_requirement {
     #[allow(unused_imports)]
@@ -8003,7 +8399,7 @@ pub mod shipment_type_requirement {
 /// vehicle routes. This is similar to `RouteModifiers` in the Google Maps
 /// Platform API; see:
 /// <https://developers.google.com/maps/documentation/routes/reference/rest/v2/RouteModifiers>.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RouteModifiers {
     /// Specifies whether to avoid toll roads where reasonable. Preference will be
@@ -8216,10 +8612,24 @@ impl serde::ser::Serialize for RouteModifiers {
     }
 }
 
+impl std::fmt::Debug for RouteModifiers {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RouteModifiers");
+        debug_struct.field("avoid_tolls", &self.avoid_tolls);
+        debug_struct.field("avoid_highways", &self.avoid_highways);
+        debug_struct.field("avoid_ferries", &self.avoid_ferries);
+        debug_struct.field("avoid_indoor", &self.avoid_indoor);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Models a vehicle in a shipment problem. Solving a shipment problem will
 /// build a route starting from `start_location` and ending at `end_location`
 /// for this vehicle. A route is a sequence of visits (see `ShipmentRoute`).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Vehicle {
     /// The travel mode which affects the roads usable by the vehicle and its
@@ -9512,6 +9922,48 @@ impl serde::ser::Serialize for Vehicle {
     }
 }
 
+impl std::fmt::Debug for Vehicle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Vehicle");
+        debug_struct.field("travel_mode", &self.travel_mode);
+        debug_struct.field("route_modifiers", &self.route_modifiers);
+        debug_struct.field("start_location", &self.start_location);
+        debug_struct.field("start_waypoint", &self.start_waypoint);
+        debug_struct.field("end_location", &self.end_location);
+        debug_struct.field("end_waypoint", &self.end_waypoint);
+        debug_struct.field("start_tags", &self.start_tags);
+        debug_struct.field("end_tags", &self.end_tags);
+        debug_struct.field("start_time_windows", &self.start_time_windows);
+        debug_struct.field("end_time_windows", &self.end_time_windows);
+        debug_struct.field("travel_duration_multiple", &self.travel_duration_multiple);
+        debug_struct.field("unloading_policy", &self.unloading_policy);
+        debug_struct.field("load_limits", &self.load_limits);
+        debug_struct.field("cost_per_hour", &self.cost_per_hour);
+        debug_struct.field("cost_per_traveled_hour", &self.cost_per_traveled_hour);
+        debug_struct.field("cost_per_kilometer", &self.cost_per_kilometer);
+        debug_struct.field("fixed_cost", &self.fixed_cost);
+        debug_struct.field("used_if_route_is_empty", &self.used_if_route_is_empty);
+        debug_struct.field("route_duration_limit", &self.route_duration_limit);
+        debug_struct.field("travel_duration_limit", &self.travel_duration_limit);
+        debug_struct.field("route_distance_limit", &self.route_distance_limit);
+        debug_struct.field(
+            "extra_visit_duration_for_visit_type",
+            &self.extra_visit_duration_for_visit_type,
+        );
+        debug_struct.field("break_rule", &self.break_rule);
+        debug_struct.field("label", &self.label);
+        debug_struct.field("ignore", &self.ignore);
+        debug_struct.field("break_rule_indices", &self.break_rule_indices);
+        debug_struct.field("capacities", &self.capacities);
+        debug_struct.field("start_load_intervals", &self.start_load_intervals);
+        debug_struct.field("end_load_intervals", &self.end_load_intervals);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Vehicle].
 pub mod vehicle {
     #[allow(unused_imports)]
@@ -9522,7 +9974,7 @@ pub mod vehicle {
     /// [load_limits][google.cloud.optimization.v1.Vehicle.load_limits].
     ///
     /// [google.cloud.optimization.v1.Vehicle.load_limits]: crate::model::Vehicle::load_limits
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LoadLimit {
         /// The maximum acceptable amount of load.
@@ -9876,13 +10328,31 @@ pub mod vehicle {
         }
     }
 
+    impl std::fmt::Debug for LoadLimit {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LoadLimit");
+            debug_struct.field("max_load", &self.max_load);
+            debug_struct.field("soft_max_load", &self.soft_max_load);
+            debug_struct.field(
+                "cost_per_unit_above_soft_max",
+                &self.cost_per_unit_above_soft_max,
+            );
+            debug_struct.field("start_load_interval", &self.start_load_interval);
+            debug_struct.field("end_load_interval", &self.end_load_interval);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [LoadLimit].
     pub mod load_limit {
         #[allow(unused_imports)]
         use super::*;
 
         /// Interval of acceptable load amounts.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Interval {
             /// A minimum acceptable load. Must be ≥ 0.
@@ -10111,6 +10581,18 @@ pub mod vehicle {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Interval {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Interval");
+                debug_struct.field("min", &self.min);
+                debug_struct.field("max", &self.max);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// A limit defining a maximum duration of the route of a vehicle. It can be
@@ -10118,7 +10600,7 @@ pub mod vehicle {
     ///
     /// When a soft limit field is defined, both the soft max threshold and its
     /// associated cost must be defined together.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DurationLimit {
         /// A hard limit constraining the duration to be at most max_duration.
@@ -10515,6 +10997,30 @@ pub mod vehicle {
         }
     }
 
+    impl std::fmt::Debug for DurationLimit {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DurationLimit");
+            debug_struct.field("max_duration", &self.max_duration);
+            debug_struct.field("soft_max_duration", &self.soft_max_duration);
+            debug_struct.field(
+                "cost_per_hour_after_soft_max",
+                &self.cost_per_hour_after_soft_max,
+            );
+            debug_struct.field(
+                "quadratic_soft_max_duration",
+                &self.quadratic_soft_max_duration,
+            );
+            debug_struct.field(
+                "cost_per_square_hour_after_quadratic_soft_max",
+                &self.cost_per_square_hour_after_quadratic_soft_max,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Travel modes which can be used by vehicles.
     ///
     /// These should be a subset of the Google Maps Platform Routes Preferred API
@@ -10814,7 +11320,7 @@ pub mod vehicle {
 ///
 /// [google.cloud.optimization.v1.ShipmentModel.global_end_time]: crate::model::ShipmentModel::global_end_time
 /// [google.cloud.optimization.v1.ShipmentModel.global_start_time]: crate::model::ShipmentModel::global_start_time
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeWindow {
     /// The hard time window start time. If unspecified it will be set to
@@ -11221,12 +11727,34 @@ impl serde::ser::Serialize for TimeWindow {
     }
 }
 
+impl std::fmt::Debug for TimeWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeWindow");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("soft_start_time", &self.soft_start_time);
+        debug_struct.field("soft_end_time", &self.soft_end_time);
+        debug_struct.field(
+            "cost_per_hour_before_soft_start_time",
+            &self.cost_per_hour_before_soft_start_time,
+        );
+        debug_struct.field(
+            "cost_per_hour_after_soft_end_time",
+            &self.cost_per_hour_after_soft_end_time,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deprecated: Use
 /// [Vehicle.LoadLimit.Interval][google.cloud.optimization.v1.Vehicle.LoadLimit.Interval]
 /// instead.
 ///
 /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval]: crate::model::vehicle::load_limit::Interval
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct CapacityQuantity {
@@ -11396,12 +11924,24 @@ impl serde::ser::Serialize for CapacityQuantity {
     }
 }
 
+impl std::fmt::Debug for CapacityQuantity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityQuantity");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deprecated: Use
 /// [Vehicle.LoadLimit.Interval][google.cloud.optimization.v1.Vehicle.LoadLimit.Interval]
 /// instead.
 ///
 /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval]: crate::model::vehicle::load_limit::Interval
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct CapacityQuantityInterval {
@@ -11642,12 +12182,25 @@ impl serde::ser::Serialize for CapacityQuantityInterval {
     }
 }
 
+impl std::fmt::Debug for CapacityQuantityInterval {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityQuantityInterval");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("min_value", &self.min_value);
+        debug_struct.field("max_value", &self.max_value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A limit defining a maximum distance which can be traveled. It can be either
 /// hard or soft.
 ///
 /// If a soft limit is defined, both `soft_max_meters` and
 /// `cost_per_kilometer_above_soft_max` must be defined and be nonnegative.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DistanceLimit {
     /// A hard limit constraining the distance to be at most max_meters. The limit
@@ -12025,11 +12578,31 @@ impl serde::ser::Serialize for DistanceLimit {
     }
 }
 
+impl std::fmt::Debug for DistanceLimit {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DistanceLimit");
+        debug_struct.field("max_meters", &self.max_meters);
+        debug_struct.field("soft_max_meters", &self.soft_max_meters);
+        debug_struct.field(
+            "cost_per_kilometer_below_soft_max",
+            &self.cost_per_kilometer_below_soft_max,
+        );
+        debug_struct.field(
+            "cost_per_kilometer_above_soft_max",
+            &self.cost_per_kilometer_above_soft_max,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies attributes of transitions between two consecutive visits on a
 /// route. Several `TransitionAttributes` may apply to the same transition: in
 /// that case, all extra costs add up and the strictest constraint or limit
 /// applies (following natural "AND" semantics).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransitionAttributes {
     /// Tags defining the set of (src->dst) transitions these attributes apply to.
@@ -12428,9 +13001,27 @@ impl serde::ser::Serialize for TransitionAttributes {
     }
 }
 
+impl std::fmt::Debug for TransitionAttributes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransitionAttributes");
+        debug_struct.field("src_tag", &self.src_tag);
+        debug_struct.field("excluded_src_tag", &self.excluded_src_tag);
+        debug_struct.field("dst_tag", &self.dst_tag);
+        debug_struct.field("excluded_dst_tag", &self.excluded_dst_tag);
+        debug_struct.field("cost", &self.cost);
+        debug_struct.field("cost_per_kilometer", &self.cost_per_kilometer);
+        debug_struct.field("distance_limit", &self.distance_limit);
+        debug_struct.field("delay", &self.delay);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encapsulates a waypoint. Waypoints mark arrival and departure locations of
 /// VisitRequests, and start and end locations of Vehicles.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Waypoint {
     /// Indicates that the location of this waypoint is meant to have a preference
@@ -12678,6 +13269,18 @@ impl serde::ser::Serialize for Waypoint {
     }
 }
 
+impl std::fmt::Debug for Waypoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Waypoint");
+        debug_struct.field("side_of_road", &self.side_of_road);
+        debug_struct.field("location_type", &self.location_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Waypoint].
 pub mod waypoint {
     #[allow(unused_imports)]
@@ -12696,7 +13299,7 @@ pub mod waypoint {
 }
 
 /// Encapsulates a location (a geographic point, and an optional heading).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Location {
     /// The waypoint's geographic coordinates.
@@ -12896,6 +13499,18 @@ impl serde::ser::Serialize for Location {
     }
 }
 
+impl std::fmt::Debug for Location {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Location");
+        debug_struct.field("lat_lng", &self.lat_lng);
+        debug_struct.field("heading", &self.heading);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Rules to generate time breaks for a vehicle (e.g. lunch breaks). A break
 /// is a contiguous period of time during which the vehicle remains idle at its
 /// current position and cannot perform any visit. A break may occur:
@@ -12906,7 +13521,7 @@ impl serde::ser::Serialize for Location {
 /// * or before the vehicle start (the vehicle may not start in the middle of
 ///   a break), in which case it does not affect the vehicle start time.
 /// * or after the vehicle end (ditto, with the vehicle end time).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BreakRule {
     /// Sequence of breaks. See the `BreakRequest` message.
@@ -13076,6 +13691,18 @@ impl serde::ser::Serialize for BreakRule {
     }
 }
 
+impl std::fmt::Debug for BreakRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BreakRule");
+        debug_struct.field("break_requests", &self.break_requests);
+        debug_struct.field("frequency_constraints", &self.frequency_constraints);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BreakRule].
 pub mod break_rule {
     #[allow(unused_imports)]
@@ -13086,7 +13713,7 @@ pub mod break_rule {
     /// that sequence, in the order in which they must occur. Their time windows
     /// (`earliest_start_time` / `latest_start_time`) may overlap, but they must
     /// be compatible with the order (this is checked).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BreakRequest {
         /// Required. Lower bound (inclusive) on the start of the break.
@@ -13302,6 +13929,19 @@ pub mod break_rule {
         }
     }
 
+    impl std::fmt::Debug for BreakRequest {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BreakRequest");
+            debug_struct.field("earliest_start_time", &self.earliest_start_time);
+            debug_struct.field("latest_start_time", &self.latest_start_time);
+            debug_struct.field("min_duration", &self.min_duration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// One may further constrain the frequency and duration of the breaks
     /// specified above, by enforcing a minimum break frequency, such as
     /// "There must be a break of at least 1 hour every 12 hours". Assuming that
@@ -13337,7 +13977,7 @@ pub mod break_rule {
     ///    .. performing travel and visits ..
     ///   23:59 vehicle end
     /// ```
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FrequencyConstraint {
         /// Required. Minimum break duration for this constraint. Nonnegative.
@@ -13523,6 +14163,18 @@ pub mod break_rule {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for FrequencyConstraint {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FrequencyConstraint");
+            debug_struct.field("min_break_duration", &self.min_break_duration);
+            debug_struct.field("max_inter_break_duration", &self.max_inter_break_duration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A vehicle's route can be decomposed, along the time axis, like this (we
@@ -13614,7 +14266,7 @@ pub mod break_rule {
 ///   ||     |       |           |       |           |         |         ||
 /// --++-----------------------------------------------------------------++-->
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShipmentRoute {
     /// Vehicle performing the route, identified by its index in the source
@@ -14386,6 +15038,35 @@ impl serde::ser::Serialize for ShipmentRoute {
     }
 }
 
+impl std::fmt::Debug for ShipmentRoute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShipmentRoute");
+        debug_struct.field("vehicle_index", &self.vehicle_index);
+        debug_struct.field("vehicle_label", &self.vehicle_label);
+        debug_struct.field("vehicle_start_time", &self.vehicle_start_time);
+        debug_struct.field("vehicle_end_time", &self.vehicle_end_time);
+        debug_struct.field("visits", &self.visits);
+        debug_struct.field("transitions", &self.transitions);
+        debug_struct.field(
+            "has_traffic_infeasibilities",
+            &self.has_traffic_infeasibilities,
+        );
+        debug_struct.field("route_polyline", &self.route_polyline);
+        debug_struct.field("breaks", &self.breaks);
+        debug_struct.field("metrics", &self.metrics);
+        debug_struct.field("route_costs", &self.route_costs);
+        debug_struct.field("route_total_cost", &self.route_total_cost);
+        debug_struct.field("end_loads", &self.end_loads);
+        debug_struct.field("travel_steps", &self.travel_steps);
+        debug_struct.field("vehicle_detour", &self.vehicle_detour);
+        debug_struct.field("delay_before_vehicle_end", &self.delay_before_vehicle_end);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ShipmentRoute].
 pub mod shipment_route {
     #[allow(unused_imports)]
@@ -14398,7 +15079,7 @@ pub mod shipment_route {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.delay_duration]: crate::model::shipment_route::Transition::delay_duration
     /// [google.cloud.optimization.v1.TransitionAttributes.delay]: crate::model::TransitionAttributes::delay
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     #[deprecated]
     pub struct Delay {
@@ -14578,9 +15259,21 @@ pub mod shipment_route {
         }
     }
 
+    impl std::fmt::Debug for Delay {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Delay");
+            debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("duration", &self.duration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A visit performed during a route. This visit corresponds to a pickup or a
     /// delivery of a `Shipment`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Visit {
         /// Index of the `shipments` field in the source
@@ -15122,6 +15815,27 @@ pub mod shipment_route {
         }
     }
 
+    impl std::fmt::Debug for Visit {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Visit");
+            debug_struct.field("shipment_index", &self.shipment_index);
+            debug_struct.field("is_pickup", &self.is_pickup);
+            debug_struct.field("visit_request_index", &self.visit_request_index);
+            debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("load_demands", &self.load_demands);
+            debug_struct.field("detour", &self.detour);
+            debug_struct.field("shipment_label", &self.shipment_label);
+            debug_struct.field("visit_label", &self.visit_label);
+            debug_struct.field("arrival_loads", &self.arrival_loads);
+            debug_struct.field("delay_before_start", &self.delay_before_start);
+            debug_struct.field("demands", &self.demands);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Transition between two events on the route. See the description of
     /// [ShipmentRoute][google.cloud.optimization.v1.ShipmentRoute].
     ///
@@ -15129,7 +15843,7 @@ pub mod shipment_route {
     /// corresponding travel metrics are 0.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute]: crate::model::ShipmentRoute
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Transition {
         /// Travel duration during this transition.
@@ -15685,12 +16399,33 @@ pub mod shipment_route {
         }
     }
 
+    impl std::fmt::Debug for Transition {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Transition");
+            debug_struct.field("travel_duration", &self.travel_duration);
+            debug_struct.field("travel_distance_meters", &self.travel_distance_meters);
+            debug_struct.field("traffic_info_unavailable", &self.traffic_info_unavailable);
+            debug_struct.field("delay_duration", &self.delay_duration);
+            debug_struct.field("break_duration", &self.break_duration);
+            debug_struct.field("wait_duration", &self.wait_duration);
+            debug_struct.field("total_duration", &self.total_duration);
+            debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("route_polyline", &self.route_polyline);
+            debug_struct.field("vehicle_loads", &self.vehicle_loads);
+            debug_struct.field("loads", &self.loads);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Reports the actual load of the vehicle at some point along the route,
     /// for a given type (see
     /// [Transition.vehicle_loads][google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]).
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VehicleLoad {
         /// The amount of load on the vehicle, for the given type. The unit of load
@@ -15844,11 +16579,22 @@ pub mod shipment_route {
         }
     }
 
+    impl std::fmt::Debug for VehicleLoad {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VehicleLoad");
+            debug_struct.field("amount", &self.amount);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The encoded representation of a polyline. More information on polyline
     /// encoding can be found here:
     /// <https://developers.google.com/maps/documentation/utilities/polylinealgorithm>
     /// <https://developers.google.com/maps/documentation/javascript/reference/geometry#encoding>.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EncodedPolyline {
         /// String representing encoded points of the polyline.
@@ -15980,8 +16726,19 @@ pub mod shipment_route {
         }
     }
 
+    impl std::fmt::Debug for EncodedPolyline {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EncodedPolyline");
+            debug_struct.field("points", &self.points);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Data representing the execution of a break.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Break {
         /// Start time of a break.
@@ -16160,6 +16917,18 @@ pub mod shipment_route {
         }
     }
 
+    impl std::fmt::Debug for Break {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Break");
+            debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("duration", &self.duration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Deprecated: Use
     /// [ShipmentRoute.Transition][google.cloud.optimization.v1.ShipmentRoute.Transition]
     /// instead. Travel between each visit along the route: from the vehicle's
@@ -16176,7 +16945,7 @@ pub mod shipment_route {
     /// corresponding travel metrics are 0 and/or empty.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition]: crate::model::shipment_route::Transition
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     #[deprecated]
     pub struct TravelStep {
@@ -16442,12 +17211,26 @@ pub mod shipment_route {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for TravelStep {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TravelStep");
+            debug_struct.field("duration", &self.duration);
+            debug_struct.field("distance_meters", &self.distance_meters);
+            debug_struct.field("traffic_info_unavailable", &self.traffic_info_unavailable);
+            debug_struct.field("route_polyline", &self.route_polyline);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Specifies details of unperformed shipments in a solution. For trivial cases
 /// and/or if we are able to identify the cause for skipping, we report the
 /// reason here.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SkippedShipment {
     /// The index corresponds to the index of the shipment in the source
@@ -16655,6 +17438,19 @@ impl serde::ser::Serialize for SkippedShipment {
     }
 }
 
+impl std::fmt::Debug for SkippedShipment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SkippedShipment");
+        debug_struct.field("index", &self.index);
+        debug_struct.field("label", &self.label);
+        debug_struct.field("reasons", &self.reasons);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SkippedShipment].
 pub mod skipped_shipment {
     #[allow(unused_imports)]
@@ -16688,7 +17484,7 @@ pub mod skipped_shipment {
     /// capacity would be exceeded (including vehicle 1), at least one vehicle's
     /// "Pears" capacity would be exceeded (including vehicle 3) and at least one
     /// vehicle's distance limit would be exceeded (including vehicle 1).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Reason {
         /// Refer to the comments of Code.
@@ -16917,6 +17713,22 @@ pub mod skipped_shipment {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Reason");
+            debug_struct.field("code", &self.code);
+            debug_struct.field("example_vehicle_index", &self.example_vehicle_index);
+            debug_struct.field(
+                "example_exceeded_capacity_type",
+                &self.example_exceeded_capacity_type,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -17159,7 +17971,7 @@ pub mod skipped_shipment {
 /// [google.cloud.optimization.v1.ShipmentRoute]: crate::model::ShipmentRoute
 /// [google.cloud.optimization.v1.ShipmentRoute.Transition]: crate::model::shipment_route::Transition
 /// [google.cloud.optimization.v1.ShipmentRoute.Visit]: crate::model::shipment_route::Visit
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AggregatedMetrics {
     /// Number of shipments performed. Note that a pickup and delivery pair only
@@ -17750,9 +18562,30 @@ impl serde::ser::Serialize for AggregatedMetrics {
     }
 }
 
+impl std::fmt::Debug for AggregatedMetrics {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AggregatedMetrics");
+        debug_struct.field("performed_shipment_count", &self.performed_shipment_count);
+        debug_struct.field("travel_duration", &self.travel_duration);
+        debug_struct.field("wait_duration", &self.wait_duration);
+        debug_struct.field("delay_duration", &self.delay_duration);
+        debug_struct.field("break_duration", &self.break_duration);
+        debug_struct.field("visit_duration", &self.visit_duration);
+        debug_struct.field("total_duration", &self.total_duration);
+        debug_struct.field("travel_distance_meters", &self.travel_distance_meters);
+        debug_struct.field("max_loads", &self.max_loads);
+        debug_struct.field("costs", &self.costs);
+        debug_struct.field("total_cost", &self.total_cost);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Solution injected in the request including information about which visits
 /// must be constrained and how they must be constrained.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InjectedSolutionConstraint {
     /// Routes of the solution to inject. Some routes may be omitted from the
@@ -17950,6 +18783,19 @@ impl serde::ser::Serialize for InjectedSolutionConstraint {
     }
 }
 
+impl std::fmt::Debug for InjectedSolutionConstraint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InjectedSolutionConstraint");
+        debug_struct.field("routes", &self.routes);
+        debug_struct.field("skipped_shipments", &self.skipped_shipments);
+        debug_struct.field("constraint_relaxations", &self.constraint_relaxations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InjectedSolutionConstraint].
 pub mod injected_solution_constraint {
     #[allow(unused_imports)]
@@ -17959,7 +18805,7 @@ pub mod injected_solution_constraint {
     /// visits will be relaxed and to which level. Shipments listed in
     /// the `skipped_shipment` field are constrained to be skipped; i.e., they
     /// cannot be performed.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConstraintRelaxation {
         /// All the visit constraint relaxations that will apply to visits on
@@ -18168,6 +19014,18 @@ pub mod injected_solution_constraint {
         }
     }
 
+    impl std::fmt::Debug for ConstraintRelaxation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConstraintRelaxation");
+            debug_struct.field("relaxations", &self.relaxations);
+            debug_struct.field("vehicle_indices", &self.vehicle_indices);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ConstraintRelaxation].
     pub mod constraint_relaxation {
         #[allow(unused_imports)]
@@ -18208,7 +19066,7 @@ pub mod injected_solution_constraint {
         /// and no visits may be inserted into these sequences. Also, if a
         /// vehicle start or end does not satisfy the conditions of any
         /// relaxation the time is fixed, unless the vehicle is empty.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Relaxation {
 
@@ -18444,6 +19302,19 @@ pub mod injected_solution_constraint {
             }
         }
 
+        impl std::fmt::Debug for Relaxation {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Relaxation");
+                debug_struct.field("level", &self.level);
+                debug_struct.field("threshold_time", &self.threshold_time);
+                debug_struct.field("threshold_visit_count", &self.threshold_visit_count);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Relaxation].
         pub mod relaxation {
             #[allow(unused_imports)]
@@ -18622,7 +19493,7 @@ pub mod injected_solution_constraint {
 }
 
 /// Describes an error encountered when validating an `OptimizeToursRequest`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OptimizeToursValidationError {
     /// A validation error is defined by the pair (`code`, `display_name`) which
@@ -19155,6 +20026,21 @@ impl serde::ser::Serialize for OptimizeToursValidationError {
     }
 }
 
+impl std::fmt::Debug for OptimizeToursValidationError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OptimizeToursValidationError");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("error_message", &self.error_message);
+        debug_struct.field("offending_values", &self.offending_values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OptimizeToursValidationError].
 pub mod optimize_tours_validation_error {
     #[allow(unused_imports)]
@@ -19171,7 +20057,7 @@ pub mod optimize_tours_validation_error {
     ///
     /// We however omit top-level entities such as `OptimizeToursRequest` or
     /// `ShipmentModel` to avoid crowding the message.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FieldReference {
         /// Name of the field, e.g., "vehicles".
@@ -19476,6 +20362,19 @@ pub mod optimize_tours_validation_error {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for FieldReference {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FieldReference");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("sub_field", &self.sub_field);
+            debug_struct.field("index_or_key", &self.index_or_key);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 

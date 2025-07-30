@@ -187,6 +187,7 @@ type methodAnnotation struct {
 	ReturnType          string
 	HasVeneer           bool
 	Attributes          []string
+	RoutingRequired     bool
 }
 
 type pathInfoAnnotation struct {
@@ -687,6 +688,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
 		HasVeneer:           c.hasVeneer,
+		RoutingRequired:     c.routingRequired,
 	}
 	if annotation.Name == "clone" {
 		// Some methods look too similar to standard Rust traits. Clippy makes

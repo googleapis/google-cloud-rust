@@ -16,7 +16,9 @@ use super::request_options::RequestOptions;
 use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::UploadObject;
-use crate::upload_source::{InsertPayload, Seek, StreamingSource};
+use crate::download_resume_policy::DownloadResumePolicy;
+use crate::storage::checksum::Crc32c;
+use crate::upload_source::InsertPayload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
@@ -154,12 +156,18 @@ impl Storage {
     ///   `projects/_/buckets/{bucket_id}` format.
     /// * `object` - the object name.
     /// * `payload` - the object data.
-    pub fn upload_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> UploadObject<P>
+    ///
+    /// [Seek]: crate::upload_source::Seek
+    pub fn upload_object<B, O, T, P>(
+        &self,
+        bucket: B,
+        object: O,
+        payload: T,
+    ) -> UploadObject<P, Crc32c>
     where
         B: Into<String>,
         O: Into<String>,
         T: Into<InsertPayload<P>>,
-        InsertPayload<P>: StreamingSource + Seek,
     {
         UploadObject::new(self.inner.clone(), bucket, object, payload)
     }
@@ -175,13 +183,15 @@ impl Storage {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// let contents = client
+    /// let mut resp = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
-    ///     .await?
-    ///     .all_bytes()
     ///     .await?;
-    /// println!("object contents={contents:?}");
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = resp.next().await.transpose()? {
+    ///   contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("object contents={:?}", bytes::Bytes::from_owner(contents));
     /// # Ok(()) }
     /// ```
     pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject
@@ -501,6 +511,32 @@ impl ClientBuilder {
         self.default_options.resumable_upload_buffer_size = v.into();
         self
     }
+
+    /// Configure the resume policy for downloads.
+    ///
+    /// The Cloud Storage client library can automatically resume a download
+    /// that is interrupted by a transient error. Applications may want to
+    /// limit the number of download attempts, or may wish to expand the type
+    /// of errors treated as retryable.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_storage::download_resume_policy::{AlwaysResume, DownloadResumePolicyExt};
+    /// let client = Storage::builder()
+    ///     .with_download_resume_policy(AlwaysResume.with_attempt_limit(3))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_download_resume_policy<V>(mut self, v: V) -> Self
+    where
+        V: DownloadResumePolicy + 'static,
+    {
+        self.default_options.download_resume_policy = Arc::new(v);
+        self
+    }
 }
 
 /// The default host used by the service.
@@ -670,10 +706,11 @@ pub(crate) fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use gax::retry_result::RetryResult;
     use std::{sync::Arc, time::Duration};
     use test_case::test_case;
 
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+    type Result = anyhow::Result<()>;
 
     pub(crate) fn test_builder() -> ClientBuilder {
         ClientBuilder::new()
@@ -683,7 +720,8 @@ pub(crate) mod tests {
                 gax::exponential_backoff::ExponentialBackoffBuilder::new()
                     .with_initial_delay(Duration::from_millis(1))
                     .with_maximum_delay(Duration::from_millis(2))
-                    .clamp(),
+                    .build()
+                    .expect("hard coded policy should build correctly"),
             )
     }
 
@@ -739,5 +777,43 @@ pub(crate) mod tests {
         assert_eq!(params.encryption_key_bytes, key);
         assert_eq!(params.encryption_key_sha256_bytes, key_sha256);
         Ok(())
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryThrottler {}
+
+        impl gax::retry_throttler::RetryThrottler for RetryThrottler {
+            fn throttle_retry_attempt(&self) -> bool;
+            fn on_retry_failure(&mut self, flow: &RetryResult);
+            fn on_success(&mut self);
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryPolicy {}
+
+        impl gax::retry_policy::RetryPolicy for RetryPolicy {
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: gax::error::Error) -> RetryResult;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub BackoffPolicy {}
+
+        impl gax::backoff_policy::BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub DownloadResumePolicy {}
+
+        impl crate::download_resume_policy::DownloadResumePolicy for DownloadResumePolicy {
+            fn on_error(&self, query: &crate::download_resume_policy::ResumeQuery, error: gax::error::Error) -> crate::download_resume_policy::ResumeResult;
+        }
     }
 }

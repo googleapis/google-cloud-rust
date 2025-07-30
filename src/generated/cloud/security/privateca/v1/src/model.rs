@@ -44,7 +44,7 @@ extern crate wkt;
 ///
 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
 /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateAuthority {
     /// Identifier. The resource name for this
@@ -878,6 +878,39 @@ impl serde::ser::Serialize for CertificateAuthority {
     }
 }
 
+impl std::fmt::Debug for CertificateAuthority {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateAuthority");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("lifetime", &self.lifetime);
+        debug_struct.field("key_spec", &self.key_spec);
+        debug_struct.field("subordinate_config", &self.subordinate_config);
+        debug_struct.field("tier", &self.tier);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("pem_ca_certificates", &self.pem_ca_certificates);
+        debug_struct.field(
+            "ca_certificate_descriptions",
+            &self.ca_certificate_descriptions,
+        );
+        debug_struct.field("gcs_bucket", &self.gcs_bucket);
+        debug_struct.field("access_urls", &self.access_urls);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("user_defined_access_urls", &self.user_defined_access_urls);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CertificateAuthority].
 pub mod certificate_authority {
     #[allow(unused_imports)]
@@ -888,7 +921,7 @@ pub mod certificate_authority {
     /// will publish content.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AccessUrls {
         /// The URL where this
@@ -1066,12 +1099,24 @@ pub mod certificate_authority {
         }
     }
 
+    impl std::fmt::Debug for AccessUrls {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AccessUrls");
+            debug_struct.field("ca_certificate_access_url", &self.ca_certificate_access_url);
+            debug_struct.field("crl_access_urls", &self.crl_access_urls);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A Cloud KMS key configuration that a
     /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]
     /// will use.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KeyVersionSpec {
         pub key_version:
@@ -1307,6 +1352,17 @@ pub mod certificate_authority {
         }
     }
 
+    impl std::fmt::Debug for KeyVersionSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KeyVersionSpec");
+            debug_struct.field("key_version", &self.key_version);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [KeyVersionSpec].
     pub mod key_version_spec {
         #[allow(unused_imports)]
@@ -1332,7 +1388,7 @@ pub mod certificate_authority {
     /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority].
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserDefinedAccessUrls {
         /// Optional. A list of URLs where the issuer CA certificate may be
@@ -1514,6 +1570,21 @@ pub mod certificate_authority {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for UserDefinedAccessUrls {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UserDefinedAccessUrls");
+            debug_struct.field(
+                "aia_issuing_certificate_urls",
+                &self.aia_issuing_certificate_urls,
+            );
+            debug_struct.field("crl_access_urls", &self.crl_access_urls);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -2045,7 +2116,7 @@ pub mod certificate_authority {
 ///
 /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
 /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CaPool {
     /// Identifier. The resource name for this
@@ -2332,6 +2403,21 @@ impl serde::ser::Serialize for CaPool {
     }
 }
 
+impl std::fmt::Debug for CaPool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CaPool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("tier", &self.tier);
+        debug_struct.field("issuance_policy", &self.issuance_policy);
+        debug_struct.field("publishing_options", &self.publishing_options);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CaPool].
 pub mod ca_pool {
     #[allow(unused_imports)]
@@ -2348,7 +2434,7 @@ pub mod ca_pool {
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PublishingOptions {
         /// Optional. When true, publishes each
@@ -2563,6 +2649,19 @@ pub mod ca_pool {
         }
     }
 
+    impl std::fmt::Debug for PublishingOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PublishingOptions");
+            debug_struct.field("publish_ca_cert", &self.publish_ca_cert);
+            debug_struct.field("publish_crl", &self.publish_crl);
+            debug_struct.field("encoding_format", &self.encoding_format);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [PublishingOptions].
     pub mod publishing_options {
         #[allow(unused_imports)]
@@ -2716,7 +2815,7 @@ pub mod ca_pool {
     /// [CaPool][google.cloud.security.privateca.v1.CaPool].
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IssuancePolicy {
         /// Optional. If any
@@ -3157,6 +3256,23 @@ pub mod ca_pool {
         }
     }
 
+    impl std::fmt::Debug for IssuancePolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IssuancePolicy");
+            debug_struct.field("allowed_key_types", &self.allowed_key_types);
+            debug_struct.field("backdate_duration", &self.backdate_duration);
+            debug_struct.field("maximum_lifetime", &self.maximum_lifetime);
+            debug_struct.field("allowed_issuance_modes", &self.allowed_issuance_modes);
+            debug_struct.field("baseline_values", &self.baseline_values);
+            debug_struct.field("identity_constraints", &self.identity_constraints);
+            debug_struct.field("passthrough_extensions", &self.passthrough_extensions);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [IssuancePolicy].
     pub mod issuance_policy {
         #[allow(unused_imports)]
@@ -3172,7 +3288,7 @@ pub mod ca_pool {
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
         /// [google.cloud.security.privateca.v1.CaPool.IssuancePolicy.AllowedKeyType]: crate::model::ca_pool::issuance_policy::AllowedKeyType
         /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AllowedKeyType {
             pub key_type: std::option::Option<
@@ -3438,6 +3554,17 @@ pub mod ca_pool {
             }
         }
 
+        impl std::fmt::Debug for AllowedKeyType {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AllowedKeyType");
+                debug_struct.field("key_type", &self.key_type);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [AllowedKeyType].
         pub mod allowed_key_type {
             #[allow(unused_imports)]
@@ -3449,7 +3576,7 @@ pub mod ca_pool {
             ///
             /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
             /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct RsaKeyType {
                 /// Optional. The minimum allowed RSA modulus size (inclusive), in bits.
@@ -3678,13 +3805,25 @@ pub mod ca_pool {
                 }
             }
 
+            impl std::fmt::Debug for RsaKeyType {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("RsaKeyType");
+                    debug_struct.field("min_modulus_size", &self.min_modulus_size);
+                    debug_struct.field("max_modulus_size", &self.max_modulus_size);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Describes an Elliptic Curve key that may be used in a
             /// [Certificate][google.cloud.security.privateca.v1.Certificate] issued
             /// from a [CaPool][google.cloud.security.privateca.v1.CaPool].
             ///
             /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
             /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct EcKeyType {
 
@@ -3829,6 +3968,17 @@ pub mod ca_pool {
                         }
                     }
                     state.end()
+                }
+            }
+
+            impl std::fmt::Debug for EcKeyType {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("EcKeyType");
+                    debug_struct.field("signature_algorithm", &self.signature_algorithm);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
                 }
             }
 
@@ -4016,7 +4166,7 @@ pub mod ca_pool {
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
         /// [google.cloud.security.privateca.v1.CaPool.IssuancePolicy.IssuanceModes]: crate::model::ca_pool::issuance_policy::IssuanceModes
         /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct IssuanceModes {
             /// Optional. When true, allows callers to create
@@ -4208,6 +4358,21 @@ pub mod ca_pool {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for IssuanceModes {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("IssuanceModes");
+                debug_struct.field("allow_csr_based_issuance", &self.allow_csr_based_issuance);
+                debug_struct.field(
+                    "allow_config_based_issuance",
+                    &self.allow_config_based_issuance,
+                );
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// The tier of a [CaPool][google.cloud.security.privateca.v1.CaPool],
@@ -4352,7 +4517,7 @@ pub mod ca_pool {
 /// contains the serial numbers of certificates that should no longer be trusted.
 ///
 /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateRevocationList {
     /// Identifier. The resource name for this
@@ -4789,6 +4954,26 @@ impl serde::ser::Serialize for CertificateRevocationList {
     }
 }
 
+impl std::fmt::Debug for CertificateRevocationList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateRevocationList");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("sequence_number", &self.sequence_number);
+        debug_struct.field("revoked_certificates", &self.revoked_certificates);
+        debug_struct.field("pem_crl", &self.pem_crl);
+        debug_struct.field("access_url", &self.access_url);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("revision_id", &self.revision_id);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CertificateRevocationList].
 pub mod certificate_revocation_list {
     #[allow(unused_imports)]
@@ -4798,7 +4983,7 @@ pub mod certificate_revocation_list {
     /// [Certificate][google.cloud.security.privateca.v1.Certificate].
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RevokedCertificate {
         /// The resource name for the
@@ -4995,6 +5180,19 @@ pub mod certificate_revocation_list {
         }
     }
 
+    impl std::fmt::Debug for RevokedCertificate {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RevokedCertificate");
+            debug_struct.field("certificate", &self.certificate);
+            debug_struct.field("hex_serial_number", &self.hex_serial_number);
+            debug_struct.field("revocation_reason", &self.revocation_reason);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The state of a
     /// [CertificateRevocationList][google.cloud.security.privateca.v1.CertificateRevocationList],
     /// indicating if it is current.
@@ -5146,7 +5344,7 @@ pub mod certificate_revocation_list {
 ///
 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
 /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Certificate {
     /// Identifier. The resource name for this
@@ -5786,6 +5984,32 @@ impl serde::ser::Serialize for Certificate {
     }
 }
 
+impl std::fmt::Debug for Certificate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Certificate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "issuer_certificate_authority",
+            &self.issuer_certificate_authority,
+        );
+        debug_struct.field("lifetime", &self.lifetime);
+        debug_struct.field("certificate_template", &self.certificate_template);
+        debug_struct.field("subject_mode", &self.subject_mode);
+        debug_struct.field("revocation_details", &self.revocation_details);
+        debug_struct.field("pem_certificate", &self.pem_certificate);
+        debug_struct.field("certificate_description", &self.certificate_description);
+        debug_struct.field("pem_certificate_chain", &self.pem_certificate_chain);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("certificate_config", &self.certificate_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Certificate].
 pub mod certificate {
     #[allow(unused_imports)]
@@ -5795,7 +6019,7 @@ pub mod certificate {
     /// [Certificate][google.cloud.security.privateca.v1.Certificate].
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RevocationDetails {
         /// Indicates why a
@@ -5973,6 +6197,18 @@ pub mod certificate {
         }
     }
 
+    impl std::fmt::Debug for RevocationDetails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RevocationDetails");
+            debug_struct.field("revocation_state", &self.revocation_state);
+            debug_struct.field("revocation_time", &self.revocation_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The config used to create a signed X.509 certificate.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -5990,7 +6226,7 @@ pub mod certificate {
 /// refers to a managed template for certificate issuance.
 ///
 /// [google.cloud.security.privateca.v1.CertificateTemplate]: crate::model::CertificateTemplate
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateTemplate {
     /// Identifier. The resource name for this
@@ -6472,13 +6708,32 @@ impl serde::ser::Serialize for CertificateTemplate {
     }
 }
 
+impl std::fmt::Debug for CertificateTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateTemplate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("maximum_lifetime", &self.maximum_lifetime);
+        debug_struct.field("predefined_values", &self.predefined_values);
+        debug_struct.field("identity_constraints", &self.identity_constraints);
+        debug_struct.field("passthrough_extensions", &self.passthrough_extensions);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An [X509Parameters][google.cloud.security.privateca.v1.X509Parameters] is
 /// used to describe certain fields of an X.509 certificate, such as the key
 /// usage fields, fields specific to CA certificates, certificate policy
 /// extensions and custom extensions.
 ///
 /// [google.cloud.security.privateca.v1.X509Parameters]: crate::model::X509Parameters
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct X509Parameters {
     /// Optional. Indicates the intended use for keys that correspond to a
@@ -6786,6 +7041,22 @@ impl serde::ser::Serialize for X509Parameters {
     }
 }
 
+impl std::fmt::Debug for X509Parameters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("X509Parameters");
+        debug_struct.field("key_usage", &self.key_usage);
+        debug_struct.field("ca_options", &self.ca_options);
+        debug_struct.field("policy_ids", &self.policy_ids);
+        debug_struct.field("aia_ocsp_servers", &self.aia_ocsp_servers);
+        debug_struct.field("name_constraints", &self.name_constraints);
+        debug_struct.field("additional_extensions", &self.additional_extensions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [X509Parameters].
 pub mod x_509_parameters {
     #[allow(unused_imports)]
@@ -6793,7 +7064,7 @@ pub mod x_509_parameters {
 
     /// Describes the X.509 basic constraints extension, per [RFC 5280
     /// section 4.2.1.9](https://tools.ietf.org/html/rfc5280#section-4.2.1.9)
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CaOptions {
         /// Optional. Refers to the "CA" boolean field in the X.509 extension.
@@ -7004,9 +7275,21 @@ pub mod x_509_parameters {
         }
     }
 
+    impl std::fmt::Debug for CaOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CaOptions");
+            debug_struct.field("is_ca", &self.is_ca);
+            debug_struct.field("max_issuer_path_length", &self.max_issuer_path_length);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Describes the X.509 name constraints extension, per
     /// <https://tools.ietf.org/html/rfc5280#section-4.2.1.10>
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NameConstraints {
         /// Indicates whether or not the name constraints are marked critical.
@@ -7394,6 +7677,25 @@ pub mod x_509_parameters {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for NameConstraints {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NameConstraints");
+            debug_struct.field("critical", &self.critical);
+            debug_struct.field("permitted_dns_names", &self.permitted_dns_names);
+            debug_struct.field("excluded_dns_names", &self.excluded_dns_names);
+            debug_struct.field("permitted_ip_ranges", &self.permitted_ip_ranges);
+            debug_struct.field("excluded_ip_ranges", &self.excluded_ip_ranges);
+            debug_struct.field("permitted_email_addresses", &self.permitted_email_addresses);
+            debug_struct.field("excluded_email_addresses", &self.excluded_email_addresses);
+            debug_struct.field("permitted_uris", &self.permitted_uris);
+            debug_struct.field("excluded_uris", &self.excluded_uris);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Describes a subordinate CA's issuers. This is either a resource name to a
@@ -7402,7 +7704,7 @@ pub mod x_509_parameters {
 /// or a PEM issuer certificate chain.
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubordinateConfig {
     pub subordinate_config:
@@ -7636,6 +7938,17 @@ impl serde::ser::Serialize for SubordinateConfig {
     }
 }
 
+impl std::fmt::Debug for SubordinateConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubordinateConfig");
+        debug_struct.field("subordinate_config", &self.subordinate_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SubordinateConfig].
 pub mod subordinate_config {
     #[allow(unused_imports)]
@@ -7643,7 +7956,7 @@ pub mod subordinate_config {
 
     /// This message describes a subordinate CA's issuer certificate chain. This
     /// wrapper exists for compatibility reasons.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SubordinateConfigChain {
         /// Required. Expected to be in leaf-to-root order according to RFC 5246.
@@ -7779,6 +8092,17 @@ pub mod subordinate_config {
         }
     }
 
+    impl std::fmt::Debug for SubordinateConfigChain {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SubordinateConfigChain");
+            debug_struct.field("pem_certificates", &self.pem_certificates);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SubordinateConfig {
@@ -7805,7 +8129,7 @@ pub mod subordinate_config {
 /// public key.
 ///
 /// [google.cloud.security.privateca.v1.PublicKey]: crate::model::PublicKey
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PublicKey {
     /// Required. A public key. The padding and encoding
@@ -7978,6 +8302,18 @@ impl serde::ser::Serialize for PublicKey {
     }
 }
 
+impl std::fmt::Debug for PublicKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PublicKey");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("format", &self.format);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PublicKey].
 pub mod public_key {
     #[allow(unused_imports)]
@@ -8127,7 +8463,7 @@ pub mod public_key {
 /// alternative to using ASN.1.
 ///
 /// [google.cloud.security.privateca.v1.CertificateConfig]: crate::model::CertificateConfig
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateConfig {
     /// Required. Specifies some of the values in a certificate that are related to
@@ -8393,6 +8729,20 @@ impl serde::ser::Serialize for CertificateConfig {
     }
 }
 
+impl std::fmt::Debug for CertificateConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateConfig");
+        debug_struct.field("subject_config", &self.subject_config);
+        debug_struct.field("x509_config", &self.x509_config);
+        debug_struct.field("public_key", &self.public_key);
+        debug_struct.field("subject_key_id", &self.subject_key_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CertificateConfig].
 pub mod certificate_config {
     #[allow(unused_imports)]
@@ -8400,7 +8750,7 @@ pub mod certificate_config {
 
     /// These values are used to create the distinguished name and subject
     /// alternative name fields in an X.509 certificate.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SubjectConfig {
         /// Optional. Contains distinguished name fields such as the common name,
@@ -8580,9 +8930,21 @@ pub mod certificate_config {
         }
     }
 
+    impl std::fmt::Debug for SubjectConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SubjectConfig");
+            debug_struct.field("subject", &self.subject);
+            debug_struct.field("subject_alt_name", &self.subject_alt_name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A KeyId identifies a specific public key, usually by hashing the public
     /// key.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KeyId {
         /// Required. The value of this KeyId encoded in lowercase hexadecimal. This
@@ -8715,6 +9077,17 @@ pub mod certificate_config {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for KeyId {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KeyId");
+            debug_struct.field("key_id", &self.key_id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A
@@ -8723,7 +9096,7 @@ pub mod certificate_config {
 /// to using ASN.1 / X.509.
 ///
 /// [google.cloud.security.privateca.v1.CertificateDescription]: crate::model::CertificateDescription
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateDescription {
     /// Describes some of the values in a certificate that are related to the
@@ -9153,6 +9526,28 @@ impl serde::ser::Serialize for CertificateDescription {
     }
 }
 
+impl std::fmt::Debug for CertificateDescription {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateDescription");
+        debug_struct.field("subject_description", &self.subject_description);
+        debug_struct.field("x509_description", &self.x509_description);
+        debug_struct.field("public_key", &self.public_key);
+        debug_struct.field("subject_key_id", &self.subject_key_id);
+        debug_struct.field("authority_key_id", &self.authority_key_id);
+        debug_struct.field("crl_distribution_points", &self.crl_distribution_points);
+        debug_struct.field(
+            "aia_issuing_certificate_urls",
+            &self.aia_issuing_certificate_urls,
+        );
+        debug_struct.field("cert_fingerprint", &self.cert_fingerprint);
+        debug_struct.field("tbs_certificate_digest", &self.tbs_certificate_digest);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CertificateDescription].
 pub mod certificate_description {
     #[allow(unused_imports)]
@@ -9160,7 +9555,7 @@ pub mod certificate_description {
 
     /// These values describe fields in an issued X.509 certificate such as the
     /// distinguished name, subject alternative names, serial number, and lifetime.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SubjectDescription {
         /// Contains distinguished name fields such as the common name, location and
@@ -9478,9 +9873,25 @@ pub mod certificate_description {
         }
     }
 
+    impl std::fmt::Debug for SubjectDescription {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SubjectDescription");
+            debug_struct.field("subject", &self.subject);
+            debug_struct.field("subject_alt_name", &self.subject_alt_name);
+            debug_struct.field("hex_serial_number", &self.hex_serial_number);
+            debug_struct.field("lifetime", &self.lifetime);
+            debug_struct.field("not_before_time", &self.not_before_time);
+            debug_struct.field("not_after_time", &self.not_after_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A KeyId identifies a specific public key, usually by hashing the public
     /// key.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KeyId {
         /// Optional. The value of this KeyId encoded in lowercase hexadecimal. This
@@ -9614,8 +10025,19 @@ pub mod certificate_description {
         }
     }
 
+    impl std::fmt::Debug for KeyId {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KeyId");
+            debug_struct.field("key_id", &self.key_id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A group of fingerprints for the x509 certificate.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CertificateFingerprint {
         /// The SHA 256 hash, encoded in hexadecimal, of the DER x509 certificate.
@@ -9747,6 +10169,17 @@ pub mod certificate_description {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for CertificateFingerprint {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CertificateFingerprint");
+            debug_struct.field("sha256_hash", &self.sha256_hash);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// An [ObjectId][google.cloud.security.privateca.v1.ObjectId] specifies an
@@ -9754,7 +10187,7 @@ pub mod certificate_description {
 /// messages.
 ///
 /// [google.cloud.security.privateca.v1.ObjectId]: crate::model::ObjectId
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectId {
     /// Required. The parts of an OID path. The most significant parts of the path
@@ -9914,12 +10347,23 @@ impl serde::ser::Serialize for ObjectId {
     }
 }
 
+impl std::fmt::Debug for ObjectId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectId");
+        debug_struct.field("object_id_path", &self.object_id_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An [X509Extension][google.cloud.security.privateca.v1.X509Extension]
 /// specifies an X.509 extension, which may be used in different parts of X.509
 /// objects like certificates, CSRs, and CRLs.
 ///
 /// [google.cloud.security.privateca.v1.X509Extension]: crate::model::X509Extension
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct X509Extension {
     /// Required. The OID for this X.509 extension.
@@ -10128,11 +10572,24 @@ impl serde::ser::Serialize for X509Extension {
     }
 }
 
+impl std::fmt::Debug for X509Extension {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("X509Extension");
+        debug_struct.field("object_id", &self.object_id);
+        debug_struct.field("critical", &self.critical);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A [KeyUsage][google.cloud.security.privateca.v1.KeyUsage] describes key usage
 /// values that may appear in an X.509 certificate.
 ///
 /// [google.cloud.security.privateca.v1.KeyUsage]: crate::model::KeyUsage
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KeyUsage {
     /// Describes high-level ways in which a key may be used.
@@ -10349,6 +10806,22 @@ impl serde::ser::Serialize for KeyUsage {
     }
 }
 
+impl std::fmt::Debug for KeyUsage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KeyUsage");
+        debug_struct.field("base_key_usage", &self.base_key_usage);
+        debug_struct.field("extended_key_usage", &self.extended_key_usage);
+        debug_struct.field(
+            "unknown_extended_key_usages",
+            &self.unknown_extended_key_usages,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [KeyUsage].
 pub mod key_usage {
     #[allow(unused_imports)]
@@ -10359,7 +10832,7 @@ pub mod key_usage {
     /// <https://tools.ietf.org/html/rfc5280#section-4.2.1.3>.
     ///
     /// [google.cloud.security.privateca.v1.KeyUsage.KeyUsageOptions]: crate::model::key_usage::KeyUsageOptions
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KeyUsageOptions {
         /// The key may be used for digital signatures.
@@ -10693,12 +11166,31 @@ pub mod key_usage {
         }
     }
 
+    impl std::fmt::Debug for KeyUsageOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KeyUsageOptions");
+            debug_struct.field("digital_signature", &self.digital_signature);
+            debug_struct.field("content_commitment", &self.content_commitment);
+            debug_struct.field("key_encipherment", &self.key_encipherment);
+            debug_struct.field("data_encipherment", &self.data_encipherment);
+            debug_struct.field("key_agreement", &self.key_agreement);
+            debug_struct.field("cert_sign", &self.cert_sign);
+            debug_struct.field("crl_sign", &self.crl_sign);
+            debug_struct.field("encipher_only", &self.encipher_only);
+            debug_struct.field("decipher_only", &self.decipher_only);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// [KeyUsage.ExtendedKeyUsageOptions][google.cloud.security.privateca.v1.KeyUsage.ExtendedKeyUsageOptions]
     /// has fields that correspond to certain common OIDs that could be specified
     /// as an extended key usage value.
     ///
     /// [google.cloud.security.privateca.v1.KeyUsage.ExtendedKeyUsageOptions]: crate::model::key_usage::ExtendedKeyUsageOptions
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExtendedKeyUsageOptions {
         /// Corresponds to OID 1.3.6.1.5.5.7.3.1. Officially described as "TLS WWW
@@ -10961,6 +11453,22 @@ pub mod key_usage {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ExtendedKeyUsageOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ExtendedKeyUsageOptions");
+            debug_struct.field("server_auth", &self.server_auth);
+            debug_struct.field("client_auth", &self.client_auth);
+            debug_struct.field("code_signing", &self.code_signing);
+            debug_struct.field("email_protection", &self.email_protection);
+            debug_struct.field("time_stamping", &self.time_stamping);
+            debug_struct.field("ocsp_signing", &self.ocsp_signing);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// [AttributeTypeAndValue][google.cloud.security.privateca.v1.AttributeTypeAndValue]
@@ -10968,7 +11476,7 @@ pub mod key_usage {
 /// to specify the attribute type.
 ///
 /// [google.cloud.security.privateca.v1.AttributeTypeAndValue]: crate::model::AttributeTypeAndValue
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttributeTypeAndValue {
     /// The value for the attribute type.
@@ -11217,6 +11725,18 @@ impl serde::ser::Serialize for AttributeTypeAndValue {
     }
 }
 
+impl std::fmt::Debug for AttributeTypeAndValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttributeTypeAndValue");
+        debug_struct.field("value", &self.value);
+        debug_struct.field("attribute_type", &self.attribute_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AttributeTypeAndValue].
 pub mod attribute_type_and_value {
     #[allow(unused_imports)]
@@ -11238,7 +11758,7 @@ pub mod attribute_type_and_value {
 /// distinguished name.
 ///
 /// [google.cloud.security.privateca.v1.RelativeDistinguishedName]: crate::model::RelativeDistinguishedName
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RelativeDistinguishedName {
     /// Attributes describes the attribute value assertions in the RDN.
@@ -11374,11 +11894,22 @@ impl serde::ser::Serialize for RelativeDistinguishedName {
     }
 }
 
+impl std::fmt::Debug for RelativeDistinguishedName {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelativeDistinguishedName");
+        debug_struct.field("attributes", &self.attributes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// [Subject][google.cloud.security.privateca.v1.Subject] describes parts of a
 /// distinguished name that, in turn, describes the subject of the certificate.
 ///
 /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subject {
     /// The "common name" of the subject.
@@ -11715,13 +12246,32 @@ impl serde::ser::Serialize for Subject {
     }
 }
 
+impl std::fmt::Debug for Subject {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Subject");
+        debug_struct.field("common_name", &self.common_name);
+        debug_struct.field("country_code", &self.country_code);
+        debug_struct.field("organization", &self.organization);
+        debug_struct.field("organizational_unit", &self.organizational_unit);
+        debug_struct.field("locality", &self.locality);
+        debug_struct.field("province", &self.province);
+        debug_struct.field("street_address", &self.street_address);
+        debug_struct.field("postal_code", &self.postal_code);
+        debug_struct.field("rdn_sequence", &self.rdn_sequence);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// [SubjectAltNames][google.cloud.security.privateca.v1.SubjectAltNames]
 /// corresponds to a more modern way of listing what the asserted identity is in
 /// a certificate (i.e., compared to the "common name" in the distinguished
 /// name).
 ///
 /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubjectAltNames {
     /// Contains only valid, fully-qualified host names.
@@ -11967,6 +12517,21 @@ impl serde::ser::Serialize for SubjectAltNames {
     }
 }
 
+impl std::fmt::Debug for SubjectAltNames {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubjectAltNames");
+        debug_struct.field("dns_names", &self.dns_names);
+        debug_struct.field("uris", &self.uris);
+        debug_struct.field("email_addresses", &self.email_addresses);
+        debug_struct.field("ip_addresses", &self.ip_addresses);
+        debug_struct.field("custom_sans", &self.custom_sans);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes constraints on a
 /// [Certificate][google.cloud.security.privateca.v1.Certificate]'s
 /// [Subject][google.cloud.security.privateca.v1.Subject] and
@@ -11975,7 +12540,7 @@ impl serde::ser::Serialize for SubjectAltNames {
 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
 /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
 /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateIdentityConstraints {
     /// Optional. A CEL expression that may be used to validate the resolved X.509
@@ -12218,9 +12783,25 @@ impl serde::ser::Serialize for CertificateIdentityConstraints {
     }
 }
 
+impl std::fmt::Debug for CertificateIdentityConstraints {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateIdentityConstraints");
+        debug_struct.field("cel_expression", &self.cel_expression);
+        debug_struct.field("allow_subject_passthrough", &self.allow_subject_passthrough);
+        debug_struct.field(
+            "allow_subject_alt_names_passthrough",
+            &self.allow_subject_alt_names_passthrough,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a set of X.509 extensions that may be part of some certificate
 /// issuance controls.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateExtensionConstraints {
     /// Optional. A set of named X.509 extensions. Will be combined with
@@ -12391,6 +12972,18 @@ impl serde::ser::Serialize for CertificateExtensionConstraints {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for CertificateExtensionConstraints {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateExtensionConstraints");
+        debug_struct.field("known_extensions", &self.known_extensions);
+        debug_struct.field("additional_extensions", &self.additional_extensions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -12609,7 +13202,7 @@ pub mod certificate_extension_constraints {
 /// [CertificateAuthorityService.CreateCertificate][google.cloud.security.privateca.v1.CertificateAuthorityService.CreateCertificate].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.CreateCertificate]: crate::client::CertificateAuthorityService::create_certificate
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCertificateRequest {
     /// Required. The resource name of the
@@ -12948,11 +13541,30 @@ impl serde::ser::Serialize for CreateCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCertificateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("certificate_id", &self.certificate_id);
+        debug_struct.field("certificate", &self.certificate);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field(
+            "issuing_certificate_authority_id",
+            &self.issuing_certificate_authority_id,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.GetCertificate][google.cloud.security.privateca.v1.CertificateAuthorityService.GetCertificate].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.GetCertificate]: crate::client::CertificateAuthorityService::get_certificate
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateRequest {
     /// Required. The [name][google.cloud.security.privateca.v1.Certificate.name]
@@ -13086,11 +13698,22 @@ impl serde::ser::Serialize for GetCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for GetCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCertificateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.ListCertificates][google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificates].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificates]: crate::client::CertificateAuthorityService::list_certificates
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificatesRequest {
     /// Required. The resource name of the location associated with the
@@ -13357,11 +13980,26 @@ impl serde::ser::Serialize for ListCertificatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListCertificatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [CertificateAuthorityService.ListCertificates][google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificates].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificates]: crate::client::CertificateAuthorityService::list_certificates
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificatesResponse {
     /// The list of [Certificates][google.cloud.security.privateca.v1.Certificate].
@@ -13565,11 +14203,24 @@ impl serde::ser::Serialize for ListCertificatesResponse {
     }
 }
 
+impl std::fmt::Debug for ListCertificatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificatesResponse");
+        debug_struct.field("certificates", &self.certificates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.RevokeCertificate][google.cloud.security.privateca.v1.CertificateAuthorityService.RevokeCertificate].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.RevokeCertificate]: crate::client::CertificateAuthorityService::revoke_certificate
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RevokeCertificateRequest {
     /// Required. The resource name for this
@@ -13771,11 +14422,24 @@ impl serde::ser::Serialize for RevokeCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for RevokeCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RevokeCertificateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("reason", &self.reason);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.UpdateCertificate][google.cloud.security.privateca.v1.CertificateAuthorityService.UpdateCertificate].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.UpdateCertificate]: crate::client::CertificateAuthorityService::update_certificate
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCertificateRequest {
     /// Required. [Certificate][google.cloud.security.privateca.v1.Certificate]
@@ -13991,11 +14655,24 @@ impl serde::ser::Serialize for UpdateCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCertificateRequest");
+        debug_struct.field("certificate", &self.certificate);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.ActivateCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.ActivateCertificateAuthority].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ActivateCertificateAuthority]: crate::client::CertificateAuthorityService::activate_certificate_authority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ActivateCertificateAuthorityRequest {
     /// Required. The resource name for this
@@ -14234,11 +14911,25 @@ impl serde::ser::Serialize for ActivateCertificateAuthorityRequest {
     }
 }
 
+impl std::fmt::Debug for ActivateCertificateAuthorityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ActivateCertificateAuthorityRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("pem_ca_certificate", &self.pem_ca_certificate);
+        debug_struct.field("subordinate_config", &self.subordinate_config);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.CreateCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.CreateCertificateAuthority].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.CreateCertificateAuthority]: crate::client::CertificateAuthorityService::create_certificate_authority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCertificateAuthorityRequest {
     /// Required. The resource name of the
@@ -14481,11 +15172,25 @@ impl serde::ser::Serialize for CreateCertificateAuthorityRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCertificateAuthorityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCertificateAuthorityRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("certificate_authority_id", &self.certificate_authority_id);
+        debug_struct.field("certificate_authority", &self.certificate_authority);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.DisableCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.DisableCertificateAuthority].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.DisableCertificateAuthority]: crate::client::CertificateAuthorityService::disable_certificate_authority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableCertificateAuthorityRequest {
     /// Required. The resource name for this
@@ -14687,11 +15392,27 @@ impl serde::ser::Serialize for DisableCertificateAuthorityRequest {
     }
 }
 
+impl std::fmt::Debug for DisableCertificateAuthorityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableCertificateAuthorityRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field(
+            "ignore_dependent_resources",
+            &self.ignore_dependent_resources,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.EnableCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.EnableCertificateAuthority].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.EnableCertificateAuthority]: crate::client::CertificateAuthorityService::enable_certificate_authority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableCertificateAuthorityRequest {
     /// Required. The resource name for this
@@ -14861,11 +15582,23 @@ impl serde::ser::Serialize for EnableCertificateAuthorityRequest {
     }
 }
 
+impl std::fmt::Debug for EnableCertificateAuthorityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableCertificateAuthorityRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.FetchCertificateAuthorityCsr][google.cloud.security.privateca.v1.CertificateAuthorityService.FetchCertificateAuthorityCsr].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.FetchCertificateAuthorityCsr]: crate::client::CertificateAuthorityService::fetch_certificate_authority_csr
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchCertificateAuthorityCsrRequest {
     /// Required. The resource name for this
@@ -14998,11 +15731,22 @@ impl serde::ser::Serialize for FetchCertificateAuthorityCsrRequest {
     }
 }
 
+impl std::fmt::Debug for FetchCertificateAuthorityCsrRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchCertificateAuthorityCsrRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [CertificateAuthorityService.FetchCertificateAuthorityCsr][google.cloud.security.privateca.v1.CertificateAuthorityService.FetchCertificateAuthorityCsr].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.FetchCertificateAuthorityCsr]: crate::client::CertificateAuthorityService::fetch_certificate_authority_csr
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchCertificateAuthorityCsrResponse {
     /// Output only. The PEM-encoded signed certificate signing request (CSR).
@@ -15132,11 +15876,22 @@ impl serde::ser::Serialize for FetchCertificateAuthorityCsrResponse {
     }
 }
 
+impl std::fmt::Debug for FetchCertificateAuthorityCsrResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchCertificateAuthorityCsrResponse");
+        debug_struct.field("pem_csr", &self.pem_csr);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.GetCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.GetCertificateAuthority].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.GetCertificateAuthority]: crate::client::CertificateAuthorityService::get_certificate_authority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateAuthorityRequest {
     /// Required. The
@@ -15271,11 +16026,22 @@ impl serde::ser::Serialize for GetCertificateAuthorityRequest {
     }
 }
 
+impl std::fmt::Debug for GetCertificateAuthorityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCertificateAuthorityRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.ListCertificateAuthorities][google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateAuthorities].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateAuthorities]: crate::client::CertificateAuthorityService::list_certificate_authorities
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateAuthoritiesRequest {
     /// Required. The resource name of the
@@ -15540,11 +16306,26 @@ impl serde::ser::Serialize for ListCertificateAuthoritiesRequest {
     }
 }
 
+impl std::fmt::Debug for ListCertificateAuthoritiesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateAuthoritiesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [CertificateAuthorityService.ListCertificateAuthorities][google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateAuthorities].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateAuthorities]: crate::client::CertificateAuthorityService::list_certificate_authorities
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateAuthoritiesResponse {
     /// The list of
@@ -15754,11 +16535,24 @@ impl serde::ser::Serialize for ListCertificateAuthoritiesResponse {
     }
 }
 
+impl std::fmt::Debug for ListCertificateAuthoritiesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateAuthoritiesResponse");
+        debug_struct.field("certificate_authorities", &self.certificate_authorities);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.UndeleteCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.UndeleteCertificateAuthority].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.UndeleteCertificateAuthority]: crate::client::CertificateAuthorityService::undelete_certificate_authority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteCertificateAuthorityRequest {
     /// Required. The resource name for this
@@ -15928,11 +16722,23 @@ impl serde::ser::Serialize for UndeleteCertificateAuthorityRequest {
     }
 }
 
+impl std::fmt::Debug for UndeleteCertificateAuthorityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteCertificateAuthorityRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.DeleteCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.DeleteCertificateAuthority].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.DeleteCertificateAuthority]: crate::client::CertificateAuthorityService::delete_certificate_authority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCertificateAuthorityRequest {
     /// Required. The resource name for this
@@ -16191,11 +16997,32 @@ impl serde::ser::Serialize for DeleteCertificateAuthorityRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCertificateAuthorityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCertificateAuthorityRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field(
+            "ignore_active_certificates",
+            &self.ignore_active_certificates,
+        );
+        debug_struct.field("skip_grace_period", &self.skip_grace_period);
+        debug_struct.field(
+            "ignore_dependent_resources",
+            &self.ignore_dependent_resources,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.UpdateCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.UpdateCertificateAuthority].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.UpdateCertificateAuthority]: crate::client::CertificateAuthorityService::update_certificate_authority
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCertificateAuthorityRequest {
     /// Required.
@@ -16413,11 +17240,24 @@ impl serde::ser::Serialize for UpdateCertificateAuthorityRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCertificateAuthorityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCertificateAuthorityRequest");
+        debug_struct.field("certificate_authority", &self.certificate_authority);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.CreateCaPool][google.cloud.security.privateca.v1.CertificateAuthorityService.CreateCaPool].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.CreateCaPool]: crate::client::CertificateAuthorityService::create_ca_pool
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCaPoolRequest {
     /// Required. The resource name of the location associated with the
@@ -16652,11 +17492,25 @@ impl serde::ser::Serialize for CreateCaPoolRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCaPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCaPoolRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("ca_pool_id", &self.ca_pool_id);
+        debug_struct.field("ca_pool", &self.ca_pool);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.UpdateCaPool][google.cloud.security.privateca.v1.CertificateAuthorityService.UpdateCaPool].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.UpdateCaPool]: crate::client::CertificateAuthorityService::update_ca_pool
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCaPoolRequest {
     /// Required. [CaPool][google.cloud.security.privateca.v1.CaPool] with updated
@@ -16873,11 +17727,24 @@ impl serde::ser::Serialize for UpdateCaPoolRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCaPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCaPoolRequest");
+        debug_struct.field("ca_pool", &self.ca_pool);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.DeleteCaPool][google.cloud.security.privateca.v1.CertificateAuthorityService.DeleteCaPool].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.DeleteCaPool]: crate::client::CertificateAuthorityService::delete_ca_pool
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCaPoolRequest {
     /// Required. The resource name for this
@@ -17079,11 +17946,27 @@ impl serde::ser::Serialize for DeleteCaPoolRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCaPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCaPoolRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field(
+            "ignore_dependent_resources",
+            &self.ignore_dependent_resources,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.FetchCaCerts][google.cloud.security.privateca.v1.CertificateAuthorityService.FetchCaCerts].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.FetchCaCerts]: crate::client::CertificateAuthorityService::fetch_ca_certs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchCaCertsRequest {
     /// Required. The resource name for the
@@ -17254,11 +18137,23 @@ impl serde::ser::Serialize for FetchCaCertsRequest {
     }
 }
 
+impl std::fmt::Debug for FetchCaCertsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchCaCertsRequest");
+        debug_struct.field("ca_pool", &self.ca_pool);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [CertificateAuthorityService.FetchCaCerts][google.cloud.security.privateca.v1.CertificateAuthorityService.FetchCaCerts].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.FetchCaCerts]: crate::client::CertificateAuthorityService::fetch_ca_certs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchCaCertsResponse {
     /// The PEM encoded CA certificate chains of all certificate authorities in
@@ -17399,12 +18294,23 @@ impl serde::ser::Serialize for FetchCaCertsResponse {
     }
 }
 
+impl std::fmt::Debug for FetchCaCertsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchCaCertsResponse");
+        debug_struct.field("ca_certs", &self.ca_certs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FetchCaCertsResponse].
 pub mod fetch_ca_certs_response {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CertChain {
         /// The certificates that form the CA chain, from leaf to root order.
@@ -17538,13 +18444,24 @@ pub mod fetch_ca_certs_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for CertChain {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CertChain");
+            debug_struct.field("certificates", &self.certificates);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request message for
 /// [CertificateAuthorityService.GetCaPool][google.cloud.security.privateca.v1.CertificateAuthorityService.GetCaPool].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.GetCaPool]: crate::client::CertificateAuthorityService::get_ca_pool
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCaPoolRequest {
     /// Required. The [name][google.cloud.security.privateca.v1.CaPool.name] of the
@@ -17677,11 +18594,22 @@ impl serde::ser::Serialize for GetCaPoolRequest {
     }
 }
 
+impl std::fmt::Debug for GetCaPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCaPoolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.ListCaPools][google.cloud.security.privateca.v1.CertificateAuthorityService.ListCaPools].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ListCaPools]: crate::client::CertificateAuthorityService::list_ca_pools
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCaPoolsRequest {
     /// Required. The resource name of the location associated with the
@@ -17943,11 +18871,26 @@ impl serde::ser::Serialize for ListCaPoolsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCaPoolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCaPoolsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [CertificateAuthorityService.ListCaPools][google.cloud.security.privateca.v1.CertificateAuthorityService.ListCaPools].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ListCaPools]: crate::client::CertificateAuthorityService::list_ca_pools
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCaPoolsResponse {
     /// The list of [CaPools][google.cloud.security.privateca.v1.CaPool].
@@ -18152,11 +19095,24 @@ impl serde::ser::Serialize for ListCaPoolsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCaPoolsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCaPoolsResponse");
+        debug_struct.field("ca_pools", &self.ca_pools);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.GetCertificateRevocationList][google.cloud.security.privateca.v1.CertificateAuthorityService.GetCertificateRevocationList].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.GetCertificateRevocationList]: crate::client::CertificateAuthorityService::get_certificate_revocation_list
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateRevocationListRequest {
     /// Required. The
@@ -18292,11 +19248,22 @@ impl serde::ser::Serialize for GetCertificateRevocationListRequest {
     }
 }
 
+impl std::fmt::Debug for GetCertificateRevocationListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCertificateRevocationListRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.ListCertificateRevocationLists][google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateRevocationLists].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateRevocationLists]: crate::client::CertificateAuthorityService::list_certificate_revocation_lists
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateRevocationListsRequest {
     /// Required. The resource name of the location associated with the
@@ -18560,11 +19527,26 @@ impl serde::ser::Serialize for ListCertificateRevocationListsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCertificateRevocationListsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateRevocationListsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [CertificateAuthorityService.ListCertificateRevocationLists][google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateRevocationLists].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateRevocationLists]: crate::client::CertificateAuthorityService::list_certificate_revocation_lists
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateRevocationListsResponse {
     /// The list of
@@ -18782,11 +19764,27 @@ impl serde::ser::Serialize for ListCertificateRevocationListsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCertificateRevocationListsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateRevocationListsResponse");
+        debug_struct.field(
+            "certificate_revocation_lists",
+            &self.certificate_revocation_lists,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.UpdateCertificateRevocationList][google.cloud.security.privateca.v1.CertificateAuthorityService.UpdateCertificateRevocationList].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.UpdateCertificateRevocationList]: crate::client::CertificateAuthorityService::update_certificate_revocation_list
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCertificateRevocationListRequest {
     /// Required.
@@ -19012,11 +20010,27 @@ impl serde::ser::Serialize for UpdateCertificateRevocationListRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCertificateRevocationListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCertificateRevocationListRequest");
+        debug_struct.field(
+            "certificate_revocation_list",
+            &self.certificate_revocation_list,
+        );
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.CreateCertificateTemplate][google.cloud.security.privateca.v1.CertificateAuthorityService.CreateCertificateTemplate].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.CreateCertificateTemplate]: crate::client::CertificateAuthorityService::create_certificate_template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCertificateTemplateRequest {
     /// Required. The resource name of the location associated with the
@@ -19255,11 +20269,25 @@ impl serde::ser::Serialize for CreateCertificateTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCertificateTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCertificateTemplateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("certificate_template_id", &self.certificate_template_id);
+        debug_struct.field("certificate_template", &self.certificate_template);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.DeleteCertificateTemplate][google.cloud.security.privateca.v1.CertificateAuthorityService.DeleteCertificateTemplate].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.DeleteCertificateTemplate]: crate::client::CertificateAuthorityService::delete_certificate_template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCertificateTemplateRequest {
     /// Required. The resource name for this
@@ -19429,11 +20457,23 @@ impl serde::ser::Serialize for DeleteCertificateTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCertificateTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCertificateTemplateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.GetCertificateTemplate][google.cloud.security.privateca.v1.CertificateAuthorityService.GetCertificateTemplate].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.GetCertificateTemplate]: crate::client::CertificateAuthorityService::get_certificate_template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateTemplateRequest {
     /// Required. The
@@ -19568,11 +20608,22 @@ impl serde::ser::Serialize for GetCertificateTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for GetCertificateTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCertificateTemplateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.ListCertificateTemplates][google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateTemplates].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateTemplates]: crate::client::CertificateAuthorityService::list_certificate_templates
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateTemplatesRequest {
     /// Required. The resource name of the location associated with the
@@ -19835,11 +20886,26 @@ impl serde::ser::Serialize for ListCertificateTemplatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListCertificateTemplatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateTemplatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [CertificateAuthorityService.ListCertificateTemplates][google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateTemplates].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ListCertificateTemplates]: crate::client::CertificateAuthorityService::list_certificate_templates
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateTemplatesResponse {
     /// The list of
@@ -20049,11 +21115,24 @@ impl serde::ser::Serialize for ListCertificateTemplatesResponse {
     }
 }
 
+impl std::fmt::Debug for ListCertificateTemplatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateTemplatesResponse");
+        debug_struct.field("certificate_templates", &self.certificate_templates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CertificateAuthorityService.UpdateCertificateTemplate][google.cloud.security.privateca.v1.CertificateAuthorityService.UpdateCertificateTemplate].
 ///
 /// [google.cloud.security.privateca.v1.CertificateAuthorityService.UpdateCertificateTemplate]: crate::client::CertificateAuthorityService::update_certificate_template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCertificateTemplateRequest {
     /// Required.
@@ -20271,8 +21350,21 @@ impl serde::ser::Serialize for UpdateCertificateTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCertificateTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCertificateTemplateRequest");
+        debug_struct.field("certificate_template", &self.certificate_template);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -20577,6 +21669,23 @@ impl serde::ser::Serialize for OperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

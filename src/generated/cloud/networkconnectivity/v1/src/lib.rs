@@ -31,6 +31,7 @@
 //!
 //! * [CrossNetworkAutomationService](client/struct.CrossNetworkAutomationService.html)
 //! * [HubService](client/struct.HubService.html)
+//! * [InternalRangeService](client/struct.InternalRangeService.html)
 //! * [PolicyBasedRoutingService](client/struct.PolicyBasedRoutingService.html)
 
 #![allow(deprecated)]

@@ -92,6 +92,7 @@ members = [
   "src/generated/cloud/bigquery/analyticshub/v1",
   "src/generated/cloud/bigquery/connection/v1",
   "src/generated/cloud/bigquery/datapolicies/v1",
+  "src/generated/cloud/bigquery/datapolicies/v2",
   "src/generated/cloud/bigquery/datatransfer/v1",
   "src/generated/cloud/bigquery/migration/v2",
   "src/generated/cloud/bigquery/reservation/v1",
@@ -106,6 +107,7 @@ members = [
   "src/generated/cloud/common",
   "src/generated/cloud/confidentialcomputing/v1",
   "src/generated/cloud/config/v1",
+  "src/generated/cloud/configdelivery/v1",
   "src/generated/cloud/connectors/v1",
   "src/generated/cloud/contactcenterinsights/v1",
   "src/generated/cloud/datacatalog/lineage/v1",
@@ -334,7 +336,7 @@ tokio-stream   = { default-features = false, version = "0.1" }
 tokio-test     = { default-features = false, version = "0.4" }
 
 # Local packages used as dependencies
-auth                          = { version = "0.22.1", path = "src/auth", package = "google-cloud-auth" }
+auth                          = { version = "0.22.2", path = "src/auth", package = "google-cloud-auth" }
 gax                           = { version = "0.23.2", path = "src/gax", package = "google-cloud-gax" }
 gaxi                          = { version = "0.4.1", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "0.4.2", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
@@ -352,6 +354,7 @@ rpc_context                   = { version = "0.4.2", path = "src/generated/rpc/c
 apps_script_type              = { version = "0.4.2", path = "src/generated/apps/script/gtype", package = "google-cloud-apps-script-type" }
 accesscontextmanager_v1       = { version = "0.4.2", path = "src/generated/identity/accesscontextmanager/v1", package = "google-cloud-identity-accesscontextmanager-v1" }
 orgpolicy_v1                  = { version = "0.4.2", path = "src/generated/cloud/orgpolicy/v1", package = "google-cloud-orgpolicy-v1" }
+orgpolicy_v2                  = { version = "0.4.2", path = "src/generated/cloud/orgpolicy/v2", package = "google-cloud-orgpolicy-v2" }
 osconfig_v1                   = { version = "0.4.2", path = "src/generated/cloud/osconfig/v1", package = "google-cloud-osconfig-v1" }
 gkehub_configmanagement_v1    = { version = "0.4.2", path = "src/generated/cloud/gkehub/configmanagement/v1", package = "google-cloud-gkehub-configmanagement-v1" }
 gkehub_multiclusteringress_v1 = { version = "0.4.2", path = "src/generated/cloud/gkehub/multiclusteringress/v1", package = "google-cloud-gkehub-multiclusteringress-v1" }
@@ -366,3 +369,6 @@ oslogin_common                = { version = "0.4.2", path = "src/generated/oslog
 iam_v2                        = { version = "0.4.2", path = "src/generated/iam/v2", package = "google-cloud-iam-v2" }
 recommender                   = { version = "0.4.2", path = "src/generated/cloud/recommender/v1", package = "google-cloud-recommender-v1" }
 accesscontextmanager_type     = { version = "0.4.2", path = "src/generated/identity/accesscontextmanager/type", package = "google-cloud-identity-accesscontextmanager-type" }
+
+# Local test package
+integration-tests = { path = "src/integration-tests" }

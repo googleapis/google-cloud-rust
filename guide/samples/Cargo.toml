@@ -36,12 +36,19 @@ google-cloud-language-v2 = { version = "0.4.2", path = "../../src/generated/clou
 # ANCHOR_END: language
 google-cloud-rpc = { version = "0.4.2", path = "../../src/generated/rpc/types" }
 google-cloud-wkt = { version = "0.5.2", path = "../../src/wkt" }
+anyhow.workspace = true
 
 # ANCHOR: speech
 [dependencies.google-cloud-speech-v2]
 version = "0.4.2"
 # ANCHOR_END: speech
 path = "../../src/generated/cloud/speech/v2"
+
+# ANCHOR: storage
+[dependencies.google-cloud-storage]
+version = "0.25.0-preview4"
+# ANCHOR_END: storage
+path = "../../src/storage"
 
 # ANCHOR: serde_json
 [dependencies.serde_json]
@@ -94,8 +101,13 @@ path = "../../src/gax"
 [dev-dependencies]
 mockall = "0.13"
 # ANCHOR_END: mockall
-rand                = "0.9"
+anyhow.workspace    = true
+bytes.workspace     = true
+rand.workspace      = true
+tempfile.workspace  = true
 test-case.workspace = true
+# Local
+integration-tests.workspace = true
 
 # ANCHOR: tokio
 [dependencies.tokio]
@@ -106,3 +118,4 @@ features = ["full", "macros"]
 [features]
 run-integration-tests = []
 log-integration-tests = []
+run-large-downloads   = []

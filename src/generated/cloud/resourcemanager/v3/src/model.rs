@@ -35,7 +35,7 @@ extern crate wkt;
 
 /// A folder in an organization's resource hierarchy, used to
 /// organize that organization's resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Folder {
     /// Output only. The resource name of the folder.
@@ -388,6 +388,24 @@ impl serde::ser::Serialize for Folder {
     }
 }
 
+impl std::fmt::Debug for Folder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Folder");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Folder].
 pub mod folder {
     #[allow(unused_imports)]
@@ -527,7 +545,7 @@ pub mod folder {
 }
 
 /// The GetFolder request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFolderRequest {
     /// Required. The resource name of the folder to retrieve.
@@ -657,8 +675,19 @@ impl serde::ser::Serialize for GetFolderRequest {
     }
 }
 
+impl std::fmt::Debug for GetFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFolderRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ListFolders request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFoldersRequest {
     /// Required. The name of the parent resource whose folders are being listed.
@@ -895,8 +924,22 @@ impl serde::ser::Serialize for ListFoldersRequest {
     }
 }
 
+impl std::fmt::Debug for ListFoldersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFoldersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("show_deleted", &self.show_deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ListFolders response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFoldersResponse {
     /// A possibly paginated list of folders that are direct descendants of
@@ -1069,8 +1112,20 @@ impl serde::ser::Serialize for ListFoldersResponse {
     }
 }
 
+impl std::fmt::Debug for ListFoldersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFoldersResponse");
+        debug_struct.field("folders", &self.folders);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for searching folders.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchFoldersRequest {
     /// Optional. The maximum number of folders to return in the response. The
@@ -1300,8 +1355,21 @@ impl serde::ser::Serialize for SearchFoldersRequest {
     }
 }
 
+impl std::fmt::Debug for SearchFoldersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchFoldersRequest");
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("query", &self.query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for searching folders.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchFoldersResponse {
     /// A possibly paginated folder search results.
@@ -1474,8 +1542,20 @@ impl serde::ser::Serialize for SearchFoldersResponse {
     }
 }
 
+impl std::fmt::Debug for SearchFoldersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchFoldersResponse");
+        debug_struct.field("folders", &self.folders);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The CreateFolder request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFolderRequest {
     /// Required. The folder being created, only the display name and parent will
@@ -1616,8 +1696,19 @@ impl serde::ser::Serialize for CreateFolderRequest {
     }
 }
 
+impl std::fmt::Debug for CreateFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateFolderRequest");
+        debug_struct.field("folder", &self.folder);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata pertaining to the Folder creation process.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFolderMetadata {
     /// The display name of the folder.
@@ -1772,6 +1863,18 @@ impl serde::ser::Serialize for CreateFolderMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateFolderMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateFolderMetadata");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request sent to the
 /// [UpdateFolder][google.cloud.resourcemanager.v3.Folder.UpdateFolder]
 /// method.
@@ -1782,7 +1885,7 @@ impl serde::ser::Serialize for CreateFolderMetadata {
 /// change the `parent` field.
 ///
 /// [google.cloud.resourcemanager.v3.Folders.MoveFolder]: crate::client::Folders::move_folder
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFolderRequest {
     /// Required. The new definition of the Folder. It must include the `name`
@@ -1960,9 +2063,21 @@ impl serde::ser::Serialize for UpdateFolderRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFolderRequest");
+        debug_struct.field("folder", &self.folder);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by UpdateFolder.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFolderMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2064,8 +2179,18 @@ impl serde::ser::Serialize for UpdateFolderMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateFolderMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFolderMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The MoveFolder request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveFolderRequest {
     /// Required. The resource name of the Folder to move.
@@ -2225,8 +2350,20 @@ impl serde::ser::Serialize for MoveFolderRequest {
     }
 }
 
+impl std::fmt::Debug for MoveFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveFolderRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("destination_parent", &self.destination_parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata pertaining to the folder move process.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveFolderMetadata {
     /// The display name of the folder.
@@ -2409,8 +2546,21 @@ impl serde::ser::Serialize for MoveFolderMetadata {
     }
 }
 
+impl std::fmt::Debug for MoveFolderMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveFolderMetadata");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("source_parent", &self.source_parent);
+        debug_struct.field("destination_parent", &self.destination_parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The DeleteFolder request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFolderRequest {
     /// Required. The resource name of the folder to be deleted.
@@ -2540,9 +2690,20 @@ impl serde::ser::Serialize for DeleteFolderRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFolderRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A status object which is used as the `metadata` field for the `Operation`
 /// returned by `DeleteFolder`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFolderMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2644,8 +2805,18 @@ impl serde::ser::Serialize for DeleteFolderMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteFolderMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFolderMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The UndeleteFolder request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteFolderRequest {
     /// Required. The resource name of the folder to undelete.
@@ -2775,9 +2946,20 @@ impl serde::ser::Serialize for UndeleteFolderRequest {
     }
 }
 
+impl std::fmt::Debug for UndeleteFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteFolderRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A status object which is used as the `metadata` field for the `Operation`
 /// returned by `UndeleteFolder`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteFolderMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2879,9 +3061,19 @@ impl serde::ser::Serialize for UndeleteFolderMetadata {
     }
 }
 
+impl std::fmt::Debug for UndeleteFolderMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteFolderMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The root node in the resource hierarchy to which a particular entity's
 /// (a company, for example) resources belong.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Organization {
     /// Output only. The resource name of the organization. This is the
@@ -3273,6 +3465,24 @@ impl serde::ser::Serialize for Organization {
     }
 }
 
+impl std::fmt::Debug for Organization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Organization");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("owner", &self.owner);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Organization].
 pub mod organization {
     #[allow(unused_imports)]
@@ -3426,7 +3636,7 @@ pub mod organization {
 
 /// The request sent to the `GetOrganization` method. The `name` field is
 /// required. `organization_id` is no longer accepted.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrganizationRequest {
     /// Required. The resource name of the Organization to fetch. This is the
@@ -3557,8 +3767,19 @@ impl serde::ser::Serialize for GetOrganizationRequest {
     }
 }
 
+impl std::fmt::Debug for GetOrganizationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOrganizationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request sent to the `SearchOrganizations` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchOrganizationsRequest {
     /// Optional. The maximum number of organizations to return in the response.
@@ -3775,8 +3996,21 @@ impl serde::ser::Serialize for SearchOrganizationsRequest {
     }
 }
 
+impl std::fmt::Debug for SearchOrganizationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchOrganizationsRequest");
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("query", &self.query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response returned from the `SearchOrganizations` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchOrganizationsResponse {
     /// The list of Organizations that matched the search query, possibly
@@ -3952,9 +4186,21 @@ impl serde::ser::Serialize for SearchOrganizationsResponse {
     }
 }
 
+impl std::fmt::Debug for SearchOrganizationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchOrganizationsResponse");
+        debug_struct.field("organizations", &self.organizations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A status object which is used as the `metadata` field for the operation
 /// returned by DeleteOrganization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteOrganizationMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4056,9 +4302,19 @@ impl serde::ser::Serialize for DeleteOrganizationMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteOrganizationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteOrganizationMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by UndeleteOrganization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteOrganizationMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4160,10 +4416,20 @@ impl serde::ser::Serialize for UndeleteOrganizationMetadata {
     }
 }
 
+impl std::fmt::Debug for UndeleteOrganizationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteOrganizationMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A project is a high-level Google Cloud entity. It is a
 /// container for ACLs, APIs, App Engine Apps, VMs, and other
 /// Google Cloud Platform resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Project {
     /// Output only. The unique resource name of the project. It is an int64
@@ -4586,6 +4852,26 @@ impl serde::ser::Serialize for Project {
     }
 }
 
+impl std::fmt::Debug for Project {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Project");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Project].
 pub mod project {
     #[allow(unused_imports)]
@@ -4737,7 +5023,7 @@ pub mod project {
 /// method.
 ///
 /// [google.cloud.resourcemanager.v3.Projects.GetProject]: crate::client::Projects::get_project
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProjectRequest {
     /// Required. The name of the project (for example, `projects/415104041262`).
@@ -4866,12 +5152,23 @@ impl serde::ser::Serialize for GetProjectRequest {
     }
 }
 
+impl std::fmt::Debug for GetProjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProjectRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request sent to the
 /// [ListProjects][google.cloud.resourcemanager.v3.Projects.ListProjects]
 /// method.
 ///
 /// [google.cloud.resourcemanager.v3.Projects.ListProjects]: crate::client::Projects::list_projects
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProjectsRequest {
     /// Required. The name of the parent resource whose projects are being listed.
@@ -5103,6 +5400,20 @@ impl serde::ser::Serialize for ListProjectsRequest {
     }
 }
 
+impl std::fmt::Debug for ListProjectsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProjectsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("show_deleted", &self.show_deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A page of the response received from the
 /// [ListProjects][google.cloud.resourcemanager.v3.Projects.ListProjects]
 /// method.
@@ -5115,7 +5426,7 @@ impl serde::ser::Serialize for ListProjectsRequest {
 /// still have a `next_page_token`.
 ///
 /// [google.cloud.resourcemanager.v3.Projects.ListProjects]: crate::client::Projects::list_projects
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProjectsResponse {
     /// The list of Projects under the parent. This list can be paginated.
@@ -5296,12 +5607,24 @@ impl serde::ser::Serialize for ListProjectsResponse {
     }
 }
 
+impl std::fmt::Debug for ListProjectsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProjectsResponse");
+        debug_struct.field("projects", &self.projects);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request sent to the
 /// [SearchProjects][google.cloud.resourcemanager.v3.Projects.SearchProjects]
 /// method.
 ///
 /// [google.cloud.resourcemanager.v3.Projects.SearchProjects]: crate::client::Projects::search_projects
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchProjectsRequest {
     /// Optional. A query string for searching for projects that the caller has
@@ -5533,6 +5856,19 @@ impl serde::ser::Serialize for SearchProjectsRequest {
     }
 }
 
+impl std::fmt::Debug for SearchProjectsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchProjectsRequest");
+        debug_struct.field("query", &self.query);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A page of the response received from the
 /// [SearchProjects][google.cloud.resourcemanager.v3.Projects.SearchProjects]
 /// method.
@@ -5542,7 +5878,7 @@ impl serde::ser::Serialize for SearchProjectsRequest {
 /// retrieve the next request page.
 ///
 /// [google.cloud.resourcemanager.v3.Projects.SearchProjects]: crate::client::Projects::search_projects
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchProjectsResponse {
     /// The list of Projects that matched the list filter query. This list can
@@ -5724,12 +6060,24 @@ impl serde::ser::Serialize for SearchProjectsResponse {
     }
 }
 
+impl std::fmt::Debug for SearchProjectsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchProjectsResponse");
+        debug_struct.field("projects", &self.projects);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request sent to the
 /// [CreateProject][google.cloud.resourcemanager.v3.Projects.CreateProject]
 /// method.
 ///
 /// [google.cloud.resourcemanager.v3.Projects.CreateProject]: crate::client::Projects::create_project
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProjectRequest {
     /// Required. The Project to create.
@@ -5877,10 +6225,21 @@ impl serde::ser::Serialize for CreateProjectRequest {
     }
 }
 
+impl std::fmt::Debug for CreateProjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateProjectRequest");
+        debug_struct.field("project", &self.project);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by CreateProject. It provides insight for when significant phases of
 /// Project creation have completed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProjectMetadata {
     /// Creation time of the project creation workflow.
@@ -6071,6 +6430,19 @@ impl serde::ser::Serialize for CreateProjectMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateProjectMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateProjectMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("gettable", &self.gettable);
+        debug_struct.field("ready", &self.ready);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request sent to the
 /// [UpdateProject][google.cloud.resourcemanager.v3.Projects.UpdateProject]
 /// method.
@@ -6081,7 +6453,7 @@ impl serde::ser::Serialize for CreateProjectMetadata {
 ///
 /// [google.cloud.resourcemanager.v3.Projects.MoveProject]: crate::client::Projects::move_project
 /// [google.cloud.resourcemanager.v3.Projects.UpdateProject]: crate::client::Projects::update_project
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProjectRequest {
     /// Required. The new definition of the project.
@@ -6257,9 +6629,21 @@ impl serde::ser::Serialize for UpdateProjectRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateProjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateProjectRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by UpdateProject.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProjectMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6361,12 +6745,22 @@ impl serde::ser::Serialize for UpdateProjectMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateProjectMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateProjectMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request sent to
 /// [MoveProject][google.cloud.resourcemanager.v3.Projects.MoveProject]
 /// method.
 ///
 /// [google.cloud.resourcemanager.v3.Projects.MoveProject]: crate::client::Projects::move_project
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveProjectRequest {
     /// Required. The name of the project to move.
@@ -6523,9 +6917,21 @@ impl serde::ser::Serialize for MoveProjectRequest {
     }
 }
 
+impl std::fmt::Debug for MoveProjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveProjectRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("destination_parent", &self.destination_parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by MoveProject.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveProjectMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6627,11 +7033,21 @@ impl serde::ser::Serialize for MoveProjectMetadata {
     }
 }
 
+impl std::fmt::Debug for MoveProjectMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveProjectMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// [DeleteProject][google.cloud.resourcemanager.v3.Projects.DeleteProject]
 /// method.
 ///
 /// [google.cloud.resourcemanager.v3.Projects.DeleteProject]: crate::client::Projects::delete_project
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProjectRequest {
     /// Required. The name of the Project (for example, `projects/415104041262`).
@@ -6760,9 +7176,20 @@ impl serde::ser::Serialize for DeleteProjectRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteProjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteProjectRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by `DeleteProject`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProjectMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6864,10 +7291,20 @@ impl serde::ser::Serialize for DeleteProjectMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteProjectMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteProjectMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request sent to the [UndeleteProject]
 /// [google.cloud.resourcemanager.v3.Projects.UndeleteProject]
 /// method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteProjectRequest {
     /// Required. The name of the project (for example, `projects/415104041262`).
@@ -6998,9 +7435,20 @@ impl serde::ser::Serialize for UndeleteProjectRequest {
     }
 }
 
+impl std::fmt::Debug for UndeleteProjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteProjectRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by `UndeleteProject`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteProjectMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7102,10 +7550,20 @@ impl serde::ser::Serialize for UndeleteProjectMetadata {
     }
 }
 
+impl std::fmt::Debug for UndeleteProjectMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteProjectMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A TagBinding represents a connection between a TagValue and a cloud
 /// resource Once a TagBinding is created, the TagValue is applied to all the
 /// descendants of the Google Cloud resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TagBinding {
     /// Output only. The name of the TagBinding. This is a String of the form:
@@ -7323,8 +7781,22 @@ impl serde::ser::Serialize for TagBinding {
     }
 }
 
+impl std::fmt::Debug for TagBinding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TagBinding");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tag_value", &self.tag_value);
+        debug_struct.field("tag_value_namespaced_name", &self.tag_value_namespaced_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime operation information for creating a TagValue.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagBindingMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7426,8 +7898,18 @@ impl serde::ser::Serialize for CreateTagBindingMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateTagBindingMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTagBindingMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message to create a TagBinding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagBindingRequest {
     /// Required. The TagBinding to be created.
@@ -7594,8 +8076,20 @@ impl serde::ser::Serialize for CreateTagBindingRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTagBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTagBindingRequest");
+        debug_struct.field("tag_binding", &self.tag_binding);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime operation information for deleting a TagBinding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagBindingMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7697,8 +8191,18 @@ impl serde::ser::Serialize for DeleteTagBindingMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteTagBindingMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTagBindingMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message to delete a TagBinding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagBindingRequest {
     /// Required. The name of the TagBinding. This is a String of the form:
@@ -7829,8 +8333,19 @@ impl serde::ser::Serialize for DeleteTagBindingRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTagBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTagBindingRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message to list all TagBindings for a parent.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagBindingsRequest {
     /// Required. The full resource name of a resource for which you want to list
@@ -8032,8 +8547,21 @@ impl serde::ser::Serialize for ListTagBindingsRequest {
     }
 }
 
+impl std::fmt::Debug for ListTagBindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTagBindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ListTagBindings response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagBindingsResponse {
     /// A possibly paginated list of TagBindings for the specified resource.
@@ -8215,8 +8743,20 @@ impl serde::ser::Serialize for ListTagBindingsResponse {
     }
 }
 
+impl std::fmt::Debug for ListTagBindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTagBindingsResponse");
+        debug_struct.field("tag_bindings", &self.tag_bindings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message to ListEffectiveTags
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEffectiveTagsRequest {
     /// Required. The full resource name of a resource for which you want to list
@@ -8418,8 +8958,21 @@ impl serde::ser::Serialize for ListEffectiveTagsRequest {
     }
 }
 
+impl std::fmt::Debug for ListEffectiveTagsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEffectiveTagsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response of ListEffectiveTags.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEffectiveTagsResponse {
     /// A possibly paginated list of effective tags for the specified resource.
@@ -8601,12 +9154,24 @@ impl serde::ser::Serialize for ListEffectiveTagsResponse {
     }
 }
 
+impl std::fmt::Debug for ListEffectiveTagsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEffectiveTagsResponse");
+        debug_struct.field("effective_tags", &self.effective_tags);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An EffectiveTag represents a tag that applies to a resource during policy
 /// evaluation. Tags can be either directly bound to a resource or inherited from
 /// its ancestor. EffectiveTag contains the name and
 /// namespaced_name of the tag value and tag key, with additional fields of
 /// `inherited` to indicate the inheritance status of the effective tag.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EffectiveTag {
     /// Resource name for TagValue in the format `tagValues/456`.
@@ -8881,11 +9446,27 @@ impl serde::ser::Serialize for EffectiveTag {
     }
 }
 
+impl std::fmt::Debug for EffectiveTag {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EffectiveTag");
+        debug_struct.field("tag_value", &self.tag_value);
+        debug_struct.field("namespaced_tag_value", &self.namespaced_tag_value);
+        debug_struct.field("tag_key", &self.tag_key);
+        debug_struct.field("namespaced_tag_key", &self.namespaced_tag_key);
+        debug_struct.field("tag_key_parent_name", &self.tag_key_parent_name);
+        debug_struct.field("inherited", &self.inherited);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A TagHold represents the use of a TagValue that is not captured by
 /// TagBindings. If a TagValue has any TagHolds, deletion will be blocked.
 /// This resource is intended to be created in the same cloud location as the
 /// `holder`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TagHold {
     /// Output only. The resource name of a TagHold. This is a String of the form:
@@ -9133,8 +9714,23 @@ impl serde::ser::Serialize for TagHold {
     }
 }
 
+impl std::fmt::Debug for TagHold {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TagHold");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("holder", &self.holder);
+        debug_struct.field("origin", &self.origin);
+        debug_struct.field("help_link", &self.help_link);
+        debug_struct.field("create_time", &self.create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message to create a TagHold.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagHoldRequest {
     /// Required. The resource name of the TagHold's parent TagValue. Must be of
@@ -9326,10 +9922,23 @@ impl serde::ser::Serialize for CreateTagHoldRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTagHoldRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTagHoldRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tag_hold", &self.tag_hold);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime operation information for creating a TagHold.
 /// (-- The metadata is currently empty, but may include information in the
 /// future. --)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagHoldMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9431,8 +10040,18 @@ impl serde::ser::Serialize for CreateTagHoldMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateTagHoldMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTagHoldMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message to delete a TagHold.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagHoldRequest {
     /// Required. The resource name of the TagHold to delete. Must be of the form:
@@ -9588,10 +10207,22 @@ impl serde::ser::Serialize for DeleteTagHoldRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTagHoldRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTagHoldRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime operation information for deleting a TagHold.
 /// (-- The metadata is currently empty, but may include information in the
 /// future. --)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagHoldMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9693,8 +10324,18 @@ impl serde::ser::Serialize for DeleteTagHoldMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteTagHoldMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTagHoldMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for listing the TagHolds under a TagValue.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagHoldsRequest {
     /// Required. The resource name of the parent TagValue. Must be of the form:
@@ -9929,8 +10570,22 @@ impl serde::ser::Serialize for ListTagHoldsRequest {
     }
 }
 
+impl std::fmt::Debug for ListTagHoldsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTagHoldsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ListTagHolds response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagHoldsResponse {
     /// A possibly paginated list of TagHolds.
@@ -10112,8 +10767,20 @@ impl serde::ser::Serialize for ListTagHoldsResponse {
     }
 }
 
+impl std::fmt::Debug for ListTagHoldsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTagHoldsResponse");
+        debug_struct.field("tag_holds", &self.tag_holds);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A TagKey, used to group a set of TagValues.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TagKey {
     /// Immutable. The resource name for a TagKey. Must be in the format
@@ -10521,8 +11188,28 @@ impl serde::ser::Serialize for TagKey {
     }
 }
 
+impl std::fmt::Debug for TagKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TagKey");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("short_name", &self.short_name);
+        debug_struct.field("namespaced_name", &self.namespaced_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("purpose", &self.purpose);
+        debug_struct.field("purpose_data", &self.purpose_data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for listing all TagKeys under a parent resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagKeysRequest {
     /// Required. The resource name of the TagKey's parent.
@@ -10724,8 +11411,21 @@ impl serde::ser::Serialize for ListTagKeysRequest {
     }
 }
 
+impl std::fmt::Debug for ListTagKeysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTagKeysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ListTagKeys response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagKeysResponse {
     /// List of TagKeys that live under the specified parent in the request.
@@ -10898,8 +11598,20 @@ impl serde::ser::Serialize for ListTagKeysResponse {
     }
 }
 
+impl std::fmt::Debug for ListTagKeysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTagKeysResponse");
+        debug_struct.field("tag_keys", &self.tag_keys);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for getting a TagKey.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTagKeyRequest {
     /// Required. A resource name in the format `tagKeys/{id}`, such as
@@ -11029,8 +11741,19 @@ impl serde::ser::Serialize for GetTagKeyRequest {
     }
 }
 
+impl std::fmt::Debug for GetTagKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTagKeyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for getting a TagKey by its namespaced name.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNamespacedTagKeyRequest {
     /// Required. A namespaced tag key name in the format
@@ -11162,8 +11885,19 @@ impl serde::ser::Serialize for GetNamespacedTagKeyRequest {
     }
 }
 
+impl std::fmt::Debug for GetNamespacedTagKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNamespacedTagKeyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for creating a TagKey.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagKeyRequest {
     /// Required. The TagKey to be created. Only fields `short_name`,
@@ -11331,8 +12065,20 @@ impl serde::ser::Serialize for CreateTagKeyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTagKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTagKeyRequest");
+        debug_struct.field("tag_key", &self.tag_key);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime operation information for creating a TagKey.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagKeyMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11434,8 +12180,18 @@ impl serde::ser::Serialize for CreateTagKeyMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateTagKeyMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTagKeyMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for updating a TagKey.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagKeyRequest {
     /// Required. The new definition of the TagKey. Only the `description` and
@@ -11643,8 +12399,21 @@ impl serde::ser::Serialize for UpdateTagKeyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTagKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTagKeyRequest");
+        debug_struct.field("tag_key", &self.tag_key);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime operation information for updating a TagKey.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagKeyMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11746,8 +12515,18 @@ impl serde::ser::Serialize for UpdateTagKeyMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateTagKeyMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTagKeyMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for deleting a TagKey.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagKeyRequest {
     /// Required. The resource name of a TagKey to be deleted in the format
@@ -11929,8 +12708,21 @@ impl serde::ser::Serialize for DeleteTagKeyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTagKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTagKeyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime operation information for deleting a TagKey.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagKeyMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12032,9 +12824,19 @@ impl serde::ser::Serialize for DeleteTagKeyMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteTagKeyMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTagKeyMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A TagValue is a child of a particular TagKey. This is used to group
 /// cloud resources for the purpose of controlling them using policies.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TagValue {
     /// Immutable. Resource name for TagValue in the format `tagValues/456`.
@@ -12371,10 +13173,28 @@ impl serde::ser::Serialize for TagValue {
     }
 }
 
+impl std::fmt::Debug for TagValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TagValue");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("short_name", &self.short_name);
+        debug_struct.field("namespaced_name", &self.namespaced_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for listing TagValues for the specified TagKey.
 /// Resource name for TagKey, parent of the TagValues to be listed,
 /// in the format `tagKeys/123`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagValuesRequest {
     /// Required.
@@ -12574,8 +13394,21 @@ impl serde::ser::Serialize for ListTagValuesRequest {
     }
 }
 
+impl std::fmt::Debug for ListTagValuesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTagValuesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ListTagValues response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagValuesResponse {
     /// A possibly paginated list of TagValues that are direct descendants of
@@ -12750,8 +13583,20 @@ impl serde::ser::Serialize for ListTagValuesResponse {
     }
 }
 
+impl std::fmt::Debug for ListTagValuesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTagValuesResponse");
+        debug_struct.field("tag_values", &self.tag_values);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for getting a TagValue.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTagValueRequest {
     /// Required. Resource name for TagValue to be fetched in the format
@@ -12881,8 +13726,19 @@ impl serde::ser::Serialize for GetTagValueRequest {
     }
 }
 
+impl std::fmt::Debug for GetTagValueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTagValueRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for getting a TagValue by its namespaced name.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNamespacedTagValueRequest {
     /// Required. A namespaced tag value name in the following format:
@@ -13020,8 +13876,19 @@ impl serde::ser::Serialize for GetNamespacedTagValueRequest {
     }
 }
 
+impl std::fmt::Debug for GetNamespacedTagValueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNamespacedTagValueRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for creating a TagValue.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagValueRequest {
     /// Required. The TagValue to be created. Only fields `short_name`,
@@ -13189,8 +14056,20 @@ impl serde::ser::Serialize for CreateTagValueRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTagValueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTagValueRequest");
+        debug_struct.field("tag_value", &self.tag_value);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime operation information for creating a TagValue.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagValueMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13292,8 +14171,18 @@ impl serde::ser::Serialize for CreateTagValueMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateTagValueMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTagValueMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for updating a TagValue.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagValueRequest {
     /// Required. The new definition of the TagValue. Only fields `description` and
@@ -13499,8 +14388,21 @@ impl serde::ser::Serialize for UpdateTagValueRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTagValueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTagValueRequest");
+        debug_struct.field("tag_value", &self.tag_value);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime operation information for updating a TagValue.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagValueMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13602,8 +14504,18 @@ impl serde::ser::Serialize for UpdateTagValueMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateTagValueMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTagValueMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for deleting a TagValue.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagValueRequest {
     /// Required. Resource name for TagValue to be deleted in the format
@@ -13784,8 +14696,21 @@ impl serde::ser::Serialize for DeleteTagValueRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTagValueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTagValueRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime operation information for deleting a TagValue.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagValueMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13884,6 +14809,16 @@ impl serde::ser::Serialize for DeleteTagValueMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteTagValueMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTagValueMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

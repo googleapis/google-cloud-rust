@@ -31,7 +31,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A message returned from a device.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeviceMessage {
     pub contents: std::option::Option<crate::model::device_message::Contents>,
@@ -311,6 +311,17 @@ impl serde::ser::Serialize for DeviceMessage {
     }
 }
 
+impl std::fmt::Debug for DeviceMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeviceMessage");
+        debug_struct.field("contents", &self.contents);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DeviceMessage].
 pub mod device_message {
     #[allow(unused_imports)]
@@ -329,7 +340,7 @@ pub mod device_message {
 }
 
 /// A message to an ADB server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdbMessage {
     pub contents: std::option::Option<crate::model::adb_message::Contents>,
@@ -552,6 +563,17 @@ impl serde::ser::Serialize for AdbMessage {
     }
 }
 
+impl std::fmt::Debug for AdbMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdbMessage");
+        debug_struct.field("contents", &self.contents);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AdbMessage].
 pub mod adb_message {
     #[allow(unused_imports)]
@@ -568,7 +590,7 @@ pub mod adb_message {
 }
 
 /// A StatusUpdate message given over the ADB protocol for the device state.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StatusUpdate {
     /// The device's state
@@ -754,6 +776,19 @@ impl serde::ser::Serialize for StatusUpdate {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for StatusUpdate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StatusUpdate");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("features", &self.features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -945,7 +980,7 @@ pub mod status_update {
 }
 
 /// The result of a stream.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamStatus {
     /// The unique ID of this stream, assigned by the client.
@@ -1212,6 +1247,18 @@ impl serde::ser::Serialize for StreamStatus {
     }
 }
 
+impl std::fmt::Debug for StreamStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamStatus");
+        debug_struct.field("stream_id", &self.stream_id);
+        debug_struct.field("status", &self.status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StreamStatus].
 pub mod stream_status {
     #[allow(unused_imports)]
@@ -1229,7 +1276,7 @@ pub mod stream_status {
 }
 
 /// Message for opening a new stream.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Open {
     /// Required. The unique ID that will be used to talk to this stream. This
@@ -1402,8 +1449,20 @@ impl serde::ser::Serialize for Open {
     }
 }
 
+impl std::fmt::Debug for Open {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Open");
+        debug_struct.field("stream_id", &self.stream_id);
+        debug_struct.field("service", &self.service);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Data for a stream.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamData {
     /// Required. The unique ID of this stream, assigned by the client.
@@ -1684,6 +1743,18 @@ impl serde::ser::Serialize for StreamData {
     }
 }
 
+impl std::fmt::Debug for StreamData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamData");
+        debug_struct.field("stream_id", &self.stream_id);
+        debug_struct.field("contents", &self.contents);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StreamData].
 pub mod stream_data {
     #[allow(unused_imports)]
@@ -1702,7 +1773,7 @@ pub mod stream_data {
 }
 
 /// Message signifying that the stream is open
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Okay {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1804,8 +1875,18 @@ impl serde::ser::Serialize for Okay {
     }
 }
 
+impl std::fmt::Debug for Okay {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Okay");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message signifying that the stream failed to open
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Fail {
     /// A user-displayable failure reason.
@@ -1934,8 +2015,19 @@ impl serde::ser::Serialize for Fail {
     }
 }
 
+impl std::fmt::Debug for Fail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Fail");
+        debug_struct.field("reason", &self.reason);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message signifying that the stream closed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Close {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2037,8 +2129,18 @@ impl serde::ser::Serialize for Close {
     }
 }
 
+impl std::fmt::Debug for Close {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Close");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DirectAccessService.CreateDeviceSession.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDeviceSessionRequest {
     /// Required. The Compute Engine project under which this device will be
@@ -2236,8 +2338,21 @@ impl serde::ser::Serialize for CreateDeviceSessionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDeviceSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDeviceSessionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("device_session", &self.device_session);
+        debug_struct.field("device_session_id", &self.device_session_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DirectAccessService.ListDeviceSessions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeviceSessionsRequest {
     /// Required. The name of the parent to request, e.g. "projects/{project_id}"
@@ -2459,8 +2574,22 @@ impl serde::ser::Serialize for ListDeviceSessionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDeviceSessionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeviceSessionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for DirectAccessService.ListDeviceSessions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeviceSessionsResponse {
     /// The sessions matching the specified filter in the given cloud project.
@@ -2633,8 +2762,20 @@ impl serde::ser::Serialize for ListDeviceSessionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDeviceSessionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeviceSessionsResponse");
+        debug_struct.field("device_sessions", &self.device_sessions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DirectAccessService.GetDeviceSession.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDeviceSessionRequest {
     /// Required. Name of the DeviceSession, e.g.
@@ -2764,8 +2905,19 @@ impl serde::ser::Serialize for GetDeviceSessionRequest {
     }
 }
 
+impl std::fmt::Debug for GetDeviceSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDeviceSessionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DirectAccessService.CancelDeviceSession.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelDeviceSessionRequest {
     /// Required. Name of the DeviceSession, e.g.
@@ -2895,8 +3047,19 @@ impl serde::ser::Serialize for CancelDeviceSessionRequest {
     }
 }
 
+impl std::fmt::Debug for CancelDeviceSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelDeviceSessionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DirectAccessService.UpdateDeviceSession.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDeviceSessionRequest {
     /// Required. DeviceSession to update.
@@ -3075,8 +3238,20 @@ impl serde::ser::Serialize for UpdateDeviceSessionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDeviceSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDeviceSessionRequest");
+        debug_struct.field("device_session", &self.device_session);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Protobuf message describing the device message, used from several RPCs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeviceSession {
     /// Optional. Name of the DeviceSession, e.g.
@@ -3544,6 +3719,25 @@ impl serde::ser::Serialize for DeviceSession {
     }
 }
 
+impl std::fmt::Debug for DeviceSession {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeviceSession");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_histories", &self.state_histories);
+        debug_struct.field("inactivity_timeout", &self.inactivity_timeout);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("active_start_time", &self.active_start_time);
+        debug_struct.field("android_device", &self.android_device);
+        debug_struct.field("expiration", &self.expiration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DeviceSession].
 pub mod device_session {
     #[allow(unused_imports)]
@@ -3551,7 +3745,7 @@ pub mod device_session {
 
     /// A message encapsulating a series of Session states and the time that the
     /// DeviceSession first entered those states.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SessionStateEvent {
         /// Output only. The session_state tracked by this event
@@ -3756,6 +3950,19 @@ pub mod device_session {
         }
     }
 
+    impl std::fmt::Debug for SessionStateEvent {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SessionStateEvent");
+            debug_struct.field("session_state", &self.session_state);
+            debug_struct.field("event_time", &self.event_time);
+            debug_struct.field("state_message", &self.state_message);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The state that the DeviceSession resides.
     ///
     /// # Working with unknown values
@@ -3948,7 +4155,7 @@ pub mod device_session {
 }
 
 /// A single Android device.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AndroidDevice {
     /// Required. The id of the Android device to be used.
@@ -4158,5 +4365,19 @@ impl serde::ser::Serialize for AndroidDevice {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AndroidDevice {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AndroidDevice");
+        debug_struct.field("android_model_id", &self.android_model_id);
+        debug_struct.field("android_version_id", &self.android_version_id);
+        debug_struct.field("locale", &self.locale);
+        debug_struct.field("orientation", &self.orientation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

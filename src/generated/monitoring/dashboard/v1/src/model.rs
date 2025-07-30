@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A chart that displays alert policy data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AlertChart {
     /// Required. The resource name of the alert policy. The format is:
@@ -166,9 +166,20 @@ impl serde::ser::Serialize for AlertChart {
     }
 }
 
+impl std::fmt::Debug for AlertChart {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AlertChart");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A widget that groups the other widgets. All widgets that are within
 /// the area spanned by the grouping widget are considered member widgets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CollapsibleGroup {
     /// The collapsed state of the widget on first page load.
@@ -297,6 +308,17 @@ impl serde::ser::Serialize for CollapsibleGroup {
     }
 }
 
+impl std::fmt::Debug for CollapsibleGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CollapsibleGroup");
+        debug_struct.field("collapsed", &self.collapsed);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes how to combine multiple time series to provide a different view of
 /// the data.  Aggregation of time series is done in two steps. First, each time
 /// series in the set is _aligned_ to the same time interval boundaries, then the
@@ -323,7 +345,7 @@ impl serde::ser::Serialize for CollapsibleGroup {
 /// individual time series data is still available for later drilldown. For more
 /// details, see [Filtering and
 /// aggregation](https://cloud.google.com/monitoring/api/v3/aggregation).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Aggregation {
     /// The `alignment_period` specifies a time interval, in seconds, that is used
@@ -593,6 +615,20 @@ impl serde::ser::Serialize for Aggregation {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Aggregation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Aggregation");
+        debug_struct.field("alignment_period", &self.alignment_period);
+        debug_struct.field("per_series_aligner", &self.per_series_aligner);
+        debug_struct.field("cross_series_reducer", &self.cross_series_reducer);
+        debug_struct.field("group_by_fields", &self.group_by_fields);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -1211,7 +1247,7 @@ pub mod aggregation {
 /// For example, if `ranking_method` is `METHOD_MEAN`,`direction` is `BOTTOM`,
 /// and `num_time_series` is 3, then the 3 times series with the lowest mean
 /// values will pass through the filter.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PickTimeSeriesFilter {
     /// `ranking_method` is applied to each time series independently to produce
@@ -1457,6 +1493,20 @@ impl serde::ser::Serialize for PickTimeSeriesFilter {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for PickTimeSeriesFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PickTimeSeriesFilter");
+        debug_struct.field("ranking_method", &self.ranking_method);
+        debug_struct.field("num_time_series", &self.num_time_series);
+        debug_struct.field("direction", &self.direction);
+        debug_struct.field("interval", &self.interval);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -1756,7 +1806,7 @@ pub mod pick_time_series_filter {
 /// A filter that ranks streams based on their statistical relation to other
 /// streams in a request.
 /// Note: This field is deprecated and completely ignored by the API.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StatisticalTimeSeriesFilter {
     /// `rankingMethod` is applied to a set of time series, and then the produced
@@ -1941,6 +1991,18 @@ impl serde::ser::Serialize for StatisticalTimeSeriesFilter {
     }
 }
 
+impl std::fmt::Debug for StatisticalTimeSeriesFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StatisticalTimeSeriesFilter");
+        debug_struct.field("ranking_method", &self.ranking_method);
+        debug_struct.field("num_time_series", &self.num_time_series);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StatisticalTimeSeriesFilter].
 pub mod statistical_time_series_filter {
     #[allow(unused_imports)]
@@ -2074,7 +2136,7 @@ pub mod statistical_time_series_filter {
 
 /// A Google Stackdriver dashboard. Dashboards define the content and layout
 /// of pages in the Stackdriver web application.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Dashboard {
     /// Identifier. The resource name of the dashboard.
@@ -2550,6 +2612,22 @@ impl serde::ser::Serialize for Dashboard {
     }
 }
 
+impl std::fmt::Debug for Dashboard {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Dashboard");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("dashboard_filters", &self.dashboard_filters);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("layout", &self.layout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Dashboard].
 pub mod dashboard {
     #[allow(unused_imports)]
@@ -2575,7 +2653,7 @@ pub mod dashboard {
 }
 
 /// A filter to reduce the amount of data charted in relevant widgets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DashboardFilter {
     /// Required. The key for the label
@@ -2827,6 +2905,20 @@ impl serde::ser::Serialize for DashboardFilter {
     }
 }
 
+impl std::fmt::Debug for DashboardFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DashboardFilter");
+        debug_struct.field("label_key", &self.label_key);
+        debug_struct.field("template_variable", &self.template_variable);
+        debug_struct.field("filter_type", &self.filter_type);
+        debug_struct.field("default_value", &self.default_value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DashboardFilter].
 pub mod dashboard_filter {
     #[allow(unused_imports)]
@@ -2995,7 +3087,7 @@ pub mod dashboard_filter {
 }
 
 /// The `CreateDashboard` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDashboardRequest {
     /// Required. The project on which to execute the request. The format is:
@@ -3191,8 +3283,21 @@ impl serde::ser::Serialize for CreateDashboardRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDashboardRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDashboardRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("dashboard", &self.dashboard);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListDashboards` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDashboardsRequest {
     /// Required. The scope of the dashboards to list. The format is:
@@ -3397,8 +3502,21 @@ impl serde::ser::Serialize for ListDashboardsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDashboardsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDashboardsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListDashboards` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDashboardsResponse {
     /// The list of requested dashboards.
@@ -3571,8 +3689,20 @@ impl serde::ser::Serialize for ListDashboardsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDashboardsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDashboardsResponse");
+        debug_struct.field("dashboards", &self.dashboards);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `GetDashboard` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDashboardRequest {
     /// Required. The resource name of the Dashboard. The format is one of:
@@ -3705,8 +3835,19 @@ impl serde::ser::Serialize for GetDashboardRequest {
     }
 }
 
+impl std::fmt::Debug for GetDashboardRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDashboardRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `DeleteDashboard` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDashboardRequest {
     /// Required. The resource name of the Dashboard. The format is:
@@ -3839,8 +3980,19 @@ impl serde::ser::Serialize for DeleteDashboardRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDashboardRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDashboardRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `UpdateDashboard` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDashboardRequest {
     /// Required. The dashboard that will replace the existing dashboard.
@@ -4006,8 +4158,20 @@ impl serde::ser::Serialize for UpdateDashboardRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDashboardRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDashboardRequest");
+        debug_struct.field("dashboard", &self.dashboard);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A widget that displays a list of error groups.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorReportingPanel {
     /// The resource name of the Google Cloud Platform project. Written
@@ -4208,8 +4372,21 @@ impl serde::ser::Serialize for ErrorReportingPanel {
     }
 }
 
+impl std::fmt::Debug for ErrorReportingPanel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorReportingPanel");
+        debug_struct.field("project_names", &self.project_names);
+        debug_struct.field("services", &self.services);
+        debug_struct.field("versions", &self.versions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A widget that displays a list of incidents
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IncidentList {
     /// Optional. The monitored resource for which incidents are listed.
@@ -4379,9 +4556,21 @@ impl serde::ser::Serialize for IncidentList {
     }
 }
 
+impl std::fmt::Debug for IncidentList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IncidentList");
+        debug_struct.field("monitored_resources", &self.monitored_resources);
+        debug_struct.field("policy_names", &self.policy_names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A basic layout divides the available space into vertical columns of equal
 /// width and arranges a list of widgets using a row-first strategy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GridLayout {
     /// The number of columns into which the view's width is divided. If omitted
@@ -4556,10 +4745,22 @@ impl serde::ser::Serialize for GridLayout {
     }
 }
 
+impl std::fmt::Debug for GridLayout {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GridLayout");
+        debug_struct.field("columns", &self.columns);
+        debug_struct.field("widgets", &self.widgets);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A mosaic layout divides the available space into a grid of blocks, and
 /// overlays the grid with tiles. Unlike `GridLayout`, tiles may span multiple
 /// grid blocks and can be placed at arbitrary locations in the grid.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MosaicLayout {
     /// The number of columns in the mosaic grid. The number of columns must be
@@ -4738,6 +4939,18 @@ impl serde::ser::Serialize for MosaicLayout {
     }
 }
 
+impl std::fmt::Debug for MosaicLayout {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MosaicLayout");
+        debug_struct.field("columns", &self.columns);
+        debug_struct.field("tiles", &self.tiles);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MosaicLayout].
 pub mod mosaic_layout {
     #[allow(unused_imports)]
@@ -4745,7 +4958,7 @@ pub mod mosaic_layout {
 
     /// A single tile in the mosaic. The placement and size of the tile are
     /// configurable.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Tile {
         /// The zero-indexed position of the tile in grid blocks relative to the
@@ -5062,11 +5275,26 @@ pub mod mosaic_layout {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Tile {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Tile");
+            debug_struct.field("x_pos", &self.x_pos);
+            debug_struct.field("y_pos", &self.y_pos);
+            debug_struct.field("width", &self.width);
+            debug_struct.field("height", &self.height);
+            debug_struct.field("widget", &self.widget);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A simplified layout that divides the available space into rows
 /// and arranges a set of widgets horizontally in each row.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RowLayout {
     /// The rows of content to display.
@@ -5202,13 +5430,24 @@ impl serde::ser::Serialize for RowLayout {
     }
 }
 
+impl std::fmt::Debug for RowLayout {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RowLayout");
+        debug_struct.field("rows", &self.rows);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RowLayout].
 pub mod row_layout {
     #[allow(unused_imports)]
     use super::*;
 
     /// Defines the layout properties and content for a row.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Row {
         /// The relative weight of this row. The row weight is used to adjust the
@@ -5387,11 +5626,23 @@ pub mod row_layout {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Row {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Row");
+            debug_struct.field("weight", &self.weight);
+            debug_struct.field("widgets", &self.widgets);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A simplified layout that divides the available space into vertical columns
 /// and arranges a set of widgets vertically in each column.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ColumnLayout {
     /// The columns of content to display.
@@ -5527,13 +5778,24 @@ impl serde::ser::Serialize for ColumnLayout {
     }
 }
 
+impl std::fmt::Debug for ColumnLayout {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnLayout");
+        debug_struct.field("columns", &self.columns);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ColumnLayout].
 pub mod column_layout {
     #[allow(unused_imports)]
     use super::*;
 
     /// Defines the layout properties and content for a column.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Column {
         /// The relative weight of this column. The column weight is used to adjust
@@ -5712,10 +5974,22 @@ pub mod column_layout {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Column {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Column");
+            debug_struct.field("weight", &self.weight);
+            debug_struct.field("widgets", &self.widgets);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A widget that displays a stream of log.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogsPanel {
     /// A filter that chooses which log entries to return.  See [Advanced Logs
@@ -5876,9 +6150,21 @@ impl serde::ser::Serialize for LogsPanel {
     }
 }
 
+impl std::fmt::Debug for LogsPanel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogsPanel");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("resource_names", &self.resource_names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// TimeSeriesQuery collects the set of supported methods for querying time
 /// series data from the Stackdriver metrics API.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeriesQuery {
     /// The unit of data contained in fetched time series. If non-empty, this
@@ -6287,6 +6573,19 @@ impl serde::ser::Serialize for TimeSeriesQuery {
     }
 }
 
+impl std::fmt::Debug for TimeSeriesQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeSeriesQuery");
+        debug_struct.field("unit_override", &self.unit_override);
+        debug_struct.field("output_full_duration", &self.output_full_duration);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TimeSeriesQuery].
 pub mod time_series_query {
     #[allow(unused_imports)]
@@ -6311,7 +6610,7 @@ pub mod time_series_query {
 /// widget. Time series data is fetched using the
 /// [`ListTimeSeries`](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list)
 /// method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeriesFilter {
     /// Required. The [monitoring
@@ -6648,6 +6947,20 @@ impl serde::ser::Serialize for TimeSeriesFilter {
     }
 }
 
+impl std::fmt::Debug for TimeSeriesFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeSeriesFilter");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("aggregation", &self.aggregation);
+        debug_struct.field("secondary_aggregation", &self.secondary_aggregation);
+        debug_struct.field("output_filter", &self.output_filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TimeSeriesFilter].
 pub mod time_series_filter {
     #[allow(unused_imports)]
@@ -6669,7 +6982,7 @@ pub mod time_series_filter {
 /// A pair of time series filters that define a ratio computation. The output
 /// time series is the pair-wise division of each aligned element from the
 /// numerator and denominator time series.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeriesFilterRatio {
     /// The numerator of the ratio.
@@ -7020,6 +7333,20 @@ impl serde::ser::Serialize for TimeSeriesFilterRatio {
     }
 }
 
+impl std::fmt::Debug for TimeSeriesFilterRatio {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeSeriesFilterRatio");
+        debug_struct.field("numerator", &self.numerator);
+        debug_struct.field("denominator", &self.denominator);
+        debug_struct.field("secondary_aggregation", &self.secondary_aggregation);
+        debug_struct.field("output_filter", &self.output_filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TimeSeriesFilterRatio].
 pub mod time_series_filter_ratio {
     #[allow(unused_imports)]
@@ -7027,7 +7354,7 @@ pub mod time_series_filter_ratio {
 
     /// Describes a query to build the numerator or denominator of a
     /// TimeSeriesFilterRatio.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RatioPart {
         /// Required. The [monitoring
@@ -7199,6 +7526,18 @@ pub mod time_series_filter_ratio {
         }
     }
 
+    impl std::fmt::Debug for RatioPart {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RatioPart");
+            debug_struct.field("filter", &self.filter);
+            debug_struct.field("aggregation", &self.aggregation);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Selects an optional filter that is applied to the time series after
     /// computing the ratio.
     #[derive(Clone, Debug, PartialEq)]
@@ -7214,7 +7553,7 @@ pub mod time_series_filter_ratio {
 }
 
 /// Defines a threshold for categorizing time series values.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Threshold {
     /// A label for the threshold.
@@ -7464,6 +7803,21 @@ impl serde::ser::Serialize for Threshold {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Threshold {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Threshold");
+        debug_struct.field("label", &self.label);
+        debug_struct.field("value", &self.value);
+        debug_struct.field("color", &self.color);
+        debug_struct.field("direction", &self.direction);
+        debug_struct.field("target_axis", &self.target_axis);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -7875,7 +8229,7 @@ pub mod threshold {
 }
 
 /// A widget that displays timeseries data as a pie or a donut.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PieChart {
     /// Required. The queries for the chart's data.
@@ -8063,13 +8417,26 @@ impl serde::ser::Serialize for PieChart {
     }
 }
 
+impl std::fmt::Debug for PieChart {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PieChart");
+        debug_struct.field("data_sets", &self.data_sets);
+        debug_struct.field("chart_type", &self.chart_type);
+        debug_struct.field("show_labels", &self.show_labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PieChart].
 pub mod pie_chart {
     #[allow(unused_imports)]
     use super::*;
 
     /// Groups a time series query definition.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PieChartDataSet {
         /// Required. The query for the PieChart. See,
@@ -8287,6 +8654,19 @@ pub mod pie_chart {
         }
     }
 
+    impl std::fmt::Debug for PieChartDataSet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PieChartDataSet");
+            debug_struct.field("time_series_query", &self.time_series_query);
+            debug_struct.field("slice_name_template", &self.slice_name_template);
+            debug_struct.field("min_alignment_period", &self.min_alignment_period);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Types for the pie chart.
     ///
     /// # Working with unknown values
@@ -8422,7 +8802,7 @@ pub mod pie_chart {
 
 /// A widget showing the latest value of a metric, and how this value relates to
 /// one or more thresholds.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Scorecard {
     /// Required. Fields for querying time series data from the
@@ -8805,6 +9185,19 @@ impl serde::ser::Serialize for Scorecard {
     }
 }
 
+impl std::fmt::Debug for Scorecard {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Scorecard");
+        debug_struct.field("time_series_query", &self.time_series_query);
+        debug_struct.field("thresholds", &self.thresholds);
+        debug_struct.field("data_view", &self.data_view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Scorecard].
 pub mod scorecard {
     #[allow(unused_imports)]
@@ -8813,7 +9206,7 @@ pub mod scorecard {
     /// A gauge chart shows where the current value sits within a pre-defined
     /// range. The upper and lower bounds should define the possible range of
     /// values for the scorecard's query (inclusive).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GaugeView {
         /// The lower bound for this gauge chart. The value of the chart should
@@ -9011,11 +9404,23 @@ pub mod scorecard {
         }
     }
 
+    impl std::fmt::Debug for GaugeView {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GaugeView");
+            debug_struct.field("lower_bound", &self.lower_bound);
+            debug_struct.field("upper_bound", &self.upper_bound);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A sparkChart is a small chart suitable for inclusion in a table-cell or
     /// inline in text. This message contains the configuration for a sparkChart
     /// to show up on a Scorecard, showing recent trends of the scorecard's
     /// timeseries.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SparkChartView {
         /// Required. The type of sparkchart to show in this chartView.
@@ -9189,6 +9594,18 @@ pub mod scorecard {
         }
     }
 
+    impl std::fmt::Debug for SparkChartView {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SparkChartView");
+            debug_struct.field("spark_chart_type", &self.spark_chart_type);
+            debug_struct.field("min_alignment_period", &self.min_alignment_period);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines the optional additional chart shown on the scorecard. If
     /// neither is included - then a default scorecard is shown.
     #[derive(Clone, Debug, PartialEq)]
@@ -9206,7 +9623,7 @@ pub mod scorecard {
 
 /// A widget that defines a new section header. Sections populate a table of
 /// contents and allow easier navigation of long-form content.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SectionHeader {
     /// The subtitle of the section
@@ -9360,10 +9777,22 @@ impl serde::ser::Serialize for SectionHeader {
     }
 }
 
+impl std::fmt::Debug for SectionHeader {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SectionHeader");
+        debug_struct.field("subtitle", &self.subtitle);
+        debug_struct.field("divider_below", &self.divider_below);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A widget that groups the other widgets by using a dropdown menu. All widgets
 /// that are within the area spanned by the grouping widget are considered
 /// member widgets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SingleViewGroup {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9465,8 +9894,18 @@ impl serde::ser::Serialize for SingleViewGroup {
     }
 }
 
+impl std::fmt::Debug for SingleViewGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SingleViewGroup");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A table that displays time series data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeriesTable {
     /// Required. The data displayed in this table.
@@ -9667,13 +10106,26 @@ impl serde::ser::Serialize for TimeSeriesTable {
     }
 }
 
+impl std::fmt::Debug for TimeSeriesTable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeSeriesTable");
+        debug_struct.field("data_sets", &self.data_sets);
+        debug_struct.field("metric_visualization", &self.metric_visualization);
+        debug_struct.field("column_settings", &self.column_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TimeSeriesTable].
 pub mod time_series_table {
     #[allow(unused_imports)]
     use super::*;
 
     /// Groups a time series query definition with table options.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TableDataSet {
         /// Required. Fields for querying time series data from the
@@ -9926,8 +10378,22 @@ pub mod time_series_table {
         }
     }
 
+    impl std::fmt::Debug for TableDataSet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TableDataSet");
+            debug_struct.field("time_series_query", &self.time_series_query);
+            debug_struct.field("table_template", &self.table_template);
+            debug_struct.field("min_alignment_period", &self.min_alignment_period);
+            debug_struct.field("table_display_options", &self.table_display_options);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The persistent settings for a table's columns.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ColumnSettings {
         /// Required. The id of the column.
@@ -10083,6 +10549,18 @@ pub mod time_series_table {
         }
     }
 
+    impl std::fmt::Debug for ColumnSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ColumnSettings");
+            debug_struct.field("column", &self.column);
+            debug_struct.field("visible", &self.visible);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Enum for metric metric_visualization
     ///
     /// # Working with unknown values
@@ -10217,7 +10695,7 @@ pub mod time_series_table {
 }
 
 /// Table display options that can be reused.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableDisplayOptions {
     /// Optional. This field is unused and has been replaced by
@@ -10353,8 +10831,19 @@ impl serde::ser::Serialize for TableDisplayOptions {
     }
 }
 
+impl std::fmt::Debug for TableDisplayOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableDisplayOptions");
+        debug_struct.field("shown_columns", &self.shown_columns);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A widget that displays textual content.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Text {
     /// The text content to be displayed.
@@ -10543,13 +11032,26 @@ impl serde::ser::Serialize for Text {
     }
 }
 
+impl std::fmt::Debug for Text {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Text");
+        debug_struct.field("content", &self.content);
+        debug_struct.field("format", &self.format);
+        debug_struct.field("style", &self.style);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Text].
 pub mod text {
     #[allow(unused_imports)]
     use super::*;
 
     /// Properties that determine how the title and content are styled
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextStyle {
         /// The background color as a hex string. "#RRGGBB" or "#RGB"
@@ -10863,6 +11365,23 @@ pub mod text {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for TextStyle {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TextStyle");
+            debug_struct.field("background_color", &self.background_color);
+            debug_struct.field("text_color", &self.text_color);
+            debug_struct.field("horizontal_alignment", &self.horizontal_alignment);
+            debug_struct.field("vertical_alignment", &self.vertical_alignment);
+            debug_struct.field("padding", &self.padding);
+            debug_struct.field("font_size", &self.font_size);
+            debug_struct.field("pointer_location", &self.pointer_location);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -11815,7 +12334,7 @@ pub mod text {
 
 /// Widget contains a single dashboard component and configuration of how to
 /// present the component in the dashboard.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Widget {
     /// Optional. The title of the widget.
@@ -12659,6 +13178,19 @@ impl serde::ser::Serialize for Widget {
     }
 }
 
+impl std::fmt::Debug for Widget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Widget");
+        debug_struct.field("title", &self.title);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("content", &self.content);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Widget].
 pub mod widget {
     #[allow(unused_imports)]
@@ -12700,7 +13232,7 @@ pub mod widget {
 }
 
 /// A chart that displays data on a 2D (X and Y axes) plane.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct XyChart {
     /// Required. The data displayed in this chart.
@@ -13051,13 +13583,30 @@ impl serde::ser::Serialize for XyChart {
     }
 }
 
+impl std::fmt::Debug for XyChart {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("XyChart");
+        debug_struct.field("data_sets", &self.data_sets);
+        debug_struct.field("timeshift_duration", &self.timeshift_duration);
+        debug_struct.field("thresholds", &self.thresholds);
+        debug_struct.field("x_axis", &self.x_axis);
+        debug_struct.field("y_axis", &self.y_axis);
+        debug_struct.field("y2_axis", &self.y2_axis);
+        debug_struct.field("chart_options", &self.chart_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [XyChart].
 pub mod xy_chart {
     #[allow(unused_imports)]
     use super::*;
 
     /// Groups a time series query definition with charting options.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DataSet {
         /// Required. Fields for querying time series data from the
@@ -13331,6 +13880,21 @@ pub mod xy_chart {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for DataSet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DataSet");
+            debug_struct.field("time_series_query", &self.time_series_query);
+            debug_struct.field("plot_type", &self.plot_type);
+            debug_struct.field("legend_template", &self.legend_template);
+            debug_struct.field("min_alignment_period", &self.min_alignment_period);
+            debug_struct.field("target_axis", &self.target_axis);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -13634,7 +14198,7 @@ pub mod xy_chart {
     }
 
     /// A chart axis.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Axis {
         /// The label of the axis.
@@ -13791,6 +14355,18 @@ pub mod xy_chart {
         }
     }
 
+    impl std::fmt::Debug for Axis {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Axis");
+            debug_struct.field("label", &self.label);
+            debug_struct.field("scale", &self.scale);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Axis].
     pub mod axis {
         #[allow(unused_imports)]
@@ -13934,7 +14510,7 @@ pub mod xy_chart {
 }
 
 /// Options to control visual rendering of a chart.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChartOptions {
     /// The chart mode.
@@ -14061,6 +14637,17 @@ impl serde::ser::Serialize for ChartOptions {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ChartOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChartOptions");
+        debug_struct.field("mode", &self.mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

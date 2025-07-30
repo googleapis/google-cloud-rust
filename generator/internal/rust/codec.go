@@ -138,6 +138,12 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 			codec.hasVeneer = value
 		case key == "internal-types":
 			codec.internalTypes = strings.Split(definition, ",")
+		case key == "routing-required":
+			value, err := strconv.ParseBool(definition)
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `routing-required` value %q to boolean: %w", definition, err)
+			}
+			codec.routingRequired = value
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -248,6 +254,9 @@ type codec struct {
 	//
 	// Only supports messages.
 	internalTypes []string
+	// If true, fail requests locally that do not yield a gRPC routing
+	// header.
+	routingRequired bool
 }
 
 type systemParameter struct {
@@ -1277,10 +1286,11 @@ func (c *codec) methodRustdocLink(m *api.Method, state *api.APIState) string {
 
 func (c *codec) serviceRustdocLink(s *api.Service) string {
 	mapped, ok := c.packageMapping[s.Package]
+	name := c.ServiceName(s)
 	if ok {
-		return fmt.Sprintf("%s::client::%s", mapped.name, toPascal(s.Name))
+		return fmt.Sprintf("%s::client::%s", mapped.name, toPascal(name))
 	}
-	return fmt.Sprintf("crate::client::%s", toPascal(s.Name))
+	return fmt.Sprintf("crate::client::%s", toPascal(name))
 }
 
 func usePackage(source string, model *api.API, c *codec) {

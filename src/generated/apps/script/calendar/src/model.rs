@@ -26,7 +26,7 @@ extern crate std;
 extern crate wkt;
 
 /// Calendar add-on manifest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CalendarAddOnManifest {
     /// Defines an endpoint that will be executed contexts that don't
@@ -345,6 +345,25 @@ impl serde::ser::Serialize for CalendarAddOnManifest {
     }
 }
 
+impl std::fmt::Debug for CalendarAddOnManifest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CalendarAddOnManifest");
+        debug_struct.field("homepage_trigger", &self.homepage_trigger);
+        debug_struct.field("conference_solution", &self.conference_solution);
+        debug_struct.field(
+            "create_settings_url_function",
+            &self.create_settings_url_function,
+        );
+        debug_struct.field("event_open_trigger", &self.event_open_trigger);
+        debug_struct.field("event_update_trigger", &self.event_update_trigger);
+        debug_struct.field("current_event_access", &self.current_event_access);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CalendarAddOnManifest].
 pub mod calendar_add_on_manifest {
     #[allow(unused_imports)]
@@ -504,7 +523,7 @@ pub mod calendar_add_on_manifest {
 }
 
 /// Defines conference related values.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConferenceSolution {
     /// Required. The endpoint to call when ConferenceData should be created.
@@ -714,8 +733,22 @@ impl serde::ser::Serialize for ConferenceSolution {
     }
 }
 
+impl std::fmt::Debug for ConferenceSolution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConferenceSolution");
+        debug_struct.field("on_create_function", &self.on_create_function);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("logo_url", &self.logo_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Common format for declaring a calendar add-on's triggers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CalendarExtensionPoint {
     /// Required. The endpoint to execute when this extension point is
@@ -843,5 +876,16 @@ impl serde::ser::Serialize for CalendarExtensionPoint {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for CalendarExtensionPoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CalendarExtensionPoint");
+        debug_struct.field("run_function", &self.run_function);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

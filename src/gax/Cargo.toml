@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-gax"
-version     = "0.23.2"
+version     = "0.23.3"
 description = "Google Cloud Client Libraries for Rust"
 # Inherit other attributes from the workspace.
 authors.workspace      = true

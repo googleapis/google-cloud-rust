@@ -37,7 +37,7 @@ extern crate wkt;
 /// already exist to create an endpoint.
 ///
 /// [google.cloud.servicedirectory.v1.Service]: crate::model::Service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Endpoint {
     /// Immutable. The resource name for the endpoint in the format
@@ -351,12 +351,28 @@ impl serde::ser::Serialize for Endpoint {
     }
 }
 
+impl std::fmt::Debug for Endpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Endpoint");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("address", &self.address);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("uid", &self.uid);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [LookupService.ResolveService][google.cloud.servicedirectory.v1.LookupService.ResolveService].
 /// Looks up a service by its name, returns the service and its endpoints.
 ///
 /// [google.cloud.servicedirectory.v1.LookupService.ResolveService]: crate::client::LookupService::resolve_service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResolveServiceRequest {
     /// Required. The name of the service to resolve.
@@ -592,11 +608,24 @@ impl serde::ser::Serialize for ResolveServiceRequest {
     }
 }
 
+impl std::fmt::Debug for ResolveServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResolveServiceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("max_endpoints", &self.max_endpoints);
+        debug_struct.field("endpoint_filter", &self.endpoint_filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [LookupService.ResolveService][google.cloud.servicedirectory.v1.LookupService.ResolveService].
 ///
 /// [google.cloud.servicedirectory.v1.LookupService.ResolveService]: crate::client::LookupService::resolve_service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResolveServiceResponse {
     pub service: std::option::Option<crate::model::Service>,
@@ -735,12 +764,23 @@ impl serde::ser::Serialize for ResolveServiceResponse {
     }
 }
 
+impl std::fmt::Debug for ResolveServiceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResolveServiceResponse");
+        debug_struct.field("service", &self.service);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A container for [services][google.cloud.servicedirectory.v1.Service].
 /// Namespaces allow administrators to group services together and define
 /// permissions for a collection of services.
 ///
 /// [google.cloud.servicedirectory.v1.Service]: crate::model::Service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Namespace {
     /// Immutable. The resource name for the namespace in the format
@@ -932,11 +972,24 @@ impl serde::ser::Serialize for Namespace {
     }
 }
 
+impl std::fmt::Debug for Namespace {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Namespace");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("uid", &self.uid);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.CreateNamespace][google.cloud.servicedirectory.v1.RegistrationService.CreateNamespace].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.CreateNamespace]: crate::client::RegistrationService::create_namespace
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNamespaceRequest {
     /// Required. The resource name of the project and location the namespace
@@ -1132,11 +1185,24 @@ impl serde::ser::Serialize for CreateNamespaceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateNamespaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateNamespaceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("namespace_id", &self.namespace_id);
+        debug_struct.field("namespace", &self.namespace);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.ListNamespaces][google.cloud.servicedirectory.v1.RegistrationService.ListNamespaces].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.ListNamespaces]: crate::client::RegistrationService::list_namespaces
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNamespacesRequest {
     /// Required. The resource name of the project and location whose namespaces
@@ -1420,11 +1486,26 @@ impl serde::ser::Serialize for ListNamespacesRequest {
     }
 }
 
+impl std::fmt::Debug for ListNamespacesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNamespacesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [RegistrationService.ListNamespaces][google.cloud.servicedirectory.v1.RegistrationService.ListNamespaces].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.ListNamespaces]: crate::client::RegistrationService::list_namespaces
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNamespacesResponse {
     /// The list of namespaces.
@@ -1596,11 +1677,23 @@ impl serde::ser::Serialize for ListNamespacesResponse {
     }
 }
 
+impl std::fmt::Debug for ListNamespacesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNamespacesResponse");
+        debug_struct.field("namespaces", &self.namespaces);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.GetNamespace][google.cloud.servicedirectory.v1.RegistrationService.GetNamespace].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.GetNamespace]: crate::client::RegistrationService::get_namespace
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNamespaceRequest {
     /// Required. The name of the namespace to retrieve.
@@ -1729,11 +1822,22 @@ impl serde::ser::Serialize for GetNamespaceRequest {
     }
 }
 
+impl std::fmt::Debug for GetNamespaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNamespaceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.UpdateNamespace][google.cloud.servicedirectory.v1.RegistrationService.UpdateNamespace].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.UpdateNamespace]: crate::client::RegistrationService::update_namespace
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNamespaceRequest {
     /// Required. The updated namespace.
@@ -1909,11 +2013,23 @@ impl serde::ser::Serialize for UpdateNamespaceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateNamespaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNamespaceRequest");
+        debug_struct.field("namespace", &self.namespace);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.DeleteNamespace][google.cloud.servicedirectory.v1.RegistrationService.DeleteNamespace].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.DeleteNamespace]: crate::client::RegistrationService::delete_namespace
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNamespaceRequest {
     /// Required. The name of the namespace to delete.
@@ -2042,11 +2158,22 @@ impl serde::ser::Serialize for DeleteNamespaceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteNamespaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteNamespaceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.CreateService][google.cloud.servicedirectory.v1.RegistrationService.CreateService].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.CreateService]: crate::client::RegistrationService::create_service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceRequest {
     /// Required. The resource name of the namespace this service will belong to.
@@ -2241,11 +2368,24 @@ impl serde::ser::Serialize for CreateServiceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("service_id", &self.service_id);
+        debug_struct.field("service", &self.service);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.ListServices][google.cloud.servicedirectory.v1.RegistrationService.ListServices].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.ListServices]: crate::client::RegistrationService::list_services
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
     /// Required. The resource name of the namespace whose services you'd
@@ -2532,11 +2672,26 @@ impl serde::ser::Serialize for ListServicesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [RegistrationService.ListServices][google.cloud.servicedirectory.v1.RegistrationService.ListServices].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.ListServices]: crate::client::RegistrationService::list_services
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
     /// The list of services.
@@ -2708,13 +2863,25 @@ impl serde::ser::Serialize for ListServicesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesResponse");
+        debug_struct.field("services", &self.services);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.GetService][google.cloud.servicedirectory.v1.RegistrationService.GetService].
 /// This should not be used for looking up a service. Instead, use the `resolve`
 /// method as it contains all endpoints and associated annotations.
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.GetService]: crate::client::RegistrationService::get_service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
     /// Required. The name of the service to get.
@@ -2843,11 +3010,22 @@ impl serde::ser::Serialize for GetServiceRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.UpdateService][google.cloud.servicedirectory.v1.RegistrationService.UpdateService].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.UpdateService]: crate::client::RegistrationService::update_service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceRequest {
     /// Required. The updated service.
@@ -3023,11 +3201,23 @@ impl serde::ser::Serialize for UpdateServiceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceRequest");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.DeleteService][google.cloud.servicedirectory.v1.RegistrationService.DeleteService].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.DeleteService]: crate::client::RegistrationService::delete_service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceRequest {
     /// Required. The name of the service to delete.
@@ -3156,11 +3346,22 @@ impl serde::ser::Serialize for DeleteServiceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.CreateEndpoint][google.cloud.servicedirectory.v1.RegistrationService.CreateEndpoint].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.CreateEndpoint]: crate::client::RegistrationService::create_endpoint
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEndpointRequest {
     /// Required. The resource name of the service that this endpoint provides.
@@ -3355,11 +3556,24 @@ impl serde::ser::Serialize for CreateEndpointRequest {
     }
 }
 
+impl std::fmt::Debug for CreateEndpointRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEndpointRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("endpoint_id", &self.endpoint_id);
+        debug_struct.field("endpoint", &self.endpoint);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.ListEndpoints][google.cloud.servicedirectory.v1.RegistrationService.ListEndpoints].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.ListEndpoints]: crate::client::RegistrationService::list_endpoints
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEndpointsRequest {
     /// Required. The resource name of the service whose endpoints you'd like to
@@ -3649,11 +3863,26 @@ impl serde::ser::Serialize for ListEndpointsRequest {
     }
 }
 
+impl std::fmt::Debug for ListEndpointsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEndpointsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [RegistrationService.ListEndpoints][google.cloud.servicedirectory.v1.RegistrationService.ListEndpoints].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.ListEndpoints]: crate::client::RegistrationService::list_endpoints
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEndpointsResponse {
     /// The list of endpoints.
@@ -3825,13 +4054,25 @@ impl serde::ser::Serialize for ListEndpointsResponse {
     }
 }
 
+impl std::fmt::Debug for ListEndpointsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEndpointsResponse");
+        debug_struct.field("endpoints", &self.endpoints);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.GetEndpoint][google.cloud.servicedirectory.v1.RegistrationService.GetEndpoint].
 /// This should not be used to lookup endpoints at runtime. Instead, use
 /// the `resolve` method.
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.GetEndpoint]: crate::client::RegistrationService::get_endpoint
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEndpointRequest {
     /// Required. The name of the endpoint to get.
@@ -3960,11 +4201,22 @@ impl serde::ser::Serialize for GetEndpointRequest {
     }
 }
 
+impl std::fmt::Debug for GetEndpointRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEndpointRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.UpdateEndpoint][google.cloud.servicedirectory.v1.RegistrationService.UpdateEndpoint].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.UpdateEndpoint]: crate::client::RegistrationService::update_endpoint
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEndpointRequest {
     /// Required. The updated endpoint.
@@ -4140,11 +4392,23 @@ impl serde::ser::Serialize for UpdateEndpointRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateEndpointRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEndpointRequest");
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [RegistrationService.DeleteEndpoint][google.cloud.servicedirectory.v1.RegistrationService.DeleteEndpoint].
 ///
 /// [google.cloud.servicedirectory.v1.RegistrationService.DeleteEndpoint]: crate::client::RegistrationService::delete_endpoint
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEndpointRequest {
     /// Required. The name of the endpoint to delete.
@@ -4273,13 +4537,24 @@ impl serde::ser::Serialize for DeleteEndpointRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteEndpointRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteEndpointRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An individual service. A service contains a name and optional metadata.
 /// A service must exist before
 /// [endpoints][google.cloud.servicedirectory.v1.Endpoint] can be
 /// added to it.
 ///
 /// [google.cloud.servicedirectory.v1.Endpoint]: crate::model::Endpoint
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
     /// Immutable. The resource name for the service in the format
@@ -4518,5 +4793,19 @@ impl serde::ser::Serialize for Service {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Service {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Service");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("endpoints", &self.endpoints);
+        debug_struct.field("uid", &self.uid);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

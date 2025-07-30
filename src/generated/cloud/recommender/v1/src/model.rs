@@ -33,7 +33,7 @@ extern crate wkt;
 
 /// An insight along with the information used to derive the insight. The insight
 /// may have associated recommendations as well.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Insight {
     /// Name of the insight.
@@ -507,13 +507,38 @@ impl serde::ser::Serialize for Insight {
     }
 }
 
+impl std::fmt::Debug for Insight {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Insight");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("target_resources", &self.target_resources);
+        debug_struct.field("insight_subtype", &self.insight_subtype);
+        debug_struct.field("content", &self.content);
+        debug_struct.field("last_refresh_time", &self.last_refresh_time);
+        debug_struct.field("observation_period", &self.observation_period);
+        debug_struct.field("state_info", &self.state_info);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field(
+            "associated_recommendations",
+            &self.associated_recommendations,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Insight].
 pub mod insight {
     #[allow(unused_imports)]
     use super::*;
 
     /// Reference to an associated recommendation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RecommendationReference {
         /// Recommendation resource name, e.g.
@@ -646,6 +671,17 @@ pub mod insight {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for RecommendationReference {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RecommendationReference");
+            debug_struct.field("recommendation", &self.recommendation);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -957,7 +993,7 @@ pub mod insight {
 }
 
 /// Information related to insight state.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InsightStateInfo {
     /// Insight state.
@@ -1123,6 +1159,18 @@ impl serde::ser::Serialize for InsightStateInfo {
     }
 }
 
+impl std::fmt::Debug for InsightStateInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsightStateInfo");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_metadata", &self.state_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InsightStateInfo].
 pub mod insight_state_info {
     #[allow(unused_imports)]
@@ -1275,7 +1323,7 @@ pub mod insight_state_info {
 }
 
 /// Configuration for an InsightType.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InsightTypeConfig {
     /// Name of insight type config.
@@ -1610,10 +1658,30 @@ impl serde::ser::Serialize for InsightTypeConfig {
     }
 }
 
+impl std::fmt::Debug for InsightTypeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsightTypeConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "insight_type_generation_config",
+            &self.insight_type_generation_config,
+        );
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("revision_id", &self.revision_id);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A configuration to customize the generation of insights.
 /// Eg, customizing the lookback period considered when generating a
 /// insight.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InsightTypeGenerationConfig {
     /// Parameters for this InsightTypeGenerationConfig. These configs can be used
@@ -1753,9 +1821,20 @@ impl serde::ser::Serialize for InsightTypeGenerationConfig {
     }
 }
 
+impl std::fmt::Debug for InsightTypeGenerationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsightTypeGenerationConfig");
+        debug_struct.field("params", &self.params);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A recommendation along with a suggested action. E.g., a rightsizing
 /// recommendation for an underutilized VM, IAM role recommendations, etc
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Recommendation {
     /// Name of recommendation.
@@ -2230,13 +2309,35 @@ impl serde::ser::Serialize for Recommendation {
     }
 }
 
+impl std::fmt::Debug for Recommendation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Recommendation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("recommender_subtype", &self.recommender_subtype);
+        debug_struct.field("last_refresh_time", &self.last_refresh_time);
+        debug_struct.field("primary_impact", &self.primary_impact);
+        debug_struct.field("additional_impact", &self.additional_impact);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("content", &self.content);
+        debug_struct.field("state_info", &self.state_info);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("associated_insights", &self.associated_insights);
+        debug_struct.field("xor_group_id", &self.xor_group_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Recommendation].
 pub mod recommendation {
     #[allow(unused_imports)]
     use super::*;
 
     /// Reference to an associated insight.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InsightReference {
         /// Insight resource name, e.g.
@@ -2366,6 +2467,17 @@ pub mod recommendation {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for InsightReference {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InsightReference");
+            debug_struct.field("insight", &self.insight);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -2517,7 +2629,7 @@ pub mod recommendation {
 }
 
 /// Contains what resources are changing and how they are changing.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecommendationContent {
     /// Operations to one or more Google Cloud resources grouped in such a way
@@ -2691,8 +2803,20 @@ impl serde::ser::Serialize for RecommendationContent {
     }
 }
 
+impl std::fmt::Debug for RecommendationContent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecommendationContent");
+        debug_struct.field("operation_groups", &self.operation_groups);
+        debug_struct.field("overview", &self.overview);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Group of operations that need to be performed atomically.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationGroup {
     /// List of operations across one or more resources that belong to this group.
@@ -2825,6 +2949,17 @@ impl serde::ser::Serialize for OperationGroup {
     }
 }
 
+impl std::fmt::Debug for OperationGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationGroup");
+        debug_struct.field("operations", &self.operations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains an operation for a resource loosely based on the JSON-PATCH format
 /// with support for:
 ///
@@ -2834,7 +2969,7 @@ impl serde::ser::Serialize for OperationGroup {
 ///   described.
 /// * Allows extension to custom operations not natively supported by RFC6902.
 ///   See <https://tools.ietf.org/html/rfc6902> for details on the original RFC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Operation {
     /// Type of this operation. Contains one of 'add', 'remove', 'replace', 'move',
@@ -3320,6 +3455,25 @@ impl serde::ser::Serialize for Operation {
     }
 }
 
+impl std::fmt::Debug for Operation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Operation");
+        debug_struct.field("action", &self.action);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("source_resource", &self.source_resource);
+        debug_struct.field("source_path", &self.source_path);
+        debug_struct.field("path_filters", &self.path_filters);
+        debug_struct.field("path_value_matchers", &self.path_value_matchers);
+        debug_struct.field("path_value", &self.path_value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Operation].
 pub mod operation {
     #[allow(unused_imports)]
@@ -3341,7 +3495,7 @@ pub mod operation {
 }
 
 /// Contains various matching options for values for a GCP resource field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueMatcher {
     pub match_variant: std::option::Option<crate::model::value_matcher::MatchVariant>,
@@ -3511,6 +3665,17 @@ impl serde::ser::Serialize for ValueMatcher {
     }
 }
 
+impl std::fmt::Debug for ValueMatcher {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValueMatcher");
+        debug_struct.field("match_variant", &self.match_variant);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ValueMatcher].
 pub mod value_matcher {
     #[allow(unused_imports)]
@@ -3527,7 +3692,7 @@ pub mod value_matcher {
 }
 
 /// Contains metadata about how much money a recommendation can save or incur.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CostProjection {
     /// An approximate projection on amount saved or amount incurred. Negative cost
@@ -3743,8 +3908,21 @@ impl serde::ser::Serialize for CostProjection {
     }
 }
 
+impl std::fmt::Debug for CostProjection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CostProjection");
+        debug_struct.field("cost", &self.cost);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("cost_in_local_currency", &self.cost_in_local_currency);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains various ways of describing the impact on Security.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityProjection {
     /// Additional security impact details that is provided by the recommender.
@@ -3884,9 +4062,20 @@ impl serde::ser::Serialize for SecurityProjection {
     }
 }
 
+impl std::fmt::Debug for SecurityProjection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecurityProjection");
+        debug_struct.field("details", &self.details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains metadata about how much sustainability a recommendation can save or
 /// incur.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SustainabilityProjection {
     /// Carbon Footprint generated in kg of CO2 equivalent.
@@ -4070,8 +4259,20 @@ impl serde::ser::Serialize for SustainabilityProjection {
     }
 }
 
+impl std::fmt::Debug for SustainabilityProjection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SustainabilityProjection");
+        debug_struct.field("kg_c_o2e", &self.kg_c_o2e);
+        debug_struct.field("duration", &self.duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains information on the impact of a reliability recommendation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReliabilityProjection {
     /// Reliability risks mitigated by this recommendation.
@@ -4242,6 +4443,18 @@ impl serde::ser::Serialize for ReliabilityProjection {
     }
 }
 
+impl std::fmt::Debug for ReliabilityProjection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReliabilityProjection");
+        debug_struct.field("risks", &self.risks);
+        debug_struct.field("details", &self.details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReliabilityProjection].
 pub mod reliability_projection {
     #[allow(unused_imports)]
@@ -4389,7 +4602,7 @@ pub mod reliability_projection {
 }
 
 /// Contains the impact a recommendation can have for a given category.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Impact {
     /// Category that is being targeted.
@@ -4770,6 +4983,18 @@ impl serde::ser::Serialize for Impact {
     }
 }
 
+impl std::fmt::Debug for Impact {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Impact");
+        debug_struct.field("category", &self.category);
+        debug_struct.field("projection", &self.projection);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Impact].
 pub mod impact {
     #[allow(unused_imports)]
@@ -4951,7 +5176,7 @@ pub mod impact {
 }
 
 /// Information for state. Contains state and metadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecommendationStateInfo {
     /// The state of the recommendation, Eg ACTIVE, SUCCEEDED, FAILED.
@@ -5118,6 +5343,18 @@ impl serde::ser::Serialize for RecommendationStateInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for RecommendationStateInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecommendationStateInfo");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_metadata", &self.state_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -5296,7 +5533,7 @@ pub mod recommendation_state_info {
 }
 
 /// Configuration for a Recommender.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecommenderConfig {
     /// Name of recommender config.
@@ -5631,10 +5868,30 @@ impl serde::ser::Serialize for RecommenderConfig {
     }
 }
 
+impl std::fmt::Debug for RecommenderConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecommenderConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "recommender_generation_config",
+            &self.recommender_generation_config,
+        );
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("revision_id", &self.revision_id);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Configuration to customize the generation of recommendations.
 /// Eg, customizing the lookback period considered when generating a
 /// recommendation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecommenderGenerationConfig {
     /// Parameters for this RecommenderGenerationConfig. These configs can be used
@@ -5774,8 +6031,19 @@ impl serde::ser::Serialize for RecommenderGenerationConfig {
     }
 }
 
+impl std::fmt::Debug for RecommenderGenerationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecommenderGenerationConfig");
+        debug_struct.field("params", &self.params);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListInsights` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInsightsRequest {
     /// Required. The container resource on which to execute the request.
@@ -6047,8 +6315,22 @@ impl serde::ser::Serialize for ListInsightsRequest {
     }
 }
 
+impl std::fmt::Debug for ListInsightsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInsightsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to the `ListInsights` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInsightsResponse {
     /// The set of insights for the `parent` resource.
@@ -6220,8 +6502,20 @@ impl serde::ser::Serialize for ListInsightsResponse {
     }
 }
 
+impl std::fmt::Debug for ListInsightsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInsightsResponse");
+        debug_struct.field("insights", &self.insights);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to the `GetInsight` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInsightRequest {
     /// Required. Name of the insight.
@@ -6350,8 +6644,19 @@ impl serde::ser::Serialize for GetInsightRequest {
     }
 }
 
+impl std::fmt::Debug for GetInsightRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInsightRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `MarkInsightAccepted` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MarkInsightAcceptedRequest {
     /// Required. Name of the insight.
@@ -6541,8 +6846,21 @@ impl serde::ser::Serialize for MarkInsightAcceptedRequest {
     }
 }
 
+impl std::fmt::Debug for MarkInsightAcceptedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MarkInsightAcceptedRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state_metadata", &self.state_metadata);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListRecommendations` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRecommendationsRequest {
     /// Required. The container resource on which to execute the request.
@@ -6814,8 +7132,22 @@ impl serde::ser::Serialize for ListRecommendationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListRecommendationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRecommendationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to the `ListRecommendations` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRecommendationsResponse {
     /// The set of recommendations for the `parent` resource.
@@ -6991,8 +7323,20 @@ impl serde::ser::Serialize for ListRecommendationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListRecommendationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRecommendationsResponse");
+        debug_struct.field("recommendations", &self.recommendations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to the `GetRecommendation` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRecommendationRequest {
     /// Required. Name of the recommendation.
@@ -7121,8 +7465,19 @@ impl serde::ser::Serialize for GetRecommendationRequest {
     }
 }
 
+impl std::fmt::Debug for GetRecommendationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRecommendationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `MarkRecommendationDismissed` Method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MarkRecommendationDismissedRequest {
     /// Required. Name of the recommendation.
@@ -7275,8 +7630,20 @@ impl serde::ser::Serialize for MarkRecommendationDismissedRequest {
     }
 }
 
+impl std::fmt::Debug for MarkRecommendationDismissedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MarkRecommendationDismissedRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `MarkRecommendationClaimed` Method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MarkRecommendationClaimedRequest {
     /// Required. Name of the recommendation.
@@ -7468,8 +7835,21 @@ impl serde::ser::Serialize for MarkRecommendationClaimedRequest {
     }
 }
 
+impl std::fmt::Debug for MarkRecommendationClaimedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MarkRecommendationClaimedRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state_metadata", &self.state_metadata);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `MarkRecommendationSucceeded` Method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MarkRecommendationSucceededRequest {
     /// Required. Name of the recommendation.
@@ -7661,8 +8041,21 @@ impl serde::ser::Serialize for MarkRecommendationSucceededRequest {
     }
 }
 
+impl std::fmt::Debug for MarkRecommendationSucceededRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MarkRecommendationSucceededRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state_metadata", &self.state_metadata);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `MarkRecommendationFailed` Method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MarkRecommendationFailedRequest {
     /// Required. Name of the recommendation.
@@ -7854,8 +8247,21 @@ impl serde::ser::Serialize for MarkRecommendationFailedRequest {
     }
 }
 
+impl std::fmt::Debug for MarkRecommendationFailedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MarkRecommendationFailedRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state_metadata", &self.state_metadata);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the GetRecommenderConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRecommenderConfigRequest {
     /// Required. Name of the Recommendation Config to get.
@@ -7995,8 +8401,19 @@ impl serde::ser::Serialize for GetRecommenderConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetRecommenderConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRecommenderConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateRecommenderConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRecommenderConfigRequest {
     /// Required. The RecommenderConfig to update.
@@ -8200,8 +8617,21 @@ impl serde::ser::Serialize for UpdateRecommenderConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateRecommenderConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRecommenderConfigRequest");
+        debug_struct.field("recommender_config", &self.recommender_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the GetInsightTypeConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInsightTypeConfigRequest {
     /// Required. Name of the InsightTypeConfig to get.
@@ -8341,8 +8771,19 @@ impl serde::ser::Serialize for GetInsightTypeConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetInsightTypeConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInsightTypeConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateInsightTypeConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInsightTypeConfigRequest {
     /// Required. The InsightTypeConfig to update.
@@ -8543,5 +8984,18 @@ impl serde::ser::Serialize for UpdateInsightTypeConfigRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateInsightTypeConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInsightTypeConfigRequest");
+        debug_struct.field("insight_type_config", &self.insight_type_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

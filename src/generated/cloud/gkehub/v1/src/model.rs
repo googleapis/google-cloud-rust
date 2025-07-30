@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Feature represents the settings and status of any Hub Feature.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Feature {
     /// Output only. The full, unique name of this Feature resource in the format
@@ -519,10 +519,30 @@ impl serde::ser::Serialize for Feature {
     }
 }
 
+impl std::fmt::Debug for Feature {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Feature");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("resource_state", &self.resource_state);
+        debug_struct.field("spec", &self.spec);
+        debug_struct.field("membership_specs", &self.membership_specs);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("membership_states", &self.membership_states);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// FeatureResourceState describes the state of a Feature *resource* in the
 /// GkeHub API. See `FeatureState` for the "running state" of the Feature in the
 /// Hub and across Memberships.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureResourceState {
     /// The current state of the Feature resource in the Hub API.
@@ -653,6 +673,17 @@ impl serde::ser::Serialize for FeatureResourceState {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for FeatureResourceState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FeatureResourceState");
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -821,7 +852,7 @@ pub mod feature_resource_state {
 /// FeatureState describes the high-level state of a Feature. It may be used to
 /// describe a Feature's state at the environ-level, or per-membershop, depending
 /// on the context.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureState {
     /// The high-level, machine-readable status of this Feature.
@@ -1011,6 +1042,19 @@ impl serde::ser::Serialize for FeatureState {
     }
 }
 
+impl std::fmt::Debug for FeatureState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FeatureState");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FeatureState].
 pub mod feature_state {
     #[allow(unused_imports)]
@@ -1163,7 +1207,7 @@ pub mod feature_state {
 }
 
 /// CommonFeatureSpec contains Hub-wide configuration information
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonFeatureSpec {
     pub feature_spec: std::option::Option<crate::model::common_feature_spec::FeatureSpec>,
@@ -1344,6 +1388,17 @@ impl serde::ser::Serialize for CommonFeatureSpec {
     }
 }
 
+impl std::fmt::Debug for CommonFeatureSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommonFeatureSpec");
+        debug_struct.field("feature_spec", &self.feature_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CommonFeatureSpec].
 pub mod common_feature_spec {
     #[allow(unused_imports)]
@@ -1358,7 +1413,7 @@ pub mod common_feature_spec {
 }
 
 /// CommonFeatureState contains Hub-wide Feature status information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonFeatureState {
     /// Output only. The "running state" of the Feature in this Hub.
@@ -1498,9 +1553,20 @@ impl serde::ser::Serialize for CommonFeatureState {
     }
 }
 
+impl std::fmt::Debug for CommonFeatureState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommonFeatureState");
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// MembershipFeatureSpec contains configuration information for a single
 /// Membership.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipFeatureSpec {
     pub feature_spec: std::option::Option<crate::model::membership_feature_spec::FeatureSpec>,
@@ -1676,6 +1742,17 @@ impl serde::ser::Serialize for MembershipFeatureSpec {
     }
 }
 
+impl std::fmt::Debug for MembershipFeatureSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MembershipFeatureSpec");
+        debug_struct.field("feature_spec", &self.feature_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MembershipFeatureSpec].
 pub mod membership_feature_spec {
     #[allow(unused_imports)]
@@ -1691,7 +1768,7 @@ pub mod membership_feature_spec {
 
 /// MembershipFeatureState contains Feature status information for a single
 /// Membership.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipFeatureState {
     /// The high-level state of this Feature for a single membership.
@@ -1904,6 +1981,18 @@ impl serde::ser::Serialize for MembershipFeatureState {
     }
 }
 
+impl std::fmt::Debug for MembershipFeatureState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MembershipFeatureState");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("feature_state", &self.feature_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MembershipFeatureState].
 pub mod membership_feature_state {
     #[allow(unused_imports)]
@@ -1918,7 +2007,7 @@ pub mod membership_feature_state {
 }
 
 /// Membership contains information about a member cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Membership {
     /// Output only. The full, unique name of this Membership resource in the
@@ -2504,6 +2593,29 @@ impl serde::ser::Serialize for Membership {
     }
 }
 
+impl std::fmt::Debug for Membership {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Membership");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("external_id", &self.external_id);
+        debug_struct.field("last_connection_time", &self.last_connection_time);
+        debug_struct.field("unique_id", &self.unique_id);
+        debug_struct.field("authority", &self.authority);
+        debug_struct.field("monitoring_config", &self.monitoring_config);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Membership].
 pub mod membership {
     #[allow(unused_imports)]
@@ -2520,7 +2632,7 @@ pub mod membership {
 
 /// MembershipEndpoint contains information needed to contact a Kubernetes API,
 /// endpoint and any additional Kubernetes metadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipEndpoint {
     /// Optional. GKE-specific information. Only present if this Membership is a GKE cluster.
@@ -2766,10 +2878,24 @@ impl serde::ser::Serialize for MembershipEndpoint {
     }
 }
 
+impl std::fmt::Debug for MembershipEndpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MembershipEndpoint");
+        debug_struct.field("gke_cluster", &self.gke_cluster);
+        debug_struct.field("kubernetes_metadata", &self.kubernetes_metadata);
+        debug_struct.field("kubernetes_resource", &self.kubernetes_resource);
+        debug_struct.field("google_managed", &self.google_managed);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// KubernetesResource contains the YAML manifests and configuration for
 /// Membership Kubernetes resources in the cluster. After CreateMembership or
 /// UpdateMembership, these resources should be re-applied in the cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesResource {
     /// Input only. The YAML representation of the Membership CR. This field is
@@ -3022,8 +3148,22 @@ impl serde::ser::Serialize for KubernetesResource {
     }
 }
 
+impl std::fmt::Debug for KubernetesResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KubernetesResource");
+        debug_struct.field("membership_cr_manifest", &self.membership_cr_manifest);
+        debug_struct.field("membership_resources", &self.membership_resources);
+        debug_struct.field("connect_resources", &self.connect_resources);
+        debug_struct.field("resource_options", &self.resource_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ResourceOptions represent options for Kubernetes resource generation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceOptions {
     /// Optional. The Connect agent version to use for connect_resources. Defaults
@@ -3210,9 +3350,22 @@ impl serde::ser::Serialize for ResourceOptions {
     }
 }
 
+impl std::fmt::Debug for ResourceOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceOptions");
+        debug_struct.field("connect_version", &self.connect_version);
+        debug_struct.field("v1beta1_crd", &self.v1beta1_crd);
+        debug_struct.field("k8s_version", &self.k8s_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ResourceManifest represents a single Kubernetes resource to be applied to
 /// the cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceManifest {
     /// YAML manifest of the resource.
@@ -3370,8 +3523,20 @@ impl serde::ser::Serialize for ResourceManifest {
     }
 }
 
+impl std::fmt::Debug for ResourceManifest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceManifest");
+        debug_struct.field("manifest", &self.manifest);
+        debug_struct.field("cluster_scoped", &self.cluster_scoped);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GkeCluster contains information specific to GKE clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GkeCluster {
     /// Immutable. Self-link of the Google Cloud resource for the GKE cluster. For
@@ -3532,9 +3697,21 @@ impl serde::ser::Serialize for GkeCluster {
     }
 }
 
+impl std::fmt::Debug for GkeCluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GkeCluster");
+        debug_struct.field("resource_link", &self.resource_link);
+        debug_struct.field("cluster_missing", &self.cluster_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// KubernetesMetadata provides informational metadata for Memberships
 /// representing Kubernetes clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesMetadata {
     /// Output only. Kubernetes API server version string as reported by
@@ -3874,9 +4051,28 @@ impl serde::ser::Serialize for KubernetesMetadata {
     }
 }
 
+impl std::fmt::Debug for KubernetesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KubernetesMetadata");
+        debug_struct.field(
+            "kubernetes_api_server_version",
+            &self.kubernetes_api_server_version,
+        );
+        debug_struct.field("node_provider_id", &self.node_provider_id);
+        debug_struct.field("node_count", &self.node_count);
+        debug_struct.field("vcpu_count", &self.vcpu_count);
+        debug_struct.field("memory_mb", &self.memory_mb);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// This field informs Fleet-based applications/services/UIs with the necessary
 /// information for where each underlying Cluster reports its metrics.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoringConfig {
     /// Immutable. Project used to report Metrics
@@ -4121,8 +4317,23 @@ impl serde::ser::Serialize for MonitoringConfig {
     }
 }
 
+impl std::fmt::Debug for MonitoringConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MonitoringConfig");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("kubernetes_metrics_prefix", &self.kubernetes_metrics_prefix);
+        debug_struct.field("cluster_hash", &self.cluster_hash);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// MembershipState describes the state of a Membership resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipState {
     /// Output only. The current state of the Membership resource.
@@ -4249,6 +4460,17 @@ impl serde::ser::Serialize for MembershipState {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for MembershipState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MembershipState");
+        debug_struct.field("code", &self.code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -4414,7 +4636,7 @@ pub mod membership_state {
 /// Authority encodes how Google will recognize identities from this Membership.
 /// See the workload identity documentation for more details:
 /// <https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Authority {
     /// Optional. A JSON Web Token (JWT) issuer URI. `issuer` must start with
@@ -4662,8 +4884,22 @@ impl serde::ser::Serialize for Authority {
     }
 }
 
+impl std::fmt::Debug for Authority {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Authority");
+        debug_struct.field("issuer", &self.issuer);
+        debug_struct.field("workload_identity_pool", &self.workload_identity_pool);
+        debug_struct.field("identity_provider", &self.identity_provider);
+        debug_struct.field("oidc_jwks", &self.oidc_jwks);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GkeHub.ListMemberships` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMembershipsRequest {
     /// Required. The parent (project and location) where the Memberships will be
@@ -4936,8 +5172,23 @@ impl serde::ser::Serialize for ListMembershipsRequest {
     }
 }
 
+impl std::fmt::Debug for ListMembershipsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMembershipsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the `GkeHub.ListMemberships` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMembershipsResponse {
     /// The list of matching Memberships.
@@ -5137,8 +5388,21 @@ impl serde::ser::Serialize for ListMembershipsResponse {
     }
 }
 
+impl std::fmt::Debug for ListMembershipsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMembershipsResponse");
+        debug_struct.field("resources", &self.resources);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GkeHub.GetMembership` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMembershipRequest {
     /// Required. The Membership resource name in the format
@@ -5268,8 +5532,19 @@ impl serde::ser::Serialize for GetMembershipRequest {
     }
 }
 
+impl std::fmt::Debug for GetMembershipRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMembershipRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `GkeHub.CreateMembership` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMembershipRequest {
     /// Required. The parent (project and location) where the Memberships will be
@@ -5504,8 +5779,22 @@ impl serde::ser::Serialize for CreateMembershipRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMembershipRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMembershipRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("membership_id", &self.membership_id);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GkeHub.DeleteMembership` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMembershipRequest {
     /// Required. The Membership resource name in the format
@@ -5698,8 +5987,21 @@ impl serde::ser::Serialize for DeleteMembershipRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteMembershipRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMembershipRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GkeHub.UpdateMembership` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateMembershipRequest {
     /// Required. The Membership resource name in the format
@@ -5944,10 +6246,24 @@ impl serde::ser::Serialize for UpdateMembershipRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateMembershipRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateMembershipRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GkeHub.GenerateConnectManifest`
 /// method.
 /// .
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateConnectManifestRequest {
     /// Required. The Membership resource name the Agent will associate with, in
@@ -6280,9 +6596,26 @@ impl serde::ser::Serialize for GenerateConnectManifestRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateConnectManifestRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateConnectManifestRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("namespace", &self.namespace);
+        debug_struct.field("proxy", &self.proxy);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("is_upgrade", &self.is_upgrade);
+        debug_struct.field("registry", &self.registry);
+        debug_struct.field("image_pull_secret_content", &self.image_pull_secret_content);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GenerateConnectManifestResponse contains manifest information for
 /// installing/upgrading a Connect agent.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateConnectManifestResponse {
     /// The ordered list of Kubernetes resources that need to be applied to the
@@ -6419,9 +6752,20 @@ impl serde::ser::Serialize for GenerateConnectManifestResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateConnectManifestResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateConnectManifestResponse");
+        debug_struct.field("manifest", &self.manifest);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ConnectAgentResource represents a Kubernetes resource manifest for Connect
 /// Agent deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectAgentResource {
     /// Kubernetes type of the resource.
@@ -6585,9 +6929,21 @@ impl serde::ser::Serialize for ConnectAgentResource {
     }
 }
 
+impl std::fmt::Debug for ConnectAgentResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectAgentResource");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("manifest", &self.manifest);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// TypeMeta is the type information needed for content unmarshalling of
 /// Kubernetes resources in the manifest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TypeMeta {
     /// Kind of the resource (e.g. Deployment).
@@ -6741,8 +7097,20 @@ impl serde::ser::Serialize for TypeMeta {
     }
 }
 
+impl std::fmt::Debug for TypeMeta {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TypeMeta");
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GkeHub.ListFeatures` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFeaturesRequest {
     /// Required. The parent (project and location) where the Features will be listed.
@@ -7010,8 +7378,23 @@ impl serde::ser::Serialize for ListFeaturesRequest {
     }
 }
 
+impl std::fmt::Debug for ListFeaturesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFeaturesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the `GkeHub.ListFeatures` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFeaturesResponse {
     /// The list of matching Features
@@ -7184,8 +7567,20 @@ impl serde::ser::Serialize for ListFeaturesResponse {
     }
 }
 
+impl std::fmt::Debug for ListFeaturesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFeaturesResponse");
+        debug_struct.field("resources", &self.resources);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GkeHub.GetFeature` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFeatureRequest {
     /// Required. The Feature resource name in the format
@@ -7315,8 +7710,19 @@ impl serde::ser::Serialize for GetFeatureRequest {
     }
 }
 
+impl std::fmt::Debug for GetFeatureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFeatureRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `GkeHub.CreateFeature` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFeatureRequest {
     /// Required. The parent (project and location) where the Feature will be created.
@@ -7543,8 +7949,22 @@ impl serde::ser::Serialize for CreateFeatureRequest {
     }
 }
 
+impl std::fmt::Debug for CreateFeatureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateFeatureRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("feature_id", &self.feature_id);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GkeHub.DeleteFeature` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFeatureRequest {
     /// Required. The Feature resource name in the format
@@ -7737,8 +8157,21 @@ impl serde::ser::Serialize for DeleteFeatureRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteFeatureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFeatureRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GkeHub.UpdateFeature` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFeatureRequest {
     /// Required. The Feature resource name in the format
@@ -7983,8 +8416,22 @@ impl serde::ser::Serialize for UpdateFeatureRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateFeatureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFeatureRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -8286,5 +8733,22 @@ impl serde::ser::Serialize for OperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_detail", &self.status_detail);
+        debug_struct.field("cancel_requested", &self.cancel_requested);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

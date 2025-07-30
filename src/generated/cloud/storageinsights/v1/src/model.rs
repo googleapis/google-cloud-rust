@@ -39,7 +39,7 @@ extern crate wkt;
 /// [`ListReportConfigs`][google.cloud.storageinsights.v1.StorageInsights.ListReportConfigs]
 ///
 /// [google.cloud.storageinsights.v1.StorageInsights.ListReportConfigs]: crate::client::StorageInsights::list_report_configs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReportConfigsRequest {
     /// Required. Parent value for ListReportConfigsRequest
@@ -286,8 +286,23 @@ impl serde::ser::Serialize for ListReportConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListReportConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReportConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing ReportConfigs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReportConfigsResponse {
     /// The list of ReportConfig
@@ -486,8 +501,21 @@ impl serde::ser::Serialize for ListReportConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListReportConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReportConfigsResponse");
+        debug_struct.field("report_configs", &self.report_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a ReportConfig
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReportConfigRequest {
     /// Required. Name of the resource
@@ -616,8 +644,19 @@ impl serde::ser::Serialize for GetReportConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetReportConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetReportConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a ReportConfig
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReportConfigRequest {
     /// Required. Value for parent.
@@ -819,8 +858,21 @@ impl serde::ser::Serialize for CreateReportConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateReportConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateReportConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("report_config", &self.report_config);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a ReportConfig
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateReportConfigRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -1038,8 +1090,21 @@ impl serde::ser::Serialize for UpdateReportConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateReportConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateReportConfigRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("report_config", &self.report_config);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a ReportConfig
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteReportConfigRequest {
     /// Required. Name of the resource
@@ -1229,10 +1294,23 @@ impl serde::ser::Serialize for DeleteReportConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteReportConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteReportConfigRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message describing ReportDetail object. ReportDetail represents metadata of
 /// generated reports for a ReportConfig.
 /// Next ID: 10
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportDetail {
     /// Name of resource. It will be of form
@@ -1619,13 +1697,31 @@ impl serde::ser::Serialize for ReportDetail {
     }
 }
 
+impl std::fmt::Debug for ReportDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReportDetail");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("snapshot_time", &self.snapshot_time);
+        debug_struct.field("report_path_prefix", &self.report_path_prefix);
+        debug_struct.field("shards_count", &self.shards_count);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("target_datetime", &self.target_datetime);
+        debug_struct.field("report_metrics", &self.report_metrics);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReportDetail].
 pub mod report_detail {
     #[allow(unused_imports)]
     use super::*;
 
     /// Different metrics associated with the generated report.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Metrics {
         /// Count of Cloud Storage objects which are part of the report.
@@ -1783,10 +1879,21 @@ pub mod report_detail {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Metrics {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Metrics");
+            debug_struct.field("processed_records_count", &self.processed_records_count);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Message for requesting list of ReportDetails
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReportDetailsRequest {
     /// Required. Parent value for ListReportDetailsRequest
@@ -2033,8 +2140,23 @@ impl serde::ser::Serialize for ListReportDetailsRequest {
     }
 }
 
+impl std::fmt::Debug for ListReportDetailsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReportDetailsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing ReportDetails
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReportDetailsResponse {
     /// The list of ReportDetail
@@ -2233,8 +2355,21 @@ impl serde::ser::Serialize for ListReportDetailsResponse {
     }
 }
 
+impl std::fmt::Debug for ListReportDetailsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReportDetailsResponse");
+        debug_struct.field("report_details", &self.report_details);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a ReportDetail
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReportDetailRequest {
     /// Required. Name of the resource
@@ -2363,8 +2498,19 @@ impl serde::ser::Serialize for GetReportDetailRequest {
     }
 }
 
+impl std::fmt::Debug for GetReportDetailRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetReportDetailRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -2670,10 +2816,27 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ReportConfig Resource:
 ///
 /// Options to setup frequency of report generation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrequencyOptions {
     /// Frequency of report generation.
@@ -2877,6 +3040,19 @@ impl serde::ser::Serialize for FrequencyOptions {
     }
 }
 
+impl std::fmt::Debug for FrequencyOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FrequencyOptions");
+        debug_struct.field("frequency", &self.frequency);
+        debug_struct.field("start_date", &self.start_date);
+        debug_struct.field("end_date", &self.end_date);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FrequencyOptions].
 pub mod frequency_options {
     #[allow(unused_imports)]
@@ -3016,7 +3192,7 @@ pub mod frequency_options {
 }
 
 /// Options to configure CSV formatted reports.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CSVOptions {
     /// Record separator characters in CSV.
@@ -3198,8 +3374,21 @@ impl serde::ser::Serialize for CSVOptions {
     }
 }
 
+impl std::fmt::Debug for CSVOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CSVOptions");
+        debug_struct.field("record_separator", &self.record_separator);
+        debug_struct.field("delimiter", &self.delimiter);
+        debug_struct.field("header_required", &self.header_required);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to configure Parquet formatted reports.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParquetOptions {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3301,9 +3490,19 @@ impl serde::ser::Serialize for ParquetOptions {
     }
 }
 
+impl std::fmt::Debug for ParquetOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ParquetOptions");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to filter data on storage systems.
 /// Next ID: 2
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageFilters {
     /// Bucket for which the report will be generated.
@@ -3432,9 +3631,20 @@ impl serde::ser::Serialize for CloudStorageFilters {
     }
 }
 
+impl std::fmt::Debug for CloudStorageFilters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudStorageFilters");
+        debug_struct.field("bucket", &self.bucket);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to store reports in storage systems.
 /// Next ID: 3
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageDestinationOptions {
     /// Destination bucket.
@@ -3592,9 +3802,21 @@ impl serde::ser::Serialize for CloudStorageDestinationOptions {
     }
 }
 
+impl std::fmt::Debug for CloudStorageDestinationOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudStorageDestinationOptions");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("destination_path", &self.destination_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Report specification for exporting object metadata.
 /// Next ID: 4
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectMetadataReportOptions {
     /// Metadata fields to be included in the report.
@@ -3882,6 +4104,19 @@ impl serde::ser::Serialize for ObjectMetadataReportOptions {
     }
 }
 
+impl std::fmt::Debug for ObjectMetadataReportOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectMetadataReportOptions");
+        debug_struct.field("metadata_fields", &self.metadata_fields);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("destination_options", &self.destination_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ObjectMetadataReportOptions].
 pub mod object_metadata_report_options {
     #[allow(unused_imports)]
@@ -3910,7 +4145,7 @@ pub mod object_metadata_report_options {
 /// <https://cloud.google.com/storage/docs/insights/using-inventory-reports#create-config-rest>
 /// for more details on how to set various fields.
 /// Next ID: 12
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportConfig {
     /// name of resource. It will be of form
@@ -4415,6 +4650,24 @@ impl serde::ser::Serialize for ReportConfig {
     }
 }
 
+impl std::fmt::Debug for ReportConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReportConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("frequency_options", &self.frequency_options);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("report_format", &self.report_format);
+        debug_struct.field("report_kind", &self.report_kind);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReportConfig].
 pub mod report_config {
     #[allow(unused_imports)]
@@ -4441,7 +4694,7 @@ pub mod report_config {
 
 /// Identity lets the user provide the type of identity to use, and outputs
 /// the identity string that can be used for IAM policy changes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Identity {
     /// Output only. Name of the identity.
@@ -4595,6 +4848,18 @@ impl serde::ser::Serialize for Identity {
     }
 }
 
+impl std::fmt::Debug for Identity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Identity");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Identity].
 pub mod identity {
     #[allow(unused_imports)]
@@ -4736,7 +5001,7 @@ pub mod identity {
 /// Message describing the dataset configuration properties. For more
 /// information, see [Dataset configuration
 /// properties](https://cloud.google.com/storage/docs/insights/datasets#dataset-config).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatasetConfig {
     /// Identifier. name of resource
@@ -5841,13 +6106,46 @@ impl serde::ser::Serialize for DatasetConfig {
     }
 }
 
+impl std::fmt::Debug for DatasetConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatasetConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("organization_number", &self.organization_number);
+        debug_struct.field(
+            "include_newly_created_buckets",
+            &self.include_newly_created_buckets,
+        );
+        debug_struct.field(
+            "skip_verification_and_ingest",
+            &self.skip_verification_and_ingest,
+        );
+        debug_struct.field("retention_period_days", &self.retention_period_days);
+        debug_struct.field("link", &self.link);
+        debug_struct.field("identity", &self.identity);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("dataset_config_state", &self.dataset_config_state);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("source_options", &self.source_options);
+        debug_struct.field("cloud_storage_locations", &self.cloud_storage_locations);
+        debug_struct.field("cloud_storage_buckets", &self.cloud_storage_buckets);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DatasetConfig].
 pub mod dataset_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Collection of project numbers
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SourceProjects {
         pub project_numbers: std::vec::Vec<i64>,
@@ -6010,8 +6308,19 @@ pub mod dataset_config {
         }
     }
 
+    impl std::fmt::Debug for SourceProjects {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SourceProjects");
+            debug_struct.field("project_numbers", &self.project_numbers);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Specifies a set of folders to include in the dataset
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SourceFolders {
         /// Optional. The list of folder numbers to include in the dataset.
@@ -6175,8 +6484,19 @@ pub mod dataset_config {
         }
     }
 
+    impl std::fmt::Debug for SourceFolders {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SourceFolders");
+            debug_struct.field("folder_numbers", &self.folder_numbers);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Collection of Cloud Storage locations.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudStorageLocations {
         pub locations: std::vec::Vec<std::string::String>,
@@ -6310,8 +6630,19 @@ pub mod dataset_config {
         }
     }
 
+    impl std::fmt::Debug for CloudStorageLocations {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CloudStorageLocations");
+            debug_struct.field("locations", &self.locations);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Collection of Cloud Storage buckets.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudStorageBuckets {
         pub cloud_storage_buckets:
@@ -6449,13 +6780,24 @@ pub mod dataset_config {
         }
     }
 
+    impl std::fmt::Debug for CloudStorageBuckets {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CloudStorageBuckets");
+            debug_struct.field("cloud_storage_buckets", &self.cloud_storage_buckets);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [CloudStorageBuckets].
     pub mod cloud_storage_buckets {
         #[allow(unused_imports)]
         use super::*;
 
         /// Defines the bucket by its name or a regex pattern to match buckets.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CloudStorageBucket {
 
@@ -6689,6 +7031,17 @@ pub mod dataset_config {
             }
         }
 
+        impl std::fmt::Debug for CloudStorageBucket {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("CloudStorageBucket");
+                debug_struct.field("cloud_storage_bucket", &self.cloud_storage_bucket);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [CloudStorageBucket].
         pub mod cloud_storage_bucket {
             #[allow(unused_imports)]
@@ -6707,7 +7060,7 @@ pub mod dataset_config {
     }
 
     /// Defines the details about the linked dataset.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Link {
         /// Output only. Dataset name for linked dataset.
@@ -6863,8 +7216,20 @@ pub mod dataset_config {
         }
     }
 
+    impl std::fmt::Debug for Link {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Link");
+            debug_struct.field("dataset", &self.dataset);
+            debug_struct.field("linked", &self.linked);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Provides a summary of the bucket level error statistics.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BucketErrors {
         /// Optional. Count of successfully validated buckets.
@@ -7301,8 +7666,37 @@ pub mod dataset_config {
         }
     }
 
+    impl std::fmt::Debug for BucketErrors {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BucketErrors");
+            debug_struct.field("validated_count", &self.validated_count);
+            debug_struct.field("permission_denied_count", &self.permission_denied_count);
+            debug_struct.field(
+                "permission_denied_bucket_ids",
+                &self.permission_denied_bucket_ids,
+            );
+            debug_struct.field(
+                "non_management_hub_entitled_count",
+                &self.non_management_hub_entitled_count,
+            );
+            debug_struct.field("internal_error_count", &self.internal_error_count);
+            debug_struct.field(
+                "non_storage_intelligence_entitled_count",
+                &self.non_storage_intelligence_entitled_count,
+            );
+            debug_struct.field(
+                "non_storage_intelligence_entitled_bucket_ids",
+                &self.non_storage_intelligence_entitled_bucket_ids,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Provides a summary of the project level error statistics.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProjectErrors {
         /// Optional. Count of successfully validated projects.
@@ -8073,6 +8467,43 @@ pub mod dataset_config {
         }
     }
 
+    impl std::fmt::Debug for ProjectErrors {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ProjectErrors");
+            debug_struct.field("validated_count", &self.validated_count);
+            debug_struct.field("outside_org_error_count", &self.outside_org_error_count);
+            debug_struct.field(
+                "outside_org_project_numbers",
+                &self.outside_org_project_numbers,
+            );
+            debug_struct.field(
+                "non_management_hub_entitled_error_count",
+                &self.non_management_hub_entitled_error_count,
+            );
+            debug_struct.field(
+                "non_management_hub_entitled_project_numbers",
+                &self.non_management_hub_entitled_project_numbers,
+            );
+            debug_struct.field(
+                "non_storage_intelligence_entitled_error_count",
+                &self.non_storage_intelligence_entitled_error_count,
+            );
+            debug_struct.field(
+                "non_storage_intelligence_entitled_project_numbers",
+                &self.non_storage_intelligence_entitled_project_numbers,
+            );
+            debug_struct.field("internal_error_count", &self.internal_error_count);
+            debug_struct.field(
+                "destination_project_check_result",
+                &self.destination_project_check_result,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ProjectErrors].
     pub mod project_errors {
         #[allow(unused_imports)]
@@ -8095,7 +8526,7 @@ pub mod dataset_config {
     }
 
     /// Summary of validation errors that occurred during the verification phase.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ValidationErrorsBeforeIngestion {
         /// Optional. Provides a summary of the bucket level error stats.
@@ -8274,6 +8705,18 @@ pub mod dataset_config {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ValidationErrorsBeforeIngestion {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ValidationErrorsBeforeIngestion");
+            debug_struct.field("bucket_errors", &self.bucket_errors);
+            debug_struct.field("project_errors", &self.project_errors);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -8481,7 +8924,7 @@ pub mod dataset_config {
 /// [`ListDatasetConfigs`][google.cloud.storageinsights.v1.StorageInsights.ListDatasetConfigs]
 ///
 /// [google.cloud.storageinsights.v1.StorageInsights.ListDatasetConfigs]: crate::client::StorageInsights::list_dataset_configs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatasetConfigsRequest {
     /// Required. Parent value for ListDatasetConfigsRequest
@@ -8728,11 +9171,26 @@ impl serde::ser::Serialize for ListDatasetConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDatasetConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatasetConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [`ListDatasetConfigs`][google.cloud.storageinsights.v1.StorageInsights.ListDatasetConfigs]
 ///
 /// [google.cloud.storageinsights.v1.StorageInsights.ListDatasetConfigs]: crate::client::StorageInsights::list_dataset_configs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatasetConfigsResponse {
     /// The list of `DatasetConfigs`
@@ -8931,11 +9389,24 @@ impl serde::ser::Serialize for ListDatasetConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDatasetConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatasetConfigsResponse");
+        debug_struct.field("dataset_configs", &self.dataset_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [`GetDatasetConfig`][google.cloud.storageinsights.v1.StorageInsights.GetDatasetConfig]
 ///
 /// [google.cloud.storageinsights.v1.StorageInsights.GetDatasetConfig]: crate::client::StorageInsights::get_dataset_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatasetConfigRequest {
     /// Required. Name of the resource
@@ -9064,11 +9535,22 @@ impl serde::ser::Serialize for GetDatasetConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetDatasetConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDatasetConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [`CreateDatasetConfig`][google.cloud.storageinsights.v1.StorageInsights.CreateDatasetConfig]
 ///
 /// [google.cloud.storageinsights.v1.StorageInsights.CreateDatasetConfig]: crate::client::StorageInsights::create_dataset_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatasetConfigRequest {
     /// Required. Value for parent.
@@ -9299,11 +9781,25 @@ impl serde::ser::Serialize for CreateDatasetConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDatasetConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDatasetConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("dataset_config_id", &self.dataset_config_id);
+        debug_struct.field("dataset_config", &self.dataset_config);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [`UpdateDatasetConfig`][google.cloud.storageinsights.v1.StorageInsights.UpdateDatasetConfig]
 ///
 /// [google.cloud.storageinsights.v1.StorageInsights.UpdateDatasetConfig]: crate::client::StorageInsights::update_dataset_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatasetConfigRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -9519,11 +10015,24 @@ impl serde::ser::Serialize for UpdateDatasetConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDatasetConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDatasetConfigRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("dataset_config", &self.dataset_config);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [`DeleteDatasetConfig`][google.cloud.storageinsights.v1.StorageInsights.DeleteDatasetConfig]
 ///
 /// [google.cloud.storageinsights.v1.StorageInsights.DeleteDatasetConfig]: crate::client::StorageInsights::delete_dataset_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDatasetConfigRequest {
     /// Required. Name of the resource
@@ -9687,11 +10196,23 @@ impl serde::ser::Serialize for DeleteDatasetConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDatasetConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDatasetConfigRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [`LinkDataset`][google.cloud.storageinsights.v1.StorageInsights.LinkDataset]
 ///
 /// [google.cloud.storageinsights.v1.StorageInsights.LinkDataset]: crate::client::StorageInsights::link_dataset
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkDatasetRequest {
     /// Required. Name of the resource
@@ -9820,11 +10341,22 @@ impl serde::ser::Serialize for LinkDatasetRequest {
     }
 }
 
+impl std::fmt::Debug for LinkDatasetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LinkDatasetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [`LinkDataset`][google.cloud.storageinsights.v1.StorageInsights.LinkDataset]
 ///
 /// [google.cloud.storageinsights.v1.StorageInsights.LinkDataset]: crate::client::StorageInsights::link_dataset
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkDatasetResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9926,11 +10458,21 @@ impl serde::ser::Serialize for LinkDatasetResponse {
     }
 }
 
+impl std::fmt::Debug for LinkDatasetResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LinkDatasetResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [`UnlinkDataset`][google.cloud.storageinsights.v1.StorageInsights.UnlinkDataset]
 ///
 /// [google.cloud.storageinsights.v1.StorageInsights.UnlinkDataset]: crate::client::StorageInsights::unlink_dataset
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnlinkDatasetRequest {
     /// Required. Name of the resource
@@ -10059,8 +10601,19 @@ impl serde::ser::Serialize for UnlinkDatasetRequest {
     }
 }
 
+impl std::fmt::Debug for UnlinkDatasetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnlinkDatasetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata that helps discover which resources are available in a location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// If true, `storageinsights.googleapis.com/ReportConfig` resource is
@@ -10216,5 +10769,17 @@ impl serde::ser::Serialize for LocationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field("report_config_available", &self.report_config_available);
+        debug_struct.field("dataset_config_available", &self.dataset_config_available);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

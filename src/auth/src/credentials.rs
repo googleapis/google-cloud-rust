@@ -631,7 +631,7 @@ pub mod testing {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use base64::Engine;
     use gax::backoff_policy::BackoffPolicy;
@@ -648,6 +648,19 @@ mod tests {
     use std::sync::LazyLock;
     use test_case::test_case;
     use tokio::time::Duration;
+
+    pub(crate) fn find_source_error<'a, T: Error + 'static>(
+        error: &'a (dyn Error + 'static),
+    ) -> Option<&'a T> {
+        let mut source = error.source();
+        while let Some(err) = source {
+            if let Some(target_err) = err.downcast_ref::<T>() {
+                return Some(target_err);
+            }
+            source = err.source();
+        }
+        None
+    }
 
     mock! {
         #[derive(Debug)]

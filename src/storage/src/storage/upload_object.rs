@@ -13,26 +13,22 @@
 // limitations under the License.
 
 use super::client::*;
+use super::perform_upload::PerformUpload;
+use super::upload_source::{Seek, StreamingSource};
 use super::*;
-use futures::stream::unfold;
-use std::collections::VecDeque;
-use std::sync::Arc;
-use tokio::sync::Mutex;
-
-mod buffered;
-mod unbuffered;
+use crate::storage::checksum::{ChecksumEngine, Crc32c, Md5, Null, Precomputed};
 
 /// A request builder for uploads without rewind.
-pub struct UploadObject<T> {
+pub struct UploadObject<T, C = Crc32c> {
     inner: std::sync::Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
-    // We need `Arc<Mutex<>>` because this is re-used in retryable uploads.
-    payload: Arc<Mutex<InsertPayload<T>>>,
+    payload: InsertPayload<T>,
     options: super::request_options::RequestOptions,
+    checksum: C,
 }
 
-impl<T> UploadObject<T> {
+impl<T, C> UploadObject<T, C> {
     /// Set a [request precondition] on the object generation to match.
     ///
     /// With this precondition the request fails if the current object
@@ -531,30 +527,84 @@ impl<T> UploadObject<T> {
         self
     }
 
-    // TODO(#2050) - this should be automatically computed?
-    #[allow(dead_code)]
-    fn with_crc32c<V>(mut self, v: V) -> Self
+    /// Provide a precomputed value for the CRC32C checksum.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use crc32c::crc32c;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_known_crc32c(crc32c(b"hello world"))
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// In some applications, the payload's CRC32C checksum is already known.
+    /// For example, the application may be downloading the data from another
+    /// blob storage system.
+    ///
+    /// In such cases, it is safer to pass the known CRC32C of the payload to
+    /// [Cloud Storage], and more efficient to skip the computation in the
+    /// client library.
+    ///
+    /// Note that once you provide a CRC32C value to this builder you cannot
+    /// use [compute_crc32c()] or [compute_md5()] to also have the
+    /// library compute the checksums.
+    ///
+    /// [compute_crc32c()]: UploadObject::compute_crc32c
+    /// [compute_md5()]: UploadObject::compute_md5
+    pub fn with_known_crc32c<V>(mut self, v: V) -> UploadObject<T, Precomputed>
     where
         V: Into<u32>,
     {
-        let mut checksum = self.mut_resource().checksums.take().unwrap_or_default();
+        let checksum = self.mut_resource().checksums.get_or_insert_default();
         checksum.crc32c = Some(v.into());
-        self.mut_resource().checksums = Some(checksum);
-        self
+        self.switch_checksum(|_| Precomputed)
     }
 
-    // TODO(#2050) - this should be automatically computed?
-    #[allow(dead_code)]
-    fn with_md5_hash<I, V>(mut self, i: I) -> Self
+    /// Provide a precomputed value for the MD5 hash.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use md5::compute;
+    /// let hash = md5::compute(b"hello world");
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_known_md5_hash(bytes::Bytes::from_owner(hash.0))
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// In some applications, the payload's MD5 hash is already known. For
+    /// example, the application may be downloading the data from another blob
+    /// storage system.
+    ///
+    /// In such cases, it is safer to pass the known MD5 of the payload to
+    /// [Cloud Storage], and more efficient to skip the computation in the
+    /// client library.
+    ///
+    /// Note that once you provide a MD5 value to this builder you cannot
+    /// use [compute_crc32c()] or [compute_md5()] to also have the library
+    /// compute the checksums.
+    ///
+    /// [compute_crc32c()]: UploadObject::compute_crc32c
+    /// [compute_md5()]: UploadObject::compute_md5
+    pub fn with_known_md5_hash<I, V>(mut self, i: I) -> UploadObject<T, Precomputed>
     where
         I: IntoIterator<Item = V>,
         V: Into<u8>,
     {
-        let mut checksum = self.mut_resource().checksums.take().unwrap_or_default();
+        let checksum = self.mut_resource().checksums.get_or_insert_default();
         checksum.md5_hash = i.into_iter().map(|v| v.into()).collect();
-        // TODO(#2050) - should we return an error (or panic?) if the size is wrong?
-        self.mut_resource().checksums = Some(checksum);
-        self
+        self.switch_checksum(|_| Precomputed)
     }
 
     /// The retry policy used for this request.
@@ -610,7 +660,7 @@ impl<T> UploadObject<T> {
     ///
     /// Most of the time you want to use the same throttler for all the requests
     /// in a client, and even the same throttler for many clients. Rarely it
-    /// maybe be necessary to use an ad-hoc throttler for some subset of the
+    /// may be necessary to use an custom throttler for some subset of the
     /// requests.
     ///
     /// # Example
@@ -715,13 +765,179 @@ impl<T> UploadObject<T> {
             .expect("resource field initialized in `new()`")
     }
 
-    fn resource(&self) -> &crate::model::Object {
-        self.spec
-            .resource
-            .as_ref()
-            .expect("resource field initialized in `new()`")
+    pub(crate) fn build(self) -> PerformUpload<InsertPayload<T>> {
+        PerformUpload::new(
+            self.payload,
+            self.inner,
+            self.spec,
+            self.params,
+            self.options,
+        )
     }
 
+    fn switch_checksum<F, U>(self, new: F) -> UploadObject<T, U>
+    where
+        F: FnOnce(C) -> U,
+    {
+        UploadObject {
+            payload: self.payload,
+            inner: self.inner,
+            spec: self.spec,
+            params: self.params,
+            options: self.options,
+            checksum: new(self.checksum),
+        }
+    }
+}
+
+impl<T> UploadObject<T, Null> {
+    /// Enables computation of CRC32C checksums.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .disable_computed_checksums() // override any defaults
+    ///     .compute_crc32c()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn compute_crc32c(self) -> UploadObject<T, Crc32c> {
+        self.switch_checksum(Crc32c::from_inner)
+    }
+
+    /// Enables computation of MD5 hashes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .compute_md5()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn compute_md5(self) -> UploadObject<T, Md5> {
+        self.switch_checksum(Md5::from_inner)
+    }
+}
+
+impl<T, C> UploadObject<T, Crc32c<C>> {
+    /// Enables computation of MD5 hashes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .compute_md5()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn compute_md5(self) -> UploadObject<T, Md5<Crc32c<C>>> {
+        self.switch_checksum(Md5::from_inner)
+    }
+
+    /// Disables CRC32C checksums and MD5 hashes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .disable_computed_checksums()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn disable_computed_checksums(self) -> UploadObject<T, Null> {
+        self.switch_checksum(|_| Null)
+    }
+}
+
+impl<T, C> UploadObject<T, Md5<C>> {
+    /// Enables computation of CRC32C checksums.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .disable_computed_checksums() // override any defaults
+    ///     .compute_md5()
+    ///     .compute_crc32c()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn compute_crc32c(self) -> UploadObject<T, Crc32c<Md5<C>>> {
+        self.switch_checksum(Crc32c::from_inner)
+    }
+
+    /// Disables CRC32C checksums and MD5 hashes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .disable_computed_checksums()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn disable_computed_checksums(self) -> UploadObject<T, Null> {
+        self.switch_checksum(|_| Null)
+    }
+}
+
+impl<T> UploadObject<T> {
     pub(crate) fn new<B, O, P>(
         inner: std::sync::Arc<StorageInner>,
         bucket: B,
@@ -741,126 +957,213 @@ impl<T> UploadObject<T> {
             inner,
             spec: crate::model::WriteObjectSpec::new().set_resource(resource),
             params: None,
-            payload: Arc::new(Mutex::new(payload.into())),
+            payload: payload.into(),
             options,
+            checksum: Crc32c::default(),
         }
-    }
-
-    async fn start_resumable_upload(&self) -> Result<String>
-    where
-        T: Send + Sync + 'static,
-    {
-        let id = gax::retry_loop_internal::retry_loop(
-            // TODO(#2044) - we need to apply any timeouts here.
-            async |_| self.start_resumable_upload_attempt().await,
-            async |duration| tokio::time::sleep(duration).await,
-            // Creating a resumable upload is always idempotent. There are no
-            // **observable** side-effects if executed multiple times. Any extra
-            // sessions created in the retry loop are simply lost and eventually
-            // garbage collected.
-            true,
-            self.options.retry_throttler.clone(),
-            self.options.retry_policy.clone(),
-            self.options.backoff_policy.clone(),
-        )
-        .await?;
-        Ok(id)
-    }
-
-    async fn start_resumable_upload_attempt(&self) -> Result<String> {
-        let builder = self.start_resumable_upload_request().await?;
-        let response = builder.send().await.map_err(Error::io)?;
-        self::handle_start_resumable_upload_response(response).await
-    }
-
-    async fn start_resumable_upload_request(&self) -> Result<reqwest::RequestBuilder> {
-        let bucket = &self.resource().bucket;
-        let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
-            Error::binding(format!(
-                "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
-            ))
-        })?;
-        let object = &self.resource().name;
-        let builder = self
-            .inner
-            .client
-            .request(
-                reqwest::Method::POST,
-                format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
-            )
-            .query(&[("uploadType", "resumable")])
-            .query(&[("name", enc(object))])
-            .header("content-type", "application/json")
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
-            );
-
-        let builder = self.apply_preconditions(builder);
-        let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
-        let builder = self.inner.apply_auth_headers(builder).await?;
-        let builder = builder.json(&v1::insert_body(self.resource()));
-        Ok(builder)
-    }
-
-    fn apply_preconditions(&self, builder: reqwest::RequestBuilder) -> reqwest::RequestBuilder {
-        let builder = self
-            .spec
-            .if_generation_match
-            .iter()
-            .fold(builder, |b, v| b.query(&[("ifGenerationMatch", v)]));
-        let builder = self
-            .spec
-            .if_generation_not_match
-            .iter()
-            .fold(builder, |b, v| b.query(&[("ifGenerationNotMatch", v)]));
-        let builder = self
-            .spec
-            .if_metageneration_match
-            .iter()
-            .fold(builder, |b, v| b.query(&[("ifMetagenerationMatch", v)]));
-        let builder = self
-            .spec
-            .if_metageneration_not_match
-            .iter()
-            .fold(builder, |b, v| b.query(&[("ifMetagenerationNotMatch", v)]));
-
-        [
-            ("kmsKeyName", self.resource().kms_key.as_str()),
-            ("predefinedAcl", self.spec.predefined_acl.as_str()),
-        ]
-        .into_iter()
-        .fold(
-            builder,
-            |b, (k, v)| if v.is_empty() { b } else { b.query(&[(k, v)]) },
-        )
     }
 }
 
-async fn handle_start_resumable_upload_response(response: reqwest::Response) -> Result<String> {
-    if !response.status().is_success() {
-        return gaxi::http::to_http_error(response).await;
+impl<T, C> UploadObject<T, C>
+where
+    T: StreamingSource + Seek + Send + Sync + 'static,
+    <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
+    <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
+{
+    /// A simple upload from a buffer.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .send_unbuffered()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub async fn send_unbuffered(self) -> Result<Object> {
+        self.build().send_unbuffered().await
     }
-    let location = response
-        .headers()
-        .get("Location")
-        .ok_or_else(|| Error::deser("missing Location header in start resumable upload"))?;
-    location.to_str().map_err(Error::deser).map(str::to_string)
+
+    /// Precompute the payload checksums before uploading the data.
+    ///
+    /// If the checksums are known when the upload starts, the client library
+    /// can include the checksums with the upload request, and the service can
+    /// reject the upload if the payload and the checksums do not match.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .precompute_checksums()
+    ///     .await?
+    ///     .send_unbuffered()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// Precomputing the checksums can be expensive if the data source is slow
+    /// to read. Therefore, the client library does not precompute the checksums
+    /// by default. The client library compares the checksums computed by the
+    /// service against its own checksums. If they do not match, the client
+    /// library returns an error. However, the service has already created the
+    /// object with the (likely incorrect) data.
+    ///
+    /// The client library currently uses the [JSON API], it is not possible to
+    /// send the checksums at the end of the upload with this API.
+    ///
+    /// [JSON API]: https://cloud.google.com/storage/docs/json_api
+    pub async fn precompute_checksums(mut self) -> Result<UploadObject<T, Precomputed>>
+    where
+        C: ChecksumEngine + Send + Sync + 'static,
+    {
+        if self.mut_resource().checksums.is_some() {
+            return Ok(self.switch_checksum(|_| Precomputed));
+        }
+        let mut offset = 0_u64;
+        self.payload.seek(offset).await.map_err(Error::ser)?;
+        while let Some(n) = self.payload.next().await.transpose().map_err(Error::ser)? {
+            self.checksum.update(offset, &n);
+            offset += n.len() as u64;
+        }
+        let ck = self.checksum.finalize();
+        let _ = self.mut_resource().checksums.insert(ck);
+        Ok(self.switch_checksum(|_| Precomputed))
+    }
+}
+
+impl<T, C> UploadObject<T, C>
+where
+    T: StreamingSource + Send + Sync + 'static,
+    T::Error: std::error::Error + Send + Sync + 'static,
+{
+    /// Upload an object from a streaming source without rewinds.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub async fn send(self) -> crate::Result<Object> {
+        self.build().send().await
+    }
+}
+
+// We need `Debug` to use `expect_err()` in `Result<UploadObject, ...>`.
+impl<T, C> std::fmt::Debug for UploadObject<T, C>
+where
+    C: std::fmt::Debug,
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("UploadObject")
+            .field("inner", &self.inner)
+            .field("spec", &self.spec)
+            .field("params", &self.params)
+            // skip payload, as it is not `Debug`
+            .field("options", &self.options)
+            .field("checksum", &self.checksum)
+            .finish()
+    }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::client::tests::{create_key_helper, test_builder, test_inner_client};
+    use super::client::tests::{test_builder, test_inner_client};
     use super::*;
-    use crate::model::WriteObjectSpec;
-    use gax::retry_policy::RetryPolicyExt;
-    use gax::retry_result::RetryResult;
-    use httptest::{Expectation, Server, matchers::*, responders::status_code};
-    use serde_json::{Value, json};
-    use std::collections::BTreeMap;
-    use std::time::Duration;
+    use crate::model::{ObjectChecksums, WriteObjectSpec};
+    use crate::upload_source::tests::MockSeekSource;
+    use std::error::Error as _;
+    use std::io::{Error as IoError, ErrorKind};
 
     type Result = anyhow::Result<()>;
+
+    // Verify `upload_object()` can be used with a source that implements `StreamingSource` **and** `Seek`
+    #[tokio::test]
+    async fn test_upload_streaming_source_and_seek() -> Result {
+        struct Source;
+        impl crate::upload_source::StreamingSource for Source {
+            type Error = std::io::Error;
+            async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
+                None
+            }
+        }
+        impl crate::upload_source::Seek for Source {
+            type Error = std::io::Error;
+            async fn seek(&mut self, _offset: u64) -> std::result::Result<(), Self::Error> {
+                Ok(())
+            }
+        }
+
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let _ = client.upload_object("projects/_/buckets/test-bucket", "test-object", Source);
+        Ok(())
+    }
+
+    // Verify `upload_object()` can be used with a source that **only** implements `StreamingSource`.
+    #[tokio::test]
+    async fn test_upload_only_streaming_source() -> Result {
+        struct Source;
+        impl crate::upload_source::StreamingSource for Source {
+            type Error = std::io::Error;
+            async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
+                None
+            }
+        }
+
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let _ = client.upload_object("projects/_/buckets/test-bucket", "test-object", Source);
+        Ok(())
+    }
+
+    // Verify `upload_object()` meets normal Send, Sync, requirements.
+    #[tokio::test]
+    async fn test_upload_is_send_and_static() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        fn need_send<T: Send>(_val: &T) {}
+        fn need_sync<T: Sync>(_val: &T) {}
+        fn need_static<T: 'static>(_val: &T) {}
+
+        let upload = client.upload_object("projects/_/buckets/test-bucket", "test-object", "");
+        need_send(&upload);
+        need_sync(&upload);
+        need_static(&upload);
+
+        let upload = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send_unbuffered();
+        need_send(&upload);
+        need_static(&upload);
+
+        let upload = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send();
+        need_send(&upload);
+        need_static(&upload);
+
+        Ok(())
+    }
 
     #[test]
     fn upload_object_unbuffered_metadata() -> Result {
@@ -880,10 +1183,10 @@ mod tests {
             .with_content_encoding("gzip")
             .with_content_language("en")
             .with_content_type("text/plain")
-            .with_crc32c(crc32c::crc32c(b""))
+            .with_known_crc32c(crc32c::crc32c(b""))
             .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
             .with_event_based_hold(true)
-            .with_md5_hash(md5::compute(b"").0)
+            .with_known_md5_hash(md5::compute(b"").0)
             .with_metadata([("k0", "v0"), ("k1", "v1")])
             .with_retention(
                 crate::model::object::Retention::new()
@@ -958,381 +1261,233 @@ mod tests {
         assert_eq!(request.options.resumable_upload_buffer_size, 456);
     }
 
-    #[tokio::test]
-    async fn start_resumable_upload() -> Result {
-        let inner = test_inner_client(test_builder());
-        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .start_resumable_upload_request()
-            .await?
-            .build()?;
+    const QUICK: &str = "the quick brown fox jumps over the lazy dog";
+    const VEXING: &str = "how vexingly quick daft zebras jump";
 
-        assert_eq!(request.method(), reqwest::Method::POST);
-        assert_eq!(
-            request.url().as_str(),
-            "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=resumable&name=object"
-        );
-        let body = request.body_mut().take().unwrap();
-        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
-        let json = serde_json::from_slice::<Value>(&contents)?;
-        assert_eq!(json, json!({}));
-        Ok(())
+    fn quick_checksum<E: ChecksumEngine>(mut engine: E) -> ObjectChecksums {
+        engine.update(0, &bytes::Bytes::from_static(QUICK.as_bytes()));
+        engine.finalize()
     }
 
     #[tokio::test]
-    async fn start_resumable_upload_headers() -> Result {
-        // Make a 32-byte key.
-        let (key, key_base64, _, key_sha256_base64) = create_key_helper();
-
-        let inner = test_inner_client(test_builder());
-        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .with_key(KeyAes256::new(&key)?)
-            .start_resumable_upload_request()
-            .await?
-            .build()?;
-
-        assert_eq!(request.method(), reqwest::Method::POST);
-        assert_eq!(
-            request.url().as_str(),
-            "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=resumable&name=object"
-        );
-
-        let want = vec![
-            ("x-goog-encryption-algorithm", "AES256".to_string()),
-            ("x-goog-encryption-key", key_base64),
-            ("x-goog-encryption-key-sha256", key_sha256_base64),
-        ];
-
-        for (name, value) in want {
-            assert_eq!(
-                request.headers().get(name).unwrap().as_bytes(),
-                bytes::Bytes::from(value)
-            );
-        }
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn start_resumable_upload_bad_bucket() -> Result {
-        let inner = test_inner_client(test_builder());
-        UploadObject::new(inner, "malformed", "object", "hello")
-            .start_resumable_upload_request()
-            .await
-            .expect_err("malformed bucket string should error");
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn start_resumable_upload_metadata_in_request() -> Result {
-        use crate::model::ObjectAccessControl;
-        let inner = test_inner_client(test_builder());
-        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
-            .with_if_generation_match(10)
-            .with_if_generation_not_match(20)
-            .with_if_metageneration_match(30)
-            .with_if_metageneration_not_match(40)
-            .with_predefined_acl("private")
-            .with_acl([ObjectAccessControl::new()
-                .set_entity("allAuthenticatedUsers")
-                .set_role("READER")])
-            .with_cache_control("public; max-age=7200")
-            .with_content_disposition("inline")
-            .with_content_encoding("gzip")
-            .with_content_language("en")
-            .with_content_type("text/plain")
-            .with_crc32c(crc32c::crc32c(b""))
-            .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
-            .with_event_based_hold(true)
-            .with_md5_hash(md5::compute(b"").0)
-            .with_metadata([("k0", "v0"), ("k1", "v1")])
-            .with_retention(
-                crate::model::object::Retention::new()
-                    .set_mode(crate::model::object::retention::Mode::Locked)
-                    .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
-            )
-            .with_storage_class("ARCHIVE")
-            .with_temporary_hold(true)
-            .with_kms_key("test-key")
-            .start_resumable_upload_request()
-            .await?
-            .build()?;
-
-        assert_eq!(request.method(), reqwest::Method::POST);
-        let want_pairs: BTreeMap<String, String> = [
-            ("uploadType", "resumable"),
-            ("name", "object"),
-            ("ifGenerationMatch", "10"),
-            ("ifGenerationNotMatch", "20"),
-            ("ifMetagenerationMatch", "30"),
-            ("ifMetagenerationNotMatch", "40"),
-            ("kmsKeyName", "test-key"),
-            ("predefinedAcl", "private"),
-        ]
-        .iter()
-        .map(|(k, v)| (k.to_string(), v.to_string()))
-        .collect();
-        let query_pairs: BTreeMap<String, String> = request
-            .url()
-            .query_pairs()
-            .map(|param| (param.0.to_string(), param.1.to_string()))
-            .collect();
-        assert_eq!(query_pairs, want_pairs);
-
-        let body = request.body_mut().take().unwrap();
-        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
-        let json = serde_json::from_slice::<Value>(&contents)?;
-        assert_eq!(
-            json,
-            json!({
-                "acl": [{"entity": "allAuthenticatedUsers", "role": "READER"}],
-                "cacheControl": "public; max-age=7200",
-                "contentDisposition": "inline",
-                "contentEncoding": "gzip",
-                "contentLanguage": "en",
-                "contentType": "text/plain",
-                "crc32c": "AAAAAA==",
-                "customTime": "2025-07-07T18:11:00Z",
-                "eventBasedHold": true,
-                "md5Hash": "1B2M2Y8AsgTpgAmY7PhCfg==",
-                "metadata": {"k0": "v0", "k1": "v1"},
-                "retention": {"mode": "LOCKED", "retainUntilTime": "2035-07-07T18:14:00Z"},
-                "storageClass": "ARCHIVE",
-                "temporaryHold": true,
-            })
-        );
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn start_resumable_upload_credentials() -> Result {
-        let inner = test_inner_client(
-            test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
-        );
-        let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .start_resumable_upload_request()
-            .await
-            .inspect_err(|e| assert!(e.is_authentication()))
-            .expect_err("invalid credentials should err");
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn start_resumable_upload_immediate_success() -> Result {
-        let server = Server::run();
-        let session = server.url("/upload/session/test-only-001");
-        let want = session.to_string();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
-                request::query(url_decoded(contains(("name", "object")))),
-                request::query(url_decoded(contains(("uploadType", "resumable")))),
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("location", session.to_string())
-                    .body(""),
-            ),
-        );
-
-        let inner =
-            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
-        let got = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .start_resumable_upload()
+    async fn checksum_default() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .precompute_checksums()
             .await?;
-        assert_eq!(got, want);
-
+        let want = quick_checksum(Crc32c::default());
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
         Ok(())
     }
 
     #[tokio::test]
-    async fn start_resumable_upload_immediate_error() -> Result {
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
-                request::query(url_decoded(contains(("name", "object")))),
-                request::query(url_decoded(contains(("uploadType", "resumable")))),
-            ])
-            .respond_with(status_code(403).body("uh-oh")),
-        );
-
-        let inner =
-            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
-        let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .start_resumable_upload()
-            .await
-            .expect_err("request should fail");
-        assert_eq!(err.http_status_code(), Some(403), "{err:?}");
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn start_resumable_upload_retry_transient_failures_then_success() -> Result {
-        use httptest::responders::cycle;
-        let server = Server::run();
-        let session = server.url("/upload/session/test-only-001");
-        let want = session.to_string();
-        let matching = || {
-            Expectation::matching(all_of![
-                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
-                request::query(url_decoded(contains(("name", "object")))),
-                request::query(url_decoded(contains(("uploadType", "resumable")))),
-            ])
-        };
-        server.expect(matching().times(3).respond_with(cycle![
-            status_code(503).body("try-again"),
-            status_code(503).body("try-again"),
-            status_code(200).append_header("location", session.to_string()),
-        ]));
-
-        let inner =
-            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
-        let got = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .start_resumable_upload()
+    async fn checksum_disabled_from_default() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .precompute_checksums()
             .await?;
-        assert_eq!(got, want);
-
+        let want = quick_checksum(Null);
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
         Ok(())
     }
 
-    // Verify the retry options are used and that exhausted policies result in
-    // errors.
     #[tokio::test]
-    async fn start_resumable_upload_request_retry_options() -> Result {
-        let server = Server::run();
-        let matching = || {
-            Expectation::matching(all_of![
-                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
-                request::query(url_decoded(contains(("name", "object")))),
-                request::query(url_decoded(contains(("uploadType", "resumable")))),
-            ])
-        };
-        server.expect(
-            matching()
-                .times(3)
-                .respond_with(status_code(503).body("try-again")),
-        );
-
-        let inner =
-            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
-        let mut retry = MockRetryPolicy::new();
-        retry
-            .expect_on_error()
-            .times(1..)
-            .returning(|_, _, _, e| RetryResult::Continue(e));
-
-        let mut backoff = MockBackoffPolicy::new();
-        backoff
-            .expect_on_failure()
-            .times(1..)
-            .return_const(Duration::from_micros(1));
-
-        let mut throttler = MockRetryThrottler::new();
-        throttler
-            .expect_throttle_retry_attempt()
-            .times(1..)
-            .return_const(false);
-        throttler
-            .expect_on_retry_failure()
-            .times(1..)
-            .return_const(());
-        throttler.expect_on_success().never().return_const(());
-
-        let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .with_retry_policy(retry.with_attempt_limit(3))
-            .with_backoff_policy(backoff)
-            .with_retry_throttler(throttler)
-            .start_resumable_upload()
-            .await
-            .expect_err("request should fail after 3 retry attempts");
-        assert_eq!(err.http_status_code(), Some(503), "{err:?}");
-
+    async fn checksum_disabled_from_crc32c() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .compute_md5()
+            .compute_crc32c()
+            .disable_computed_checksums()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Null);
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
         Ok(())
     }
 
-    // Verify the client retry options are used and that exhausted policies
-    // result in errors.
     #[tokio::test]
-    async fn start_resumable_upload_client_retry_options() -> Result {
-        let server = Server::run();
-        let matching = || {
-            Expectation::matching(all_of![
-                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
-                request::query(url_decoded(contains(("name", "object")))),
-                request::query(url_decoded(contains(("uploadType", "resumable")))),
-            ])
-        };
-        server.expect(
-            matching()
-                .times(3)
-                .respond_with(status_code(503).body("try-again")),
-        );
+    async fn checksum_disabled_from_md5() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .compute_md5()
+            .disable_computed_checksums()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Null);
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
 
-        let mut retry = MockRetryPolicy::new();
-        retry
-            .expect_on_error()
-            .times(1..)
-            .returning(|_, _, _, e| RetryResult::Continue(e));
+    #[tokio::test]
+    async fn checksum_disabled_from_null() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .compute_md5()
+            .disable_computed_checksums()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Null);
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
 
-        let mut backoff = MockBackoffPolicy::new();
-        backoff
-            .expect_on_failure()
-            .times(1..)
-            .return_const(Duration::from_micros(1));
+    #[tokio::test]
+    async fn checksum_crc32c_only() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .compute_crc32c()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Crc32c::default());
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
 
-        let mut throttler = MockRetryThrottler::new();
-        throttler
-            .expect_throttle_retry_attempt()
-            .times(1..)
-            .return_const(false);
-        throttler
-            .expect_on_retry_failure()
-            .times(1..)
-            .return_const(());
-        throttler.expect_on_success().never().return_const(());
+    #[tokio::test]
+    async fn checksum_md5_only() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .compute_md5()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Md5::default());
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
 
-        let inner = test_inner_client(
-            test_builder()
-                .with_endpoint(format!("http://{}", server.addr()))
-                .with_retry_policy(retry.with_attempt_limit(3))
-                .with_backoff_policy(backoff)
-                .with_retry_throttler(throttler),
-        );
-        let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .start_resumable_upload()
-            .await
-            .expect_err("request should fail after 3 retry attempts");
-        assert_eq!(err.http_status_code(), Some(503), "{err:?}");
+    #[tokio::test]
+    async fn checksum_md5_and_crc32c() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .compute_md5()
+            .compute_crc32c()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Crc32c::from_inner(Md5::default()));
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_crc32c_and_md5() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .compute_crc32c()
+            .compute_md5()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Crc32c::from_inner(Md5::default()));
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_precomputed() -> Result {
+        let mut engine = Crc32c::from_inner(Md5::default());
+        engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
+        let ck = engine.finalize();
+
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .with_known_crc32c(ck.crc32c.unwrap())
+            .with_known_md5_hash(ck.md5_hash.clone())
+            .precompute_checksums()
+            .await?;
+        // Note that the checksums do not match the data. This is intentional,
+        // we are trying to verify that whatever is provided in with_crc32c()
+        // and with_md5() is respected.
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(ck));
 
         Ok(())
     }
 
-    mockall::mock! {
-        #[derive(Debug)]
-        pub RetryThrottler {}
+    #[tokio::test]
+    async fn precompute_checksums_seek_error() -> Result {
+        let mut source = MockSeekSource::new();
+        source
+            .expect_seek()
+            .once()
+            .returning(|_| Err(IoError::new(ErrorKind::Deadlock, "test-only")));
 
-        impl gax::retry_throttler::RetryThrottler for RetryThrottler {
-            fn throttle_retry_attempt(&self) -> bool;
-            fn on_retry_failure(&mut self, flow: &RetryResult);
-            fn on_success(&mut self);
-        }
+        let client = test_builder().build().await?;
+        let err = client
+            .upload_object("my-bucket", "my-object", source)
+            .precompute_checksums()
+            .await
+            .expect_err("seek() returns an error");
+        assert!(err.is_serialization(), "{err:?}");
+        assert!(
+            err.source()
+                .and_then(|e| e.downcast_ref::<IoError>())
+                .is_some(),
+            "{err:?}"
+        );
+
+        Ok(())
     }
 
-    mockall::mock! {
-        #[derive(Debug)]
-        pub RetryPolicy {}
+    #[tokio::test]
+    async fn precompute_checksums_next_error() -> Result {
+        let mut source = MockSeekSource::new();
+        source.expect_seek().returning(|_| Ok(()));
+        let mut seq = mockall::Sequence::new();
+        source
+            .expect_next()
+            .times(3)
+            .in_sequence(&mut seq)
+            .returning(|| Some(Ok(bytes::Bytes::new())));
+        source
+            .expect_next()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|| Some(Err(IoError::new(ErrorKind::BrokenPipe, "test-only"))));
 
-        impl gax::retry_policy::RetryPolicy for RetryPolicy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: gax::error::Error) -> RetryResult;
-        }
+        let client = test_builder().build().await?;
+        let err = client
+            .upload_object("my-bucket", "my-object", source)
+            .precompute_checksums()
+            .await
+            .expect_err("seek() returns an error");
+        assert!(err.is_serialization(), "{err:?}");
+        assert!(
+            err.source()
+                .and_then(|e| e.downcast_ref::<IoError>())
+                .is_some(),
+            "{err:?}"
+        );
+
+        Ok(())
     }
 
-    mockall::mock! {
-        #[derive(Debug)]
-        pub BackoffPolicy {}
+    #[tokio::test]
+    async fn debug() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", "")
+            .precompute_checksums()
+            .await;
 
-        impl gax::backoff_policy::BackoffPolicy for BackoffPolicy {
-            fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
-        }
+        let fmt = format!("{upload:?}");
+        ["UploadObject", "inner", "spec", "options", "checksum"]
+            .into_iter()
+            .for_each(|text| {
+                assert!(fmt.contains(text), "expected {text} in {fmt}");
+            });
+        Ok(())
     }
 }

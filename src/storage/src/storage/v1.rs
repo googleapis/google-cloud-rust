@@ -97,17 +97,11 @@ impl<'de> serde_with::DeserializeAs<'de, u32> for Crc32c {
                     .decode(value)
                     .map_err(serde::de::Error::custom)?;
 
-                let length = bytes.len();
-                if bytes.len() != 4 {
-                    return Err(serde::de::Error::invalid_length(
-                        length,
-                        &"a Byte Vector of length 4.",
-                    ));
-                }
-                Ok(((bytes[0] as u32) << 24)
-                    + ((bytes[1] as u32) << 16)
-                    + ((bytes[2] as u32) << 8)
-                    + (bytes[3] as u32))
+                let map_err =
+                    |_| serde::de::Error::invalid_length(bytes.len(), &"a byte vector of length 4");
+                Ok(u32::from_be_bytes(
+                    bytes.as_slice().try_into().map_err(map_err)?,
+                ))
             }
         }
 
@@ -308,13 +302,7 @@ pub(crate) fn insert_body(resource: &crate::model::Object) -> serde_json::Value 
     if let Some(cs) = &resource.checksums {
         use base64::prelude::BASE64_STANDARD;
         if let Some(u) = cs.crc32c {
-            let bytes = [
-                (u >> 24 & 0xFF) as u8,
-                (u >> 16 & 0xFF) as u8,
-                (u >> 8 & 0xFF) as u8,
-                (u & 0xFF) as u8,
-            ];
-            let value = BASE64_STANDARD.encode(bytes);
+            let value = BASE64_STANDARD.encode(u.to_be_bytes());
             fields.push(("crc32c", Value::String(value)));
         }
         if !cs.md5_hash.is_empty() {
@@ -363,6 +351,23 @@ mod tests {
     use test_case::test_case;
 
     type Result = anyhow::Result<()>;
+
+    #[test]
+    fn document_crc32c_values() -> Result {
+        let bytes = (0x01020304_u32).to_be_bytes();
+        let base64 = base64::prelude::BASE64_STANDARD.encode(bytes);
+        assert_eq!(base64, "AQIDBA==", "{bytes:?}");
+
+        let bytes = (1234567890_u32).to_be_bytes();
+        let base64 = base64::prelude::BASE64_STANDARD.encode(bytes);
+        assert_eq!(base64, "SZYC0g==", "{bytes:?}");
+
+        let base64 = "/ieOcg==";
+        let bytes = base64::prelude::BASE64_STANDARD.decode(base64)?;
+        let value = u32::from_be_bytes(bytes.as_slice().try_into()?);
+        assert_eq!(value, 4264005234);
+        Ok(())
+    }
 
     #[test]
     fn test_deserialize_object() {

@@ -12,62 +12,128 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::upload_source::Seek;
-use super::*;
+use super::{
+    ContinueOn308, Error, Object, PerformUpload, Result, ResumableUploadStatus, Seek,
+    StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers, enc,
+    handle_object_response, v1,
+};
+use futures::stream::unfold;
+use std::sync::Arc;
 
-impl<T> UploadObject<T>
+impl<S> PerformUpload<S>
 where
-    T: StreamingSource + Seek + Send + Sync + 'static,
-    <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
-    <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
+    S: StreamingSource + Seek + Send + Sync + 'static,
+    <S as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
+    <S as Seek>::Error: std::error::Error + Send + Sync + 'static,
 {
-    /// A simple upload from a buffer.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage::client::Storage;
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send_unbuffered()
-    ///     .await?;
-    /// println!("response details={response:?}");
-    /// # Ok(()) }
-    /// ```
-    pub async fn send_unbuffered(self) -> Result<Object> {
-        // TODO(#2056) - make idempotency configurable.
+    pub(crate) async fn send_unbuffered(self) -> Result<Object> {
+        let hint = self
+            .payload
+            .lock()
+            .await
+            .size_hint()
+            .await
+            .map_err(Error::deser)?;
+        let threshold = self.options.resumable_upload_threshold as u64;
+        if hint.1.is_none_or(|max| max >= threshold) {
+            self.send_unbuffered_resumable(hint).await
+        } else {
+            self.send_unbuffered_single_shot().await
+        }
+    }
+
+    async fn send_unbuffered_resumable(self, hint: (u64, Option<u64>)) -> Result<Object> {
+        let mut upload_url = None;
+        let throttler = self.options.retry_throttler.clone();
+        let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
+        let backoff = self.options.backoff_policy.clone();
+        gax::retry_loop_internal::retry_loop(
+            async move |_| self.resumable_attempt(&mut upload_url, hint).await,
+            async |duration| tokio::time::sleep(duration).await,
+            true,
+            throttler,
+            retry,
+            backoff,
+        )
+        .await
+    }
+
+    async fn resumable_attempt(
+        &self,
+        url: &mut Option<String>,
+        hint: (u64, Option<u64>),
+    ) -> Result<Object> {
+        let (offset, url_ref) = if let Some(upload_url) = url.as_deref() {
+            match self.query_resumable_upload_attempt(upload_url).await? {
+                ResumableUploadStatus::Finalized(object) => {
+                    return Ok(*object);
+                }
+                ResumableUploadStatus::Partial(offset) => (offset, upload_url),
+            }
+        } else {
+            let upload_url = self.start_resumable_upload_attempt().await?;
+            (0_u64, url.insert(upload_url).as_str())
+        };
+
+        let range = match (offset, hint.0, hint.1) {
+            (o, _, None) => format!("bytes {o}-*/*"),
+            (_, 0, Some(0)) => "bytes */0".to_string(),
+            (o, s, Some(u)) if s == u => format!("bytes {o}-{}/{s}", s - 1),
+            (o, _, Some(_)) => format!("bytes {o}-*/*"),
+        };
+        let builder = self
+            .inner
+            .client
+            .request(reqwest::Method::PUT, url_ref)
+            .header("content-type", "application/octet-stream")
+            .header("Content-Range", range)
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
+            );
+
+        let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
+        let builder = self.inner.apply_auth_headers(builder).await?;
+
+        self.payload
+            .lock()
+            .await
+            .seek(offset)
+            .await
+            .map_err(Error::ser)?;
+        let payload = self.payload_to_body().await?;
+        let builder = builder.body(payload);
+        let response = builder.send().await.map_err(super::send_err)?;
+        self::handle_object_response(response).await
+    }
+
+    pub(super) async fn send_unbuffered_single_shot(self) -> Result<Object> {
+        // TODO(#1655) - make idempotency configurable.
         // Single shot uploads are idempotent only if they have pre-conditions.
         let idempotent =
             self.spec.if_generation_match.is_some() || self.spec.if_metageneration_match.is_some();
+        let throttler = self.options.retry_throttler.clone();
+        let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
+        let backoff = self.options.backoff_policy.clone();
         gax::retry_loop_internal::retry_loop(
             // TODO(#2044) - we need to apply any timeouts here.
-            async |_| self.single_shot_attempt().await,
+            async move |_| self.single_shot_attempt().await,
             async |duration| tokio::time::sleep(duration).await,
             idempotent,
-            self.options.retry_throttler.clone(),
-            self.options.retry_policy.clone(),
-            self.options.backoff_policy.clone(),
+            throttler,
+            retry,
+            backoff,
         )
         .await
     }
 
     async fn single_shot_attempt(&self) -> Result<Object> {
-        // TODO(#2634) - use resumable uploads for large payloads.
         let builder = self.single_shot_builder().await?;
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
-        let response = response.json::<v1::Object>().await.map_err(Error::io)?;
-
-        Ok(Object::from(response))
+        let response = builder.send().await.map_err(super::send_err)?;
+        super::handle_object_response(response).await
     }
 
     async fn single_shot_builder(&self) -> Result<reqwest::RequestBuilder> {
-        use crate::upload_source::Seek;
-        let payload = self.payload.clone();
-        payload.lock().await.seek(0).await.map_err(Error::ser)?;
-
         let bucket = &self.resource().bucket;
         let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
             Error::binding(format!(
@@ -86,12 +152,34 @@ where
             .query(&[("name", enc(object))])
             .header(
                 "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+                reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
 
+        let metadata = reqwest::multipart::Part::text(v1::insert_body(self.resource()).to_string())
+            .mime_str("application/json; charset=UTF-8")
+            .map_err(Error::ser)?;
+        self.payload
+            .lock()
+            .await
+            .seek(0)
+            .await
+            .map_err(Error::ser)?;
+        let payload = self.payload_to_body().await?;
+        let form = reqwest::multipart::Form::new()
+            .part("metadata", metadata)
+            .part("media", reqwest::multipart::Part::stream(payload));
+        let builder = builder.header(
+            "content-type",
+            format!("multipart/related; boundary={}", form.boundary()),
+        );
+        Ok(builder.body(reqwest::Body::wrap_stream(form.into_stream())))
+    }
+
+    async fn payload_to_body(&self) -> Result<reqwest::Body> {
+        let payload = self.payload.clone();
         let stream = Box::pin(unfold(Some(payload), move |state| async move {
             if let Some(payload) = state {
                 let mut guard = payload.lock().await;
@@ -102,27 +190,21 @@ where
             }
             None
         }));
-        let metadata = reqwest::multipart::Part::text(v1::insert_body(self.resource()).to_string())
-            .mime_str("application/json; charset=UTF-8")
-            .map_err(Error::ser)?;
-        let form = reqwest::multipart::Form::new()
-            .part("metadata", metadata)
-            .part(
-                "media",
-                reqwest::multipart::Part::stream(reqwest::Body::wrap_stream(stream)),
-            );
-        let builder = builder.header(
-            "content-type",
-            format!("multipart/related; boundary={}", form.boundary()),
-        );
-        Ok(builder.body(reqwest::Body::wrap_stream(form.into_stream())))
+        Ok(reqwest::Body::wrap_stream(stream))
     }
 }
 
 #[cfg(test)]
+mod resumable_tests;
+
+#[cfg(test)]
 mod tests {
-    use super::super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
+    use crate::storage::client::{
+        KeyAes256, Storage,
+        tests::{create_key_helper, test_builder, test_inner_client},
+    };
+    use crate::storage::upload_object::UploadObject;
     use crate::upload_source::IterSource;
     use gax::retry_policy::RetryPolicyExt;
     use http_body_util::BodyExt;
@@ -132,7 +214,7 @@ mod tests {
     type Result = anyhow::Result<()>;
 
     #[tokio::test]
-    async fn send_unbuffered_normal() -> Result {
+    async fn send_unbuffered_single_shot() -> Result {
         let payload = response_body().to_string();
         let server = Server::run();
         server.expect(
@@ -141,6 +223,7 @@ mod tests {
                 request::query(url_decoded(contains(("name", "test-object")))),
                 request::query(url_decoded(contains(("uploadType", "multipart")))),
             ])
+            .times(1)
             .respond_with(
                 status_code(200)
                     .append_header("content-type", "application/json")
@@ -168,7 +251,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn send_unbuffered_not_found() -> Result {
+    async fn single_shot_http_error() -> Result {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -190,6 +273,104 @@ mod tests {
             .await
             .expect_err("expected a not found error");
         assert_eq!(err.http_status_code(), Some(404));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_deserialization() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .respond_with(status_code(200).body("bad format")),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let err = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send_unbuffered()
+            .await
+            .expect_err("expected a deserialization error");
+        assert!(err.is_deserialization(), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_source_error() -> Result {
+        let server = Server::run();
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        use crate::upload_source::tests::MockSeekSource;
+        use std::io::{Error as IoError, ErrorKind};
+        let mut source = MockSeekSource::new();
+        source
+            .expect_next()
+            .once()
+            .returning(|| Some(Err(IoError::new(ErrorKind::ConnectionAborted, "test-only"))));
+        source.expect_seek().times(1..).returning(|_| Ok(()));
+        source
+            .expect_size_hint()
+            .once()
+            .returning(|| Ok((1024_u64, Some(1024_u64))));
+        let err = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .send_unbuffered()
+            .await
+            .expect_err("expected a serialization error");
+        assert!(err.is_serialization(), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_seek_error() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .times(0)
+            .respond_with(status_code(200).body("bad format")),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        use crate::upload_source::tests::MockSeekSource;
+        use std::io::{Error as IoError, ErrorKind};
+        let mut source = MockSeekSource::new();
+        source.expect_next().never();
+        source
+            .expect_seek()
+            .once()
+            .returning(|_| Err(IoError::new(ErrorKind::ConnectionAborted, "test-only")));
+        source
+            .expect_size_hint()
+            .once()
+            .returning(|| Ok((1024_u64, Some(1024_u64))));
+        let err = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .send_unbuffered()
+            .await
+            .expect_err("expected a serialization error");
+        assert!(err.is_serialization(), "{err:?}");
 
         Ok(())
     }
@@ -242,6 +423,7 @@ mod tests {
     async fn upload_object_bytes() -> Result {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .build()
             .single_shot_builder()
             .await?
             .build()?;
@@ -261,6 +443,7 @@ mod tests {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_metadata([("k0", "v0"), ("k1", "v1")])
+            .build()
             .single_shot_builder()
             .await?
             .build()?;
@@ -287,6 +470,7 @@ mod tests {
         );
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream)
+            .build()
             .single_shot_builder()
             .await?
             .build()?;
@@ -307,6 +491,7 @@ mod tests {
             test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
         );
         let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .build()
             .single_shot_builder()
             .await
             .inspect_err(|e| assert!(e.is_authentication()))
@@ -318,6 +503,7 @@ mod tests {
     async fn upload_object_bad_bucket() -> Result {
         let inner = test_inner_client(test_builder());
         UploadObject::new(inner, "malformed", "object", "hello")
+            .build()
             .single_shot_builder()
             .await
             .expect_err("malformed bucket string should error");
@@ -332,6 +518,7 @@ mod tests {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_key(KeyAes256::new(&key)?)
+            .build()
             .single_shot_builder()
             .await?
             .build()?;

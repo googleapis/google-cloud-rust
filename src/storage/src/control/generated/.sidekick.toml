@@ -13,13 +13,6 @@
 # limitations under the License.
 
 [general]
-language             = 'rust'
-specification-source = 'google/rpc'
-
-[source]
-skipped-ids = '.google.rpc.Status'
-
-[codec]
-copyright-year    = '2025'
-template-override = 'templates/convert-prost'
-module-path       = 'rpc::model'
+language             = 'rust_storage'
+specification-format = 'none'
+specification-source = 'none'

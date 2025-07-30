@@ -135,7 +135,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(Storage::builder(); "default")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects(
         builder: storage::builder::storage::ClientBuilder,
@@ -145,7 +145,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(Storage::builder(); "default")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects_large_file(
         builder: storage::builder::storage::ClientBuilder,
@@ -155,14 +155,67 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(Storage::builder(); "default")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_storage_objects_upload_buffered(
+    async fn run_storage_upload_buffered(
         builder: storage::builder::storage::ClientBuilder,
     ) -> integration_tests::Result<()> {
-        integration_tests::storage::objects_upload_buffered(builder)
+        integration_tests::storage::upload_buffered(builder)
             .await
             .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(Storage::builder(); "default")]
+    #[tokio::test]
+    async fn run_storage_upload_buffered_resumable_known_size(
+        builder: storage::builder::storage::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::storage::upload_buffered_resumable_known_size(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(Storage::builder(); "default")]
+    #[tokio::test]
+    async fn run_storage_upload_buffered_resumable_unknown_size(
+        builder: storage::builder::storage::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::storage::upload_buffered_resumable_unknown_size(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(Storage::builder(); "default")]
+    #[tokio::test]
+    async fn run_storage_upload_unbuffered_resumable_known_size(
+        builder: storage::builder::storage::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::storage::upload_unbuffered_resumable_known_size(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(Storage::builder(); "default")]
+    #[tokio::test]
+    async fn run_storage_upload_unbuffered_resumable_unknown_size(
+        builder: storage::builder::storage::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::storage::upload_unbuffered_resumable_unknown_size(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(Storage::builder(); "default")]
+    #[tokio::test]
+    async fn run_storage_abort_upload(
+        builder: storage::builder::storage::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
+        let result = integration_tests::storage::abort_upload(builder, &bucket.name)
+            .await
+            .map_err(integration_tests::report_error);
+        let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+        result
     }
 
     #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]

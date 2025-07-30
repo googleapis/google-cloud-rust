@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// An Anthos cluster running on customer own infrastructure.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedCluster {
     /// The name of this resource.
@@ -931,6 +931,40 @@ impl serde::ser::Serialize for AttachedCluster {
     }
 }
 
+impl std::fmt::Debug for AttachedCluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedCluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("oidc_config", &self.oidc_config);
+        debug_struct.field("platform_version", &self.platform_version);
+        debug_struct.field("distribution", &self.distribution);
+        debug_struct.field("cluster_region", &self.cluster_region);
+        debug_struct.field("fleet", &self.fleet);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("kubernetes_version", &self.kubernetes_version);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("workload_identity_config", &self.workload_identity_config);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("authorization", &self.authorization);
+        debug_struct.field("monitoring_config", &self.monitoring_config);
+        debug_struct.field("proxy_config", &self.proxy_config);
+        debug_struct.field("binary_authorization", &self.binary_authorization);
+        debug_struct.field("security_posture_config", &self.security_posture_config);
+        debug_struct.field("tags", &self.tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AttachedCluster].
 pub mod attached_cluster {
     #[allow(unused_imports)]
@@ -1102,7 +1136,7 @@ pub mod attached_cluster {
 }
 
 /// Configuration related to the cluster RBAC settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedClustersAuthorization {
     /// Optional. Users that can perform operations as a cluster admin. A managed
@@ -1281,8 +1315,20 @@ impl serde::ser::Serialize for AttachedClustersAuthorization {
     }
 }
 
+impl std::fmt::Debug for AttachedClustersAuthorization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedClustersAuthorization");
+        debug_struct.field("admin_users", &self.admin_users);
+        debug_struct.field("admin_groups", &self.admin_groups);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identities of a user-type subject for Attached clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedClusterUser {
     /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
@@ -1411,8 +1457,19 @@ impl serde::ser::Serialize for AttachedClusterUser {
     }
 }
 
+impl std::fmt::Debug for AttachedClusterUser {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedClusterUser");
+        debug_struct.field("username", &self.username);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identities of a group-type subject for Attached clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedClusterGroup {
     /// Required. The name of the group, e.g. `my-group@domain.com`.
@@ -1541,6 +1598,17 @@ impl serde::ser::Serialize for AttachedClusterGroup {
     }
 }
 
+impl std::fmt::Debug for AttachedClusterGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedClusterGroup");
+        debug_struct.field("group", &self.group);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// OIDC discovery information of the target cluster.
 ///
 /// Kubernetes Service Account (KSA) tokens are JWT tokens signed by the cluster
@@ -1552,7 +1620,7 @@ impl serde::ser::Serialize for AttachedClusterGroup {
 /// Clusters with public issuers only need to specify the `issuer_url` field
 /// while clusters with private issuers need to provide both
 /// `issuer_url` and `oidc_jwks`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedOidcConfig {
     /// A JSON Web Token (JWT) issuer URI. `issuer` must start with `https://`.
@@ -1730,9 +1798,21 @@ impl serde::ser::Serialize for AttachedOidcConfig {
     }
 }
 
+impl std::fmt::Debug for AttachedOidcConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedOidcConfig");
+        debug_struct.field("issuer_url", &self.issuer_url);
+        debug_struct.field("jwks", &self.jwks);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AttachedServerConfig provides information about supported
 /// Kubernetes versions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedServerConfig {
     /// The resource name of the config.
@@ -1893,8 +1973,20 @@ impl serde::ser::Serialize for AttachedServerConfig {
     }
 }
 
+impl std::fmt::Debug for AttachedServerConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedServerConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("valid_versions", &self.valid_versions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about a supported Attached Clusters platform version.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedPlatformVersionInfo {
     /// Platform version name.
@@ -2023,8 +2115,19 @@ impl serde::ser::Serialize for AttachedPlatformVersionInfo {
     }
 }
 
+impl std::fmt::Debug for AttachedPlatformVersionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedPlatformVersionInfo");
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AttachedClusterError describes errors found on attached clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedClusterError {
     /// Human-friendly description of the error.
@@ -2153,8 +2256,19 @@ impl serde::ser::Serialize for AttachedClusterError {
     }
 }
 
+impl std::fmt::Debug for AttachedClusterError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedClusterError");
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of a proxy config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedProxyConfig {
     /// The Kubernetes Secret resource that contains the HTTP(S) proxy
@@ -2302,8 +2416,19 @@ impl serde::ser::Serialize for AttachedProxyConfig {
     }
 }
 
+impl std::fmt::Debug for AttachedProxyConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedProxyConfig");
+        debug_struct.field("kubernetes_secret", &self.kubernetes_secret);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about a Kubernetes Secret
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesSecret {
     /// Name of the kubernetes secret.
@@ -2456,9 +2581,21 @@ impl serde::ser::Serialize for KubernetesSecret {
     }
 }
 
+impl std::fmt::Debug for KubernetesSecret {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KubernetesSecret");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("namespace", &self.namespace);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AttachedClusters.GenerateAttachedClusterInstallManifest`
 /// method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAttachedClusterInstallManifestRequest {
     /// Required. The parent location where this
@@ -2712,9 +2849,23 @@ impl serde::ser::Serialize for GenerateAttachedClusterInstallManifestRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateAttachedClusterInstallManifestRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAttachedClusterInstallManifestRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("attached_cluster_id", &self.attached_cluster_id);
+        debug_struct.field("platform_version", &self.platform_version);
+        debug_struct.field("proxy_config", &self.proxy_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// `AttachedClusters.GenerateAttachedClusterInstallManifest` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAttachedClusterInstallManifestResponse {
     /// A set of Kubernetes resources (in YAML format) to be applied
@@ -2846,8 +2997,19 @@ impl serde::ser::Serialize for GenerateAttachedClusterInstallManifestResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateAttachedClusterInstallManifestResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAttachedClusterInstallManifestResponse");
+        debug_struct.field("manifest", &self.manifest);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AttachedClusters.CreateAttachedCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAttachedClusterRequest {
     /// Required. The parent location where this
@@ -3088,8 +3250,22 @@ impl serde::ser::Serialize for CreateAttachedClusterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAttachedClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAttachedClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("attached_cluster", &self.attached_cluster);
+        debug_struct.field("attached_cluster_id", &self.attached_cluster_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AttachedClusters.ImportAttachedCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportAttachedClusterRequest {
     /// Required. The parent location where this
@@ -3376,8 +3552,24 @@ impl serde::ser::Serialize for ImportAttachedClusterRequest {
     }
 }
 
+impl std::fmt::Debug for ImportAttachedClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportAttachedClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("fleet_membership", &self.fleet_membership);
+        debug_struct.field("platform_version", &self.platform_version);
+        debug_struct.field("distribution", &self.distribution);
+        debug_struct.field("proxy_config", &self.proxy_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AttachedClusters.UpdateAttachedCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAttachedClusterRequest {
     /// Required. The
@@ -3602,8 +3794,21 @@ impl serde::ser::Serialize for UpdateAttachedClusterRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAttachedClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAttachedClusterRequest");
+        debug_struct.field("attached_cluster", &self.attached_cluster);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AttachedClusters.GetAttachedCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAttachedClusterRequest {
     /// Required. The name of the
@@ -3742,8 +3947,19 @@ impl serde::ser::Serialize for GetAttachedClusterRequest {
     }
 }
 
+impl std::fmt::Debug for GetAttachedClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAttachedClusterRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AttachedClusters.ListAttachedClusters` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttachedClustersRequest {
     /// Required. The parent location which owns this collection of
@@ -3960,8 +4176,21 @@ impl serde::ser::Serialize for ListAttachedClustersRequest {
     }
 }
 
+impl std::fmt::Debug for ListAttachedClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAttachedClustersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AttachedClusters.ListAttachedClusters` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttachedClustersResponse {
     /// A list of [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster]
@@ -4141,8 +4370,20 @@ impl serde::ser::Serialize for ListAttachedClustersResponse {
     }
 }
 
+impl std::fmt::Debug for ListAttachedClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAttachedClustersResponse");
+        debug_struct.field("attached_clusters", &self.attached_clusters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AttachedClusters.DeleteAttachedCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAttachedClusterRequest {
     /// Required. The resource name the
@@ -4401,9 +4642,24 @@ impl serde::ser::Serialize for DeleteAttachedClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAttachedClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAttachedClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("ignore_errors", &self.ignore_errors);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GetAttachedServerConfigRequest gets the server config for attached
 /// clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAttachedServerConfigRequest {
     /// Required. The name of the
@@ -4542,7 +4798,18 @@ impl serde::ser::Serialize for GetAttachedServerConfigRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for GetAttachedServerConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAttachedServerConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAttachedClusterAgentTokenRequest {
     /// Required.
@@ -4878,7 +5145,26 @@ impl serde::ser::Serialize for GenerateAttachedClusterAgentTokenRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for GenerateAttachedClusterAgentTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAttachedClusterAgentTokenRequest");
+        debug_struct.field("attached_cluster", &self.attached_cluster);
+        debug_struct.field("subject_token", &self.subject_token);
+        debug_struct.field("subject_token_type", &self.subject_token_type);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("grant_type", &self.grant_type);
+        debug_struct.field("audience", &self.audience);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("requested_token_type", &self.requested_token_type);
+        debug_struct.field("options", &self.options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAttachedClusterAgentTokenResponse {
     pub access_token: std::string::String,
@@ -5074,8 +5360,21 @@ impl serde::ser::Serialize for GenerateAttachedClusterAgentTokenResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateAttachedClusterAgentTokenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAttachedClusterAgentTokenResponse");
+        debug_struct.field("access_token", &self.access_token);
+        debug_struct.field("expires_in", &self.expires_in);
+        debug_struct.field("token_type", &self.token_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An Anthos cluster running on AWS.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsCluster {
     /// The name of this resource.
@@ -5856,6 +6155,37 @@ impl serde::ser::Serialize for AwsCluster {
     }
 }
 
+impl std::fmt::Debug for AwsCluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsCluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("networking", &self.networking);
+        debug_struct.field("aws_region", &self.aws_region);
+        debug_struct.field("control_plane", &self.control_plane);
+        debug_struct.field("authorization", &self.authorization);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("workload_identity_config", &self.workload_identity_config);
+        debug_struct.field("cluster_ca_certificate", &self.cluster_ca_certificate);
+        debug_struct.field("fleet", &self.fleet);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("monitoring_config", &self.monitoring_config);
+        debug_struct.field("binary_authorization", &self.binary_authorization);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AwsCluster].
 pub mod aws_cluster {
     #[allow(unused_imports)]
@@ -6027,7 +6357,7 @@ pub mod aws_cluster {
 }
 
 /// ControlPlane defines common parameters between control plane nodes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsControlPlane {
     /// Required. The Kubernetes version to run on control plane replicas
@@ -6633,8 +6963,35 @@ impl serde::ser::Serialize for AwsControlPlane {
     }
 }
 
+impl std::fmt::Debug for AwsControlPlane {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsControlPlane");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("instance_type", &self.instance_type);
+        debug_struct.field("ssh_config", &self.ssh_config);
+        debug_struct.field("subnet_ids", &self.subnet_ids);
+        debug_struct.field("security_group_ids", &self.security_group_ids);
+        debug_struct.field("iam_instance_profile", &self.iam_instance_profile);
+        debug_struct.field("root_volume", &self.root_volume);
+        debug_struct.field("main_volume", &self.main_volume);
+        debug_struct.field("database_encryption", &self.database_encryption);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field(
+            "aws_services_authentication",
+            &self.aws_services_authentication,
+        );
+        debug_struct.field("proxy_config", &self.proxy_config);
+        debug_struct.field("config_encryption", &self.config_encryption);
+        debug_struct.field("instance_placement", &self.instance_placement);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Authentication configuration for the management of AWS resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsServicesAuthentication {
     /// Required. The Amazon Resource Name (ARN) of the role that the Anthos
@@ -6795,8 +7152,20 @@ impl serde::ser::Serialize for AwsServicesAuthentication {
     }
 }
 
+impl std::fmt::Debug for AwsServicesAuthentication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsServicesAuthentication");
+        debug_struct.field("role_arn", &self.role_arn);
+        debug_struct.field("role_session_name", &self.role_session_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration related to the cluster RBAC settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsAuthorization {
     /// Optional. Users that can perform operations as a cluster admin. A managed
@@ -6975,8 +7344,20 @@ impl serde::ser::Serialize for AwsAuthorization {
     }
 }
 
+impl std::fmt::Debug for AwsAuthorization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsAuthorization");
+        debug_struct.field("admin_users", &self.admin_users);
+        debug_struct.field("admin_groups", &self.admin_groups);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identities of a user-type subject for AWS clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsClusterUser {
     /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
@@ -7105,8 +7486,19 @@ impl serde::ser::Serialize for AwsClusterUser {
     }
 }
 
+impl std::fmt::Debug for AwsClusterUser {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsClusterUser");
+        debug_struct.field("username", &self.username);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identities of a group-type subject for AWS clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsClusterGroup {
     /// Required. The name of the group, e.g. `my-group@domain.com`.
@@ -7235,8 +7627,19 @@ impl serde::ser::Serialize for AwsClusterGroup {
     }
 }
 
+impl std::fmt::Debug for AwsClusterGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsClusterGroup");
+        debug_struct.field("group", &self.group);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration related to application-layer secrets encryption.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsDatabaseEncryption {
     /// Required. The ARN of the AWS KMS key used to encrypt cluster secrets.
@@ -7366,8 +7769,19 @@ impl serde::ser::Serialize for AwsDatabaseEncryption {
     }
 }
 
+impl std::fmt::Debug for AwsDatabaseEncryption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsDatabaseEncryption");
+        debug_struct.field("kms_key_arn", &self.kms_key_arn);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration template for AWS EBS volumes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsVolumeTemplate {
     /// Optional. The size of the volume, in GiBs.
@@ -7667,6 +8081,21 @@ impl serde::ser::Serialize for AwsVolumeTemplate {
     }
 }
 
+impl std::fmt::Debug for AwsVolumeTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsVolumeTemplate");
+        debug_struct.field("size_gib", &self.size_gib);
+        debug_struct.field("volume_type", &self.volume_type);
+        debug_struct.field("iops", &self.iops);
+        debug_struct.field("throughput", &self.throughput);
+        debug_struct.field("kms_key_arn", &self.kms_key_arn);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AwsVolumeTemplate].
 pub mod aws_volume_template {
     #[allow(unused_imports)]
@@ -7812,7 +8241,7 @@ pub mod aws_volume_template {
 ///
 /// Anthos clusters on AWS run on a single VPC. This includes control
 /// plane replicas and node pool nodes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsClusterNetworking {
     /// Required. The VPC associated with the cluster. All component clusters
@@ -8051,8 +8480,28 @@ impl serde::ser::Serialize for AwsClusterNetworking {
     }
 }
 
+impl std::fmt::Debug for AwsClusterNetworking {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsClusterNetworking");
+        debug_struct.field("vpc_id", &self.vpc_id);
+        debug_struct.field("pod_address_cidr_blocks", &self.pod_address_cidr_blocks);
+        debug_struct.field(
+            "service_address_cidr_blocks",
+            &self.service_address_cidr_blocks,
+        );
+        debug_struct.field(
+            "per_node_pool_sg_rules_disabled",
+            &self.per_node_pool_sg_rules_disabled,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An Anthos node pool running on AWS.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsNodePool {
     /// The name of this resource.
@@ -8709,6 +9158,33 @@ impl serde::ser::Serialize for AwsNodePool {
     }
 }
 
+impl std::fmt::Debug for AwsNodePool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsNodePool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("autoscaling", &self.autoscaling);
+        debug_struct.field("subnet_id", &self.subnet_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("max_pods_constraint", &self.max_pods_constraint);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("management", &self.management);
+        debug_struct.field("kubelet_config", &self.kubelet_config);
+        debug_struct.field("update_settings", &self.update_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AwsNodePool].
 pub mod aws_node_pool {
     #[allow(unused_imports)]
@@ -8902,7 +9378,7 @@ pub mod aws_node_pool {
 ///    unavailable during the update.
 /// 1. (max_surge + max_unavailable) determines the level of parallelism (i.e.,
 ///    the number of nodes being updated at the same time).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSettings {
     /// Optional. Settings for surge update.
@@ -9043,8 +9519,19 @@ impl serde::ser::Serialize for UpdateSettings {
     }
 }
 
+impl std::fmt::Debug for UpdateSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSettings");
+        debug_struct.field("surge_settings", &self.surge_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SurgeSettings contains the parameters for Surge update.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SurgeSettings {
     /// Optional. The maximum number of nodes that can be created beyond the
@@ -9239,9 +9726,21 @@ impl serde::ser::Serialize for SurgeSettings {
     }
 }
 
+impl std::fmt::Debug for SurgeSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SurgeSettings");
+        debug_struct.field("max_surge", &self.max_surge);
+        debug_struct.field("max_unavailable", &self.max_unavailable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AwsNodeManagement defines the set of node management features turned on for
 /// an AWS node pool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsNodeManagement {
     /// Optional. Whether or not the nodes will be automatically repaired. When set
@@ -9374,8 +9873,19 @@ impl serde::ser::Serialize for AwsNodeManagement {
     }
 }
 
+impl std::fmt::Debug for AwsNodeManagement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsNodeManagement");
+        debug_struct.field("auto_repair", &self.auto_repair);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parameters that describe the nodes in a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsNodeConfig {
     /// Optional. The EC2 instance type when creating on-Demand instances.
@@ -9976,9 +10486,36 @@ impl serde::ser::Serialize for AwsNodeConfig {
     }
 }
 
+impl std::fmt::Debug for AwsNodeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsNodeConfig");
+        debug_struct.field("instance_type", &self.instance_type);
+        debug_struct.field("root_volume", &self.root_volume);
+        debug_struct.field("taints", &self.taints);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("iam_instance_profile", &self.iam_instance_profile);
+        debug_struct.field("image_type", &self.image_type);
+        debug_struct.field("ssh_config", &self.ssh_config);
+        debug_struct.field("security_group_ids", &self.security_group_ids);
+        debug_struct.field("proxy_config", &self.proxy_config);
+        debug_struct.field("config_encryption", &self.config_encryption);
+        debug_struct.field("instance_placement", &self.instance_placement);
+        debug_struct.field(
+            "autoscaling_metrics_collection",
+            &self.autoscaling_metrics_collection,
+        );
+        debug_struct.field("spot_config", &self.spot_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AwsNodePoolAutoscaling contains information required by cluster autoscaler
 /// to adjust the size of the node pool to the current cluster usage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsNodePoolAutoscaling {
     /// Required. Minimum number of nodes in the node pool. Must be greater than or
@@ -10173,9 +10710,21 @@ impl serde::ser::Serialize for AwsNodePoolAutoscaling {
     }
 }
 
+impl std::fmt::Debug for AwsNodePoolAutoscaling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsNodePoolAutoscaling");
+        debug_struct.field("min_node_count", &self.min_node_count);
+        debug_struct.field("max_node_count", &self.max_node_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AwsOpenIdConfig is an OIDC discovery document for the cluster.
 /// See the OpenID Connect Discovery 1.0 specification for details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsOpenIdConfig {
     /// OIDC Issuer.
@@ -10478,8 +11027,28 @@ impl serde::ser::Serialize for AwsOpenIdConfig {
     }
 }
 
+impl std::fmt::Debug for AwsOpenIdConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsOpenIdConfig");
+        debug_struct.field("issuer", &self.issuer);
+        debug_struct.field("jwks_uri", &self.jwks_uri);
+        debug_struct.field("response_types_supported", &self.response_types_supported);
+        debug_struct.field("subject_types_supported", &self.subject_types_supported);
+        debug_struct.field(
+            "id_token_signing_alg_values_supported",
+            &self.id_token_signing_alg_values_supported,
+        );
+        debug_struct.field("claims_supported", &self.claims_supported);
+        debug_struct.field("grant_types", &self.grant_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AwsJsonWebKeys is a valid JSON Web Key Set as specififed in RFC 7517.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsJsonWebKeys {
     /// The public component of the keys used by the cluster to sign token
@@ -10612,8 +11181,19 @@ impl serde::ser::Serialize for AwsJsonWebKeys {
     }
 }
 
+impl std::fmt::Debug for AwsJsonWebKeys {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsJsonWebKeys");
+        debug_struct.field("keys", &self.keys);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AwsServerConfig is the configuration of GKE cluster on AWS.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsServerConfig {
     /// The resource name of the config.
@@ -10805,8 +11385,21 @@ impl serde::ser::Serialize for AwsServerConfig {
     }
 }
 
+impl std::fmt::Debug for AwsServerConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsServerConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("valid_versions", &self.valid_versions);
+        debug_struct.field("supported_aws_regions", &self.supported_aws_regions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Kubernetes version information of GKE cluster on AWS.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsK8sVersionInfo {
     /// Kubernetes version name.
@@ -11064,8 +11657,23 @@ impl serde::ser::Serialize for AwsK8sVersionInfo {
     }
 }
 
+impl std::fmt::Debug for AwsK8sVersionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsK8sVersionInfo");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("end_of_life", &self.end_of_life);
+        debug_struct.field("end_of_life_date", &self.end_of_life_date);
+        debug_struct.field("release_date", &self.release_date);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SSH configuration for AWS resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsSshConfig {
     /// Required. The name of the EC2 key pair used to login into cluster machines.
@@ -11195,8 +11803,19 @@ impl serde::ser::Serialize for AwsSshConfig {
     }
 }
 
+impl std::fmt::Debug for AwsSshConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsSshConfig");
+        debug_struct.field("ec2_key_pair", &self.ec2_key_pair);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of a proxy config stored in AWS Secret Manager.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsProxyConfig {
     /// The ARN of the AWS Secret Manager secret that contains the HTTP(S) proxy
@@ -11357,8 +11976,20 @@ impl serde::ser::Serialize for AwsProxyConfig {
     }
 }
 
+impl std::fmt::Debug for AwsProxyConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsProxyConfig");
+        debug_struct.field("secret_arn", &self.secret_arn);
+        debug_struct.field("secret_version", &self.secret_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Config encryption for user data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsConfigEncryption {
     /// Required. The ARN of the AWS KMS key used to encrypt user data.
@@ -11488,12 +12119,23 @@ impl serde::ser::Serialize for AwsConfigEncryption {
     }
 }
 
+impl std::fmt::Debug for AwsConfigEncryption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsConfigEncryption");
+        debug_struct.field("kms_key_arn", &self.kms_key_arn);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of placement information for an instance.
 /// Limitations for using the `host` tenancy:
 ///
 /// * T3 instances that use the unlimited CPU credit option don't support host
 ///   tenancy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsInstancePlacement {
     /// Required. The tenancy for instance.
@@ -11624,6 +12266,17 @@ impl serde::ser::Serialize for AwsInstancePlacement {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AwsInstancePlacement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsInstancePlacement");
+        debug_struct.field("tenancy", &self.tenancy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -11774,7 +12427,7 @@ pub mod aws_instance_placement {
 
 /// Configuration related to CloudWatch metrics collection in an AWS
 /// Auto Scaling group.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsAutoscalingGroupMetricsCollection {
     /// Required. The frequency at which EC2 Auto Scaling sends aggregated data to
@@ -11934,8 +12587,20 @@ impl serde::ser::Serialize for AwsAutoscalingGroupMetricsCollection {
     }
 }
 
+impl std::fmt::Debug for AwsAutoscalingGroupMetricsCollection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsAutoscalingGroupMetricsCollection");
+        debug_struct.field("granularity", &self.granularity);
+        debug_struct.field("metrics", &self.metrics);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SpotConfig has configuration info for Spot node.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpotConfig {
     /// Required. A list of instance types for creating spot node pool.
@@ -12068,8 +12733,19 @@ impl serde::ser::Serialize for SpotConfig {
     }
 }
 
+impl std::fmt::Debug for SpotConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpotConfig");
+        debug_struct.field("instance_types", &self.instance_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AwsClusterError describes errors found on AWS clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsClusterError {
     /// Human-friendly description of the error.
@@ -12198,8 +12874,19 @@ impl serde::ser::Serialize for AwsClusterError {
     }
 }
 
+impl std::fmt::Debug for AwsClusterError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsClusterError");
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AwsNodePoolError describes errors found on AWS node pools.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsNodePoolError {
     /// Human-friendly description of the error.
@@ -12328,8 +13015,19 @@ impl serde::ser::Serialize for AwsNodePoolError {
     }
 }
 
+impl std::fmt::Debug for AwsNodePoolError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsNodePoolError");
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AwsClusters.CreateAwsCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAwsClusterRequest {
     /// Required. The parent location where this
@@ -12566,8 +13264,22 @@ impl serde::ser::Serialize for CreateAwsClusterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAwsClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAwsClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("aws_cluster", &self.aws_cluster);
+        debug_struct.field("aws_cluster_id", &self.aws_cluster_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AwsClusters.UpdateAwsCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAwsClusterRequest {
     /// Required. The [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
@@ -12804,8 +13516,21 @@ impl serde::ser::Serialize for UpdateAwsClusterRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAwsClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAwsClusterRequest");
+        debug_struct.field("aws_cluster", &self.aws_cluster);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AwsClusters.GetAwsCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAwsClusterRequest {
     /// Required. The name of the
@@ -12944,8 +13669,19 @@ impl serde::ser::Serialize for GetAwsClusterRequest {
     }
 }
 
+impl std::fmt::Debug for GetAwsClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAwsClusterRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AwsClusters.ListAwsClusters` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAwsClustersRequest {
     /// Required. The parent location which owns this collection of
@@ -13162,8 +13898,21 @@ impl serde::ser::Serialize for ListAwsClustersRequest {
     }
 }
 
+impl std::fmt::Debug for ListAwsClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAwsClustersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AwsClusters.ListAwsClusters` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAwsClustersResponse {
     /// A list of [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources
@@ -13339,8 +14088,20 @@ impl serde::ser::Serialize for ListAwsClustersResponse {
     }
 }
 
+impl std::fmt::Debug for ListAwsClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAwsClustersResponse");
+        debug_struct.field("aws_clusters", &self.aws_clusters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AwsClusters.DeleteAwsCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAwsClusterRequest {
     /// Required. The resource name the
@@ -13598,8 +14359,23 @@ impl serde::ser::Serialize for DeleteAwsClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAwsClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAwsClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("ignore_errors", &self.ignore_errors);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AwsClusters.CreateAwsNodePool` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAwsNodePoolRequest {
     /// Required. The [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
@@ -13840,8 +14616,22 @@ impl serde::ser::Serialize for CreateAwsNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAwsNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAwsNodePoolRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("aws_node_pool", &self.aws_node_pool);
+        debug_struct.field("aws_node_pool_id", &self.aws_node_pool_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AwsClusters.UpdateAwsNodePool` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAwsNodePoolRequest {
     /// Required. The [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
@@ -14081,8 +14871,21 @@ impl serde::ser::Serialize for UpdateAwsNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAwsNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAwsNodePoolRequest");
+        debug_struct.field("aws_node_pool", &self.aws_node_pool);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AwsClusters.RollbackAwsNodePoolUpdate` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollbackAwsNodePoolUpdateRequest {
     /// Required. The name of the
@@ -14247,8 +15050,20 @@ impl serde::ser::Serialize for RollbackAwsNodePoolUpdateRequest {
     }
 }
 
+impl std::fmt::Debug for RollbackAwsNodePoolUpdateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RollbackAwsNodePoolUpdateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("respect_pdb", &self.respect_pdb);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AwsClusters.GetAwsNodePool` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAwsNodePoolRequest {
     /// Required. The name of the
@@ -14387,8 +15202,19 @@ impl serde::ser::Serialize for GetAwsNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for GetAwsNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAwsNodePoolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AwsClusters.ListAwsNodePools` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAwsNodePoolsRequest {
     /// Required. The parent `AwsCluster` which owns this collection of
@@ -14606,8 +15432,21 @@ impl serde::ser::Serialize for ListAwsNodePoolsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAwsNodePoolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAwsNodePoolsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AwsClusters.ListAwsNodePools` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAwsNodePoolsResponse {
     /// A list of [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
@@ -14783,8 +15622,20 @@ impl serde::ser::Serialize for ListAwsNodePoolsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAwsNodePoolsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAwsNodePoolsResponse");
+        debug_struct.field("aws_node_pools", &self.aws_node_pools);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AwsClusters.DeleteAwsNodePool` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAwsNodePoolRequest {
     /// Required. The resource name the
@@ -15043,9 +15894,24 @@ impl serde::ser::Serialize for DeleteAwsNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAwsNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAwsNodePoolRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("ignore_errors", &self.ignore_errors);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GetAwsOpenIdConfigRequest gets the OIDC discovery document for the
 /// cluster. See the OpenID Connect Discovery 1.0 specification for details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAwsOpenIdConfigRequest {
     /// Required. The AwsCluster, which owns the OIDC discovery document.
@@ -15177,11 +16043,22 @@ impl serde::ser::Serialize for GetAwsOpenIdConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetAwsOpenIdConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAwsOpenIdConfigRequest");
+        debug_struct.field("aws_cluster", &self.aws_cluster);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GetAwsJsonWebKeysRequest gets the public component of the keys used by the
 /// cluster to sign token requests. This will be the jwks_uri for the discover
 /// document returned by getOpenIDConfig. See the OpenID Connect
 /// Discovery 1.0 specification for details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAwsJsonWebKeysRequest {
     /// Required. The AwsCluster, which owns the JsonWebKeys.
@@ -15313,8 +16190,19 @@ impl serde::ser::Serialize for GetAwsJsonWebKeysRequest {
     }
 }
 
+impl std::fmt::Debug for GetAwsJsonWebKeysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAwsJsonWebKeysRequest");
+        debug_struct.field("aws_cluster", &self.aws_cluster);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GetAwsServerConfigRequest gets the server config of GKE cluster on AWS.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAwsServerConfigRequest {
     /// Required. The name of the
@@ -15453,8 +16341,19 @@ impl serde::ser::Serialize for GetAwsServerConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetAwsServerConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAwsServerConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AwsClusters.GenerateAwsAccessToken` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAwsAccessTokenRequest {
     /// Required. The name of the
@@ -15594,8 +16493,19 @@ impl serde::ser::Serialize for GenerateAwsAccessTokenRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateAwsAccessTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAwsAccessTokenRequest");
+        debug_struct.field("aws_cluster", &self.aws_cluster);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AwsClusters.GenerateAwsAccessToken` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAwsAccessTokenResponse {
     /// Output only. Access token to authenticate to k8s api-server.
@@ -15761,7 +16671,19 @@ impl serde::ser::Serialize for GenerateAwsAccessTokenResponse {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for GenerateAwsAccessTokenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAwsAccessTokenResponse");
+        debug_struct.field("access_token", &self.access_token);
+        debug_struct.field("expiration_time", &self.expiration_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAwsClusterAgentTokenRequest {
     /// Required.
@@ -16118,7 +17040,27 @@ impl serde::ser::Serialize for GenerateAwsClusterAgentTokenRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for GenerateAwsClusterAgentTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAwsClusterAgentTokenRequest");
+        debug_struct.field("aws_cluster", &self.aws_cluster);
+        debug_struct.field("subject_token", &self.subject_token);
+        debug_struct.field("subject_token_type", &self.subject_token_type);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("node_pool_id", &self.node_pool_id);
+        debug_struct.field("grant_type", &self.grant_type);
+        debug_struct.field("audience", &self.audience);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("requested_token_type", &self.requested_token_type);
+        debug_struct.field("options", &self.options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAwsClusterAgentTokenResponse {
     pub access_token: std::string::String,
@@ -16313,8 +17255,21 @@ impl serde::ser::Serialize for GenerateAwsClusterAgentTokenResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateAwsClusterAgentTokenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAwsClusterAgentTokenResponse");
+        debug_struct.field("access_token", &self.access_token);
+        debug_struct.field("expires_in", &self.expires_in);
+        debug_struct.field("token_type", &self.token_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An Anthos cluster running on Azure.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureCluster {
     /// The name of this resource.
@@ -17214,6 +18169,43 @@ impl serde::ser::Serialize for AzureCluster {
     }
 }
 
+impl std::fmt::Debug for AzureCluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureCluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("azure_region", &self.azure_region);
+        debug_struct.field("resource_group_id", &self.resource_group_id);
+        debug_struct.field("azure_client", &self.azure_client);
+        debug_struct.field("networking", &self.networking);
+        debug_struct.field("control_plane", &self.control_plane);
+        debug_struct.field("authorization", &self.authorization);
+        debug_struct.field(
+            "azure_services_authentication",
+            &self.azure_services_authentication,
+        );
+        debug_struct.field("state", &self.state);
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("workload_identity_config", &self.workload_identity_config);
+        debug_struct.field("cluster_ca_certificate", &self.cluster_ca_certificate);
+        debug_struct.field("fleet", &self.fleet);
+        debug_struct.field("managed_resources", &self.managed_resources);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("monitoring_config", &self.monitoring_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AzureCluster].
 pub mod azure_cluster {
     #[allow(unused_imports)]
@@ -17385,7 +18377,7 @@ pub mod azure_cluster {
 }
 
 /// ClusterNetworking contains cluster-wide networking configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureClusterNetworking {
     /// Required. The Azure Resource Manager (ARM) ID of the VNet associated with
@@ -17642,8 +18634,28 @@ impl serde::ser::Serialize for AzureClusterNetworking {
     }
 }
 
+impl std::fmt::Debug for AzureClusterNetworking {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureClusterNetworking");
+        debug_struct.field("virtual_network_id", &self.virtual_network_id);
+        debug_struct.field("pod_address_cidr_blocks", &self.pod_address_cidr_blocks);
+        debug_struct.field(
+            "service_address_cidr_blocks",
+            &self.service_address_cidr_blocks,
+        );
+        debug_struct.field(
+            "service_load_balancer_subnet_id",
+            &self.service_load_balancer_subnet_id,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AzureControlPlane represents the control plane configurations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureControlPlane {
     /// Required. The Kubernetes version to run on control plane replicas
@@ -18175,8 +19187,30 @@ impl serde::ser::Serialize for AzureControlPlane {
     }
 }
 
+impl std::fmt::Debug for AzureControlPlane {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureControlPlane");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("subnet_id", &self.subnet_id);
+        debug_struct.field("vm_size", &self.vm_size);
+        debug_struct.field("ssh_config", &self.ssh_config);
+        debug_struct.field("root_volume", &self.root_volume);
+        debug_struct.field("main_volume", &self.main_volume);
+        debug_struct.field("database_encryption", &self.database_encryption);
+        debug_struct.field("proxy_config", &self.proxy_config);
+        debug_struct.field("config_encryption", &self.config_encryption);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("replica_placements", &self.replica_placements);
+        debug_struct.field("endpoint_subnet_id", &self.endpoint_subnet_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for the placement of a control plane replica.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicaPlacement {
     /// Required. For a given replica, the ARM ID of the subnet where the control
@@ -18337,8 +19371,20 @@ impl serde::ser::Serialize for ReplicaPlacement {
     }
 }
 
+impl std::fmt::Debug for ReplicaPlacement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplicaPlacement");
+        debug_struct.field("subnet_id", &self.subnet_id);
+        debug_struct.field("azure_availability_zone", &self.azure_availability_zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of a proxy config stored in Azure Key Vault.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureProxyConfig {
     /// The ARM ID the of the resource group containing proxy keyvault.
@@ -18506,11 +19552,23 @@ impl serde::ser::Serialize for AzureProxyConfig {
     }
 }
 
+impl std::fmt::Debug for AzureProxyConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureProxyConfig");
+        debug_struct.field("resource_group_id", &self.resource_group_id);
+        debug_struct.field("secret_id", &self.secret_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration related to application-layer secrets encryption.
 ///
 /// Anthos clusters on Azure encrypts your Kubernetes data at rest
 /// in etcd using Azure Key Vault.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureDatabaseEncryption {
     /// Required. The ARM ID of the Azure Key Vault key to encrypt / decrypt data.
@@ -18645,11 +19703,22 @@ impl serde::ser::Serialize for AzureDatabaseEncryption {
     }
 }
 
+impl std::fmt::Debug for AzureDatabaseEncryption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureDatabaseEncryption");
+        debug_struct.field("key_id", &self.key_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration related to config data encryption.
 ///
 /// Azure VM bootstrap secret is envelope encrypted with the provided key vault
 /// key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureConfigEncryption {
     /// Required. The ARM ID of the Azure Key Vault key to encrypt / decrypt config
@@ -18813,8 +19882,20 @@ impl serde::ser::Serialize for AzureConfigEncryption {
     }
 }
 
+impl std::fmt::Debug for AzureConfigEncryption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureConfigEncryption");
+        debug_struct.field("key_id", &self.key_id);
+        debug_struct.field("public_key", &self.public_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for Azure Disks.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureDiskTemplate {
     /// Optional. The size of the disk, in GiBs.
@@ -18965,6 +20046,17 @@ impl serde::ser::Serialize for AzureDiskTemplate {
     }
 }
 
+impl std::fmt::Debug for AzureDiskTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureDiskTemplate");
+        debug_struct.field("size_gib", &self.size_gib);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `AzureClient` resources hold client authentication information needed by the
 /// Anthos Multi-Cloud API to manage Azure resources on your Azure subscription.
 ///
@@ -18979,7 +20071,7 @@ impl serde::ser::Serialize for AzureDiskTemplate {
 /// Application and tenant.
 ///
 /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureClient {
     /// The name of this resource.
@@ -19352,8 +20444,27 @@ impl serde::ser::Serialize for AzureClient {
     }
 }
 
+impl std::fmt::Debug for AzureClient {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureClient");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("tenant_id", &self.tenant_id);
+        debug_struct.field("application_id", &self.application_id);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("pem_certificate", &self.pem_certificate);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration related to the cluster RBAC settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureAuthorization {
     /// Optional. Users that can perform operations as a cluster admin. A managed
@@ -19532,8 +20643,20 @@ impl serde::ser::Serialize for AzureAuthorization {
     }
 }
 
+impl std::fmt::Debug for AzureAuthorization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureAuthorization");
+        debug_struct.field("admin_users", &self.admin_users);
+        debug_struct.field("admin_groups", &self.admin_groups);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Authentication configuration for the management of Azure resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureServicesAuthentication {
     /// Required. The Azure Active Directory Tenant ID.
@@ -19688,8 +20811,20 @@ impl serde::ser::Serialize for AzureServicesAuthentication {
     }
 }
 
+impl std::fmt::Debug for AzureServicesAuthentication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureServicesAuthentication");
+        debug_struct.field("tenant_id", &self.tenant_id);
+        debug_struct.field("application_id", &self.application_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identities of a user-type subject for Azure clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureClusterUser {
     /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
@@ -19818,8 +20953,19 @@ impl serde::ser::Serialize for AzureClusterUser {
     }
 }
 
+impl std::fmt::Debug for AzureClusterUser {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureClusterUser");
+        debug_struct.field("username", &self.username);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identities of a group-type subject for Azure clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureClusterGroup {
     /// Required. The name of the group, e.g. `my-group@domain.com`.
@@ -19948,8 +21094,19 @@ impl serde::ser::Serialize for AzureClusterGroup {
     }
 }
 
+impl std::fmt::Debug for AzureClusterGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureClusterGroup");
+        debug_struct.field("group", &self.group);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An Anthos node pool running on Azure.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureNodePool {
     /// The name of this resource.
@@ -20557,6 +21714,32 @@ impl serde::ser::Serialize for AzureNodePool {
     }
 }
 
+impl std::fmt::Debug for AzureNodePool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureNodePool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("subnet_id", &self.subnet_id);
+        debug_struct.field("autoscaling", &self.autoscaling);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("max_pods_constraint", &self.max_pods_constraint);
+        debug_struct.field("azure_availability_zone", &self.azure_availability_zone);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("management", &self.management);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AzureNodePool].
 pub mod azure_node_pool {
     #[allow(unused_imports)]
@@ -20728,7 +21911,7 @@ pub mod azure_node_pool {
 
 /// AzureNodeManagement defines the set of node management features turned on for
 /// an Azure node pool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureNodeManagement {
     /// Optional. Whether or not the nodes will be automatically repaired. When set
@@ -20861,9 +22044,20 @@ impl serde::ser::Serialize for AzureNodeManagement {
     }
 }
 
+impl std::fmt::Debug for AzureNodeManagement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureNodeManagement");
+        debug_struct.field("auto_repair", &self.auto_repair);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parameters that describe the configuration of all node machines
 /// on a given node pool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureNodeConfig {
     /// Optional. The Azure VM size name. Example: `Standard_DS2_v2`.
@@ -21280,11 +22474,30 @@ impl serde::ser::Serialize for AzureNodeConfig {
     }
 }
 
+impl std::fmt::Debug for AzureNodeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureNodeConfig");
+        debug_struct.field("vm_size", &self.vm_size);
+        debug_struct.field("root_volume", &self.root_volume);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("image_type", &self.image_type);
+        debug_struct.field("ssh_config", &self.ssh_config);
+        debug_struct.field("proxy_config", &self.proxy_config);
+        debug_struct.field("config_encryption", &self.config_encryption);
+        debug_struct.field("taints", &self.taints);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration related to Kubernetes cluster autoscaler.
 ///
 /// The Kubernetes cluster autoscaler will automatically adjust the
 /// size of the node pool based on the cluster load.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureNodePoolAutoscaling {
     /// Required. Minimum number of nodes in the node pool. Must be greater than or
@@ -21479,9 +22692,21 @@ impl serde::ser::Serialize for AzureNodePoolAutoscaling {
     }
 }
 
+impl std::fmt::Debug for AzureNodePoolAutoscaling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureNodePoolAutoscaling");
+        debug_struct.field("min_node_count", &self.min_node_count);
+        debug_struct.field("max_node_count", &self.max_node_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AzureOpenIdConfig is an OIDC discovery document for the cluster.
 /// See the OpenID Connect Discovery 1.0 specification for details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureOpenIdConfig {
     /// OIDC Issuer.
@@ -21784,8 +23009,28 @@ impl serde::ser::Serialize for AzureOpenIdConfig {
     }
 }
 
+impl std::fmt::Debug for AzureOpenIdConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureOpenIdConfig");
+        debug_struct.field("issuer", &self.issuer);
+        debug_struct.field("jwks_uri", &self.jwks_uri);
+        debug_struct.field("response_types_supported", &self.response_types_supported);
+        debug_struct.field("subject_types_supported", &self.subject_types_supported);
+        debug_struct.field(
+            "id_token_signing_alg_values_supported",
+            &self.id_token_signing_alg_values_supported,
+        );
+        debug_struct.field("claims_supported", &self.claims_supported);
+        debug_struct.field("grant_types", &self.grant_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AzureJsonWebKeys is a valid JSON Web Key Set as specififed in RFC 7517.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureJsonWebKeys {
     /// The public component of the keys used by the cluster to sign token
@@ -21918,9 +23163,20 @@ impl serde::ser::Serialize for AzureJsonWebKeys {
     }
 }
 
+impl std::fmt::Debug for AzureJsonWebKeys {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureJsonWebKeys");
+        debug_struct.field("keys", &self.keys);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AzureServerConfig contains information about a Google Cloud location, such as
 /// supported Azure regions and Kubernetes versions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureServerConfig {
     /// The `AzureServerConfig` resource name.
@@ -22118,8 +23374,21 @@ impl serde::ser::Serialize for AzureServerConfig {
     }
 }
 
+impl std::fmt::Debug for AzureServerConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureServerConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("valid_versions", &self.valid_versions);
+        debug_struct.field("supported_azure_regions", &self.supported_azure_regions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Kubernetes version information of GKE cluster on Azure.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureK8sVersionInfo {
     /// Kubernetes version name (for example, `1.19.10-gke.1000`)
@@ -22377,8 +23646,23 @@ impl serde::ser::Serialize for AzureK8sVersionInfo {
     }
 }
 
+impl std::fmt::Debug for AzureK8sVersionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureK8sVersionInfo");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("end_of_life", &self.end_of_life);
+        debug_struct.field("end_of_life_date", &self.end_of_life_date);
+        debug_struct.field("release_date", &self.release_date);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SSH configuration for Azure resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureSshConfig {
     /// Required. The SSH public key data for VMs managed by Anthos. This accepts
@@ -22510,10 +23794,21 @@ impl serde::ser::Serialize for AzureSshConfig {
     }
 }
 
+impl std::fmt::Debug for AzureSshConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureSshConfig");
+        debug_struct.field("authorized_key", &self.authorized_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Managed Azure resources for the cluster.
 ///
 /// The values could change and be empty, depending on the state of the cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureClusterResources {
     /// Output only. The ARM ID of the cluster network security group.
@@ -22687,8 +23982,23 @@ impl serde::ser::Serialize for AzureClusterResources {
     }
 }
 
+impl std::fmt::Debug for AzureClusterResources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureClusterResources");
+        debug_struct.field("network_security_group_id", &self.network_security_group_id);
+        debug_struct.field(
+            "control_plane_application_security_group_id",
+            &self.control_plane_application_security_group_id,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AzureClusterError describes errors found on Azure clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureClusterError {
     /// Human-friendly description of the error.
@@ -22817,8 +24127,19 @@ impl serde::ser::Serialize for AzureClusterError {
     }
 }
 
+impl std::fmt::Debug for AzureClusterError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureClusterError");
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AzureNodePoolError describes errors found on Azure node pools.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureNodePoolError {
     /// Human-friendly description of the error.
@@ -22947,8 +24268,19 @@ impl serde::ser::Serialize for AzureNodePoolError {
     }
 }
 
+impl std::fmt::Debug for AzureNodePoolError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureNodePoolError");
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.CreateAzureCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAzureClusterRequest {
     /// Required. The parent location where this
@@ -23188,8 +24520,22 @@ impl serde::ser::Serialize for CreateAzureClusterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAzureClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAzureClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("azure_cluster", &self.azure_cluster);
+        debug_struct.field("azure_cluster_id", &self.azure_cluster_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.UpdateAzureCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAzureClusterRequest {
     /// Required. The [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
@@ -23416,8 +24762,21 @@ impl serde::ser::Serialize for UpdateAzureClusterRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAzureClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAzureClusterRequest");
+        debug_struct.field("azure_cluster", &self.azure_cluster);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.GetAzureCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAzureClusterRequest {
     /// Required. The name of the
@@ -23556,8 +24915,19 @@ impl serde::ser::Serialize for GetAzureClusterRequest {
     }
 }
 
+impl std::fmt::Debug for GetAzureClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAzureClusterRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.ListAzureClusters` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAzureClustersRequest {
     /// Required. The parent location which owns this collection of
@@ -23774,8 +25144,21 @@ impl serde::ser::Serialize for ListAzureClustersRequest {
     }
 }
 
+impl std::fmt::Debug for ListAzureClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAzureClustersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AzureClusters.ListAzureClusters` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAzureClustersResponse {
     /// A list of [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
@@ -23951,8 +25334,20 @@ impl serde::ser::Serialize for ListAzureClustersResponse {
     }
 }
 
+impl std::fmt::Debug for ListAzureClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAzureClustersResponse");
+        debug_struct.field("azure_clusters", &self.azure_clusters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.DeleteAzureCluster` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAzureClusterRequest {
     /// Required. The resource name the
@@ -24210,8 +25605,23 @@ impl serde::ser::Serialize for DeleteAzureClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAzureClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAzureClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("ignore_errors", &self.ignore_errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AzureClusters.CreateAzureNodePool` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAzureNodePoolRequest {
     /// Required. The [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
@@ -24452,8 +25862,22 @@ impl serde::ser::Serialize for CreateAzureNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAzureNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAzureNodePoolRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("azure_node_pool", &self.azure_node_pool);
+        debug_struct.field("azure_node_pool_id", &self.azure_node_pool_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.UpdateAzureNodePool` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAzureNodePoolRequest {
     /// Required. The [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool]
@@ -24671,8 +26095,21 @@ impl serde::ser::Serialize for UpdateAzureNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAzureNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAzureNodePoolRequest");
+        debug_struct.field("azure_node_pool", &self.azure_node_pool);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.GetAzureNodePool` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAzureNodePoolRequest {
     /// Required. The name of the
@@ -24811,8 +26248,19 @@ impl serde::ser::Serialize for GetAzureNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for GetAzureNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAzureNodePoolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.ListAzureNodePools` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAzureNodePoolsRequest {
     /// Required. The parent `AzureCluster` which owns this collection of
@@ -25030,8 +26478,21 @@ impl serde::ser::Serialize for ListAzureNodePoolsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAzureNodePoolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAzureNodePoolsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AzureClusters.ListAzureNodePools` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAzureNodePoolsResponse {
     /// A list of [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool]
@@ -25207,8 +26668,20 @@ impl serde::ser::Serialize for ListAzureNodePoolsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAzureNodePoolsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAzureNodePoolsResponse");
+        debug_struct.field("azure_node_pools", &self.azure_node_pools);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.DeleteAzureNodePool` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAzureNodePoolRequest {
     /// Required. The resource name the
@@ -25468,9 +26941,24 @@ impl serde::ser::Serialize for DeleteAzureNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAzureNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAzureNodePoolRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("ignore_errors", &self.ignore_errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GetAzureOpenIdConfigRequest gets the OIDC discovery document for the
 /// cluster. See the OpenID Connect Discovery 1.0 specification for details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAzureOpenIdConfigRequest {
     /// Required. The AzureCluster, which owns the OIDC discovery document.
@@ -25602,11 +27090,22 @@ impl serde::ser::Serialize for GetAzureOpenIdConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetAzureOpenIdConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAzureOpenIdConfigRequest");
+        debug_struct.field("azure_cluster", &self.azure_cluster);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GetAzureJsonWebKeysRequest gets the public component of the keys used by the
 /// cluster to sign token requests. This will be the jwks_uri for the discover
 /// document returned by getOpenIDConfig. See the OpenID Connect
 /// Discovery 1.0 specification for details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAzureJsonWebKeysRequest {
     /// Required. The AzureCluster, which owns the JsonWebKeys.
@@ -25738,8 +27237,19 @@ impl serde::ser::Serialize for GetAzureJsonWebKeysRequest {
     }
 }
 
+impl std::fmt::Debug for GetAzureJsonWebKeysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAzureJsonWebKeysRequest");
+        debug_struct.field("azure_cluster", &self.azure_cluster);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GetAzureServerConfigRequest gets the server config of GKE cluster on Azure.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAzureServerConfigRequest {
     /// Required. The name of the
@@ -25878,8 +27388,19 @@ impl serde::ser::Serialize for GetAzureServerConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetAzureServerConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAzureServerConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.CreateAzureClient` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAzureClientRequest {
     /// Required. The parent location where this
@@ -26116,8 +27637,22 @@ impl serde::ser::Serialize for CreateAzureClientRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAzureClientRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAzureClientRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("azure_client", &self.azure_client);
+        debug_struct.field("azure_client_id", &self.azure_client_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.GetAzureClient` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAzureClientRequest {
     /// Required. The name of the
@@ -26257,8 +27792,19 @@ impl serde::ser::Serialize for GetAzureClientRequest {
     }
 }
 
+impl std::fmt::Debug for GetAzureClientRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAzureClientRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.ListAzureClients` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAzureClientsRequest {
     /// Required. The parent location which owns this collection of
@@ -26475,8 +28021,21 @@ impl serde::ser::Serialize for ListAzureClientsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAzureClientsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAzureClientsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AzureClusters.ListAzureClients` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAzureClientsResponse {
     /// A list of [AzureClient][google.cloud.gkemulticloud.v1.AzureClient]
@@ -26652,8 +28211,20 @@ impl serde::ser::Serialize for ListAzureClientsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAzureClientsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAzureClientsResponse");
+        debug_struct.field("azure_clients", &self.azure_clients);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.DeleteAzureClient` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAzureClientRequest {
     /// Required. The resource name the
@@ -26850,8 +28421,21 @@ impl serde::ser::Serialize for DeleteAzureClientRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAzureClientRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAzureClientRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AzureClusters.GenerateAzureAccessToken` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAzureAccessTokenRequest {
     /// Required. The name of the
@@ -26991,8 +28575,19 @@ impl serde::ser::Serialize for GenerateAzureAccessTokenRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateAzureAccessTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAzureAccessTokenRequest");
+        debug_struct.field("azure_cluster", &self.azure_cluster);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AzureClusters.GenerateAzureAccessToken` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAzureAccessTokenResponse {
     /// Output only. Access token to authenticate to k8s api-server.
@@ -27158,7 +28753,19 @@ impl serde::ser::Serialize for GenerateAzureAccessTokenResponse {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for GenerateAzureAccessTokenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAzureAccessTokenResponse");
+        debug_struct.field("access_token", &self.access_token);
+        debug_struct.field("expiration_time", &self.expiration_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAzureClusterAgentTokenRequest {
     /// Required.
@@ -27516,7 +29123,27 @@ impl serde::ser::Serialize for GenerateAzureClusterAgentTokenRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for GenerateAzureClusterAgentTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAzureClusterAgentTokenRequest");
+        debug_struct.field("azure_cluster", &self.azure_cluster);
+        debug_struct.field("subject_token", &self.subject_token);
+        debug_struct.field("subject_token_type", &self.subject_token_type);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("node_pool_id", &self.node_pool_id);
+        debug_struct.field("grant_type", &self.grant_type);
+        debug_struct.field("audience", &self.audience);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("requested_token_type", &self.requested_token_type);
+        debug_struct.field("options", &self.options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAzureClusterAgentTokenResponse {
     pub access_token: std::string::String,
@@ -27712,8 +29339,21 @@ impl serde::ser::Serialize for GenerateAzureClusterAgentTokenResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateAzureClusterAgentTokenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAzureClusterAgentTokenResponse");
+        debug_struct.field("access_token", &self.access_token);
+        debug_struct.field("expires_in", &self.expires_in);
+        debug_struct.field("token_type", &self.token_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Jwk is a JSON Web Key as specified in RFC 7517.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Jwk {
     /// Key Type.
@@ -28034,8 +29674,27 @@ impl serde::ser::Serialize for Jwk {
     }
 }
 
+impl std::fmt::Debug for Jwk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Jwk");
+        debug_struct.field("kty", &self.kty);
+        debug_struct.field("alg", &self.alg);
+        debug_struct.field("r#use", &self.r#use);
+        debug_struct.field("kid", &self.kid);
+        debug_struct.field("n", &self.n);
+        debug_struct.field("e", &self.e);
+        debug_struct.field("x", &self.x);
+        debug_struct.field("y", &self.y);
+        debug_struct.field("crv", &self.crv);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Workload Identity settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkloadIdentityConfig {
     /// The OIDC issuer URL for this cluster.
@@ -28219,8 +29878,21 @@ impl serde::ser::Serialize for WorkloadIdentityConfig {
     }
 }
 
+impl std::fmt::Debug for WorkloadIdentityConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadIdentityConfig");
+        debug_struct.field("issuer_uri", &self.issuer_uri);
+        debug_struct.field("workload_pool", &self.workload_pool);
+        debug_struct.field("identity_provider", &self.identity_provider);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Constraints applied to pods.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaxPodsConstraint {
     /// Required. The maximum number of pods to schedule on a single node.
@@ -28369,8 +30041,19 @@ impl serde::ser::Serialize for MaxPodsConstraint {
     }
 }
 
+impl std::fmt::Debug for MaxPodsConstraint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaxPodsConstraint");
+        debug_struct.field("max_pods_per_node", &self.max_pods_per_node);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata about a long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time at which this operation was created.
@@ -28680,8 +30363,25 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("status_detail", &self.status_detail);
+        debug_struct.field("error_detail", &self.error_detail);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The taint content for the node taint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeTaint {
     /// Required. Key for the taint.
@@ -28859,6 +30559,19 @@ impl serde::ser::Serialize for NodeTaint {
     }
 }
 
+impl std::fmt::Debug for NodeTaint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeTaint");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        debug_struct.field("effect", &self.effect);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NodeTaint].
 pub mod node_taint {
     #[allow(unused_imports)]
@@ -29011,7 +30724,7 @@ pub mod node_taint {
 }
 
 /// Configuration for node pool kubelet options.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeKubeletConfig {
     /// Optional. Enable the insecure kubelet read only port.
@@ -29347,6 +31060,24 @@ impl serde::ser::Serialize for NodeKubeletConfig {
     }
 }
 
+impl std::fmt::Debug for NodeKubeletConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeKubeletConfig");
+        debug_struct.field(
+            "insecure_kubelet_readonly_port_enabled",
+            &self.insecure_kubelet_readonly_port_enabled,
+        );
+        debug_struct.field("cpu_manager_policy", &self.cpu_manager_policy);
+        debug_struct.field("cpu_cfs_quota", &self.cpu_cfs_quota);
+        debug_struct.field("cpu_cfs_quota_period", &self.cpu_cfs_quota_period);
+        debug_struct.field("pod_pids_limit", &self.pod_pids_limit);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Fleet related configuration.
 ///
 /// Fleets are a Google Cloud concept for logically organizing clusters,
@@ -29356,7 +31087,7 @@ impl serde::ser::Serialize for NodeKubeletConfig {
 /// See [Anthos
 /// Fleets](https://cloud.google.com/anthos/multicluster-management/fleets) for
 /// more details on Anthos multi-cluster capabilities using Fleets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Fleet {
     /// Required. The name of the Fleet host project where this cluster will be
@@ -29517,8 +31248,20 @@ impl serde::ser::Serialize for Fleet {
     }
 }
 
+impl std::fmt::Debug for Fleet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Fleet");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("membership", &self.membership);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parameters that describe the Logging configuration in a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingConfig {
     /// The configuration of the logging components;
@@ -29659,8 +31402,19 @@ impl serde::ser::Serialize for LoggingConfig {
     }
 }
 
+impl std::fmt::Debug for LoggingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoggingConfig");
+        debug_struct.field("component_config", &self.component_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parameters that describe the Logging component configuration in a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingComponentConfig {
     /// The components to be enabled.
@@ -29796,6 +31550,17 @@ impl serde::ser::Serialize for LoggingComponentConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LoggingComponentConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoggingComponentConfig");
+        debug_struct.field("enable_components", &self.enable_components);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -29938,7 +31703,7 @@ pub mod logging_component_config {
 }
 
 /// Parameters that describe the Monitoring configuration in a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoringConfig {
     /// Enable Google Cloud Managed Service for Prometheus in the cluster.
@@ -30120,9 +31885,21 @@ impl serde::ser::Serialize for MonitoringConfig {
     }
 }
 
+impl std::fmt::Debug for MonitoringConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MonitoringConfig");
+        debug_struct.field("managed_prometheus_config", &self.managed_prometheus_config);
+        debug_struct.field("cloud_monitoring_config", &self.cloud_monitoring_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ManagedPrometheusConfig defines the configuration for
 /// Google Cloud Managed Service for Prometheus.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedPrometheusConfig {
     /// Enable Managed Collection.
@@ -30251,10 +32028,21 @@ impl serde::ser::Serialize for ManagedPrometheusConfig {
     }
 }
 
+impl std::fmt::Debug for ManagedPrometheusConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedPrometheusConfig");
+        debug_struct.field("enabled", &self.enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// CloudMonitoringConfig defines the configuration for
 /// built-in Cloud Logging and Monitoring.
 /// Only for Attached Clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudMonitoringConfig {
     /// Enable GKE-native logging and metrics.
@@ -30394,8 +32182,19 @@ impl serde::ser::Serialize for CloudMonitoringConfig {
     }
 }
 
+impl std::fmt::Debug for CloudMonitoringConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudMonitoringConfig");
+        debug_struct.field("enabled", &self.enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for Binary Authorization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BinaryAuthorization {
     /// Mode of operation for binauthz policy evaluation. If unspecified, defaults
@@ -30530,6 +32329,17 @@ impl serde::ser::Serialize for BinaryAuthorization {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for BinaryAuthorization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BinaryAuthorization");
+        debug_struct.field("evaluation_mode", &self.evaluation_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -30676,7 +32486,7 @@ pub mod binary_authorization {
 
 /// SecurityPostureConfig defines the flags needed to enable/disable features for
 /// the Security Posture API.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityPostureConfig {
     /// Sets which mode to use for vulnerability scanning.
@@ -30810,6 +32620,17 @@ impl serde::ser::Serialize for SecurityPostureConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for SecurityPostureConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecurityPostureConfig");
+        debug_struct.field("vulnerability_mode", &self.vulnerability_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

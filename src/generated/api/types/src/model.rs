@@ -44,7 +44,7 @@ extern crate wkt;
 ///     oauth:
 ///       canonical_scopes: https://www.googleapis.com/auth/calendar.read
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Authentication {
     /// A list of authentication rules that apply to individual API methods.
@@ -209,6 +209,18 @@ impl serde::ser::Serialize for Authentication {
     }
 }
 
+impl std::fmt::Debug for Authentication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Authentication");
+        debug_struct.field("rules", &self.rules);
+        debug_struct.field("providers", &self.providers);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Authentication rules for the service.
 ///
 /// By default, if a method has any authentication requirements, every request
@@ -218,7 +230,7 @@ impl serde::ser::Serialize for Authentication {
 ///
 /// If a method doesn't have any auth requirements, request credentials will be
 /// ignored.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthenticationRule {
     /// Selects the methods to which this rule applies.
@@ -447,8 +459,22 @@ impl serde::ser::Serialize for AuthenticationRule {
     }
 }
 
+impl std::fmt::Debug for AuthenticationRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthenticationRule");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("oauth", &self.oauth);
+        debug_struct.field("allow_without_credential", &self.allow_without_credential);
+        debug_struct.field("requirements", &self.requirements);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies a location to extract JWT from an API request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JwtLocation {
     /// The value prefix. The value format is "value_prefix{token}"
@@ -728,6 +754,18 @@ impl serde::ser::Serialize for JwtLocation {
     }
 }
 
+impl std::fmt::Debug for JwtLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JwtLocation");
+        debug_struct.field("value_prefix", &self.value_prefix);
+        debug_struct.field("r#in", &self.r#in);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [JwtLocation].
 pub mod jwt_location {
     #[allow(unused_imports)]
@@ -748,7 +786,7 @@ pub mod jwt_location {
 /// Configuration for an authentication provider, including support for
 /// [JSON Web Token
 /// (JWT)](https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthProvider {
     /// The unique identifier of the auth provider. It will be referred to by
@@ -1066,6 +1104,22 @@ impl serde::ser::Serialize for AuthProvider {
     }
 }
 
+impl std::fmt::Debug for AuthProvider {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthProvider");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("issuer", &self.issuer);
+        debug_struct.field("jwks_uri", &self.jwks_uri);
+        debug_struct.field("audiences", &self.audiences);
+        debug_struct.field("authorization_url", &self.authorization_url);
+        debug_struct.field("jwt_locations", &self.jwt_locations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// OAuth scopes are a way to define data and permissions on data. For example,
 /// there are scopes defined for "Read-only access to Google Calendar" and
 /// "Access to Cloud Platform". Users can consent to a scope for an application,
@@ -1084,7 +1138,7 @@ impl serde::ser::Serialize for AuthProvider {
 /// Please note that even though each of the canonical scopes is enough for a
 /// request to be accepted and passed to the backend, a request can still fail
 /// due to the backend requiring additional scopes or permissions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OAuthRequirements {
     /// The list of publicly documented OAuth scopes that are allowed access. An
@@ -1225,10 +1279,21 @@ impl serde::ser::Serialize for OAuthRequirements {
     }
 }
 
+impl std::fmt::Debug for OAuthRequirements {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OAuthRequirements");
+        debug_struct.field("canonical_scopes", &self.canonical_scopes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// User-defined authentication requirements, including support for
 /// [JSON Web Token
 /// (JWT)](https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthRequirement {
     /// [id][google.api.AuthProvider.id] from authentication provider.
@@ -1410,8 +1475,20 @@ impl serde::ser::Serialize for AuthRequirement {
     }
 }
 
+impl std::fmt::Debug for AuthRequirement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthRequirement");
+        debug_struct.field("provider_id", &self.provider_id);
+        debug_struct.field("audiences", &self.audiences);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `Backend` defines the backend configuration for a service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Backend {
     /// A list of API backend rules that apply to individual API methods.
@@ -1545,8 +1622,19 @@ impl serde::ser::Serialize for Backend {
     }
 }
 
+impl std::fmt::Debug for Backend {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Backend");
+        debug_struct.field("rules", &self.rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A backend rule provides configuration for an individual API element.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackendRule {
     /// Selects the methods to which this rule applies.
@@ -2109,6 +2197,28 @@ impl serde::ser::Serialize for BackendRule {
     }
 }
 
+impl std::fmt::Debug for BackendRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackendRule");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("address", &self.address);
+        debug_struct.field("deadline", &self.deadline);
+        debug_struct.field("min_deadline", &self.min_deadline);
+        debug_struct.field("operation_deadline", &self.operation_deadline);
+        debug_struct.field("path_translation", &self.path_translation);
+        debug_struct.field("protocol", &self.protocol);
+        debug_struct.field(
+            "overrides_by_request_protocol",
+            &self.overrides_by_request_protocol,
+        );
+        debug_struct.field("authentication", &self.authentication);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BackendRule].
 pub mod backend_rule {
     #[allow(unused_imports)]
@@ -2361,7 +2471,7 @@ pub mod backend_rule {
 ///     metrics:
 ///     - library.googleapis.com/book/borrowed_count
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Billing {
     /// Billing configurations for sending metrics to the consumer project.
@@ -2501,6 +2611,17 @@ impl serde::ser::Serialize for Billing {
     }
 }
 
+impl std::fmt::Debug for Billing {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Billing");
+        debug_struct.field("consumer_destinations", &self.consumer_destinations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Billing].
 pub mod billing {
     #[allow(unused_imports)]
@@ -2508,7 +2629,7 @@ pub mod billing {
 
     /// Configuration of a specific billing destination (Currently only support
     /// bill against consumer project).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BillingDestination {
         /// The monitored resource type. The type must be defined in
@@ -2678,10 +2799,22 @@ pub mod billing {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for BillingDestination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BillingDestination");
+            debug_struct.field("monitored_resource", &self.monitored_resource);
+            debug_struct.field("metrics", &self.metrics);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Required information for every language.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonLanguageSettings {
     /// Link to automatically generated reference documentation.  Example:
@@ -2888,8 +3021,24 @@ impl serde::ser::Serialize for CommonLanguageSettings {
     }
 }
 
+impl std::fmt::Debug for CommonLanguageSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommonLanguageSettings");
+        debug_struct.field("reference_docs_uri", &self.reference_docs_uri);
+        debug_struct.field("destinations", &self.destinations);
+        debug_struct.field(
+            "selective_gapic_generation",
+            &self.selective_gapic_generation,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about how and where to publish client libraries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientLibrarySettings {
     /// Version of the API to apply these settings to. This is the full protobuf
@@ -3364,10 +3513,31 @@ impl serde::ser::Serialize for ClientLibrarySettings {
     }
 }
 
+impl std::fmt::Debug for ClientLibrarySettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClientLibrarySettings");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("launch_stage", &self.launch_stage);
+        debug_struct.field("rest_numeric_enums", &self.rest_numeric_enums);
+        debug_struct.field("java_settings", &self.java_settings);
+        debug_struct.field("cpp_settings", &self.cpp_settings);
+        debug_struct.field("php_settings", &self.php_settings);
+        debug_struct.field("python_settings", &self.python_settings);
+        debug_struct.field("node_settings", &self.node_settings);
+        debug_struct.field("dotnet_settings", &self.dotnet_settings);
+        debug_struct.field("ruby_settings", &self.ruby_settings);
+        debug_struct.field("go_settings", &self.go_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// This message configures the settings for publishing [Google Cloud Client
 /// libraries](https://cloud.google.com/apis/docs/cloud-client-libraries)
 /// generated from the service config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Publishing {
     /// A list of API method settings, e.g. the behavior for methods that use the
@@ -3798,8 +3968,35 @@ impl serde::ser::Serialize for Publishing {
     }
 }
 
+impl std::fmt::Debug for Publishing {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Publishing");
+        debug_struct.field("method_settings", &self.method_settings);
+        debug_struct.field("new_issue_uri", &self.new_issue_uri);
+        debug_struct.field("documentation_uri", &self.documentation_uri);
+        debug_struct.field("api_short_name", &self.api_short_name);
+        debug_struct.field("github_label", &self.github_label);
+        debug_struct.field("codeowner_github_teams", &self.codeowner_github_teams);
+        debug_struct.field("doc_tag_prefix", &self.doc_tag_prefix);
+        debug_struct.field("organization", &self.organization);
+        debug_struct.field("library_settings", &self.library_settings);
+        debug_struct.field(
+            "proto_reference_documentation_uri",
+            &self.proto_reference_documentation_uri,
+        );
+        debug_struct.field(
+            "rest_reference_documentation_uri",
+            &self.rest_reference_documentation_uri,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings for Java client libraries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JavaSettings {
     /// The package name to use in Java. Clobbers the java_package option
@@ -4023,8 +4220,21 @@ impl serde::ser::Serialize for JavaSettings {
     }
 }
 
+impl std::fmt::Debug for JavaSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JavaSettings");
+        debug_struct.field("library_package", &self.library_package);
+        debug_struct.field("service_class_names", &self.service_class_names);
+        debug_struct.field("common", &self.common);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings for C++ client libraries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CppSettings {
     /// Some settings.
@@ -4164,8 +4374,19 @@ impl serde::ser::Serialize for CppSettings {
     }
 }
 
+impl std::fmt::Debug for CppSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CppSettings");
+        debug_struct.field("common", &self.common);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings for Php client libraries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PhpSettings {
     /// Some settings.
@@ -4305,8 +4526,19 @@ impl serde::ser::Serialize for PhpSettings {
     }
 }
 
+impl std::fmt::Debug for PhpSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PhpSettings");
+        debug_struct.field("common", &self.common);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings for Python client libraries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PythonSettings {
     /// Some settings.
@@ -4484,6 +4716,18 @@ impl serde::ser::Serialize for PythonSettings {
     }
 }
 
+impl std::fmt::Debug for PythonSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PythonSettings");
+        debug_struct.field("common", &self.common);
+        debug_struct.field("experimental_features", &self.experimental_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PythonSettings].
 pub mod python_settings {
     #[allow(unused_imports)]
@@ -4492,7 +4736,7 @@ pub mod python_settings {
     /// Experimental features to be included during client library generation.
     /// These fields will be deprecated once the feature graduates and is enabled
     /// by default.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExperimentalFeatures {
         /// Enables generation of asynchronous REST clients if `rest` transport is
@@ -4703,10 +4947,29 @@ pub mod python_settings {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ExperimentalFeatures {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ExperimentalFeatures");
+            debug_struct.field("rest_async_io_enabled", &self.rest_async_io_enabled);
+            debug_struct.field(
+                "protobuf_pythonic_types_enabled",
+                &self.protobuf_pythonic_types_enabled,
+            );
+            debug_struct.field(
+                "unversioned_package_disabled",
+                &self.unversioned_package_disabled,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Settings for Node client libraries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeSettings {
     /// Some settings.
@@ -4846,8 +5109,19 @@ impl serde::ser::Serialize for NodeSettings {
     }
 }
 
+impl std::fmt::Debug for NodeSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeSettings");
+        debug_struct.field("common", &self.common);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings for Dotnet client libraries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DotnetSettings {
     /// Some settings.
@@ -5160,8 +5434,24 @@ impl serde::ser::Serialize for DotnetSettings {
     }
 }
 
+impl std::fmt::Debug for DotnetSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DotnetSettings");
+        debug_struct.field("common", &self.common);
+        debug_struct.field("renamed_services", &self.renamed_services);
+        debug_struct.field("renamed_resources", &self.renamed_resources);
+        debug_struct.field("ignored_resources", &self.ignored_resources);
+        debug_struct.field("forced_namespace_aliases", &self.forced_namespace_aliases);
+        debug_struct.field("handwritten_signatures", &self.handwritten_signatures);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings for Ruby client libraries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RubySettings {
     /// Some settings.
@@ -5301,8 +5591,19 @@ impl serde::ser::Serialize for RubySettings {
     }
 }
 
+impl std::fmt::Debug for RubySettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RubySettings");
+        debug_struct.field("common", &self.common);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings for Go client libraries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoSettings {
     /// Some settings.
@@ -5485,8 +5786,20 @@ impl serde::ser::Serialize for GoSettings {
     }
 }
 
+impl std::fmt::Debug for GoSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoSettings");
+        debug_struct.field("common", &self.common);
+        debug_struct.field("renamed_services", &self.renamed_services);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the generator configuration for a method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodSettings {
     /// The fully qualified name of the method, for which the options below apply.
@@ -5716,6 +6029,19 @@ impl serde::ser::Serialize for MethodSettings {
     }
 }
 
+impl std::fmt::Debug for MethodSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MethodSettings");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("long_running", &self.long_running);
+        debug_struct.field("auto_populated_fields", &self.auto_populated_fields);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MethodSettings].
 pub mod method_settings {
     #[allow(unused_imports)]
@@ -5726,7 +6052,7 @@ pub mod method_settings {
     /// All default values below are from those used in the client library
     /// generators (e.g.
     /// [Java](https://github.com/googleapis/gapic-generator-java/blob/04c2faa191a9b5a10b92392fe8482279c4404803/src/main/java/com/google/api/generator/gapic/composer/common/RetrySettingsComposer.java)).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LongRunning {
         /// Initial delay after which the first poll request will be made.
@@ -5991,11 +6317,25 @@ pub mod method_settings {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for LongRunning {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LongRunning");
+            debug_struct.field("initial_poll_delay", &self.initial_poll_delay);
+            debug_struct.field("poll_delay_multiplier", &self.poll_delay_multiplier);
+            debug_struct.field("max_poll_delay", &self.max_poll_delay);
+            debug_struct.field("total_poll_timeout", &self.total_poll_timeout);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// This message is used to configure the generation of a subset of the RPCs in
 /// a service for client libraries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SelectiveGapicGeneration {
     /// An allowlist of the fully qualified names of RPCs that should be included
@@ -6165,13 +6505,28 @@ impl serde::ser::Serialize for SelectiveGapicGeneration {
     }
 }
 
+impl std::fmt::Debug for SelectiveGapicGeneration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SelectiveGapicGeneration");
+        debug_struct.field("methods", &self.methods);
+        debug_struct.field(
+            "generate_omitted_as_internal",
+            &self.generate_omitted_as_internal,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output generated from semantically comparing two versions of a service
 /// configuration.
 ///
 /// Includes detailed information about a field that have changed with
 /// applicable advice about potential consequences for the change, such as
 /// backwards-incompatibility.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigChange {
     /// Object hierarchy path to the change, with levels separated by a '.'
@@ -6417,9 +6772,24 @@ impl serde::ser::Serialize for ConfigChange {
     }
 }
 
+impl std::fmt::Debug for ConfigChange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigChange");
+        debug_struct.field("element", &self.element);
+        debug_struct.field("old_value", &self.old_value);
+        debug_struct.field("new_value", &self.new_value);
+        debug_struct.field("change_type", &self.change_type);
+        debug_struct.field("advices", &self.advices);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Generated advice about this change, used for providing more
 /// information about how a change will affect the existing service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Advice {
     /// Useful description for why this advice was applied and what actions should
@@ -6549,6 +6919,17 @@ impl serde::ser::Serialize for Advice {
     }
 }
 
+impl std::fmt::Debug for Advice {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Advice");
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A descriptor for defining project properties for a service. One service may
 /// have many consumer projects, and the service may want to behave differently
 /// depending on some properties on the project. For example, a project may be
@@ -6567,7 +6948,7 @@ impl serde::ser::Serialize for Advice {
 ///   - name: EXTENDED_TILE_CACHE_PERIOD
 ///     type: INT64
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProjectProperties {
     /// List of per consumer project-specific properties.
@@ -6699,6 +7080,17 @@ impl serde::ser::Serialize for ProjectProperties {
     }
 }
 
+impl std::fmt::Debug for ProjectProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProjectProperties");
+        debug_struct.field("properties", &self.properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines project properties.
 ///
 /// API services can define properties that can be assigned to consumer projects
@@ -6709,7 +7101,7 @@ impl serde::ser::Serialize for ProjectProperties {
 ///
 /// These values can be set via API producer console. Only API providers can
 /// define and set these properties.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Property {
     /// The name of the property (a.k.a key).
@@ -6884,6 +7276,19 @@ impl serde::ser::Serialize for Property {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Property {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Property");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -7079,7 +7484,7 @@ pub mod property {
 ///
 /// You can also specify extension ID instead of fully qualified extension name
 /// here.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Context {
     /// A list of RPC context rules that apply to individual API methods.
@@ -7213,9 +7618,20 @@ impl serde::ser::Serialize for Context {
     }
 }
 
+impl std::fmt::Debug for Context {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Context");
+        debug_struct.field("rules", &self.rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A context rule provides information about the context for an individual API
 /// element.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContextRule {
     /// Selects the methods to which this rule applies.
@@ -7474,6 +7890,27 @@ impl serde::ser::Serialize for ContextRule {
     }
 }
 
+impl std::fmt::Debug for ContextRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContextRule");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("requested", &self.requested);
+        debug_struct.field("provided", &self.provided);
+        debug_struct.field(
+            "allowed_request_extensions",
+            &self.allowed_request_extensions,
+        );
+        debug_struct.field(
+            "allowed_response_extensions",
+            &self.allowed_response_extensions,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Selects and configures the service controller used by the service.
 ///
 /// Example:
@@ -7482,7 +7919,7 @@ impl serde::ser::Serialize for ContextRule {
 /// control:
 ///   environment: servicecontrol.googleapis.com
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Control {
     /// The service controller environment to use. If empty, no control plane
@@ -7641,6 +8078,18 @@ impl serde::ser::Serialize for Control {
     }
 }
 
+impl std::fmt::Debug for Control {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Control");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("method_policies", &self.method_policies);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `Distribution` contains summary statistics for a population of values. It
 /// optionally contains a histogram representing the distribution of those values
 /// across a set of buckets.
@@ -7655,7 +8104,7 @@ impl serde::ser::Serialize for Control {
 /// Although it is not forbidden, it is generally a bad idea to include
 /// non-finite values (infinities or NaNs) in the population of values, as this
 /// will render the `mean` and `sum_of_squared_deviation` fields meaningless.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Distribution {
     /// The number of values in the population. Must be non-negative. This value
@@ -8078,13 +8527,30 @@ impl serde::ser::Serialize for Distribution {
     }
 }
 
+impl std::fmt::Debug for Distribution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Distribution");
+        debug_struct.field("count", &self.count);
+        debug_struct.field("mean", &self.mean);
+        debug_struct.field("sum_of_squared_deviation", &self.sum_of_squared_deviation);
+        debug_struct.field("range", &self.range);
+        debug_struct.field("bucket_options", &self.bucket_options);
+        debug_struct.field("bucket_counts", &self.bucket_counts);
+        debug_struct.field("exemplars", &self.exemplars);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Distribution].
 pub mod distribution {
     #[allow(unused_imports)]
     use super::*;
 
     /// The range of the population values.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Range {
         /// The minimum of the population values.
@@ -8276,6 +8742,18 @@ pub mod distribution {
         }
     }
 
+    impl std::fmt::Debug for Range {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Range");
+            debug_struct.field("min", &self.min);
+            debug_struct.field("max", &self.max);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// `BucketOptions` describes the bucket boundaries used to create a histogram
     /// for the distribution. The buckets can be in a linear sequence, an
     /// exponential sequence, or each bucket can be specified explicitly.
@@ -8291,7 +8769,7 @@ pub mod distribution {
     /// of finite values: lower bound of the underflow bucket is -infinity and the
     /// upper bound of the overflow bucket is +infinity. The finite buckets are
     /// so-called because both bounds are finite.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BucketOptions {
         /// Exactly one of these three fields must be set.
@@ -8592,6 +9070,17 @@ pub mod distribution {
         }
     }
 
+    impl std::fmt::Debug for BucketOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BucketOptions");
+            debug_struct.field("options", &self.options);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [BucketOptions].
     pub mod bucket_options {
         #[allow(unused_imports)]
@@ -8607,7 +9096,7 @@ pub mod distribution {
         /// Upper bound (0 <= i < N-1):     offset + (width * i).
         ///
         /// Lower bound (1 <= i < N):       offset + (width * (i - 1)).
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Linear {
             /// Must be greater than 0.
@@ -8859,6 +9348,19 @@ pub mod distribution {
             }
         }
 
+        impl std::fmt::Debug for Linear {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Linear");
+                debug_struct.field("num_finite_buckets", &self.num_finite_buckets);
+                debug_struct.field("width", &self.width);
+                debug_struct.field("offset", &self.offset);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Specifies an exponential sequence of buckets that have a width that is
         /// proportional to the value of the lower bound. Each bucket represents a
         /// constant relative uncertainty on a specific value in the bucket.
@@ -8869,7 +9371,7 @@ pub mod distribution {
         /// Upper bound (0 <= i < N-1):     scale * (growth_factor ^ i).
         ///
         /// Lower bound (1 <= i < N):       scale * (growth_factor ^ (i - 1)).
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Exponential {
             /// Must be greater than 0.
@@ -9124,6 +9626,19 @@ pub mod distribution {
             }
         }
 
+        impl std::fmt::Debug for Exponential {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Exponential");
+                debug_struct.field("num_finite_buckets", &self.num_finite_buckets);
+                debug_struct.field("growth_factor", &self.growth_factor);
+                debug_struct.field("scale", &self.scale);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Specifies a set of buckets with arbitrary widths.
         ///
         /// There are `size(bounds) + 1` (= N) buckets. Bucket `i` has the following
@@ -9135,7 +9650,7 @@ pub mod distribution {
         /// The `bounds` field must contain at least one element. If `bounds` has
         /// only one element, then there are no finite buckets, and that single
         /// element is the common boundary of the overflow and underflow buckets.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Explicit {
             /// The values must be monotonically increasing.
@@ -9306,6 +9821,17 @@ pub mod distribution {
             }
         }
 
+        impl std::fmt::Debug for Explicit {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Explicit");
+                debug_struct.field("bounds", &self.bounds);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Exactly one of these three fields must be set.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -9326,7 +9852,7 @@ pub mod distribution {
     /// particular value added to a Distribution bucket, such as a trace ID that
     /// was active when a value was added. They may contain further information,
     /// such as a example values and timestamps, origin, etc.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Exemplar {
         /// Value of the exemplar point. This value determines to which bucket the
@@ -9550,6 +10076,19 @@ pub mod distribution {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Exemplar {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Exemplar");
+            debug_struct.field("value", &self.value);
+            debug_struct.field("timestamp", &self.timestamp);
+            debug_struct.field("attachments", &self.attachments);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// `Documentation` provides the information for describing a service.
@@ -9587,7 +10126,7 @@ pub mod distribution {
 ///
 /// The directive `suppress_warning` does not directly affect documentation
 /// and is documented together with service config validation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Documentation {
     /// A short description of what the service does. The summary must be plain
@@ -9866,8 +10405,24 @@ impl serde::ser::Serialize for Documentation {
     }
 }
 
+impl std::fmt::Debug for Documentation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Documentation");
+        debug_struct.field("summary", &self.summary);
+        debug_struct.field("pages", &self.pages);
+        debug_struct.field("rules", &self.rules);
+        debug_struct.field("documentation_root_url", &self.documentation_root_url);
+        debug_struct.field("service_root_url", &self.service_root_url);
+        debug_struct.field("overview", &self.overview);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A documentation rule provides information about individual API elements.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentationRule {
     /// The selector is a comma-separated list of patterns for any element such as
@@ -10057,9 +10612,22 @@ impl serde::ser::Serialize for DocumentationRule {
     }
 }
 
+impl std::fmt::Debug for DocumentationRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentationRule");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("deprecation_description", &self.deprecation_description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a documentation page. A page can contain subpages to represent
 /// nested documentation set structure.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Page {
     /// The name of the page. It will be used as an identity of the page to
@@ -10249,6 +10817,19 @@ impl serde::ser::Serialize for Page {
     }
 }
 
+impl std::fmt::Debug for Page {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Page");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("content", &self.content);
+        debug_struct.field("subpages", &self.subpages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `Endpoint` describes a network address of a service that serves a set of
 /// APIs. It is commonly known as a service endpoint. A service may expose
 /// any number of service endpoints, and all service endpoints share the same
@@ -10272,7 +10853,7 @@ impl serde::ser::Serialize for Page {
 ///   # to proceed.
 ///   allow_cors: true
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Endpoint {
     /// The canonical name of this endpoint.
@@ -10488,8 +11069,22 @@ impl serde::ser::Serialize for Endpoint {
     }
 }
 
+impl std::fmt::Debug for Endpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Endpoint");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("aliases", &self.aliases);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("allow_cors", &self.allow_cors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Rich semantic information of an API field beyond basic typing.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldInfo {
     /// The standard format of a field value. This does not explicitly configure
@@ -10649,6 +11244,18 @@ impl serde::ser::Serialize for FieldInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for FieldInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FieldInfo");
+        debug_struct.field("format", &self.format);
+        debug_struct.field("referenced_types", &self.referenced_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -10821,7 +11428,7 @@ pub mod field_info {
 /// A reference to a message type, for use in [FieldInfo][google.api.FieldInfo].
 ///
 /// [google.api.FieldInfo]: crate::model::FieldInfo
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TypeReference {
     /// The name of the type that the annotated, generic field may represent.
@@ -10959,12 +11566,23 @@ impl serde::ser::Serialize for TypeReference {
     }
 }
 
+impl std::fmt::Debug for TypeReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TypeReference");
+        debug_struct.field("type_name", &self.type_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines the HTTP configuration for an API service. It contains a list of
 /// [HttpRule][google.api.HttpRule], each specifying the mapping of an RPC method
 /// to one or more HTTP REST API methods.
 ///
 /// [google.api.HttpRule]: crate::model::HttpRule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Http {
     /// A list of HTTP configuration rules that apply to individual API methods.
@@ -11135,6 +11753,21 @@ impl serde::ser::Serialize for Http {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Http {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Http");
+        debug_struct.field("rules", &self.rules);
+        debug_struct.field(
+            "fully_decode_reserved_expansion",
+            &self.fully_decode_reserved_expansion,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -11420,7 +12053,7 @@ impl serde::ser::Serialize for Http {
 /// Transcoding implementations may not support this feature.
 ///
 /// [google.api.HttpRule.body]: crate::model::HttpRule::body
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRule {
     /// Selects a method to which this rule applies.
@@ -11929,6 +12562,21 @@ impl serde::ser::Serialize for HttpRule {
     }
 }
 
+impl std::fmt::Debug for HttpRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpRule");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("body", &self.body);
+        debug_struct.field("response_body", &self.response_body);
+        debug_struct.field("additional_bindings", &self.additional_bindings);
+        debug_struct.field("pattern", &self.pattern);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [HttpRule].
 pub mod http_rule {
     #[allow(unused_imports)]
@@ -11960,7 +12608,7 @@ pub mod http_rule {
 }
 
 /// A custom pattern is used for defining custom HTTP verb.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomHttpPattern {
     /// The name of this custom HTTP verb.
@@ -12113,6 +12761,18 @@ impl serde::ser::Serialize for CustomHttpPattern {
     }
 }
 
+impl std::fmt::Debug for CustomHttpPattern {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomHttpPattern");
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message that represents an arbitrary HTTP body. It should only be used for
 /// payload formats that can't be represented as JSON, such as raw binary or
 /// an HTML page.
@@ -12159,7 +12819,7 @@ impl serde::ser::Serialize for CustomHttpPattern {
 ///
 /// Use of this type only changes how the request and response bodies are
 /// handled, all other features will continue to work unchanged.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpBody {
     /// The HTTP Content-Type header value specifying the content type of the body.
@@ -12361,8 +13021,21 @@ impl serde::ser::Serialize for HttpBody {
     }
 }
 
+impl std::fmt::Debug for HttpBody {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpBody");
+        debug_struct.field("content_type", &self.content_type);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("extensions", &self.extensions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A description of a label.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelDescriptor {
     /// The label key.
@@ -12541,6 +13214,19 @@ impl serde::ser::Serialize for LabelDescriptor {
     }
 }
 
+impl std::fmt::Debug for LabelDescriptor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LabelDescriptor");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value_type", &self.value_type);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LabelDescriptor].
 pub mod label_descriptor {
     #[allow(unused_imports)]
@@ -12689,7 +13375,7 @@ pub mod label_descriptor {
 ///   - key: /customer_id
 ///     description: Identifier of a library customer
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogDescriptor {
     /// The name of the log. It must be less than 512 characters long and can
@@ -12905,6 +13591,20 @@ impl serde::ser::Serialize for LogDescriptor {
     }
 }
 
+impl std::fmt::Debug for LogDescriptor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogDescriptor");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Logging configuration of the service.
 ///
 /// The following example shows how to configure logs to be sent to the
@@ -12936,7 +13636,7 @@ impl serde::ser::Serialize for LogDescriptor {
 ///     logs:
 ///     - activity_history
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Logging {
     /// Logging configurations for sending logs to the producer project.
@@ -13111,6 +13811,18 @@ impl serde::ser::Serialize for Logging {
     }
 }
 
+impl std::fmt::Debug for Logging {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Logging");
+        debug_struct.field("producer_destinations", &self.producer_destinations);
+        debug_struct.field("consumer_destinations", &self.consumer_destinations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Logging].
 pub mod logging {
     #[allow(unused_imports)]
@@ -13118,7 +13830,7 @@ pub mod logging {
 
     /// Configuration of a specific logging destination (the producer project
     /// or the consumer project).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LoggingDestination {
         /// The monitored resource type. The type must be defined in the
@@ -13289,12 +14001,24 @@ pub mod logging {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for LoggingDestination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LoggingDestination");
+            debug_struct.field("monitored_resource", &self.monitored_resource);
+            debug_struct.field("logs", &self.logs);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Defines a metric type and its schema. Once a metric descriptor is created,
 /// deleting or altering it stops data collection and makes the metric type's
 /// existing data unusable.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetricDescriptor {
     /// The resource name of the metric descriptor.
@@ -13849,13 +14573,34 @@ impl serde::ser::Serialize for MetricDescriptor {
     }
 }
 
+impl std::fmt::Debug for MetricDescriptor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetricDescriptor");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("metric_kind", &self.metric_kind);
+        debug_struct.field("value_type", &self.value_type);
+        debug_struct.field("unit", &self.unit);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("launch_stage", &self.launch_stage);
+        debug_struct.field("monitored_resource_types", &self.monitored_resource_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MetricDescriptor].
 pub mod metric_descriptor {
     #[allow(unused_imports)]
     use super::*;
 
     /// Additional annotations that can be used to guide the usage of a metric.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MetricDescriptorMetadata {
 
@@ -14109,6 +14854,23 @@ pub mod metric_descriptor {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for MetricDescriptorMetadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MetricDescriptorMetadata");
+            debug_struct.field("launch_stage", &self.launch_stage);
+            debug_struct.field("sample_period", &self.sample_period);
+            debug_struct.field("ingest_delay", &self.ingest_delay);
+            debug_struct.field(
+                "time_series_resource_hierarchy_level",
+                &self.time_series_resource_hierarchy_level,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -14575,7 +15337,7 @@ pub mod metric_descriptor {
 /// labels of a [`MetricDescriptor`][google.api.MetricDescriptor].
 ///
 /// [google.api.MetricDescriptor]: crate::model::MetricDescriptor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Metric {
     /// An existing metric type, see
@@ -14744,6 +15506,18 @@ impl serde::ser::Serialize for Metric {
     }
 }
 
+impl std::fmt::Debug for Metric {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Metric");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An object that describes the schema of a
 /// [MonitoredResource][google.api.MonitoredResource] object using a type name
 /// and a set of labels.  For example, the monitored resource descriptor for
@@ -14756,7 +15530,7 @@ impl serde::ser::Serialize for Metric {
 /// by the API.
 ///
 /// [google.api.MonitoredResource]: crate::model::MonitoredResource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoredResourceDescriptor {
     /// Optional. The resource name of the monitored resource descriptor:
@@ -15033,6 +15807,22 @@ impl serde::ser::Serialize for MonitoredResourceDescriptor {
     }
 }
 
+impl std::fmt::Debug for MonitoredResourceDescriptor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MonitoredResourceDescriptor");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("launch_stage", &self.launch_stage);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An object representing a resource that can be used for monitoring, logging,
 /// billing, or other purposes. Examples include virtual machine instances,
 /// databases, and storage devices such as disks. The `type` field identifies a
@@ -15053,7 +15843,7 @@ impl serde::ser::Serialize for MonitoredResourceDescriptor {
 /// ```
 ///
 /// [google.api.MonitoredResourceDescriptor]: crate::model::MonitoredResourceDescriptor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoredResource {
     /// Required. The monitored resource type. This field must match
@@ -15227,6 +16017,18 @@ impl serde::ser::Serialize for MonitoredResource {
     }
 }
 
+impl std::fmt::Debug for MonitoredResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MonitoredResource");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Auxiliary metadata for a [MonitoredResource][google.api.MonitoredResource]
 /// object. [MonitoredResource][google.api.MonitoredResource] objects contain the
 /// minimum set of information to uniquely identify a monitored resource
@@ -15235,7 +16037,7 @@ impl serde::ser::Serialize for MonitoredResource {
 /// all types, and store the metadata in this message.
 ///
 /// [google.api.MonitoredResource]: crate::model::MonitoredResource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoredResourceMetadata {
     /// Output only. Values for predefined system metadata labels.
@@ -15423,6 +16225,18 @@ impl serde::ser::Serialize for MonitoredResourceMetadata {
     }
 }
 
+impl std::fmt::Debug for MonitoredResourceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MonitoredResourceMetadata");
+        debug_struct.field("system_labels", &self.system_labels);
+        debug_struct.field("user_labels", &self.user_labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Monitoring configuration of the service.
 ///
 /// The example below shows how to configure monitored resources and metrics
@@ -15477,7 +16291,7 @@ impl serde::ser::Serialize for MonitoredResourceMetadata {
 ///     - library.googleapis.com/book/returned_count
 ///     - library.googleapis.com/book/num_overdue
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Monitoring {
     /// Monitoring configurations for sending metrics to the producer project.
@@ -15656,6 +16470,18 @@ impl serde::ser::Serialize for Monitoring {
     }
 }
 
+impl std::fmt::Debug for Monitoring {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Monitoring");
+        debug_struct.field("producer_destinations", &self.producer_destinations);
+        debug_struct.field("consumer_destinations", &self.consumer_destinations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Monitoring].
 pub mod monitoring {
     #[allow(unused_imports)]
@@ -15663,7 +16489,7 @@ pub mod monitoring {
 
     /// Configuration of a specific monitoring destination (the producer project
     /// or the consumer project).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MonitoringDestination {
         /// The monitored resource type. The type must be defined in
@@ -15833,6 +16659,18 @@ pub mod monitoring {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for MonitoringDestination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MonitoringDestination");
+            debug_struct.field("monitored_resource", &self.monitored_resource);
+            debug_struct.field("metrics", &self.metrics);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Google API Policy Annotation
@@ -15843,7 +16681,7 @@ pub mod monitoring {
 /// before a request can be processed. This policy annotation is used to
 /// generate the overall policy that will be used for automatic runtime
 /// policy enforcement and documentation generation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldPolicy {
     /// Selects one or more request or response message fields to apply this
@@ -16037,8 +16875,21 @@ impl serde::ser::Serialize for FieldPolicy {
     }
 }
 
+impl std::fmt::Debug for FieldPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FieldPolicy");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("resource_permission", &self.resource_permission);
+        debug_struct.field("resource_type", &self.resource_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines policies applying to an RPC method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodPolicy {
     /// Selects a method to which these policies should be enforced, for example,
@@ -16204,6 +17055,18 @@ impl serde::ser::Serialize for MethodPolicy {
     }
 }
 
+impl std::fmt::Debug for MethodPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MethodPolicy");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("request_policies", &self.request_policies);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Quota configuration helps to achieve fairness and budgeting in service
 /// usage.
 ///
@@ -16258,7 +17121,7 @@ impl serde::ser::Serialize for MethodPolicy {
 ///    metric_kind: DELTA
 ///    value_type: INT64
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Quota {
     /// List of QuotaLimit definitions for the service.
@@ -16419,9 +17282,21 @@ impl serde::ser::Serialize for Quota {
     }
 }
 
+impl std::fmt::Debug for Quota {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Quota");
+        debug_struct.field("limits", &self.limits);
+        debug_struct.field("metric_rules", &self.metric_rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Bind API methods to metrics. Binding a method to a metric causes that
 /// metric's configured quota behaviors to apply to the method call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetricRule {
     /// Selects the methods to which this rule applies.
@@ -16621,10 +17496,22 @@ impl serde::ser::Serialize for MetricRule {
     }
 }
 
+impl std::fmt::Debug for MetricRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetricRule");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("metric_costs", &self.metric_costs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `QuotaLimit` defines a specific limit that applies over a specified duration
 /// for a limit type. There can be at most one limit for a duration and limit
 /// type combination defined within a `QuotaGroup`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaLimit {
     /// Name of the quota limit.
@@ -17115,6 +18002,26 @@ impl serde::ser::Serialize for QuotaLimit {
     }
 }
 
+impl std::fmt::Debug for QuotaLimit {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuotaLimit");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("default_limit", &self.default_limit);
+        debug_struct.field("max_limit", &self.max_limit);
+        debug_struct.field("free_tier", &self.free_tier);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("metric", &self.metric);
+        debug_struct.field("unit", &self.unit);
+        debug_struct.field("values", &self.values);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A simple descriptor of a resource type.
 ///
 /// ResourceDescriptor annotates a resource message (either by means of a
@@ -17170,7 +18077,7 @@ impl serde::ser::Serialize for QuotaLimit {
 ///   pattern: "organizations/{organization}/logs/{log}"
 ///   pattern: "billingAccounts/{billing_account}/logs/{log}"
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceDescriptor {
     /// The resource type. It must be in the format of
@@ -17519,6 +18426,23 @@ impl serde::ser::Serialize for ResourceDescriptor {
     }
 }
 
+impl std::fmt::Debug for ResourceDescriptor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceDescriptor");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("pattern", &self.pattern);
+        debug_struct.field("name_field", &self.name_field);
+        debug_struct.field("history", &self.history);
+        debug_struct.field("plural", &self.plural);
+        debug_struct.field("singular", &self.singular);
+        debug_struct.field("style", &self.style);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ResourceDescriptor].
 pub mod resource_descriptor {
     #[allow(unused_imports)]
@@ -17797,7 +18721,7 @@ pub mod resource_descriptor {
 
 /// Defines a proto annotation that describes a string field that refers to
 /// an API resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceReference {
     /// The resource type that the annotated field references.
@@ -17983,6 +18907,18 @@ impl serde::ser::Serialize for ResourceReference {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ResourceReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceReference");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("child_type", &self.child_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -18397,7 +19333,7 @@ impl serde::ser::Serialize for ResourceReference {
 /// x-goog-request-params:
 /// table_location=instances/instance_bar&routing_id=prof_qux
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RoutingRule {
     /// A collection of Routing Parameter specifications.
@@ -18539,8 +19475,19 @@ impl serde::ser::Serialize for RoutingRule {
     }
 }
 
+impl std::fmt::Debug for RoutingRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RoutingRule");
+        debug_struct.field("routing_parameters", &self.routing_parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A projection from an input message to the GRPC or REST header.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RoutingParameter {
     /// A request field to extract the header key-value pair from.
@@ -18755,6 +19702,18 @@ impl serde::ser::Serialize for RoutingParameter {
     }
 }
 
+impl std::fmt::Debug for RoutingParameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RoutingParameter");
+        debug_struct.field("field", &self.field);
+        debug_struct.field("path_template", &self.path_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `Service` is the root object of Google API service configuration (service
 /// config). It describes the basic information about a logical service,
 /// such as the service name and the user-facing title, and delegates other
@@ -18790,7 +19749,7 @@ impl serde::ser::Serialize for RoutingParameter {
 ///     requirements:
 ///       provider_id: google_calendar_auth
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
     /// The service name, which is a DNS-like logical identifier for the
@@ -19792,8 +20751,44 @@ impl serde::ser::Serialize for Service {
     }
 }
 
+impl std::fmt::Debug for Service {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Service");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("producer_project_id", &self.producer_project_id);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("apis", &self.apis);
+        debug_struct.field("types", &self.types);
+        debug_struct.field("enums", &self.enums);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("backend", &self.backend);
+        debug_struct.field("http", &self.http);
+        debug_struct.field("quota", &self.quota);
+        debug_struct.field("authentication", &self.authentication);
+        debug_struct.field("context", &self.context);
+        debug_struct.field("usage", &self.usage);
+        debug_struct.field("endpoints", &self.endpoints);
+        debug_struct.field("control", &self.control);
+        debug_struct.field("logs", &self.logs);
+        debug_struct.field("metrics", &self.metrics);
+        debug_struct.field("monitored_resources", &self.monitored_resources);
+        debug_struct.field("billing", &self.billing);
+        debug_struct.field("logging", &self.logging);
+        debug_struct.field("monitoring", &self.monitoring);
+        debug_struct.field("system_parameters", &self.system_parameters);
+        debug_struct.field("source_info", &self.source_info);
+        debug_struct.field("publishing", &self.publishing);
+        debug_struct.field("config_version", &self.config_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Source information used to create a Service Config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceInfo {
     /// All files used during config generation.
@@ -19928,13 +20923,24 @@ impl serde::ser::Serialize for SourceInfo {
     }
 }
 
+impl std::fmt::Debug for SourceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceInfo");
+        debug_struct.field("source_files", &self.source_files);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ### System parameter configuration
 ///
 /// A system parameter is a special kind of parameter defined by the API
 /// system, not by an individual API. It is typically mapped to an HTTP header
 /// and/or a URL query parameter. This configuration specifies which methods
 /// change the names of the system parameters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SystemParameters {
     /// Define system parameters.
@@ -20101,9 +21107,20 @@ impl serde::ser::Serialize for SystemParameters {
     }
 }
 
+impl std::fmt::Debug for SystemParameters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SystemParameters");
+        debug_struct.field("rules", &self.rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Define a system parameter rule mapping system parameter definitions to
 /// methods.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SystemParameterRule {
     /// Selects the methods to which this rule applies. Use '*' to indicate all
@@ -20273,10 +21290,22 @@ impl serde::ser::Serialize for SystemParameterRule {
     }
 }
 
+impl std::fmt::Debug for SystemParameterRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SystemParameterRule");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("parameters", &self.parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Define a parameter's name and location. The parameter may be passed as either
 /// an HTTP header or a URL query parameter, and if both are passed the behavior
 /// is implementation-dependent.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SystemParameter {
     /// Define the name of the parameter, such as "api_key" . It is case sensitive.
@@ -20460,8 +21489,21 @@ impl serde::ser::Serialize for SystemParameter {
     }
 }
 
+impl std::fmt::Debug for SystemParameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SystemParameter");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("http_header", &self.http_header);
+        debug_struct.field("url_query_parameter", &self.url_query_parameter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration controlling usage of a service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Usage {
     /// Requirements that must be satisfied before a consumer project can use the
@@ -20672,6 +21714,22 @@ impl serde::ser::Serialize for Usage {
     }
 }
 
+impl std::fmt::Debug for Usage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Usage");
+        debug_struct.field("requirements", &self.requirements);
+        debug_struct.field("rules", &self.rules);
+        debug_struct.field(
+            "producer_notification_channel",
+            &self.producer_notification_channel,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Usage configuration rules for the service.
 ///
 /// NOTE: Under development.
@@ -20700,7 +21758,7 @@ impl serde::ser::Serialize for Usage {
 ///   - selector: "google.example.library.v1.LibraryService.CreateBook"
 ///     allow_unregistered_calls: true
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UsageRule {
     /// Selects the methods to which this rule applies. Use '*' to indicate all
@@ -20891,6 +21949,19 @@ impl serde::ser::Serialize for UsageRule {
     }
 }
 
+impl std::fmt::Debug for UsageRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UsageRule");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("allow_unregistered_calls", &self.allow_unregistered_calls);
+        debug_struct.field("skip_service_control", &self.skip_service_control);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `Visibility` restricts service consumer's access to service elements,
 /// such as whether an application can call a visibility-restricted method.
 /// The restriction is expressed by applying visibility labels on service
@@ -20916,7 +21987,7 @@ impl serde::ser::Serialize for UsageRule {
 ///
 /// Here, all methods are publicly visible except for the restricted methods
 /// EnhancedSearch and Delegate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Visibility {
     /// A list of visibility rules that apply to individual API elements.
@@ -21054,9 +22125,20 @@ impl serde::ser::Serialize for Visibility {
     }
 }
 
+impl std::fmt::Debug for Visibility {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Visibility");
+        debug_struct.field("rules", &self.rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A visibility rule provides visibility configuration for an individual API
 /// element.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VisibilityRule {
     /// Selects methods, messages, fields, enums, etc. to which this rule applies.
@@ -21227,6 +22309,18 @@ impl serde::ser::Serialize for VisibilityRule {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for VisibilityRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VisibilityRule");
+        debug_struct.field("selector", &self.selector);
+        debug_struct.field("restriction", &self.restriction);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

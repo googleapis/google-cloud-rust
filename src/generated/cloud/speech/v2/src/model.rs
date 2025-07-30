@@ -38,7 +38,7 @@ extern crate wkt;
 /// [CreateRecognizer][google.cloud.speech.v2.Speech.CreateRecognizer] method.
 ///
 /// [google.cloud.speech.v2.Speech.CreateRecognizer]: crate::client::Speech::create_recognizer
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRecognizerRequest {
     /// Required. The Recognizer to create.
@@ -258,8 +258,22 @@ impl serde::ser::Serialize for CreateRecognizerRequest {
     }
 }
 
+impl std::fmt::Debug for CreateRecognizerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateRecognizerRequest");
+        debug_struct.field("recognizer", &self.recognizer);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("recognizer_id", &self.recognizer_id);
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of a long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The time the operation was created.
@@ -1532,6 +1546,25 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("method", &self.method);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
+        debug_struct.field("progress_percent", &self.progress_percent);
+        debug_struct.field("request", &self.request);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
@@ -1585,7 +1618,7 @@ pub mod operation_metadata {
 /// [ListRecognizers][google.cloud.speech.v2.Speech.ListRecognizers] method.
 ///
 /// [google.cloud.speech.v2.Speech.ListRecognizers]: crate::client::Speech::list_recognizers
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRecognizersRequest {
     /// Required. The project and location of Recognizers to list. The expected
@@ -1818,11 +1851,25 @@ impl serde::ser::Serialize for ListRecognizersRequest {
     }
 }
 
+impl std::fmt::Debug for ListRecognizersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRecognizersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("show_deleted", &self.show_deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [ListRecognizers][google.cloud.speech.v2.Speech.ListRecognizers] method.
 ///
 /// [google.cloud.speech.v2.Speech.ListRecognizers]: crate::client::Speech::list_recognizers
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRecognizersResponse {
     /// The list of requested Recognizers.
@@ -1998,11 +2045,23 @@ impl serde::ser::Serialize for ListRecognizersResponse {
     }
 }
 
+impl std::fmt::Debug for ListRecognizersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRecognizersResponse");
+        debug_struct.field("recognizers", &self.recognizers);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [GetRecognizer][google.cloud.speech.v2.Speech.GetRecognizer] method.
 ///
 /// [google.cloud.speech.v2.Speech.GetRecognizer]: crate::client::Speech::get_recognizer
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRecognizerRequest {
     /// Required. The name of the Recognizer to retrieve. The expected format is
@@ -2132,11 +2191,22 @@ impl serde::ser::Serialize for GetRecognizerRequest {
     }
 }
 
+impl std::fmt::Debug for GetRecognizerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRecognizerRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [UpdateRecognizer][google.cloud.speech.v2.Speech.UpdateRecognizer] method.
 ///
 /// [google.cloud.speech.v2.Speech.UpdateRecognizer]: crate::client::Speech::update_recognizer
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRecognizerRequest {
     /// Required. The Recognizer to update.
@@ -2342,11 +2412,24 @@ impl serde::ser::Serialize for UpdateRecognizerRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateRecognizerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRecognizerRequest");
+        debug_struct.field("recognizer", &self.recognizer);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [DeleteRecognizer][google.cloud.speech.v2.Speech.DeleteRecognizer] method.
 ///
 /// [google.cloud.speech.v2.Speech.DeleteRecognizer]: crate::client::Speech::delete_recognizer
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRecognizerRequest {
     /// Required. The name of the Recognizer to delete.
@@ -2554,12 +2637,26 @@ impl serde::ser::Serialize for DeleteRecognizerRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteRecognizerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRecognizerRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [UndeleteRecognizer][google.cloud.speech.v2.Speech.UndeleteRecognizer]
 /// method.
 ///
 /// [google.cloud.speech.v2.Speech.UndeleteRecognizer]: crate::client::Speech::undelete_recognizer
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteRecognizerRequest {
     /// Required. The name of the Recognizer to undelete.
@@ -2741,8 +2838,21 @@ impl serde::ser::Serialize for UndeleteRecognizerRequest {
     }
 }
 
+impl std::fmt::Debug for UndeleteRecognizerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteRecognizerRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Recognizer message. Stores recognition configuration and metadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Recognizer {
     /// Output only. Identifier. The resource name of the Recognizer.
@@ -3377,6 +3487,35 @@ impl serde::ser::Serialize for Recognizer {
     }
 }
 
+impl std::fmt::Debug for Recognizer {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Recognizer");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("model", &self.model);
+        debug_struct.field("language_codes", &self.language_codes);
+        debug_struct.field(
+            "default_recognition_config",
+            &self.default_recognition_config,
+        );
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Recognizer].
 pub mod recognizer {
     #[allow(unused_imports)]
@@ -3542,7 +3681,7 @@ pub mod recognizer {
 ///
 /// * MOV_AAC: AAC audio frames in an MOV container.
 ///
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoDetectDecodingConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3644,8 +3783,18 @@ impl serde::ser::Serialize for AutoDetectDecodingConfig {
     }
 }
 
+impl std::fmt::Debug for AutoDetectDecodingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoDetectDecodingConfig");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Explicitly specified decoding parameters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplicitDecodingConfig {
     /// Required. Encoding of the audio data sent for recognition.
@@ -3878,6 +4027,19 @@ impl serde::ser::Serialize for ExplicitDecodingConfig {
     }
 }
 
+impl std::fmt::Debug for ExplicitDecodingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplicitDecodingConfig");
+        debug_struct.field("encoding", &self.encoding);
+        debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
+        debug_struct.field("audio_channel_count", &self.audio_channel_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExplicitDecodingConfig].
 pub mod explicit_decoding_config {
     #[allow(unused_imports)]
@@ -4087,7 +4249,7 @@ pub mod explicit_decoding_config {
 }
 
 /// Configuration to enable speaker diarization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeakerDiarizationConfig {
     /// Required. Minimum number of speakers in the conversation. This range gives
@@ -4288,8 +4450,20 @@ impl serde::ser::Serialize for SpeakerDiarizationConfig {
     }
 }
 
+impl std::fmt::Debug for SpeakerDiarizationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeakerDiarizationConfig");
+        debug_struct.field("min_speaker_count", &self.min_speaker_count);
+        debug_struct.field("max_speaker_count", &self.max_speaker_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Available recognition features.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognitionFeatures {
     /// If set to `true`, the server will attempt to filter out profanities,
@@ -4695,6 +4869,28 @@ impl serde::ser::Serialize for RecognitionFeatures {
     }
 }
 
+impl std::fmt::Debug for RecognitionFeatures {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecognitionFeatures");
+        debug_struct.field("profanity_filter", &self.profanity_filter);
+        debug_struct.field("enable_word_time_offsets", &self.enable_word_time_offsets);
+        debug_struct.field("enable_word_confidence", &self.enable_word_confidence);
+        debug_struct.field(
+            "enable_automatic_punctuation",
+            &self.enable_automatic_punctuation,
+        );
+        debug_struct.field("enable_spoken_punctuation", &self.enable_spoken_punctuation);
+        debug_struct.field("enable_spoken_emojis", &self.enable_spoken_emojis);
+        debug_struct.field("multi_channel_mode", &self.multi_channel_mode);
+        debug_struct.field("diarization_config", &self.diarization_config);
+        debug_struct.field("max_alternatives", &self.max_alternatives);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RecognitionFeatures].
 pub mod recognition_features {
     #[allow(unused_imports)]
@@ -4838,7 +5034,7 @@ pub mod recognition_features {
 /// to automatically replace parts of the transcript with phrases of your
 /// choosing. For StreamingRecognize, this normalization only applies to stable
 /// partial transcripts (stability > 0.8) and final transcripts.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranscriptNormalization {
     /// A list of replacement entries. We will perform replacement with one entry
@@ -4977,13 +5173,24 @@ impl serde::ser::Serialize for TranscriptNormalization {
     }
 }
 
+impl std::fmt::Debug for TranscriptNormalization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TranscriptNormalization");
+        debug_struct.field("entries", &self.entries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TranscriptNormalization].
 pub mod transcript_normalization {
     #[allow(unused_imports)]
     use super::*;
 
     /// A single replacement configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Entry {
         /// What to replace. Max length is 100 characters.
@@ -5163,11 +5370,24 @@ pub mod transcript_normalization {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Entry {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Entry");
+            debug_struct.field("search", &self.search);
+            debug_struct.field("replace", &self.replace);
+            debug_struct.field("case_sensitive", &self.case_sensitive);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Translation configuration. Use to translate the given audio into text for the
 /// desired language.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslationConfig {
     /// Required. The language code to translate to.
@@ -5297,10 +5517,21 @@ impl serde::ser::Serialize for TranslationConfig {
     }
 }
 
+impl std::fmt::Debug for TranslationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TranslationConfig");
+        debug_struct.field("target_language", &self.target_language);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Provides "hints" to the speech recognizer to favor specific words and phrases
 /// in the results. PhraseSets can be specified as an inline resource, or a
 /// reference to an existing PhraseSet resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechAdaptation {
     /// A list of inline or referenced PhraseSets.
@@ -5468,6 +5699,18 @@ impl serde::ser::Serialize for SpeechAdaptation {
     }
 }
 
+impl std::fmt::Debug for SpeechAdaptation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeechAdaptation");
+        debug_struct.field("phrase_sets", &self.phrase_sets);
+        debug_struct.field("custom_classes", &self.custom_classes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SpeechAdaptation].
 pub mod speech_adaptation {
     #[allow(unused_imports)]
@@ -5475,7 +5718,7 @@ pub mod speech_adaptation {
 
     /// A biasing PhraseSet, which can be either a string referencing the name of
     /// an existing PhraseSets resource, or an inline definition of a PhraseSet.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AdaptationPhraseSet {
         pub value:
@@ -5709,6 +5952,17 @@ pub mod speech_adaptation {
         }
     }
 
+    impl std::fmt::Debug for AdaptationPhraseSet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AdaptationPhraseSet");
+            debug_struct.field("value", &self.value);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [AdaptationPhraseSet].
     pub mod adaptation_phrase_set {
         #[allow(unused_imports)]
@@ -5728,7 +5982,7 @@ pub mod speech_adaptation {
 
 /// Denoiser config. May not be supported for all models and may
 /// have no effect.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DenoiserConfig {
     /// Denoise audio before sending to the transcription model.
@@ -5907,9 +6161,21 @@ impl serde::ser::Serialize for DenoiserConfig {
     }
 }
 
+impl std::fmt::Debug for DenoiserConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DenoiserConfig");
+        debug_struct.field("denoise_audio", &self.denoise_audio);
+        debug_struct.field("snr_threshold", &self.snr_threshold);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Provides information to the Recognizer that specifies how to process the
 /// recognition request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognitionConfig {
     /// Optional. Which model to use for recognition requests. Select the model
@@ -6402,6 +6668,24 @@ impl serde::ser::Serialize for RecognitionConfig {
     }
 }
 
+impl std::fmt::Debug for RecognitionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecognitionConfig");
+        debug_struct.field("model", &self.model);
+        debug_struct.field("language_codes", &self.language_codes);
+        debug_struct.field("features", &self.features);
+        debug_struct.field("adaptation", &self.adaptation);
+        debug_struct.field("transcript_normalization", &self.transcript_normalization);
+        debug_struct.field("translation_config", &self.translation_config);
+        debug_struct.field("denoiser_config", &self.denoiser_config);
+        debug_struct.field("decoding_config", &self.decoding_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RecognitionConfig].
 pub mod recognition_config {
     #[allow(unused_imports)]
@@ -6427,7 +6711,7 @@ pub mod recognition_config {
 /// limits](https://cloud.google.com/speech-to-text/quotas#content).
 ///
 /// [google.cloud.speech.v2.Speech.Recognize]: crate::client::Speech::recognize
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognizeRequest {
     /// Required. The name of the Recognizer to use during recognition. The
@@ -6784,6 +7068,20 @@ impl serde::ser::Serialize for RecognizeRequest {
     }
 }
 
+impl std::fmt::Debug for RecognizeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecognizeRequest");
+        debug_struct.field("recognizer", &self.recognizer);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("config_mask", &self.config_mask);
+        debug_struct.field("audio_source", &self.audio_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RecognizeRequest].
 pub mod recognize_request {
     #[allow(unused_imports)]
@@ -6816,7 +7114,7 @@ pub mod recognize_request {
 }
 
 /// Metadata about the recognition request and response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognitionResponseMetadata {
     /// Global request identifier auto-generated by the API.
@@ -6982,8 +7280,20 @@ impl serde::ser::Serialize for RecognitionResponseMetadata {
     }
 }
 
+impl std::fmt::Debug for RecognitionResponseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecognitionResponseMetadata");
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("total_billed_duration", &self.total_billed_duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Alternative hypotheses (a.k.a. n-best list).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechRecognitionAlternative {
     /// Transcript text representing the words that the user spoke.
@@ -7195,8 +7505,21 @@ impl serde::ser::Serialize for SpeechRecognitionAlternative {
     }
 }
 
+impl std::fmt::Debug for SpeechRecognitionAlternative {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeechRecognitionAlternative");
+        debug_struct.field("transcript", &self.transcript);
+        debug_struct.field("confidence", &self.confidence);
+        debug_struct.field("words", &self.words);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Word-specific information for recognized words.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WordInfo {
     /// Time offset relative to the beginning of the audio,
@@ -7493,8 +7816,23 @@ impl serde::ser::Serialize for WordInfo {
     }
 }
 
+impl std::fmt::Debug for WordInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WordInfo");
+        debug_struct.field("start_offset", &self.start_offset);
+        debug_struct.field("end_offset", &self.end_offset);
+        debug_struct.field("word", &self.word);
+        debug_struct.field("confidence", &self.confidence);
+        debug_struct.field("speaker_label", &self.speaker_label);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A speech recognition result corresponding to a portion of the audio.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechRecognitionResult {
     /// May contain one or more recognition hypotheses. These alternatives are
@@ -7742,11 +8080,25 @@ impl serde::ser::Serialize for SpeechRecognitionResult {
     }
 }
 
+impl std::fmt::Debug for SpeechRecognitionResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeechRecognitionResult");
+        debug_struct.field("alternatives", &self.alternatives);
+        debug_struct.field("channel_tag", &self.channel_tag);
+        debug_struct.field("result_end_offset", &self.result_end_offset);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [Recognize][google.cloud.speech.v2.Speech.Recognize] method.
 ///
 /// [google.cloud.speech.v2.Speech.Recognize]: crate::client::Speech::recognize
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognizeResponse {
     /// Sequential list of transcription results corresponding to sequential
@@ -7918,8 +8270,20 @@ impl serde::ser::Serialize for RecognizeResponse {
     }
 }
 
+impl std::fmt::Debug for RecognizeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecognizeResponse");
+        debug_struct.field("results", &self.results);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Available recognition features specific to streaming recognition requests.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingRecognitionFeatures {
     /// If `true`, responses with voice activity speech events will be returned as
@@ -8124,13 +8488,29 @@ impl serde::ser::Serialize for StreamingRecognitionFeatures {
     }
 }
 
+impl std::fmt::Debug for StreamingRecognitionFeatures {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingRecognitionFeatures");
+        debug_struct.field(
+            "enable_voice_activity_events",
+            &self.enable_voice_activity_events,
+        );
+        debug_struct.field("interim_results", &self.interim_results);
+        debug_struct.field("voice_activity_timeout", &self.voice_activity_timeout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StreamingRecognitionFeatures].
 pub mod streaming_recognition_features {
     #[allow(unused_imports)]
     use super::*;
 
     /// Events that a timeout can be set on for voice activity.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VoiceActivityTimeout {
         /// Duration to timeout the stream if no speech begins. If this is set and
@@ -8313,10 +8693,22 @@ pub mod streaming_recognition_features {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for VoiceActivityTimeout {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VoiceActivityTimeout");
+            debug_struct.field("speech_start_timeout", &self.speech_start_timeout);
+            debug_struct.field("speech_end_timeout", &self.speech_end_timeout);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Provides configuration information for the StreamingRecognize request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingRecognitionConfig {
     /// Required. Features and audio metadata to use for the Automatic Speech
@@ -8553,6 +8945,19 @@ impl serde::ser::Serialize for StreamingRecognitionConfig {
     }
 }
 
+impl std::fmt::Debug for StreamingRecognitionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingRecognitionConfig");
+        debug_struct.field("config", &self.config);
+        debug_struct.field("config_mask", &self.config_mask);
+        debug_struct.field("streaming_features", &self.streaming_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [StreamingRecognize][google.cloud.speech.v2.Speech.StreamingRecognize]
 /// method. Multiple
@@ -8579,7 +8984,7 @@ impl serde::ser::Serialize for StreamingRecognitionConfig {
 /// [google.cloud.speech.v2.StreamingRecognizeRequest.audio]: crate::model::StreamingRecognizeRequest::streaming_request
 /// [google.cloud.speech.v2.StreamingRecognizeRequest.recognizer]: crate::model::StreamingRecognizeRequest::recognizer
 /// [google.cloud.speech.v2.StreamingRecognizeRequest.streaming_config]: crate::model::StreamingRecognizeRequest::streaming_request
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingRecognizeRequest {
     /// Required. The name of the Recognizer to use during recognition. The
@@ -8852,6 +9257,18 @@ impl serde::ser::Serialize for StreamingRecognizeRequest {
     }
 }
 
+impl std::fmt::Debug for StreamingRecognizeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingRecognizeRequest");
+        debug_struct.field("recognizer", &self.recognizer);
+        debug_struct.field("streaming_request", &self.streaming_request);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StreamingRecognizeRequest].
 pub mod streaming_recognize_request {
     #[allow(unused_imports)]
@@ -8875,7 +9292,7 @@ pub mod streaming_recognize_request {
 /// method.
 ///
 /// [google.cloud.speech.v2.Speech.BatchRecognize]: crate::client::Speech::batch_recognize
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeRequest {
     /// Required. The name of the Recognizer to use during recognition. The
@@ -9206,6 +9623,22 @@ impl serde::ser::Serialize for BatchRecognizeRequest {
     }
 }
 
+impl std::fmt::Debug for BatchRecognizeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchRecognizeRequest");
+        debug_struct.field("recognizer", &self.recognizer);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("config_mask", &self.config_mask);
+        debug_struct.field("files", &self.files);
+        debug_struct.field("recognition_output_config", &self.recognition_output_config);
+        debug_struct.field("processing_strategy", &self.processing_strategy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchRecognizeRequest].
 pub mod batch_recognize_request {
     #[allow(unused_imports)]
@@ -9340,7 +9773,7 @@ pub mod batch_recognize_request {
 }
 
 /// Output configurations for Cloud Storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsOutputConfig {
     /// The Cloud Storage URI prefix with which recognition results will be
@@ -9470,8 +9903,19 @@ impl serde::ser::Serialize for GcsOutputConfig {
     }
 }
 
+impl std::fmt::Debug for GcsOutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsOutputConfig");
+        debug_struct.field("uri", &self.uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output configurations for inline response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InlineOutputConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9573,8 +10017,18 @@ impl serde::ser::Serialize for InlineOutputConfig {
     }
 }
 
+impl std::fmt::Debug for InlineOutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InlineOutputConfig");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output configurations for serialized `BatchRecognizeResults` protos.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NativeOutputFileFormatConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9676,9 +10130,19 @@ impl serde::ser::Serialize for NativeOutputFileFormatConfig {
     }
 }
 
+impl std::fmt::Debug for NativeOutputFileFormatConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NativeOutputFileFormatConfig");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output configurations for [WebVTT](https://www.w3.org/TR/webvtt1/) formatted
 /// subtitle file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VttOutputFileFormatConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9780,10 +10244,20 @@ impl serde::ser::Serialize for VttOutputFileFormatConfig {
     }
 }
 
+impl std::fmt::Debug for VttOutputFileFormatConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VttOutputFileFormatConfig");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output configurations [SubRip
 /// Text](https://www.matroska.org/technical/subtitles.html#srt-subtitles)
 /// formatted subtitle file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SrtOutputFileFormatConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9885,8 +10359,18 @@ impl serde::ser::Serialize for SrtOutputFileFormatConfig {
     }
 }
 
+impl std::fmt::Debug for SrtOutputFileFormatConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SrtOutputFileFormatConfig");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for the format of the results stored to `output`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputFormatConfig {
     /// Configuration for the native output format. If this field is set or if no
@@ -10100,8 +10584,21 @@ impl serde::ser::Serialize for OutputFormatConfig {
     }
 }
 
+impl std::fmt::Debug for OutputFormatConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputFormatConfig");
+        debug_struct.field("native", &self.native);
+        debug_struct.field("vtt", &self.vtt);
+        debug_struct.field("srt", &self.srt);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration options for the output(s) of recognition.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecognitionOutputConfig {
     /// Optional. Configuration for the format of the results stored to `output`.
@@ -10372,6 +10869,18 @@ impl serde::ser::Serialize for RecognitionOutputConfig {
     }
 }
 
+impl std::fmt::Debug for RecognitionOutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecognitionOutputConfig");
+        debug_struct.field("output_format_config", &self.output_format_config);
+        debug_struct.field("output", &self.output);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RecognitionOutputConfig].
 pub mod recognition_output_config {
     #[allow(unused_imports)]
@@ -10401,7 +10910,7 @@ pub mod recognition_output_config {
 ///
 /// [google.cloud.speech.v2.Speech.BatchRecognize]: crate::client::Speech::batch_recognize
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeResponse {
     /// Map from filename to the final result for that file.
@@ -10578,10 +11087,22 @@ impl serde::ser::Serialize for BatchRecognizeResponse {
     }
 }
 
+impl std::fmt::Debug for BatchRecognizeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchRecognizeResponse");
+        debug_struct.field("results", &self.results);
+        debug_struct.field("total_billed_duration", &self.total_billed_duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output type for Cloud Storage of BatchRecognize transcripts. Though this
 /// proto isn't returned in this API anywhere, the Cloud Storage transcripts will
 /// be this proto serialized and should be parsed as such.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeResults {
     /// Sequential list of transcription results corresponding to sequential
@@ -10753,8 +11274,20 @@ impl serde::ser::Serialize for BatchRecognizeResults {
     }
 }
 
+impl std::fmt::Debug for BatchRecognizeResults {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchRecognizeResults");
+        debug_struct.field("results", &self.results);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Final results written to Cloud Storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageResult {
     /// The Cloud Storage URI to which recognition results were written.
@@ -10935,8 +11468,21 @@ impl serde::ser::Serialize for CloudStorageResult {
     }
 }
 
+impl std::fmt::Debug for CloudStorageResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudStorageResult");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("vtt_format_uri", &self.vtt_format_uri);
+        debug_struct.field("srt_format_uri", &self.srt_format_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Final results returned inline in the recognition response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InlineResult {
     /// The transcript for the audio file.
@@ -11128,8 +11674,21 @@ impl serde::ser::Serialize for InlineResult {
     }
 }
 
+impl std::fmt::Debug for InlineResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InlineResult");
+        debug_struct.field("transcript", &self.transcript);
+        debug_struct.field("vtt_captions", &self.vtt_captions);
+        debug_struct.field("srt_captions", &self.srt_captions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Final results for a single file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeFileResult {
     /// Error if one was encountered.
@@ -11494,6 +12053,21 @@ impl serde::ser::Serialize for BatchRecognizeFileResult {
     }
 }
 
+impl std::fmt::Debug for BatchRecognizeFileResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchRecognizeFileResult");
+        debug_struct.field("error", &self.error);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("transcript", &self.transcript);
+        debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchRecognizeFileResult].
 pub mod batch_recognize_file_result {
     #[allow(unused_imports)]
@@ -11522,7 +12096,7 @@ pub mod batch_recognize_file_result {
 
 /// Metadata about transcription for a single file (for example, progress
 /// percent).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeTranscriptionMetadata {
     /// How much of the file has been transcribed so far.
@@ -11730,11 +12304,24 @@ impl serde::ser::Serialize for BatchRecognizeTranscriptionMetadata {
     }
 }
 
+impl std::fmt::Debug for BatchRecognizeTranscriptionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchRecognizeTranscriptionMetadata");
+        debug_struct.field("progress_percent", &self.progress_percent);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("uri", &self.uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Operation metadata for
 /// [BatchRecognize][google.cloud.speech.v2.Speech.BatchRecognize].
 ///
 /// [google.cloud.speech.v2.Speech.BatchRecognize]: crate::client::Speech::batch_recognize
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeMetadata {
     /// Map from provided filename to the transcription metadata for that file.
@@ -11878,8 +12465,19 @@ impl serde::ser::Serialize for BatchRecognizeMetadata {
     }
 }
 
+impl std::fmt::Debug for BatchRecognizeMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchRecognizeMetadata");
+        debug_struct.field("transcription_metadata", &self.transcription_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata about a single file in a batch for BatchRecognize.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRecognizeFileMetadata {
     /// Features and audio metadata to use for the Automatic Speech Recognition.
@@ -12149,6 +12747,19 @@ impl serde::ser::Serialize for BatchRecognizeFileMetadata {
     }
 }
 
+impl std::fmt::Debug for BatchRecognizeFileMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchRecognizeFileMetadata");
+        debug_struct.field("config", &self.config);
+        debug_struct.field("config_mask", &self.config_mask);
+        debug_struct.field("audio_source", &self.audio_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchRecognizeFileMetadata].
 pub mod batch_recognize_file_metadata {
     #[allow(unused_imports)]
@@ -12165,7 +12776,7 @@ pub mod batch_recognize_file_metadata {
 
 /// A streaming speech recognition result corresponding to a portion of the audio
 /// that is currently being processed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingRecognitionResult {
     /// May contain one or more recognition hypotheses. These alternatives are
@@ -12494,6 +13105,22 @@ impl serde::ser::Serialize for StreamingRecognitionResult {
     }
 }
 
+impl std::fmt::Debug for StreamingRecognitionResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingRecognitionResult");
+        debug_struct.field("alternatives", &self.alternatives);
+        debug_struct.field("is_final", &self.is_final);
+        debug_struct.field("stability", &self.stability);
+        debug_struct.field("result_end_offset", &self.result_end_offset);
+        debug_struct.field("channel_tag", &self.channel_tag);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `StreamingRecognizeResponse` is the only message returned to the client by
 /// `StreamingRecognize`. A series of zero or more `StreamingRecognizeResponse`
 /// messages are streamed back to the client. If there is no recognizable
@@ -12544,7 +13171,7 @@ impl serde::ser::Serialize for StreamingRecognitionResult {
 ///   `speech_event_type`, or
 ///   one or more (repeated) `results`.
 ///
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingRecognizeResponse {
     /// This repeated list contains zero or more results that
@@ -12791,6 +13418,20 @@ impl serde::ser::Serialize for StreamingRecognizeResponse {
     }
 }
 
+impl std::fmt::Debug for StreamingRecognizeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingRecognizeResponse");
+        debug_struct.field("results", &self.results);
+        debug_struct.field("speech_event_type", &self.speech_event_type);
+        debug_struct.field("speech_event_offset", &self.speech_event_offset);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StreamingRecognizeResponse].
 pub mod streaming_recognize_response {
     #[allow(unused_imports)]
@@ -12952,7 +13593,7 @@ pub mod streaming_recognize_response {
 /// Message representing the config for the Speech-to-Text API. This includes an
 /// optional [KMS key](https://cloud.google.com/kms/docs/resource-hierarchy#keys)
 /// with which incoming data will be encrypted.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Config {
     /// Output only. Identifier. The name of the config resource. There is exactly
@@ -13149,11 +13790,24 @@ impl serde::ser::Serialize for Config {
     }
 }
 
+impl std::fmt::Debug for Config {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Config");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [GetConfig][google.cloud.speech.v2.Speech.GetConfig] method.
 ///
 /// [google.cloud.speech.v2.Speech.GetConfig]: crate::client::Speech::get_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConfigRequest {
     /// Required. The name of the config to retrieve. There is exactly one config
@@ -13284,11 +13938,22 @@ impl serde::ser::Serialize for GetConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [UpdateConfig][google.cloud.speech.v2.Speech.UpdateConfig] method.
 ///
 /// [google.cloud.speech.v2.Speech.UpdateConfig]: crate::client::Speech::update_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConfigRequest {
     /// Required. The config to update.
@@ -13467,10 +14132,22 @@ impl serde::ser::Serialize for UpdateConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConfigRequest");
+        debug_struct.field("config", &self.config);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// CustomClass for biasing in speech recognition. Used to define a set of words
 /// or phrases that represents a common concept or theme likely to appear in your
 /// audio, for example a list of passenger ship names.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomClass {
     /// Output only. Identifier. The resource name of the CustomClass.
@@ -13998,13 +14675,37 @@ impl serde::ser::Serialize for CustomClass {
     }
 }
 
+impl std::fmt::Debug for CustomClass {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomClass");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CustomClass].
 pub mod custom_class {
     #[allow(unused_imports)]
     use super::*;
 
     /// An item of the class.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClassItem {
         /// The class item's value.
@@ -14133,6 +14834,17 @@ pub mod custom_class {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ClassItem {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ClassItem");
+            debug_struct.field("value", &self.value);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -14273,7 +14985,7 @@ pub mod custom_class {
 /// PhraseSet for biasing in speech recognition. A PhraseSet is used to provide
 /// "hints" to the speech recognizer to favor specific words and phrases in the
 /// results.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PhraseSet {
     /// Output only. Identifier. The resource name of the PhraseSet.
@@ -14850,6 +15562,31 @@ impl serde::ser::Serialize for PhraseSet {
     }
 }
 
+impl std::fmt::Debug for PhraseSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PhraseSet");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("phrases", &self.phrases);
+        debug_struct.field("boost", &self.boost);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PhraseSet].
 pub mod phrase_set {
     #[allow(unused_imports)]
@@ -14863,7 +15600,7 @@ pub mod phrase_set {
     ///
     /// List items can also include CustomClass references containing groups of
     /// words that represent common concepts that occur in natural language.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Phrase {
         /// The phrase itself.
@@ -15046,6 +15783,18 @@ pub mod phrase_set {
         }
     }
 
+    impl std::fmt::Debug for Phrase {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Phrase");
+            debug_struct.field("value", &self.value);
+            debug_struct.field("boost", &self.boost);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Set of states that define the lifecycle of a PhraseSet.
     ///
     /// # Working with unknown values
@@ -15184,7 +15933,7 @@ pub mod phrase_set {
 /// [CreateCustomClass][google.cloud.speech.v2.Speech.CreateCustomClass] method.
 ///
 /// [google.cloud.speech.v2.Speech.CreateCustomClass]: crate::client::Speech::create_custom_class
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCustomClassRequest {
     /// Required. The CustomClass to create.
@@ -15405,11 +16154,25 @@ impl serde::ser::Serialize for CreateCustomClassRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCustomClassRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCustomClassRequest");
+        debug_struct.field("custom_class", &self.custom_class);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("custom_class_id", &self.custom_class_id);
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [ListCustomClasses][google.cloud.speech.v2.Speech.ListCustomClasses] method.
 ///
 /// [google.cloud.speech.v2.Speech.ListCustomClasses]: crate::client::Speech::list_custom_classes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCustomClassesRequest {
     /// Required. The project and location of CustomClass resources to list. The
@@ -15643,11 +16406,25 @@ impl serde::ser::Serialize for ListCustomClassesRequest {
     }
 }
 
+impl std::fmt::Debug for ListCustomClassesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCustomClassesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("show_deleted", &self.show_deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [ListCustomClasses][google.cloud.speech.v2.Speech.ListCustomClasses] method.
 ///
 /// [google.cloud.speech.v2.Speech.ListCustomClasses]: crate::client::Speech::list_custom_classes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCustomClassesResponse {
     /// The list of requested CustomClasses.
@@ -15824,11 +16601,23 @@ impl serde::ser::Serialize for ListCustomClassesResponse {
     }
 }
 
+impl std::fmt::Debug for ListCustomClassesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCustomClassesResponse");
+        debug_struct.field("custom_classes", &self.custom_classes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [GetCustomClass][google.cloud.speech.v2.Speech.GetCustomClass] method.
 ///
 /// [google.cloud.speech.v2.Speech.GetCustomClass]: crate::client::Speech::get_custom_class
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCustomClassRequest {
     /// Required. The name of the CustomClass to retrieve. The expected format is
@@ -15958,11 +16747,22 @@ impl serde::ser::Serialize for GetCustomClassRequest {
     }
 }
 
+impl std::fmt::Debug for GetCustomClassRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCustomClassRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [UpdateCustomClass][google.cloud.speech.v2.Speech.UpdateCustomClass] method.
 ///
 /// [google.cloud.speech.v2.Speech.UpdateCustomClass]: crate::client::Speech::update_custom_class
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCustomClassRequest {
     /// Required. The CustomClass to update.
@@ -16170,11 +16970,24 @@ impl serde::ser::Serialize for UpdateCustomClassRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCustomClassRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCustomClassRequest");
+        debug_struct.field("custom_class", &self.custom_class);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [DeleteCustomClass][google.cloud.speech.v2.Speech.DeleteCustomClass] method.
 ///
 /// [google.cloud.speech.v2.Speech.DeleteCustomClass]: crate::client::Speech::delete_custom_class
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCustomClassRequest {
     /// Required. The name of the CustomClass to delete.
@@ -16383,12 +17196,26 @@ impl serde::ser::Serialize for DeleteCustomClassRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCustomClassRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCustomClassRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [UndeleteCustomClass][google.cloud.speech.v2.Speech.UndeleteCustomClass]
 /// method.
 ///
 /// [google.cloud.speech.v2.Speech.UndeleteCustomClass]: crate::client::Speech::undelete_custom_class
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteCustomClassRequest {
     /// Required. The name of the CustomClass to undelete.
@@ -16571,11 +17398,24 @@ impl serde::ser::Serialize for UndeleteCustomClassRequest {
     }
 }
 
+impl std::fmt::Debug for UndeleteCustomClassRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteCustomClassRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [CreatePhraseSet][google.cloud.speech.v2.Speech.CreatePhraseSet] method.
 ///
 /// [google.cloud.speech.v2.Speech.CreatePhraseSet]: crate::client::Speech::create_phrase_set
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePhraseSetRequest {
     /// Required. The PhraseSet to create.
@@ -16796,11 +17636,25 @@ impl serde::ser::Serialize for CreatePhraseSetRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePhraseSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePhraseSetRequest");
+        debug_struct.field("phrase_set", &self.phrase_set);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("phrase_set_id", &self.phrase_set_id);
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [ListPhraseSets][google.cloud.speech.v2.Speech.ListPhraseSets] method.
 ///
 /// [google.cloud.speech.v2.Speech.ListPhraseSets]: crate::client::Speech::list_phrase_sets
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPhraseSetsRequest {
     /// Required. The project and location of PhraseSet resources to list. The
@@ -17033,11 +17887,25 @@ impl serde::ser::Serialize for ListPhraseSetsRequest {
     }
 }
 
+impl std::fmt::Debug for ListPhraseSetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPhraseSetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("show_deleted", &self.show_deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [ListPhraseSets][google.cloud.speech.v2.Speech.ListPhraseSets] method.
 ///
 /// [google.cloud.speech.v2.Speech.ListPhraseSets]: crate::client::Speech::list_phrase_sets
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPhraseSetsResponse {
     /// The list of requested PhraseSets.
@@ -17214,11 +18082,23 @@ impl serde::ser::Serialize for ListPhraseSetsResponse {
     }
 }
 
+impl std::fmt::Debug for ListPhraseSetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPhraseSetsResponse");
+        debug_struct.field("phrase_sets", &self.phrase_sets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [GetPhraseSet][google.cloud.speech.v2.Speech.GetPhraseSet] method.
 ///
 /// [google.cloud.speech.v2.Speech.GetPhraseSet]: crate::client::Speech::get_phrase_set
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPhraseSetRequest {
     /// Required. The name of the PhraseSet to retrieve. The expected format is
@@ -17348,11 +18228,22 @@ impl serde::ser::Serialize for GetPhraseSetRequest {
     }
 }
 
+impl std::fmt::Debug for GetPhraseSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPhraseSetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [UpdatePhraseSet][google.cloud.speech.v2.Speech.UpdatePhraseSet] method.
 ///
 /// [google.cloud.speech.v2.Speech.UpdatePhraseSet]: crate::client::Speech::update_phrase_set
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePhraseSetRequest {
     /// Required. The PhraseSet to update.
@@ -17559,11 +18450,24 @@ impl serde::ser::Serialize for UpdatePhraseSetRequest {
     }
 }
 
+impl std::fmt::Debug for UpdatePhraseSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePhraseSetRequest");
+        debug_struct.field("phrase_set", &self.phrase_set);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [DeletePhraseSet][google.cloud.speech.v2.Speech.DeletePhraseSet] method.
 ///
 /// [google.cloud.speech.v2.Speech.DeletePhraseSet]: crate::client::Speech::delete_phrase_set
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePhraseSetRequest {
     /// Required. The name of the PhraseSet to delete.
@@ -17771,12 +18675,26 @@ impl serde::ser::Serialize for DeletePhraseSetRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePhraseSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePhraseSetRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [UndeletePhraseSet][google.cloud.speech.v2.Speech.UndeletePhraseSet]
 /// method.
 ///
 /// [google.cloud.speech.v2.Speech.UndeletePhraseSet]: crate::client::Speech::undelete_phrase_set
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeletePhraseSetRequest {
     /// Required. The name of the PhraseSet to undelete.
@@ -17958,9 +18876,22 @@ impl serde::ser::Serialize for UndeletePhraseSetRequest {
     }
 }
 
+impl std::fmt::Debug for UndeletePhraseSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeletePhraseSetRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a singular feature of a model. If the feature is `recognizer`,
 /// the release_state of the feature represents the release_state of the model
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModelFeature {
     /// The name of the feature (Note: the feature can be `recognizer`)
@@ -18114,8 +19045,20 @@ impl serde::ser::Serialize for ModelFeature {
     }
 }
 
+impl std::fmt::Debug for ModelFeature {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModelFeature");
+        debug_struct.field("feature", &self.feature);
+        debug_struct.field("release_state", &self.release_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the collection of features belonging to a model
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModelFeatures {
     /// Repeated field that contains all features of the model
@@ -18248,9 +19191,20 @@ impl serde::ser::Serialize for ModelFeatures {
     }
 }
 
+impl std::fmt::Debug for ModelFeatures {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModelFeatures");
+        debug_struct.field("model_feature", &self.model_feature);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata about the models in a given region for a specific locale.
 /// Currently this is just the features of the model
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModelMetadata {
     /// Map of the model name -> features of that model
@@ -18391,9 +19345,20 @@ impl serde::ser::Serialize for ModelMetadata {
     }
 }
 
+impl std::fmt::Debug for ModelMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModelMetadata");
+        debug_struct.field("model_features", &self.model_features);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata about locales available in a given region. Currently this is
 /// just the models that are available for each locale
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LanguageMetadata {
     /// Map of locale (language code) -> models
@@ -18533,9 +19498,20 @@ impl serde::ser::Serialize for LanguageMetadata {
     }
 }
 
+impl std::fmt::Debug for LanguageMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LanguageMetadata");
+        debug_struct.field("models", &self.models);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The access metadata for a particular region. This can be applied if the org
 /// policy for the given project disallows a particular region.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessMetadata {
     /// Describes the different types of constraints that are applied.
@@ -18669,6 +19645,17 @@ impl serde::ser::Serialize for AccessMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AccessMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessMetadata");
+        debug_struct.field("constraint_type", &self.constraint_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -18810,7 +19797,7 @@ pub mod access_metadata {
 
 /// Main metadata for the Locations API for STT V2. Currently this is just the
 /// metadata about locales, models, and features
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationsMetadata {
     /// Information about available locales, models, and features represented in
@@ -18986,5 +19973,17 @@ impl serde::ser::Serialize for LocationsMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LocationsMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationsMetadata");
+        debug_struct.field("languages", &self.languages);
+        debug_struct.field("access_metadata", &self.access_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

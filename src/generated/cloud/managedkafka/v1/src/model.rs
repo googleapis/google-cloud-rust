@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request for ListClusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersRequest {
     /// Required. The parent location whose clusters are to be listed. Structured
@@ -287,8 +287,23 @@ impl serde::ser::Serialize for ListClustersRequest {
     }
 }
 
+impl std::fmt::Debug for ListClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClustersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListClusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersResponse {
     /// The list of Clusters in the requested parent.
@@ -487,8 +502,21 @@ impl serde::ser::Serialize for ListClustersResponse {
     }
 }
 
+impl std::fmt::Debug for ListClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClustersResponse");
+        debug_struct.field("clusters", &self.clusters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClusterRequest {
     /// Required. The name of the cluster whose configuration to return.
@@ -617,8 +645,19 @@ impl serde::ser::Serialize for GetClusterRequest {
     }
 }
 
+impl std::fmt::Debug for GetClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetClusterRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClusterRequest {
     /// Required. The parent region in which to create the cluster. Structured like
@@ -852,8 +891,22 @@ impl serde::ser::Serialize for CreateClusterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("cluster_id", &self.cluster_id);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClusterRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -1071,8 +1124,21 @@ impl serde::ser::Serialize for UpdateClusterRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateClusterRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClusterRequest {
     /// Required. The name of the cluster to delete.
@@ -1239,8 +1305,20 @@ impl serde::ser::Serialize for DeleteClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListTopics.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicsRequest {
     /// Required. The parent cluster whose topics are to be listed. Structured like
@@ -1444,8 +1522,21 @@ impl serde::ser::Serialize for ListTopicsRequest {
     }
 }
 
+impl std::fmt::Debug for ListTopicsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTopicsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListTopics.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicsResponse {
     /// The list of topics in the requested parent. The order of the topics is
@@ -1618,8 +1709,20 @@ impl serde::ser::Serialize for ListTopicsResponse {
     }
 }
 
+impl std::fmt::Debug for ListTopicsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTopicsResponse");
+        debug_struct.field("topics", &self.topics);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetTopic.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTopicRequest {
     /// Required. The name of the topic whose configuration to return. Structured
@@ -1750,8 +1853,19 @@ impl serde::ser::Serialize for GetTopicRequest {
     }
 }
 
+impl std::fmt::Debug for GetTopicRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTopicRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateTopic.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTopicRequest {
     /// Required. The parent cluster in which to create the topic.
@@ -1946,8 +2060,21 @@ impl serde::ser::Serialize for CreateTopicRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTopicRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTopicRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("topic_id", &self.topic_id);
+        debug_struct.field("topic", &self.topic);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateTopic.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTopicRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -2127,8 +2254,20 @@ impl serde::ser::Serialize for UpdateTopicRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTopicRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTopicRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("topic", &self.topic);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteTopic.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTopicRequest {
     /// Required. The name of the topic to delete.
@@ -2258,8 +2397,19 @@ impl serde::ser::Serialize for DeleteTopicRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTopicRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTopicRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListConsumerGroups.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConsumerGroupsRequest {
     /// Required. The parent cluster whose consumer groups are to be listed.
@@ -2464,8 +2614,21 @@ impl serde::ser::Serialize for ListConsumerGroupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListConsumerGroupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConsumerGroupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListConsumerGroups.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConsumerGroupsResponse {
     /// The list of consumer group in the requested parent. The order of the
@@ -2639,8 +2802,20 @@ impl serde::ser::Serialize for ListConsumerGroupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListConsumerGroupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConsumerGroupsResponse");
+        debug_struct.field("consumer_groups", &self.consumer_groups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetConsumerGroup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConsumerGroupRequest {
     /// Required. The name of the consumer group whose configuration to return.
@@ -2770,8 +2945,19 @@ impl serde::ser::Serialize for GetConsumerGroupRequest {
     }
 }
 
+impl std::fmt::Debug for GetConsumerGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConsumerGroupRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateConsumerGroup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConsumerGroupRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -2952,8 +3138,20 @@ impl serde::ser::Serialize for UpdateConsumerGroupRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateConsumerGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConsumerGroupRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("consumer_group", &self.consumer_group);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteConsumerGroup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConsumerGroupRequest {
     /// Required. The name of the consumer group to delete.
@@ -3083,8 +3281,19 @@ impl serde::ser::Serialize for DeleteConsumerGroupRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteConsumerGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteConsumerGroupRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListAcls.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAclsRequest {
     /// Required. The parent cluster whose acls are to be listed.
@@ -3289,8 +3498,21 @@ impl serde::ser::Serialize for ListAclsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAclsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAclsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListAcls.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAclsResponse {
     /// The list of acls in the requested parent. The order of the acls is
@@ -3463,8 +3685,20 @@ impl serde::ser::Serialize for ListAclsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAclsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAclsResponse");
+        debug_struct.field("acls", &self.acls);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetAcl.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAclRequest {
     /// Required. The name of the acl to return.
@@ -3599,8 +3833,19 @@ impl serde::ser::Serialize for GetAclRequest {
     }
 }
 
+impl std::fmt::Debug for GetAclRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAclRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateAcl.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAclRequest {
     /// Required. The parent cluster in which to create the acl.
@@ -3812,8 +4057,21 @@ impl serde::ser::Serialize for CreateAclRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAclRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAclRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("acl_id", &self.acl_id);
+        debug_struct.field("acl", &self.acl);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateAcl.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAclRequest {
     /// Required. The updated acl. Its `name` and `etag` fields must be populated.
@@ -3994,8 +4252,20 @@ impl serde::ser::Serialize for UpdateAclRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAclRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAclRequest");
+        debug_struct.field("acl", &self.acl);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteAcl.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAclRequest {
     /// Required. The name of the acl to delete.
@@ -4129,8 +4399,19 @@ impl serde::ser::Serialize for DeleteAclRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAclRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAclRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for AddAclEntry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddAclEntryRequest {
     /// Required. The name of the acl to add the acl entry to.
@@ -4301,8 +4582,20 @@ impl serde::ser::Serialize for AddAclEntryRequest {
     }
 }
 
+impl std::fmt::Debug for AddAclEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddAclEntryRequest");
+        debug_struct.field("acl", &self.acl);
+        debug_struct.field("acl_entry", &self.acl_entry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for AddAclEntry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddAclEntryResponse {
     /// The updated acl.
@@ -4467,8 +4760,20 @@ impl serde::ser::Serialize for AddAclEntryResponse {
     }
 }
 
+impl std::fmt::Debug for AddAclEntryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddAclEntryResponse");
+        debug_struct.field("acl", &self.acl);
+        debug_struct.field("acl_created", &self.acl_created);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for RemoveAclEntry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveAclEntryRequest {
     /// Required. The name of the acl to remove the acl entry from.
@@ -4639,8 +4944,20 @@ impl serde::ser::Serialize for RemoveAclEntryRequest {
     }
 }
 
+impl std::fmt::Debug for RemoveAclEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveAclEntryRequest");
+        debug_struct.field("acl", &self.acl);
+        debug_struct.field("acl_entry", &self.acl_entry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for RemoveAclEntry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveAclEntryResponse {
     /// The result of removing the acl entry, depending on whether the acl was
@@ -4860,6 +5177,17 @@ impl serde::ser::Serialize for RemoveAclEntryResponse {
     }
 }
 
+impl std::fmt::Debug for RemoveAclEntryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveAclEntryResponse");
+        debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RemoveAclEntryResponse].
 pub mod remove_acl_entry_response {
     #[allow(unused_imports)]
@@ -4880,7 +5208,7 @@ pub mod remove_acl_entry_response {
 }
 
 /// Request for GetConnectCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectClusterRequest {
     /// Required. The name of the Kafka Connect cluster whose configuration to
@@ -5011,8 +5339,19 @@ impl serde::ser::Serialize for GetConnectClusterRequest {
     }
 }
 
+impl std::fmt::Debug for GetConnectClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConnectClusterRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateConnectCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectClusterRequest {
     /// Required. The parent project/location in which to create the Kafka Connect
@@ -5252,8 +5591,22 @@ impl serde::ser::Serialize for CreateConnectClusterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateConnectClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateConnectClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("connect_cluster_id", &self.connect_cluster_id);
+        debug_struct.field("connect_cluster", &self.connect_cluster);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateConnectCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectClusterRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -5474,8 +5827,21 @@ impl serde::ser::Serialize for UpdateConnectClusterRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateConnectClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConnectClusterRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("connect_cluster", &self.connect_cluster);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteConnectCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectClusterRequest {
     /// Required. The name of the Kafka Connect cluster to delete.
@@ -5644,8 +6010,20 @@ impl serde::ser::Serialize for DeleteConnectClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteConnectClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteConnectClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListConnectClusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectClustersRequest {
     /// Required. The parent project/location whose Connect clusters are to be
@@ -5898,8 +6276,23 @@ impl serde::ser::Serialize for ListConnectClustersRequest {
     }
 }
 
+impl std::fmt::Debug for ListConnectClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectClustersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListConnectClusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectClustersResponse {
     /// The list of Connect clusters in the requested parent.
@@ -6103,8 +6496,21 @@ impl serde::ser::Serialize for ListConnectClustersResponse {
     }
 }
 
+impl std::fmt::Debug for ListConnectClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectClustersResponse");
+        debug_struct.field("connect_clusters", &self.connect_clusters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectorRequest {
     /// Required. The name of the connector whose configuration to return.
@@ -6235,8 +6641,19 @@ impl serde::ser::Serialize for GetConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for GetConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConnectorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectorRequest {
     /// Required. The parent Connect cluster in which to create the connector.
@@ -6432,8 +6849,21 @@ impl serde::ser::Serialize for CreateConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for CreateConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateConnectorRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("connector_id", &self.connector_id);
+        debug_struct.field("connector", &self.connector);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectorRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -6613,8 +7043,20 @@ impl serde::ser::Serialize for UpdateConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConnectorRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("connector", &self.connector);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectorRequest {
     /// Required. The name of the connector to delete.
@@ -6745,8 +7187,19 @@ impl serde::ser::Serialize for DeleteConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteConnectorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListConnectors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorsRequest {
     /// Required. The parent Connect cluster whose connectors are to be listed.
@@ -6951,8 +7404,21 @@ impl serde::ser::Serialize for ListConnectorsRequest {
     }
 }
 
+impl std::fmt::Debug for ListConnectorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectorsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListConnectors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorsResponse {
     /// The list of connectors in the requested parent.
@@ -7124,8 +7590,20 @@ impl serde::ser::Serialize for ListConnectorsResponse {
     }
 }
 
+impl std::fmt::Debug for ListConnectorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectorsResponse");
+        debug_struct.field("connectors", &self.connectors);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for PauseConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseConnectorRequest {
     /// Required. The name of the connector to pause.
@@ -7256,8 +7734,19 @@ impl serde::ser::Serialize for PauseConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for PauseConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PauseConnectorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for PauseConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseConnectorResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7359,8 +7848,18 @@ impl serde::ser::Serialize for PauseConnectorResponse {
     }
 }
 
+impl std::fmt::Debug for PauseConnectorResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PauseConnectorResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ResumeConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeConnectorRequest {
     /// Required. The name of the connector to pause.
@@ -7491,8 +7990,19 @@ impl serde::ser::Serialize for ResumeConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for ResumeConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeConnectorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ResumeConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeConnectorResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7594,8 +8104,18 @@ impl serde::ser::Serialize for ResumeConnectorResponse {
     }
 }
 
+impl std::fmt::Debug for ResumeConnectorResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeConnectorResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for RestartConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestartConnectorRequest {
     /// Required. The name of the connector to restart.
@@ -7726,8 +8246,19 @@ impl serde::ser::Serialize for RestartConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for RestartConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestartConnectorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for RestartConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestartConnectorResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7829,8 +8360,18 @@ impl serde::ser::Serialize for RestartConnectorResponse {
     }
 }
 
+impl std::fmt::Debug for RestartConnectorResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestartConnectorResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for StopConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopConnectorRequest {
     /// Required. The name of the connector to stop.
@@ -7961,8 +8502,19 @@ impl serde::ser::Serialize for StopConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for StopConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopConnectorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for StopConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopConnectorResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8064,8 +8616,18 @@ impl serde::ser::Serialize for StopConnectorResponse {
     }
 }
 
+impl std::fmt::Debug for StopConnectorResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopConnectorResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An Apache Kafka cluster deployed in a location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cluster {
     /// Identifier. The name of the cluster. Structured like:
@@ -8574,6 +9136,27 @@ impl serde::ser::Serialize for Cluster {
     }
 }
 
+impl std::fmt::Debug for Cluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Cluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("capacity_config", &self.capacity_config);
+        debug_struct.field("rebalance_config", &self.rebalance_config);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("tls_config", &self.tls_config);
+        debug_struct.field("platform_config", &self.platform_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Cluster].
 pub mod cluster {
     #[allow(unused_imports)]
@@ -8729,7 +9312,7 @@ pub mod cluster {
 }
 
 /// A capacity configuration of a Kafka cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CapacityConfig {
     /// Required. The number of vCPUs to provision for the cluster. Minimum: 3.
@@ -8922,8 +9505,20 @@ impl serde::ser::Serialize for CapacityConfig {
     }
 }
 
+impl std::fmt::Debug for CapacityConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityConfig");
+        debug_struct.field("vcpu_count", &self.vcpu_count);
+        debug_struct.field("memory_bytes", &self.memory_bytes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines rebalancing behavior of a Kafka cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RebalanceConfig {
     /// Optional. The rebalance behavior for the cluster.
@@ -9051,6 +9646,17 @@ impl serde::ser::Serialize for RebalanceConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for RebalanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RebalanceConfig");
+        debug_struct.field("mode", &self.mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -9197,7 +9803,7 @@ pub mod rebalance_config {
 
 /// The configuration of a Virtual Private Cloud (VPC) network that can access
 /// the Kafka cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
     /// Required. Name of the VPC subnet in which to create Private Service Connect
@@ -9332,8 +9938,19 @@ impl serde::ser::Serialize for NetworkConfig {
     }
 }
 
+impl std::fmt::Debug for NetworkConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkConfig");
+        debug_struct.field("subnet", &self.subnet);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration of access to the Kafka cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessConfig {
     /// Required. Virtual Private Cloud (VPC) networks that must be granted direct
@@ -9468,9 +10085,20 @@ impl serde::ser::Serialize for AccessConfig {
     }
 }
 
+impl std::fmt::Debug for AccessConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessConfig");
+        debug_struct.field("network_configs", &self.network_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration properties for a Kafka cluster deployed to Google Cloud
 /// Platform.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcpConfig {
     /// Required. Access configuration for the Kafka cluster.
@@ -9639,8 +10267,20 @@ impl serde::ser::Serialize for GcpConfig {
     }
 }
 
+impl std::fmt::Debug for GcpConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcpConfig");
+        debug_struct.field("access_config", &self.access_config);
+        debug_struct.field("kms_key", &self.kms_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The TLS configuration for the Kafka cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TlsConfig {
     /// Optional. The configuration of the broker truststore. If specified, clients
@@ -9825,8 +10465,23 @@ impl serde::ser::Serialize for TlsConfig {
     }
 }
 
+impl std::fmt::Debug for TlsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TlsConfig");
+        debug_struct.field("trust_config", &self.trust_config);
+        debug_struct.field(
+            "ssl_principal_mapping_rules",
+            &self.ssl_principal_mapping_rules,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sources of CA certificates to install in the broker's truststore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrustConfig {
     /// Optional. Configuration for the Google Certificate Authority Service.
@@ -9960,13 +10615,24 @@ impl serde::ser::Serialize for TrustConfig {
     }
 }
 
+impl std::fmt::Debug for TrustConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrustConfig");
+        debug_struct.field("cas_configs", &self.cas_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TrustConfig].
 pub mod trust_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// A configuration for the Google Certificate Authority Service.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CertificateAuthorityServiceConfig {
         /// Required. The name of the CA pool to pull CA certificates from.
@@ -10103,10 +10769,21 @@ pub mod trust_config {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for CertificateAuthorityServiceConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CertificateAuthorityServiceConfig");
+            debug_struct.field("ca_pool", &self.ca_pool);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A Kafka topic in a given cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Topic {
     /// Identifier. The name of the topic. The `topic` segment is used when
@@ -10366,8 +11043,22 @@ impl serde::ser::Serialize for Topic {
     }
 }
 
+impl std::fmt::Debug for Topic {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Topic");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("partition_count", &self.partition_count);
+        debug_struct.field("replication_factor", &self.replication_factor);
+        debug_struct.field("configs", &self.configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for a consumer group corresponding to a specific topic.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConsumerTopicMetadata {
     /// Optional. Metadata for this consumer group and topic for all partition
@@ -10538,8 +11229,19 @@ impl serde::ser::Serialize for ConsumerTopicMetadata {
     }
 }
 
+impl std::fmt::Debug for ConsumerTopicMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConsumerTopicMetadata");
+        debug_struct.field("partitions", &self.partitions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for a consumer group corresponding to a specific partition.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConsumerPartitionMetadata {
     /// Required. The current offset for this partition, or 0 if no offset has been
@@ -10712,8 +11414,20 @@ impl serde::ser::Serialize for ConsumerPartitionMetadata {
     }
 }
 
+impl std::fmt::Debug for ConsumerPartitionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConsumerPartitionMetadata");
+        debug_struct.field("offset", &self.offset);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Kafka consumer group in a given cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConsumerGroup {
     /// Identifier. The name of the consumer group. The `consumer_group` segment is
@@ -10881,8 +11595,20 @@ impl serde::ser::Serialize for ConsumerGroup {
     }
 }
 
+impl std::fmt::Debug for ConsumerGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConsumerGroup");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("topics", &self.topics);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -11188,8 +11914,25 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An Apache Kafka Connect cluster deployed in a location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectCluster {
     /// Identifier. The name of the Kafka Connect cluster. Structured like:
@@ -11627,6 +12370,25 @@ impl serde::ser::Serialize for ConnectCluster {
     }
 }
 
+impl std::fmt::Debug for ConnectCluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectCluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("kafka_cluster", &self.kafka_cluster);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("capacity_config", &self.capacity_config);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("platform_config", &self.platform_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConnectCluster].
 pub mod connect_cluster {
     #[allow(unused_imports)]
@@ -11783,7 +12545,7 @@ pub mod connect_cluster {
 
 /// The configuration of a Virtual Private Cloud (VPC) network that can access
 /// the Kafka Connect cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectNetworkConfig {
     /// Required. VPC subnet to make available to the Kafka Connect cluster.
@@ -11986,8 +12748,21 @@ impl serde::ser::Serialize for ConnectNetworkConfig {
     }
 }
 
+impl std::fmt::Debug for ConnectNetworkConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectNetworkConfig");
+        debug_struct.field("primary_subnet", &self.primary_subnet);
+        debug_struct.field("additional_subnets", &self.additional_subnets);
+        debug_struct.field("dns_domain_names", &self.dns_domain_names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration of access to the Kafka Connect cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectAccessConfig {
     /// Required.
@@ -12127,9 +12902,20 @@ impl serde::ser::Serialize for ConnectAccessConfig {
     }
 }
 
+impl std::fmt::Debug for ConnectAccessConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectAccessConfig");
+        debug_struct.field("network_configs", &self.network_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration properties for a Kafka Connect cluster deployed to Google Cloud
 /// Platform.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectGcpConfig {
     /// Required. Access configuration for the Kafka Connect cluster.
@@ -12301,8 +13087,20 @@ impl serde::ser::Serialize for ConnectGcpConfig {
     }
 }
 
+impl std::fmt::Debug for ConnectGcpConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectGcpConfig");
+        debug_struct.field("access_config", &self.access_config);
+        debug_struct.field("secret_paths", &self.secret_paths);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Kafka Connect connector in a given ConnectCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connector {
     /// Identifier. The name of the connector.
@@ -12575,6 +13373,20 @@ impl serde::ser::Serialize for Connector {
     }
 }
 
+impl std::fmt::Debug for Connector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Connector");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("configs", &self.configs);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("restart_policy", &self.restart_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Connector].
 pub mod connector {
     #[allow(unused_imports)]
@@ -12760,7 +13572,7 @@ pub mod connector {
 /// ConnectCluster is in rebalancing state or if the ConnectCluster is
 /// unresponsive etc. The default values for minimum and maximum backoffs are
 /// 60 seconds and 30 minutes respectively.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TaskRetryPolicy {
     /// Optional. The minimum amount of time to wait before retrying a failed task.
@@ -12939,9 +13751,21 @@ impl serde::ser::Serialize for TaskRetryPolicy {
     }
 }
 
+impl std::fmt::Debug for TaskRetryPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TaskRetryPolicy");
+        debug_struct.field("minimum_backoff", &self.minimum_backoff);
+        debug_struct.field("maximum_backoff", &self.maximum_backoff);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the set of ACLs for a given Kafka Resource Pattern, which consists
 /// of resource_type, resource_name and pattern_type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Acl {
     /// Identifier. The name for the acl. Represents a single Resource Pattern.
@@ -13233,8 +14057,24 @@ impl serde::ser::Serialize for Acl {
     }
 }
 
+impl std::fmt::Debug for Acl {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Acl");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("acl_entries", &self.acl_entries);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("resource_name", &self.resource_name);
+        debug_struct.field("pattern_type", &self.pattern_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the access granted for a given Resource Pattern in an ACL.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AclEntry {
     /// Required. The principal. Specified as Google Cloud account, with the Kafka
@@ -13443,5 +14283,19 @@ impl serde::ser::Serialize for AclEntry {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AclEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AclEntry");
+        debug_struct.field("principal", &self.principal);
+        debug_struct.field("permission_type", &self.permission_type);
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("host", &self.host);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

@@ -2469,6 +2469,17 @@ pub mod firestore_admin {
             self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [tags][crate::model::RestoreDatabaseRequest::tags].
+        pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
     }
 
     #[doc(hidden)]

@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Definition of a Serverless VPC Access connector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connector {
     /// The resource name in the format `projects/*/locations/*/connectors/*`.
@@ -506,13 +506,34 @@ impl serde::ser::Serialize for Connector {
     }
 }
 
+impl std::fmt::Debug for Connector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Connector");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("ip_cidr_range", &self.ip_cidr_range);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("min_throughput", &self.min_throughput);
+        debug_struct.field("max_throughput", &self.max_throughput);
+        debug_struct.field("connected_projects", &self.connected_projects);
+        debug_struct.field("subnet", &self.subnet);
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("min_instances", &self.min_instances);
+        debug_struct.field("max_instances", &self.max_instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Connector].
 pub mod connector {
     #[allow(unused_imports)]
     use super::*;
 
     /// The subnet in which to house the connector
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Subnet {
         /// Subnet name (relative, not fully qualified).
@@ -674,6 +695,18 @@ pub mod connector {
         }
     }
 
+    impl std::fmt::Debug for Subnet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Subnet");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("project_id", &self.project_id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// State of a connector.
     ///
     /// # Working with unknown values
@@ -829,7 +862,7 @@ pub mod connector {
 }
 
 /// Request for creating a Serverless VPC Access connector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectorRequest {
     /// Required. The project and location in which the configuration should be created,
@@ -1019,8 +1052,21 @@ impl serde::ser::Serialize for CreateConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for CreateConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateConnectorRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("connector_id", &self.connector_id);
+        debug_struct.field("connector", &self.connector);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for getting a Serverless VPC Access connector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectorRequest {
     /// Required. Name of a Serverless VPC Access connector to get.
@@ -1149,8 +1195,19 @@ impl serde::ser::Serialize for GetConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for GetConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConnectorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for listing Serverless VPC Access connectors in a location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorsRequest {
     /// Required. The project and location from which the routes should be listed.
@@ -1347,8 +1404,21 @@ impl serde::ser::Serialize for ListConnectorsRequest {
     }
 }
 
+impl std::fmt::Debug for ListConnectorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectorsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for listing Serverless VPC Access connectors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorsResponse {
     /// List of Serverless VPC Access connectors.
@@ -1519,8 +1589,20 @@ impl serde::ser::Serialize for ListConnectorsResponse {
     }
 }
 
+impl std::fmt::Debug for ListConnectorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectorsResponse");
+        debug_struct.field("connectors", &self.connectors);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for deleting a Serverless VPC Access connector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectorRequest {
     /// Required. Name of a Serverless VPC Access connector to delete.
@@ -1649,8 +1731,19 @@ impl serde::ser::Serialize for DeleteConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteConnectorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for google.longrunning.Operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. Method that initiated the operation e.g.
@@ -1874,5 +1967,19 @@ impl serde::ser::Serialize for OperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("method", &self.method);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

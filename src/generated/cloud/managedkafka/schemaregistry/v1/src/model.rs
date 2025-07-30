@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request for GetSchemaRegistry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSchemaRegistryRequest {
     /// Required. The name of the schema registry instance to return. Structured
@@ -165,8 +165,19 @@ impl serde::ser::Serialize for GetSchemaRegistryRequest {
     }
 }
 
+impl std::fmt::Debug for GetSchemaRegistryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSchemaRegistryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListSchemaRegistries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaRegistriesRequest {
     /// Required. The parent whose schema registry instances are to be listed.
@@ -296,8 +307,19 @@ impl serde::ser::Serialize for ListSchemaRegistriesRequest {
     }
 }
 
+impl std::fmt::Debug for ListSchemaRegistriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSchemaRegistriesRequest");
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListSchemaRegistries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaRegistriesResponse {
     /// The schema registry instances.
@@ -434,8 +456,19 @@ impl serde::ser::Serialize for ListSchemaRegistriesResponse {
     }
 }
 
+impl std::fmt::Debug for ListSchemaRegistriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSchemaRegistriesResponse");
+        debug_struct.field("schema_registries", &self.schema_registries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to create a schema registry instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSchemaRegistryRequest {
     /// Required. The parent whose schema registry instance is to be created.
@@ -634,8 +667,21 @@ impl serde::ser::Serialize for CreateSchemaRegistryRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSchemaRegistryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSchemaRegistryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("schema_registry_id", &self.schema_registry_id);
+        debug_struct.field("schema_registry", &self.schema_registry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteSchemaRegistry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSchemaRegistryRequest {
     /// Required. The name of the schema registry instance to delete. Structured
@@ -766,8 +812,19 @@ impl serde::ser::Serialize for DeleteSchemaRegistryRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSchemaRegistryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSchemaRegistryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetContext
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetContextRequest {
     /// Required. The name of the context to return. Structured like:
@@ -897,8 +954,19 @@ impl serde::ser::Serialize for GetContextRequest {
     }
 }
 
+impl std::fmt::Debug for GetContextRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetContextRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListContexts.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListContextsRequest {
     /// Required. The parent of the contexts. Structured like:
@@ -1028,8 +1096,19 @@ impl serde::ser::Serialize for ListContextsRequest {
     }
 }
 
+impl std::fmt::Debug for ListContextsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListContextsRequest");
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetSchema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSchemaRequest {
     /// Required. The name of the schema to return. Structured like:
@@ -1196,8 +1275,20 @@ impl serde::ser::Serialize for GetSchemaRequest {
     }
 }
 
+impl std::fmt::Debug for GetSchemaRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSchemaRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("subject", &self.subject);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListSchemaTypes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaTypesRequest {
     /// Required. The parent schema registry whose schema types are to be listed.
@@ -1328,8 +1419,19 @@ impl serde::ser::Serialize for ListSchemaTypesRequest {
     }
 }
 
+impl std::fmt::Debug for ListSchemaTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSchemaTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListSchemaVersions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaVersionsRequest {
     /// Required. The schema whose schema versions are to be listed. Structured
@@ -1532,8 +1634,21 @@ impl serde::ser::Serialize for ListSchemaVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSchemaVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSchemaVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("subject", &self.subject);
+        debug_struct.field("deleted", &self.deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for listing subjects.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubjectsRequest {
     /// Required. The parent schema registry/context whose subjects are to be
@@ -1741,8 +1856,21 @@ impl serde::ser::Serialize for ListSubjectsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSubjectsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSubjectsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("subject_prefix", &self.subject_prefix);
+        debug_struct.field("deleted", &self.deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for listing subjects.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubjectsBySchemaIdRequest {
     /// Required. The schema resource whose associated subjects are to be listed.
@@ -1945,8 +2073,21 @@ impl serde::ser::Serialize for ListSubjectsBySchemaIdRequest {
     }
 }
 
+impl std::fmt::Debug for ListSubjectsBySchemaIdRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSubjectsBySchemaIdRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("subject", &self.subject);
+        debug_struct.field("deleted", &self.deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetVersions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVersionsRequest {
     /// Required. The subject whose versions are to be listed. Structured like:
@@ -2113,8 +2254,20 @@ impl serde::ser::Serialize for ListVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("deleted", &self.deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteSubject.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSubjectRequest {
     /// Required. The name of the subject to delete. Structured like:
@@ -2284,8 +2437,20 @@ impl serde::ser::Serialize for DeleteSubjectRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSubjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSubjectRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("permanent", &self.permanent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVersionRequest {
     /// Required. The name of the subject to return versions. Structured like:
@@ -2453,8 +2618,20 @@ impl serde::ser::Serialize for GetVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("deleted", &self.deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVersionRequest {
     /// Required. The subject to create the version for. Structured like:
@@ -2830,8 +3007,25 @@ impl serde::ser::Serialize for CreateVersionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("schema_type", &self.schema_type);
+        debug_struct.field("schema", &self.schema);
+        debug_struct.field("references", &self.references);
+        debug_struct.field("normalize", &self.normalize);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for CreateVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVersionResponse {
     /// The unique identifier of the schema created.
@@ -2978,8 +3172,19 @@ impl serde::ser::Serialize for CreateVersionResponse {
     }
 }
 
+impl std::fmt::Debug for CreateVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVersionResponse");
+        debug_struct.field("id", &self.id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for LookupVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupVersionRequest {
     /// Required. The subject to lookup the schema in. Structured like:
@@ -3273,8 +3478,24 @@ impl serde::ser::Serialize for LookupVersionRequest {
     }
 }
 
+impl std::fmt::Debug for LookupVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("schema_type", &self.schema_type);
+        debug_struct.field("schema", &self.schema);
+        debug_struct.field("references", &self.references);
+        debug_struct.field("normalize", &self.normalize);
+        debug_struct.field("deleted", &self.deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVersionRequest {
     /// Required. The name of the subject version to delete. Structured like:
@@ -3444,8 +3665,20 @@ impl serde::ser::Serialize for DeleteVersionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("permanent", &self.permanent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListReferencedSchemas.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReferencedSchemasRequest {
     /// Required. The version to list referenced by. Structured like:
@@ -3577,8 +3810,19 @@ impl serde::ser::Serialize for ListReferencedSchemasRequest {
     }
 }
 
+impl std::fmt::Debug for ListReferencedSchemasRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReferencedSchemasRequest");
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CheckCompatibility.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckCompatibilityRequest {
     /// Required. The name of the resource to check compatibility for. The format
@@ -3839,8 +4083,23 @@ impl serde::ser::Serialize for CheckCompatibilityRequest {
     }
 }
 
+impl std::fmt::Debug for CheckCompatibilityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckCompatibilityRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("schema_type", &self.schema_type);
+        debug_struct.field("schema", &self.schema);
+        debug_struct.field("references", &self.references);
+        debug_struct.field("verbose", &self.verbose);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for CheckCompatibility.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckCompatibilityResponse {
     /// The compatibility check result. If true, the schema is compatible with the
@@ -3997,8 +4256,20 @@ impl serde::ser::Serialize for CheckCompatibilityResponse {
     }
 }
 
+impl std::fmt::Debug for CheckCompatibilityResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckCompatibilityResponse");
+        debug_struct.field("is_compatible", &self.is_compatible);
+        debug_struct.field("messages", &self.messages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for getting config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSchemaConfigRequest {
     /// Required. The resource name to get the config for. It can be either of
@@ -4168,10 +4439,22 @@ impl serde::ser::Serialize for GetSchemaConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetSchemaConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSchemaConfigRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("default_to_global", &self.default_to_global);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for updating schema config.
 /// On a SchemaSubject-level SchemaConfig, an unset field will be removed from
 /// the SchemaConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSchemaConfigRequest {
     /// Required. The resource name to update the config for. It can be either of
@@ -4380,8 +4663,21 @@ impl serde::ser::Serialize for UpdateSchemaConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSchemaConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSchemaConfigRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("compatibility", &self.compatibility);
+        debug_struct.field("normalize", &self.normalize);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for deleting schema config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSchemaConfigRequest {
     /// Required. The resource name of subject to delete the config for. The format
@@ -4513,8 +4809,19 @@ impl serde::ser::Serialize for DeleteSchemaConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSchemaConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSchemaConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for getting schema registry or subject mode.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSchemaModeRequest {
     /// Required. The resource name of the mode. The format is
@@ -4646,8 +4953,19 @@ impl serde::ser::Serialize for GetSchemaModeRequest {
     }
 }
 
+impl std::fmt::Debug for GetSchemaModeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSchemaModeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for updating schema registry or subject mode.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSchemaModeRequest {
     /// Required. The resource name of the mode. The format is
@@ -4804,8 +5122,20 @@ impl serde::ser::Serialize for UpdateSchemaModeRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSchemaModeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSchemaModeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("mode", &self.mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for deleting schema mode.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSchemaModeRequest {
     /// Required. The resource name of subject to delete the mode for. The format
@@ -4938,8 +5268,19 @@ impl serde::ser::Serialize for DeleteSchemaModeRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSchemaModeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSchemaModeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SchemaRegistry is a schema registry instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaRegistry {
     /// Identifier. The name of the schema registry instance. Structured like:
@@ -5100,9 +5441,21 @@ impl serde::ser::Serialize for SchemaRegistry {
     }
 }
 
+impl std::fmt::Debug for SchemaRegistry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchemaRegistry");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("contexts", &self.contexts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Context represents an independent schema grouping in a schema registry
 /// instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Context {
     /// Identifier. The name of the context. Structured like:
@@ -5264,8 +5617,20 @@ impl serde::ser::Serialize for Context {
     }
 }
 
+impl std::fmt::Debug for Context {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Context");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("subjects", &self.subjects);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Schema for a Kafka message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Schema {
     /// Optional. The schema type of the schema.
@@ -5452,13 +5817,26 @@ impl serde::ser::Serialize for Schema {
     }
 }
 
+impl std::fmt::Debug for Schema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Schema");
+        debug_struct.field("schema_type", &self.schema_type);
+        debug_struct.field("schema_payload", &self.schema_payload);
+        debug_struct.field("references", &self.references);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Schema].
 pub mod schema {
     #[allow(unused_imports)]
     use super::*;
 
     /// SchemaReference is a reference to a schema.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SchemaReference {
         /// Required. The name of the reference.
@@ -5656,6 +6034,19 @@ pub mod schema {
         }
     }
 
+    impl std::fmt::Debug for SchemaReference {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SchemaReference");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("subject", &self.subject);
+            debug_struct.field("version", &self.version);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Schema types.
     ///
     /// # Working with unknown values
@@ -5798,7 +6189,7 @@ pub mod schema {
 
 /// Subject defines the evolution scope of schemas as a holder of schema
 /// versions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaSubject {
     /// The name of the subject. Structured like:
@@ -5963,8 +6354,20 @@ impl serde::ser::Serialize for SchemaSubject {
     }
 }
 
+impl std::fmt::Debug for SchemaSubject {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchemaSubject");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("versions", &self.versions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Version of a schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaVersion {
     /// Required. The subject of the version.
@@ -6261,9 +6664,25 @@ impl serde::ser::Serialize for SchemaVersion {
     }
 }
 
+impl std::fmt::Debug for SchemaVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchemaVersion");
+        debug_struct.field("subject", &self.subject);
+        debug_struct.field("version_id", &self.version_id);
+        debug_struct.field("schema_id", &self.schema_id);
+        debug_struct.field("schema_type", &self.schema_type);
+        debug_struct.field("schema_payload", &self.schema_payload);
+        debug_struct.field("references", &self.references);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SchemaConfig represents configuration for a schema registry or a specific
 /// subject.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaConfig {
     /// Required. The compatibility type of the schema.
@@ -6470,6 +6889,19 @@ impl serde::ser::Serialize for SchemaConfig {
     }
 }
 
+impl std::fmt::Debug for SchemaConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchemaConfig");
+        debug_struct.field("compatibility", &self.compatibility);
+        debug_struct.field("normalize", &self.normalize);
+        debug_struct.field("alias", &self.alias);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SchemaConfig].
 pub mod schema_config {
     #[allow(unused_imports)]
@@ -6646,7 +7078,7 @@ pub mod schema_config {
 ///   write operations on the schema.
 /// * IMPORT: The schema registry is in import mode, which allows more editing
 ///   operations on the schema for data importing purposes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaMode {
     /// Required. The mode type of a schema registry (READWRITE by default) or of a
@@ -6775,6 +7207,17 @@ impl serde::ser::Serialize for SchemaMode {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for SchemaMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchemaMode");
+        debug_struct.field("mode", &self.mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

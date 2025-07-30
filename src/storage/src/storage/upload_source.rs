@@ -30,7 +30,7 @@ use std::collections::VecDeque;
 /// use google_cloud_storage::upload_source::StreamingSource;
 /// let buffer : &[u8] = b"the quick brown fox jumps over the lazy dog";
 /// let mut size = 0_usize;
-/// let mut payload = InsertPayload::from(buffer);
+/// let mut payload = InsertPayload::from(bytes::Bytes::from_static(buffer));
 /// while let Some(bytes) = payload.next().await.transpose()? {
 ///     size += bytes.len();
 /// }
@@ -41,18 +41,27 @@ pub struct InsertPayload<T> {
     payload: T,
 }
 
-impl<T> StreamingSource for InsertPayload<T>
+impl<T> InsertPayload<T>
 where
     T: StreamingSource,
 {
+    pub fn from_stream(payload: T) -> Self {
+        Self { payload }
+    }
+}
+
+impl<T> StreamingSource for InsertPayload<T>
+where
+    T: StreamingSource + Send + Sync,
+{
     type Error = T::Error;
 
-    fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes, Self::Error>>> + Send {
-        self.payload.next()
+    async fn next(&mut self) -> Option<Result<bytes::Bytes, Self::Error>> {
+        self.payload.next().await
     }
 
-    fn size_hint(&self) -> (u64, Option<u64>) {
-        self.payload.size_hint()
+    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
+        self.payload.size_hint().await
     }
 }
 
@@ -81,13 +90,6 @@ impl From<&'static str> for InsertPayload<BytesSource> {
     }
 }
 
-impl From<&'static [u8]> for InsertPayload<BytesSource> {
-    fn from(value: &'static [u8]) -> Self {
-        let b = bytes::Bytes::from_static(value);
-        InsertPayload::from(b)
-    }
-}
-
 impl From<Vec<bytes::Bytes>> for InsertPayload<IterSource> {
     fn from(value: Vec<bytes::Bytes>) -> Self {
         let payload = IterSource::new(value);
@@ -97,7 +99,7 @@ impl From<Vec<bytes::Bytes>> for InsertPayload<IterSource> {
 
 impl<S> From<S> for InsertPayload<S>
 where
-    S: StreamingSource + Seek,
+    S: StreamingSource,
 {
     fn from(value: S) -> Self {
         Self { payload: value }
@@ -117,10 +119,10 @@ pub trait StreamingSource {
     /// Returns the expected size as a [min, max) range. Where `None` represents
     /// an unknown limit for the upload.
     ///
-    /// If the upper limit is known and sufficiently small, the client library
+    /// If the maximum size is known and sufficiently small, the client library
     /// may be able to use a more efficient protocol for the upload.
-    fn size_hint(&self) -> (u64, Option<u64>) {
-        (0_u64, None)
+    fn size_hint(&self) -> impl Future<Output = Result<(u64, Option<u64>), Self::Error>> + Send {
+        std::future::ready(Ok((0_u64, None)))
     }
 }
 
@@ -147,15 +149,30 @@ pub trait Seek {
 
 const READ_SIZE: usize = 256 * 1024;
 
-impl<S> StreamingSource for S
-where
-    S: tokio::io::AsyncRead + Unpin + Send,
-{
+impl From<tokio::fs::File> for InsertPayload<FileSource> {
+    fn from(value: tokio::fs::File) -> Self {
+        Self {
+            payload: FileSource::new(value),
+        }
+    }
+}
+
+pub struct FileSource {
+    inner: tokio::fs::File,
+}
+
+impl FileSource {
+    fn new(inner: tokio::fs::File) -> Self {
+        Self { inner }
+    }
+}
+
+impl StreamingSource for FileSource {
     type Error = std::io::Error;
 
     async fn next(&mut self) -> Option<Result<bytes::Bytes, Self::Error>> {
         let mut buffer = vec![0_u8; READ_SIZE];
-        match tokio::io::AsyncReadExt::read(self, &mut buffer).await {
+        match tokio::io::AsyncReadExt::read(&mut self.inner, &mut buffer).await {
             Err(e) => Some(Err(e)),
             Ok(0) => None,
             Ok(n) => {
@@ -164,16 +181,18 @@ where
             }
         }
     }
+    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
+        let m = self.inner.metadata().await?;
+        Ok((m.len(), Some(m.len())))
+    }
 }
 
-impl<S> Seek for S
-where
-    S: tokio::io::AsyncSeek + Unpin + Send,
-{
+impl Seek for FileSource {
     type Error = std::io::Error;
 
     async fn seek(&mut self, offset: u64) -> Result<(), Self::Error> {
-        let _ = tokio::io::AsyncSeekExt::seek(self, std::io::SeekFrom::Start(offset)).await?;
+        use tokio::io::AsyncSeekExt;
+        let _ = self.inner.seek(std::io::SeekFrom::Start(offset)).await?;
         Ok(())
     }
 }
@@ -198,9 +217,9 @@ impl StreamingSource for BytesSource {
         self.current.take().map(Result::Ok)
     }
 
-    fn size_hint(&self) -> (u64, Option<u64>) {
+    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
         let s = self.contents.len() as u64;
-        (s, Some(s))
+        Ok((s, Some(s)))
     }
 }
 
@@ -237,9 +256,9 @@ impl StreamingSource for IterSource {
         self.current.pop_front().map(Ok)
     }
 
-    fn size_hint(&self) -> (u64, Option<u64>) {
+    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
         let s = self.contents.iter().fold(0_u64, |a, i| a + i.len() as u64);
-        (s, Some(s))
+        Ok((s, Some(s)))
     }
 }
 
@@ -276,6 +295,55 @@ pub mod tests {
 
     const CONTENTS: &[u8] = b"how vexingly quick daft zebras jump";
 
+    pub(crate) struct UnknownSize {
+        inner: BytesSource,
+    }
+    impl UnknownSize {
+        pub fn new(inner: BytesSource) -> Self {
+            Self { inner }
+        }
+    }
+    impl Seek for UnknownSize {
+        type Error = <BytesSource as Seek>::Error;
+        async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
+            self.inner.seek(offset).await
+        }
+    }
+    impl StreamingSource for UnknownSize {
+        type Error = <BytesSource as StreamingSource>::Error;
+        async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
+            self.inner.next().await
+        }
+        async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), Self::Error> {
+            let hint = self.inner.size_hint().await?;
+            Ok((hint.0, None))
+        }
+    }
+
+    mockall::mock! {
+        pub(crate) SimpleSource {}
+
+        impl StreamingSource for SimpleSource {
+            type Error = std::io::Error;
+            async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, std::io::Error>>;
+            async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), std::io::Error>;
+        }
+    }
+
+    mockall::mock! {
+        pub(crate) SeekSource {}
+
+        impl StreamingSource for SeekSource {
+            type Error = std::io::Error;
+            async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, std::io::Error>>;
+            async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), std::io::Error>;
+        }
+        impl Seek for SeekSource {
+            type Error = std::io::Error;
+            async fn seek(&mut self, offset: u64) ->std::result::Result<(), std::io::Error>;
+        }
+    }
+
     /// A helper function to simplify the tests.
     async fn collect<S>(mut source: S) -> anyhow::Result<Vec<u8>>
     where
@@ -299,7 +367,7 @@ pub mod tests {
     #[tokio::test]
     async fn empty_bytes() -> Result {
         let buffer = InsertPayload::from(bytes::Bytes::default());
-        let range = buffer.size_hint();
+        let range = buffer.size_hint().await?;
         assert_eq!(range, (0, Some(0)));
         let got = collect(buffer).await?;
         assert!(got.is_empty(), "{got:?}");
@@ -310,17 +378,7 @@ pub mod tests {
     #[tokio::test]
     async fn simple_bytes() -> Result {
         let buffer = InsertPayload::from(bytes::Bytes::from_static(CONTENTS));
-        let range = buffer.size_hint();
-        assert_eq!(range, (CONTENTS.len() as u64, Some(CONTENTS.len() as u64)));
-        let got = collect(buffer).await?;
-        assert_eq!(got[..], CONTENTS[..], "{got:?}");
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn simple_u8() -> Result {
-        let buffer = InsertPayload::from(CONTENTS);
-        let range = buffer.size_hint();
+        let range = buffer.size_hint().await?;
         assert_eq!(range, (CONTENTS.len() as u64, Some(CONTENTS.len() as u64)));
         let got = collect(buffer).await?;
         assert_eq!(got[..], CONTENTS[..], "{got:?}");
@@ -331,7 +389,7 @@ pub mod tests {
     async fn simple_str() -> Result {
         const LAZY: &str = "the quick brown fox jumps over the lazy dog";
         let buffer = InsertPayload::from(LAZY);
-        let range = buffer.size_hint();
+        let range = buffer.size_hint().await?;
         assert_eq!(range, (LAZY.len() as u64, Some(LAZY.len() as u64)));
         let got = collect(buffer).await?;
         assert_eq!(&got, LAZY.as_bytes(), "{got:?}");
@@ -351,7 +409,7 @@ pub mod tests {
     async fn empty_stream() -> Result {
         let source = IterSource::new(vec![]);
         let payload = InsertPayload::from(source);
-        let range = payload.size_hint();
+        let range = payload.size_hint().await?;
         assert_eq!(range, (0, Some(0)));
         let got = collect(payload).await?;
         assert!(got.is_empty(), "{got:?}");
@@ -365,7 +423,7 @@ pub mod tests {
             ["how ", "vexingly ", "quick ", "daft ", "zebras ", "jump"]
                 .map(|v| bytes::Bytes::from_static(v.as_bytes())),
         );
-        let payload = InsertPayload::from(source);
+        let payload = InsertPayload::from_stream(source);
         let got = collect(payload).await?;
         assert_eq!(got[..], CONTENTS[..]);
 
@@ -375,8 +433,11 @@ pub mod tests {
     #[tokio::test]
     async fn empty_file() -> Result {
         let file = NamedTempFile::new()?;
-        let read = file.reopen()?;
-        let got = collect(tokio::fs::File::from(read)).await?;
+        let read = tokio::fs::File::from(file.reopen()?);
+        let payload = InsertPayload::from(read);
+        let hint = payload.size_hint().await?;
+        assert_eq!(hint, (0_u64, Some(0_u64)));
+        let got = collect(payload).await?;
         assert!(got.is_empty(), "{got:?}");
         Ok(())
     }
@@ -386,8 +447,12 @@ pub mod tests {
         let mut file = NamedTempFile::new()?;
         assert_eq!(file.write(CONTENTS)?, CONTENTS.len());
         file.flush()?;
-        let read = file.reopen()?;
-        let got = collect(tokio::fs::File::from(read)).await?;
+        let read = tokio::fs::File::from(file.reopen()?);
+        let payload = InsertPayload::from(read);
+        let hint = payload.size_hint().await?;
+        let s = CONTENTS.len() as u64;
+        assert_eq!(hint, (s, Some(s)));
+        let got = collect(payload).await?;
         assert_eq!(got[..], CONTENTS[..], "{got:?}");
         Ok(())
     }
@@ -397,9 +462,10 @@ pub mod tests {
         let mut file = NamedTempFile::new()?;
         assert_eq!(file.write(CONTENTS)?, CONTENTS.len());
         file.flush()?;
-        let mut read = tokio::fs::File::from(file.reopen()?);
-        read.seek(8).await?;
-        let got = collect(read).await?;
+        let read = tokio::fs::File::from(file.reopen()?);
+        let mut payload = InsertPayload::from(read);
+        payload.seek(8).await?;
+        let got = collect(payload).await?;
         assert_eq!(got[..], CONTENTS[8..], "{got:?}");
         Ok(())
     }
@@ -413,9 +479,10 @@ pub mod tests {
         assert_eq!(file.write(&[3_u8; READ_SIZE])?, READ_SIZE);
         file.flush()?;
         assert_eq!(READ_SIZE % 2, 0);
-        let mut read = tokio::fs::File::from(file.reopen()?);
-        read.seek((READ_SIZE + READ_SIZE / 2) as u64).await?;
-        let got = collect(read).await?;
+        let read = tokio::fs::File::from(file.reopen()?);
+        let mut payload = InsertPayload::from(read);
+        payload.seek((READ_SIZE + READ_SIZE / 2) as u64).await?;
+        let got = collect(payload).await?;
         let mut want = Vec::new();
         want.extend_from_slice(&[1_u8; READ_SIZE / 2]);
         want.extend_from_slice(&[2_u8; READ_SIZE]);
@@ -435,7 +502,10 @@ pub mod tests {
 
         let mut stream =
             IterSource::new(vec![b.slice(0..N), b.slice(N..(2 * N)), b.slice((2 * N)..)]);
-        assert_eq!(stream.size_hint(), (3 * N as u64, Some(3 * N as u64)));
+        assert_eq!(
+            stream.size_hint().await?,
+            (3 * N as u64, Some(3 * N as u64))
+        );
 
         // test_case() is not appropriate here: we want to verify seek() works
         // multiple times over the *same* stream.

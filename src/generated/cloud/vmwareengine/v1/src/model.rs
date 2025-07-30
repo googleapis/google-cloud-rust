@@ -38,7 +38,7 @@ extern crate wkt;
 /// [VmwareEngine.ListPrivateClouds][google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateClouds]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateClouds]: crate::client::VmwareEngine::list_private_clouds
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateCloudsRequest {
     /// Required. The resource name of the private cloud to be queried for
@@ -326,11 +326,26 @@ impl serde::ser::Serialize for ListPrivateCloudsRequest {
     }
 }
 
+impl std::fmt::Debug for ListPrivateCloudsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPrivateCloudsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListPrivateClouds][google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateClouds]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateClouds]: crate::client::VmwareEngine::list_private_clouds
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateCloudsResponse {
     /// A list of private clouds.
@@ -531,11 +546,24 @@ impl serde::ser::Serialize for ListPrivateCloudsResponse {
     }
 }
 
+impl std::fmt::Debug for ListPrivateCloudsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPrivateCloudsResponse");
+        debug_struct.field("private_clouds", &self.private_clouds);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetPrivateCloud][google.cloud.vmwareengine.v1.VmwareEngine.GetPrivateCloud]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetPrivateCloud]: crate::client::VmwareEngine::get_private_cloud
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPrivateCloudRequest {
     /// Required. The resource name of the private cloud to retrieve.
@@ -668,11 +696,22 @@ impl serde::ser::Serialize for GetPrivateCloudRequest {
     }
 }
 
+impl std::fmt::Debug for GetPrivateCloudRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPrivateCloudRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.CreatePrivateCloud][google.cloud.vmwareengine.v1.VmwareEngine.CreatePrivateCloud]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.CreatePrivateCloud]: crate::client::VmwareEngine::create_private_cloud
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePrivateCloudRequest {
     /// Required. The resource name of the location to create the new
@@ -931,11 +970,26 @@ impl serde::ser::Serialize for CreatePrivateCloudRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePrivateCloudRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePrivateCloudRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("private_cloud_id", &self.private_cloud_id);
+        debug_struct.field("private_cloud", &self.private_cloud);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdatePrivateCloud][google.cloud.vmwareengine.v1.VmwareEngine.UpdatePrivateCloud]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdatePrivateCloud]: crate::client::VmwareEngine::update_private_cloud
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePrivateCloudRequest {
     /// Required. Private cloud description.
@@ -1142,11 +1196,24 @@ impl serde::ser::Serialize for UpdatePrivateCloudRequest {
     }
 }
 
+impl std::fmt::Debug for UpdatePrivateCloudRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePrivateCloudRequest");
+        debug_struct.field("private_cloud", &self.private_cloud);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.DeletePrivateCloud][google.cloud.vmwareengine.v1.VmwareEngine.DeletePrivateCloud]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.DeletePrivateCloud]: crate::client::VmwareEngine::delete_private_cloud
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePrivateCloudRequest {
     /// Required. The resource name of the private cloud to delete.
@@ -1399,11 +1466,25 @@ impl serde::ser::Serialize for DeletePrivateCloudRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePrivateCloudRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePrivateCloudRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+        debug_struct.field("delay_hours", &self.delay_hours);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UndeletePrivateCloud][google.cloud.vmwareengine.v1.VmwareEngine.UndeletePrivateCloud]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UndeletePrivateCloud]: crate::client::VmwareEngine::undelete_private_cloud
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeletePrivateCloudRequest {
     /// Required. The resource name of the private cloud scheduled for deletion.
@@ -1562,11 +1643,23 @@ impl serde::ser::Serialize for UndeletePrivateCloudRequest {
     }
 }
 
+impl std::fmt::Debug for UndeletePrivateCloudRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeletePrivateCloudRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListClusters][google.cloud.vmwareengine.v1.VmwareEngine.ListClusters]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListClusters]: crate::client::VmwareEngine::list_clusters
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersRequest {
     /// Required. The resource name of the private cloud to query for clusters.
@@ -1841,11 +1934,26 @@ impl serde::ser::Serialize for ListClustersRequest {
     }
 }
 
+impl std::fmt::Debug for ListClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClustersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListClusters][google.cloud.vmwareengine.v1.VmwareEngine.ListClusters]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListClusters]: crate::client::VmwareEngine::list_clusters
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersResponse {
     /// A list of private cloud clusters.
@@ -2045,11 +2153,24 @@ impl serde::ser::Serialize for ListClustersResponse {
     }
 }
 
+impl std::fmt::Debug for ListClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClustersResponse");
+        debug_struct.field("clusters", &self.clusters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetCluster][google.cloud.vmwareengine.v1.VmwareEngine.GetCluster]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetCluster]: crate::client::VmwareEngine::get_cluster
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClusterRequest {
     /// Required. The cluster resource name to retrieve.
@@ -2182,11 +2303,22 @@ impl serde::ser::Serialize for GetClusterRequest {
     }
 }
 
+impl std::fmt::Debug for GetClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetClusterRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.CreateCluster][google.cloud.vmwareengine.v1.VmwareEngine.CreateCluster]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.CreateCluster]: crate::client::VmwareEngine::create_cluster
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClusterRequest {
     /// Required. The resource name of the private cloud to create a new cluster
@@ -2441,11 +2573,26 @@ impl serde::ser::Serialize for CreateClusterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("cluster_id", &self.cluster_id);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdateCluster][google.cloud.vmwareengine.v1.VmwareEngine.UpdateCluster]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdateCluster]: crate::client::VmwareEngine::update_cluster
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClusterRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -2677,11 +2824,25 @@ impl serde::ser::Serialize for UpdateClusterRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateClusterRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.DeleteCluster][google.cloud.vmwareengine.v1.VmwareEngine.DeleteCluster]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.DeleteCluster]: crate::client::VmwareEngine::delete_cluster
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClusterRequest {
     /// Required. The resource name of the cluster to delete.
@@ -2840,11 +3001,23 @@ impl serde::ser::Serialize for DeleteClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListNodes][google.cloud.vmwareengine.v1.VmwareEngine.ListNodes]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListNodes]: crate::client::VmwareEngine::list_nodes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodesRequest {
     /// Required. The resource name of the cluster to be queried for nodes.
@@ -3053,11 +3226,24 @@ impl serde::ser::Serialize for ListNodesRequest {
     }
 }
 
+impl std::fmt::Debug for ListNodesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNodesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListNodes][google.cloud.vmwareengine.v1.VmwareEngine.ListNodes]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListNodes]: crate::client::VmwareEngine::list_nodes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodesResponse {
     /// The nodes.
@@ -3229,11 +3415,23 @@ impl serde::ser::Serialize for ListNodesResponse {
     }
 }
 
+impl std::fmt::Debug for ListNodesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNodesResponse");
+        debug_struct.field("nodes", &self.nodes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetNode][google.cloud.vmwareengine.v1.VmwareEngine.GetNode]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetNode]: crate::client::VmwareEngine::get_node
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNodeRequest {
     /// Required. The resource name of the node to retrieve.
@@ -3364,11 +3562,22 @@ impl serde::ser::Serialize for GetNodeRequest {
     }
 }
 
+impl std::fmt::Debug for GetNodeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNodeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListExternalAddresses][google.cloud.vmwareengine.v1.VmwareEngine.ListExternalAddresses]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListExternalAddresses]: crate::client::VmwareEngine::list_external_addresses
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExternalAddressesRequest {
     /// Required. The resource name of the private cloud to be queried for
@@ -3656,11 +3865,26 @@ impl serde::ser::Serialize for ListExternalAddressesRequest {
     }
 }
 
+impl std::fmt::Debug for ListExternalAddressesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExternalAddressesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListExternalAddresses][google.cloud.vmwareengine.v1.VmwareEngine.ListExternalAddresses]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListExternalAddresses]: crate::client::VmwareEngine::list_external_addresses
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExternalAddressesResponse {
     /// A list of external IP addresses.
@@ -3865,11 +4089,24 @@ impl serde::ser::Serialize for ListExternalAddressesResponse {
     }
 }
 
+impl std::fmt::Debug for ListExternalAddressesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExternalAddressesResponse");
+        debug_struct.field("external_addresses", &self.external_addresses);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.FetchNetworkPolicyExternalAddresses][google.cloud.vmwareengine.v1.VmwareEngine.FetchNetworkPolicyExternalAddresses]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.FetchNetworkPolicyExternalAddresses]: crate::client::VmwareEngine::fetch_network_policy_external_addresses
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchNetworkPolicyExternalAddressesRequest {
     /// Required. The resource name of the network policy to query for assigned
@@ -4082,11 +4319,24 @@ impl serde::ser::Serialize for FetchNetworkPolicyExternalAddressesRequest {
     }
 }
 
+impl std::fmt::Debug for FetchNetworkPolicyExternalAddressesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchNetworkPolicyExternalAddressesRequest");
+        debug_struct.field("network_policy", &self.network_policy);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.FetchNetworkPolicyExternalAddresses][google.cloud.vmwareengine.v1.VmwareEngine.FetchNetworkPolicyExternalAddresses]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.FetchNetworkPolicyExternalAddresses]: crate::client::VmwareEngine::fetch_network_policy_external_addresses
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchNetworkPolicyExternalAddressesResponse {
     /// A list of external IP addresses assigned to VMware workload VMs within the
@@ -4266,11 +4516,23 @@ impl serde::ser::Serialize for FetchNetworkPolicyExternalAddressesResponse {
     }
 }
 
+impl std::fmt::Debug for FetchNetworkPolicyExternalAddressesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchNetworkPolicyExternalAddressesResponse");
+        debug_struct.field("external_addresses", &self.external_addresses);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetExternalAddress][google.cloud.vmwareengine.v1.VmwareEngine.GetExternalAddress]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetExternalAddress]: crate::client::VmwareEngine::get_external_address
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetExternalAddressRequest {
     /// Required. The resource name of the external IP address to retrieve.
@@ -4403,11 +4665,22 @@ impl serde::ser::Serialize for GetExternalAddressRequest {
     }
 }
 
+impl std::fmt::Debug for GetExternalAddressRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetExternalAddressRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.CreateExternalAddress][google.cloud.vmwareengine.v1.VmwareEngine.CreateExternalAddress]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.CreateExternalAddress]: crate::client::VmwareEngine::create_external_address
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExternalAddressRequest {
     /// Required. The resource name of the private cloud
@@ -4654,11 +4927,25 @@ impl serde::ser::Serialize for CreateExternalAddressRequest {
     }
 }
 
+impl std::fmt::Debug for CreateExternalAddressRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateExternalAddressRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("external_address", &self.external_address);
+        debug_struct.field("external_address_id", &self.external_address_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdateExternalAddress][google.cloud.vmwareengine.v1.VmwareEngine.UpdateExternalAddress]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdateExternalAddress]: crate::client::VmwareEngine::update_external_address
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateExternalAddressRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -4878,11 +5165,24 @@ impl serde::ser::Serialize for UpdateExternalAddressRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateExternalAddressRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateExternalAddressRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("external_address", &self.external_address);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.DeleteExternalAddress][google.cloud.vmwareengine.v1.VmwareEngine.DeleteExternalAddress]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.DeleteExternalAddress]: crate::client::VmwareEngine::delete_external_address
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteExternalAddressRequest {
     /// Required. The resource name of the external IP address to delete.
@@ -5053,11 +5353,23 @@ impl serde::ser::Serialize for DeleteExternalAddressRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteExternalAddressRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteExternalAddressRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListSubnets][google.cloud.vmwareengine.v1.VmwareEngine.ListSubnets]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListSubnets]: crate::client::VmwareEngine::list_subnets
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubnetsRequest {
     /// Required. The resource name of the private cloud to be queried for
@@ -5266,11 +5578,24 @@ impl serde::ser::Serialize for ListSubnetsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSubnetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSubnetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListSubnets][google.cloud.vmwareengine.v1.VmwareEngine.ListSubnets]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListSubnets]: crate::client::VmwareEngine::list_subnets
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubnetsResponse {
     /// A list of subnets.
@@ -5470,11 +5795,24 @@ impl serde::ser::Serialize for ListSubnetsResponse {
     }
 }
 
+impl std::fmt::Debug for ListSubnetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSubnetsResponse");
+        debug_struct.field("subnets", &self.subnets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetSubnet][google.cloud.vmwareengine.v1.VmwareEngine.GetSubnet]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetSubnet]: crate::client::VmwareEngine::get_subnet
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSubnetRequest {
     /// Required. The resource name of the subnet to retrieve.
@@ -5607,11 +5945,22 @@ impl serde::ser::Serialize for GetSubnetRequest {
     }
 }
 
+impl std::fmt::Debug for GetSubnetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSubnetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdateSubnet][google.cloud.vmwareengine.v1.VmwareEngine.UpdateSubnet]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdateSubnet]: crate::client::VmwareEngine::update_subnet
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSubnetRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -5791,11 +6140,23 @@ impl serde::ser::Serialize for UpdateSubnetRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSubnetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSubnetRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("subnet", &self.subnet);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListExternalAccessRules][google.cloud.vmwareengine.v1.VmwareEngine.ListExternalAccessRules]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListExternalAccessRules]: crate::client::VmwareEngine::list_external_access_rules
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExternalAccessRulesRequest {
     /// Required. The resource name of the network policy to query for external
@@ -6083,11 +6444,26 @@ impl serde::ser::Serialize for ListExternalAccessRulesRequest {
     }
 }
 
+impl std::fmt::Debug for ListExternalAccessRulesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExternalAccessRulesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListExternalAccessRules][google.cloud.vmwareengine.v1.VmwareEngine.ListExternalAccessRules]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListExternalAccessRules]: crate::client::VmwareEngine::list_external_access_rules
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExternalAccessRulesResponse {
     /// A list of external access firewall rules.
@@ -6292,11 +6668,24 @@ impl serde::ser::Serialize for ListExternalAccessRulesResponse {
     }
 }
 
+impl std::fmt::Debug for ListExternalAccessRulesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExternalAccessRulesResponse");
+        debug_struct.field("external_access_rules", &self.external_access_rules);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetExternalAccessRule][google.cloud.vmwareengine.v1.VmwareEngine.GetExternalAccessRule]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetExternalAccessRule]: crate::client::VmwareEngine::get_external_access_rule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetExternalAccessRuleRequest {
     /// Required. The resource name of the external access firewall rule to
@@ -6429,11 +6818,22 @@ impl serde::ser::Serialize for GetExternalAccessRuleRequest {
     }
 }
 
+impl std::fmt::Debug for GetExternalAccessRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetExternalAccessRuleRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.CreateExternalAccessRule][google.cloud.vmwareengine.v1.VmwareEngine.CreateExternalAccessRule]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.CreateExternalAccessRule]: crate::client::VmwareEngine::create_external_access_rule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExternalAccessRuleRequest {
     /// Required. The resource name of the network policy
@@ -6679,11 +7079,25 @@ impl serde::ser::Serialize for CreateExternalAccessRuleRequest {
     }
 }
 
+impl std::fmt::Debug for CreateExternalAccessRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateExternalAccessRuleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("external_access_rule", &self.external_access_rule);
+        debug_struct.field("external_access_rule_id", &self.external_access_rule_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdateExternalAccessRule][google.cloud.vmwareengine.v1.VmwareEngine.UpdateExternalAccessRule]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdateExternalAccessRule]: crate::client::VmwareEngine::update_external_access_rule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateExternalAccessRuleRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -6902,11 +7316,24 @@ impl serde::ser::Serialize for UpdateExternalAccessRuleRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateExternalAccessRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateExternalAccessRuleRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("external_access_rule", &self.external_access_rule);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.DeleteExternalAccessRule][google.cloud.vmwareengine.v1.VmwareEngine.DeleteExternalAccessRule]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.DeleteExternalAccessRule]: crate::client::VmwareEngine::delete_external_access_rule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteExternalAccessRuleRequest {
     /// Required. The resource name of the external access firewall rule to delete.
@@ -7077,11 +7504,23 @@ impl serde::ser::Serialize for DeleteExternalAccessRuleRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteExternalAccessRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteExternalAccessRuleRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListLoggingServers][google.cloud.vmwareengine.v1.VmwareEngine.ListLoggingServers]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListLoggingServers]: crate::client::VmwareEngine::list_logging_servers
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLoggingServersRequest {
     /// Required. The resource name of the private cloud to be queried for
@@ -7370,11 +7809,26 @@ impl serde::ser::Serialize for ListLoggingServersRequest {
     }
 }
 
+impl std::fmt::Debug for ListLoggingServersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLoggingServersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListLoggingServers][google.cloud.vmwareengine.v1.VmwareEngine.ListLoggingServers]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListLoggingServers]: crate::client::VmwareEngine::list_logging_servers
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLoggingServersResponse {
     /// A list of Logging Servers.
@@ -7575,11 +8029,24 @@ impl serde::ser::Serialize for ListLoggingServersResponse {
     }
 }
 
+impl std::fmt::Debug for ListLoggingServersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLoggingServersResponse");
+        debug_struct.field("logging_servers", &self.logging_servers);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetLoggingServer][google.cloud.vmwareengine.v1.VmwareEngine.GetLoggingServer]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetLoggingServer]: crate::client::VmwareEngine::get_logging_server
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLoggingServerRequest {
     /// Required. The resource name of the Logging Server to retrieve.
@@ -7712,11 +8179,22 @@ impl serde::ser::Serialize for GetLoggingServerRequest {
     }
 }
 
+impl std::fmt::Debug for GetLoggingServerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLoggingServerRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.CreateLoggingServer][google.cloud.vmwareengine.v1.VmwareEngine.CreateLoggingServer]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.CreateLoggingServer]: crate::client::VmwareEngine::create_logging_server
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLoggingServerRequest {
     /// Required. The resource name of the private cloud
@@ -7962,11 +8440,25 @@ impl serde::ser::Serialize for CreateLoggingServerRequest {
     }
 }
 
+impl std::fmt::Debug for CreateLoggingServerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateLoggingServerRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("logging_server", &self.logging_server);
+        debug_struct.field("logging_server_id", &self.logging_server_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdateLoggingServer][google.cloud.vmwareengine.v1.VmwareEngine.UpdateLoggingServer]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdateLoggingServer]: crate::client::VmwareEngine::update_logging_server
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLoggingServerRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -8185,11 +8677,24 @@ impl serde::ser::Serialize for UpdateLoggingServerRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateLoggingServerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateLoggingServerRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("logging_server", &self.logging_server);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.DeleteLoggingServer][google.cloud.vmwareengine.v1.VmwareEngine.DeleteLoggingServer]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.DeleteLoggingServer]: crate::client::VmwareEngine::delete_logging_server
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLoggingServerRequest {
     /// Required. The resource name of the logging server to delete.
@@ -8360,8 +8865,20 @@ impl serde::ser::Serialize for DeleteLoggingServerRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteLoggingServerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteLoggingServerRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -8668,11 +9185,28 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListNodeTypes][google.cloud.vmwareengine.v1.VmwareEngine.ListNodeTypes]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListNodeTypes]: crate::client::VmwareEngine::list_node_types
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodeTypesRequest {
     /// Required. The resource name of the location to be queried for node types.
@@ -8930,11 +9464,25 @@ impl serde::ser::Serialize for ListNodeTypesRequest {
     }
 }
 
+impl std::fmt::Debug for ListNodeTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNodeTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListNodeTypes][google.cloud.vmwareengine.v1.VmwareEngine.ListNodeTypes]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListNodeTypes]: crate::client::VmwareEngine::list_node_types
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodeTypesResponse {
     /// A list of Node Types.
@@ -9135,11 +9683,24 @@ impl serde::ser::Serialize for ListNodeTypesResponse {
     }
 }
 
+impl std::fmt::Debug for ListNodeTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNodeTypesResponse");
+        debug_struct.field("node_types", &self.node_types);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetNodeType][google.cloud.vmwareengine.v1.VmwareEngine.GetNodeType]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetNodeType]: crate::client::VmwareEngine::get_node_type
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNodeTypeRequest {
     /// Required. The resource name of the node type to retrieve.
@@ -9272,11 +9833,22 @@ impl serde::ser::Serialize for GetNodeTypeRequest {
     }
 }
 
+impl std::fmt::Debug for GetNodeTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNodeTypeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ShowNsxCredentials][google.cloud.vmwareengine.v1.VmwareEngine.ShowNsxCredentials]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ShowNsxCredentials]: crate::client::VmwareEngine::show_nsx_credentials
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShowNsxCredentialsRequest {
     /// Required. The resource name of the private cloud
@@ -9411,11 +9983,22 @@ impl serde::ser::Serialize for ShowNsxCredentialsRequest {
     }
 }
 
+impl std::fmt::Debug for ShowNsxCredentialsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShowNsxCredentialsRequest");
+        debug_struct.field("private_cloud", &self.private_cloud);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ShowVcenterCredentials][google.cloud.vmwareengine.v1.VmwareEngine.ShowVcenterCredentials]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ShowVcenterCredentials]: crate::client::VmwareEngine::show_vcenter_credentials
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShowVcenterCredentialsRequest {
     /// Required. The resource name of the private cloud
@@ -9583,11 +10166,23 @@ impl serde::ser::Serialize for ShowVcenterCredentialsRequest {
     }
 }
 
+impl std::fmt::Debug for ShowVcenterCredentialsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShowVcenterCredentialsRequest");
+        debug_struct.field("private_cloud", &self.private_cloud);
+        debug_struct.field("username", &self.username);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ResetNsxCredentials][google.cloud.vmwareengine.v1.VmwareEngine.ResetNsxCredentials]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ResetNsxCredentials]: crate::client::VmwareEngine::reset_nsx_credentials
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetNsxCredentialsRequest {
     /// Required. The resource name of the private cloud
@@ -9760,11 +10355,23 @@ impl serde::ser::Serialize for ResetNsxCredentialsRequest {
     }
 }
 
+impl std::fmt::Debug for ResetNsxCredentialsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetNsxCredentialsRequest");
+        debug_struct.field("private_cloud", &self.private_cloud);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ResetVcenterCredentials][google.cloud.vmwareengine.v1.VmwareEngine.ResetVcenterCredentials]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ResetVcenterCredentials]: crate::client::VmwareEngine::reset_vcenter_credentials
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetVcenterCredentialsRequest {
     /// Required. The resource name of the private cloud
@@ -9969,11 +10576,24 @@ impl serde::ser::Serialize for ResetVcenterCredentialsRequest {
     }
 }
 
+impl std::fmt::Debug for ResetVcenterCredentialsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetVcenterCredentialsRequest");
+        debug_struct.field("private_cloud", &self.private_cloud);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("username", &self.username);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListHcxActivationKeys][google.cloud.vmwareengine.v1.VmwareEngine.ListHcxActivationKeys]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListHcxActivationKeys]: crate::client::VmwareEngine::list_hcx_activation_keys
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHcxActivationKeysResponse {
     /// List of HCX activation keys.
@@ -10178,11 +10798,24 @@ impl serde::ser::Serialize for ListHcxActivationKeysResponse {
     }
 }
 
+impl std::fmt::Debug for ListHcxActivationKeysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHcxActivationKeysResponse");
+        debug_struct.field("hcx_activation_keys", &self.hcx_activation_keys);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListHcxActivationKeys][google.cloud.vmwareengine.v1.VmwareEngine.ListHcxActivationKeys]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListHcxActivationKeys]: crate::client::VmwareEngine::list_hcx_activation_keys
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHcxActivationKeysRequest {
     /// Required. The resource name of the private cloud
@@ -10392,8 +11025,21 @@ impl serde::ser::Serialize for ListHcxActivationKeysRequest {
     }
 }
 
+impl std::fmt::Debug for ListHcxActivationKeysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHcxActivationKeysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [VmwareEngine.GetHcxActivationKeys][]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetHcxActivationKeyRequest {
     /// Required. The resource name of the HCX activation key to retrieve.
@@ -10526,11 +11172,22 @@ impl serde::ser::Serialize for GetHcxActivationKeyRequest {
     }
 }
 
+impl std::fmt::Debug for GetHcxActivationKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetHcxActivationKeyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.CreateHcxActivationKey][google.cloud.vmwareengine.v1.VmwareEngine.CreateHcxActivationKey]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.CreateHcxActivationKey]: crate::client::VmwareEngine::create_hcx_activation_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateHcxActivationKeyRequest {
     /// Required. The resource name of the private cloud to create the key for.
@@ -10777,11 +11434,25 @@ impl serde::ser::Serialize for CreateHcxActivationKeyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateHcxActivationKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateHcxActivationKeyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("hcx_activation_key", &self.hcx_activation_key);
+        debug_struct.field("hcx_activation_key_id", &self.hcx_activation_key_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetDnsForwarding][google.cloud.vmwareengine.v1.VmwareEngine.GetDnsForwarding]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetDnsForwarding]: crate::client::VmwareEngine::get_dns_forwarding
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDnsForwardingRequest {
     /// Required. The resource name of a `DnsForwarding` to retrieve.
@@ -10914,11 +11585,22 @@ impl serde::ser::Serialize for GetDnsForwardingRequest {
     }
 }
 
+impl std::fmt::Debug for GetDnsForwardingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDnsForwardingRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdateDnsForwarding][google.cloud.vmwareengine.v1.VmwareEngine.UpdateDnsForwarding]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdateDnsForwarding]: crate::client::VmwareEngine::update_dns_forwarding
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDnsForwardingRequest {
     /// Required. DnsForwarding config details.
@@ -11137,11 +11819,24 @@ impl serde::ser::Serialize for UpdateDnsForwardingRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDnsForwardingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDnsForwardingRequest");
+        debug_struct.field("dns_forwarding", &self.dns_forwarding);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.CreateNetworkPeering][google.cloud.vmwareengine.v1.VmwareEngine.CreateNetworkPeering]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.CreateNetworkPeering]: crate::client::VmwareEngine::create_network_peering
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNetworkPeeringRequest {
     /// Required. The resource name of the location to create the new network
@@ -11387,11 +12082,25 @@ impl serde::ser::Serialize for CreateNetworkPeeringRequest {
     }
 }
 
+impl std::fmt::Debug for CreateNetworkPeeringRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateNetworkPeeringRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("network_peering_id", &self.network_peering_id);
+        debug_struct.field("network_peering", &self.network_peering);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.DeleteNetworkPeering][google.cloud.vmwareengine.v1.VmwareEngine.DeleteNetworkPeering]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.DeleteNetworkPeering]: crate::client::VmwareEngine::delete_network_peering
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNetworkPeeringRequest {
     /// Required. The resource name of the network peering to be deleted.
@@ -11562,11 +12271,23 @@ impl serde::ser::Serialize for DeleteNetworkPeeringRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteNetworkPeeringRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteNetworkPeeringRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetNetworkPeering][google.cloud.vmwareengine.v1.VmwareEngine.GetNetworkPeering]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetNetworkPeering]: crate::client::VmwareEngine::get_network_peering
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNetworkPeeringRequest {
     /// Required. The resource name of the network peering to retrieve.
@@ -11699,11 +12420,22 @@ impl serde::ser::Serialize for GetNetworkPeeringRequest {
     }
 }
 
+impl std::fmt::Debug for GetNetworkPeeringRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNetworkPeeringRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListNetworkPeerings][google.cloud.vmwareengine.v1.VmwareEngine.ListNetworkPeerings]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListNetworkPeerings]: crate::client::VmwareEngine::list_network_peerings
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkPeeringsRequest {
     /// Required. The resource name of the location (global) to query for
@@ -11989,11 +12721,26 @@ impl serde::ser::Serialize for ListNetworkPeeringsRequest {
     }
 }
 
+impl std::fmt::Debug for ListNetworkPeeringsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNetworkPeeringsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdateNetworkPeering][google.cloud.vmwareengine.v1.VmwareEngine.UpdateNetworkPeering]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdateNetworkPeering]: crate::client::VmwareEngine::update_network_peering
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNetworkPeeringRequest {
     /// Required. Network peering description.
@@ -12213,11 +12960,24 @@ impl serde::ser::Serialize for UpdateNetworkPeeringRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateNetworkPeeringRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNetworkPeeringRequest");
+        debug_struct.field("network_peering", &self.network_peering);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListNetworkPeerings][google.cloud.vmwareengine.v1.VmwareEngine.ListNetworkPeerings]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListNetworkPeerings]: crate::client::VmwareEngine::list_network_peerings
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkPeeringsResponse {
     /// A list of network peerings.
@@ -12421,11 +13181,24 @@ impl serde::ser::Serialize for ListNetworkPeeringsResponse {
     }
 }
 
+impl std::fmt::Debug for ListNetworkPeeringsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNetworkPeeringsResponse");
+        debug_struct.field("network_peerings", &self.network_peerings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListPeeringRoutes][google.cloud.vmwareengine.v1.VmwareEngine.ListPeeringRoutes]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListPeeringRoutes]: crate::client::VmwareEngine::list_peering_routes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPeeringRoutesRequest {
     /// Required. The resource name of the network peering to retrieve peering
@@ -12659,11 +13432,25 @@ impl serde::ser::Serialize for ListPeeringRoutesRequest {
     }
 }
 
+impl std::fmt::Debug for ListPeeringRoutesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPeeringRoutesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListPeeringRoutes][google.cloud.vmwareengine.v1.VmwareEngine.ListPeeringRoutes]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListPeeringRoutes]: crate::client::VmwareEngine::list_peering_routes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPeeringRoutesResponse {
     /// A list of peering routes.
@@ -12836,11 +13623,23 @@ impl serde::ser::Serialize for ListPeeringRoutesResponse {
     }
 }
 
+impl std::fmt::Debug for ListPeeringRoutesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPeeringRoutesResponse");
+        debug_struct.field("peering_routes", &self.peering_routes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListNetworkPolicies][google.cloud.vmwareengine.v1.VmwareEngine.ListNetworkPolicies]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListNetworkPolicies]: crate::client::VmwareEngine::list_network_policies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkPoliciesRequest {
     /// Required. The resource name of the location (region) to query for
@@ -13127,11 +13926,26 @@ impl serde::ser::Serialize for ListNetworkPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListNetworkPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNetworkPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListNetworkPolicies][google.cloud.vmwareengine.v1.VmwareEngine.ListNetworkPolicies]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListNetworkPolicies]: crate::client::VmwareEngine::list_network_policies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkPoliciesResponse {
     /// A list of network policies.
@@ -13332,11 +14146,24 @@ impl serde::ser::Serialize for ListNetworkPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListNetworkPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNetworkPoliciesResponse");
+        debug_struct.field("network_policies", &self.network_policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetNetworkPolicy][google.cloud.vmwareengine.v1.VmwareEngine.GetNetworkPolicy]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetNetworkPolicy]: crate::client::VmwareEngine::get_network_policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNetworkPolicyRequest {
     /// Required. The resource name of the network policy to retrieve.
@@ -13469,11 +14296,22 @@ impl serde::ser::Serialize for GetNetworkPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetNetworkPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNetworkPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdateNetworkPolicy][google.cloud.vmwareengine.v1.VmwareEngine.UpdateNetworkPolicy]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdateNetworkPolicy]: crate::client::VmwareEngine::update_network_policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNetworkPolicyRequest {
     /// Required. Network policy description.
@@ -13692,11 +14530,24 @@ impl serde::ser::Serialize for UpdateNetworkPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateNetworkPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNetworkPolicyRequest");
+        debug_struct.field("network_policy", &self.network_policy);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.CreateNetworkPolicy][google.cloud.vmwareengine.v1.VmwareEngine.CreateNetworkPolicy]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.CreateNetworkPolicy]: crate::client::VmwareEngine::create_network_policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNetworkPolicyRequest {
     /// Required. The resource name of the location (region)
@@ -13943,11 +14794,25 @@ impl serde::ser::Serialize for CreateNetworkPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateNetworkPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateNetworkPolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("network_policy_id", &self.network_policy_id);
+        debug_struct.field("network_policy", &self.network_policy);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.DeleteNetworkPolicy][google.cloud.vmwareengine.v1.VmwareEngine.DeleteNetworkPolicy]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.DeleteNetworkPolicy]: crate::client::VmwareEngine::delete_network_policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNetworkPolicyRequest {
     /// Required. The resource name of the network policy to delete.
@@ -14118,11 +14983,23 @@ impl serde::ser::Serialize for DeleteNetworkPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteNetworkPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteNetworkPolicyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListManagementDnsZoneBindings][google.cloud.vmwareengine.v1.VmwareEngine.ListManagementDnsZoneBindings]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListManagementDnsZoneBindings]: crate::client::VmwareEngine::list_management_dns_zone_bindings
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListManagementDnsZoneBindingsRequest {
     /// Required. The resource name of the private cloud to be queried for
@@ -14411,11 +15288,26 @@ impl serde::ser::Serialize for ListManagementDnsZoneBindingsRequest {
     }
 }
 
+impl std::fmt::Debug for ListManagementDnsZoneBindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListManagementDnsZoneBindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListManagementDnsZoneBindings][google.cloud.vmwareengine.v1.VmwareEngine.ListManagementDnsZoneBindings]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListManagementDnsZoneBindings]: crate::client::VmwareEngine::list_management_dns_zone_bindings
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListManagementDnsZoneBindingsResponse {
     /// A list of management DNS zone bindings.
@@ -14628,11 +15520,27 @@ impl serde::ser::Serialize for ListManagementDnsZoneBindingsResponse {
     }
 }
 
+impl std::fmt::Debug for ListManagementDnsZoneBindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListManagementDnsZoneBindingsResponse");
+        debug_struct.field(
+            "management_dns_zone_bindings",
+            &self.management_dns_zone_bindings,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetManagementDnsZoneBinding][google.cloud.vmwareengine.v1.VmwareEngine.GetManagementDnsZoneBinding]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetManagementDnsZoneBinding]: crate::client::VmwareEngine::get_management_dns_zone_binding
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetManagementDnsZoneBindingRequest {
     /// Required. The resource name of the management DNS zone binding to
@@ -14765,8 +15673,19 @@ impl serde::ser::Serialize for GetManagementDnsZoneBindingRequest {
     }
 }
 
+impl std::fmt::Debug for GetManagementDnsZoneBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetManagementDnsZoneBindingRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [VmwareEngine.CreateManagementDnsZoneBindings][]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateManagementDnsZoneBindingRequest {
     /// Required. The resource name of the private cloud
@@ -15028,11 +15947,31 @@ impl serde::ser::Serialize for CreateManagementDnsZoneBindingRequest {
     }
 }
 
+impl std::fmt::Debug for CreateManagementDnsZoneBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateManagementDnsZoneBindingRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "management_dns_zone_binding",
+            &self.management_dns_zone_binding,
+        );
+        debug_struct.field(
+            "management_dns_zone_binding_id",
+            &self.management_dns_zone_binding_id,
+        );
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdateManagementDnsZoneBinding][google.cloud.vmwareengine.v1.VmwareEngine.UpdateManagementDnsZoneBinding]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdateManagementDnsZoneBinding]: crate::client::VmwareEngine::update_management_dns_zone_binding
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateManagementDnsZoneBindingRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -15259,11 +16198,27 @@ impl serde::ser::Serialize for UpdateManagementDnsZoneBindingRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateManagementDnsZoneBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateManagementDnsZoneBindingRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field(
+            "management_dns_zone_binding",
+            &self.management_dns_zone_binding,
+        );
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.DeleteManagementDnsZoneBinding][google.cloud.vmwareengine.v1.VmwareEngine.DeleteManagementDnsZoneBinding]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.DeleteManagementDnsZoneBinding]: crate::client::VmwareEngine::delete_management_dns_zone_binding
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteManagementDnsZoneBindingRequest {
     /// Required. The resource name of the management DNS zone binding to delete.
@@ -15435,8 +16390,20 @@ impl serde::ser::Serialize for DeleteManagementDnsZoneBindingRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteManagementDnsZoneBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteManagementDnsZoneBindingRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [VmwareEngine.RepairManagementDnsZoneBindings][]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepairManagementDnsZoneBindingRequest {
     /// Required. The resource name of the management DNS zone binding to repair.
@@ -15608,11 +16575,23 @@ impl serde::ser::Serialize for RepairManagementDnsZoneBindingRequest {
     }
 }
 
+impl std::fmt::Debug for RepairManagementDnsZoneBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RepairManagementDnsZoneBindingRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.CreateVmwareEngineNetwork][google.cloud.vmwareengine.v1.VmwareEngine.CreateVmwareEngineNetwork]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.CreateVmwareEngineNetwork]: crate::client::VmwareEngine::create_vmware_engine_network
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVmwareEngineNetworkRequest {
     /// Required. The resource name of the location to create the new VMware Engine
@@ -15864,11 +16843,25 @@ impl serde::ser::Serialize for CreateVmwareEngineNetworkRequest {
     }
 }
 
+impl std::fmt::Debug for CreateVmwareEngineNetworkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVmwareEngineNetworkRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("vmware_engine_network_id", &self.vmware_engine_network_id);
+        debug_struct.field("vmware_engine_network", &self.vmware_engine_network);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdateVmwareEngineNetwork][google.cloud.vmwareengine.v1.VmwareEngine.UpdateVmwareEngineNetwork]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdateVmwareEngineNetwork]: crate::client::VmwareEngine::update_vmware_engine_network
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVmwareEngineNetworkRequest {
     /// Required. VMware Engine network description.
@@ -16088,11 +17081,24 @@ impl serde::ser::Serialize for UpdateVmwareEngineNetworkRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateVmwareEngineNetworkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateVmwareEngineNetworkRequest");
+        debug_struct.field("vmware_engine_network", &self.vmware_engine_network);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.DeleteVmwareEngineNetwork][google.cloud.vmwareengine.v1.VmwareEngine.DeleteVmwareEngineNetwork]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.DeleteVmwareEngineNetwork]: crate::client::VmwareEngine::delete_vmware_engine_network
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVmwareEngineNetworkRequest {
     /// Required. The resource name of the VMware Engine network to be deleted.
@@ -16290,11 +17296,24 @@ impl serde::ser::Serialize for DeleteVmwareEngineNetworkRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteVmwareEngineNetworkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteVmwareEngineNetworkRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetVmwareEngineNetwork][google.cloud.vmwareengine.v1.VmwareEngine.GetVmwareEngineNetwork]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetVmwareEngineNetwork]: crate::client::VmwareEngine::get_vmware_engine_network
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVmwareEngineNetworkRequest {
     /// Required. The resource name of the VMware Engine network to retrieve.
@@ -16427,11 +17446,22 @@ impl serde::ser::Serialize for GetVmwareEngineNetworkRequest {
     }
 }
 
+impl std::fmt::Debug for GetVmwareEngineNetworkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVmwareEngineNetworkRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListVmwareEngineNetworks][google.cloud.vmwareengine.v1.VmwareEngine.ListVmwareEngineNetworks]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListVmwareEngineNetworks]: crate::client::VmwareEngine::list_vmware_engine_networks
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVmwareEngineNetworksRequest {
     /// Required. The resource name of the location to query for
@@ -16717,11 +17747,26 @@ impl serde::ser::Serialize for ListVmwareEngineNetworksRequest {
     }
 }
 
+impl std::fmt::Debug for ListVmwareEngineNetworksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVmwareEngineNetworksRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListVmwareEngineNetworks][google.cloud.vmwareengine.v1.VmwareEngine.ListVmwareEngineNetworks]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListVmwareEngineNetworks]: crate::client::VmwareEngine::list_vmware_engine_networks
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVmwareEngineNetworksResponse {
     /// A list of VMware Engine networks.
@@ -16925,11 +17970,24 @@ impl serde::ser::Serialize for ListVmwareEngineNetworksResponse {
     }
 }
 
+impl std::fmt::Debug for ListVmwareEngineNetworksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVmwareEngineNetworksResponse");
+        debug_struct.field("vmware_engine_networks", &self.vmware_engine_networks);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.CreatePrivateConnection][google.cloud.vmwareengine.v1.VmwareEngine.CreatePrivateConnection]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.CreatePrivateConnection]: crate::client::VmwareEngine::create_private_connection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePrivateConnectionRequest {
     /// Required. The resource name of the location to create the new private
@@ -17175,11 +18233,25 @@ impl serde::ser::Serialize for CreatePrivateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePrivateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePrivateConnectionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("private_connection_id", &self.private_connection_id);
+        debug_struct.field("private_connection", &self.private_connection);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetPrivateConnection][google.cloud.vmwareengine.v1.VmwareEngine.GetPrivateConnection]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetPrivateConnection]: crate::client::VmwareEngine::get_private_connection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPrivateConnectionRequest {
     /// Required. The resource name of the private connection to retrieve.
@@ -17312,11 +18384,22 @@ impl serde::ser::Serialize for GetPrivateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for GetPrivateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPrivateConnectionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListPrivateConnections][google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateConnections]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateConnections]: crate::client::VmwareEngine::list_private_connections
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionsRequest {
     /// Required. The resource name of the location to query for
@@ -17602,11 +18685,26 @@ impl serde::ser::Serialize for ListPrivateConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListPrivateConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPrivateConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListPrivateConnections][google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateConnections]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateConnections]: crate::client::VmwareEngine::list_private_connections
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionsResponse {
     /// A list of private connections.
@@ -17810,11 +18908,24 @@ impl serde::ser::Serialize for ListPrivateConnectionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListPrivateConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPrivateConnectionsResponse");
+        debug_struct.field("private_connections", &self.private_connections);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.UpdatePrivateConnection][google.cloud.vmwareengine.v1.VmwareEngine.UpdatePrivateConnection]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.UpdatePrivateConnection]: crate::client::VmwareEngine::update_private_connection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePrivateConnectionRequest {
     /// Required. Private connection description.
@@ -18034,11 +19145,24 @@ impl serde::ser::Serialize for UpdatePrivateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdatePrivateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePrivateConnectionRequest");
+        debug_struct.field("private_connection", &self.private_connection);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.DeletePrivateConnection][google.cloud.vmwareengine.v1.VmwareEngine.DeletePrivateConnection]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.DeletePrivateConnection]: crate::client::VmwareEngine::delete_private_connection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePrivateConnectionRequest {
     /// Required. The resource name of the private connection to be deleted.
@@ -18209,11 +19333,23 @@ impl serde::ser::Serialize for DeletePrivateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePrivateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePrivateConnectionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.ListPrivateConnectionPeeringRoutes][google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateConnectionPeeringRoutes]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateConnectionPeeringRoutes]: crate::client::VmwareEngine::list_private_connection_peering_routes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionPeeringRoutesRequest {
     /// Required. The resource name of the private connection to retrieve peering
@@ -18420,11 +19556,24 @@ impl serde::ser::Serialize for ListPrivateConnectionPeeringRoutesRequest {
     }
 }
 
+impl std::fmt::Debug for ListPrivateConnectionPeeringRoutesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPrivateConnectionPeeringRoutesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [VmwareEngine.ListPrivateConnectionPeeringRoutes][google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateConnectionPeeringRoutes]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListPrivateConnectionPeeringRoutes]: crate::client::VmwareEngine::list_private_connection_peering_routes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionPeeringRoutesResponse {
     /// A list of peering routes.
@@ -18599,11 +19748,23 @@ impl serde::ser::Serialize for ListPrivateConnectionPeeringRoutesResponse {
     }
 }
 
+impl std::fmt::Debug for ListPrivateConnectionPeeringRoutesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPrivateConnectionPeeringRoutesResponse");
+        debug_struct.field("peering_routes", &self.peering_routes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GrantDnsBindPermission][google.cloud.vmwareengine.v1.VmwareEngine.GrantDnsBindPermission]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GrantDnsBindPermission]: crate::client::VmwareEngine::grant_dns_bind_permission
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GrantDnsBindPermissionRequest {
     /// Required. The name of the resource which stores the users/service accounts
@@ -18812,11 +19973,24 @@ impl serde::ser::Serialize for GrantDnsBindPermissionRequest {
     }
 }
 
+impl std::fmt::Debug for GrantDnsBindPermissionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GrantDnsBindPermissionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("principal", &self.principal);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.RevokeDnsBindPermission][google.cloud.vmwareengine.v1.VmwareEngine.RevokeDnsBindPermission]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.RevokeDnsBindPermission]: crate::client::VmwareEngine::revoke_dns_bind_permission
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RevokeDnsBindPermissionRequest {
     /// Required. The name of the resource which stores the users/service accounts
@@ -19025,11 +20199,24 @@ impl serde::ser::Serialize for RevokeDnsBindPermissionRequest {
     }
 }
 
+impl std::fmt::Debug for RevokeDnsBindPermissionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RevokeDnsBindPermissionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("principal", &self.principal);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [VmwareEngine.GetDnsBindPermission][google.cloud.vmwareengine.v1.VmwareEngine.GetDnsBindPermission]
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.GetDnsBindPermission]: crate::client::VmwareEngine::get_dns_bind_permission
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDnsBindPermissionRequest {
     /// Required. The name of the resource which stores the users/service accounts
@@ -19163,9 +20350,20 @@ impl serde::ser::Serialize for GetDnsBindPermissionRequest {
     }
 }
 
+impl std::fmt::Debug for GetDnsBindPermissionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDnsBindPermissionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Network configuration in the consumer project
 /// with which the peering has to be done.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
     /// Required. Management CIDR used by VMware management appliances.
@@ -19452,8 +20650,29 @@ impl serde::ser::Serialize for NetworkConfig {
     }
 }
 
+impl std::fmt::Debug for NetworkConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkConfig");
+        debug_struct.field("management_cidr", &self.management_cidr);
+        debug_struct.field("vmware_engine_network", &self.vmware_engine_network);
+        debug_struct.field(
+            "vmware_engine_network_canonical",
+            &self.vmware_engine_network_canonical,
+        );
+        debug_struct.field(
+            "management_ip_address_layout_version",
+            &self.management_ip_address_layout_version,
+        );
+        debug_struct.field("dns_server_ip", &self.dns_server_ip);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about the type and number of nodes associated with the cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeTypeConfig {
     /// Required. The number of nodes of this type in the cluster
@@ -19648,8 +20867,20 @@ impl serde::ser::Serialize for NodeTypeConfig {
     }
 }
 
+impl std::fmt::Debug for NodeTypeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeTypeConfig");
+        debug_struct.field("node_count", &self.node_count);
+        debug_struct.field("custom_core_count", &self.custom_core_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration of a stretched cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StretchedClusterConfig {
     /// Required. Zone that will remain operational when connection between the two
@@ -19818,10 +21049,22 @@ impl serde::ser::Serialize for StretchedClusterConfig {
     }
 }
 
+impl std::fmt::Debug for StretchedClusterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StretchedClusterConfig");
+        debug_struct.field("preferred_location", &self.preferred_location);
+        debug_struct.field("secondary_location", &self.secondary_location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a private cloud resource. Private clouds of type `STANDARD` and
 /// `TIME_LIMITED` are zonal resources, `STRETCHED` private clouds are
 /// regional.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateCloud {
     /// Output only. The resource name of this private cloud.
@@ -20380,13 +21623,37 @@ impl serde::ser::Serialize for PrivateCloud {
     }
 }
 
+impl std::fmt::Debug for PrivateCloud {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrivateCloud");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("network_config", &self.network_config);
+        debug_struct.field("management_cluster", &self.management_cluster);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("hcx", &self.hcx);
+        debug_struct.field("nsx", &self.nsx);
+        debug_struct.field("vcenter", &self.vcenter);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PrivateCloud].
 pub mod private_cloud {
     #[allow(unused_imports)]
     use super::*;
 
     /// Management cluster configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ManagementCluster {
         /// Required. The user-provided identifier of the new `Cluster`.
@@ -20603,6 +21870,19 @@ pub mod private_cloud {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ManagementCluster {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ManagementCluster");
+            debug_struct.field("cluster_id", &self.cluster_id);
+            debug_struct.field("node_type_configs", &self.node_type_configs);
+            debug_struct.field("stretched_cluster_config", &self.stretched_cluster_config);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -20906,7 +22186,7 @@ pub mod private_cloud {
 }
 
 /// A cluster in a private cloud.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cluster {
     /// Output only. The resource name of this cluster.
@@ -21298,6 +22578,25 @@ impl serde::ser::Serialize for Cluster {
     }
 }
 
+impl std::fmt::Debug for Cluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Cluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("management", &self.management);
+        debug_struct.field("autoscaling_settings", &self.autoscaling_settings);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("node_type_configs", &self.node_type_configs);
+        debug_struct.field("stretched_cluster_config", &self.stretched_cluster_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Cluster].
 pub mod cluster {
     #[allow(unused_imports)]
@@ -21460,7 +22759,7 @@ pub mod cluster {
 }
 
 /// Node in a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Node {
     /// Output only. The resource name of this node.
@@ -21762,6 +23061,23 @@ impl serde::ser::Serialize for Node {
     }
 }
 
+impl std::fmt::Debug for Node {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Node");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("fqdn", &self.fqdn);
+        debug_struct.field("internal_ip", &self.internal_ip);
+        debug_struct.field("node_type_id", &self.node_type_id);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("custom_core_count", &self.custom_core_count);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Node].
 pub mod node {
     #[allow(unused_imports)]
@@ -21916,7 +23232,7 @@ pub mod node {
 
 /// Represents an allocated external IP address and its corresponding internal IP
 /// address in a private cloud.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalAddress {
     /// Output only. The resource name of this external IP address.
@@ -22244,6 +23560,24 @@ impl serde::ser::Serialize for ExternalAddress {
     }
 }
 
+impl std::fmt::Debug for ExternalAddress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExternalAddress");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("internal_ip", &self.internal_ip);
+        debug_struct.field("external_ip", &self.external_ip);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExternalAddress].
 pub mod external_address {
     #[allow(unused_imports)]
@@ -22398,7 +23732,7 @@ pub mod external_address {
 
 /// Subnet in a private cloud. Either `management` subnets (such as vMotion) that
 /// are read-only, or `userDefined`, which can also be updated.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subnet {
     /// Output only. The resource name of this subnet.
@@ -22674,6 +24008,22 @@ impl serde::ser::Serialize for Subnet {
     }
 }
 
+impl std::fmt::Debug for Subnet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Subnet");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ip_cidr_range", &self.ip_cidr_range);
+        debug_struct.field("gateway_ip", &self.gateway_ip);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("vlan_id", &self.vlan_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Subnet].
 pub mod subnet {
     #[allow(unused_imports)]
@@ -22843,7 +24193,7 @@ pub mod subnet {
 
 /// External access firewall rules for filtering incoming traffic destined to
 /// `ExternalAddress` resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalAccessRule {
     /// Output only. The resource name of this external access rule.
@@ -23360,13 +24710,36 @@ impl serde::ser::Serialize for ExternalAccessRule {
     }
 }
 
+impl std::fmt::Debug for ExternalAccessRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExternalAccessRule");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("ip_protocol", &self.ip_protocol);
+        debug_struct.field("source_ip_ranges", &self.source_ip_ranges);
+        debug_struct.field("source_ports", &self.source_ports);
+        debug_struct.field("destination_ip_ranges", &self.destination_ip_ranges);
+        debug_struct.field("destination_ports", &self.destination_ports);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("uid", &self.uid);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExternalAccessRule].
 pub mod external_access_rule {
     #[allow(unused_imports)]
     use super::*;
 
     /// An IP range provided in any one of the supported formats.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IpRange {
         pub ip_range: std::option::Option<crate::model::external_access_rule::ip_range::IpRange>,
@@ -23639,6 +25012,17 @@ pub mod external_access_rule {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for IpRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IpRange");
+            debug_struct.field("ip_range", &self.ip_range);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -23945,7 +25329,7 @@ pub mod external_access_rule {
 }
 
 /// Logging server to receive vCenter or ESXi logs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingServer {
     /// Output only. The resource name of this logging server.
@@ -24293,6 +25677,24 @@ impl serde::ser::Serialize for LoggingServer {
     }
 }
 
+impl std::fmt::Debug for LoggingServer {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoggingServer");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("hostname", &self.hostname);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("protocol", &self.protocol);
+        debug_struct.field("source_type", &self.source_type);
+        debug_struct.field("uid", &self.uid);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LoggingServer].
 pub mod logging_server {
     #[allow(unused_imports)]
@@ -24586,7 +25988,7 @@ pub mod logging_server {
 }
 
 /// Describes node type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeType {
     /// Output only. The resource name of this node type.
@@ -25090,6 +26492,30 @@ impl serde::ser::Serialize for NodeType {
     }
 }
 
+impl std::fmt::Debug for NodeType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeType");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("node_type_id", &self.node_type_id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("virtual_cpu_count", &self.virtual_cpu_count);
+        debug_struct.field("total_core_count", &self.total_core_count);
+        debug_struct.field("memory_gb", &self.memory_gb);
+        debug_struct.field("disk_size_gb", &self.disk_size_gb);
+        debug_struct.field(
+            "available_custom_core_counts",
+            &self.available_custom_core_counts,
+        );
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("families", &self.families);
+        debug_struct.field("capabilities", &self.capabilities);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NodeType].
 pub mod node_type {
     #[allow(unused_imports)]
@@ -25355,7 +26781,7 @@ pub mod node_type {
 }
 
 /// Credentials for a private cloud.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Credentials {
     /// Initial username.
@@ -25508,6 +26934,18 @@ impl serde::ser::Serialize for Credentials {
     }
 }
 
+impl std::fmt::Debug for Credentials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Credentials");
+        debug_struct.field("username", &self.username);
+        debug_struct.field("password", &self.password);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// HCX activation key. A default key is created during
 /// private cloud provisioning, but this behavior is subject to change
 /// and you should always verify active keys.
@@ -25519,7 +26957,7 @@ impl serde::ser::Serialize for Credentials {
 ///
 /// [google.cloud.vmwareengine.v1.VmwareEngine.CreateHcxActivationKey]: crate::client::VmwareEngine::create_hcx_activation_key
 /// [google.cloud.vmwareengine.v1.VmwareEngine.ListHcxActivationKeys]: crate::client::VmwareEngine::list_hcx_activation_keys
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HcxActivationKey {
     /// Output only. The resource name of this HcxActivationKey.
@@ -25762,6 +27200,21 @@ impl serde::ser::Serialize for HcxActivationKey {
     }
 }
 
+impl std::fmt::Debug for HcxActivationKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HcxActivationKey");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("activation_key", &self.activation_key);
+        debug_struct.field("uid", &self.uid);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [HcxActivationKey].
 pub mod hcx_activation_key {
     #[allow(unused_imports)]
@@ -25908,7 +27361,7 @@ pub mod hcx_activation_key {
 }
 
 /// Details about a HCX Cloud Manager appliance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Hcx {
     /// Internal IP address of the appliance.
@@ -26110,6 +27563,20 @@ impl serde::ser::Serialize for Hcx {
     }
 }
 
+impl std::fmt::Debug for Hcx {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Hcx");
+        debug_struct.field("internal_ip", &self.internal_ip);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("fqdn", &self.fqdn);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Hcx].
 pub mod hcx {
     #[allow(unused_imports)]
@@ -26256,7 +27723,7 @@ pub mod hcx {
 }
 
 /// Details about a NSX Manager appliance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Nsx {
     /// Internal IP address of the appliance.
@@ -26458,6 +27925,20 @@ impl serde::ser::Serialize for Nsx {
     }
 }
 
+impl std::fmt::Debug for Nsx {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Nsx");
+        debug_struct.field("internal_ip", &self.internal_ip);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("fqdn", &self.fqdn);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Nsx].
 pub mod nsx {
     #[allow(unused_imports)]
@@ -26597,7 +28078,7 @@ pub mod nsx {
 }
 
 /// Details about a vCenter Server management appliance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Vcenter {
     /// Internal IP address of the appliance.
@@ -26799,6 +28280,20 @@ impl serde::ser::Serialize for Vcenter {
     }
 }
 
+impl std::fmt::Debug for Vcenter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Vcenter");
+        debug_struct.field("internal_ip", &self.internal_ip);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("fqdn", &self.fqdn);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Vcenter].
 pub mod vcenter {
     #[allow(unused_imports)]
@@ -26939,7 +28434,7 @@ pub mod vcenter {
 
 /// Autoscaling settings define the rules used by VMware Engine to
 /// automatically scale-out and scale-in the clusters in a private cloud.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoscalingSettings {
     /// Required. The map with autoscaling policies applied to the cluster.
@@ -27224,6 +28719,20 @@ impl serde::ser::Serialize for AutoscalingSettings {
     }
 }
 
+impl std::fmt::Debug for AutoscalingSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoscalingSettings");
+        debug_struct.field("autoscaling_policies", &self.autoscaling_policies);
+        debug_struct.field("min_cluster_node_count", &self.min_cluster_node_count);
+        debug_struct.field("max_cluster_node_count", &self.max_cluster_node_count);
+        debug_struct.field("cool_down_period", &self.cool_down_period);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AutoscalingSettings].
 pub mod autoscaling_settings {
     #[allow(unused_imports)]
@@ -27231,7 +28740,7 @@ pub mod autoscaling_settings {
 
     /// Thresholds define the utilization of resources triggering
     /// scale-out and scale-in operations.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Thresholds {
         /// Required. The utilization triggering the scale-out operation in percent.
@@ -27426,13 +28935,25 @@ pub mod autoscaling_settings {
         }
     }
 
+    impl std::fmt::Debug for Thresholds {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Thresholds");
+            debug_struct.field("scale_out", &self.scale_out);
+            debug_struct.field("scale_in", &self.scale_in);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Autoscaling policy describes the behavior of the autoscaling
     /// with respect to the resource utilization.
     /// The scale-out operation is initiated if the utilization
     /// exceeds ANY of the respective thresholds.
     /// The scale-in operation is initiated if the utilization
     /// is below ALL of the respective thresholds.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutoscalingPolicy {
         /// Required. The canonical identifier of the node type to add or remove.
@@ -27787,12 +29308,31 @@ pub mod autoscaling_settings {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AutoscalingPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AutoscalingPolicy");
+            debug_struct.field("node_type_id", &self.node_type_id);
+            debug_struct.field("scale_out_size", &self.scale_out_size);
+            debug_struct.field("cpu_thresholds", &self.cpu_thresholds);
+            debug_struct.field("granted_memory_thresholds", &self.granted_memory_thresholds);
+            debug_struct.field(
+                "consumed_memory_thresholds",
+                &self.consumed_memory_thresholds,
+            );
+            debug_struct.field("storage_thresholds", &self.storage_thresholds);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// DNS forwarding config.
 /// This config defines a list of domain to name server mappings,
 /// and is attached to the private cloud for custom domain resolution.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DnsForwarding {
     /// Output only. The resource name of this DNS profile.
@@ -28029,6 +29569,20 @@ impl serde::ser::Serialize for DnsForwarding {
     }
 }
 
+impl std::fmt::Debug for DnsForwarding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DnsForwarding");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("forwarding_rules", &self.forwarding_rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DnsForwarding].
 pub mod dns_forwarding {
     #[allow(unused_imports)]
@@ -28038,7 +29592,7 @@ pub mod dns_forwarding {
     /// This mapping allows VMware Engine to resolve domains for attached private
     /// clouds by forwarding DNS requests for a given domain to the specified
     /// nameservers.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ForwardingRule {
         /// Required. Domain used to resolve a `name_servers` list.
@@ -28197,10 +29751,22 @@ pub mod dns_forwarding {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ForwardingRule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ForwardingRule");
+            debug_struct.field("domain", &self.domain);
+            debug_struct.field("name_servers", &self.name_servers);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Details of a network peering.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkPeering {
     /// Output only. The resource name of the network peering. NetworkPeering is a
@@ -28859,6 +30425,38 @@ impl serde::ser::Serialize for NetworkPeering {
     }
 }
 
+impl std::fmt::Debug for NetworkPeering {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkPeering");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("peer_network", &self.peer_network);
+        debug_struct.field("export_custom_routes", &self.export_custom_routes);
+        debug_struct.field("import_custom_routes", &self.import_custom_routes);
+        debug_struct.field("exchange_subnet_routes", &self.exchange_subnet_routes);
+        debug_struct.field(
+            "export_custom_routes_with_public_ip",
+            &self.export_custom_routes_with_public_ip,
+        );
+        debug_struct.field(
+            "import_custom_routes_with_public_ip",
+            &self.import_custom_routes_with_public_ip,
+        );
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_details", &self.state_details);
+        debug_struct.field("peer_mtu", &self.peer_mtu);
+        debug_struct.field("peer_network_type", &self.peer_network_type);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("vmware_engine_network", &self.vmware_engine_network);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NetworkPeering].
 pub mod network_peering {
     #[allow(unused_imports)]
@@ -29186,7 +30784,7 @@ pub mod network_peering {
 }
 
 /// Exchanged network peering route.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PeeringRoute {
     /// Output only. Destination range of the peering route in CIDR notation.
@@ -29464,6 +31062,22 @@ impl serde::ser::Serialize for PeeringRoute {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for PeeringRoute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PeeringRoute");
+        debug_struct.field("dest_range", &self.dest_range);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("next_hop_region", &self.next_hop_region);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("imported", &self.imported);
+        debug_struct.field("direction", &self.direction);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -29751,7 +31365,7 @@ pub mod peering_route {
 /// network, which might span across regions. For a given region, a network
 /// policy applies to all private clouds in the VMware Engine network associated
 /// with the policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkPolicy {
     /// Output only. The resource name of this network policy.
@@ -30180,6 +31794,29 @@ impl serde::ser::Serialize for NetworkPolicy {
     }
 }
 
+impl std::fmt::Debug for NetworkPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("internet_access", &self.internet_access);
+        debug_struct.field("external_ip", &self.external_ip);
+        debug_struct.field("edge_services_cidr", &self.edge_services_cidr);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("vmware_engine_network", &self.vmware_engine_network);
+        debug_struct.field("description", &self.description);
+        debug_struct.field(
+            "vmware_engine_network_canonical",
+            &self.vmware_engine_network_canonical,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NetworkPolicy].
 pub mod network_policy {
     #[allow(unused_imports)]
@@ -30190,7 +31827,7 @@ pub mod network_policy {
     /// VMware workloads. For example, whether the VMware workloads in the
     /// private clouds governed by a network policy can access or be accessed from
     /// the internet.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NetworkService {
         /// True if the service is enabled; false otherwise.
@@ -30354,6 +31991,18 @@ pub mod network_policy {
         }
     }
 
+    impl std::fmt::Debug for NetworkService {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NetworkService");
+            debug_struct.field("enabled", &self.enabled);
+            debug_struct.field("state", &self.state);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [NetworkService].
     pub mod network_service {
         #[allow(unused_imports)]
@@ -30509,7 +32158,7 @@ pub mod network_policy {
 /// VMware Engine creates for each private cloud. It contains FQDNs and
 /// corresponding IP addresses for the private cloud's ESXi hosts and management
 /// VM appliances like vCenter and NSX Manager.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagementDnsZoneBinding {
     /// Output only. The resource name of this binding.
@@ -30912,6 +32561,23 @@ impl serde::ser::Serialize for ManagementDnsZoneBinding {
     }
 }
 
+impl std::fmt::Debug for ManagementDnsZoneBinding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagementDnsZoneBinding");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("bind_network", &self.bind_network);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ManagementDnsZoneBinding].
 pub mod management_dns_zone_binding {
     #[allow(unused_imports)]
@@ -31092,7 +32758,7 @@ pub mod management_dns_zone_binding {
 
 /// VMware Engine network resource that provides connectivity for VMware Engine
 /// private clouds.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VmwareEngineNetwork {
     /// Output only. The resource name of the VMware Engine network.
@@ -31456,6 +33122,25 @@ impl serde::ser::Serialize for VmwareEngineNetwork {
     }
 }
 
+impl std::fmt::Debug for VmwareEngineNetwork {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VmwareEngineNetwork");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("vpc_networks", &self.vpc_networks);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VmwareEngineNetwork].
 pub mod vmware_engine_network {
     #[allow(unused_imports)]
@@ -31463,7 +33148,7 @@ pub mod vmware_engine_network {
 
     /// Represents a VMware Engine VPC network that is managed by a
     /// VMware Engine network resource.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VpcNetwork {
         /// Output only. Type of VPC network (INTRANET, INTERNET, or
@@ -31626,6 +33311,18 @@ pub mod vmware_engine_network {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for VpcNetwork {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VpcNetwork");
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("network", &self.network);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -32065,7 +33762,7 @@ pub mod vmware_engine_network {
 
 /// Private connection resource that provides connectivity for VMware Engine
 /// private clouds.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateConnection {
     /// Output only. The resource name of the private connection.
@@ -32565,6 +34262,32 @@ impl serde::ser::Serialize for PrivateConnection {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for PrivateConnection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrivateConnection");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("vmware_engine_network", &self.vmware_engine_network);
+        debug_struct.field(
+            "vmware_engine_network_canonical",
+            &self.vmware_engine_network_canonical,
+        );
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("peering_id", &self.peering_id);
+        debug_struct.field("routing_mode", &self.routing_mode);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("service_network", &self.service_network);
+        debug_struct.field("peering_state", &self.peering_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -33153,7 +34876,7 @@ pub mod private_connection {
 /// returned as a content of the `google.cloud.location.Location.metadata` field.
 ///
 /// [google.cloud.location.Location]: location::model::Location
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// Output only. Capabilities of this location.
@@ -33286,6 +35009,17 @@ impl serde::ser::Serialize for LocationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field("capabilities", &self.capabilities);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -33423,7 +35157,7 @@ pub mod location_metadata {
 
 /// DnsBindPermission resource that contains the accounts having the consumer DNS
 /// bind permission on the corresponding intranet VPC of the consumer project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DnsBindPermission {
     /// Required. Output only. The name of the resource which stores the
@@ -33586,9 +35320,21 @@ impl serde::ser::Serialize for DnsBindPermission {
     }
 }
 
+impl std::fmt::Debug for DnsBindPermission {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DnsBindPermission");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("principals", &self.principals);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Users/Service accounts which have access for DNS binding on the intranet
 /// VPC corresponding to the consumer project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Principal {
     /// The consumer provided user/service account which needs to be
@@ -33800,6 +35546,17 @@ impl serde::ser::Serialize for Principal {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Principal {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Principal");
+        debug_struct.field("principal", &self.principal);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

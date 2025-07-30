@@ -18,7 +18,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 /// Contains information about a pending rename operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PendingRenameInfo {
     /// Output only. The name of the rename operation.
@@ -147,9 +147,20 @@ impl serde::ser::Serialize for PendingRenameInfo {
     }
 }
 
+impl std::fmt::Debug for PendingRenameInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PendingRenameInfo");
+        debug_struct.field("operation", &self.operation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A folder resource. This resource can only exist in a hierarchical namespace
 /// enabled bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Folder {
     /// Identifier. The name of this folder.
@@ -436,9 +447,24 @@ impl serde::ser::Serialize for Folder {
     }
 }
 
+impl std::fmt::Debug for Folder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Folder");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("metageneration", &self.metageneration);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("pending_rename_info", &self.pending_rename_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetFolder. This operation is only applicable to a
 /// hierarchical namespace enabled bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFolderRequest {
     /// Required. Name of the folder.
@@ -720,9 +746,26 @@ impl serde::ser::Serialize for GetFolderRequest {
     }
 }
 
+impl std::fmt::Debug for GetFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFolderRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateFolder. This operation is only applicable to a
 /// hierarchical namespace enabled bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFolderRequest {
     /// Required. Name of the bucket in which the folder will reside. The bucket
@@ -970,9 +1013,24 @@ impl serde::ser::Serialize for CreateFolderRequest {
     }
 }
 
+impl std::fmt::Debug for CreateFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateFolderRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("folder", &self.folder);
+        debug_struct.field("folder_id", &self.folder_id);
+        debug_struct.field("recursive", &self.recursive);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteFolder. This operation is only applicable to a
 /// hierarchical namespace enabled bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFolderRequest {
     /// Required. Name of the folder.
@@ -1254,9 +1312,26 @@ impl serde::ser::Serialize for DeleteFolderRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFolderRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListFolders. This operation is only applicable to a
 /// hierarchical namespace enabled bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFoldersRequest {
     /// Required. Name of the bucket in which to look for folders. The bucket must
@@ -1595,8 +1670,26 @@ impl serde::ser::Serialize for ListFoldersRequest {
     }
 }
 
+impl std::fmt::Debug for ListFoldersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFoldersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("prefix", &self.prefix);
+        debug_struct.field("delimiter", &self.delimiter);
+        debug_struct.field("lexicographic_start", &self.lexicographic_start);
+        debug_struct.field("lexicographic_end", &self.lexicographic_end);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListFolders.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFoldersResponse {
     /// The list of child folders
@@ -1768,9 +1861,21 @@ impl serde::ser::Serialize for ListFoldersResponse {
     }
 }
 
+impl std::fmt::Debug for ListFoldersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFoldersResponse");
+        debug_struct.field("folders", &self.folders);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for RenameFolder. This operation is only applicable to a
 /// hierarchical namespace enabled bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameFolderRequest {
     /// Required. Name of the source folder being renamed.
@@ -2081,10 +2186,28 @@ impl serde::ser::Serialize for RenameFolderRequest {
     }
 }
 
+impl std::fmt::Debug for RenameFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RenameFolderRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("destination_folder_id", &self.destination_folder_id);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The message contains metadata that is common to all Storage Control
 /// long-running operations, present in its `google.longrunning.Operation`
 /// messages, and accessible via `metadata.common_metadata`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonLongRunningOperationMetadata {
     /// Output only. The time the operation was created.
@@ -2391,9 +2514,25 @@ impl serde::ser::Serialize for CommonLongRunningOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for CommonLongRunningOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommonLongRunningOperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("progress_percent", &self.progress_percent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message returned in the metadata field of the Operation resource for
 /// RenameFolder operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameFolderMetadata {
     /// Generic metadata for the long running operation.
@@ -2591,8 +2730,21 @@ impl serde::ser::Serialize for RenameFolderMetadata {
     }
 }
 
+impl std::fmt::Debug for RenameFolderMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RenameFolderMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+        debug_struct.field("source_folder_id", &self.source_folder_id);
+        debug_struct.field("destination_folder_id", &self.destination_folder_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The storage layout configuration of a bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageLayout {
     /// Output only. The name of the StorageLayout resource.
@@ -2850,6 +3002,21 @@ impl serde::ser::Serialize for StorageLayout {
     }
 }
 
+impl std::fmt::Debug for StorageLayout {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StorageLayout");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("location_type", &self.location_type);
+        debug_struct.field("custom_placement_config", &self.custom_placement_config);
+        debug_struct.field("hierarchical_namespace", &self.hierarchical_namespace);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StorageLayout].
 pub mod storage_layout {
     #[allow(unused_imports)]
@@ -2858,7 +3025,7 @@ pub mod storage_layout {
     /// Configuration for Custom Dual Regions.  It should specify precisely two
     /// eligible regions within the same Multiregion. More information on regions
     /// may be found [here](https://cloud.google.com/storage/docs/locations).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomPlacementConfig {
         /// List of locations to use for data placement.
@@ -2994,8 +3161,19 @@ pub mod storage_layout {
         }
     }
 
+    impl std::fmt::Debug for CustomPlacementConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CustomPlacementConfig");
+            debug_struct.field("data_locations", &self.data_locations);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for a bucket's hierarchical namespace feature.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HierarchicalNamespace {
         /// Enables the hierarchical namespace feature.
@@ -3126,10 +3304,21 @@ pub mod storage_layout {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for HierarchicalNamespace {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("HierarchicalNamespace");
+            debug_struct.field("enabled", &self.enabled);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request message for GetStorageLayout.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetStorageLayoutRequest {
     /// Required. The name of the StorageLayout resource.
@@ -3310,8 +3499,21 @@ impl serde::ser::Serialize for GetStorageLayoutRequest {
     }
 }
 
+impl std::fmt::Debug for GetStorageLayoutRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetStorageLayoutRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("prefix", &self.prefix);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A managed folder.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedFolder {
     /// Identifier. The name of this managed folder.
@@ -3559,8 +3761,22 @@ impl serde::ser::Serialize for ManagedFolder {
     }
 }
 
+impl std::fmt::Debug for ManagedFolder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedFolder");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("metageneration", &self.metageneration);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetManagedFolder.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetManagedFolderRequest {
     /// Required. Name of the managed folder.
@@ -3843,8 +4059,25 @@ impl serde::ser::Serialize for GetManagedFolderRequest {
     }
 }
 
+impl std::fmt::Debug for GetManagedFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetManagedFolderRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateManagedFolder.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateManagedFolderRequest {
     /// Required. Name of the bucket this managed folder belongs to.
@@ -4067,8 +4300,22 @@ impl serde::ser::Serialize for CreateManagedFolderRequest {
     }
 }
 
+impl std::fmt::Debug for CreateManagedFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateManagedFolderRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("managed_folder", &self.managed_folder);
+        debug_struct.field("managed_folder_id", &self.managed_folder_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// DeleteManagedFolder RPC request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteManagedFolderRequest {
     /// Required. Name of the managed folder.
@@ -4379,8 +4626,26 @@ impl serde::ser::Serialize for DeleteManagedFolderRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteManagedFolderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteManagedFolderRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field("allow_non_empty", &self.allow_non_empty);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListManagedFolders.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListManagedFoldersRequest {
     /// Required. Name of the bucket this managed folder belongs to.
@@ -4630,8 +4895,23 @@ impl serde::ser::Serialize for ListManagedFoldersRequest {
     }
 }
 
+impl std::fmt::Debug for ListManagedFoldersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListManagedFoldersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("prefix", &self.prefix);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListManagedFolders.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListManagedFoldersResponse {
     /// The list of matching managed folders
@@ -4804,9 +5084,21 @@ impl serde::ser::Serialize for ListManagedFoldersResponse {
     }
 }
 
+impl std::fmt::Debug for ListManagedFoldersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListManagedFoldersResponse");
+        debug_struct.field("managed_folders", &self.managed_folders);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message returned in the metadata field of the Operation resource for
 /// CreateAnywhereCache operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAnywhereCacheMetadata {
     /// Generic metadata for the long running operation.
@@ -5094,9 +5386,24 @@ impl serde::ser::Serialize for CreateAnywhereCacheMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateAnywhereCacheMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAnywhereCacheMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+        debug_struct.field("anywhere_cache_id", &self.anywhere_cache_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("ttl", &self.ttl);
+        debug_struct.field("admission_policy", &self.admission_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message returned in the metadata field of the Operation resource for
 /// UpdateAnywhereCache operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAnywhereCacheMetadata {
     /// Generic metadata for the long running operation.
@@ -5384,8 +5691,23 @@ impl serde::ser::Serialize for UpdateAnywhereCacheMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateAnywhereCacheMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAnywhereCacheMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+        debug_struct.field("anywhere_cache_id", &self.anywhere_cache_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("ttl", &self.ttl);
+        debug_struct.field("admission_policy", &self.admission_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An Anywhere Cache Instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnywhereCache {
     /// Immutable. The resource name of this AnywhereCache.
@@ -5733,8 +6055,26 @@ impl serde::ser::Serialize for AnywhereCache {
     }
 }
 
+impl std::fmt::Debug for AnywhereCache {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnywhereCache");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("ttl", &self.ttl);
+        debug_struct.field("admission_policy", &self.admission_policy);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("pending_update", &self.pending_update);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateAnywhereCache.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAnywhereCacheRequest {
     /// Required. The bucket to which this cache belongs.
@@ -5930,8 +6270,21 @@ impl serde::ser::Serialize for CreateAnywhereCacheRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAnywhereCacheRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAnywhereCacheRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("anywhere_cache", &self.anywhere_cache);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateAnywhereCache.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAnywhereCacheRequest {
     /// Required. The Anywhere Cache instance to be updated.
@@ -6143,8 +6496,21 @@ impl serde::ser::Serialize for UpdateAnywhereCacheRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAnywhereCacheRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAnywhereCacheRequest");
+        debug_struct.field("anywhere_cache", &self.anywhere_cache);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DisableAnywhereCache.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableAnywhereCacheRequest {
     /// Required. The name field in the request should be:
@@ -6301,8 +6667,20 @@ impl serde::ser::Serialize for DisableAnywhereCacheRequest {
     }
 }
 
+impl std::fmt::Debug for DisableAnywhereCacheRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableAnywhereCacheRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for PauseAnywhereCache.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseAnywhereCacheRequest {
     /// Required. The name field in the request should be:
@@ -6459,8 +6837,20 @@ impl serde::ser::Serialize for PauseAnywhereCacheRequest {
     }
 }
 
+impl std::fmt::Debug for PauseAnywhereCacheRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PauseAnywhereCacheRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ResumeAnywhereCache.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeAnywhereCacheRequest {
     /// Required. The name field in the request should be:
@@ -6617,8 +7007,20 @@ impl serde::ser::Serialize for ResumeAnywhereCacheRequest {
     }
 }
 
+impl std::fmt::Debug for ResumeAnywhereCacheRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeAnywhereCacheRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetAnywhereCache.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAnywhereCacheRequest {
     /// Required. The name field in the request should be:
@@ -6774,8 +7176,20 @@ impl serde::ser::Serialize for GetAnywhereCacheRequest {
     }
 }
 
+impl std::fmt::Debug for GetAnywhereCacheRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAnywhereCacheRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListAnywhereCaches.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAnywhereCachesRequest {
     /// Required. The bucket to which this cache belongs.
@@ -7000,8 +7414,22 @@ impl serde::ser::Serialize for ListAnywhereCachesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAnywhereCachesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAnywhereCachesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListAnywhereCaches.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAnywhereCachesResponse {
     /// The list of items.
@@ -7174,9 +7602,21 @@ impl serde::ser::Serialize for ListAnywhereCachesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAnywhereCachesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAnywhereCachesResponse");
+        debug_struct.field("anywhere_caches", &self.anywhere_caches);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `IntelligenceConfig` resource associated with your organization, folder,
 /// or project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IntelligenceConfig {
     /// Identifier. The name of the `IntelligenceConfig` resource associated with
@@ -7505,6 +7945,25 @@ impl serde::ser::Serialize for IntelligenceConfig {
     }
 }
 
+impl std::fmt::Debug for IntelligenceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IntelligenceConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("edition_config", &self.edition_config);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field(
+            "effective_intelligence_config",
+            &self.effective_intelligence_config,
+        );
+        debug_struct.field("trial_config", &self.trial_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [IntelligenceConfig].
 pub mod intelligence_config {
     #[allow(unused_imports)]
@@ -7513,7 +7972,7 @@ pub mod intelligence_config {
     /// Filter over location and bucket using include or exclude semantics.
     /// Resources that match the include or exclude filter are exclusively included
     /// or excluded from the Storage Intelligence plan.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Filter {
         /// Bucket locations to include or exclude.
@@ -7923,13 +8382,25 @@ pub mod intelligence_config {
         }
     }
 
+    impl std::fmt::Debug for Filter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Filter");
+            debug_struct.field("cloud_storage_locations", &self.cloud_storage_locations);
+            debug_struct.field("cloud_storage_buckets", &self.cloud_storage_buckets);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Filter].
     pub mod filter {
         #[allow(unused_imports)]
         use super::*;
 
         /// Collection of bucket locations.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CloudStorageLocations {
             /// Optional. Bucket locations. Location can be any of the Cloud Storage
@@ -8071,8 +8542,19 @@ pub mod intelligence_config {
             }
         }
 
+        impl std::fmt::Debug for CloudStorageLocations {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("CloudStorageLocations");
+                debug_struct.field("locations", &self.locations);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Collection of buckets.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CloudStorageBuckets {
             /// Optional. A regex pattern for matching bucket names. Regex should
@@ -8220,6 +8702,17 @@ pub mod intelligence_config {
             }
         }
 
+        impl std::fmt::Debug for CloudStorageBuckets {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("CloudStorageBuckets");
+                debug_struct.field("bucket_id_regexes", &self.bucket_id_regexes);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Bucket locations to include or exclude.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -8292,7 +8785,7 @@ pub mod intelligence_config {
     }
 
     /// The effective `IntelligenceConfig` for the resource.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EffectiveIntelligenceConfig {
         /// Output only. The `IntelligenceConfig` edition that is applicable for the
@@ -8455,6 +8948,18 @@ pub mod intelligence_config {
         }
     }
 
+    impl std::fmt::Debug for EffectiveIntelligenceConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EffectiveIntelligenceConfig");
+            debug_struct.field("effective_edition", &self.effective_edition);
+            debug_struct.field("intelligence_config", &self.intelligence_config);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [EffectiveIntelligenceConfig].
     pub mod effective_intelligence_config {
         #[allow(unused_imports)]
@@ -8596,7 +9101,7 @@ pub mod intelligence_config {
     }
 
     /// The trial configuration of the `IntelligenceConfig` resource.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrialConfig {
         /// Output only. The time at which the trial expires.
@@ -8737,6 +9242,17 @@ pub mod intelligence_config {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for TrialConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TrialConfig");
+            debug_struct.field("expire_time", &self.expire_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -8905,7 +9421,7 @@ pub mod intelligence_config {
 /// Requires `storage.intelligenceConfigs.update`
 /// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
 /// the organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateOrganizationIntelligenceConfigRequest {
     /// Required. The `IntelligenceConfig` resource to be updated.
@@ -9112,6 +9628,19 @@ impl serde::ser::Serialize for UpdateOrganizationIntelligenceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateOrganizationIntelligenceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateOrganizationIntelligenceConfigRequest");
+        debug_struct.field("intelligence_config", &self.intelligence_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to update the `IntelligenceConfig` resource associated with
 /// your folder.
 ///
@@ -9120,7 +9649,7 @@ impl serde::ser::Serialize for UpdateOrganizationIntelligenceConfigRequest {
 /// Requires `storage.intelligenceConfigs.update`
 /// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
 /// the folder.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFolderIntelligenceConfigRequest {
     /// Required. The `IntelligenceConfig` resource to be updated.
@@ -9326,6 +9855,19 @@ impl serde::ser::Serialize for UpdateFolderIntelligenceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateFolderIntelligenceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFolderIntelligenceConfigRequest");
+        debug_struct.field("intelligence_config", &self.intelligence_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to update the `IntelligenceConfig` resource associated with
 /// your project.
 ///
@@ -9334,7 +9876,7 @@ impl serde::ser::Serialize for UpdateFolderIntelligenceConfigRequest {
 /// Requires `storage.intelligenceConfigs.update`
 /// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
 /// the folder.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProjectIntelligenceConfigRequest {
     /// Required. The `IntelligenceConfig` resource to be updated.
@@ -9540,6 +10082,19 @@ impl serde::ser::Serialize for UpdateProjectIntelligenceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateProjectIntelligenceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateProjectIntelligenceConfigRequest");
+        debug_struct.field("intelligence_config", &self.intelligence_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to get the `IntelligenceConfig` resource associated with your
 /// organization.
 ///
@@ -9548,7 +10103,7 @@ impl serde::ser::Serialize for UpdateProjectIntelligenceConfigRequest {
 /// Requires `storage.intelligenceConfigs.get`
 /// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
 /// the organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrganizationIntelligenceConfigRequest {
     /// Required. The name of the `IntelligenceConfig` resource associated with
@@ -9681,6 +10236,17 @@ impl serde::ser::Serialize for GetOrganizationIntelligenceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetOrganizationIntelligenceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOrganizationIntelligenceConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to get the `IntelligenceConfig` resource associated with your
 /// folder.
 ///
@@ -9689,7 +10255,7 @@ impl serde::ser::Serialize for GetOrganizationIntelligenceConfigRequest {
 /// Requires `storage.intelligenceConfigs.get`
 /// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
 /// the folder.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFolderIntelligenceConfigRequest {
     /// Required. The name of the `IntelligenceConfig` resource associated with
@@ -9821,6 +10387,17 @@ impl serde::ser::Serialize for GetFolderIntelligenceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetFolderIntelligenceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFolderIntelligenceConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to get the `IntelligenceConfig` resource associated with your
 /// project.
 ///
@@ -9829,7 +10406,7 @@ impl serde::ser::Serialize for GetFolderIntelligenceConfigRequest {
 /// Requires `storage.intelligenceConfigs.get`
 /// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission
 /// on the project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProjectIntelligenceConfigRequest {
     /// Required. The name of the `IntelligenceConfig` resource associated with
@@ -9958,5 +10535,16 @@ impl serde::ser::Serialize for GetProjectIntelligenceConfigRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GetProjectIntelligenceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProjectIntelligenceConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

@@ -38,7 +38,7 @@ extern crate wkt;
 /// should authorize incoming connections. This resource in itself does
 /// not change the configuration unless it's attached to a target https
 /// proxy or endpoint config selector resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizationPolicy {
     /// Required. Name of the AuthorizationPolicy resource. It matches pattern
@@ -359,13 +359,30 @@ impl serde::ser::Serialize for AuthorizationPolicy {
     }
 }
 
+impl std::fmt::Debug for AuthorizationPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthorizationPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("rules", &self.rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AuthorizationPolicy].
 pub mod authorization_policy {
     #[allow(unused_imports)]
     use super::*;
 
     /// Specification of rules.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Rule {
         /// Optional. List of attributes for the traffic source. All of the sources must match.
@@ -546,13 +563,25 @@ pub mod authorization_policy {
         }
     }
 
+    impl std::fmt::Debug for Rule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Rule");
+            debug_struct.field("sources", &self.sources);
+            debug_struct.field("destinations", &self.destinations);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Rule].
     pub mod rule {
         #[allow(unused_imports)]
         use super::*;
 
         /// Specification of traffic source attributes.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Source {
             /// Optional. List of peer identities to match for authorization. At least one
@@ -731,8 +760,20 @@ pub mod authorization_policy {
             }
         }
 
+        impl std::fmt::Debug for Source {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Source");
+                debug_struct.field("principals", &self.principals);
+                debug_struct.field("ip_blocks", &self.ip_blocks);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Specification of traffic destination attributes.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Destination {
             /// Required. List of host names to match. Matched against the ":authority" header in
@@ -1011,13 +1052,27 @@ pub mod authorization_policy {
             }
         }
 
+        impl std::fmt::Debug for Destination {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Destination");
+                debug_struct.field("hosts", &self.hosts);
+                debug_struct.field("ports", &self.ports);
+                debug_struct.field("methods", &self.methods);
+                debug_struct.field("http_header_match", &self.http_header_match);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Destination].
         pub mod destination {
             #[allow(unused_imports)]
             use super::*;
 
             /// Specification of HTTP header match attributes.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct HttpHeaderMatch {
                 /// Required. The name of the HTTP header to match. For matching
@@ -1237,6 +1292,18 @@ pub mod authorization_policy {
                 }
             }
 
+            impl std::fmt::Debug for HttpHeaderMatch {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("HttpHeaderMatch");
+                    debug_struct.field("header_name", &self.header_name);
+                    debug_struct.field("r#type", &self.r#type);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Defines additional types related to [HttpHeaderMatch].
             pub mod http_header_match {
                 #[allow(unused_imports)]
@@ -1394,7 +1461,7 @@ pub mod authorization_policy {
 }
 
 /// Request used with the ListAuthorizationPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthorizationPoliciesRequest {
     /// Required. The project and location from which the AuthorizationPolicies
@@ -1596,8 +1663,21 @@ impl serde::ser::Serialize for ListAuthorizationPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAuthorizationPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuthorizationPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListAuthorizationPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthorizationPoliciesResponse {
     /// List of AuthorizationPolicies resources.
@@ -1775,8 +1855,20 @@ impl serde::ser::Serialize for ListAuthorizationPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAuthorizationPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuthorizationPoliciesResponse");
+        debug_struct.field("authorization_policies", &self.authorization_policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the GetAuthorizationPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAuthorizationPolicyRequest {
     /// Required. A name of the AuthorizationPolicy to get. Must be in the format
@@ -1906,8 +1998,19 @@ impl serde::ser::Serialize for GetAuthorizationPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetAuthorizationPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAuthorizationPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the CreateAuthorizationPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAuthorizationPolicyRequest {
     /// Required. The parent resource of the AuthorizationPolicy. Must be in the
@@ -2104,8 +2207,21 @@ impl serde::ser::Serialize for CreateAuthorizationPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAuthorizationPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAuthorizationPolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("authorization_policy_id", &self.authorization_policy_id);
+        debug_struct.field("authorization_policy", &self.authorization_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the UpdateAuthorizationPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAuthorizationPolicyRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -2286,8 +2402,20 @@ impl serde::ser::Serialize for UpdateAuthorizationPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAuthorizationPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAuthorizationPolicyRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("authorization_policy", &self.authorization_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the DeleteAuthorizationPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAuthorizationPolicyRequest {
     /// Required. A name of the AuthorizationPolicy to delete. Must be in the format
@@ -2417,10 +2545,21 @@ impl serde::ser::Serialize for DeleteAuthorizationPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAuthorizationPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAuthorizationPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ClientTlsPolicy is a resource that specifies how a client should authenticate
 /// connections to backends of a service. This resource itself does not affect
 /// configuration unless it is attached to a backend service resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientTlsPolicy {
     /// Required. Name of the ClientTlsPolicy resource. It matches the pattern
@@ -2773,8 +2912,26 @@ impl serde::ser::Serialize for ClientTlsPolicy {
     }
 }
 
+impl std::fmt::Debug for ClientTlsPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClientTlsPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("sni", &self.sni);
+        debug_struct.field("client_certificate", &self.client_certificate);
+        debug_struct.field("server_validation_ca", &self.server_validation_ca);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the ListClientTlsPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientTlsPoliciesRequest {
     /// Required. The project and location from which the ClientTlsPolicies should
@@ -2975,8 +3132,21 @@ impl serde::ser::Serialize for ListClientTlsPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListClientTlsPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClientTlsPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListClientTlsPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientTlsPoliciesResponse {
     /// List of ClientTlsPolicy resources.
@@ -3154,8 +3324,20 @@ impl serde::ser::Serialize for ListClientTlsPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListClientTlsPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClientTlsPoliciesResponse");
+        debug_struct.field("client_tls_policies", &self.client_tls_policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the GetClientTlsPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClientTlsPolicyRequest {
     /// Required. A name of the ClientTlsPolicy to get. Must be in the format
@@ -3285,8 +3467,19 @@ impl serde::ser::Serialize for GetClientTlsPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetClientTlsPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetClientTlsPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the CreateClientTlsPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClientTlsPolicyRequest {
     /// Required. The parent resource of the ClientTlsPolicy. Must be in
@@ -3483,8 +3676,21 @@ impl serde::ser::Serialize for CreateClientTlsPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateClientTlsPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateClientTlsPolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("client_tls_policy_id", &self.client_tls_policy_id);
+        debug_struct.field("client_tls_policy", &self.client_tls_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by UpdateClientTlsPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClientTlsPolicyRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -3667,8 +3873,20 @@ impl serde::ser::Serialize for UpdateClientTlsPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateClientTlsPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateClientTlsPolicyRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("client_tls_policy", &self.client_tls_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the DeleteClientTlsPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClientTlsPolicyRequest {
     /// Required. A name of the ClientTlsPolicy to delete. Must be in
@@ -3798,8 +4016,19 @@ impl serde::ser::Serialize for DeleteClientTlsPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteClientTlsPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteClientTlsPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -4104,10 +4333,27 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ServerTlsPolicy is a resource that specifies how a server should authenticate
 /// incoming requests. This resource itself does not affect configuration unless
 /// it is attached to a target https proxy or endpoint config selector resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServerTlsPolicy {
     /// Required. Name of the ServerTlsPolicy resource. It matches the pattern
@@ -4481,13 +4727,31 @@ impl serde::ser::Serialize for ServerTlsPolicy {
     }
 }
 
+impl std::fmt::Debug for ServerTlsPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServerTlsPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("allow_open", &self.allow_open);
+        debug_struct.field("server_certificate", &self.server_certificate);
+        debug_struct.field("mtls_policy", &self.mtls_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServerTlsPolicy].
 pub mod server_tls_policy {
     #[allow(unused_imports)]
     use super::*;
 
     /// Specification of the MTLSPolicy.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MTLSPolicy {
         /// Defines the mechanism to obtain the Certificate Authority certificate to
@@ -4627,10 +4891,21 @@ pub mod server_tls_policy {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for MTLSPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MTLSPolicy");
+            debug_struct.field("client_validation_ca", &self.client_validation_ca);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request used by the ListServerTlsPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServerTlsPoliciesRequest {
     /// Required. The project and location from which the ServerTlsPolicies should
@@ -4831,8 +5106,21 @@ impl serde::ser::Serialize for ListServerTlsPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServerTlsPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServerTlsPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListServerTlsPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServerTlsPoliciesResponse {
     /// List of ServerTlsPolicy resources.
@@ -5010,8 +5298,20 @@ impl serde::ser::Serialize for ListServerTlsPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServerTlsPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServerTlsPoliciesResponse");
+        debug_struct.field("server_tls_policies", &self.server_tls_policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the GetServerTlsPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServerTlsPolicyRequest {
     /// Required. A name of the ServerTlsPolicy to get. Must be in the format
@@ -5141,8 +5441,19 @@ impl serde::ser::Serialize for GetServerTlsPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetServerTlsPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServerTlsPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the CreateServerTlsPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServerTlsPolicyRequest {
     /// Required. The parent resource of the ServerTlsPolicy. Must be in
@@ -5339,8 +5650,21 @@ impl serde::ser::Serialize for CreateServerTlsPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServerTlsPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServerTlsPolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("server_tls_policy_id", &self.server_tls_policy_id);
+        debug_struct.field("server_tls_policy", &self.server_tls_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by UpdateServerTlsPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServerTlsPolicyRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -5523,8 +5847,20 @@ impl serde::ser::Serialize for UpdateServerTlsPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServerTlsPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServerTlsPolicyRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("server_tls_policy", &self.server_tls_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the DeleteServerTlsPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServerTlsPolicyRequest {
     /// Required. A name of the ServerTlsPolicy to delete. Must be in
@@ -5654,8 +5990,19 @@ impl serde::ser::Serialize for DeleteServerTlsPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServerTlsPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServerTlsPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification of the GRPC Endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GrpcEndpoint {
     /// Required. The target URI of the gRPC endpoint. Only UDS path is supported, and
@@ -5786,9 +6133,20 @@ impl serde::ser::Serialize for GrpcEndpoint {
     }
 }
 
+impl std::fmt::Debug for GrpcEndpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GrpcEndpoint");
+        debug_struct.field("target_uri", &self.target_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification of ValidationCA. Defines the mechanism to obtain the
 /// Certificate Authority certificate to validate the peer certificate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidationCA {
     /// The type of certificate provider which provides the CA certificate.
@@ -6025,6 +6383,17 @@ impl serde::ser::Serialize for ValidationCA {
     }
 }
 
+impl std::fmt::Debug for ValidationCA {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValidationCA");
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ValidationCA].
 pub mod validation_ca {
     #[allow(unused_imports)]
@@ -6048,7 +6417,7 @@ pub mod validation_ca {
 /// or more CertificateProvider instances (plugins) and one of them is enabled
 /// and configured by specifying this message. Workloads use the values from this
 /// message to locate and load the CertificateProvider instance configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateProviderInstance {
     /// Required. Plugin instance name, used to locate and load CertificateProvider instance
@@ -6180,9 +6549,20 @@ impl serde::ser::Serialize for CertificateProviderInstance {
     }
 }
 
+impl std::fmt::Debug for CertificateProviderInstance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateProviderInstance");
+        debug_struct.field("plugin_instance", &self.plugin_instance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification of certificate provider. Defines the mechanism to obtain the
 /// certificate and private key for peer to peer authentication.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateProvider {
     /// The type of certificate provider which provides the certificates and
@@ -6417,6 +6797,17 @@ impl serde::ser::Serialize for CertificateProvider {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for CertificateProvider {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateProvider");
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

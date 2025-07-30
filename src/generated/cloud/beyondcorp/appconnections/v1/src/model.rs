@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request message for BeyondCorp.ListAppConnections.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppConnectionsRequest {
     /// Required. The resource name of the AppConnection location using the form:
@@ -291,8 +291,23 @@ impl serde::ser::Serialize for ListAppConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAppConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAppConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BeyondCorp.ListAppConnections.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppConnectionsResponse {
     /// A list of BeyondCorp AppConnections in the project.
@@ -492,8 +507,21 @@ impl serde::ser::Serialize for ListAppConnectionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAppConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAppConnectionsResponse");
+        debug_struct.field("app_connections", &self.app_connections);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.GetAppConnection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAppConnectionRequest {
     /// Required. BeyondCorp AppConnection name using the form:
@@ -623,8 +651,19 @@ impl serde::ser::Serialize for GetAppConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for GetAppConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAppConnectionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.CreateAppConnection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAppConnectionRequest {
     /// Required. The resource project name of the AppConnection location using the
@@ -885,8 +924,23 @@ impl serde::ser::Serialize for CreateAppConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAppConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAppConnectionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("app_connection_id", &self.app_connection_id);
+        debug_struct.field("app_connection", &self.app_connection);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.UpdateAppConnection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAppConnectionRequest {
     /// Required. Mask of fields to update. At least one path must be supplied in
@@ -1159,8 +1213,23 @@ impl serde::ser::Serialize for UpdateAppConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAppConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAppConnectionRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("app_connection", &self.app_connection);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.DeleteAppConnection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAppConnectionRequest {
     /// Required. BeyondCorp Connector name using the form:
@@ -1353,8 +1422,21 @@ impl serde::ser::Serialize for DeleteAppConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAppConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAppConnectionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.ResolveAppConnections.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResolveAppConnectionsRequest {
     /// Required. The resource name of the AppConnection location using the form:
@@ -1588,8 +1670,22 @@ impl serde::ser::Serialize for ResolveAppConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for ResolveAppConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResolveAppConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("app_connector_id", &self.app_connector_id);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BeyondCorp.ResolveAppConnections.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResolveAppConnectionsResponse {
     /// A list of BeyondCorp AppConnections with details in the project.
@@ -1790,13 +1886,26 @@ impl serde::ser::Serialize for ResolveAppConnectionsResponse {
     }
 }
 
+impl std::fmt::Debug for ResolveAppConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResolveAppConnectionsResponse");
+        debug_struct.field("app_connection_details", &self.app_connection_details);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ResolveAppConnectionsResponse].
 pub mod resolve_app_connections_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Details of the AppConnection.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AppConnectionDetails {
         /// A BeyondCorp AppConnection in the project.
@@ -1969,13 +2078,25 @@ pub mod resolve_app_connections_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AppConnectionDetails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AppConnectionDetails");
+            debug_struct.field("app_connection", &self.app_connection);
+            debug_struct.field("recent_mig_vms", &self.recent_mig_vms);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A BeyondCorp AppConnection resource represents a BeyondCorp protected
 /// AppConnection to a remote application. It creates all the necessary GCP
 /// components needed for creating a BeyondCorp protected AppConnection. Multiple
 /// connectors can be authorised for a single AppConnection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppConnection {
     /// Required. Unique resource name of the AppConnection.
@@ -2415,13 +2536,34 @@ impl serde::ser::Serialize for AppConnection {
     }
 }
 
+impl std::fmt::Debug for AppConnection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppConnection");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("application_endpoint", &self.application_endpoint);
+        debug_struct.field("connectors", &self.connectors);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("gateway", &self.gateway);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AppConnection].
 pub mod app_connection {
     #[allow(unused_imports)]
     use super::*;
 
     /// ApplicationEndpoint represents a remote application endpoint.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ApplicationEndpoint {
         /// Required. Hostname or IP address of the remote application endpoint.
@@ -2595,9 +2737,21 @@ pub mod app_connection {
         }
     }
 
+    impl std::fmt::Debug for ApplicationEndpoint {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ApplicationEndpoint");
+            debug_struct.field("host", &self.host);
+            debug_struct.field("port", &self.port);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Gateway represents a user facing component that serves as an entrance to
     /// enable connectivity.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Gateway {
         /// Required. The type of hosting used by the gateway.
@@ -2826,6 +2980,20 @@ pub mod app_connection {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Gateway {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Gateway");
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("uri", &self.uri);
+            debug_struct.field("ingress_port", &self.ingress_port);
+            debug_struct.field("app_gateway", &self.app_gateway);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -3246,7 +3414,7 @@ pub mod app_connection {
 }
 
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppConnectionOperationMetadata {
     /// Output only. The time the operation was created.
@@ -3549,5 +3717,22 @@ impl serde::ser::Serialize for AppConnectionOperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AppConnectionOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppConnectionOperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

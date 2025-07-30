@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Describes encryption state of a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataEncryptionState {
     /// Required. The KMS key version name with which data of a resource is
@@ -169,8 +169,19 @@ impl serde::ser::Serialize for DataEncryptionState {
     }
 }
 
+impl std::fmt::Debug for DataEncryptionState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataEncryptionState");
+        debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a Dataform Git repository.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Repository {
     /// Identifier. The repository's name.
@@ -689,13 +700,44 @@ impl serde::ser::Serialize for Repository {
     }
 }
 
+impl std::fmt::Debug for Repository {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Repository");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("git_remote_settings", &self.git_remote_settings);
+        debug_struct.field(
+            "npmrc_environment_variables_secret_version",
+            &self.npmrc_environment_variables_secret_version,
+        );
+        debug_struct.field(
+            "workspace_compilation_overrides",
+            &self.workspace_compilation_overrides,
+        );
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field(
+            "set_authenticated_user_admin",
+            &self.set_authenticated_user_admin,
+        );
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("data_encryption_state", &self.data_encryption_state);
+        debug_struct.field("internal_metadata", &self.internal_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Repository].
 pub mod repository {
     #[allow(unused_imports)]
     use super::*;
 
     /// Controls Git remote configuration for a repository.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GitRemoteSettings {
         /// Required. The Git remote's URL.
@@ -980,13 +1022,31 @@ pub mod repository {
         }
     }
 
+    impl std::fmt::Debug for GitRemoteSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GitRemoteSettings");
+            debug_struct.field("url", &self.url);
+            debug_struct.field("default_branch", &self.default_branch);
+            debug_struct.field(
+                "authentication_token_secret_version",
+                &self.authentication_token_secret_version,
+            );
+            debug_struct.field("ssh_authentication_config", &self.ssh_authentication_config);
+            debug_struct.field("token_status", &self.token_status);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [GitRemoteSettings].
     pub mod git_remote_settings {
         #[allow(unused_imports)]
         use super::*;
 
         /// Configures fields for performing SSH authentication.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SshAuthenticationConfig {
             /// Required. The name of the Secret Manager secret version to use as a
@@ -1170,6 +1230,21 @@ pub mod repository {
             }
         }
 
+        impl std::fmt::Debug for SshAuthenticationConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("SshAuthenticationConfig");
+                debug_struct.field(
+                    "user_private_key_secret_version",
+                    &self.user_private_key_secret_version,
+                );
+                debug_struct.field("host_public_key", &self.host_public_key);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The status of the authentication token.
         ///
         /// # Working with unknown values
@@ -1315,7 +1390,7 @@ pub mod repository {
     }
 
     /// Configures workspace compilation overrides for a repository.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WorkspaceCompilationOverrides {
         /// Optional. The default database (Google Cloud project ID).
@@ -1507,10 +1582,23 @@ pub mod repository {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for WorkspaceCompilationOverrides {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WorkspaceCompilationOverrides");
+            debug_struct.field("default_database", &self.default_database);
+            debug_struct.field("schema_suffix", &self.schema_suffix);
+            debug_struct.field("table_prefix", &self.table_prefix);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// `ListRepositories` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRepositoriesRequest {
     /// Required. The location in which to list repositories. Must be in the format
@@ -1766,8 +1854,23 @@ impl serde::ser::Serialize for ListRepositoriesRequest {
     }
 }
 
+impl std::fmt::Debug for ListRepositoriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRepositoriesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ListRepositories` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRepositoriesResponse {
     /// List of repositories.
@@ -1966,8 +2069,21 @@ impl serde::ser::Serialize for ListRepositoriesResponse {
     }
 }
 
+impl std::fmt::Debug for ListRepositoriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRepositoriesResponse");
+        debug_struct.field("repositories", &self.repositories);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `GetRepository` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRepositoryRequest {
     /// Required. The repository's name.
@@ -2096,8 +2212,19 @@ impl serde::ser::Serialize for GetRepositoryRequest {
     }
 }
 
+impl std::fmt::Debug for GetRepositoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRepositoryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CreateRepository` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRepositoryRequest {
     /// Required. The location in which to create the repository. Must be in the
@@ -2288,8 +2415,21 @@ impl serde::ser::Serialize for CreateRepositoryRequest {
     }
 }
 
+impl std::fmt::Debug for CreateRepositoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateRepositoryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("repository", &self.repository);
+        debug_struct.field("repository_id", &self.repository_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `UpdateRepository` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRepositoryRequest {
     /// Optional. Specifies the fields to be updated in the repository. If left
@@ -2466,8 +2606,20 @@ impl serde::ser::Serialize for UpdateRepositoryRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateRepositoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRepositoryRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("repository", &self.repository);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `DeleteRepository` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRepositoryRequest {
     /// Required. The repository's name.
@@ -2622,8 +2774,20 @@ impl serde::ser::Serialize for DeleteRepositoryRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteRepositoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRepositoryRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CommitRepositoryChanges` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitRepositoryChangesRequest {
     /// Required. The repository's name.
@@ -2854,13 +3018,27 @@ impl serde::ser::Serialize for CommitRepositoryChangesRequest {
     }
 }
 
+impl std::fmt::Debug for CommitRepositoryChangesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitRepositoryChangesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("commit_metadata", &self.commit_metadata);
+        debug_struct.field("required_head_commit_sha", &self.required_head_commit_sha);
+        debug_struct.field("file_operations", &self.file_operations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CommitRepositoryChangesRequest].
 pub mod commit_repository_changes_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents a single file operation to the repository.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FileOperation {
         /// The operation to perform on the file.
@@ -3117,13 +3295,24 @@ pub mod commit_repository_changes_request {
         }
     }
 
+    impl std::fmt::Debug for FileOperation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FileOperation");
+            debug_struct.field("operation", &self.operation);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [FileOperation].
     pub mod file_operation {
         #[allow(unused_imports)]
         use super::*;
 
         /// Represents the write file operation (for files added or modified).
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct WriteFile {
             /// The file's contents.
@@ -3289,8 +3478,19 @@ pub mod commit_repository_changes_request {
             }
         }
 
+        impl std::fmt::Debug for WriteFile {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("WriteFile");
+                debug_struct.field("contents", &self.contents);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Represents the delete file operation.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DeleteFile {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3398,6 +3598,16 @@ pub mod commit_repository_changes_request {
             }
         }
 
+        impl std::fmt::Debug for DeleteFile {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("DeleteFile");
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The operation to perform on the file.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -3419,7 +3629,7 @@ pub mod commit_repository_changes_request {
 }
 
 /// `CommitRepositoryChanges` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitRepositoryChangesResponse {
     /// The commit SHA of the current commit.
@@ -3549,8 +3759,19 @@ impl serde::ser::Serialize for CommitRepositoryChangesResponse {
     }
 }
 
+impl std::fmt::Debug for CommitRepositoryChangesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitRepositoryChangesResponse");
+        debug_struct.field("commit_sha", &self.commit_sha);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ReadRepositoryFile` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadRepositoryFileRequest {
     /// Required. The repository's name.
@@ -3729,8 +3950,21 @@ impl serde::ser::Serialize for ReadRepositoryFileRequest {
     }
 }
 
+impl std::fmt::Debug for ReadRepositoryFileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReadRepositoryFileRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("commit_sha", &self.commit_sha);
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ReadRepositoryFile` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadRepositoryFileResponse {
     /// The file's contents.
@@ -3877,8 +4111,19 @@ impl serde::ser::Serialize for ReadRepositoryFileResponse {
     }
 }
 
+impl std::fmt::Debug for ReadRepositoryFileResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReadRepositoryFileResponse");
+        debug_struct.field("contents", &self.contents);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `QueryRepositoryDirectoryContents` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryRepositoryDirectoryContentsRequest {
     /// Required. The repository's name.
@@ -4135,8 +4380,23 @@ impl serde::ser::Serialize for QueryRepositoryDirectoryContentsRequest {
     }
 }
 
+impl std::fmt::Debug for QueryRepositoryDirectoryContentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryRepositoryDirectoryContentsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("commit_sha", &self.commit_sha);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `QueryRepositoryDirectoryContents` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryRepositoryDirectoryContentsResponse {
     /// List of entries in the directory.
@@ -4314,8 +4574,20 @@ impl serde::ser::Serialize for QueryRepositoryDirectoryContentsResponse {
     }
 }
 
+impl std::fmt::Debug for QueryRepositoryDirectoryContentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryRepositoryDirectoryContentsResponse");
+        debug_struct.field("directory_entries", &self.directory_entries);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `FetchRepositoryHistory` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchRepositoryHistoryRequest {
     /// Required. The repository's name.
@@ -4519,8 +4791,21 @@ impl serde::ser::Serialize for FetchRepositoryHistoryRequest {
     }
 }
 
+impl std::fmt::Debug for FetchRepositoryHistoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchRepositoryHistoryRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `FetchRepositoryHistory` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchRepositoryHistoryResponse {
     /// A list of commit logs, ordered by 'git log' default order.
@@ -4696,8 +4981,20 @@ impl serde::ser::Serialize for FetchRepositoryHistoryResponse {
     }
 }
 
+impl std::fmt::Debug for FetchRepositoryHistoryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchRepositoryHistoryResponse");
+        debug_struct.field("commits", &self.commits);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a single commit log.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitLogEntry {
     /// Commit timestamp.
@@ -4923,8 +5220,22 @@ impl serde::ser::Serialize for CommitLogEntry {
     }
 }
 
+impl std::fmt::Debug for CommitLogEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitLogEntry");
+        debug_struct.field("commit_time", &self.commit_time);
+        debug_struct.field("commit_sha", &self.commit_sha);
+        debug_struct.field("author", &self.author);
+        debug_struct.field("commit_message", &self.commit_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a Dataform Git commit.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitMetadata {
     /// Required. The commit's author.
@@ -5089,8 +5400,20 @@ impl serde::ser::Serialize for CommitMetadata {
     }
 }
 
+impl std::fmt::Debug for CommitMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitMetadata");
+        debug_struct.field("author", &self.author);
+        debug_struct.field("commit_message", &self.commit_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ComputeRepositoryAccessTokenStatus` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeRepositoryAccessTokenStatusRequest {
     /// Required. The repository's name.
@@ -5220,8 +5543,19 @@ impl serde::ser::Serialize for ComputeRepositoryAccessTokenStatusRequest {
     }
 }
 
+impl std::fmt::Debug for ComputeRepositoryAccessTokenStatusRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ComputeRepositoryAccessTokenStatusRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ComputeRepositoryAccessTokenStatus` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeRepositoryAccessTokenStatusResponse {
     /// Indicates the status of the Git access token.
@@ -5355,6 +5689,17 @@ impl serde::ser::Serialize for ComputeRepositoryAccessTokenStatusResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ComputeRepositoryAccessTokenStatusResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ComputeRepositoryAccessTokenStatusResponse");
+        debug_struct.field("token_status", &self.token_status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -5505,7 +5850,7 @@ pub mod compute_repository_access_token_status_response {
 }
 
 /// `FetchRemoteBranches` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchRemoteBranchesRequest {
     /// Required. The repository's name.
@@ -5634,8 +5979,19 @@ impl serde::ser::Serialize for FetchRemoteBranchesRequest {
     }
 }
 
+impl std::fmt::Debug for FetchRemoteBranchesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchRemoteBranchesRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `FetchRemoteBranches` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchRemoteBranchesResponse {
     /// The remote repository's branch names.
@@ -5767,8 +6123,19 @@ impl serde::ser::Serialize for FetchRemoteBranchesResponse {
     }
 }
 
+impl std::fmt::Debug for FetchRemoteBranchesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchRemoteBranchesResponse");
+        debug_struct.field("branches", &self.branches);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a Dataform Git workspace.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Workspace {
     /// Identifier. The workspace's name.
@@ -6008,8 +6375,22 @@ impl serde::ser::Serialize for Workspace {
     }
 }
 
+impl std::fmt::Debug for Workspace {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Workspace");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("data_encryption_state", &self.data_encryption_state);
+        debug_struct.field("internal_metadata", &self.internal_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ListWorkspaces` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkspacesRequest {
     /// Required. The repository in which to list workspaces. Must be in the
@@ -6265,8 +6646,23 @@ impl serde::ser::Serialize for ListWorkspacesRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkspacesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkspacesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ListWorkspaces` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkspacesResponse {
     /// List of workspaces.
@@ -6465,8 +6861,21 @@ impl serde::ser::Serialize for ListWorkspacesResponse {
     }
 }
 
+impl std::fmt::Debug for ListWorkspacesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkspacesResponse");
+        debug_struct.field("workspaces", &self.workspaces);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `GetWorkspace` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkspaceRequest {
     /// Required. The workspace's name.
@@ -6595,8 +7004,19 @@ impl serde::ser::Serialize for GetWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for GetWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWorkspaceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CreateWorkspace` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkspaceRequest {
     /// Required. The repository in which to create the workspace. Must be in the
@@ -6787,8 +7207,21 @@ impl serde::ser::Serialize for CreateWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkspaceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("workspace_id", &self.workspace_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `DeleteWorkspace` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkspaceRequest {
     /// Required. The workspace resource's name.
@@ -6917,8 +7350,19 @@ impl serde::ser::Serialize for DeleteWorkspaceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteWorkspaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWorkspaceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the author of a Git commit.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitAuthor {
     /// Required. The commit author's name.
@@ -7072,8 +7516,20 @@ impl serde::ser::Serialize for CommitAuthor {
     }
 }
 
+impl std::fmt::Debug for CommitAuthor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitAuthor");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("email_address", &self.email_address);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `PullGitCommits` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PullGitCommitsRequest {
     /// Required. The workspace's name.
@@ -7264,8 +7720,21 @@ impl serde::ser::Serialize for PullGitCommitsRequest {
     }
 }
 
+impl std::fmt::Debug for PullGitCommitsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PullGitCommitsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("remote_branch", &self.remote_branch);
+        debug_struct.field("author", &self.author);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `PullGitCommits` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PullGitCommitsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7367,8 +7836,18 @@ impl serde::ser::Serialize for PullGitCommitsResponse {
     }
 }
 
+impl std::fmt::Debug for PullGitCommitsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PullGitCommitsResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `PushGitCommits` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PushGitCommitsRequest {
     /// Required. The workspace's name.
@@ -7524,8 +8003,20 @@ impl serde::ser::Serialize for PushGitCommitsRequest {
     }
 }
 
+impl std::fmt::Debug for PushGitCommitsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PushGitCommitsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("remote_branch", &self.remote_branch);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `PushGitCommits` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PushGitCommitsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7627,8 +8118,18 @@ impl serde::ser::Serialize for PushGitCommitsResponse {
     }
 }
 
+impl std::fmt::Debug for PushGitCommitsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PushGitCommitsResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `FetchFileGitStatuses` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchFileGitStatusesRequest {
     /// Required. The workspace's name.
@@ -7757,8 +8258,19 @@ impl serde::ser::Serialize for FetchFileGitStatusesRequest {
     }
 }
 
+impl std::fmt::Debug for FetchFileGitStatusesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchFileGitStatusesRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `FetchFileGitStatuses` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchFileGitStatusesResponse {
     /// A list of all files which have uncommitted Git changes. There will only be
@@ -7897,13 +8409,24 @@ impl serde::ser::Serialize for FetchFileGitStatusesResponse {
     }
 }
 
+impl std::fmt::Debug for FetchFileGitStatusesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchFileGitStatusesResponse");
+        debug_struct.field("uncommitted_file_changes", &self.uncommitted_file_changes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FetchFileGitStatusesResponse].
 pub mod fetch_file_git_statuses_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents the Git state of a file with uncommitted changes.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UncommittedFileChange {
         /// The file's full path including filename, relative to the workspace root.
@@ -8064,6 +8587,18 @@ pub mod fetch_file_git_statuses_response {
         }
     }
 
+    impl std::fmt::Debug for UncommittedFileChange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UncommittedFileChange");
+            debug_struct.field("path", &self.path);
+            debug_struct.field("state", &self.state);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [UncommittedFileChange].
     pub mod uncommitted_file_change {
         #[allow(unused_imports)]
@@ -8220,7 +8755,7 @@ pub mod fetch_file_git_statuses_response {
 }
 
 /// `FetchGitAheadBehind` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchGitAheadBehindRequest {
     /// Required. The workspace's name.
@@ -8376,8 +8911,20 @@ impl serde::ser::Serialize for FetchGitAheadBehindRequest {
     }
 }
 
+impl std::fmt::Debug for FetchGitAheadBehindRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchGitAheadBehindRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("remote_branch", &self.remote_branch);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `FetchGitAheadBehind` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchGitAheadBehindResponse {
     /// The number of commits in the remote branch that are not in the workspace.
@@ -8570,8 +9117,20 @@ impl serde::ser::Serialize for FetchGitAheadBehindResponse {
     }
 }
 
+impl std::fmt::Debug for FetchGitAheadBehindResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchGitAheadBehindResponse");
+        debug_struct.field("commits_ahead", &self.commits_ahead);
+        debug_struct.field("commits_behind", &self.commits_behind);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CommitWorkspaceChanges` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitWorkspaceChangesRequest {
     /// Required. The workspace's name.
@@ -8788,8 +9347,22 @@ impl serde::ser::Serialize for CommitWorkspaceChangesRequest {
     }
 }
 
+impl std::fmt::Debug for CommitWorkspaceChangesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitWorkspaceChangesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("author", &self.author);
+        debug_struct.field("commit_message", &self.commit_message);
+        debug_struct.field("paths", &self.paths);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CommitWorkspaceChanges` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitWorkspaceChangesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8891,8 +9464,18 @@ impl serde::ser::Serialize for CommitWorkspaceChangesResponse {
     }
 }
 
+impl std::fmt::Debug for CommitWorkspaceChangesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitWorkspaceChangesResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ResetWorkspaceChanges` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetWorkspaceChangesRequest {
     /// Required. The workspace's name.
@@ -9073,8 +9656,21 @@ impl serde::ser::Serialize for ResetWorkspaceChangesRequest {
     }
 }
 
+impl std::fmt::Debug for ResetWorkspaceChangesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetWorkspaceChangesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("paths", &self.paths);
+        debug_struct.field("clean", &self.clean);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ResetWorkspaceChanges` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetWorkspaceChangesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9176,8 +9772,18 @@ impl serde::ser::Serialize for ResetWorkspaceChangesResponse {
     }
 }
 
+impl std::fmt::Debug for ResetWorkspaceChangesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetWorkspaceChangesResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `FetchFileDiff` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchFileDiffRequest {
     /// Required. The workspace's name.
@@ -9331,8 +9937,20 @@ impl serde::ser::Serialize for FetchFileDiffRequest {
     }
 }
 
+impl std::fmt::Debug for FetchFileDiffRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchFileDiffRequest");
+        debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `FetchFileDiff` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchFileDiffResponse {
     /// The raw formatted Git diff for the file.
@@ -9462,8 +10080,19 @@ impl serde::ser::Serialize for FetchFileDiffResponse {
     }
 }
 
+impl std::fmt::Debug for FetchFileDiffResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchFileDiffResponse");
+        debug_struct.field("formatted_diff", &self.formatted_diff);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `QueryDirectoryContents` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryDirectoryContentsRequest {
     /// Required. The workspace's name.
@@ -9692,8 +10321,22 @@ impl serde::ser::Serialize for QueryDirectoryContentsRequest {
     }
 }
 
+impl std::fmt::Debug for QueryDirectoryContentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryDirectoryContentsRequest");
+        debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `QueryDirectoryContents` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryDirectoryContentsResponse {
     /// List of entries in the directory.
@@ -9870,8 +10513,20 @@ impl serde::ser::Serialize for QueryDirectoryContentsResponse {
     }
 }
 
+impl std::fmt::Debug for QueryDirectoryContentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryDirectoryContentsResponse");
+        debug_struct.field("directory_entries", &self.directory_entries);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a single entry in a directory.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DirectoryEntry {
     /// The entry's contents.
@@ -10083,6 +10738,17 @@ impl serde::ser::Serialize for DirectoryEntry {
     }
 }
 
+impl std::fmt::Debug for DirectoryEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DirectoryEntry");
+        debug_struct.field("entry", &self.entry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DirectoryEntry].
 pub mod directory_entry {
     #[allow(unused_imports)]
@@ -10100,7 +10766,7 @@ pub mod directory_entry {
 }
 
 /// Configuration containing file search request parameters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchFilesRequest {
     /// Required. The workspace's name.
@@ -10330,8 +10996,22 @@ impl serde::ser::Serialize for SearchFilesRequest {
     }
 }
 
+impl std::fmt::Debug for SearchFilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchFilesRequest");
+        debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Client-facing representation of a file search response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchFilesResponse {
     /// List of matched results.
@@ -10504,8 +11184,20 @@ impl serde::ser::Serialize for SearchFilesResponse {
     }
 }
 
+impl std::fmt::Debug for SearchFilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchFilesResponse");
+        debug_struct.field("search_results", &self.search_results);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Client-facing representation of a search result entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchResult {
     /// The entry's contents.
@@ -10730,6 +11422,17 @@ impl serde::ser::Serialize for SearchResult {
     }
 }
 
+impl std::fmt::Debug for SearchResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchResult");
+        debug_struct.field("entry", &self.entry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SearchResult].
 pub mod search_result {
     #[allow(unused_imports)]
@@ -10747,7 +11450,7 @@ pub mod search_result {
 }
 
 /// Client-facing representation of a file entry in search results.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileSearchResult {
     /// File system path relative to the workspace root.
@@ -10876,8 +11579,19 @@ impl serde::ser::Serialize for FileSearchResult {
     }
 }
 
+impl std::fmt::Debug for FileSearchResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileSearchResult");
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Client-facing representation of a directory entry in search results.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DirectorySearchResult {
     /// File system path relative to the workspace root.
@@ -11006,8 +11720,19 @@ impl serde::ser::Serialize for DirectorySearchResult {
     }
 }
 
+impl std::fmt::Debug for DirectorySearchResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DirectorySearchResult");
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `MakeDirectory` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MakeDirectoryRequest {
     /// Required. The workspace's name.
@@ -11161,8 +11886,20 @@ impl serde::ser::Serialize for MakeDirectoryRequest {
     }
 }
 
+impl std::fmt::Debug for MakeDirectoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MakeDirectoryRequest");
+        debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `MakeDirectory` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MakeDirectoryResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11264,8 +12001,18 @@ impl serde::ser::Serialize for MakeDirectoryResponse {
     }
 }
 
+impl std::fmt::Debug for MakeDirectoryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MakeDirectoryResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `RemoveDirectory` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveDirectoryRequest {
     /// Required. The workspace's name.
@@ -11419,8 +12166,20 @@ impl serde::ser::Serialize for RemoveDirectoryRequest {
     }
 }
 
+impl std::fmt::Debug for RemoveDirectoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveDirectoryRequest");
+        debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `RemoveDirectory` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveDirectoryResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11522,8 +12281,18 @@ impl serde::ser::Serialize for RemoveDirectoryResponse {
     }
 }
 
+impl std::fmt::Debug for RemoveDirectoryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveDirectoryResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `MoveDirectory` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveDirectoryRequest {
     /// Required. The workspace's name.
@@ -11703,8 +12472,21 @@ impl serde::ser::Serialize for MoveDirectoryRequest {
     }
 }
 
+impl std::fmt::Debug for MoveDirectoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveDirectoryRequest");
+        debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("new_path", &self.new_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `MoveDirectory` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveDirectoryResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11806,8 +12588,18 @@ impl serde::ser::Serialize for MoveDirectoryResponse {
     }
 }
 
+impl std::fmt::Debug for MoveDirectoryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveDirectoryResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ReadFile` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadFileRequest {
     /// Required. The workspace's name.
@@ -11986,8 +12778,21 @@ impl serde::ser::Serialize for ReadFileRequest {
     }
 }
 
+impl std::fmt::Debug for ReadFileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReadFileRequest");
+        debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("revision", &self.revision);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ReadFile` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadFileResponse {
     /// The file's contents.
@@ -12136,8 +12941,19 @@ impl serde::ser::Serialize for ReadFileResponse {
     }
 }
 
+impl std::fmt::Debug for ReadFileResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReadFileResponse");
+        debug_struct.field("file_contents", &self.file_contents);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `RemoveFile` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveFileRequest {
     /// Required. The workspace's name.
@@ -12291,8 +13107,20 @@ impl serde::ser::Serialize for RemoveFileRequest {
     }
 }
 
+impl std::fmt::Debug for RemoveFileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveFileRequest");
+        debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `RemoveFile` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveFileResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12394,8 +13222,18 @@ impl serde::ser::Serialize for RemoveFileResponse {
     }
 }
 
+impl std::fmt::Debug for RemoveFileResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveFileResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `MoveFile` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveFileRequest {
     /// Required. The workspace's name.
@@ -12575,8 +13413,21 @@ impl serde::ser::Serialize for MoveFileRequest {
     }
 }
 
+impl std::fmt::Debug for MoveFileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveFileRequest");
+        debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("new_path", &self.new_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `MoveFile` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveFileResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12678,8 +13529,18 @@ impl serde::ser::Serialize for MoveFileResponse {
     }
 }
 
+impl std::fmt::Debug for MoveFileResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveFileResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `WriteFile` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteFileRequest {
     /// Required. The workspace's name.
@@ -12874,8 +13735,21 @@ impl serde::ser::Serialize for WriteFileRequest {
     }
 }
 
+impl std::fmt::Debug for WriteFileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WriteFileRequest");
+        debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("contents", &self.contents);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `WriteFile` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteFileResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12977,8 +13851,18 @@ impl serde::ser::Serialize for WriteFileResponse {
     }
 }
 
+impl std::fmt::Debug for WriteFileResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WriteFileResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `InstallNpmPackages` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstallNpmPackagesRequest {
     /// Required. The workspace's name.
@@ -13107,8 +13991,19 @@ impl serde::ser::Serialize for InstallNpmPackagesRequest {
     }
 }
 
+impl std::fmt::Debug for InstallNpmPackagesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstallNpmPackagesRequest");
+        debug_struct.field("workspace", &self.workspace);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `InstallNpmPackages` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstallNpmPackagesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13210,8 +14105,18 @@ impl serde::ser::Serialize for InstallNpmPackagesResponse {
     }
 }
 
+impl std::fmt::Debug for InstallNpmPackagesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstallNpmPackagesResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a Dataform release configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReleaseConfig {
     /// Identifier. The release config's name.
@@ -13605,6 +14510,31 @@ impl serde::ser::Serialize for ReleaseConfig {
     }
 }
 
+impl std::fmt::Debug for ReleaseConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReleaseConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("git_commitish", &self.git_commitish);
+        debug_struct.field("code_compilation_config", &self.code_compilation_config);
+        debug_struct.field("cron_schedule", &self.cron_schedule);
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field(
+            "recent_scheduled_release_records",
+            &self.recent_scheduled_release_records,
+        );
+        debug_struct.field(
+            "release_compilation_result",
+            &self.release_compilation_result,
+        );
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("internal_metadata", &self.internal_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReleaseConfig].
 pub mod release_config {
     #[allow(unused_imports)]
@@ -13612,7 +14542,7 @@ pub mod release_config {
 
     /// A record of an attempt to create a compilation result for this release
     /// config.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ScheduledReleaseRecord {
         /// Output only. The timestamp of this release attempt.
@@ -13882,6 +14812,18 @@ pub mod release_config {
         }
     }
 
+    impl std::fmt::Debug for ScheduledReleaseRecord {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ScheduledReleaseRecord");
+            debug_struct.field("release_time", &self.release_time);
+            debug_struct.field("result", &self.result);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ScheduledReleaseRecord].
     pub mod scheduled_release_record {
         #[allow(unused_imports)]
@@ -13903,7 +14845,7 @@ pub mod release_config {
 }
 
 /// `ListReleaseConfigs` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReleaseConfigsRequest {
     /// Required. The repository in which to list release configs. Must be in the
@@ -14108,8 +15050,21 @@ impl serde::ser::Serialize for ListReleaseConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListReleaseConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReleaseConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ListReleaseConfigs` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReleaseConfigsResponse {
     /// List of release configs.
@@ -14309,8 +15264,21 @@ impl serde::ser::Serialize for ListReleaseConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListReleaseConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReleaseConfigsResponse");
+        debug_struct.field("release_configs", &self.release_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `GetReleaseConfig` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReleaseConfigRequest {
     /// Required. The release config's name.
@@ -14439,8 +15407,19 @@ impl serde::ser::Serialize for GetReleaseConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetReleaseConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetReleaseConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CreateReleaseConfig` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReleaseConfigRequest {
     /// Required. The repository in which to create the release config. Must be in
@@ -14635,8 +15614,21 @@ impl serde::ser::Serialize for CreateReleaseConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateReleaseConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateReleaseConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("release_config", &self.release_config);
+        debug_struct.field("release_config_id", &self.release_config_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `UpdateReleaseConfig` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateReleaseConfigRequest {
     /// Optional. Specifies the fields to be updated in the release config. If left
@@ -14814,8 +15806,20 @@ impl serde::ser::Serialize for UpdateReleaseConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateReleaseConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateReleaseConfigRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("release_config", &self.release_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `DeleteReleaseConfig` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteReleaseConfigRequest {
     /// Required. The release config's name.
@@ -14944,8 +15948,19 @@ impl serde::ser::Serialize for DeleteReleaseConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteReleaseConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteReleaseConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the result of compiling a Dataform project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompilationResult {
     /// Output only. The compilation result's name.
@@ -15473,13 +16488,32 @@ impl serde::ser::Serialize for CompilationResult {
     }
 }
 
+impl std::fmt::Debug for CompilationResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompilationResult");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("code_compilation_config", &self.code_compilation_config);
+        debug_struct.field("resolved_git_commit_sha", &self.resolved_git_commit_sha);
+        debug_struct.field("dataform_core_version", &self.dataform_core_version);
+        debug_struct.field("compilation_errors", &self.compilation_errors);
+        debug_struct.field("data_encryption_state", &self.data_encryption_state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("internal_metadata", &self.internal_metadata);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CompilationResult].
 pub mod compilation_result {
     #[allow(unused_imports)]
     use super::*;
 
     /// An error encountered when attempting to compile a Dataform project.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CompilationError {
         /// Output only. The error's top level message.
@@ -15697,6 +16731,20 @@ pub mod compilation_result {
         }
     }
 
+    impl std::fmt::Debug for CompilationError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CompilationError");
+            debug_struct.field("message", &self.message);
+            debug_struct.field("stack", &self.stack);
+            debug_struct.field("path", &self.path);
+            debug_struct.field("action_target", &self.action_target);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The source of the compilation result.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -15718,7 +16766,7 @@ pub mod compilation_result {
 }
 
 /// Configures various aspects of Dataform code compilation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CodeCompilationConfig {
     /// Optional. The default database (Google Cloud project ID).
@@ -16128,8 +17176,34 @@ impl serde::ser::Serialize for CodeCompilationConfig {
     }
 }
 
+impl std::fmt::Debug for CodeCompilationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CodeCompilationConfig");
+        debug_struct.field("default_database", &self.default_database);
+        debug_struct.field("default_schema", &self.default_schema);
+        debug_struct.field("default_location", &self.default_location);
+        debug_struct.field("assertion_schema", &self.assertion_schema);
+        debug_struct.field("vars", &self.vars);
+        debug_struct.field("database_suffix", &self.database_suffix);
+        debug_struct.field("schema_suffix", &self.schema_suffix);
+        debug_struct.field("table_prefix", &self.table_prefix);
+        debug_struct.field(
+            "builtin_assertion_name_prefix",
+            &self.builtin_assertion_name_prefix,
+        );
+        debug_struct.field(
+            "default_notebook_runtime_options",
+            &self.default_notebook_runtime_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configures various aspects of Dataform notebook runtime.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotebookRuntimeOptions {
     /// Optional. The resource name of the [Colab runtime template]
@@ -16342,6 +17416,21 @@ impl serde::ser::Serialize for NotebookRuntimeOptions {
     }
 }
 
+impl std::fmt::Debug for NotebookRuntimeOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NotebookRuntimeOptions");
+        debug_struct.field(
+            "ai_platform_notebook_runtime_template",
+            &self.ai_platform_notebook_runtime_template,
+        );
+        debug_struct.field("execution_sink", &self.execution_sink);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NotebookRuntimeOptions].
 pub mod notebook_runtime_options {
     #[allow(unused_imports)]
@@ -16358,7 +17447,7 @@ pub mod notebook_runtime_options {
 }
 
 /// `ListCompilationResults` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCompilationResultsRequest {
     /// Required. The repository in which to list compilation results. Must be in
@@ -16614,8 +17703,23 @@ impl serde::ser::Serialize for ListCompilationResultsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCompilationResultsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCompilationResultsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ListCompilationResults` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCompilationResultsResponse {
     /// List of compilation results.
@@ -16819,8 +17923,21 @@ impl serde::ser::Serialize for ListCompilationResultsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCompilationResultsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCompilationResultsResponse");
+        debug_struct.field("compilation_results", &self.compilation_results);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `GetCompilationResult` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCompilationResultRequest {
     /// Required. The compilation result's name.
@@ -16949,8 +18066,19 @@ impl serde::ser::Serialize for GetCompilationResultRequest {
     }
 }
 
+impl std::fmt::Debug for GetCompilationResultRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCompilationResultRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CreateCompilationResult` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCompilationResultRequest {
     /// Required. The repository in which to create the compilation result. Must be
@@ -17117,9 +18245,21 @@ impl serde::ser::Serialize for CreateCompilationResultRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCompilationResultRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCompilationResultRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("compilation_result", &self.compilation_result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents an action identifier. If the action writes output, the output
 /// will be written to the referenced database object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Target {
     /// Optional. The action's database (Google Cloud project ID) .
@@ -17296,8 +18436,21 @@ impl serde::ser::Serialize for Target {
     }
 }
 
+impl std::fmt::Debug for Target {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Target");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("schema", &self.schema);
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a relation and its columns.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RelationDescriptor {
     /// A text description of the relation.
@@ -17495,13 +18648,26 @@ impl serde::ser::Serialize for RelationDescriptor {
     }
 }
 
+impl std::fmt::Debug for RelationDescriptor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelationDescriptor");
+        debug_struct.field("description", &self.description);
+        debug_struct.field("columns", &self.columns);
+        debug_struct.field("bigquery_labels", &self.bigquery_labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RelationDescriptor].
 pub mod relation_descriptor {
     #[allow(unused_imports)]
     use super::*;
 
     /// Describes a column.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ColumnDescriptor {
         /// The identifier for the column. Each entry in `path` represents one level
@@ -17688,10 +18854,23 @@ pub mod relation_descriptor {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ColumnDescriptor {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ColumnDescriptor");
+            debug_struct.field("path", &self.path);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("bigquery_policy_tags", &self.bigquery_policy_tags);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Represents a single Dataform action in a compilation result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompilationResultAction {
     /// This action's identifier. Unique within the compilation result.
@@ -18306,13 +19485,28 @@ impl serde::ser::Serialize for CompilationResultAction {
     }
 }
 
+impl std::fmt::Debug for CompilationResultAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompilationResultAction");
+        debug_struct.field("target", &self.target);
+        debug_struct.field("canonical_target", &self.canonical_target);
+        debug_struct.field("file_path", &self.file_path);
+        debug_struct.field("internal_metadata", &self.internal_metadata);
+        debug_struct.field("compiled_object", &self.compiled_object);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CompilationResultAction].
 pub mod compilation_result_action {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents a database relation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Relation {
         /// A list of actions that this action depends on.
@@ -18870,13 +20064,37 @@ pub mod compilation_result_action {
         }
     }
 
+    impl std::fmt::Debug for Relation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Relation");
+            debug_struct.field("dependency_targets", &self.dependency_targets);
+            debug_struct.field("disabled", &self.disabled);
+            debug_struct.field("tags", &self.tags);
+            debug_struct.field("relation_descriptor", &self.relation_descriptor);
+            debug_struct.field("relation_type", &self.relation_type);
+            debug_struct.field("select_query", &self.select_query);
+            debug_struct.field("pre_operations", &self.pre_operations);
+            debug_struct.field("post_operations", &self.post_operations);
+            debug_struct.field("incremental_table_config", &self.incremental_table_config);
+            debug_struct.field("partition_expression", &self.partition_expression);
+            debug_struct.field("cluster_expressions", &self.cluster_expressions);
+            debug_struct.field("partition_expiration_days", &self.partition_expiration_days);
+            debug_struct.field("require_partition_filter", &self.require_partition_filter);
+            debug_struct.field("additional_options", &self.additional_options);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Relation].
     pub mod relation {
         #[allow(unused_imports)]
         use super::*;
 
         /// Contains settings for relations of type `INCREMENTAL_TABLE`.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct IncrementalTableConfig {
             /// The SELECT query which returns rows which should be inserted into the
@@ -19198,6 +20416,28 @@ pub mod compilation_result_action {
             }
         }
 
+        impl std::fmt::Debug for IncrementalTableConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("IncrementalTableConfig");
+                debug_struct.field("incremental_select_query", &self.incremental_select_query);
+                debug_struct.field("refresh_disabled", &self.refresh_disabled);
+                debug_struct.field("unique_key_parts", &self.unique_key_parts);
+                debug_struct.field("update_partition_filter", &self.update_partition_filter);
+                debug_struct.field(
+                    "incremental_pre_operations",
+                    &self.incremental_pre_operations,
+                );
+                debug_struct.field(
+                    "incremental_post_operations",
+                    &self.incremental_post_operations,
+                );
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Indicates the type of this relation.
         ///
         /// # Working with unknown values
@@ -19349,7 +20589,7 @@ pub mod compilation_result_action {
     }
 
     /// Represents a list of arbitrary database operations.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Operations {
         /// A list of actions that this action depends on.
@@ -19626,9 +20866,25 @@ pub mod compilation_result_action {
         }
     }
 
+    impl std::fmt::Debug for Operations {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Operations");
+            debug_struct.field("dependency_targets", &self.dependency_targets);
+            debug_struct.field("disabled", &self.disabled);
+            debug_struct.field("tags", &self.tags);
+            debug_struct.field("relation_descriptor", &self.relation_descriptor);
+            debug_struct.field("queries", &self.queries);
+            debug_struct.field("has_output", &self.has_output);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents an assertion upon a SQL query which is required return zero
     /// rows.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Assertion {
         /// A list of actions that this action depends on.
@@ -19918,9 +21174,25 @@ pub mod compilation_result_action {
         }
     }
 
+    impl std::fmt::Debug for Assertion {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Assertion");
+            debug_struct.field("dependency_targets", &self.dependency_targets);
+            debug_struct.field("parent_action", &self.parent_action);
+            debug_struct.field("disabled", &self.disabled);
+            debug_struct.field("tags", &self.tags);
+            debug_struct.field("select_query", &self.select_query);
+            debug_struct.field("relation_descriptor", &self.relation_descriptor);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents a relation which is not managed by Dataform but which may be
     /// referenced by Dataform actions.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Declaration {
         /// Descriptor for the relation and its columns. Used as documentation only,
@@ -20065,8 +21337,19 @@ pub mod compilation_result_action {
         }
     }
 
+    impl std::fmt::Debug for Declaration {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Declaration");
+            debug_struct.field("relation_descriptor", &self.relation_descriptor);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents a notebook.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Notebook {
         /// A list of actions that this action depends on.
@@ -20277,8 +21560,22 @@ pub mod compilation_result_action {
         }
     }
 
+    impl std::fmt::Debug for Notebook {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Notebook");
+            debug_struct.field("dependency_targets", &self.dependency_targets);
+            debug_struct.field("disabled", &self.disabled);
+            debug_struct.field("contents", &self.contents);
+            debug_struct.field("tags", &self.tags);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines a compiled Data Preparation entity
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DataPreparation {
         /// A list of actions that this action depends on.
@@ -20602,13 +21899,27 @@ pub mod compilation_result_action {
         }
     }
 
+    impl std::fmt::Debug for DataPreparation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DataPreparation");
+            debug_struct.field("dependency_targets", &self.dependency_targets);
+            debug_struct.field("disabled", &self.disabled);
+            debug_struct.field("tags", &self.tags);
+            debug_struct.field("definition", &self.definition);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [DataPreparation].
     pub mod data_preparation {
         #[allow(unused_imports)]
         use super::*;
 
         /// Definition of a SQL Data Preparation
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SqlDefinition {
             /// The SQL query representing the data preparation steps. Formatted as a
@@ -20824,9 +22135,22 @@ pub mod compilation_result_action {
             }
         }
 
+        impl std::fmt::Debug for SqlDefinition {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("SqlDefinition");
+                debug_struct.field("query", &self.query);
+                debug_struct.field("error_table", &self.error_table);
+                debug_struct.field("load", &self.load);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Error table information, used to write error data into a BigQuery
         /// table.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ErrorTable {
             /// Error Table target.
@@ -21023,6 +22347,18 @@ pub mod compilation_result_action {
             }
         }
 
+        impl std::fmt::Debug for ErrorTable {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ErrorTable");
+                debug_struct.field("target", &self.target);
+                debug_struct.field("retention_days", &self.retention_days);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The definition for the data preparation.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -21040,7 +22376,7 @@ pub mod compilation_result_action {
     }
 
     /// Simplified load configuration for actions
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LoadConfig {
         /// Load mode
@@ -21399,6 +22735,17 @@ pub mod compilation_result_action {
         }
     }
 
+    impl std::fmt::Debug for LoadConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LoadConfig");
+            debug_struct.field("mode", &self.mode);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [LoadConfig].
     pub mod load_config {
         #[allow(unused_imports)]
@@ -21422,7 +22769,7 @@ pub mod compilation_result_action {
     }
 
     /// Simple load definition
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SimpleLoadMode {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -21527,8 +22874,18 @@ pub mod compilation_result_action {
         }
     }
 
+    impl std::fmt::Debug for SimpleLoadMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SimpleLoadMode");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Load definition for incremental load modes
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IncrementalLoadMode {
         /// Column name for incremental load modes
@@ -21660,6 +23017,17 @@ pub mod compilation_result_action {
         }
     }
 
+    impl std::fmt::Debug for IncrementalLoadMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IncrementalLoadMode");
+            debug_struct.field("column", &self.column);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The compiled object.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -21680,7 +23048,7 @@ pub mod compilation_result_action {
 }
 
 /// `QueryCompilationResultActions` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryCompilationResultActionsRequest {
     /// Required. The compilation result's name.
@@ -21910,8 +23278,22 @@ impl serde::ser::Serialize for QueryCompilationResultActionsRequest {
     }
 }
 
+impl std::fmt::Debug for QueryCompilationResultActionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryCompilationResultActionsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `QueryCompilationResultActions` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryCompilationResultActionsResponse {
     /// List of compilation result actions.
@@ -22093,8 +23475,23 @@ impl serde::ser::Serialize for QueryCompilationResultActionsResponse {
     }
 }
 
+impl std::fmt::Debug for QueryCompilationResultActionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryCompilationResultActionsResponse");
+        debug_struct.field(
+            "compilation_result_actions",
+            &self.compilation_result_actions,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a Dataform workflow configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowConfig {
     /// Identifier. The workflow config's name.
@@ -22519,6 +23916,29 @@ impl serde::ser::Serialize for WorkflowConfig {
     }
 }
 
+impl std::fmt::Debug for WorkflowConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkflowConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("release_config", &self.release_config);
+        debug_struct.field("invocation_config", &self.invocation_config);
+        debug_struct.field("cron_schedule", &self.cron_schedule);
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field(
+            "recent_scheduled_execution_records",
+            &self.recent_scheduled_execution_records,
+        );
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("internal_metadata", &self.internal_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WorkflowConfig].
 pub mod workflow_config {
     #[allow(unused_imports)]
@@ -22526,7 +23946,7 @@ pub mod workflow_config {
 
     /// A record of an attempt to create a workflow invocation for this workflow
     /// config.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ScheduledExecutionRecord {
         /// Output only. The timestamp of this execution attempt.
@@ -22796,6 +24216,18 @@ pub mod workflow_config {
         }
     }
 
+    impl std::fmt::Debug for ScheduledExecutionRecord {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ScheduledExecutionRecord");
+            debug_struct.field("execution_time", &self.execution_time);
+            debug_struct.field("result", &self.result);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ScheduledExecutionRecord].
     pub mod scheduled_execution_record {
         #[allow(unused_imports)]
@@ -22819,7 +24251,7 @@ pub mod workflow_config {
 /// Includes various configuration options for a workflow invocation.
 /// If both `included_targets` and `included_tags` are unset, all actions
 /// will be included.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InvocationConfig {
     /// Optional. The set of action identifiers to include.
@@ -23111,8 +24543,33 @@ impl serde::ser::Serialize for InvocationConfig {
     }
 }
 
+impl std::fmt::Debug for InvocationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InvocationConfig");
+        debug_struct.field("included_targets", &self.included_targets);
+        debug_struct.field("included_tags", &self.included_tags);
+        debug_struct.field(
+            "transitive_dependencies_included",
+            &self.transitive_dependencies_included,
+        );
+        debug_struct.field(
+            "transitive_dependents_included",
+            &self.transitive_dependents_included,
+        );
+        debug_struct.field(
+            "fully_refresh_incremental_tables_enabled",
+            &self.fully_refresh_incremental_tables_enabled,
+        );
+        debug_struct.field("service_account", &self.service_account);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ListWorkflowConfigs` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowConfigsRequest {
     /// Required. The repository in which to list workflow configs. Must be in the
@@ -23317,8 +24774,21 @@ impl serde::ser::Serialize for ListWorkflowConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkflowConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkflowConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ListWorkflowConfigs` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowConfigsResponse {
     /// List of workflow configs.
@@ -23522,8 +24992,21 @@ impl serde::ser::Serialize for ListWorkflowConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListWorkflowConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkflowConfigsResponse");
+        debug_struct.field("workflow_configs", &self.workflow_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `GetWorkflowConfig` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkflowConfigRequest {
     /// Required. The workflow config's name.
@@ -23652,8 +25135,19 @@ impl serde::ser::Serialize for GetWorkflowConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetWorkflowConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWorkflowConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CreateWorkflowConfig` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkflowConfigRequest {
     /// Required. The repository in which to create the workflow config. Must be in
@@ -23849,8 +25343,21 @@ impl serde::ser::Serialize for CreateWorkflowConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWorkflowConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkflowConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("workflow_config", &self.workflow_config);
+        debug_struct.field("workflow_config_id", &self.workflow_config_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `UpdateWorkflowConfig` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkflowConfigRequest {
     /// Optional. Specifies the fields to be updated in the workflow config. If
@@ -24029,8 +25536,20 @@ impl serde::ser::Serialize for UpdateWorkflowConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateWorkflowConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateWorkflowConfigRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("workflow_config", &self.workflow_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `DeleteWorkflowConfig` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkflowConfigRequest {
     /// Required. The workflow config's name.
@@ -24159,8 +25678,19 @@ impl serde::ser::Serialize for DeleteWorkflowConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteWorkflowConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWorkflowConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a single invocation of a compilation result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowInvocation {
     /// Output only. The workflow invocation's name.
@@ -24617,6 +26147,27 @@ impl serde::ser::Serialize for WorkflowInvocation {
     }
 }
 
+impl std::fmt::Debug for WorkflowInvocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkflowInvocation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("invocation_config", &self.invocation_config);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("invocation_timing", &self.invocation_timing);
+        debug_struct.field(
+            "resolved_compilation_result",
+            &self.resolved_compilation_result,
+        );
+        debug_struct.field("data_encryption_state", &self.data_encryption_state);
+        debug_struct.field("internal_metadata", &self.internal_metadata);
+        debug_struct.field("compilation_source", &self.compilation_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WorkflowInvocation].
 pub mod workflow_invocation {
     #[allow(unused_imports)]
@@ -24791,7 +26342,7 @@ pub mod workflow_invocation {
 }
 
 /// `ListWorkflowInvocations` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowInvocationsRequest {
     /// Required. The parent resource of the WorkflowInvocation type. Must be in
@@ -25047,8 +26598,23 @@ impl serde::ser::Serialize for ListWorkflowInvocationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkflowInvocationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkflowInvocationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ListWorkflowInvocations` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowInvocationsResponse {
     /// List of workflow invocations.
@@ -25252,8 +26818,21 @@ impl serde::ser::Serialize for ListWorkflowInvocationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListWorkflowInvocationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkflowInvocationsResponse");
+        debug_struct.field("workflow_invocations", &self.workflow_invocations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `GetWorkflowInvocation` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkflowInvocationRequest {
     /// Required. The workflow invocation resource's name.
@@ -25382,8 +26961,19 @@ impl serde::ser::Serialize for GetWorkflowInvocationRequest {
     }
 }
 
+impl std::fmt::Debug for GetWorkflowInvocationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWorkflowInvocationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CreateWorkflowInvocation` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkflowInvocationRequest {
     /// Required. The repository in which to create the workflow invocation. Must
@@ -25549,8 +27139,20 @@ impl serde::ser::Serialize for CreateWorkflowInvocationRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWorkflowInvocationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkflowInvocationRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("workflow_invocation", &self.workflow_invocation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `DeleteWorkflowInvocation` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkflowInvocationRequest {
     /// Required. The workflow invocation resource's name.
@@ -25679,8 +27281,19 @@ impl serde::ser::Serialize for DeleteWorkflowInvocationRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteWorkflowInvocationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWorkflowInvocationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CancelWorkflowInvocation` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelWorkflowInvocationRequest {
     /// Required. The workflow invocation resource's name.
@@ -25809,8 +27422,19 @@ impl serde::ser::Serialize for CancelWorkflowInvocationRequest {
     }
 }
 
+impl std::fmt::Debug for CancelWorkflowInvocationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelWorkflowInvocationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CancelWorkflowInvocation` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelWorkflowInvocationResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -25912,8 +27536,18 @@ impl serde::ser::Serialize for CancelWorkflowInvocationResponse {
     }
 }
 
+impl std::fmt::Debug for CancelWorkflowInvocationResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelWorkflowInvocationResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a single action in a workflow invocation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowInvocationAction {
     /// Output only. This action's identifier. Unique within the workflow
@@ -26418,13 +28052,30 @@ impl serde::ser::Serialize for WorkflowInvocationAction {
     }
 }
 
+impl std::fmt::Debug for WorkflowInvocationAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkflowInvocationAction");
+        debug_struct.field("target", &self.target);
+        debug_struct.field("canonical_target", &self.canonical_target);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("failure_reason", &self.failure_reason);
+        debug_struct.field("invocation_timing", &self.invocation_timing);
+        debug_struct.field("internal_metadata", &self.internal_metadata);
+        debug_struct.field("action", &self.action);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WorkflowInvocationAction].
 pub mod workflow_invocation_action {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents a workflow action that will run against BigQuery.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BigQueryAction {
         /// Output only. The generated BigQuery SQL script that will be executed.
@@ -26583,8 +28234,20 @@ pub mod workflow_invocation_action {
         }
     }
 
+    impl std::fmt::Debug for BigQueryAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BigQueryAction");
+            debug_struct.field("sql_script", &self.sql_script);
+            debug_struct.field("job_id", &self.job_id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents a workflow action that will run against a Notebook runtime.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NotebookAction {
         /// Output only. The code contents of a Notebook to be run.
@@ -26743,8 +28406,20 @@ pub mod workflow_invocation_action {
         }
     }
 
+    impl std::fmt::Debug for NotebookAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NotebookAction");
+            debug_struct.field("contents", &self.contents);
+            debug_struct.field("job_id", &self.job_id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents a workflow action that will run a Data Preparation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DataPreparationAction {
         /// Output only. The generated BigQuery SQL script that will be executed. For
@@ -27021,13 +28696,26 @@ pub mod workflow_invocation_action {
         }
     }
 
+    impl std::fmt::Debug for DataPreparationAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DataPreparationAction");
+            debug_struct.field("generated_sql", &self.generated_sql);
+            debug_struct.field("job_id", &self.job_id);
+            debug_struct.field("definition", &self.definition);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [DataPreparationAction].
     pub mod data_preparation_action {
         #[allow(unused_imports)]
         use super::*;
 
         /// Definition of a SQL Data Preparation
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ActionSqlDefinition {
             /// The SQL query representing the data preparation steps. Formatted as a
@@ -27239,9 +28927,22 @@ pub mod workflow_invocation_action {
             }
         }
 
+        impl std::fmt::Debug for ActionSqlDefinition {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ActionSqlDefinition");
+                debug_struct.field("query", &self.query);
+                debug_struct.field("error_table", &self.error_table);
+                debug_struct.field("load_config", &self.load_config);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Error table information, used to write error data into a BigQuery
         /// table.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ActionErrorTable {
             /// Error Table target.
@@ -27438,8 +29139,20 @@ pub mod workflow_invocation_action {
             }
         }
 
+        impl std::fmt::Debug for ActionErrorTable {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ActionErrorTable");
+                debug_struct.field("target", &self.target);
+                debug_struct.field("retention_days", &self.retention_days);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Simplified load configuration for actions
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ActionLoadConfig {
 
@@ -27764,6 +29477,17 @@ pub mod workflow_invocation_action {
             }
         }
 
+        impl std::fmt::Debug for ActionLoadConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ActionLoadConfig");
+                debug_struct.field("mode", &self.mode);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [ActionLoadConfig].
         pub mod action_load_config {
             #[allow(unused_imports)]
@@ -27787,7 +29511,7 @@ pub mod workflow_invocation_action {
         }
 
         /// Simple load definition
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ActionSimpleLoadMode {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -27895,8 +29619,18 @@ pub mod workflow_invocation_action {
             }
         }
 
+        impl std::fmt::Debug for ActionSimpleLoadMode {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ActionSimpleLoadMode");
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Load definition for incremental load modes
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ActionIncrementalLoadMode {
             /// Column name for incremental load modes
@@ -28028,6 +29762,17 @@ pub mod workflow_invocation_action {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for ActionIncrementalLoadMode {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ActionIncrementalLoadMode");
+                debug_struct.field("column", &self.column);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -28222,7 +29967,7 @@ pub mod workflow_invocation_action {
 }
 
 /// `QueryWorkflowInvocationActions` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryWorkflowInvocationActionsRequest {
     /// Required. The workflow invocation's name.
@@ -28428,8 +30173,21 @@ impl serde::ser::Serialize for QueryWorkflowInvocationActionsRequest {
     }
 }
 
+impl std::fmt::Debug for QueryWorkflowInvocationActionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryWorkflowInvocationActionsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `QueryWorkflowInvocationActions` response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryWorkflowInvocationActionsResponse {
     /// List of workflow invocation actions.
@@ -28614,8 +30372,23 @@ impl serde::ser::Serialize for QueryWorkflowInvocationActionsResponse {
     }
 }
 
+impl std::fmt::Debug for QueryWorkflowInvocationActionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryWorkflowInvocationActionsResponse");
+        debug_struct.field(
+            "workflow_invocation_actions",
+            &self.workflow_invocation_actions,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Config for all repositories in a given project and location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Config {
     /// Identifier. The config name.
@@ -28773,8 +30546,20 @@ impl serde::ser::Serialize for Config {
     }
 }
 
+impl std::fmt::Debug for Config {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Config");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("default_kms_key_name", &self.default_kms_key_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `GetConfig` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConfigRequest {
     /// Required. The config name.
@@ -28903,8 +30688,19 @@ impl serde::ser::Serialize for GetConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `UpdateConfig` request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConfigRequest {
     /// Required. The config to update.
@@ -29077,5 +30873,17 @@ impl serde::ser::Serialize for UpdateConfigRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConfigRequest");
+        debug_struct.field("config", &self.config);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

@@ -33,7 +33,7 @@ extern crate wkt;
 /// A CrawledUrl resource represents a URL that was crawled during a ScanRun. Web
 /// Security Scanner Service crawls the web applications, following all links
 /// within the scope of sites, to find the URLs to test against.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CrawledUrl {
     /// Output only. The http method of the request that was used to visit the URL, in
@@ -212,9 +212,22 @@ impl serde::ser::Serialize for CrawledUrl {
     }
 }
 
+impl std::fmt::Debug for CrawledUrl {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CrawledUrl");
+        debug_struct.field("http_method", &self.http_method);
+        debug_struct.field("url", &self.url);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Finding resource represents a vulnerability instance identified during a
 /// ScanRun.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Finding {
     /// Output only. The resource name of the Finding. The name follows the format of
@@ -861,6 +874,34 @@ impl serde::ser::Serialize for Finding {
     }
 }
 
+impl std::fmt::Debug for Finding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Finding");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("finding_type", &self.finding_type);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("http_method", &self.http_method);
+        debug_struct.field("fuzzed_url", &self.fuzzed_url);
+        debug_struct.field("body", &self.body);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("reproduction_url", &self.reproduction_url);
+        debug_struct.field("frame_url", &self.frame_url);
+        debug_struct.field("final_url", &self.final_url);
+        debug_struct.field("tracking_id", &self.tracking_id);
+        debug_struct.field("form", &self.form);
+        debug_struct.field("outdated_library", &self.outdated_library);
+        debug_struct.field("violating_resource", &self.violating_resource);
+        debug_struct.field("vulnerable_headers", &self.vulnerable_headers);
+        debug_struct.field("vulnerable_parameters", &self.vulnerable_parameters);
+        debug_struct.field("xss", &self.xss);
+        debug_struct.field("xxe", &self.xxe);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Finding].
 pub mod finding {
     #[allow(unused_imports)]
@@ -1014,7 +1055,7 @@ pub mod finding {
 }
 
 /// ! Information about a vulnerability with an HTML.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Form {
     /// ! The URI where to send the form when it's submitted.
@@ -1171,8 +1212,20 @@ impl serde::ser::Serialize for Form {
     }
 }
 
+impl std::fmt::Debug for Form {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Form");
+        debug_struct.field("action_uri", &self.action_uri);
+        debug_struct.field("fields", &self.fields);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information reported for an outdated library.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutdatedLibrary {
     /// The name of the outdated library.
@@ -1354,9 +1407,22 @@ impl serde::ser::Serialize for OutdatedLibrary {
     }
 }
 
+impl std::fmt::Debug for OutdatedLibrary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutdatedLibrary");
+        debug_struct.field("library_name", &self.library_name);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("learn_more_urls", &self.learn_more_urls);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information regarding any resource causing the vulnerability such
 /// as JavaScript sources, image, audio files, etc.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ViolatingResource {
     /// The MIME type of this resource.
@@ -1511,8 +1577,20 @@ impl serde::ser::Serialize for ViolatingResource {
     }
 }
 
+impl std::fmt::Debug for ViolatingResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ViolatingResource");
+        debug_struct.field("content_type", &self.content_type);
+        debug_struct.field("resource_url", &self.resource_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about vulnerable request parameters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VulnerableParameters {
     /// The vulnerable parameter names.
@@ -1645,8 +1723,19 @@ impl serde::ser::Serialize for VulnerableParameters {
     }
 }
 
+impl std::fmt::Debug for VulnerableParameters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VulnerableParameters");
+        debug_struct.field("parameter_names", &self.parameter_names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about vulnerable or missing HTTP Headers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VulnerableHeaders {
     /// List of vulnerable headers.
@@ -1814,13 +1903,25 @@ impl serde::ser::Serialize for VulnerableHeaders {
     }
 }
 
+impl std::fmt::Debug for VulnerableHeaders {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VulnerableHeaders");
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("missing_headers", &self.missing_headers);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VulnerableHeaders].
 pub mod vulnerable_headers {
     #[allow(unused_imports)]
     use super::*;
 
     /// Describes a HTTP Header.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Header {
         /// Header name.
@@ -1975,10 +2076,22 @@ pub mod vulnerable_headers {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Header {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Header");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("value", &self.value);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Information reported for an XSS.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Xss {
     /// Stack traces leading to the point where the XSS occurred.
@@ -2190,6 +2303,20 @@ impl serde::ser::Serialize for Xss {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Xss {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Xss");
+        debug_struct.field("stack_traces", &self.stack_traces);
+        debug_struct.field("error_message", &self.error_message);
+        debug_struct.field("attack_vector", &self.attack_vector);
+        debug_struct.field("stored_xss_seeding_url", &self.stored_xss_seeding_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -2424,7 +2551,7 @@ pub mod xss {
 }
 
 /// Information reported for an XXE.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Xxe {
     /// The XML string that triggered the XXE vulnerability. Non-payload values
@@ -2583,6 +2710,18 @@ impl serde::ser::Serialize for Xxe {
     }
 }
 
+impl std::fmt::Debug for Xxe {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Xxe");
+        debug_struct.field("payload_value", &self.payload_value);
+        debug_struct.field("payload_location", &self.payload_location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Xxe].
 pub mod xxe {
     #[allow(unused_imports)]
@@ -2716,7 +2855,7 @@ pub mod xxe {
 
 /// A FindingTypeStats resource represents stats regarding a specific FindingType
 /// of Findings under a given ScanRun.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FindingTypeStats {
     /// Output only. The finding type associated with the stats.
@@ -2890,8 +3029,20 @@ impl serde::ser::Serialize for FindingTypeStats {
     }
 }
 
+impl std::fmt::Debug for FindingTypeStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FindingTypeStats");
+        debug_struct.field("finding_type", &self.finding_type);
+        debug_struct.field("finding_count", &self.finding_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A ScanConfig resource contains the configurations to launch a scan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScanConfig {
     /// The resource name of the ScanConfig. The name follows the format of
@@ -3392,13 +3543,39 @@ impl serde::ser::Serialize for ScanConfig {
     }
 }
 
+impl std::fmt::Debug for ScanConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScanConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("max_qps", &self.max_qps);
+        debug_struct.field("starting_urls", &self.starting_urls);
+        debug_struct.field("authentication", &self.authentication);
+        debug_struct.field("user_agent", &self.user_agent);
+        debug_struct.field("blacklist_patterns", &self.blacklist_patterns);
+        debug_struct.field("schedule", &self.schedule);
+        debug_struct.field(
+            "export_to_security_command_center",
+            &self.export_to_security_command_center,
+        );
+        debug_struct.field("risk_level", &self.risk_level);
+        debug_struct.field("managed_scan", &self.managed_scan);
+        debug_struct.field("static_ip_scan", &self.static_ip_scan);
+        debug_struct.field("ignore_http_status_errors", &self.ignore_http_status_errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ScanConfig].
 pub mod scan_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Scan authentication configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Authentication {
         /// Required.
@@ -3706,13 +3883,24 @@ pub mod scan_config {
         }
     }
 
+    impl std::fmt::Debug for Authentication {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Authentication");
+            debug_struct.field("authentication", &self.authentication);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Authentication].
     pub mod authentication {
         #[allow(unused_imports)]
         use super::*;
 
         /// Describes authentication configuration that uses a Google account.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         #[deprecated]
         pub struct GoogleAccount {
@@ -3883,8 +4071,20 @@ pub mod scan_config {
             }
         }
 
+        impl std::fmt::Debug for GoogleAccount {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("GoogleAccount");
+                debug_struct.field("username", &self.username);
+                debug_struct.field("password", &self.password);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Describes authentication configuration that uses a custom account.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomAccount {
             /// Required. The user name of the custom account.
@@ -4084,8 +4284,21 @@ pub mod scan_config {
             }
         }
 
+        impl std::fmt::Debug for CustomAccount {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("CustomAccount");
+                debug_struct.field("username", &self.username);
+                debug_struct.field("password", &self.password);
+                debug_struct.field("login_url", &self.login_url);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Describes authentication configuration for Identity-Aware-Proxy (IAP).
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct IapCredential {
             /// Identity-Aware-Proxy (IAP) Authentication Configuration
@@ -4267,6 +4480,17 @@ pub mod scan_config {
             }
         }
 
+        impl std::fmt::Debug for IapCredential {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("IapCredential");
+                debug_struct.field("iap_credentials", &self.iap_credentials);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [IapCredential].
         pub mod iap_credential {
             #[allow(unused_imports)]
@@ -4274,7 +4498,7 @@ pub mod scan_config {
 
             /// Describes authentication configuration when Web-Security-Scanner
             /// service account is added in Identity-Aware-Proxy (IAP) access policies.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct IapTestServiceAccountInfo {
                 /// Required. Describes OAuth2 client id of resources protected by
@@ -4431,6 +4655,18 @@ pub mod scan_config {
                 }
             }
 
+            impl std::fmt::Debug for IapTestServiceAccountInfo {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("IapTestServiceAccountInfo");
+                    debug_struct
+                        .field("target_audience_client_id", &self.target_audience_client_id);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Identity-Aware-Proxy (IAP) Authentication Configuration
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -4463,7 +4699,7 @@ pub mod scan_config {
     }
 
     /// Scan schedule configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Schedule {
         /// A timestamp indicates when the next run will be scheduled. The value is
@@ -4656,6 +4892,18 @@ pub mod scan_config {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Schedule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Schedule");
+            debug_struct.field("schedule_time", &self.schedule_time);
+            debug_struct.field("interval_duration_days", &self.interval_duration_days);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -5074,7 +5322,7 @@ pub mod scan_config {
 /// APIs when scan configuration validation fails. It is also reported as part of
 /// a ScanRunErrorTrace message if scan validation fails due to a scan
 /// configuration error.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScanConfigError {
     /// Output only. Indicates the reason code for a configuration failure.
@@ -5229,6 +5477,18 @@ impl serde::ser::Serialize for ScanConfigError {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ScanConfigError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScanConfigError");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("field_name", &self.field_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -5730,7 +5990,7 @@ pub mod scan_config_error {
 
 /// A ScanRun is a output-only resource representing an actual run of the scan.
 /// Next id: 12
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScanRun {
     /// Output only. The resource name of the ScanRun. The name follows the format of
@@ -6221,6 +6481,27 @@ impl serde::ser::Serialize for ScanRun {
     }
 }
 
+impl std::fmt::Debug for ScanRun {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScanRun");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("execution_state", &self.execution_state);
+        debug_struct.field("result_state", &self.result_state);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("urls_crawled_count", &self.urls_crawled_count);
+        debug_struct.field("urls_tested_count", &self.urls_tested_count);
+        debug_struct.field("has_vulnerabilities", &self.has_vulnerabilities);
+        debug_struct.field("progress_percent", &self.progress_percent);
+        debug_struct.field("error_trace", &self.error_trace);
+        debug_struct.field("warning_traces", &self.warning_traces);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ScanRun].
 pub mod scan_run {
     #[allow(unused_imports)]
@@ -6509,7 +6790,7 @@ pub mod scan_run {
 
 /// Output only.
 /// Defines an error trace message for a ScanRun.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScanRunErrorTrace {
     /// Output only. Indicates the error reason code.
@@ -6731,6 +7012,22 @@ impl serde::ser::Serialize for ScanRunErrorTrace {
     }
 }
 
+impl std::fmt::Debug for ScanRunErrorTrace {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScanRunErrorTrace");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("scan_config_error", &self.scan_config_error);
+        debug_struct.field(
+            "most_common_http_error_code",
+            &self.most_common_http_error_code,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ScanRunErrorTrace].
 pub mod scan_run_error_trace {
     #[allow(unused_imports)]
@@ -6913,7 +7210,7 @@ pub mod scan_run_error_trace {
 /// Other than an added summary, this is a subset of the ScanRun.
 /// Representation in logs is either a proto Struct, or converted to JSON.
 /// Next id: 9
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScanRunLog {
     /// Human friendly message about the event.
@@ -7264,10 +7561,28 @@ impl serde::ser::Serialize for ScanRunLog {
     }
 }
 
+impl std::fmt::Debug for ScanRunLog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScanRunLog");
+        debug_struct.field("summary", &self.summary);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("execution_state", &self.execution_state);
+        debug_struct.field("result_state", &self.result_state);
+        debug_struct.field("urls_crawled_count", &self.urls_crawled_count);
+        debug_struct.field("urls_tested_count", &self.urls_tested_count);
+        debug_struct.field("has_findings", &self.has_findings);
+        debug_struct.field("error_trace", &self.error_trace);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output only.
 /// Defines a warning trace message for ScanRun. Warning traces provide customers
 /// with useful information that helps make the scanning process more effective.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScanRunWarningTrace {
     /// Output only. Indicates the warning code.
@@ -7394,6 +7709,17 @@ impl serde::ser::Serialize for ScanRunWarningTrace {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ScanRunWarningTrace {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScanRunWarningTrace");
+        debug_struct.field("code", &self.code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -7568,7 +7894,7 @@ pub mod scan_run_warning_trace {
 }
 
 /// Request for the `CreateScanConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateScanConfigRequest {
     /// Required. The parent resource name where the scan is created, which should be a
@@ -7734,8 +8060,20 @@ impl serde::ser::Serialize for CreateScanConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateScanConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateScanConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("scan_config", &self.scan_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteScanConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteScanConfigRequest {
     /// Required. The resource name of the ScanConfig to be deleted. The name follows the
@@ -7865,8 +8203,19 @@ impl serde::ser::Serialize for DeleteScanConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteScanConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteScanConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetScanConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetScanConfigRequest {
     /// Required. The resource name of the ScanConfig to be returned. The name follows the
@@ -7996,8 +8345,19 @@ impl serde::ser::Serialize for GetScanConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetScanConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetScanConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListScanConfigs` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListScanConfigsRequest {
     /// Required. The parent resource name, which should be a project resource name in the
@@ -8199,8 +8559,21 @@ impl serde::ser::Serialize for ListScanConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListScanConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListScanConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateScanConfigRequest` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateScanConfigRequest {
     /// Required. The ScanConfig to be updated. The name field must be set to identify the
@@ -8381,8 +8754,20 @@ impl serde::ser::Serialize for UpdateScanConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateScanConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateScanConfigRequest");
+        debug_struct.field("scan_config", &self.scan_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListScanConfigs` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListScanConfigsResponse {
     /// The list of ScanConfigs returned.
@@ -8555,8 +8940,20 @@ impl serde::ser::Serialize for ListScanConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListScanConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListScanConfigsResponse");
+        debug_struct.field("scan_configs", &self.scan_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `StartScanRun` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartScanRunRequest {
     /// Required. The resource name of the ScanConfig to be used. The name follows the
@@ -8686,8 +9083,19 @@ impl serde::ser::Serialize for StartScanRunRequest {
     }
 }
 
+impl std::fmt::Debug for StartScanRunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartScanRunRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetScanRun` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetScanRunRequest {
     /// Required. The resource name of the ScanRun to be returned. The name follows the
@@ -8818,8 +9226,19 @@ impl serde::ser::Serialize for GetScanRunRequest {
     }
 }
 
+impl std::fmt::Debug for GetScanRunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetScanRunRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListScanRuns` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListScanRunsRequest {
     /// Required. The parent resource name, which should be a scan resource name in the
@@ -9021,8 +9440,21 @@ impl serde::ser::Serialize for ListScanRunsRequest {
     }
 }
 
+impl std::fmt::Debug for ListScanRunsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListScanRunsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListScanRuns` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListScanRunsResponse {
     /// The list of ScanRuns returned.
@@ -9195,8 +9627,20 @@ impl serde::ser::Serialize for ListScanRunsResponse {
     }
 }
 
+impl std::fmt::Debug for ListScanRunsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListScanRunsResponse");
+        debug_struct.field("scan_runs", &self.scan_runs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `StopScanRun` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopScanRunRequest {
     /// Required. The resource name of the ScanRun to be stopped. The name follows the
@@ -9327,8 +9771,19 @@ impl serde::ser::Serialize for StopScanRunRequest {
     }
 }
 
+impl std::fmt::Debug for StopScanRunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopScanRunRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListCrawledUrls` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCrawledUrlsRequest {
     /// Required. The parent resource name, which should be a scan run resource name in the
@@ -9531,8 +9986,21 @@ impl serde::ser::Serialize for ListCrawledUrlsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCrawledUrlsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCrawledUrlsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListCrawledUrls` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCrawledUrlsResponse {
     /// The list of CrawledUrls returned.
@@ -9705,8 +10173,20 @@ impl serde::ser::Serialize for ListCrawledUrlsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCrawledUrlsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCrawledUrlsResponse");
+        debug_struct.field("crawled_urls", &self.crawled_urls);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetFinding` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFindingRequest {
     /// Required. The resource name of the Finding to be returned. The name follows the
@@ -9837,8 +10317,19 @@ impl serde::ser::Serialize for GetFindingRequest {
     }
 }
 
+impl std::fmt::Debug for GetFindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFindingRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListFindings` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFindingsRequest {
     /// Required. The parent resource name, which should be a scan run resource name in the
@@ -10068,8 +10559,22 @@ impl serde::ser::Serialize for ListFindingsRequest {
     }
 }
 
+impl std::fmt::Debug for ListFindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListFindings` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFindingsResponse {
     /// The list of Findings returned.
@@ -10241,8 +10746,20 @@ impl serde::ser::Serialize for ListFindingsResponse {
     }
 }
 
+impl std::fmt::Debug for ListFindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFindingsResponse");
+        debug_struct.field("findings", &self.findings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListFindingTypeStats` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFindingTypeStatsRequest {
     /// Required. The parent resource name, which should be a scan run resource name in the
@@ -10373,8 +10890,19 @@ impl serde::ser::Serialize for ListFindingTypeStatsRequest {
     }
 }
 
+impl std::fmt::Debug for ListFindingTypeStatsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFindingTypeStatsRequest");
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListFindingTypeStats` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFindingTypeStatsResponse {
     /// The list of FindingTypeStats returned.
@@ -10508,5 +11036,16 @@ impl serde::ser::Serialize for ListFindingTypeStatsResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ListFindingTypeStatsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFindingTypeStatsResponse");
+        debug_struct.field("finding_type_stats", &self.finding_type_stats);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

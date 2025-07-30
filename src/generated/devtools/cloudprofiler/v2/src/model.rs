@@ -34,7 +34,7 @@ extern crate wkt;
 /// The deployment field must be populated. The profile_type specifies the list
 /// of profile types supported by the agent. The creation call will hang until a
 /// profile of one of these types needs to be collected.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProfileRequest {
     /// Parent project to create the profile in.
@@ -226,9 +226,22 @@ impl serde::ser::Serialize for CreateProfileRequest {
     }
 }
 
+impl std::fmt::Debug for CreateProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateProfileRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("deployment", &self.deployment);
+        debug_struct.field("profile_type", &self.profile_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// CreateOfflineProfileRequest describes a profile resource offline creation
 /// request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateOfflineProfileRequest {
     /// Parent project to create the profile in.
@@ -392,8 +405,20 @@ impl serde::ser::Serialize for CreateOfflineProfileRequest {
     }
 }
 
+impl std::fmt::Debug for CreateOfflineProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateOfflineProfileRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("profile", &self.profile);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// UpdateProfileRequest contains the profile to update.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProfileRequest {
     /// Profile to update.
@@ -572,8 +597,20 @@ impl serde::ser::Serialize for UpdateProfileRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateProfileRequest");
+        debug_struct.field("profile", &self.profile);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Profile resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Profile {
     /// Output only. Opaque, server-assigned, unique ID for this profile.
@@ -926,8 +963,25 @@ impl serde::ser::Serialize for Profile {
     }
 }
 
+impl std::fmt::Debug for Profile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Profile");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("profile_type", &self.profile_type);
+        debug_struct.field("deployment", &self.deployment);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("profile_bytes", &self.profile_bytes);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("start_time", &self.start_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deployment contains the deployment identification information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Deployment {
     /// Project ID is the ID of a cloud project.
@@ -1135,9 +1189,22 @@ impl serde::ser::Serialize for Deployment {
     }
 }
 
+impl std::fmt::Debug for Deployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Deployment");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ListProfilesRequest contains request parameters for listing profiles for
 /// deployments in projects which the user has permissions to view.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProfilesRequest {
     /// Required. The parent, which owns this collection of profiles.
@@ -1339,9 +1406,22 @@ impl serde::ser::Serialize for ListProfilesRequest {
     }
 }
 
+impl std::fmt::Debug for ListProfilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProfilesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ListProfileResponse contains the list of collected profiles for deployments
 /// in projects which the user has permissions to view.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProfilesResponse {
     /// List of profiles fetched.
@@ -1557,6 +1637,19 @@ impl serde::ser::Serialize for ListProfilesResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ListProfilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProfilesResponse");
+        debug_struct.field("profiles", &self.profiles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("skipped_profiles", &self.skipped_profiles);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

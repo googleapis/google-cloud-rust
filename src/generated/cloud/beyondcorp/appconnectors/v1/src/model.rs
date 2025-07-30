@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// AppConnectorInstanceConfig defines the instance config of a AppConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppConnectorInstanceConfig {
     /// Required. A monotonically increasing number generated and maintained
@@ -296,8 +296,22 @@ impl serde::ser::Serialize for AppConnectorInstanceConfig {
     }
 }
 
+impl std::fmt::Debug for AppConnectorInstanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppConnectorInstanceConfig");
+        debug_struct.field("sequence_number", &self.sequence_number);
+        debug_struct.field("instance_config", &self.instance_config);
+        debug_struct.field("notification_config", &self.notification_config);
+        debug_struct.field("image_config", &self.image_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// NotificationConfig defines the mechanisms to notify instance agent.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationConfig {
     pub config: std::option::Option<crate::model::notification_config::Config>,
@@ -477,13 +491,24 @@ impl serde::ser::Serialize for NotificationConfig {
     }
 }
 
+impl std::fmt::Debug for NotificationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NotificationConfig");
+        debug_struct.field("config", &self.config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NotificationConfig].
 pub mod notification_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// The configuration for Pub/Sub messaging for the AppConnector.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudPubSubNotificationConfig {
         /// The Pub/Sub subscription the AppConnector uses to receive notifications.
@@ -619,6 +644,17 @@ pub mod notification_config {
         }
     }
 
+    impl std::fmt::Debug for CloudPubSubNotificationConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CloudPubSubNotificationConfig");
+            debug_struct.field("pubsub_subscription", &self.pubsub_subscription);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Config {
@@ -630,7 +666,7 @@ pub mod notification_config {
 }
 
 /// ImageConfig defines the control plane images to run.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageConfig {
     /// The initial image the remote agent will attempt to run for the control
@@ -787,8 +823,20 @@ impl serde::ser::Serialize for ImageConfig {
     }
 }
 
+impl std::fmt::Debug for ImageConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageConfig");
+        debug_struct.field("target_image", &self.target_image);
+        debug_struct.field("stable_image", &self.stable_image);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.ListAppConnectors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppConnectorsRequest {
     /// Required. The resource name of the AppConnector location using the form:
@@ -1044,8 +1092,23 @@ impl serde::ser::Serialize for ListAppConnectorsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAppConnectorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAppConnectorsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BeyondCorp.ListAppConnectors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppConnectorsResponse {
     /// A list of BeyondCorp AppConnectors in the project.
@@ -1245,8 +1308,21 @@ impl serde::ser::Serialize for ListAppConnectorsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAppConnectorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAppConnectorsResponse");
+        debug_struct.field("app_connectors", &self.app_connectors);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.GetAppConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAppConnectorRequest {
     /// Required. BeyondCorp AppConnector name using the form:
@@ -1376,8 +1452,19 @@ impl serde::ser::Serialize for GetAppConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for GetAppConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAppConnectorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.CreateAppConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAppConnectorRequest {
     /// Required. The resource project name of the AppConnector location using the
@@ -1638,8 +1725,23 @@ impl serde::ser::Serialize for CreateAppConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAppConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAppConnectorRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("app_connector_id", &self.app_connector_id);
+        debug_struct.field("app_connector", &self.app_connector);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.UpdateAppConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAppConnectorRequest {
     /// Required. Mask of fields to update. At least one path must be supplied in
@@ -1885,8 +1987,22 @@ impl serde::ser::Serialize for UpdateAppConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAppConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAppConnectorRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("app_connector", &self.app_connector);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.DeleteAppConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAppConnectorRequest {
     /// Required. BeyondCorp AppConnector name using the form:
@@ -2079,8 +2195,21 @@ impl serde::ser::Serialize for DeleteAppConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAppConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAppConnectorRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request report the connector status.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportStatusRequest {
     /// Required. BeyondCorp Connector name using the form:
@@ -2310,12 +2439,26 @@ impl serde::ser::Serialize for ReportStatusRequest {
     }
 }
 
+impl std::fmt::Debug for ReportStatusRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReportStatusRequest");
+        debug_struct.field("app_connector", &self.app_connector);
+        debug_struct.field("resource_info", &self.resource_info);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A BeyondCorp connector resource that represents an application facing
 /// component deployed proximal to and with direct access to the application
 /// instances. It is used to establish connectivity between the remote enterprise
 /// environment and GCP. It initiates connections to the applications and can
 /// proxy the data from users over the connection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppConnector {
     /// Required. Unique resource name of the AppConnector.
@@ -2700,13 +2843,32 @@ impl serde::ser::Serialize for AppConnector {
     }
 }
 
+impl std::fmt::Debug for AppConnector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppConnector");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("principal_info", &self.principal_info);
+        debug_struct.field("resource_info", &self.resource_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AppConnector].
 pub mod app_connector {
     #[allow(unused_imports)]
     use super::*;
 
     /// PrincipalInfo represents an Identity oneof.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrincipalInfo {
         pub r#type: std::option::Option<crate::model::app_connector::principal_info::Type>,
@@ -2891,13 +3053,24 @@ pub mod app_connector {
         }
     }
 
+    impl std::fmt::Debug for PrincipalInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PrincipalInfo");
+            debug_struct.field("r#type", &self.r#type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [PrincipalInfo].
     pub mod principal_info {
         #[allow(unused_imports)]
         use super::*;
 
         /// ServiceAccount represents a GCP service account.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ServiceAccount {
             /// Email address of the service account.
@@ -3029,6 +3202,17 @@ pub mod app_connector {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for ServiceAccount {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ServiceAccount");
+                debug_struct.field("email", &self.email);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -3198,7 +3382,7 @@ pub mod app_connector {
 }
 
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppConnectorOperationMetadata {
     /// Output only. The time the operation was created.
@@ -3504,6 +3688,23 @@ impl serde::ser::Serialize for AppConnectorOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for AppConnectorOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppConnectorOperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ResourceInfo represents the information/status of an app connector resource.
 /// Such as:
 ///
@@ -3515,7 +3716,7 @@ impl serde::ser::Serialize for AppConnectorOperationMetadata {
 ///         - appconnection
 ///           - tunnel
 ///       - logagent
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceInfo {
     /// Required. Unique Id for the resource.
@@ -3763,6 +3964,21 @@ impl serde::ser::Serialize for ResourceInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ResourceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceInfo");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("time", &self.time);
+        debug_struct.field("sub", &self.sub);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

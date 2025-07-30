@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A Parallelstore instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
     /// Identifier. The resource name of the instance, in the format
@@ -617,6 +617,34 @@ impl serde::ser::Serialize for Instance {
     }
 }
 
+impl std::fmt::Debug for Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("capacity_gib", &self.capacity_gib);
+        debug_struct.field("daos_version", &self.daos_version);
+        debug_struct.field("access_points", &self.access_points);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("reserved_ip_range", &self.reserved_ip_range);
+        debug_struct.field(
+            "effective_reserved_ip_range",
+            &self.effective_reserved_ip_range,
+        );
+        debug_struct.field("file_stripe_level", &self.file_stripe_level);
+        debug_struct.field("directory_stripe_level", &self.directory_stripe_level);
+        debug_struct.field("deployment_type", &self.deployment_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
@@ -785,7 +813,7 @@ pub mod instance {
 }
 
 /// List instances request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
     /// Required. The project and location for which to retrieve instance
@@ -1036,11 +1064,26 @@ impl serde::ser::Serialize for ListInstancesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response from
 /// [ListInstances][google.cloud.parallelstore.v1.Parallelstore.ListInstances].
 ///
 /// [google.cloud.parallelstore.v1.Parallelstore.ListInstances]: crate::client::Parallelstore::list_instances
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
     /// The list of Parallelstore instances.
@@ -1238,8 +1281,21 @@ impl serde::ser::Serialize for ListInstancesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesResponse");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Get an instance's details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
     /// Required. The instance resource name, in the format
@@ -1369,8 +1425,19 @@ impl serde::ser::Serialize for GetInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Create a new Parallelstore instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
     /// Required. The instance's project and location, in the format
@@ -1604,8 +1671,22 @@ impl serde::ser::Serialize for CreateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Update an instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
     /// Required. Mask of fields to update. Field mask is used to specify the
@@ -1821,8 +1902,21 @@ impl serde::ser::Serialize for UpdateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstanceRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Delete an instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
     /// Required. Name of the resource
@@ -1988,8 +2082,20 @@ impl serde::ser::Serialize for DeleteInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Long-running operation metadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -2296,8 +2402,25 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cloud Storage as the source of a data transfer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceGcsBucket {
     /// Required. URI to a Cloud Storage bucket in the format:
@@ -2428,8 +2551,19 @@ impl serde::ser::Serialize for SourceGcsBucket {
     }
 }
 
+impl std::fmt::Debug for SourceGcsBucket {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceGcsBucket");
+        debug_struct.field("uri", &self.uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cloud Storage as the destination of a data transfer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationGcsBucket {
     /// Required. URI to a Cloud Storage bucket in the format:
@@ -2560,8 +2694,19 @@ impl serde::ser::Serialize for DestinationGcsBucket {
     }
 }
 
+impl std::fmt::Debug for DestinationGcsBucket {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DestinationGcsBucket");
+        debug_struct.field("uri", &self.uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parallelstore as the source of a data transfer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceParallelstore {
     /// Optional. Root directory path to the Paralellstore filesystem, starting
@@ -2691,8 +2836,19 @@ impl serde::ser::Serialize for SourceParallelstore {
     }
 }
 
+impl std::fmt::Debug for SourceParallelstore {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceParallelstore");
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parallelstore as the destination of a data transfer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationParallelstore {
     /// Optional. Root directory path to the Paralellstore filesystem, starting
@@ -2822,8 +2978,19 @@ impl serde::ser::Serialize for DestinationParallelstore {
     }
 }
 
+impl std::fmt::Debug for DestinationParallelstore {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DestinationParallelstore");
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Import data from Cloud Storage into a Parallelstore instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDataRequest {
     /// Required. Name of the resource.
@@ -3175,6 +3342,21 @@ impl serde::ser::Serialize for ImportDataRequest {
     }
 }
 
+impl std::fmt::Debug for ImportDataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportDataRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportDataRequest].
 pub mod import_data_request {
     #[allow(unused_imports)]
@@ -3198,7 +3380,7 @@ pub mod import_data_request {
 }
 
 /// Export data from Parallelstore to Cloud Storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDataRequest {
     /// Required. Name of the resource.
@@ -3545,6 +3727,21 @@ impl serde::ser::Serialize for ExportDataRequest {
     }
 }
 
+impl std::fmt::Debug for ExportDataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportDataRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportDataRequest].
 pub mod export_data_request {
     #[allow(unused_imports)]
@@ -3568,7 +3765,7 @@ pub mod export_data_request {
 }
 
 /// The response to a request to import data to Parallelstore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDataResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3670,8 +3867,18 @@ impl serde::ser::Serialize for ImportDataResponse {
     }
 }
 
+impl std::fmt::Debug for ImportDataResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportDataResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An entry describing an error that has occurred.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferErrorLogEntry {
     /// A URL that refers to the target (a data source, a data sink,
@@ -3829,9 +4036,21 @@ impl serde::ser::Serialize for TransferErrorLogEntry {
     }
 }
 
+impl std::fmt::Debug for TransferErrorLogEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferErrorLogEntry");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("error_details", &self.error_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A summary of errors by error code, plus a count and sample error log
 /// entries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferErrorSummary {
     /// One of the error codes that caused the transfer failure.
@@ -4036,8 +4255,21 @@ impl serde::ser::Serialize for TransferErrorSummary {
     }
 }
 
+impl std::fmt::Debug for TransferErrorSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferErrorSummary");
+        debug_struct.field("error_code", &self.error_code);
+        debug_struct.field("error_count", &self.error_count);
+        debug_struct.field("error_log_entries", &self.error_log_entries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the data import operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDataMetadata {
     /// Data transfer operation metadata.
@@ -4380,8 +4612,26 @@ impl serde::ser::Serialize for ImportDataMetadata {
     }
 }
 
+impl std::fmt::Debug for ImportDataMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportDataMetadata");
+        debug_struct.field("operation_metadata", &self.operation_metadata);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response to a request to export data from Parallelstore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDataResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4483,8 +4733,18 @@ impl serde::ser::Serialize for ExportDataResponse {
     }
 }
 
+impl std::fmt::Debug for ExportDataResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportDataResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the data export operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDataMetadata {
     /// Data transfer operation metadata.
@@ -4827,8 +5087,26 @@ impl serde::ser::Serialize for ExportDataMetadata {
     }
 }
 
+impl std::fmt::Debug for ExportDataMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportDataMetadata");
+        debug_struct.field("operation_metadata", &self.operation_metadata);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Long-running operation metadata related to a data transfer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferOperationMetadata {
     /// Output only. The progress of the transfer operation.
@@ -5295,6 +5573,21 @@ impl serde::ser::Serialize for TransferOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for TransferOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferOperationMetadata");
+        debug_struct.field("counters", &self.counters);
+        debug_struct.field("transfer_type", &self.transfer_type);
+        debug_struct.field("error_summary", &self.error_summary);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransferOperationMetadata].
 pub mod transfer_operation_metadata {
     #[allow(unused_imports)]
@@ -5322,7 +5615,7 @@ pub mod transfer_operation_metadata {
 }
 
 /// A collection of counters that report the progress of a transfer operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferCounters {
     /// Objects found in the data source that are scheduled to be transferred,
@@ -5779,6 +6072,24 @@ impl serde::ser::Serialize for TransferCounters {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TransferCounters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferCounters");
+        debug_struct.field("objects_found", &self.objects_found);
+        debug_struct.field("bytes_found", &self.bytes_found);
+        debug_struct.field("objects_skipped", &self.objects_skipped);
+        debug_struct.field("bytes_skipped", &self.bytes_skipped);
+        debug_struct.field("objects_copied", &self.objects_copied);
+        debug_struct.field("bytes_copied", &self.bytes_copied);
+        debug_struct.field("objects_failed", &self.objects_failed);
+        debug_struct.field("bytes_failed", &self.bytes_failed);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

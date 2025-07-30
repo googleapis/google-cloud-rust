@@ -30,3 +30,31 @@ let x_goog_request_params = {
         {{/Routing}}
     ])
 };
+{{#Codec.RoutingRequired}}
+if x_goog_request_params.is_empty() {
+    use gax::error::binding::BindingError;
+    use gaxi::routing_parameter::Segment;
+    use gaxi::path_parameter::PathMismatchBuilder;
+    let mut paths = Vec::new();
+    {{#RoutingCombos}}
+    {
+        let builder = PathMismatchBuilder::default();
+        {{#Items}}
+        {{#Variant}}
+        let builder = builder.maybe_add(
+            Some(&req){{#Codec.FieldAccessors}}{{{.}}}{{/Codec.FieldAccessors}},
+            &[
+                {{#Codec.PrefixSegments}}{{{.}}}, {{/Codec.PrefixSegments}}
+                {{#Codec.MatchingSegments}}{{{.}}}, {{/Codec.MatchingSegments}}
+                {{#Codec.SuffixSegments}}{{{.}}}, {{/Codec.SuffixSegments}}
+            ],
+            "{{FieldName}}",
+            "{{{TemplateAsString}}}");
+        {{/Variant}}
+        {{/Items}}
+        paths.push(builder.build());
+    }
+    {{/RoutingCombos}}
+    return Err(gax::error::Error::binding(BindingError { paths }))
+}
+{{/Codec.RoutingRequired}}

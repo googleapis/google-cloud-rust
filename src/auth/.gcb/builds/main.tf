@@ -49,9 +49,13 @@ module "api_key_test" {
 
 # Set up for the External Account integration test.
 module "external_account_test" {
-  source             = "./external_account_test"
-  project            = var.external_account_project
-  service_account_id = var.external_account_service_account_id
+  source                          = "./external_account_test"
+  project                         = var.external_account_project
+  runner_project_id               = var.project
+  service_account_id              = var.external_account_service_account_id
+  workload_identity_pool_id       = var.workload_identity_pool_id
+  impersonation_target_account_id = var.impersonation_target_account_id
+  build_runner_account_id         = var.build_runner_account_id
 }
 
 # Create the GCB resources, connection, triggers, etc.
@@ -64,4 +68,10 @@ module "triggers" {
   api_key_secret                      = module.api_key_test.secret
   external_account_project            = var.external_account_project
   external_account_service_account_id = var.external_account_service_account_id
+  workload_identity_audience          = module.external_account_test.audience
+}
+
+output "workload_identity_audience" {
+  description = "The audience for the workload identity pool."
+  value       = module.external_account_test.audience
 }

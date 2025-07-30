@@ -42,7 +42,7 @@ extern crate wkt;
 ///
 /// For more information, see [Information provided by OS inventory
 /// management](https://cloud.google.com/compute/docs/instances/os-inventory-management#data-collected).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Inventory {
     /// Output only. The `Inventory` API resource name.
@@ -285,13 +285,27 @@ impl serde::ser::Serialize for Inventory {
     }
 }
 
+impl std::fmt::Debug for Inventory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Inventory");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("os_info", &self.os_info);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Inventory].
 pub mod inventory {
     #[allow(unused_imports)]
     use super::*;
 
     /// Operating system information for the VM.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OsInfo {
         /// The VM hostname.
@@ -613,8 +627,26 @@ pub mod inventory {
         }
     }
 
+    impl std::fmt::Debug for OsInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("OsInfo");
+            debug_struct.field("hostname", &self.hostname);
+            debug_struct.field("long_name", &self.long_name);
+            debug_struct.field("short_name", &self.short_name);
+            debug_struct.field("version", &self.version);
+            debug_struct.field("architecture", &self.architecture);
+            debug_struct.field("kernel_version", &self.kernel_version);
+            debug_struct.field("kernel_release", &self.kernel_release);
+            debug_struct.field("osconfig_agent_version", &self.osconfig_agent_version);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A single piece of inventory on a VM.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Item {
         /// Identifier for this item, unique across items for this VM.
@@ -1012,6 +1044,22 @@ pub mod inventory {
         }
     }
 
+    impl std::fmt::Debug for Item {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Item");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("origin_type", &self.origin_type);
+            debug_struct.field("create_time", &self.create_time);
+            debug_struct.field("update_time", &self.update_time);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("details", &self.details);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Item].
     pub mod item {
         #[allow(unused_imports)]
@@ -1293,7 +1341,7 @@ pub mod inventory {
     }
 
     /// Software package information of the operating system.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SoftwarePackage {
         /// Information about the different types of software packages.
@@ -1949,6 +1997,17 @@ pub mod inventory {
         }
     }
 
+    impl std::fmt::Debug for SoftwarePackage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SoftwarePackage");
+            debug_struct.field("details", &self.details);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [SoftwarePackage].
     pub mod software_package {
         #[allow(unused_imports)]
@@ -1996,7 +2055,7 @@ pub mod inventory {
 
     /// Information related to the a standard versioned package.  This includes
     /// package info for APT, Yum, Zypper, and Googet package managers.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VersionedPackage {
         /// The name of the package.
@@ -2183,8 +2242,21 @@ pub mod inventory {
         }
     }
 
+    impl std::fmt::Debug for VersionedPackage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VersionedPackage");
+            debug_struct.field("package_name", &self.package_name);
+            debug_struct.field("architecture", &self.architecture);
+            debug_struct.field("version", &self.version);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Details related to a Zypper Patch.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ZypperPatch {
         /// The name of the patch.
@@ -2389,12 +2461,26 @@ pub mod inventory {
         }
     }
 
+    impl std::fmt::Debug for ZypperPatch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ZypperPatch");
+            debug_struct.field("patch_name", &self.patch_name);
+            debug_struct.field("category", &self.category);
+            debug_struct.field("severity", &self.severity);
+            debug_struct.field("summary", &self.summary);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Details related to a Windows Update package.
     /// Field data and names are taken from Windows Update API IUpdate Interface:
     /// <https://docs.microsoft.com/en-us/windows/win32/api/_wua/>
     /// Descriptive fields like title, and description are localized based on
     /// the locale of the VM being updated.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WindowsUpdatePackage {
         /// The localized title of the update package.
@@ -2779,13 +2865,35 @@ pub mod inventory {
         }
     }
 
+    impl std::fmt::Debug for WindowsUpdatePackage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WindowsUpdatePackage");
+            debug_struct.field("title", &self.title);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("categories", &self.categories);
+            debug_struct.field("kb_article_ids", &self.kb_article_ids);
+            debug_struct.field("support_url", &self.support_url);
+            debug_struct.field("more_info_urls", &self.more_info_urls);
+            debug_struct.field("update_id", &self.update_id);
+            debug_struct.field("revision_number", &self.revision_number);
+            debug_struct.field(
+                "last_deployment_change_time",
+                &self.last_deployment_change_time,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [WindowsUpdatePackage].
     pub mod windows_update_package {
         #[allow(unused_imports)]
         use super::*;
 
         /// Categories specified by the Windows Update.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct WindowsUpdateCategory {
             /// The identifier of the windows update category.
@@ -2943,13 +3051,25 @@ pub mod inventory {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for WindowsUpdateCategory {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("WindowsUpdateCategory");
+                debug_struct.field("id", &self.id);
+                debug_struct.field("name", &self.name);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Information related to a Quick Fix Engineering package.
     /// Fields are taken from Windows QuickFixEngineering Interface and match
     /// the source names:
     /// <https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-quickfixengineering>
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WindowsQuickFixEngineeringPackage {
         /// A short textual description of the QFE update.
@@ -3167,10 +3287,24 @@ pub mod inventory {
         }
     }
 
+    impl std::fmt::Debug for WindowsQuickFixEngineeringPackage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WindowsQuickFixEngineeringPackage");
+            debug_struct.field("caption", &self.caption);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("hot_fix_id", &self.hot_fix_id);
+            debug_struct.field("install_time", &self.install_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Contains information about a Windows application that is retrieved from the
     /// Windows Registry. For more information about these fields, see:
     /// <https://docs.microsoft.com/en-us/windows/win32/msi/uninstall-registry-key>
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WindowsApplication {
         /// The name of the application or product.
@@ -3420,10 +3554,25 @@ pub mod inventory {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for WindowsApplication {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WindowsApplication");
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("display_version", &self.display_version);
+            debug_struct.field("publisher", &self.publisher);
+            debug_struct.field("install_date", &self.install_date);
+            debug_struct.field("help_link", &self.help_link);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A request message for getting inventory data for the specified VM.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInventoryRequest {
     /// Required. API resource name for inventory resource.
@@ -3584,9 +3733,21 @@ impl serde::ser::Serialize for GetInventoryRequest {
     }
 }
 
+impl std::fmt::Debug for GetInventoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInventoryRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for listing inventory data for all VMs in the specified
 /// location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInventoriesRequest {
     /// Required. The parent resource name.
@@ -3839,9 +4000,24 @@ impl serde::ser::Serialize for ListInventoriesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInventoriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInventoriesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for listing inventory data for all VMs in a specified
 /// location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInventoriesResponse {
     /// List of inventory objects.
@@ -4012,8 +4188,20 @@ impl serde::ser::Serialize for ListInventoriesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInventoriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInventoriesResponse");
+        debug_struct.field("inventories", &self.inventories);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An OS policy defines the desired state configuration for a VM.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OSPolicy {
     /// Required. The id of the OS policy with the following restrictions:
@@ -4271,13 +4459,31 @@ impl serde::ser::Serialize for OSPolicy {
     }
 }
 
+impl std::fmt::Debug for OSPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OSPolicy");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("mode", &self.mode);
+        debug_struct.field("resource_groups", &self.resource_groups);
+        debug_struct.field(
+            "allow_no_resource_group_match",
+            &self.allow_no_resource_group_match,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OSPolicy].
 pub mod os_policy {
     #[allow(unused_imports)]
     use super::*;
 
     /// Filtering criteria to select VMs based on inventory details.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InventoryFilter {
         /// Required. The OS short name
@@ -4444,13 +4650,25 @@ pub mod os_policy {
         }
     }
 
+    impl std::fmt::Debug for InventoryFilter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InventoryFilter");
+            debug_struct.field("os_short_name", &self.os_short_name);
+            debug_struct.field("os_version", &self.os_version);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An OS policy resource is used to define the desired state configuration
     /// and provides a specific functionality like installing/removing packages,
     /// executing a script etc.
     ///
     /// The system ensures that resources are always in their desired state by
     /// taking necessary actions if they have drifted from their desired state.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Resource {
         /// Required. The id of the resource with the following restrictions:
@@ -4845,13 +5063,25 @@ pub mod os_policy {
         }
     }
 
+    impl std::fmt::Debug for Resource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Resource");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("resource_type", &self.resource_type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Resource].
     pub mod resource {
         #[allow(unused_imports)]
         use super::*;
 
         /// A remote or local file.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct File {
             /// Defaults to false. When false, files are subject to validations
@@ -5194,13 +5424,25 @@ pub mod os_policy {
             }
         }
 
+        impl std::fmt::Debug for File {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("File");
+                debug_struct.field("allow_insecure", &self.allow_insecure);
+                debug_struct.field("r#type", &self.r#type);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [File].
         pub mod file {
             #[allow(unused_imports)]
             use super::*;
 
             /// Specifies a file available via some URI.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Remote {
                 /// Required. URI from which to fetch the object. It should contain both
@@ -5376,8 +5618,20 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for Remote {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Remote");
+                    debug_struct.field("uri", &self.uri);
+                    debug_struct.field("sha256_checksum", &self.sha256_checksum);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Specifies a file available as a Cloud Storage Object.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Gcs {
                 /// Required. Bucket of the Cloud Storage object.
@@ -5607,6 +5861,19 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for Gcs {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Gcs");
+                    debug_struct.field("bucket", &self.bucket);
+                    debug_struct.field("object", &self.object);
+                    debug_struct.field("generation", &self.generation);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// A specific type of file.
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -5621,7 +5888,7 @@ pub mod os_policy {
         }
 
         /// A resource that manages a system package.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PackageResource {
             /// Required. The desired state the agent should maintain for this package.
@@ -6225,13 +6492,25 @@ pub mod os_policy {
             }
         }
 
+        impl std::fmt::Debug for PackageResource {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("PackageResource");
+                debug_struct.field("desired_state", &self.desired_state);
+                debug_struct.field("system_package", &self.system_package);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [PackageResource].
         pub mod package_resource {
             #[allow(unused_imports)]
             use super::*;
 
             /// A deb package file. dpkg packages only support INSTALLED state.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Deb {
                 /// Required. A deb package.
@@ -6418,11 +6697,23 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for Deb {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Deb");
+                    debug_struct.field("source", &self.source);
+                    debug_struct.field("pull_deps", &self.pull_deps);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// A package managed by APT.
             ///
             /// - install: `apt-get update && apt-get -y install [name]`
             /// - remove: `apt-get -y remove [name]`
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Apt {
                 /// Required. Package name.
@@ -6569,8 +6860,19 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for Apt {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Apt");
+                    debug_struct.field("name", &self.name);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// An RPM package file. RPM packages only support INSTALLED state.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Rpm {
                 /// Required. An rpm package.
@@ -6757,11 +7059,23 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for Rpm {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Rpm");
+                    debug_struct.field("source", &self.source);
+                    debug_struct.field("pull_deps", &self.pull_deps);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// A package managed by YUM.
             ///
             /// - install: `yum -y install package`
             /// - remove: `yum -y remove package`
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Yum {
                 /// Required. Package name.
@@ -6908,11 +7222,22 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for Yum {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Yum");
+                    debug_struct.field("name", &self.name);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// A package managed by Zypper.
             ///
             /// - install: `zypper -y install package`
             /// - remove: `zypper -y rm package`
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Zypper {
                 /// Required. Package name.
@@ -7059,11 +7384,22 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for Zypper {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Zypper");
+                    debug_struct.field("name", &self.name);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// A package managed by GooGet.
             ///
             /// - install: `googet -noconfirm install package`
             /// - remove: `googet -noconfirm remove package`
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct GooGet {
                 /// Required. Package name.
@@ -7210,8 +7546,19 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for GooGet {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("GooGet");
+                    debug_struct.field("name", &self.name);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// An MSI package. MSI packages only support INSTALLED state.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Msi {
                 /// Required. The MSI package.
@@ -7403,6 +7750,18 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for Msi {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Msi");
+                    debug_struct.field("source", &self.source);
+                    debug_struct.field("properties", &self.properties);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// The desired state that the OS Config agent maintains on the VM.
             ///
             /// # Working with unknown values
@@ -7565,7 +7924,7 @@ pub mod os_policy {
         }
 
         /// A resource that manages a package repository.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct RepositoryResource {
             /// A specific type of repository.
@@ -7954,6 +8313,17 @@ pub mod os_policy {
             }
         }
 
+        impl std::fmt::Debug for RepositoryResource {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("RepositoryResource");
+                debug_struct.field("repository", &self.repository);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [RepositoryResource].
         pub mod repository_resource {
             #[allow(unused_imports)]
@@ -7962,7 +8332,7 @@ pub mod os_policy {
             /// Represents a single apt package repository. These will be added to
             /// a repo file that will be managed at
             /// `/etc/apt/sources.list.d/google_osconfig.list`.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct AptRepository {
 
@@ -8228,6 +8598,21 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for AptRepository {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("AptRepository");
+                    debug_struct.field("archive_type", &self.archive_type);
+                    debug_struct.field("uri", &self.uri);
+                    debug_struct.field("distribution", &self.distribution);
+                    debug_struct.field("components", &self.components);
+                    debug_struct.field("gpg_key", &self.gpg_key);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Defines additional types related to [AptRepository].
             pub mod apt_repository {
                 #[allow(unused_imports)]
@@ -8373,7 +8758,7 @@ pub mod os_policy {
             /// Represents a single yum package repository. These are added to a
             /// repo file that is managed at
             /// `/etc/yum.repos.d/google_osconfig.repo`.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct YumRepository {
                 /// Required. A one word, unique name for this repository. This is  the
@@ -8614,10 +8999,24 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for YumRepository {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("YumRepository");
+                    debug_struct.field("id", &self.id);
+                    debug_struct.field("display_name", &self.display_name);
+                    debug_struct.field("base_url", &self.base_url);
+                    debug_struct.field("gpg_keys", &self.gpg_keys);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Represents a single zypper package repository. These are added to a
             /// repo file that is managed at
             /// `/etc/zypp/repos.d/google_osconfig.repo`.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ZypperRepository {
                 /// Required. A one word, unique name for this repository. This is the
@@ -8858,10 +9257,24 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for ZypperRepository {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("ZypperRepository");
+                    debug_struct.field("id", &self.id);
+                    debug_struct.field("display_name", &self.display_name);
+                    debug_struct.field("base_url", &self.base_url);
+                    debug_struct.field("gpg_keys", &self.gpg_keys);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Represents a Goo package repository. These are added to a repo file
             /// that is managed at
             /// `C:/ProgramData/GooGet/repos/google_osconfig.repo`.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct GooRepository {
                 /// Required. The name of the repository.
@@ -9035,6 +9448,18 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for GooRepository {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("GooRepository");
+                    debug_struct.field("name", &self.name);
+                    debug_struct.field("url", &self.url);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// A specific type of repository.
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -9092,7 +9517,7 @@ pub mod os_policy {
         /// code of `0` unless an `exit` statement is provided in the script. So, for
         /// reasons of consistency and being explicit, exit codes `100` and `101`
         /// were chosen.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ExecResource {
             /// Required. What to run to validate this resource is in the desired
@@ -9287,13 +9712,25 @@ pub mod os_policy {
             }
         }
 
+        impl std::fmt::Debug for ExecResource {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ExecResource");
+                debug_struct.field("validate", &self.validate);
+                debug_struct.field("enforce", &self.enforce);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [ExecResource].
         pub mod exec_resource {
             #[allow(unused_imports)]
             use super::*;
 
             /// A file or script to execute.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Exec {
                 /// Optional arguments to pass to the source during execution.
@@ -9651,6 +10088,20 @@ pub mod os_policy {
                 }
             }
 
+            impl std::fmt::Debug for Exec {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Exec");
+                    debug_struct.field("args", &self.args);
+                    debug_struct.field("interpreter", &self.interpreter);
+                    debug_struct.field("output_file_path", &self.output_file_path);
+                    debug_struct.field("source", &self.source);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Defines additional types related to [Exec].
             pub mod exec {
                 #[allow(unused_imports)]
@@ -9818,7 +10269,7 @@ pub mod os_policy {
         }
 
         /// A resource that manages the state of a file.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FileResource {
             /// Required. The absolute path of the file within the VM.
@@ -10151,6 +10602,20 @@ pub mod os_policy {
             }
         }
 
+        impl std::fmt::Debug for FileResource {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("FileResource");
+                debug_struct.field("path", &self.path);
+                debug_struct.field("state", &self.state);
+                debug_struct.field("permissions", &self.permissions);
+                debug_struct.field("source", &self.source);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [FileResource].
         pub mod file_resource {
             #[allow(unused_imports)]
@@ -10334,7 +10799,7 @@ pub mod os_policy {
     /// When the OS policy is applied to a target VM, the appropriate resource
     /// group within the OS policy is selected based on the `OSFilter` specified
     /// within the resource group.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceGroup {
         /// List of inventory filters for the resource group.
@@ -10518,6 +10983,18 @@ pub mod os_policy {
         }
     }
 
+    impl std::fmt::Debug for ResourceGroup {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourceGroup");
+            debug_struct.field("inventory_filters", &self.inventory_filters);
+            debug_struct.field("resources", &self.resources);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Policy mode
     ///
     /// # Working with unknown values
@@ -10655,7 +11132,7 @@ pub mod os_policy {
 }
 
 /// Get a report of the OS policy assignment for a VM instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOSPolicyAssignmentReportRequest {
     /// Required. API resource name for OS policy assignment report.
@@ -10792,8 +11269,19 @@ impl serde::ser::Serialize for GetOSPolicyAssignmentReportRequest {
     }
 }
 
+impl std::fmt::Debug for GetOSPolicyAssignmentReportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOSPolicyAssignmentReportRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List the OS policy assignment reports for VM instances.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOSPolicyAssignmentReportsRequest {
     /// Required. The parent resource name.
@@ -11037,9 +11525,23 @@ impl serde::ser::Serialize for ListOSPolicyAssignmentReportsRequest {
     }
 }
 
+impl std::fmt::Debug for ListOSPolicyAssignmentReportsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentReportsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for listing OS Policy assignment reports including the
 /// page of results and page token.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOSPolicyAssignmentReportsResponse {
     /// List of OS policy assignment reports.
@@ -11224,8 +11726,23 @@ impl serde::ser::Serialize for ListOSPolicyAssignmentReportsResponse {
     }
 }
 
+impl std::fmt::Debug for ListOSPolicyAssignmentReportsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentReportsResponse");
+        debug_struct.field(
+            "os_policy_assignment_reports",
+            &self.os_policy_assignment_reports,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A report of the OS policy assignment status for a given instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OSPolicyAssignmentReport {
     /// The `OSPolicyAssignmentReport` API resource name.
@@ -11509,13 +12026,29 @@ impl serde::ser::Serialize for OSPolicyAssignmentReport {
     }
 }
 
+impl std::fmt::Debug for OSPolicyAssignmentReport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OSPolicyAssignmentReport");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("os_policy_assignment", &self.os_policy_assignment);
+        debug_struct.field("os_policy_compliances", &self.os_policy_compliances);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("last_run_id", &self.last_run_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OSPolicyAssignmentReport].
 pub mod os_policy_assignment_report {
     #[allow(unused_imports)]
     use super::*;
 
     /// Compliance data for an OS policy
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OSPolicyCompliance {
 
@@ -11762,13 +12295,30 @@ pub mod os_policy_assignment_report {
         }
     }
 
+    impl std::fmt::Debug for OSPolicyCompliance {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("OSPolicyCompliance");
+            debug_struct.field("os_policy_id", &self.os_policy_id);
+            debug_struct.field("compliance_state", &self.compliance_state);
+            debug_struct.field("compliance_state_reason", &self.compliance_state_reason);
+            debug_struct.field(
+                "os_policy_resource_compliances",
+                &self.os_policy_resource_compliances,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [OSPolicyCompliance].
     pub mod os_policy_compliance {
         #[allow(unused_imports)]
         use super::*;
 
         /// Compliance data for an OS policy resource.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct OSPolicyResourceCompliance {
 
@@ -12083,6 +12633,21 @@ pub mod os_policy_assignment_report {
             }
         }
 
+        impl std::fmt::Debug for OSPolicyResourceCompliance {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("OSPolicyResourceCompliance");
+                debug_struct.field("os_policy_resource_id", &self.os_policy_resource_id);
+                debug_struct.field("config_steps", &self.config_steps);
+                debug_struct.field("compliance_state", &self.compliance_state);
+                debug_struct.field("compliance_state_reason", &self.compliance_state_reason);
+                debug_struct.field("output", &self.output);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [OSPolicyResourceCompliance].
         pub mod os_policy_resource_compliance {
             #[allow(unused_imports)]
@@ -12090,7 +12655,7 @@ pub mod os_policy_assignment_report {
 
             /// Step performed by the OS Config agent for configuring an
             /// `OSPolicy` resource to its desired state.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct OSPolicyResourceConfigStep {
 
@@ -12265,6 +12830,18 @@ pub mod os_policy_assignment_report {
                 }
             }
 
+            impl std::fmt::Debug for OSPolicyResourceConfigStep {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("OSPolicyResourceConfigStep");
+                    debug_struct.field("r#type", &self.r#type);
+                    debug_struct.field("error_message", &self.error_message);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Defines additional types related to [OSPolicyResourceConfigStep].
             pub mod os_policy_resource_config_step {
                 #[allow(unused_imports)]
@@ -12435,7 +13012,7 @@ pub mod os_policy_assignment_report {
             }
 
             /// ExecResource specific output.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ExecResourceOutput {
                 /// Output from enforcement phase output file (if run).
@@ -12614,6 +13191,17 @@ pub mod os_policy_assignment_report {
                         }
                     }
                     state.end()
+                }
+            }
+
+            impl std::fmt::Debug for ExecResourceOutput {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("ExecResourceOutput");
+                    debug_struct.field("enforcement_output", &self.enforcement_output);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
                 }
             }
 
@@ -12919,7 +13507,7 @@ pub mod os_policy_assignment_report {
 ///
 /// For more information, see [OS policy and OS policy
 /// assignment](https://cloud.google.com/compute/docs/os-configuration-management/working-with-os-policies).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OSPolicyAssignment {
     /// Resource name.
@@ -13413,6 +14001,29 @@ impl serde::ser::Serialize for OSPolicyAssignment {
     }
 }
 
+impl std::fmt::Debug for OSPolicyAssignment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OSPolicyAssignment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("os_policies", &self.os_policies);
+        debug_struct.field("instance_filter", &self.instance_filter);
+        debug_struct.field("rollout", &self.rollout);
+        debug_struct.field("revision_id", &self.revision_id);
+        debug_struct.field("revision_create_time", &self.revision_create_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("rollout_state", &self.rollout_state);
+        debug_struct.field("baseline", &self.baseline);
+        debug_struct.field("deleted", &self.deleted);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("uid", &self.uid);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OSPolicyAssignment].
 pub mod os_policy_assignment {
     #[allow(unused_imports)]
@@ -13428,7 +14039,7 @@ pub mod os_policy_assignment {
     /// * Example: A LabelSet with 2 labels: `env=prod` and `type=webserver` will
     ///   only be applicable for those VMs with both labels
     ///   present.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LabelSet {
         /// Labels are identified by key/value pairs in this map.
@@ -13573,11 +14184,22 @@ pub mod os_policy_assignment {
         }
     }
 
+    impl std::fmt::Debug for LabelSet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LabelSet");
+            debug_struct.field("labels", &self.labels);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Filters to select target VMs for an assignment.
     ///
     /// If more than one filter criteria is specified below, a VM will be selected
     /// if and only if it satisfies all of them.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InstanceFilter {
         /// Target all VMs in the project. If true, no other criteria is
@@ -13811,13 +14433,27 @@ pub mod os_policy_assignment {
         }
     }
 
+    impl std::fmt::Debug for InstanceFilter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InstanceFilter");
+            debug_struct.field("all", &self.all);
+            debug_struct.field("inclusion_labels", &self.inclusion_labels);
+            debug_struct.field("exclusion_labels", &self.exclusion_labels);
+            debug_struct.field("inventories", &self.inventories);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [InstanceFilter].
     pub mod instance_filter {
         #[allow(unused_imports)]
         use super::*;
 
         /// VM inventory details.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Inventory {
             /// Required. The OS short name
@@ -13993,11 +14629,23 @@ pub mod os_policy_assignment {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Inventory {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Inventory");
+                debug_struct.field("os_short_name", &self.os_short_name);
+                debug_struct.field("os_version", &self.os_version);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Message to configure the rollout at the zonal level for the OS policy
     /// assignment.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Rollout {
         /// Required. The maximum number (or percentage) of VMs per zone to disrupt
@@ -14182,6 +14830,18 @@ pub mod os_policy_assignment {
         }
     }
 
+    impl std::fmt::Debug for Rollout {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Rollout");
+            debug_struct.field("disruption_budget", &self.disruption_budget);
+            debug_struct.field("min_wait_duration", &self.min_wait_duration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// OS policy assignment rollout state
     ///
     /// # Working with unknown values
@@ -14331,7 +14991,7 @@ pub mod os_policy_assignment {
 
 /// OS policy assignment operation metadata provided by OS policy assignment API
 /// methods that return long running operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OSPolicyAssignmentOperationMetadata {
     /// Reference to the `OSPolicyAssignment` API resource.
@@ -14592,6 +15252,21 @@ impl serde::ser::Serialize for OSPolicyAssignmentOperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OSPolicyAssignmentOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OSPolicyAssignmentOperationMetadata");
+        debug_struct.field("os_policy_assignment", &self.os_policy_assignment);
+        debug_struct.field("api_method", &self.api_method);
+        debug_struct.field("rollout_state", &self.rollout_state);
+        debug_struct.field("rollout_start_time", &self.rollout_start_time);
+        debug_struct.field("rollout_update_time", &self.rollout_update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -14887,7 +15562,7 @@ pub mod os_policy_assignment_operation_metadata {
 }
 
 /// A request message to create an OS policy assignment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateOSPolicyAssignmentRequest {
     /// Required. The parent resource name in the form:
@@ -15088,8 +15763,21 @@ impl serde::ser::Serialize for CreateOSPolicyAssignmentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateOSPolicyAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateOSPolicyAssignmentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("os_policy_assignment", &self.os_policy_assignment);
+        debug_struct.field("os_policy_assignment_id", &self.os_policy_assignment_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message to update an OS policy assignment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateOSPolicyAssignmentRequest {
     /// Required. The updated OS policy assignment.
@@ -15267,8 +15955,20 @@ impl serde::ser::Serialize for UpdateOSPolicyAssignmentRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateOSPolicyAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateOSPolicyAssignmentRequest");
+        debug_struct.field("os_policy_assignment", &self.os_policy_assignment);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message to get an OS policy assignment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOSPolicyAssignmentRequest {
     /// Required. The resource name of OS policy assignment.
@@ -15400,8 +16100,19 @@ impl serde::ser::Serialize for GetOSPolicyAssignmentRequest {
     }
 }
 
+impl std::fmt::Debug for GetOSPolicyAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOSPolicyAssignmentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message to list OS policy assignments for a parent resource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOSPolicyAssignmentsRequest {
     /// Required. The parent resource name.
@@ -15600,8 +16311,21 @@ impl serde::ser::Serialize for ListOSPolicyAssignmentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListOSPolicyAssignmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for listing all assignments under given parent.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOSPolicyAssignmentsResponse {
     /// The list of assignments
@@ -15777,8 +16501,20 @@ impl serde::ser::Serialize for ListOSPolicyAssignmentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListOSPolicyAssignmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentsResponse");
+        debug_struct.field("os_policy_assignments", &self.os_policy_assignments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message to list revisions for a OS policy assignment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOSPolicyAssignmentRevisionsRequest {
     /// Required. The name of the OS policy assignment to list revisions for.
@@ -15978,8 +16714,21 @@ impl serde::ser::Serialize for ListOSPolicyAssignmentRevisionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListOSPolicyAssignmentRevisionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentRevisionsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for listing all revisions for a OS policy assignment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOSPolicyAssignmentRevisionsResponse {
     /// The OS policy assignment revisions
@@ -16157,8 +16906,20 @@ impl serde::ser::Serialize for ListOSPolicyAssignmentRevisionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListOSPolicyAssignmentRevisionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentRevisionsResponse");
+        debug_struct.field("os_policy_assignments", &self.os_policy_assignments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for deleting a OS policy assignment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteOSPolicyAssignmentRequest {
     /// Required. The name of the OS policy assignment to be deleted
@@ -16287,9 +17048,20 @@ impl serde::ser::Serialize for DeleteOSPolicyAssignmentRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteOSPolicyAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteOSPolicyAssignmentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message encapsulating a value that can be either absolute ("fixed") or
 /// relative ("percent") to a value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FixedOrPercent {
     /// Type of the value.
@@ -16539,6 +17311,17 @@ impl serde::ser::Serialize for FixedOrPercent {
     }
 }
 
+impl std::fmt::Debug for FixedOrPercent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FixedOrPercent");
+        debug_struct.field("mode", &self.mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FixedOrPercent].
 pub mod fixed_or_percent {
     #[allow(unused_imports)]
@@ -16561,7 +17344,7 @@ pub mod fixed_or_percent {
 /// repository settings, and a schedule. For more information about creating and
 /// managing patch deployments, see [Scheduling patch
 /// jobs](https://cloud.google.com/compute/docs/os-patch-management/schedule-patch-jobs).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PatchDeployment {
     /// Unique name for the patch deployment resource in a project. The patch
@@ -17131,6 +17914,27 @@ impl serde::ser::Serialize for PatchDeployment {
     }
 }
 
+impl std::fmt::Debug for PatchDeployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchDeployment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("instance_filter", &self.instance_filter);
+        debug_struct.field("patch_config", &self.patch_config);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("last_execute_time", &self.last_execute_time);
+        debug_struct.field("rollout", &self.rollout);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("schedule", &self.schedule);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PatchDeployment].
 pub mod patch_deployment {
     #[allow(unused_imports)]
@@ -17282,7 +18086,7 @@ pub mod patch_deployment {
 
 /// Sets the time for a one time patch deployment. Timestamp is in
 /// [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) text format.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OneTimeSchedule {
     /// Required. The desired patch job execution time.
@@ -17423,8 +18227,19 @@ impl serde::ser::Serialize for OneTimeSchedule {
     }
 }
 
+impl std::fmt::Debug for OneTimeSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OneTimeSchedule");
+        debug_struct.field("execute_time", &self.execute_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sets the time for recurring patch deployments.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecurringSchedule {
     /// Required. Defines the time zone that `time_of_day` is relative to.
@@ -17901,6 +18716,24 @@ impl serde::ser::Serialize for RecurringSchedule {
     }
 }
 
+impl std::fmt::Debug for RecurringSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecurringSchedule");
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("time_of_day", &self.time_of_day);
+        debug_struct.field("frequency", &self.frequency);
+        debug_struct.field("last_execute_time", &self.last_execute_time);
+        debug_struct.field("next_execute_time", &self.next_execute_time);
+        debug_struct.field("schedule_config", &self.schedule_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RecurringSchedule].
 pub mod recurring_schedule {
     #[allow(unused_imports)]
@@ -18061,7 +18894,7 @@ pub mod recurring_schedule {
 }
 
 /// Represents a weekly schedule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WeeklySchedule {
     /// Required. Day of the week.
@@ -18191,9 +19024,20 @@ impl serde::ser::Serialize for WeeklySchedule {
     }
 }
 
+impl std::fmt::Debug for WeeklySchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WeeklySchedule");
+        debug_struct.field("day_of_week", &self.day_of_week);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a monthly schedule. An example of a valid monthly schedule is
 /// "on the third Tuesday of the month" or "on the 15th of the month".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonthlySchedule {
     /// One day in a month.
@@ -18439,6 +19283,17 @@ impl serde::ser::Serialize for MonthlySchedule {
     }
 }
 
+impl std::fmt::Debug for MonthlySchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MonthlySchedule");
+        debug_struct.field("day_of_month", &self.day_of_month);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MonthlySchedule].
 pub mod monthly_schedule {
     #[allow(unused_imports)]
@@ -18459,7 +19314,7 @@ pub mod monthly_schedule {
 }
 
 /// Represents one week day in a month. An example is "the 4th Sunday".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WeekDayOfMonth {
     /// Required. Week number in a month. 1-4 indicates the 1st to 4th week of the
@@ -18682,8 +19537,21 @@ impl serde::ser::Serialize for WeekDayOfMonth {
     }
 }
 
+impl std::fmt::Debug for WeekDayOfMonth {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WeekDayOfMonth");
+        debug_struct.field("week_ordinal", &self.week_ordinal);
+        debug_struct.field("day_of_week", &self.day_of_week);
+        debug_struct.field("day_offset", &self.day_offset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for creating a patch deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePatchDeploymentRequest {
     /// Required. The project to apply this patch deployment to in the form
@@ -18885,8 +19753,21 @@ impl serde::ser::Serialize for CreatePatchDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePatchDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePatchDeploymentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("patch_deployment_id", &self.patch_deployment_id);
+        debug_struct.field("patch_deployment", &self.patch_deployment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for retrieving a patch deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPatchDeploymentRequest {
     /// Required. The resource name of the patch deployment in the form
@@ -19016,8 +19897,19 @@ impl serde::ser::Serialize for GetPatchDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for GetPatchDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPatchDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for listing patch deployments.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPatchDeploymentsRequest {
     /// Required. The resource name of the parent in the form `projects/*`.
@@ -19217,8 +20109,21 @@ impl serde::ser::Serialize for ListPatchDeploymentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListPatchDeploymentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPatchDeploymentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for listing patch deployments.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPatchDeploymentsResponse {
     /// The list of patch deployments.
@@ -19395,8 +20300,20 @@ impl serde::ser::Serialize for ListPatchDeploymentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListPatchDeploymentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPatchDeploymentsResponse");
+        debug_struct.field("patch_deployments", &self.patch_deployments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for deleting a patch deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePatchDeploymentRequest {
     /// Required. The resource name of the patch deployment in the form
@@ -19526,8 +20443,19 @@ impl serde::ser::Serialize for DeletePatchDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePatchDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePatchDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for updating a patch deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePatchDeploymentRequest {
     /// Required. The patch deployment to Update.
@@ -19706,8 +20634,20 @@ impl serde::ser::Serialize for UpdatePatchDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for UpdatePatchDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePatchDeploymentRequest");
+        debug_struct.field("patch_deployment", &self.patch_deployment);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for pausing a patch deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PausePatchDeploymentRequest {
     /// Required. The resource name of the patch deployment in the form
@@ -19837,8 +20777,19 @@ impl serde::ser::Serialize for PausePatchDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for PausePatchDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PausePatchDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for resuming a patch deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumePatchDeploymentRequest {
     /// Required. The resource name of the patch deployment in the form
@@ -19968,9 +20919,20 @@ impl serde::ser::Serialize for ResumePatchDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for ResumePatchDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumePatchDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message to initiate patching across Compute Engine
 /// instances.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecutePatchJobRequest {
     /// Required. The project in which to run this patch in the form `projects/*`
@@ -20320,8 +21282,26 @@ impl serde::ser::Serialize for ExecutePatchJobRequest {
     }
 }
 
+impl std::fmt::Debug for ExecutePatchJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecutePatchJobRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("instance_filter", &self.instance_filter);
+        debug_struct.field("patch_config", &self.patch_config);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("dry_run", &self.dry_run);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("rollout", &self.rollout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get an active or completed patch job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPatchJobRequest {
     /// Required. Name of the patch in the form `projects/*/patchJobs/*`
@@ -20450,8 +21430,19 @@ impl serde::ser::Serialize for GetPatchJobRequest {
     }
 }
 
+impl std::fmt::Debug for GetPatchJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPatchJobRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to list details for all instances that are part of a patch job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPatchJobInstanceDetailsRequest {
     /// Required. The parent for the instances are in the form of
@@ -20676,8 +21667,22 @@ impl serde::ser::Serialize for ListPatchJobInstanceDetailsRequest {
     }
 }
 
+impl std::fmt::Debug for ListPatchJobInstanceDetailsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPatchJobInstanceDetailsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for listing the instances details for a patch job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPatchJobInstanceDetailsResponse {
     /// A list of instance status.
@@ -20857,11 +21862,26 @@ impl serde::ser::Serialize for ListPatchJobInstanceDetailsResponse {
     }
 }
 
+impl std::fmt::Debug for ListPatchJobInstanceDetailsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPatchJobInstanceDetailsResponse");
+        debug_struct.field(
+            "patch_job_instance_details",
+            &self.patch_job_instance_details,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Patch details for a VM instance. For more information about reviewing VM
 /// instance details, see
 /// [Listing all VM instance details for a specific patch
 /// job](https://cloud.google.com/compute/docs/os-patch-management/manage-patch-jobs#list-instance-details).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PatchJobInstanceDetails {
     /// The instance name in the form `projects/*/zones/*/instances/*`
@@ -21113,8 +22133,23 @@ impl serde::ser::Serialize for PatchJobInstanceDetails {
     }
 }
 
+impl std::fmt::Debug for PatchJobInstanceDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchJobInstanceDetails");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("instance_system_id", &self.instance_system_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("failure_reason", &self.failure_reason);
+        debug_struct.field("attempt_count", &self.attempt_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for listing patch jobs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPatchJobsRequest {
     /// Required. In the form of `projects/*`
@@ -21338,8 +22373,22 @@ impl serde::ser::Serialize for ListPatchJobsRequest {
     }
 }
 
+impl std::fmt::Debug for ListPatchJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPatchJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for listing patch jobs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPatchJobsResponse {
     /// The list of patch jobs.
@@ -21511,6 +22560,18 @@ impl serde::ser::Serialize for ListPatchJobsResponse {
     }
 }
 
+impl std::fmt::Debug for ListPatchJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPatchJobsResponse");
+        debug_struct.field("patch_jobs", &self.patch_jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A high level representation of a patch job that is either in progress
 /// or has completed.
 ///
@@ -21520,7 +22581,7 @@ impl serde::ser::Serialize for ListPatchJobsResponse {
 /// For more information about patch jobs, see
 /// [Creating patch
 /// jobs](https://cloud.google.com/compute/docs/os-patch-management/create-patch-job).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PatchJob {
     /// Unique identifier for this patch job in the form
@@ -22109,6 +23170,31 @@ impl serde::ser::Serialize for PatchJob {
     }
 }
 
+impl std::fmt::Debug for PatchJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchJob");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("instance_filter", &self.instance_filter);
+        debug_struct.field("patch_config", &self.patch_config);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("instance_details_summary", &self.instance_details_summary);
+        debug_struct.field("dry_run", &self.dry_run);
+        debug_struct.field("error_message", &self.error_message);
+        debug_struct.field("percent_complete", &self.percent_complete);
+        debug_struct.field("patch_deployment", &self.patch_deployment);
+        debug_struct.field("rollout", &self.rollout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PatchJob].
 pub mod patch_job {
     #[allow(unused_imports)]
@@ -22118,7 +23204,7 @@ pub mod patch_job {
     /// job affects. Contains counts of instances in different states. These states
     /// map to `InstancePatchState`. List patch job instance details to see the
     /// specific states of each instance.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InstanceDetailsSummary {
         /// Number of instances pending patch job.
@@ -22997,6 +24083,49 @@ pub mod patch_job {
         }
     }
 
+    impl std::fmt::Debug for InstanceDetailsSummary {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InstanceDetailsSummary");
+            debug_struct.field("pending_instance_count", &self.pending_instance_count);
+            debug_struct.field("inactive_instance_count", &self.inactive_instance_count);
+            debug_struct.field("notified_instance_count", &self.notified_instance_count);
+            debug_struct.field("started_instance_count", &self.started_instance_count);
+            debug_struct.field(
+                "downloading_patches_instance_count",
+                &self.downloading_patches_instance_count,
+            );
+            debug_struct.field(
+                "applying_patches_instance_count",
+                &self.applying_patches_instance_count,
+            );
+            debug_struct.field("rebooting_instance_count", &self.rebooting_instance_count);
+            debug_struct.field("succeeded_instance_count", &self.succeeded_instance_count);
+            debug_struct.field(
+                "succeeded_reboot_required_instance_count",
+                &self.succeeded_reboot_required_instance_count,
+            );
+            debug_struct.field("failed_instance_count", &self.failed_instance_count);
+            debug_struct.field("acked_instance_count", &self.acked_instance_count);
+            debug_struct.field("timed_out_instance_count", &self.timed_out_instance_count);
+            debug_struct.field(
+                "pre_patch_step_instance_count",
+                &self.pre_patch_step_instance_count,
+            );
+            debug_struct.field(
+                "post_patch_step_instance_count",
+                &self.post_patch_step_instance_count,
+            );
+            debug_struct.field(
+                "no_agent_detected_instance_count",
+                &self.no_agent_detected_instance_count,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Enumeration of the various states a patch job passes through as it
     /// executes.
     ///
@@ -23168,7 +24297,7 @@ pub mod patch_job {
 
 /// Patch configuration specifications. Contains details on how to apply the
 /// patch(es) to a VM instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PatchConfig {
     /// Post-patch reboot settings.
@@ -23577,6 +24706,25 @@ impl serde::ser::Serialize for PatchConfig {
     }
 }
 
+impl std::fmt::Debug for PatchConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchConfig");
+        debug_struct.field("reboot_config", &self.reboot_config);
+        debug_struct.field("apt", &self.apt);
+        debug_struct.field("yum", &self.yum);
+        debug_struct.field("goo", &self.goo);
+        debug_struct.field("zypper", &self.zypper);
+        debug_struct.field("windows_update", &self.windows_update);
+        debug_struct.field("pre_step", &self.pre_step);
+        debug_struct.field("post_step", &self.post_step);
+        debug_struct.field("mig_instances_allowed", &self.mig_instances_allowed);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PatchConfig].
 pub mod patch_config {
     #[allow(unused_imports)]
@@ -23726,7 +24874,7 @@ pub mod patch_config {
 }
 
 /// Namespace for instance state enums.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -23825,6 +24973,16 @@ impl serde::ser::Serialize for Instance {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -24062,7 +25220,7 @@ pub mod instance {
 }
 
 /// Message for canceling a patch job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelPatchJobRequest {
     /// Required. Name of the patch in the form `projects/*/patchJobs/*`
@@ -24191,9 +25349,20 @@ impl serde::ser::Serialize for CancelPatchJobRequest {
     }
 }
 
+impl std::fmt::Debug for CancelPatchJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelPatchJobRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Apt patching is completed by executing `apt-get update && apt-get
 /// upgrade`. Additional options can be set to control how this is executed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AptSettings {
     /// By changing the type to DIST, the patching is performed
@@ -24382,6 +25551,19 @@ impl serde::ser::Serialize for AptSettings {
     }
 }
 
+impl std::fmt::Debug for AptSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AptSettings");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("excludes", &self.excludes);
+        debug_struct.field("exclusive_packages", &self.exclusive_packages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AptSettings].
 pub mod apt_settings {
     #[allow(unused_imports)]
@@ -24524,7 +25706,7 @@ pub mod apt_settings {
 /// can be set to control how this is executed.
 ///
 /// Note that not all settings are supported on all platforms.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct YumSettings {
     /// Adds the `--security` flag to `yum update`. Not supported on
@@ -24737,8 +25919,22 @@ impl serde::ser::Serialize for YumSettings {
     }
 }
 
+impl std::fmt::Debug for YumSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("YumSettings");
+        debug_struct.field("security", &self.security);
+        debug_struct.field("minimal", &self.minimal);
+        debug_struct.field("excludes", &self.excludes);
+        debug_struct.field("exclusive_packages", &self.exclusive_packages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Googet patching is performed by running `googet update`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GooSettings {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -24840,9 +26036,19 @@ impl serde::ser::Serialize for GooSettings {
     }
 }
 
+impl std::fmt::Debug for GooSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GooSettings");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Zypper patching is performed by running `zypper patch`.
 /// See also <https://en.opensuse.org/SDB:Zypper_manual>.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ZypperSettings {
     /// Adds the `--with-optional` flag to `zypper patch`.
@@ -25110,8 +26316,24 @@ impl serde::ser::Serialize for ZypperSettings {
     }
 }
 
+impl std::fmt::Debug for ZypperSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ZypperSettings");
+        debug_struct.field("with_optional", &self.with_optional);
+        debug_struct.field("with_update", &self.with_update);
+        debug_struct.field("categories", &self.categories);
+        debug_struct.field("severities", &self.severities);
+        debug_struct.field("excludes", &self.excludes);
+        debug_struct.field("exclusive_patches", &self.exclusive_patches);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Windows patching is performed using the Windows Update Agent.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WindowsUpdateSettings {
     /// Only apply updates of these windows update classifications. If empty, all
@@ -25304,6 +26526,19 @@ impl serde::ser::Serialize for WindowsUpdateSettings {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for WindowsUpdateSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WindowsUpdateSettings");
+        debug_struct.field("classifications", &self.classifications);
+        debug_struct.field("excludes", &self.excludes);
+        debug_struct.field("exclusive_patches", &self.exclusive_patches);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -25514,7 +26749,7 @@ pub mod windows_update_settings {
 }
 
 /// A step that runs an executable for a PatchJob.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecStep {
     /// The ExecStepConfig for all Linux VMs targeted by the PatchJob.
@@ -25695,8 +26930,20 @@ impl serde::ser::Serialize for ExecStep {
     }
 }
 
+impl std::fmt::Debug for ExecStep {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecStep");
+        debug_struct.field("linux_exec_step_config", &self.linux_exec_step_config);
+        debug_struct.field("windows_exec_step_config", &self.windows_exec_step_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Common configurations for an ExecStep.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecStepConfig {
     /// Defaults to [0]. A list of possible return values that the
@@ -26008,6 +27255,19 @@ impl serde::ser::Serialize for ExecStepConfig {
     }
 }
 
+impl std::fmt::Debug for ExecStepConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecStepConfig");
+        debug_struct.field("allowed_success_codes", &self.allowed_success_codes);
+        debug_struct.field("interpreter", &self.interpreter);
+        debug_struct.field("executable", &self.executable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExecStepConfig].
 pub mod exec_step_config {
     #[allow(unused_imports)]
@@ -26161,7 +27421,7 @@ pub mod exec_step_config {
 }
 
 /// Cloud Storage object representation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsObject {
     /// Required. Bucket of the Cloud Storage object.
@@ -26359,11 +27619,24 @@ impl serde::ser::Serialize for GcsObject {
     }
 }
 
+impl std::fmt::Debug for GcsObject {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsObject");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("object", &self.object);
+        debug_struct.field("generation_number", &self.generation_number);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A filter to target VM instances for patching. The targeted
 /// VMs must meet all criteria specified. So if both labels and zones are
 /// specified, the patch job targets only VMs with those labels and in those
 /// zones.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PatchInstanceFilter {
     /// Target all VM instances in the project. If true, no other criteria is
@@ -26614,6 +27887,21 @@ impl serde::ser::Serialize for PatchInstanceFilter {
     }
 }
 
+impl std::fmt::Debug for PatchInstanceFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchInstanceFilter");
+        debug_struct.field("all", &self.all);
+        debug_struct.field("group_labels", &self.group_labels);
+        debug_struct.field("zones", &self.zones);
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("instance_name_prefixes", &self.instance_name_prefixes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PatchInstanceFilter].
 pub mod patch_instance_filter {
     #[allow(unused_imports)]
@@ -26627,7 +27915,7 @@ pub mod patch_instance_filter {
     /// For example, a patch job can target VMs that have the following
     /// `GroupLabel`: `{"env":"test", "app":"web"}`. This means that the patch job
     /// is applied to VMs that have both the labels `env=test` and `app=web`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GroupLabel {
         /// Compute Engine instance labels that must be present for a VM
@@ -26770,11 +28058,22 @@ pub mod patch_instance_filter {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for GroupLabel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GroupLabel");
+            debug_struct.field("labels", &self.labels);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Patch rollout configuration specifications. Contains details on the
 /// concurrency control when applying patch(es) to all targeted VMs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PatchRollout {
     /// Mode of the patch rollout.
@@ -26963,6 +28262,18 @@ impl serde::ser::Serialize for PatchRollout {
     }
 }
 
+impl std::fmt::Debug for PatchRollout {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchRollout");
+        debug_struct.field("mode", &self.mode);
+        debug_struct.field("disruption_budget", &self.disruption_budget);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PatchRollout].
 pub mod patch_rollout {
     #[allow(unused_imports)]
@@ -27111,7 +28422,7 @@ pub mod patch_rollout {
 ///
 /// For more information, see [Vulnerability
 /// reports](https://cloud.google.com/compute/docs/instances/os-inventory-management#vulnerability-reports).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VulnerabilityReport {
     /// Output only. The `vulnerabilityReport` API resource name.
@@ -27313,13 +28624,26 @@ impl serde::ser::Serialize for VulnerabilityReport {
     }
 }
 
+impl std::fmt::Debug for VulnerabilityReport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VulnerabilityReport");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("vulnerabilities", &self.vulnerabilities);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VulnerabilityReport].
 pub mod vulnerability_report {
     #[allow(unused_imports)]
     use super::*;
 
     /// A vulnerability affecting the VM instance.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Vulnerability {
         /// Contains metadata as per the upstream feed of the operating system and
@@ -27653,6 +28977,28 @@ pub mod vulnerability_report {
         }
     }
 
+    impl std::fmt::Debug for Vulnerability {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Vulnerability");
+            debug_struct.field("details", &self.details);
+            debug_struct.field(
+                "installed_inventory_item_ids",
+                &self.installed_inventory_item_ids,
+            );
+            debug_struct.field(
+                "available_inventory_item_ids",
+                &self.available_inventory_item_ids,
+            );
+            debug_struct.field("create_time", &self.create_time);
+            debug_struct.field("update_time", &self.update_time);
+            debug_struct.field("items", &self.items);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Vulnerability].
     pub mod vulnerability {
         #[allow(unused_imports)]
@@ -27660,7 +29006,7 @@ pub mod vulnerability_report {
 
         /// Contains metadata information for the vulnerability. This information is
         /// collected from the upstream feed of the operating system.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Details {
             /// The CVE of the vulnerability. CVE cannot be
@@ -27977,13 +29323,29 @@ pub mod vulnerability_report {
             }
         }
 
+        impl std::fmt::Debug for Details {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Details");
+                debug_struct.field("cve", &self.cve);
+                debug_struct.field("cvss_v2_score", &self.cvss_v2_score);
+                debug_struct.field("cvss_v3", &self.cvss_v3);
+                debug_struct.field("severity", &self.severity);
+                debug_struct.field("description", &self.description);
+                debug_struct.field("references", &self.references);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Details].
         pub mod details {
             #[allow(unused_imports)]
             use super::*;
 
             /// A reference for this vulnerability.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Reference {
                 /// The url of the reference.
@@ -28156,11 +29518,23 @@ pub mod vulnerability_report {
                     state.end()
                 }
             }
+
+            impl std::fmt::Debug for Reference {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Reference");
+                    debug_struct.field("url", &self.url);
+                    debug_struct.field("source", &self.source);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
         }
 
         /// OS inventory item that is affected by a vulnerability or fixed as a
         /// result of a vulnerability.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Item {
             /// Corresponds to the `INSTALLED_PACKAGE` inventory item on the VM.
@@ -28414,11 +29788,31 @@ pub mod vulnerability_report {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Item {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Item");
+                debug_struct.field(
+                    "installed_inventory_item_id",
+                    &self.installed_inventory_item_id,
+                );
+                debug_struct.field(
+                    "available_inventory_item_id",
+                    &self.available_inventory_item_id,
+                );
+                debug_struct.field("fixed_cpe_uri", &self.fixed_cpe_uri);
+                debug_struct.field("upstream_fix", &self.upstream_fix);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 }
 
 /// A request message for getting the vulnerability report for the specified VM.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVulnerabilityReportRequest {
     /// Required. API resource name for vulnerability resource.
@@ -28554,9 +29948,20 @@ impl serde::ser::Serialize for GetVulnerabilityReportRequest {
     }
 }
 
+impl std::fmt::Debug for GetVulnerabilityReportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVulnerabilityReportRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for listing vulnerability reports for all VM instances in
 /// the specified location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVulnerabilityReportsRequest {
     /// Required. The parent resource name.
@@ -28784,9 +30189,23 @@ impl serde::ser::Serialize for ListVulnerabilityReportsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVulnerabilityReportsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVulnerabilityReportsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for listing vulnerability reports for all VM instances in
 /// the specified location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVulnerabilityReportsResponse {
     /// List of vulnerabilityReport objects.
@@ -28963,9 +30382,21 @@ impl serde::ser::Serialize for ListVulnerabilityReportsResponse {
     }
 }
 
+impl std::fmt::Debug for ListVulnerabilityReportsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVulnerabilityReportsResponse");
+        debug_struct.field("vulnerability_reports", &self.vulnerability_reports);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Common Vulnerability Scoring System version 3.
 /// For details, see <https://www.first.org/cvss/specification-document>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CVSSv3 {
     /// The base score is a function of the base metric scores.
@@ -29429,6 +30860,27 @@ impl serde::ser::Serialize for CVSSv3 {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for CVSSv3 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CVSSv3");
+        debug_struct.field("base_score", &self.base_score);
+        debug_struct.field("exploitability_score", &self.exploitability_score);
+        debug_struct.field("impact_score", &self.impact_score);
+        debug_struct.field("attack_vector", &self.attack_vector);
+        debug_struct.field("attack_complexity", &self.attack_complexity);
+        debug_struct.field("privileges_required", &self.privileges_required);
+        debug_struct.field("user_interaction", &self.user_interaction);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("confidentiality_impact", &self.confidentiality_impact);
+        debug_struct.field("integrity_impact", &self.integrity_impact);
+        debug_struct.field("availability_impact", &self.availability_impact);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

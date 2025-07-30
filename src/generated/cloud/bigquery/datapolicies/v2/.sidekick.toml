@@ -13,9 +13,8 @@
 # limitations under the License.
 
 [general]
-language             = 'rust+prost'
-specification-source = 'google/rpc'
+specification-source = 'google/cloud/bigquery/datapolicies/v2'
+service-config = 'google/cloud/bigquery/datapolicies/v2/bigquerydatapolicy_v2.yaml'
 
 [codec]
-copyright-year    = '2025'
-template-override = 'templates/prost'
+copyright-year = '2025'

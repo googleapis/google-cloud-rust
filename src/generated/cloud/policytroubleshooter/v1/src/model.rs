@@ -37,7 +37,7 @@ extern crate wkt;
 /// [TroubleshootIamPolicy][google.cloud.policytroubleshooter.v1.IamChecker.TroubleshootIamPolicy].
 ///
 /// [google.cloud.policytroubleshooter.v1.IamChecker.TroubleshootIamPolicy]: crate::client::IamChecker::troubleshoot_iam_policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TroubleshootIamPolicyRequest {
     /// The information to use for checking whether a principal has a permission
@@ -179,11 +179,22 @@ impl serde::ser::Serialize for TroubleshootIamPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for TroubleshootIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TroubleshootIamPolicyRequest");
+        debug_struct.field("access_tuple", &self.access_tuple);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [TroubleshootIamPolicy][google.cloud.policytroubleshooter.v1.IamChecker.TroubleshootIamPolicy].
 ///
 /// [google.cloud.policytroubleshooter.v1.IamChecker.TroubleshootIamPolicy]: crate::client::IamChecker::troubleshoot_iam_policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TroubleshootIamPolicyResponse {
     /// Indicates whether the principal has the specified permission for the
@@ -381,8 +392,21 @@ impl serde::ser::Serialize for TroubleshootIamPolicyResponse {
     }
 }
 
+impl std::fmt::Debug for TroubleshootIamPolicyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TroubleshootIamPolicyResponse");
+        debug_struct.field("access", &self.access);
+        debug_struct.field("explained_policies", &self.explained_policies);
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about the principal, resource, and permission to check.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessTuple {
     /// Required. The principal whose access you want to check, in the form of
@@ -580,11 +604,24 @@ impl serde::ser::Serialize for AccessTuple {
     }
 }
 
+impl std::fmt::Debug for AccessTuple {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessTuple");
+        debug_struct.field("principal", &self.principal);
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        debug_struct.field("permission", &self.permission);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about how a specific IAM [Policy][google.iam.v1.Policy] contributed
 /// to the access check.
 ///
 /// [google.iam.v1.Policy]: iam_v1::model::Policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedPolicy {
     /// Indicates whether _this policy_ provides the specified permission to the
@@ -858,9 +895,24 @@ impl serde::ser::Serialize for ExplainedPolicy {
     }
 }
 
+impl std::fmt::Debug for ExplainedPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplainedPolicy");
+        debug_struct.field("access", &self.access);
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("binding_explanations", &self.binding_explanations);
+        debug_struct.field("relevance", &self.relevance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about how a binding in a policy affects a principal's ability to use
 /// a permission.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BindingExplanation {
     /// Required. Indicates whether _this binding_ provides the specified
@@ -1212,13 +1264,30 @@ impl serde::ser::Serialize for BindingExplanation {
     }
 }
 
+impl std::fmt::Debug for BindingExplanation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BindingExplanation");
+        debug_struct.field("access", &self.access);
+        debug_struct.field("role", &self.role);
+        debug_struct.field("role_permission", &self.role_permission);
+        debug_struct.field("role_permission_relevance", &self.role_permission_relevance);
+        debug_struct.field("memberships", &self.memberships);
+        debug_struct.field("relevance", &self.relevance);
+        debug_struct.field("condition", &self.condition);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BindingExplanation].
 pub mod binding_explanation {
     #[allow(unused_imports)]
     use super::*;
 
     /// Details about whether the binding includes the principal.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnnotatedMembership {
         /// Indicates whether the binding includes the principal.
@@ -1380,6 +1449,18 @@ pub mod binding_explanation {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for AnnotatedMembership {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnnotatedMembership");
+            debug_struct.field("membership", &self.membership);
+            debug_struct.field("relevance", &self.relevance);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 

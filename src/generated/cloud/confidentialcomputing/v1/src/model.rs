@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A Challenge from the server used to guarantee freshness of attestations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Challenge {
     /// Output only. The resource name for this Challenge in the format
@@ -285,8 +285,23 @@ impl serde::ser::Serialize for Challenge {
     }
 }
 
+impl std::fmt::Debug for Challenge {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Challenge");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("used", &self.used);
+        debug_struct.field("tpm_nonce", &self.tpm_nonce);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a Challenge
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateChallengeRequest {
     /// Required. The resource name of the location where the Challenge will be
@@ -452,9 +467,21 @@ impl serde::ser::Serialize for CreateChallengeRequest {
     }
 }
 
+impl std::fmt::Debug for CreateChallengeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateChallengeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("challenge", &self.challenge);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request for an OIDC token, providing all the necessary information needed
 /// for this service to verify the platform state of the requestor.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyAttestationRequest {
     /// Required. The name of the Challenge whose nonce was used to generate the
@@ -891,6 +918,23 @@ impl serde::ser::Serialize for VerifyAttestationRequest {
     }
 }
 
+impl std::fmt::Debug for VerifyAttestationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VerifyAttestationRequest");
+        debug_struct.field("challenge", &self.challenge);
+        debug_struct.field("gcp_credentials", &self.gcp_credentials);
+        debug_struct.field("tpm_attestation", &self.tpm_attestation);
+        debug_struct.field("confidential_space_info", &self.confidential_space_info);
+        debug_struct.field("token_options", &self.token_options);
+        debug_struct.field("attester", &self.attester);
+        debug_struct.field("tee_attestation", &self.tee_attestation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VerifyAttestationRequest].
 pub mod verify_attestation_request {
     #[allow(unused_imports)]
@@ -909,7 +953,7 @@ pub mod verify_attestation_request {
 }
 
 /// A TDX Attestation quote.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TdxCcelAttestation {
     /// Optional. The Confidential Computing Event Log (CCEL) ACPI table. Formatted
@@ -1191,10 +1235,24 @@ impl serde::ser::Serialize for TdxCcelAttestation {
     }
 }
 
+impl std::fmt::Debug for TdxCcelAttestation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TdxCcelAttestation");
+        debug_struct.field("ccel_acpi_table", &self.ccel_acpi_table);
+        debug_struct.field("ccel_data", &self.ccel_data);
+        debug_struct.field("canonical_event_log", &self.canonical_event_log);
+        debug_struct.field("td_quote", &self.td_quote);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An SEV-SNP Attestation Report.
 /// Contains the attestation report and the certificate bundle that the client
 /// collects.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SevSnpAttestation {
     /// Optional. The SEV-SNP Attestation Report
@@ -1390,9 +1448,21 @@ impl serde::ser::Serialize for SevSnpAttestation {
     }
 }
 
+impl std::fmt::Debug for SevSnpAttestation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SevSnpAttestation");
+        debug_struct.field("report", &self.report);
+        debug_struct.field("aux_blob", &self.aux_blob);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response once an attestation has been successfully verified, containing a
 /// signed OIDC token.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyAttestationResponse {
     /// Output only. Same as claims_token, but as a string.
@@ -1554,9 +1624,21 @@ impl serde::ser::Serialize for VerifyAttestationResponse {
     }
 }
 
+impl std::fmt::Debug for VerifyAttestationResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VerifyAttestationResponse");
+        debug_struct.field("oidc_claims_token", &self.oidc_claims_token);
+        debug_struct.field("partial_errors", &self.partial_errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Credentials issued by GCP which are linked to the platform attestation. These
 /// will be verified server-side as part of attestaion verification.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcpCredentials {
     /// Same as id_tokens, but as a string.
@@ -1691,8 +1773,19 @@ impl serde::ser::Serialize for GcpCredentials {
     }
 }
 
+impl std::fmt::Debug for GcpCredentials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcpCredentials");
+        debug_struct.field("service_account_id_tokens", &self.service_account_id_tokens);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options to modify claims in the token to generate custom-purpose tokens.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TokenOptions {
     /// Optional. Optional string to issue the token with a custom audience claim.
@@ -1953,13 +2046,27 @@ impl serde::ser::Serialize for TokenOptions {
     }
 }
 
+impl std::fmt::Debug for TokenOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TokenOptions");
+        debug_struct.field("audience", &self.audience);
+        debug_struct.field("nonce", &self.nonce);
+        debug_struct.field("token_type", &self.token_type);
+        debug_struct.field("token_type_options", &self.token_type_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TokenOptions].
 pub mod token_options {
     #[allow(unused_imports)]
     use super::*;
 
     /// Token options that only apply to the AWS Principal Tags token type.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AwsPrincipalTagsOptions {
         /// Optional. Principal tags to allow in the token.
@@ -2111,6 +2218,17 @@ pub mod token_options {
         }
     }
 
+    impl std::fmt::Debug for AwsPrincipalTagsOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AwsPrincipalTagsOptions");
+            debug_struct.field("allowed_principal_tags", &self.allowed_principal_tags);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [AwsPrincipalTagsOptions].
     pub mod aws_principal_tags_options {
         #[allow(unused_imports)]
@@ -2118,7 +2236,7 @@ pub mod token_options {
 
         /// Allowed principal tags is used to define what principal tags will be
         /// placed in the token.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AllowedPrincipalTags {
 
@@ -2273,6 +2391,20 @@ pub mod token_options {
             }
         }
 
+        impl std::fmt::Debug for AllowedPrincipalTags {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AllowedPrincipalTags");
+                debug_struct.field(
+                    "container_image_signatures",
+                    &self.container_image_signatures,
+                );
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [AllowedPrincipalTags].
         pub mod allowed_principal_tags {
             #[allow(unused_imports)]
@@ -2280,7 +2412,7 @@ pub mod token_options {
 
             /// Allowed Container Image Signatures. Key IDs are required to allow this
             /// claim to fit within the narrow AWS IAM restrictions.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ContainerImageSignatures {
                 /// Optional. List of key ids to filter into the Principal tags. Only
@@ -2432,6 +2564,17 @@ pub mod token_options {
                     state.end()
                 }
             }
+
+            impl std::fmt::Debug for ContainerImageSignatures {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("ContainerImageSignatures");
+                    debug_struct.field("key_ids", &self.key_ids);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
         }
     }
 
@@ -2448,7 +2591,7 @@ pub mod token_options {
 
 /// TPM2 data containing everything necessary to validate any platform state
 /// measured into the TPM.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TpmAttestation {
     /// TPM2 PCR Quotes generated by calling TPM2_Quote on each PCR bank.
@@ -2776,6 +2919,21 @@ impl serde::ser::Serialize for TpmAttestation {
     }
 }
 
+impl std::fmt::Debug for TpmAttestation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TpmAttestation");
+        debug_struct.field("quotes", &self.quotes);
+        debug_struct.field("tcg_event_log", &self.tcg_event_log);
+        debug_struct.field("canonical_event_log", &self.canonical_event_log);
+        debug_struct.field("ak_cert", &self.ak_cert);
+        debug_struct.field("cert_chain", &self.cert_chain);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TpmAttestation].
 pub mod tpm_attestation {
     #[allow(unused_imports)]
@@ -2783,7 +2941,7 @@ pub mod tpm_attestation {
 
     /// Information about Platform Control Registers (PCRs) including a signature
     /// over their values, which can be used for remote validation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Quote {
         /// The hash algorithm of the PCR bank being quoted, encoded as a TPM_ALG_ID
@@ -3101,11 +3259,25 @@ pub mod tpm_attestation {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Quote {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Quote");
+            debug_struct.field("hash_algo", &self.hash_algo);
+            debug_struct.field("pcr_values", &self.pcr_values);
+            debug_struct.field("raw_quote", &self.raw_quote);
+            debug_struct.field("raw_signature", &self.raw_signature);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// ConfidentialSpaceInfo contains information related to the Confidential Space
 /// TEE.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfidentialSpaceInfo {
     /// Optional. A list of signed entities containing container image signatures
@@ -3239,9 +3411,20 @@ impl serde::ser::Serialize for ConfidentialSpaceInfo {
     }
 }
 
+impl std::fmt::Debug for ConfidentialSpaceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfidentialSpaceInfo");
+        debug_struct.field("signed_entities", &self.signed_entities);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SignedEntity represents an OCI image object containing everything necessary
 /// to verify container image signatures.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignedEntity {
     /// Optional. A list of container image signatures attached to an OCI image
@@ -3383,9 +3566,23 @@ impl serde::ser::Serialize for SignedEntity {
     }
 }
 
+impl std::fmt::Debug for SignedEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SignedEntity");
+        debug_struct.field(
+            "container_image_signatures",
+            &self.container_image_signatures,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ContainerImageSignature holds necessary metadata to verify a container image
 /// signature.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContainerImageSignature {
     /// Optional. The binary signature payload following the SimpleSigning format
@@ -3652,6 +3849,20 @@ impl serde::ser::Serialize for ContainerImageSignature {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ContainerImageSignature {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContainerImageSignature");
+        debug_struct.field("payload", &self.payload);
+        debug_struct.field("signature", &self.signature);
+        debug_struct.field("public_key", &self.public_key);
+        debug_struct.field("sig_alg", &self.sig_alg);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

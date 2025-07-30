@@ -39,7 +39,7 @@ extern crate wkt;
 /// A Channel is a resource on which event providers publish their events.
 /// The published events are delivered through the transport associated with the
 /// channel. Note that a channel is associated with exactly one event provider.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Channel {
     /// Required. The resource name of the channel. Must be unique within the
@@ -465,6 +465,26 @@ impl serde::ser::Serialize for Channel {
     }
 }
 
+impl std::fmt::Debug for Channel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Channel");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("provider", &self.provider);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("activation_token", &self.activation_token);
+        debug_struct.field("crypto_key_name", &self.crypto_key_name);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("transport", &self.transport);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Channel].
 pub mod channel {
     #[allow(unused_imports)]
@@ -636,7 +656,7 @@ pub mod channel {
 /// A ChannelConnection is a resource which event providers create during the
 /// activation process to establish a connection between the provider and the
 /// subscriber channel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChannelConnection {
     /// Required. The name of the connection.
@@ -919,8 +939,24 @@ impl serde::ser::Serialize for ChannelConnection {
     }
 }
 
+impl std::fmt::Debug for ChannelConnection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChannelConnection");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("channel", &self.channel);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("activation_token", &self.activation_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A representation of the Provider resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Provider {
     /// Output only. In
@@ -1104,8 +1140,21 @@ impl serde::ser::Serialize for Provider {
     }
 }
 
+impl std::fmt::Debug for Provider {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Provider");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("event_types", &self.event_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A representation of the event type resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventType {
     /// Output only. The full name of the event type (for example,
@@ -1326,9 +1375,23 @@ impl serde::ser::Serialize for EventType {
     }
 }
 
+impl std::fmt::Debug for EventType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventType");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("filtering_attributes", &self.filtering_attributes);
+        debug_struct.field("event_schema_uri", &self.event_schema_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A representation of the FilteringAttribute resource.
 /// Filtering attributes are per event type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FilteringAttribute {
     /// Output only. Attribute used for filtering the event type.
@@ -1532,10 +1595,24 @@ impl serde::ser::Serialize for FilteringAttribute {
     }
 }
 
+impl std::fmt::Debug for FilteringAttribute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilteringAttribute");
+        debug_struct.field("attribute", &self.attribute);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("required", &self.required);
+        debug_struct.field("path_pattern_supported", &self.path_pattern_supported);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An enrollment represents a subscription for messages on a particular message
 /// bus. It defines a matching criteria for messages on the bus and the
 /// subscriber endpoint where matched messages should be delivered.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Enrollment {
     /// Identifier. Resource name of the form
@@ -1963,8 +2040,29 @@ impl serde::ser::Serialize for Enrollment {
     }
 }
 
+impl std::fmt::Debug for Enrollment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Enrollment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("cel_match", &self.cel_match);
+        debug_struct.field("message_bus", &self.message_bus);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetTrigger method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTriggerRequest {
     /// Required. The name of the trigger to get.
@@ -2093,8 +2191,19 @@ impl serde::ser::Serialize for GetTriggerRequest {
     }
 }
 
+impl std::fmt::Debug for GetTriggerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTriggerRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListTriggers method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTriggersRequest {
     /// Required. The parent collection to list triggers on.
@@ -2351,8 +2460,23 @@ impl serde::ser::Serialize for ListTriggersRequest {
     }
 }
 
+impl std::fmt::Debug for ListTriggersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTriggersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the `ListTriggers` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTriggersResponse {
     /// The requested triggers, up to the number specified in `page_size`.
@@ -2551,8 +2675,21 @@ impl serde::ser::Serialize for ListTriggersResponse {
     }
 }
 
+impl std::fmt::Debug for ListTriggersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTriggersResponse");
+        debug_struct.field("triggers", &self.triggers);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the CreateTrigger method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTriggerRequest {
     /// Required. The parent collection in which to add this trigger.
@@ -2767,8 +2904,22 @@ impl serde::ser::Serialize for CreateTriggerRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTriggerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTriggerRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("trigger", &self.trigger);
+        debug_struct.field("trigger_id", &self.trigger_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the UpdateTrigger method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTriggerRequest {
     /// The trigger to be updated.
@@ -2998,8 +3149,22 @@ impl serde::ser::Serialize for UpdateTriggerRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTriggerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTriggerRequest");
+        debug_struct.field("trigger", &self.trigger);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the DeleteTrigger method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTriggerRequest {
     /// Required. The name of the trigger to be deleted.
@@ -3205,8 +3370,22 @@ impl serde::ser::Serialize for DeleteTriggerRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTriggerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTriggerRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetChannel method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetChannelRequest {
     /// Required. The name of the channel to get.
@@ -3335,8 +3514,19 @@ impl serde::ser::Serialize for GetChannelRequest {
     }
 }
 
+impl std::fmt::Debug for GetChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetChannelRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListChannels method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChannelsRequest {
     /// Required. The parent collection to list channels on.
@@ -3567,8 +3757,22 @@ impl serde::ser::Serialize for ListChannelsRequest {
     }
 }
 
+impl std::fmt::Debug for ListChannelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListChannelsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the `ListChannels` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChannelsResponse {
     /// The requested channels, up to the number specified in `page_size`.
@@ -3767,8 +3971,21 @@ impl serde::ser::Serialize for ListChannelsResponse {
     }
 }
 
+impl std::fmt::Debug for ListChannelsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListChannelsResponse");
+        debug_struct.field("channels", &self.channels);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the CreateChannel method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateChannelRequest {
     /// Required. The parent collection in which to add this channel.
@@ -3983,8 +4200,22 @@ impl serde::ser::Serialize for CreateChannelRequest {
     }
 }
 
+impl std::fmt::Debug for CreateChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateChannelRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("channel", &self.channel);
+        debug_struct.field("channel_id", &self.channel_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the UpdateChannel method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateChannelRequest {
     /// The channel to be updated.
@@ -4188,8 +4419,21 @@ impl serde::ser::Serialize for UpdateChannelRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateChannelRequest");
+        debug_struct.field("channel", &self.channel);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the DeleteChannel method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteChannelRequest {
     /// Required. The name of the channel to be deleted.
@@ -4344,8 +4588,20 @@ impl serde::ser::Serialize for DeleteChannelRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteChannelRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetProvider method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProviderRequest {
     /// Required. The name of the provider to get.
@@ -4474,8 +4730,19 @@ impl serde::ser::Serialize for GetProviderRequest {
     }
 }
 
+impl std::fmt::Debug for GetProviderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProviderRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListProviders method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvidersRequest {
     /// Required. The parent of the provider to get.
@@ -4728,8 +4995,23 @@ impl serde::ser::Serialize for ListProvidersRequest {
     }
 }
 
+impl std::fmt::Debug for ListProvidersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProvidersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the `ListProviders` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvidersResponse {
     /// The requested providers, up to the number specified in `page_size`.
@@ -4928,8 +5210,21 @@ impl serde::ser::Serialize for ListProvidersResponse {
     }
 }
 
+impl std::fmt::Debug for ListProvidersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProvidersResponse");
+        debug_struct.field("providers", &self.providers);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetChannelConnection method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetChannelConnectionRequest {
     /// Required. The name of the channel connection to get.
@@ -5058,8 +5353,19 @@ impl serde::ser::Serialize for GetChannelConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for GetChannelConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetChannelConnectionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListChannelConnections method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChannelConnectionsRequest {
     /// Required. The parent collection from which to list channel connections.
@@ -5262,8 +5568,21 @@ impl serde::ser::Serialize for ListChannelConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListChannelConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListChannelConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the `ListChannelConnections` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChannelConnectionsResponse {
     /// The requested channel connections, up to the number specified in
@@ -5469,8 +5788,21 @@ impl serde::ser::Serialize for ListChannelConnectionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListChannelConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListChannelConnectionsResponse");
+        debug_struct.field("channel_connections", &self.channel_connections);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the CreateChannelConnection method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateChannelConnectionRequest {
     /// Required. The parent collection in which to add this channel connection.
@@ -5664,8 +5996,21 @@ impl serde::ser::Serialize for CreateChannelConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateChannelConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateChannelConnectionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("channel_connection", &self.channel_connection);
+        debug_struct.field("channel_connection_id", &self.channel_connection_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the DeleteChannelConnection method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteChannelConnectionRequest {
     /// Required. The name of the channel connection to delete.
@@ -5794,8 +6139,19 @@ impl serde::ser::Serialize for DeleteChannelConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteChannelConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteChannelConnectionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the UpdateGoogleChannelConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGoogleChannelConfigRequest {
     /// Required. The config to be updated.
@@ -5974,8 +6330,20 @@ impl serde::ser::Serialize for UpdateGoogleChannelConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateGoogleChannelConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGoogleChannelConfigRequest");
+        debug_struct.field("google_channel_config", &self.google_channel_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetGoogleChannelConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGoogleChannelConfigRequest {
     /// Required. The name of the config to get.
@@ -6104,8 +6472,19 @@ impl serde::ser::Serialize for GetGoogleChannelConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetGoogleChannelConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGoogleChannelConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetMessageBus method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMessageBusRequest {
     /// Required. The name of the message bus to get.
@@ -6234,8 +6613,19 @@ impl serde::ser::Serialize for GetMessageBusRequest {
     }
 }
 
+impl std::fmt::Debug for GetMessageBusRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMessageBusRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListMessageBuses method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMessageBusesRequest {
     /// Required. The parent collection to list triggers on.
@@ -6491,8 +6881,23 @@ impl serde::ser::Serialize for ListMessageBusesRequest {
     }
 }
 
+impl std::fmt::Debug for ListMessageBusesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMessageBusesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the `ListMessageBuses` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMessageBusesResponse {
     /// The requested message buses, up to the number specified in `page_size`.
@@ -6692,8 +7097,21 @@ impl serde::ser::Serialize for ListMessageBusesResponse {
     }
 }
 
+impl std::fmt::Debug for ListMessageBusesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMessageBusesResponse");
+        debug_struct.field("message_buses", &self.message_buses);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the `ListMessageBusEnrollments` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMessageBusEnrollmentsRequest {
     /// Required. The parent message bus to list enrollments on.
@@ -6896,8 +7314,21 @@ impl serde::ser::Serialize for ListMessageBusEnrollmentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListMessageBusEnrollmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMessageBusEnrollmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the `ListMessageBusEnrollments` method.`
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMessageBusEnrollmentsResponse {
     /// The requested enrollments, up to the number specified in `page_size`.
@@ -7082,8 +7513,21 @@ impl serde::ser::Serialize for ListMessageBusEnrollmentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListMessageBusEnrollmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMessageBusEnrollmentsResponse");
+        debug_struct.field("enrollments", &self.enrollments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the CreateMessageBus method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMessageBusRequest {
     /// Required. The parent collection in which to add this message bus.
@@ -7300,8 +7744,22 @@ impl serde::ser::Serialize for CreateMessageBusRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMessageBusRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMessageBusRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("message_bus", &self.message_bus);
+        debug_struct.field("message_bus_id", &self.message_bus_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the UpdateMessageBus method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateMessageBusRequest {
     /// Required. The MessageBus to be updated.
@@ -7532,8 +7990,22 @@ impl serde::ser::Serialize for UpdateMessageBusRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateMessageBusRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateMessageBusRequest");
+        debug_struct.field("message_bus", &self.message_bus);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the DeleteMessageBus method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMessageBusRequest {
     /// Required. The name of the MessageBus to be deleted.
@@ -7739,8 +8211,22 @@ impl serde::ser::Serialize for DeleteMessageBusRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteMessageBusRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMessageBusRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetEnrollment method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEnrollmentRequest {
     /// Required. The name of the Enrollment to get.
@@ -7869,8 +8355,19 @@ impl serde::ser::Serialize for GetEnrollmentRequest {
     }
 }
 
+impl std::fmt::Debug for GetEnrollmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEnrollmentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListEnrollments method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEnrollmentsRequest {
     /// Required. The parent collection to list triggers on.
@@ -8126,8 +8623,23 @@ impl serde::ser::Serialize for ListEnrollmentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListEnrollmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEnrollmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the `ListEnrollments` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEnrollmentsResponse {
     /// The requested Enrollments, up to the number specified in `page_size`.
@@ -8326,8 +8838,21 @@ impl serde::ser::Serialize for ListEnrollmentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListEnrollmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEnrollmentsResponse");
+        debug_struct.field("enrollments", &self.enrollments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the CreateEnrollment method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEnrollmentRequest {
     /// Required. The parent collection in which to add this enrollment.
@@ -8543,8 +9068,22 @@ impl serde::ser::Serialize for CreateEnrollmentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateEnrollmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEnrollmentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("enrollment", &self.enrollment);
+        debug_struct.field("enrollment_id", &self.enrollment_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the UpdateEnrollment method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEnrollmentRequest {
     /// Required. The Enrollment to be updated.
@@ -8774,8 +9313,22 @@ impl serde::ser::Serialize for UpdateEnrollmentRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateEnrollmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEnrollmentRequest");
+        debug_struct.field("enrollment", &self.enrollment);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the DeleteEnrollment method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEnrollmentRequest {
     /// Required. The name of the Enrollment to be deleted.
@@ -8981,8 +9534,22 @@ impl serde::ser::Serialize for DeleteEnrollmentRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteEnrollmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteEnrollmentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetPipeline method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPipelineRequest {
     /// Required. The name of the pipeline to get.
@@ -9111,8 +9678,19 @@ impl serde::ser::Serialize for GetPipelineRequest {
     }
 }
 
+impl std::fmt::Debug for GetPipelineRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPipelineRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListPipelines method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPipelinesRequest {
     /// Required. The parent collection to list pipelines on.
@@ -9368,8 +9946,23 @@ impl serde::ser::Serialize for ListPipelinesRequest {
     }
 }
 
+impl std::fmt::Debug for ListPipelinesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPipelinesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the ListPipelines method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPipelinesResponse {
     /// The requested pipelines, up to the number specified in `page_size`.
@@ -9568,8 +10161,21 @@ impl serde::ser::Serialize for ListPipelinesResponse {
     }
 }
 
+impl std::fmt::Debug for ListPipelinesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPipelinesResponse");
+        debug_struct.field("pipelines", &self.pipelines);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the CreatePipeline method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePipelineRequest {
     /// Required. The parent collection in which to add this pipeline.
@@ -9784,8 +10390,22 @@ impl serde::ser::Serialize for CreatePipelineRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePipelineRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePipelineRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("pipeline", &self.pipeline);
+        debug_struct.field("pipeline_id", &self.pipeline_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the UpdatePipeline method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePipelineRequest {
     /// Required. The Pipeline to be updated.
@@ -10015,8 +10635,22 @@ impl serde::ser::Serialize for UpdatePipelineRequest {
     }
 }
 
+impl std::fmt::Debug for UpdatePipelineRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePipelineRequest");
+        debug_struct.field("pipeline", &self.pipeline);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the DeletePipeline method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePipelineRequest {
     /// Required. The name of the Pipeline to be deleted.
@@ -10222,8 +10856,22 @@ impl serde::ser::Serialize for DeletePipelineRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePipelineRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePipelineRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetGoogleApiSource method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGoogleApiSourceRequest {
     /// Required. The name of the google api source to get.
@@ -10352,8 +11000,19 @@ impl serde::ser::Serialize for GetGoogleApiSourceRequest {
     }
 }
 
+impl std::fmt::Debug for GetGoogleApiSourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGoogleApiSourceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListGoogleApiSources method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGoogleApiSourcesRequest {
     /// Required. The parent collection to list GoogleApiSources on.
@@ -10609,8 +11268,23 @@ impl serde::ser::Serialize for ListGoogleApiSourcesRequest {
     }
 }
 
+impl std::fmt::Debug for ListGoogleApiSourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoogleApiSourcesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the `ListGoogleApiSources` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGoogleApiSourcesResponse {
     /// The requested GoogleApiSources, up to the number specified in `page_size`.
@@ -10814,8 +11488,21 @@ impl serde::ser::Serialize for ListGoogleApiSourcesResponse {
     }
 }
 
+impl std::fmt::Debug for ListGoogleApiSourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGoogleApiSourcesResponse");
+        debug_struct.field("google_api_sources", &self.google_api_sources);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the CreateGoogleApiSource method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGoogleApiSourceRequest {
     /// Required. The parent collection in which to add this google api source.
@@ -11036,8 +11723,22 @@ impl serde::ser::Serialize for CreateGoogleApiSourceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateGoogleApiSourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGoogleApiSourceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("google_api_source", &self.google_api_source);
+        debug_struct.field("google_api_source_id", &self.google_api_source_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the UpdateGoogleApiSource method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGoogleApiSourceRequest {
     /// Required. The GoogleApiSource to be updated.
@@ -11270,8 +11971,22 @@ impl serde::ser::Serialize for UpdateGoogleApiSourceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateGoogleApiSourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGoogleApiSourceRequest");
+        debug_struct.field("google_api_source", &self.google_api_source);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the DeleteGoogleApiSource method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGoogleApiSourceRequest {
     /// Required. The name of the GoogleApiSource to be deleted.
@@ -11477,8 +12192,22 @@ impl serde::ser::Serialize for DeleteGoogleApiSourceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteGoogleApiSourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGoogleApiSourceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -11784,8 +12513,25 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A GoogleApiSource represents a subscription of 1P events from a MessageBus.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoogleApiSource {
     /// Identifier. Resource name of the form
@@ -12226,12 +12972,33 @@ impl serde::ser::Serialize for GoogleApiSource {
     }
 }
 
+impl std::fmt::Debug for GoogleApiSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleApiSource");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("destination", &self.destination);
+        debug_struct.field("crypto_key_name", &self.crypto_key_name);
+        debug_struct.field("logging_config", &self.logging_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A GoogleChannelConfig is a resource that stores the custom settings
 /// respected by Eventarc first-party triggers in the matching region.
 /// Once configured, first-party event data will be protected
 /// using the specified custom managed encryption key instead of Google-managed
 /// encryption keys.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoogleChannelConfig {
     /// Required. The resource name of the config. Must be in the format of,
@@ -12426,9 +13193,22 @@ impl serde::ser::Serialize for GoogleChannelConfig {
     }
 }
 
+impl std::fmt::Debug for GoogleChannelConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleChannelConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("crypto_key_name", &self.crypto_key_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration for Platform Telemetry logging for Eventarc Advanced
 /// resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingConfig {
     /// Optional. The minimum severity of logs that will be sent to
@@ -12558,6 +13338,17 @@ impl serde::ser::Serialize for LoggingConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LoggingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoggingConfig");
+        debug_struct.field("log_severity", &self.log_severity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -12759,7 +13550,7 @@ pub mod logging_config {
 /// visibility and control over the messages being published and consumed and can
 /// restrict publishers and subscribers to only a subset of data available in the
 /// system by defining authorization policies.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageBus {
     /// Identifier. Resource name of the form
@@ -13175,8 +13966,28 @@ impl serde::ser::Serialize for MessageBus {
     }
 }
 
+impl std::fmt::Debug for MessageBus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MessageBus");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("crypto_key_name", &self.crypto_key_name);
+        debug_struct.field("logging_config", &self.logging_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Network Configuration that can be inherited by other protos.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
     /// Required. Name of the NetworkAttachment that allows access to the
@@ -13311,8 +14122,19 @@ impl serde::ser::Serialize for NetworkConfig {
     }
 }
 
+impl std::fmt::Debug for NetworkConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkConfig");
+        debug_struct.field("network_attachment", &self.network_attachment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A representation of the Pipeline resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Pipeline {
     /// Identifier. The resource name of the Pipeline. Must be unique within the
@@ -13880,13 +14702,37 @@ impl serde::ser::Serialize for Pipeline {
     }
 }
 
+impl std::fmt::Debug for Pipeline {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Pipeline");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("destinations", &self.destinations);
+        debug_struct.field("mediations", &self.mediations);
+        debug_struct.field("crypto_key_name", &self.crypto_key_name);
+        debug_struct.field("input_payload_format", &self.input_payload_format);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("retry_policy", &self.retry_policy);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Pipeline].
 pub mod pipeline {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents the format of message data.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MessagePayloadFormat {
         /// The kind of message format.
@@ -14190,13 +15036,24 @@ pub mod pipeline {
         }
     }
 
+    impl std::fmt::Debug for MessagePayloadFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MessagePayloadFormat");
+            debug_struct.field("kind", &self.kind);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [MessagePayloadFormat].
     pub mod message_payload_format {
         #[allow(unused_imports)]
         use super::*;
 
         /// The format of a JSON message payload.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct JsonFormat {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14304,8 +15161,18 @@ pub mod pipeline {
             }
         }
 
+        impl std::fmt::Debug for JsonFormat {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("JsonFormat");
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The format of a Protobuf message payload.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ProtobufFormat {
             /// Optional. The entire schema definition is stored in this field.
@@ -14446,8 +15313,19 @@ pub mod pipeline {
             }
         }
 
+        impl std::fmt::Debug for ProtobufFormat {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ProtobufFormat");
+                debug_struct.field("schema_definition", &self.schema_definition);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The format of an AVRO message payload.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AvroFormat {
             /// Optional. The entire schema definition is stored in this field.
@@ -14588,6 +15466,17 @@ pub mod pipeline {
             }
         }
 
+        impl std::fmt::Debug for AvroFormat {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AvroFormat");
+                debug_struct.field("schema_definition", &self.schema_definition);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The kind of message format.
         /// One of Protobuf, Avro, and JSON supported.
         /// This allows specification of what specific format
@@ -14607,7 +15496,7 @@ pub mod pipeline {
     }
 
     /// Represents a target of an invocation over HTTP.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Destination {
         /// Optional. Network config is used to configure how Pipeline resolves and
@@ -15056,6 +15945,20 @@ pub mod pipeline {
         }
     }
 
+    impl std::fmt::Debug for Destination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Destination");
+            debug_struct.field("network_config", &self.network_config);
+            debug_struct.field("authentication_config", &self.authentication_config);
+            debug_struct.field("output_payload_format", &self.output_payload_format);
+            debug_struct.field("destination_descriptor", &self.destination_descriptor);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Destination].
     pub mod destination {
         #[allow(unused_imports)]
@@ -15063,7 +15966,7 @@ pub mod pipeline {
 
         /// Represents a network config to be used for destination resolution and
         /// connectivity.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NetworkConfig {
             /// Required. Name of the NetworkAttachment that allows access to the
@@ -15206,8 +16109,19 @@ pub mod pipeline {
             }
         }
 
+        impl std::fmt::Debug for NetworkConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("NetworkConfig");
+                debug_struct.field("network_attachment", &self.network_attachment);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Represents a HTTP endpoint destination.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct HttpEndpoint {
             /// Required. The URI of the HTTP enpdoint.
@@ -15551,8 +16465,20 @@ pub mod pipeline {
             }
         }
 
+        impl std::fmt::Debug for HttpEndpoint {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("HttpEndpoint");
+                debug_struct.field("uri", &self.uri);
+                debug_struct.field("message_binding_template", &self.message_binding_template);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Represents a config used to authenticate message requests.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AuthenticationConfig {
 
@@ -15811,6 +16737,20 @@ pub mod pipeline {
             }
         }
 
+        impl std::fmt::Debug for AuthenticationConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AuthenticationConfig");
+                debug_struct.field(
+                    "authentication_method_descriptor",
+                    &self.authentication_method_descriptor,
+                );
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [AuthenticationConfig].
         pub mod authentication_config {
             #[allow(unused_imports)]
@@ -15820,7 +16760,7 @@ pub mod pipeline {
             /// a GCP service account. Use this authentication method to invoke your
             /// Cloud Run and Cloud Functions destinations or HTTP endpoints that
             /// support Google OIDC.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct OidcToken {
                 /// Required. Service account email used to generate the OIDC Token.
@@ -16006,11 +16946,23 @@ pub mod pipeline {
                 }
             }
 
+            impl std::fmt::Debug for OidcToken {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("OidcToken");
+                    debug_struct.field("service_account", &self.service_account);
+                    debug_struct.field("audience", &self.audience);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Contains information needed for generating an
             /// [OAuth token](https://developers.google.com/identity/protocols/OAuth2).
             /// This type of authorization should generally only be used when calling
             /// Google APIs hosted on *.googleapis.com.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct OAuthToken {
                 /// Required. Service account email used to generate the [OAuth
@@ -16197,6 +17149,18 @@ pub mod pipeline {
                 }
             }
 
+            impl std::fmt::Debug for OAuthToken {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("OAuthToken");
+                    debug_struct.field("service_account", &self.service_account);
+                    debug_struct.field("scope", &self.scope);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// The type of authentication method.
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -16251,7 +17215,7 @@ pub mod pipeline {
     }
 
     /// Mediation defines different ways to modify the Pipeline.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Mediation {
         /// The config of mediation.
@@ -16434,13 +17398,24 @@ pub mod pipeline {
         }
     }
 
+    impl std::fmt::Debug for Mediation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Mediation");
+            debug_struct.field("mediation_descriptor", &self.mediation_descriptor);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Mediation].
     pub mod mediation {
         #[allow(unused_imports)]
         use super::*;
 
         /// Transformation defines the way to transform an incoming message.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Transformation {
             /// Optional. The CEL expression template to apply to transform messages.
@@ -16662,6 +17637,17 @@ pub mod pipeline {
             }
         }
 
+        impl std::fmt::Debug for Transformation {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Transformation");
+                debug_struct.field("transformation_template", &self.transformation_template);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The config of mediation.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -16679,7 +17665,7 @@ pub mod pipeline {
     /// The delay is capped at 60 seconds by default.
     /// Please note that if you set the min_retry_delay and max_retry_delay fields
     /// to the same value this will make the duration between retries constant.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RetryPolicy {
         /// Optional. The maximum number of delivery attempts for any message. The
@@ -16907,10 +17893,23 @@ pub mod pipeline {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for RetryPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RetryPolicy");
+            debug_struct.field("max_attempts", &self.max_attempts);
+            debug_struct.field("min_retry_delay", &self.min_retry_delay);
+            debug_struct.field("max_retry_delay", &self.max_retry_delay);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A representation of the trigger resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Trigger {
     /// Required. The resource name of the trigger. Must be unique within the
@@ -17453,8 +18452,32 @@ impl serde::ser::Serialize for Trigger {
     }
 }
 
+impl std::fmt::Debug for Trigger {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Trigger");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("event_filters", &self.event_filters);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("destination", &self.destination);
+        debug_struct.field("transport", &self.transport);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("channel", &self.channel);
+        debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("event_data_content_type", &self.event_data_content_type);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Filters events based on exact matches on the CloudEvents attributes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventFilter {
     /// Required. The name of a CloudEvents attribute. Currently, only a subset of
@@ -17640,8 +18663,21 @@ impl serde::ser::Serialize for EventFilter {
     }
 }
 
+impl std::fmt::Debug for EventFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventFilter");
+        debug_struct.field("attribute", &self.attribute);
+        debug_struct.field("value", &self.value);
+        debug_struct.field("operator", &self.operator);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A condition that is part of the trigger state computation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StateCondition {
     /// The canonical code of the condition.
@@ -17794,8 +18830,20 @@ impl serde::ser::Serialize for StateCondition {
     }
 }
 
+impl std::fmt::Debug for StateCondition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StateCondition");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a target of an invocation over HTTP.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Destination {
     /// Optional. Network config is used to configure how Eventarc resolves and
@@ -18198,6 +19246,18 @@ impl serde::ser::Serialize for Destination {
     }
 }
 
+impl std::fmt::Debug for Destination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Destination");
+        debug_struct.field("network_config", &self.network_config);
+        debug_struct.field("descriptor", &self.descriptor);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Destination].
 pub mod destination {
     #[allow(unused_imports)]
@@ -18232,7 +19292,7 @@ pub mod destination {
 
 /// Represents the transport intermediaries created for the trigger to
 /// deliver events.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Transport {
     pub intermediary: std::option::Option<crate::model::transport::Intermediary>,
@@ -18404,6 +19464,17 @@ impl serde::ser::Serialize for Transport {
     }
 }
 
+impl std::fmt::Debug for Transport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Transport");
+        debug_struct.field("intermediary", &self.intermediary);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Transport].
 pub mod transport {
     #[allow(unused_imports)]
@@ -18419,7 +19490,7 @@ pub mod transport {
 }
 
 /// Represents a Cloud Run destination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudRun {
     /// Required. The name of the Cloud Run service being addressed. See
@@ -18604,8 +19675,21 @@ impl serde::ser::Serialize for CloudRun {
     }
 }
 
+impl std::fmt::Debug for CloudRun {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudRun");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a GKE destination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Gke {
     /// Required. The name of the cluster the GKE service is running in. The
@@ -18838,8 +19922,23 @@ impl serde::ser::Serialize for Gke {
     }
 }
 
+impl std::fmt::Debug for Gke {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Gke");
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("namespace", &self.namespace);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a Pub/Sub transport.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Pubsub {
     /// Optional. The name of the Pub/Sub topic created and managed by Eventarc as
@@ -19000,8 +20099,20 @@ impl serde::ser::Serialize for Pubsub {
     }
 }
 
+impl std::fmt::Debug for Pubsub {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Pubsub");
+        debug_struct.field("topic", &self.topic);
+        debug_struct.field("subscription", &self.subscription);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a HTTP endpoint destination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpEndpoint {
     /// Required. The URI of the HTTP enpdoint.
@@ -19134,5 +20245,16 @@ impl serde::ser::Serialize for HttpEndpoint {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for HttpEndpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpEndpoint");
+        debug_struct.field("uri", &self.uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

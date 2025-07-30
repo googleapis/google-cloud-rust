@@ -38,7 +38,7 @@ extern crate wkt;
 /// Encoding of an input element such as an audio, video, or text track.
 /// Elementary streams must be packaged before mapping and sharing between
 /// different output formats.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ElementaryStream {
     /// A unique key for this elementary stream. The key must be 1-63
@@ -348,6 +348,18 @@ impl serde::ser::Serialize for ElementaryStream {
     }
 }
 
+impl std::fmt::Debug for ElementaryStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ElementaryStream");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("elementary_stream", &self.elementary_stream);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ElementaryStream].
 pub mod elementary_stream {
     #[allow(unused_imports)]
@@ -367,7 +379,7 @@ pub mod elementary_stream {
 }
 
 /// Multiplexing settings for output stream.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MuxStream {
     /// A unique key for this multiplexed stream. The key must be 1-63
@@ -626,8 +638,23 @@ impl serde::ser::Serialize for MuxStream {
     }
 }
 
+impl std::fmt::Debug for MuxStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MuxStream");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("container", &self.container);
+        debug_struct.field("elementary_streams", &self.elementary_streams);
+        debug_struct.field("segment_settings", &self.segment_settings);
+        debug_struct.field("encryption_id", &self.encryption_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Manifest configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Manifest {
     /// The name of the generated file. The default is `manifest` with the
@@ -976,6 +1003,23 @@ impl serde::ser::Serialize for Manifest {
     }
 }
 
+impl std::fmt::Debug for Manifest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Manifest");
+        debug_struct.field("file_name", &self.file_name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("mux_streams", &self.mux_streams);
+        debug_struct.field("max_segment_count", &self.max_segment_count);
+        debug_struct.field("segment_keep_duration", &self.segment_keep_duration);
+        debug_struct.field("use_timecode_as_timeline", &self.use_timecode_as_timeline);
+        debug_struct.field("key", &self.key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Manifest].
 pub mod manifest {
     #[allow(unused_imports)]
@@ -1115,7 +1159,7 @@ pub mod manifest {
 }
 
 /// Sprite sheet configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpriteSheet {
     /// Format type. The default is `jpeg`.
@@ -1535,8 +1579,26 @@ impl serde::ser::Serialize for SpriteSheet {
     }
 }
 
+impl std::fmt::Debug for SpriteSheet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpriteSheet");
+        debug_struct.field("format", &self.format);
+        debug_struct.field("file_prefix", &self.file_prefix);
+        debug_struct.field("sprite_width_pixels", &self.sprite_width_pixels);
+        debug_struct.field("sprite_height_pixels", &self.sprite_height_pixels);
+        debug_struct.field("column_count", &self.column_count);
+        debug_struct.field("row_count", &self.row_count);
+        debug_struct.field("interval", &self.interval);
+        debug_struct.field("quality", &self.quality);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Preprocessing configurations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PreprocessingConfig {
     /// Audio preprocessing configuration.
@@ -1746,13 +1808,26 @@ impl serde::ser::Serialize for PreprocessingConfig {
     }
 }
 
+impl std::fmt::Debug for PreprocessingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreprocessingConfig");
+        debug_struct.field("audio", &self.audio);
+        debug_struct.field("crop", &self.crop);
+        debug_struct.field("pad", &self.pad);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PreprocessingConfig].
 pub mod preprocessing_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Audio preprocessing configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Audio {
         /// Specify audio loudness normalization in loudness units relative to full
@@ -1912,9 +1987,20 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Audio {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Audio");
+            debug_struct.field("lufs", &self.lufs);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Video cropping configuration for the input video. The cropped input video
     /// is scaled to match the output resolution.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Crop {
         /// The number of pixels to crop from the top. The default is 0.
@@ -2198,9 +2284,23 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Crop {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Crop");
+            debug_struct.field("top_pixels", &self.top_pixels);
+            debug_struct.field("bottom_pixels", &self.bottom_pixels);
+            debug_struct.field("left_pixels", &self.left_pixels);
+            debug_struct.field("right_pixels", &self.right_pixels);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Pad filter configuration for the input video. The padded input video
     /// is scaled after padding with black to match the output resolution.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Pad {
         /// The number of pixels to add to the top. The default is 0.
@@ -2483,10 +2583,24 @@ pub mod preprocessing_config {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Pad {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Pad");
+            debug_struct.field("top_pixels", &self.top_pixels);
+            debug_struct.field("bottom_pixels", &self.bottom_pixels);
+            debug_struct.field("left_pixels", &self.left_pixels);
+            debug_struct.field("right_pixels", &self.right_pixels);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Video stream resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoStream {
     /// Codec settings.
@@ -2664,13 +2778,24 @@ impl serde::ser::Serialize for VideoStream {
     }
 }
 
+impl std::fmt::Debug for VideoStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VideoStream");
+        debug_struct.field("codec_settings", &self.codec_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VideoStream].
 pub mod video_stream {
     #[allow(unused_imports)]
     use super::*;
 
     /// H264 codec settings.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H264CodecSettings {
         /// Required. The width of the video in pixels. Must be an even integer.
@@ -3450,6 +3575,30 @@ pub mod video_stream {
         }
     }
 
+    impl std::fmt::Debug for H264CodecSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H264CodecSettings");
+            debug_struct.field("width_pixels", &self.width_pixels);
+            debug_struct.field("height_pixels", &self.height_pixels);
+            debug_struct.field("frame_rate", &self.frame_rate);
+            debug_struct.field("bitrate_bps", &self.bitrate_bps);
+            debug_struct.field("allow_open_gop", &self.allow_open_gop);
+            debug_struct.field("vbv_size_bits", &self.vbv_size_bits);
+            debug_struct.field("vbv_fullness_bits", &self.vbv_fullness_bits);
+            debug_struct.field("entropy_coder", &self.entropy_coder);
+            debug_struct.field("b_pyramid", &self.b_pyramid);
+            debug_struct.field("b_frame_count", &self.b_frame_count);
+            debug_struct.field("aq_strength", &self.aq_strength);
+            debug_struct.field("profile", &self.profile);
+            debug_struct.field("tune", &self.tune);
+            debug_struct.field("gop_mode", &self.gop_mode);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [H264CodecSettings].
     pub mod h_264_codec_settings {
         #[allow(unused_imports)]
@@ -3489,7 +3638,7 @@ pub mod video_stream {
 }
 
 /// Audio stream resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AudioStream {
     /// Specifies whether pass through (transmuxing) is enabled or not.
@@ -3850,13 +3999,30 @@ impl serde::ser::Serialize for AudioStream {
     }
 }
 
+impl std::fmt::Debug for AudioStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AudioStream");
+        debug_struct.field("transmux", &self.transmux);
+        debug_struct.field("codec", &self.codec);
+        debug_struct.field("bitrate_bps", &self.bitrate_bps);
+        debug_struct.field("channel_count", &self.channel_count);
+        debug_struct.field("channel_layout", &self.channel_layout);
+        debug_struct.field("mapping", &self.mapping);
+        debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AudioStream].
 pub mod audio_stream {
     #[allow(unused_imports)]
     use super::*;
 
     /// The mapping for the input streams and audio channels.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AudioMapping {
         /// Required. The `Channel`
@@ -4180,10 +4346,25 @@ pub mod audio_stream {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AudioMapping {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AudioMapping");
+            debug_struct.field("input_key", &self.input_key);
+            debug_struct.field("input_track", &self.input_track);
+            debug_struct.field("input_channel", &self.input_channel);
+            debug_struct.field("output_channel", &self.output_channel);
+            debug_struct.field("gain_db", &self.gain_db);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Encoding of a text stream. For example, closed captions or subtitles.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextStream {
     /// Required. The codec for this text stream.
@@ -4317,8 +4498,19 @@ impl serde::ser::Serialize for TextStream {
     }
 }
 
+impl std::fmt::Debug for TextStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextStream");
+        debug_struct.field("codec", &self.codec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Segment settings for `fmp4` and `ts`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SegmentSettings {
     /// Duration of the segments in seconds. The default is `6s`. Note that
@@ -4470,8 +4662,19 @@ impl serde::ser::Serialize for SegmentSettings {
     }
 }
 
+impl std::fmt::Debug for SegmentSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SegmentSettings");
+        debug_struct.field("segment_duration", &self.segment_duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Timecode configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimecodeConfig {
     /// The source of the timecode that will later be used in outputs/manifests.
@@ -4727,6 +4930,18 @@ impl serde::ser::Serialize for TimecodeConfig {
     }
 }
 
+impl std::fmt::Debug for TimecodeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimecodeConfig");
+        debug_struct.field("source", &self.source);
+        debug_struct.field("time_offset", &self.time_offset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TimecodeConfig].
 pub mod timecode_config {
     #[allow(unused_imports)]
@@ -4879,7 +5094,7 @@ pub mod timecode_config {
 
 /// Input resource represents the endpoint from which the channel ingests
 /// the input stream.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Input {
     /// The resource name of the input, in the form of:
@@ -5307,6 +5522,26 @@ impl serde::ser::Serialize for Input {
     }
 }
 
+impl std::fmt::Debug for Input {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Input");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("tier", &self.tier);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("preprocessing_config", &self.preprocessing_config);
+        debug_struct.field("security_rules", &self.security_rules);
+        debug_struct.field("input_stream_property", &self.input_stream_property);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Input].
 pub mod input {
     #[allow(unused_imports)]
@@ -5315,7 +5550,7 @@ pub mod input {
     /// Security rules for access control. Each field represents one security rule.
     /// Only when the source of the input stream satisfies all the fields, this
     /// input stream can be accepted.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SecurityRule {
         /// At least one ip range must match unless none specified. The IP range is
@@ -5450,6 +5685,17 @@ pub mod input {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for SecurityRule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SecurityRule");
+            debug_struct.field("ip_ranges", &self.ip_ranges);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -5730,7 +5976,7 @@ pub mod input {
 /// input, transcoding it to multiple renditions, and publishing output live
 /// streams in certain formats (for example, HLS or DASH) to the specified
 /// location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Channel {
     /// The resource name of the channel, in the form of:
@@ -6461,13 +6707,42 @@ impl serde::ser::Serialize for Channel {
     }
 }
 
+impl std::fmt::Debug for Channel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Channel");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("input_attachments", &self.input_attachments);
+        debug_struct.field("active_input", &self.active_input);
+        debug_struct.field("output", &self.output);
+        debug_struct.field("elementary_streams", &self.elementary_streams);
+        debug_struct.field("mux_streams", &self.mux_streams);
+        debug_struct.field("manifests", &self.manifests);
+        debug_struct.field("sprite_sheets", &self.sprite_sheets);
+        debug_struct.field("streaming_state", &self.streaming_state);
+        debug_struct.field("streaming_error", &self.streaming_error);
+        debug_struct.field("log_config", &self.log_config);
+        debug_struct.field("timecode_config", &self.timecode_config);
+        debug_struct.field("encryptions", &self.encryptions);
+        debug_struct.field("input_config", &self.input_config);
+        debug_struct.field("retention_config", &self.retention_config);
+        debug_struct.field("static_overlays", &self.static_overlays);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Channel].
 pub mod channel {
     #[allow(unused_imports)]
     use super::*;
 
     /// Location of output file(s) in a Google Cloud Storage bucket.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Output {
         /// URI for the output file(s). For example, `gs://my-bucket/outputs/`.
@@ -6596,6 +6871,17 @@ pub mod channel {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Output {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Output");
+            debug_struct.field("uri", &self.uri);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -6773,7 +7059,7 @@ pub mod channel {
 }
 
 /// 2D normalized coordinates.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedCoordinate {
     /// Optional. Normalized x coordinate. Valid range is [0.0, 1.0]. Default is 0.
@@ -6962,8 +7248,20 @@ impl serde::ser::Serialize for NormalizedCoordinate {
     }
 }
 
+impl std::fmt::Debug for NormalizedCoordinate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NormalizedCoordinate");
+        debug_struct.field("x", &self.x);
+        debug_struct.field("y", &self.y);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Normalized resolution.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedResolution {
     /// Optional. Normalized width. Valid range is [0.0, 1.0]. Default is 0.
@@ -7152,8 +7450,20 @@ impl serde::ser::Serialize for NormalizedResolution {
     }
 }
 
+impl std::fmt::Debug for NormalizedResolution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NormalizedResolution");
+        debug_struct.field("w", &self.w);
+        debug_struct.field("h", &self.h);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for the static overlay.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StaticOverlay {
     /// Required. Asset to use for the overlaid image.
@@ -7405,8 +7715,22 @@ impl serde::ser::Serialize for StaticOverlay {
     }
 }
 
+impl std::fmt::Debug for StaticOverlay {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StaticOverlay");
+        debug_struct.field("asset", &self.asset);
+        debug_struct.field("resolution", &self.resolution);
+        debug_struct.field("position", &self.position);
+        debug_struct.field("opacity", &self.opacity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for the input sources of a channel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputConfig {
     /// Input switch mode. Default mode is `FAILOVER_PREFER_PRIMARY`.
@@ -7540,6 +7864,17 @@ impl serde::ser::Serialize for InputConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for InputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InputConfig");
+        debug_struct.field("input_switch_mode", &self.input_switch_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -7698,7 +8033,7 @@ pub mod input_config {
 /// See [Using and managing platform
 /// logs](https://cloud.google.com/logging/docs/api/platform-logs#managing-logs)
 /// for more information about how to view platform logs through Cloud Logging.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogConfig {
     /// The severity level of platform logging for this resource.
@@ -7826,6 +8161,17 @@ impl serde::ser::Serialize for LogConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LogConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogConfig");
+        debug_struct.field("log_severity", &self.log_severity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -7996,7 +8342,7 @@ pub mod log_config {
 }
 
 /// Configuration for retention of output files.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetentionConfig {
     /// The minimum duration for which the output files from the channel will
@@ -8159,8 +8505,19 @@ impl serde::ser::Serialize for RetentionConfig {
     }
 }
 
+impl std::fmt::Debug for RetentionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetentionConfig");
+        debug_struct.field("retention_window_duration", &self.retention_window_duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Properties of the input stream.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputStreamProperty {
     /// The time that the current input stream is accepted and the connection is
@@ -8366,8 +8723,21 @@ impl serde::ser::Serialize for InputStreamProperty {
     }
 }
 
+impl std::fmt::Debug for InputStreamProperty {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InputStreamProperty");
+        debug_struct.field("last_establish_time", &self.last_establish_time);
+        debug_struct.field("video_streams", &self.video_streams);
+        debug_struct.field("audio_streams", &self.audio_streams);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Properties of the video stream.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoStreamProperty {
     /// Index of this video stream.
@@ -8550,8 +8920,20 @@ impl serde::ser::Serialize for VideoStreamProperty {
     }
 }
 
+impl std::fmt::Debug for VideoStreamProperty {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VideoStreamProperty");
+        debug_struct.field("index", &self.index);
+        debug_struct.field("video_format", &self.video_format);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Properties of the video format.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoFormat {
     /// Video codec used in this video stream.
@@ -8810,8 +9192,22 @@ impl serde::ser::Serialize for VideoFormat {
     }
 }
 
+impl std::fmt::Debug for VideoFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VideoFormat");
+        debug_struct.field("codec", &self.codec);
+        debug_struct.field("width_pixels", &self.width_pixels);
+        debug_struct.field("height_pixels", &self.height_pixels);
+        debug_struct.field("frame_rate", &self.frame_rate);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Properties of the audio stream.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AudioStreamProperty {
     /// Index of this audio stream.
@@ -8994,8 +9390,20 @@ impl serde::ser::Serialize for AudioStreamProperty {
     }
 }
 
+impl std::fmt::Debug for AudioStreamProperty {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AudioStreamProperty");
+        debug_struct.field("index", &self.index);
+        debug_struct.field("audio_format", &self.audio_format);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Properties of the audio format.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AudioFormat {
     /// Audio codec used in this audio stream.
@@ -9196,8 +9604,21 @@ impl serde::ser::Serialize for AudioFormat {
     }
 }
 
+impl std::fmt::Debug for AudioFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AudioFormat");
+        debug_struct.field("codec", &self.codec);
+        debug_struct.field("channel_count", &self.channel_count);
+        debug_struct.field("channel_layout", &self.channel_layout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A group of information for attaching an input resource to this channel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputAttachment {
     /// A unique key for this input attachment. The key must be 1-63
@@ -9390,13 +9811,26 @@ impl serde::ser::Serialize for InputAttachment {
     }
 }
 
+impl std::fmt::Debug for InputAttachment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InputAttachment");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("input", &self.input);
+        debug_struct.field("automatic_failover", &self.automatic_failover);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InputAttachment].
 pub mod input_attachment {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configurations to follow when automatic failover happens.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutomaticFailover {
         /// The
@@ -9536,11 +9970,22 @@ pub mod input_attachment {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AutomaticFailover {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AutomaticFailover");
+            debug_struct.field("input_keys", &self.input_keys);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Event is a sub-resource of a channel, which can be scheduled by the user to
 /// execute operations on a channel resource without having to stop the channel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Event {
     /// The resource name of the event, in the form of:
@@ -10231,13 +10676,32 @@ impl serde::ser::Serialize for Event {
     }
 }
 
+impl std::fmt::Debug for Event {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Event");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("execute_now", &self.execute_now);
+        debug_struct.field("execution_time", &self.execution_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("task", &self.task);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Event].
 pub mod event {
     #[allow(unused_imports)]
     use super::*;
 
     /// Switches to another input stream. Automatic failover is then disabled.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InputSwitchTask {
         /// The
@@ -10374,8 +10838,19 @@ pub mod event {
         }
     }
 
+    impl std::fmt::Debug for InputSwitchTask {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InputSwitchTask");
+            debug_struct.field("input_key", &self.input_key);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Inserts a new ad opportunity.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AdBreakTask {
         /// Duration of an ad opportunity. Must be greater than 0.
@@ -10518,8 +10993,19 @@ pub mod event {
         }
     }
 
+    impl std::fmt::Debug for AdBreakTask {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AdBreakTask");
+            debug_struct.field("duration", &self.duration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Inserts a slate.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SlateTask {
         /// Optional. Duration of the slate. Must be greater than 0 if specified.
@@ -10690,9 +11176,21 @@ pub mod event {
         }
     }
 
+    impl std::fmt::Debug for SlateTask {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SlateTask");
+            debug_struct.field("duration", &self.duration);
+            debug_struct.field("asset", &self.asset);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Stops any events which are currently running. This only applies to events
     /// with a duration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReturnToProgramTask {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10797,8 +11295,18 @@ pub mod event {
         }
     }
 
+    impl std::fmt::Debug for ReturnToProgramTask {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ReturnToProgramTask");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Mutes the stream.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MuteTask {
         /// Duration for which the stream should be muted. If omitted, the stream
@@ -10942,8 +11450,19 @@ pub mod event {
         }
     }
 
+    impl std::fmt::Debug for MuteTask {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MuteTask");
+            debug_struct.field("duration", &self.duration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Unmutes the stream. The task fails if the stream is not currently muted.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UnmuteTask {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11045,6 +11564,16 @@ pub mod event {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for UnmuteTask {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UnmuteTask");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -11230,7 +11759,7 @@ pub mod event {
 /// Clip is a sub-resource under channel. Each clip represents a clipping
 /// operation that generates a VOD playlist from its channel given a set of
 /// timestamp ranges.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Clip {
     /// The resource name of the clip, in the following format:
@@ -11690,6 +12219,27 @@ impl serde::ser::Serialize for Clip {
     }
 }
 
+impl std::fmt::Debug for Clip {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Clip");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("output_uri", &self.output_uri);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("slices", &self.slices);
+        debug_struct.field("clip_manifests", &self.clip_manifests);
+        debug_struct.field("output_type", &self.output_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Clip].
 pub mod clip {
     #[allow(unused_imports)]
@@ -11697,7 +12247,7 @@ pub mod clip {
 
     /// TimeSlice represents a tuple of Unix epoch timestamps that specifies a time
     /// range.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TimeSlice {
         /// The mark-in Unix epoch time in the original live stream manifest.
@@ -11877,8 +12427,20 @@ pub mod clip {
         }
     }
 
+    impl std::fmt::Debug for TimeSlice {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TimeSlice");
+            debug_struct.field("markin_time", &self.markin_time);
+            debug_struct.field("markout_time", &self.markout_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Slice represents a slice of the requested clip.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Slice {
         /// The allowlist forms of a slice.
@@ -12058,6 +12620,17 @@ pub mod clip {
         }
     }
 
+    impl std::fmt::Debug for Slice {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Slice");
+            debug_struct.field("kind", &self.kind);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Slice].
     pub mod slice {
         #[allow(unused_imports)]
@@ -12073,7 +12646,7 @@ pub mod clip {
     }
 
     /// ClipManifest identifies a source manifest for the generated clip manifest.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClipManifest {
         /// Required. A unique key that identifies a manifest config in the parent
@@ -12238,6 +12811,18 @@ pub mod clip {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ClipManifest {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ClipManifest");
+            debug_struct.field("manifest_key", &self.manifest_key);
+            debug_struct.field("output_uri", &self.output_uri);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -12524,7 +13109,7 @@ pub mod clip {
 }
 
 /// TimeInterval represents a time interval.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeInterval {
     /// Optional. The start time of the interval.
@@ -12701,9 +13286,21 @@ impl serde::ser::Serialize for TimeInterval {
     }
 }
 
+impl std::fmt::Debug for TimeInterval {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeInterval");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// DvrSession is a sub-resource under channel. Each DvrSession represents a DVR
 /// recording of the live stream for a specific time range.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DvrSession {
     /// Identifier. The resource name of the DVR session, in the following format:
@@ -13071,6 +13668,24 @@ impl serde::ser::Serialize for DvrSession {
     }
 }
 
+impl std::fmt::Debug for DvrSession {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DvrSession");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("dvr_manifests", &self.dvr_manifests);
+        debug_struct.field("dvr_windows", &self.dvr_windows);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DvrSession].
 pub mod dvr_session {
     #[allow(unused_imports)]
@@ -13078,7 +13693,7 @@ pub mod dvr_session {
 
     /// DvrManifest identifies a source manifest and specifies a file name for the
     /// generated DVR manifest.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DvrManifest {
         /// Required. A unique key that identifies a manifest config in the parent
@@ -13245,8 +13860,20 @@ pub mod dvr_session {
         }
     }
 
+    impl std::fmt::Debug for DvrManifest {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DvrManifest");
+            debug_struct.field("manifest_key", &self.manifest_key);
+            debug_struct.field("output_uri", &self.output_uri);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// DvrWindow represents a DVR window.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DvrWindow {
         /// The allowlist forms of a DVR window.
@@ -13426,6 +14053,17 @@ pub mod dvr_session {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for DvrWindow {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DvrWindow");
+            debug_struct.field("kind", &self.kind);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -13644,7 +14282,7 @@ pub mod dvr_session {
 }
 
 /// An asset represents a video or an image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Asset {
     /// The resource name of the asset, in the form of:
@@ -14092,6 +14730,24 @@ impl serde::ser::Serialize for Asset {
     }
 }
 
+impl std::fmt::Debug for Asset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Asset");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("crc32c", &self.crc32c);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("resource", &self.resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Asset].
 pub mod asset {
     #[allow(unused_imports)]
@@ -14100,7 +14756,7 @@ pub mod asset {
     /// VideoAsset represents a video. The supported formats are MP4, MPEG-TS, and
     /// FLV. The supported video codec is H264. The supported audio codecs are
     /// AAC, AC3, MP2, and MP3.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VideoAsset {
         /// Cloud Storage URI of the video. The format is `gs://my-bucket/my-object`.
@@ -14232,8 +14888,19 @@ pub mod asset {
         }
     }
 
+    impl std::fmt::Debug for VideoAsset {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VideoAsset");
+            debug_struct.field("uri", &self.uri);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Image represents an image. The supported formats are JPEG, PNG.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ImageAsset {
         /// Cloud Storage URI of the image. The format is `gs://my-bucket/my-object`.
@@ -14362,6 +15029,17 @@ pub mod asset {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ImageAsset {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ImageAsset");
+            debug_struct.field("uri", &self.uri);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -14524,7 +15202,7 @@ pub mod asset {
 }
 
 /// Encryption settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Encryption {
     /// Required. Identifier for this set of encryption options. The ID must be
@@ -14957,13 +15635,27 @@ impl serde::ser::Serialize for Encryption {
     }
 }
 
+impl std::fmt::Debug for Encryption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Encryption");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("drm_systems", &self.drm_systems);
+        debug_struct.field("secret_source", &self.secret_source);
+        debug_struct.field("encryption_mode", &self.encryption_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Encryption].
 pub mod encryption {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for secrets stored in Google Secret Manager.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SecretManagerSource {
         /// Required. The name of the Secret Version containing the encryption key.
@@ -15100,8 +15792,19 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for SecretManagerSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SecretManagerSource");
+            debug_struct.field("secret_version", &self.secret_version);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Widevine configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Widevine {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15206,8 +15909,18 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Widevine {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Widevine");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Fairplay configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Fairplay {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15312,8 +16025,18 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Fairplay {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Fairplay");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Playready configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Playready {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15418,8 +16141,18 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Playready {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Playready");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Clearkey configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Clearkey {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15524,9 +16257,19 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Clearkey {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Clearkey");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines configuration for DRM systems in use. If a field is omitted,
     /// that DRM system will be considered to be disabled.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DrmSystems {
         /// Widevine configuration.
@@ -15774,8 +16517,22 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for DrmSystems {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DrmSystems");
+            debug_struct.field("widevine", &self.widevine);
+            debug_struct.field("fairplay", &self.fairplay);
+            debug_struct.field("playready", &self.playready);
+            debug_struct.field("clearkey", &self.clearkey);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for HLS AES-128 encryption.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Aes128Encryption {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15880,8 +16637,18 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Aes128Encryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Aes128Encryption");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for HLS SAMPLE-AES encryption.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SampleAesEncryption {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15986,8 +16753,18 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for SampleAesEncryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SampleAesEncryption");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for MPEG-Dash Common Encryption (MPEG-CENC).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MpegCommonEncryption {
         /// Required. Specify the encryption scheme, supported schemes:
@@ -16122,6 +16899,17 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for MpegCommonEncryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MpegCommonEncryption");
+            debug_struct.field("scheme", &self.scheme);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines where content keys are stored.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -16147,7 +16935,7 @@ pub mod encryption {
 /// location. Currently we support only one pool resource per project per
 /// location. After the creation of the first input, a default pool is created
 /// automatically at "projects/{project}/locations/{location}/pools/default".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Pool {
     /// The resource name of the pool, in the form of:
@@ -16420,13 +17208,28 @@ impl serde::ser::Serialize for Pool {
     }
 }
 
+impl std::fmt::Debug for Pool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Pool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("network_config", &self.network_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Pool].
 pub mod pool {
     #[allow(unused_imports)]
     use super::*;
 
     /// Defines the network configuration for the pool.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NetworkConfig {
         /// peered_network is the network resource URL of the network that is peered
@@ -16567,10 +17370,21 @@ pub mod pool {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for NetworkConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NetworkConfig");
+            debug_struct.field("peered_network", &self.peered_network);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request message for "LivestreamService.CreateAsset".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAssetRequest {
     /// Required. The parent location for the resource, in the form of:
@@ -16799,8 +17613,22 @@ impl serde::ser::Serialize for CreateAssetRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAssetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAssetRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("asset", &self.asset);
+        debug_struct.field("asset_id", &self.asset_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.DeleteAsset".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAssetRequest {
     /// Required. The name of the asset resource, in the form of:
@@ -16967,8 +17795,20 @@ impl serde::ser::Serialize for DeleteAssetRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAssetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAssetRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.ListAssets".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAssetsRequest {
     /// Required. The parent location for the resource, in the form of:
@@ -17216,8 +18056,23 @@ impl serde::ser::Serialize for ListAssetsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAssetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAssetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for "LivestreamService.ListAssets".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAssetsResponse {
     /// The list of Assets
@@ -17415,8 +18270,21 @@ impl serde::ser::Serialize for ListAssetsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAssetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAssetsResponse");
+        debug_struct.field("assets", &self.assets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.GetAsset".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAssetRequest {
     /// Required. Name of the resource, in the following form:
@@ -17546,8 +18414,19 @@ impl serde::ser::Serialize for GetAssetRequest {
     }
 }
 
+impl std::fmt::Debug for GetAssetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAssetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.CreateChannel".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateChannelRequest {
     /// Required. The parent location for the resource, in the form of:
@@ -17776,8 +18655,22 @@ impl serde::ser::Serialize for CreateChannelRequest {
     }
 }
 
+impl std::fmt::Debug for CreateChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateChannelRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("channel", &self.channel);
+        debug_struct.field("channel_id", &self.channel_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.ListChannels".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChannelsRequest {
     /// Required. The parent location for the resource, in the form of:
@@ -18031,8 +18924,23 @@ impl serde::ser::Serialize for ListChannelsRequest {
     }
 }
 
+impl std::fmt::Debug for ListChannelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListChannelsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for "LivestreamService.ListChannels".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChannelsResponse {
     /// A list of channels.
@@ -18231,8 +19139,21 @@ impl serde::ser::Serialize for ListChannelsResponse {
     }
 }
 
+impl std::fmt::Debug for ListChannelsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListChannelsResponse");
+        debug_struct.field("channels", &self.channels);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.GetChannel".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetChannelRequest {
     /// Required. The name of the channel resource, in the form of:
@@ -18362,8 +19283,19 @@ impl serde::ser::Serialize for GetChannelRequest {
     }
 }
 
+impl std::fmt::Debug for GetChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetChannelRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.DeleteChannel".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteChannelRequest {
     /// Required. The name of the channel resource, in the form of:
@@ -18557,8 +19489,21 @@ impl serde::ser::Serialize for DeleteChannelRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteChannelRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.UpdateChannel".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateChannelRequest {
     /// Field mask is used to specify the fields to be overwritten in the Channel
@@ -18790,8 +19735,21 @@ impl serde::ser::Serialize for UpdateChannelRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateChannelRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("channel", &self.channel);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.StartChannel".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartChannelRequest {
     /// Required. The name of the channel resource, in the form of:
@@ -18958,8 +19916,20 @@ impl serde::ser::Serialize for StartChannelRequest {
     }
 }
 
+impl std::fmt::Debug for StartChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartChannelRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.StopChannel".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopChannelRequest {
     /// Required. The name of the channel resource, in the form of:
@@ -19126,8 +20096,20 @@ impl serde::ser::Serialize for StopChannelRequest {
     }
 }
 
+impl std::fmt::Debug for StopChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopChannelRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.CreateInput".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInputRequest {
     /// Required. The parent location for the resource, in the form of:
@@ -19356,8 +20338,22 @@ impl serde::ser::Serialize for CreateInputRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInputRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInputRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("input", &self.input);
+        debug_struct.field("input_id", &self.input_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.ListInputs".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInputsRequest {
     /// Required. The parent location for the resource, in the form of:
@@ -19611,8 +20607,23 @@ impl serde::ser::Serialize for ListInputsRequest {
     }
 }
 
+impl std::fmt::Debug for ListInputsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInputsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for "LivestreamService.ListInputs".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInputsResponse {
     /// A list of inputs.
@@ -19811,8 +20822,21 @@ impl serde::ser::Serialize for ListInputsResponse {
     }
 }
 
+impl std::fmt::Debug for ListInputsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInputsResponse");
+        debug_struct.field("inputs", &self.inputs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.GetInput".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInputRequest {
     /// Required. The name of the input resource, in the form of:
@@ -19942,8 +20966,19 @@ impl serde::ser::Serialize for GetInputRequest {
     }
 }
 
+impl std::fmt::Debug for GetInputRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInputRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.DeleteInput".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInputRequest {
     /// Required. The name of the input resource, in the form of:
@@ -20110,8 +21145,20 @@ impl serde::ser::Serialize for DeleteInputRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInputRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInputRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.UpdateInput".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInputRequest {
     /// Field mask is used to specify the fields to be overwritten in the Input
@@ -20336,8 +21383,21 @@ impl serde::ser::Serialize for UpdateInputRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateInputRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInputRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("input", &self.input);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.CreateEvent".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEventRequest {
     /// Required. The parent channel for the resource, in the form of:
@@ -20566,8 +21626,22 @@ impl serde::ser::Serialize for CreateEventRequest {
     }
 }
 
+impl std::fmt::Debug for CreateEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEventRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("event", &self.event);
+        debug_struct.field("event_id", &self.event_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.ListEvents".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEventsRequest {
     /// Required. The parent channel for the resource, in the form of:
@@ -20821,8 +21895,23 @@ impl serde::ser::Serialize for ListEventsRequest {
     }
 }
 
+impl std::fmt::Debug for ListEventsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEventsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for "LivestreamService.ListEvents".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEventsResponse {
     /// A list of events.
@@ -21021,8 +22110,21 @@ impl serde::ser::Serialize for ListEventsResponse {
     }
 }
 
+impl std::fmt::Debug for ListEventsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEventsResponse");
+        debug_struct.field("events", &self.events);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.GetEvent".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEventRequest {
     /// Required. The name of the event resource, in the form of:
@@ -21152,8 +22254,19 @@ impl serde::ser::Serialize for GetEventRequest {
     }
 }
 
+impl std::fmt::Debug for GetEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEventRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.DeleteEvent".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEventRequest {
     /// Required. The name of the event resource, in the form of:
@@ -21320,8 +22433,20 @@ impl serde::ser::Serialize for DeleteEventRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteEventRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for Start/Stop Channel long-running operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChannelOperationResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -21423,8 +22548,18 @@ impl serde::ser::Serialize for ChannelOperationResponse {
     }
 }
 
+impl std::fmt::Debug for ChannelOperationResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChannelOperationResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.ListClips".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClipsRequest {
     /// Required. Parent value for ListClipsRequest
@@ -21671,8 +22806,23 @@ impl serde::ser::Serialize for ListClipsRequest {
     }
 }
 
+impl std::fmt::Debug for ListClipsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClipsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for "LivestreamService.ListClips".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClipsResponse {
     /// The list of Clip
@@ -21870,8 +23020,21 @@ impl serde::ser::Serialize for ListClipsResponse {
     }
 }
 
+impl std::fmt::Debug for ListClipsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClipsResponse");
+        debug_struct.field("clips", &self.clips);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.GetClip".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClipRequest {
     /// Required. Name of the resource, in the following form:
@@ -22001,8 +23164,19 @@ impl serde::ser::Serialize for GetClipRequest {
     }
 }
 
+impl std::fmt::Debug for GetClipRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetClipRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.CreateClip".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClipRequest {
     /// Required. The parent resource name, in the following form:
@@ -22232,8 +23406,22 @@ impl serde::ser::Serialize for CreateClipRequest {
     }
 }
 
+impl std::fmt::Debug for CreateClipRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateClipRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("clip_id", &self.clip_id);
+        debug_struct.field("clip", &self.clip);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.DeleteClip".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClipRequest {
     /// Required. The name of the clip resource, in the form of:
@@ -22400,8 +23588,20 @@ impl serde::ser::Serialize for DeleteClipRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteClipRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteClipRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.ListDvrSessions".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDvrSessionsRequest {
     /// Required. Parent value for ListDvrSessionsRequest
@@ -22648,8 +23848,23 @@ impl serde::ser::Serialize for ListDvrSessionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDvrSessionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDvrSessionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for "LivestreamService.ListDvrSessions".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDvrSessionsResponse {
     /// The list of DVR sessions
@@ -22848,8 +24063,21 @@ impl serde::ser::Serialize for ListDvrSessionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDvrSessionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDvrSessionsResponse");
+        debug_struct.field("dvr_sessions", &self.dvr_sessions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.GetDvrSession".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDvrSessionRequest {
     /// Required. Name of the resource, in the following form:
@@ -22979,8 +24207,19 @@ impl serde::ser::Serialize for GetDvrSessionRequest {
     }
 }
 
+impl std::fmt::Debug for GetDvrSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDvrSessionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.CreateDvrSession".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDvrSessionRequest {
     /// Required. The parent resource name, in the following form:
@@ -23211,8 +24450,22 @@ impl serde::ser::Serialize for CreateDvrSessionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDvrSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDvrSessionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("dvr_session_id", &self.dvr_session_id);
+        debug_struct.field("dvr_session", &self.dvr_session);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.DeleteDvrSession".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDvrSessionRequest {
     /// Required. The name of the event resource, in the form of:
@@ -23379,8 +24632,20 @@ impl serde::ser::Serialize for DeleteDvrSessionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDvrSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDvrSessionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.UpdateDvrSession".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDvrSessionRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -23601,8 +24866,21 @@ impl serde::ser::Serialize for UpdateDvrSessionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDvrSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDvrSessionRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("dvr_session", &self.dvr_session);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -23885,8 +25163,24 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.GetPool".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPoolRequest {
     /// Required. The name of the pool resource, in the form of:
@@ -24016,8 +25310,19 @@ impl serde::ser::Serialize for GetPoolRequest {
     }
 }
 
+impl std::fmt::Debug for GetPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPoolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for "LivestreamService.UpdatePool".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePoolRequest {
     /// Field mask is used to specify the fields to be overwritten in the Pool
@@ -24233,5 +25538,18 @@ impl serde::ser::Serialize for UpdatePoolRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdatePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePoolRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("pool", &self.pool);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

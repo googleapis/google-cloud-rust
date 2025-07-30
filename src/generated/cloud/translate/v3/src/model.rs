@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// An Adaptive MT Dataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtDataset {
     /// Required. The resource name of the dataset, in form of
@@ -364,8 +364,25 @@ impl serde::ser::Serialize for AdaptiveMtDataset {
     }
 }
 
+impl std::fmt::Debug for AdaptiveMtDataset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdaptiveMtDataset");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("source_language_code", &self.source_language_code);
+        debug_struct.field("target_language_code", &self.target_language_code);
+        debug_struct.field("example_count", &self.example_count);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 ///  Request message for creating an AdaptiveMtDataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAdaptiveMtDatasetRequest {
     /// Required. Name of the parent project. In form of
@@ -532,8 +549,20 @@ impl serde::ser::Serialize for CreateAdaptiveMtDatasetRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAdaptiveMtDatasetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAdaptiveMtDatasetRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("adaptive_mt_dataset", &self.adaptive_mt_dataset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for deleting an AdaptiveMtDataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAdaptiveMtDatasetRequest {
     /// Required. Name of the dataset. In the form of
@@ -663,8 +692,19 @@ impl serde::ser::Serialize for DeleteAdaptiveMtDatasetRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAdaptiveMtDatasetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAdaptiveMtDatasetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for getting an Adaptive MT dataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAdaptiveMtDatasetRequest {
     /// Required. Name of the dataset. In the form of
@@ -794,9 +834,20 @@ impl serde::ser::Serialize for GetAdaptiveMtDatasetRequest {
     }
 }
 
+impl std::fmt::Debug for GetAdaptiveMtDatasetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAdaptiveMtDatasetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for listing all Adaptive MT datasets that the requestor has
 /// access to.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtDatasetsRequest {
     /// Required. The resource name of the project from which to list the Adaptive
@@ -1024,8 +1075,22 @@ impl serde::ser::Serialize for ListAdaptiveMtDatasetsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAdaptiveMtDatasetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAdaptiveMtDatasetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A list of AdaptiveMtDatasets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtDatasetsResponse {
     /// Output only. A list of Adaptive MT datasets.
@@ -1203,8 +1268,20 @@ impl serde::ser::Serialize for ListAdaptiveMtDatasetsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAdaptiveMtDatasetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAdaptiveMtDatasetsResponse");
+        debug_struct.field("adaptive_mt_datasets", &self.adaptive_mt_datasets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for sending an AdaptiveMt translation query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtTranslateRequest {
     /// Required. Location to make a regional call.
@@ -1468,13 +1545,28 @@ impl serde::ser::Serialize for AdaptiveMtTranslateRequest {
     }
 }
 
+impl std::fmt::Debug for AdaptiveMtTranslateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdaptiveMtTranslateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("dataset", &self.dataset);
+        debug_struct.field("content", &self.content);
+        debug_struct.field("reference_sentence_config", &self.reference_sentence_config);
+        debug_struct.field("glossary_config", &self.glossary_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AdaptiveMtTranslateRequest].
 pub mod adaptive_mt_translate_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// A pair of sentences used as reference in source and target languages.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReferenceSentencePair {
         /// Source sentence in the sentence pair.
@@ -1638,8 +1730,20 @@ pub mod adaptive_mt_translate_request {
         }
     }
 
+    impl std::fmt::Debug for ReferenceSentencePair {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ReferenceSentencePair");
+            debug_struct.field("source_sentence", &self.source_sentence);
+            debug_struct.field("target_sentence", &self.target_sentence);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A list of reference sentence pairs.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReferenceSentencePairList {
         /// Reference sentence pairs.
@@ -1782,8 +1886,19 @@ pub mod adaptive_mt_translate_request {
         }
     }
 
+    impl std::fmt::Debug for ReferenceSentencePairList {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ReferenceSentencePairList");
+            debug_struct.field("reference_sentence_pairs", &self.reference_sentence_pairs);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Message of caller-provided reference configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReferenceSentenceConfig {
         /// Reference sentences pair lists. Each list will be used as the references
@@ -1988,10 +2103,26 @@ pub mod adaptive_mt_translate_request {
         }
     }
 
+    impl std::fmt::Debug for ReferenceSentenceConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ReferenceSentenceConfig");
+            debug_struct.field(
+                "reference_sentence_pair_lists",
+                &self.reference_sentence_pair_lists,
+            );
+            debug_struct.field("source_language_code", &self.source_language_code);
+            debug_struct.field("target_language_code", &self.target_language_code);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configures which glossary is used for a specific target language and
     /// defines
     /// options for applying that glossary.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GlossaryConfig {
         /// Required. The `glossary` to be applied for this translation.
@@ -2189,10 +2320,26 @@ pub mod adaptive_mt_translate_request {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for GlossaryConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GlossaryConfig");
+            debug_struct.field("glossary", &self.glossary);
+            debug_struct.field("ignore_case", &self.ignore_case);
+            debug_struct.field(
+                "contextual_translation_enabled",
+                &self.contextual_translation_enabled,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// An AdaptiveMt translation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtTranslation {
     /// Output only. The translated text.
@@ -2322,8 +2469,19 @@ impl serde::ser::Serialize for AdaptiveMtTranslation {
     }
 }
 
+impl std::fmt::Debug for AdaptiveMtTranslation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdaptiveMtTranslation");
+        debug_struct.field("translated_text", &self.translated_text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An AdaptiveMtTranslate response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtTranslateResponse {
     /// Output only. The translation.
@@ -2517,8 +2675,21 @@ impl serde::ser::Serialize for AdaptiveMtTranslateResponse {
     }
 }
 
+impl std::fmt::Debug for AdaptiveMtTranslateResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdaptiveMtTranslateResponse");
+        debug_struct.field("translations", &self.translations);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("glossary_translations", &self.glossary_translations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An AdaptiveMtFile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtFile {
     /// Required. The resource name of the file, in form of
@@ -2788,8 +2959,23 @@ impl serde::ser::Serialize for AdaptiveMtFile {
     }
 }
 
+impl std::fmt::Debug for AdaptiveMtFile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdaptiveMtFile");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("entry_count", &self.entry_count);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for getting an AdaptiveMtFile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAdaptiveMtFileRequest {
     /// Required. The resource name of the file, in form of
@@ -2919,8 +3105,19 @@ impl serde::ser::Serialize for GetAdaptiveMtFileRequest {
     }
 }
 
+impl std::fmt::Debug for GetAdaptiveMtFileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAdaptiveMtFileRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for deleting an AdaptiveMt file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAdaptiveMtFileRequest {
     /// Required. The resource name of the file to delete, in form of
@@ -3050,8 +3247,19 @@ impl serde::ser::Serialize for DeleteAdaptiveMtFileRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAdaptiveMtFileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAdaptiveMtFileRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for importing an AdaptiveMt file along with its sentences.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportAdaptiveMtFileRequest {
     /// Required. The resource name of the file, in form of
@@ -3310,6 +3518,18 @@ impl serde::ser::Serialize for ImportAdaptiveMtFileRequest {
     }
 }
 
+impl std::fmt::Debug for ImportAdaptiveMtFileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportAdaptiveMtFileRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportAdaptiveMtFileRequest].
 pub mod import_adaptive_mt_file_request {
     #[allow(unused_imports)]
@@ -3327,7 +3547,7 @@ pub mod import_adaptive_mt_file_request {
 }
 
 /// The response for importing an AdaptiveMtFile
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportAdaptiveMtFileResponse {
     /// Output only. The Adaptive MT file that was imported.
@@ -3469,8 +3689,19 @@ impl serde::ser::Serialize for ImportAdaptiveMtFileResponse {
     }
 }
 
+impl std::fmt::Debug for ImportAdaptiveMtFileResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportAdaptiveMtFileResponse");
+        debug_struct.field("adaptive_mt_file", &self.adaptive_mt_file);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request to list all AdaptiveMt files under a given dataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtFilesRequest {
     /// Required. The resource name of the project from which to list the Adaptive
@@ -3673,8 +3904,21 @@ impl serde::ser::Serialize for ListAdaptiveMtFilesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAdaptiveMtFilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAdaptiveMtFilesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for listing all AdaptiveMt files under a given dataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtFilesResponse {
     /// Output only. The Adaptive MT files.
@@ -3852,8 +4096,20 @@ impl serde::ser::Serialize for ListAdaptiveMtFilesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAdaptiveMtFilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAdaptiveMtFilesResponse");
+        debug_struct.field("adaptive_mt_files", &self.adaptive_mt_files);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An AdaptiveMt sentence entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveMtSentence {
     /// Required. The resource name of the file, in form of
@@ -4105,8 +4361,23 @@ impl serde::ser::Serialize for AdaptiveMtSentence {
     }
 }
 
+impl std::fmt::Debug for AdaptiveMtSentence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdaptiveMtSentence");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source_sentence", &self.source_sentence);
+        debug_struct.field("target_sentence", &self.target_sentence);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for listing Adaptive MT sentences from a Dataset/File.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtSentencesRequest {
     /// Required. The resource name of the project from which to list the Adaptive
@@ -4310,8 +4581,21 @@ impl serde::ser::Serialize for ListAdaptiveMtSentencesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAdaptiveMtSentencesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAdaptiveMtSentencesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List AdaptiveMt sentences response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAdaptiveMtSentencesResponse {
     /// Output only. The list of AdaptiveMtSentences.
@@ -4487,8 +4771,20 @@ impl serde::ser::Serialize for ListAdaptiveMtSentencesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAdaptiveMtSentencesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAdaptiveMtSentencesResponse");
+        debug_struct.field("adaptive_mt_sentences", &self.adaptive_mt_sentences);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ImportData.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDataRequest {
     /// Required. Name of the dataset. In form of
@@ -4654,8 +4950,20 @@ impl serde::ser::Serialize for ImportDataRequest {
     }
 }
 
+impl std::fmt::Debug for ImportDataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportDataRequest");
+        debug_struct.field("dataset", &self.dataset);
+        debug_struct.field("input_config", &self.input_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Input configuration for datasets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatasetInputConfig {
     /// Files containing the sentence pairs to be imported to the dataset.
@@ -4792,13 +5100,24 @@ impl serde::ser::Serialize for DatasetInputConfig {
     }
 }
 
+impl std::fmt::Debug for DatasetInputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatasetInputConfig");
+        debug_struct.field("input_files", &self.input_files);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DatasetInputConfig].
 pub mod dataset_input_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// An input file.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InputFile {
         /// Optional. Usage of the file contents. Options are TRAIN|VALIDATION|TEST,
@@ -5007,6 +5326,18 @@ pub mod dataset_input_config {
         }
     }
 
+    impl std::fmt::Debug for InputFile {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InputFile");
+            debug_struct.field("usage", &self.usage);
+            debug_struct.field("source", &self.source);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [InputFile].
     pub mod input_file {
         #[allow(unused_imports)]
@@ -5025,7 +5356,7 @@ pub mod dataset_input_config {
 }
 
 /// Metadata of import data operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDataMetadata {
     /// The current state of the operation.
@@ -5261,8 +5592,22 @@ impl serde::ser::Serialize for ImportDataMetadata {
     }
 }
 
+impl std::fmt::Debug for ImportDataMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportDataMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ExportData.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDataRequest {
     /// Required. Name of the dataset. In form of
@@ -5428,8 +5773,20 @@ impl serde::ser::Serialize for ExportDataRequest {
     }
 }
 
+impl std::fmt::Debug for ExportDataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportDataRequest");
+        debug_struct.field("dataset", &self.dataset);
+        debug_struct.field("output_config", &self.output_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output configuration for datasets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatasetOutputConfig {
     /// Required. Specify the output.
@@ -5609,6 +5966,17 @@ impl serde::ser::Serialize for DatasetOutputConfig {
     }
 }
 
+impl std::fmt::Debug for DatasetOutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatasetOutputConfig");
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DatasetOutputConfig].
 pub mod dataset_output_config {
     #[allow(unused_imports)]
@@ -5624,7 +5992,7 @@ pub mod dataset_output_config {
 }
 
 /// Metadata of export data operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDataMetadata {
     /// The current state of the operation.
@@ -5860,8 +6228,22 @@ impl serde::ser::Serialize for ExportDataMetadata {
     }
 }
 
+impl std::fmt::Debug for ExportDataMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportDataMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteDataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDatasetRequest {
     /// Required. The name of the dataset to delete.
@@ -5990,8 +6372,19 @@ impl serde::ser::Serialize for DeleteDatasetRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDatasetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDatasetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata of delete dataset operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDatasetMetadata {
     /// The current state of the operation.
@@ -6227,8 +6620,22 @@ impl serde::ser::Serialize for DeleteDatasetMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteDatasetMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDatasetMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetDataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatasetRequest {
     /// Required. The resource name of the dataset to retrieve.
@@ -6357,8 +6764,19 @@ impl serde::ser::Serialize for GetDatasetRequest {
     }
 }
 
+impl std::fmt::Debug for GetDatasetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDatasetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListDatasets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatasetsRequest {
     /// Required. Name of the parent project. In form of
@@ -6559,8 +6977,21 @@ impl serde::ser::Serialize for ListDatasetsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDatasetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatasetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListDatasets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatasetsResponse {
     /// The datasets read.
@@ -6733,8 +7164,20 @@ impl serde::ser::Serialize for ListDatasetsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDatasetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatasetsResponse");
+        debug_struct.field("datasets", &self.datasets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateDataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatasetRequest {
     /// Required. The project name.
@@ -6898,8 +7341,20 @@ impl serde::ser::Serialize for CreateDatasetRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDatasetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDatasetRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("dataset", &self.dataset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata of create dataset operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatasetMetadata {
     /// The current state of the operation.
@@ -7135,8 +7590,22 @@ impl serde::ser::Serialize for CreateDatasetMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateDatasetMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDatasetMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListExamples.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExamplesRequest {
     /// Required. Name of the parent dataset. In form of
@@ -7364,8 +7833,22 @@ impl serde::ser::Serialize for ListExamplesRequest {
     }
 }
 
+impl std::fmt::Debug for ListExamplesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExamplesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListExamples.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExamplesResponse {
     /// The sentence pairs.
@@ -7538,8 +8021,20 @@ impl serde::ser::Serialize for ListExamplesResponse {
     }
 }
 
+impl std::fmt::Debug for ListExamplesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExamplesResponse");
+        debug_struct.field("examples", &self.examples);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A sentence pair.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Example {
     /// Output only. The resource name of the example, in form of
@@ -7743,8 +8238,22 @@ impl serde::ser::Serialize for Example {
     }
 }
 
+impl std::fmt::Debug for Example {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Example");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source_text", &self.source_text);
+        debug_struct.field("target_text", &self.target_text);
+        debug_struct.field("usage", &self.usage);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BatchTransferResources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTransferResourcesResponse {
     /// Responses of the transfer for individual resources.
@@ -7879,13 +8388,24 @@ impl serde::ser::Serialize for BatchTransferResourcesResponse {
     }
 }
 
+impl std::fmt::Debug for BatchTransferResourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchTransferResourcesResponse");
+        debug_struct.field("responses", &self.responses);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchTransferResourcesResponse].
 pub mod batch_transfer_resources_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Transfer response for a single resource.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TransferResourceResponse {
         /// Full name of the resource to transfer as specified in the request.
@@ -8076,11 +8596,24 @@ pub mod batch_transfer_resources_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for TransferResourceResponse {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TransferResourceResponse");
+            debug_struct.field("source", &self.source);
+            debug_struct.field("target", &self.target);
+            debug_struct.field("error", &self.error);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A dataset that hosts the examples (sentence pairs) used for translation
 /// models.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Dataset {
     /// The resource name of the dataset, in form of
@@ -8544,8 +9077,28 @@ impl serde::ser::Serialize for Dataset {
     }
 }
 
+impl std::fmt::Debug for Dataset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Dataset");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("source_language_code", &self.source_language_code);
+        debug_struct.field("target_language_code", &self.target_language_code);
+        debug_struct.field("example_count", &self.example_count);
+        debug_struct.field("train_example_count", &self.train_example_count);
+        debug_struct.field("validate_example_count", &self.validate_example_count);
+        debug_struct.field("test_example_count", &self.test_example_count);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateModel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateModelRequest {
     /// Required. The project name, in form of
@@ -8710,8 +9263,20 @@ impl serde::ser::Serialize for CreateModelRequest {
     }
 }
 
+impl std::fmt::Debug for CreateModelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateModelRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("model", &self.model);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata of create model operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateModelMetadata {
     /// The current state of the operation.
@@ -8947,8 +9512,22 @@ impl serde::ser::Serialize for CreateModelMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateModelMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateModelMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListModels.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListModelsRequest {
     /// Required. Name of the parent project. In form of
@@ -9175,8 +9754,22 @@ impl serde::ser::Serialize for ListModelsRequest {
     }
 }
 
+impl std::fmt::Debug for ListModelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListModelsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListModels.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListModelsResponse {
     /// The models read.
@@ -9349,8 +9942,20 @@ impl serde::ser::Serialize for ListModelsResponse {
     }
 }
 
+impl std::fmt::Debug for ListModelsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListModelsResponse");
+        debug_struct.field("models", &self.models);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetModel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetModelRequest {
     /// Required. The resource name of the model to retrieve.
@@ -9479,8 +10084,19 @@ impl serde::ser::Serialize for GetModelRequest {
     }
 }
 
+impl std::fmt::Debug for GetModelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetModelRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteModel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteModelRequest {
     /// Required. The name of the model to delete.
@@ -9609,8 +10225,19 @@ impl serde::ser::Serialize for DeleteModelRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteModelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteModelRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata of delete model operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteModelMetadata {
     /// The current state of the operation.
@@ -9846,8 +10473,22 @@ impl serde::ser::Serialize for DeleteModelMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteModelMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteModelMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A trained translation model.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Model {
     /// The resource name of the model, in form of
@@ -10294,8 +10935,28 @@ impl serde::ser::Serialize for Model {
     }
 }
 
+impl std::fmt::Debug for Model {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Model");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("dataset", &self.dataset);
+        debug_struct.field("source_language_code", &self.source_language_code);
+        debug_struct.field("target_language_code", &self.target_language_code);
+        debug_struct.field("train_example_count", &self.train_example_count);
+        debug_struct.field("validate_example_count", &self.validate_example_count);
+        debug_struct.field("test_example_count", &self.test_example_count);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Google Cloud Storage location for the input content.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsInputSource {
     /// Required. Source data URI. For example, `gs://my_bucket/my_object`.
@@ -10425,8 +11086,19 @@ impl serde::ser::Serialize for GcsInputSource {
     }
 }
 
+impl std::fmt::Debug for GcsInputSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsInputSource");
+        debug_struct.field("input_uri", &self.input_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An inlined file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileInputSource {
     /// Required. The file's mime type.
@@ -10623,8 +11295,21 @@ impl serde::ser::Serialize for FileInputSource {
     }
 }
 
+impl std::fmt::Debug for FileInputSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileInputSource");
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("content", &self.content);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Google Cloud Storage location for the output content.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsOutputDestination {
     /// Required. Google Cloud Storage URI to output directory. For example,
@@ -10759,8 +11444,19 @@ impl serde::ser::Serialize for GcsOutputDestination {
     }
 }
 
+impl std::fmt::Debug for GcsOutputDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsOutputDestination");
+        debug_struct.field("output_uri_prefix", &self.output_uri_prefix);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a single entry in a glossary.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GlossaryEntry {
     /// Identifier. The resource name of the entry.
@@ -11048,13 +11744,26 @@ impl serde::ser::Serialize for GlossaryEntry {
     }
 }
 
+impl std::fmt::Debug for GlossaryEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlossaryEntry");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("data", &self.data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GlossaryEntry].
 pub mod glossary_entry {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents a single entry for an unidirectional glossary.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GlossaryTermsPair {
         /// The source term is the term that will get match in the text,
@@ -11236,10 +11945,22 @@ pub mod glossary_entry {
         }
     }
 
+    impl std::fmt::Debug for GlossaryTermsPair {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GlossaryTermsPair");
+            debug_struct.field("source_term", &self.source_term);
+            debug_struct.field("target_term", &self.target_term);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents a single entry for an equivalent term set glossary. This is used
     /// for equivalent term sets where each term can be replaced by the other terms
     /// in the set.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GlossaryTermsSet {
         /// Each term in the set represents a term that can be replaced by the other
@@ -11379,6 +12100,17 @@ pub mod glossary_entry {
         }
     }
 
+    impl std::fmt::Debug for GlossaryTermsSet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GlossaryTermsSet");
+            debug_struct.field("terms", &self.terms);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The different data for the glossary types (Unidirectional, Equivalent term
     /// sets).
     #[derive(Clone, Debug, PartialEq)]
@@ -11392,7 +12124,7 @@ pub mod glossary_entry {
 }
 
 /// Represents a single glossary term
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GlossaryTerm {
     /// The language for this glossary term.
@@ -11546,8 +12278,20 @@ impl serde::ser::Serialize for GlossaryTerm {
     }
 }
 
+impl std::fmt::Debug for GlossaryTerm {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlossaryTerm");
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("text", &self.text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configures transliteration feature on top of translation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransliterationConfig {
     /// If true, source text in romanized form can be translated to the target
@@ -11678,8 +12422,19 @@ impl serde::ser::Serialize for TransliterationConfig {
     }
 }
 
+impl std::fmt::Debug for TransliterationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransliterationConfig");
+        debug_struct.field("enable_transliteration", &self.enable_transliteration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for synchronous translation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslateTextRequest {
     /// Required. The content of the input in string format.
@@ -12098,7 +12853,26 @@ impl serde::ser::Serialize for TranslateTextRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for TranslateTextRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TranslateTextRequest");
+        debug_struct.field("contents", &self.contents);
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("source_language_code", &self.source_language_code);
+        debug_struct.field("target_language_code", &self.target_language_code);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("model", &self.model);
+        debug_struct.field("glossary_config", &self.glossary_config);
+        debug_struct.field("transliteration_config", &self.transliteration_config);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslateTextResponse {
     /// Text translation responses with no glossary applied.
@@ -12269,8 +13043,20 @@ impl serde::ser::Serialize for TranslateTextResponse {
     }
 }
 
+impl std::fmt::Debug for TranslateTextResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TranslateTextResponse");
+        debug_struct.field("translations", &self.translations);
+        debug_struct.field("glossary_translations", &self.glossary_translations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single translation response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Translation {
     /// Text translated into the target language.
@@ -12500,8 +13286,22 @@ impl serde::ser::Serialize for Translation {
     }
 }
 
+impl std::fmt::Debug for Translation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Translation");
+        debug_struct.field("translated_text", &self.translated_text);
+        debug_struct.field("model", &self.model);
+        debug_struct.field("detected_language_code", &self.detected_language_code);
+        debug_struct.field("glossary_config", &self.glossary_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for synchronous romanization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RomanizeTextRequest {
     /// Required. Project or location to make a call. Must refer to a caller's
@@ -12698,8 +13498,21 @@ impl serde::ser::Serialize for RomanizeTextRequest {
     }
 }
 
+impl std::fmt::Debug for RomanizeTextRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RomanizeTextRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("contents", &self.contents);
+        debug_struct.field("source_language_code", &self.source_language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single romanization response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Romanization {
     /// Romanized text.
@@ -12862,8 +13675,20 @@ impl serde::ser::Serialize for Romanization {
     }
 }
 
+impl std::fmt::Debug for Romanization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Romanization");
+        debug_struct.field("romanized_text", &self.romanized_text);
+        debug_struct.field("detected_language_code", &self.detected_language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for synchronous romanization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RomanizeTextResponse {
     /// Text romanization responses.
@@ -12999,8 +13824,19 @@ impl serde::ser::Serialize for RomanizeTextResponse {
     }
 }
 
+impl std::fmt::Debug for RomanizeTextResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RomanizeTextResponse");
+        debug_struct.field("romanizations", &self.romanizations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for language detection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectLanguageRequest {
     /// Required. Project or location to make a call. Must refer to a caller's
@@ -13305,6 +14141,21 @@ impl serde::ser::Serialize for DetectLanguageRequest {
     }
 }
 
+impl std::fmt::Debug for DetectLanguageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetectLanguageRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("model", &self.model);
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DetectLanguageRequest].
 pub mod detect_language_request {
     #[allow(unused_imports)]
@@ -13320,7 +14171,7 @@ pub mod detect_language_request {
 }
 
 /// The response message for language detection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectedLanguage {
     /// The ISO-639 language code of the source content in the request, detected
@@ -13493,8 +14344,20 @@ impl serde::ser::Serialize for DetectedLanguage {
     }
 }
 
+impl std::fmt::Debug for DetectedLanguage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetectedLanguage");
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("confidence", &self.confidence);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for language detection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectLanguageResponse {
     /// The most probable language detected by the Translation API. For each
@@ -13631,8 +14494,19 @@ impl serde::ser::Serialize for DetectLanguageResponse {
     }
 }
 
+impl std::fmt::Debug for DetectLanguageResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetectLanguageResponse");
+        debug_struct.field("languages", &self.languages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for discovering supported languages.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSupportedLanguagesRequest {
     /// Required. Project or location to make a call. Must refer to a caller's
@@ -13839,8 +14713,21 @@ impl serde::ser::Serialize for GetSupportedLanguagesRequest {
     }
 }
 
+impl std::fmt::Debug for GetSupportedLanguagesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSupportedLanguagesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("display_language_code", &self.display_language_code);
+        debug_struct.field("model", &self.model);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for discovering supported languages.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SupportedLanguages {
     /// A list of supported language responses. This list contains an entry
@@ -13977,9 +14864,20 @@ impl serde::ser::Serialize for SupportedLanguages {
     }
 }
 
+impl std::fmt::Debug for SupportedLanguages {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SupportedLanguages");
+        debug_struct.field("languages", &self.languages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single supported language response corresponds to information related
 /// to one supported language.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SupportedLanguage {
     /// Supported language code, generally consisting of its ISO 639-1
@@ -14188,8 +15086,22 @@ impl serde::ser::Serialize for SupportedLanguage {
     }
 }
 
+impl std::fmt::Debug for SupportedLanguage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SupportedLanguage");
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("support_source", &self.support_source);
+        debug_struct.field("support_target", &self.support_target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Google Cloud Storage location for the input content.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsSource {
     /// Required. Source data URI. For example, `gs://my_bucket/my_object`.
@@ -14319,8 +15231,19 @@ impl serde::ser::Serialize for GcsSource {
     }
 }
 
+impl std::fmt::Debug for GcsSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsSource");
+        debug_struct.field("input_uri", &self.input_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Input configuration for BatchTranslateText request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputConfig {
     /// Optional. Can be "text/plain" or "text/html".
@@ -14521,6 +15444,18 @@ impl serde::ser::Serialize for InputConfig {
     }
 }
 
+impl std::fmt::Debug for InputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InputConfig");
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InputConfig].
 pub mod input_config {
     #[allow(unused_imports)]
@@ -14553,7 +15488,7 @@ pub mod input_config {
 }
 
 /// The Google Cloud Storage location for the output content.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDestination {
     /// Required. The bucket used in 'output_uri_prefix' must exist and there must
@@ -14690,8 +15625,19 @@ impl serde::ser::Serialize for GcsDestination {
     }
 }
 
+impl std::fmt::Debug for GcsDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsDestination");
+        debug_struct.field("output_uri_prefix", &self.output_uri_prefix);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output configuration for BatchTranslateText request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputConfig {
     /// Required. The destination of output.
@@ -14871,6 +15817,17 @@ impl serde::ser::Serialize for OutputConfig {
     }
 }
 
+impl std::fmt::Debug for OutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputConfig");
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OutputConfig].
 pub mod output_config {
     #[allow(unused_imports)]
@@ -14956,7 +15913,7 @@ pub mod output_config {
 }
 
 /// A document translation request input config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentInputConfig {
     /// Specifies the input document's mime_type.
@@ -15239,6 +16196,18 @@ impl serde::ser::Serialize for DocumentInputConfig {
     }
 }
 
+impl std::fmt::Debug for DocumentInputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentInputConfig");
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DocumentInputConfig].
 pub mod document_input_config {
     #[allow(unused_imports)]
@@ -15264,7 +16233,7 @@ pub mod document_input_config {
 }
 
 /// A document translation request output config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentOutputConfig {
     /// Optional. Specifies the translated document's mime_type.
@@ -15483,6 +16452,18 @@ impl serde::ser::Serialize for DocumentOutputConfig {
     }
 }
 
+impl std::fmt::Debug for DocumentOutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentOutputConfig");
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DocumentOutputConfig].
 pub mod document_output_config {
     #[allow(unused_imports)]
@@ -15546,7 +16527,7 @@ pub mod document_output_config {
 }
 
 /// A document translation request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslateDocumentRequest {
     /// Required. Location to make a regional call.
@@ -16075,8 +17056,39 @@ impl serde::ser::Serialize for TranslateDocumentRequest {
     }
 }
 
+impl std::fmt::Debug for TranslateDocumentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TranslateDocumentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("source_language_code", &self.source_language_code);
+        debug_struct.field("target_language_code", &self.target_language_code);
+        debug_struct.field("document_input_config", &self.document_input_config);
+        debug_struct.field("document_output_config", &self.document_output_config);
+        debug_struct.field("model", &self.model);
+        debug_struct.field("glossary_config", &self.glossary_config);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("customized_attribution", &self.customized_attribution);
+        debug_struct.field(
+            "is_translate_native_pdf_only",
+            &self.is_translate_native_pdf_only,
+        );
+        debug_struct.field(
+            "enable_shadow_removal_native_pdf",
+            &self.enable_shadow_removal_native_pdf,
+        );
+        debug_struct.field(
+            "enable_rotation_correction",
+            &self.enable_rotation_correction,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A translated document message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentTranslation {
     /// The array of translated documents. It is expected to be size 1 for now. We
@@ -16296,8 +17308,21 @@ impl serde::ser::Serialize for DocumentTranslation {
     }
 }
 
+impl std::fmt::Debug for DocumentTranslation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentTranslation");
+        debug_struct.field("byte_stream_outputs", &self.byte_stream_outputs);
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("detected_language_code", &self.detected_language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A translated document response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslateDocumentResponse {
     /// Translated document.
@@ -16553,8 +17578,25 @@ impl serde::ser::Serialize for TranslateDocumentResponse {
     }
 }
 
+impl std::fmt::Debug for TranslateDocumentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TranslateDocumentResponse");
+        debug_struct.field("document_translation", &self.document_translation);
+        debug_struct.field(
+            "glossary_document_translation",
+            &self.glossary_document_translation,
+        );
+        debug_struct.field("model", &self.model);
+        debug_struct.field("glossary_config", &self.glossary_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The batch translation request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateTextRequest {
     /// Required. Location to make a call. Must refer to a caller's project.
@@ -16949,8 +17991,26 @@ impl serde::ser::Serialize for BatchTranslateTextRequest {
     }
 }
 
+impl std::fmt::Debug for BatchTranslateTextRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchTranslateTextRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("source_language_code", &self.source_language_code);
+        debug_struct.field("target_language_codes", &self.target_language_codes);
+        debug_struct.field("models", &self.models);
+        debug_struct.field("input_configs", &self.input_configs);
+        debug_struct.field("output_config", &self.output_config);
+        debug_struct.field("glossaries", &self.glossaries);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// State metadata for the batch translation operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateMetadata {
     /// The state of the operation.
@@ -17255,6 +18315,21 @@ impl serde::ser::Serialize for BatchTranslateMetadata {
     }
 }
 
+impl std::fmt::Debug for BatchTranslateMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchTranslateMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("translated_characters", &self.translated_characters);
+        debug_struct.field("failed_characters", &self.failed_characters);
+        debug_struct.field("total_characters", &self.total_characters);
+        debug_struct.field("submit_time", &self.submit_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchTranslateMetadata].
 pub mod batch_translate_metadata {
     #[allow(unused_imports)]
@@ -17424,7 +18499,7 @@ pub mod batch_translate_metadata {
 /// successfully.
 ///
 /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateResponse {
     /// Total number of characters (Unicode codepoints).
@@ -17737,8 +18812,23 @@ impl serde::ser::Serialize for BatchTranslateResponse {
     }
 }
 
+impl std::fmt::Debug for BatchTranslateResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchTranslateResponse");
+        debug_struct.field("total_characters", &self.total_characters);
+        debug_struct.field("translated_characters", &self.translated_characters);
+        debug_struct.field("failed_characters", &self.failed_characters);
+        debug_struct.field("submit_time", &self.submit_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Input configuration for glossaries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GlossaryInputConfig {
     /// Required. Specify the input.
@@ -17914,6 +19004,17 @@ impl serde::ser::Serialize for GlossaryInputConfig {
     }
 }
 
+impl std::fmt::Debug for GlossaryInputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlossaryInputConfig");
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GlossaryInputConfig].
 pub mod glossary_input_config {
     #[allow(unused_imports)]
@@ -17950,7 +19051,7 @@ pub mod glossary_input_config {
 }
 
 /// Represents a glossary built from user-provided data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Glossary {
     /// Required. The resource name of the glossary. Glossary names have the form
@@ -18385,13 +19486,30 @@ impl serde::ser::Serialize for Glossary {
     }
 }
 
+impl std::fmt::Debug for Glossary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Glossary");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("input_config", &self.input_config);
+        debug_struct.field("entry_count", &self.entry_count);
+        debug_struct.field("submit_time", &self.submit_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("languages", &self.languages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Glossary].
 pub mod glossary {
     #[allow(unused_imports)]
     use super::*;
 
     /// Used with unidirectional glossaries.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LanguageCodePair {
         /// Required. The ISO-639 language code of the input text, for example,
@@ -18557,8 +19675,20 @@ pub mod glossary {
         }
     }
 
+    impl std::fmt::Debug for LanguageCodePair {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LanguageCodePair");
+            debug_struct.field("source_language_code", &self.source_language_code);
+            debug_struct.field("target_language_code", &self.target_language_code);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Used with equivalent term set glossaries.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LanguageCodesSet {
         /// The ISO-639 language code(s) for terms defined in the glossary.
@@ -18696,6 +19826,17 @@ pub mod glossary {
         }
     }
 
+    impl std::fmt::Debug for LanguageCodesSet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LanguageCodesSet");
+            debug_struct.field("language_codes", &self.language_codes);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Languages supported by the glossary.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -18708,7 +19849,7 @@ pub mod glossary {
 }
 
 /// Request message for CreateGlossary.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGlossaryRequest {
     /// Required. The project name.
@@ -18872,8 +20013,20 @@ impl serde::ser::Serialize for CreateGlossaryRequest {
     }
 }
 
+impl std::fmt::Debug for CreateGlossaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGlossaryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("glossary", &self.glossary);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the update glossary flow
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGlossaryRequest {
     /// Required. The glossary entry to update.
@@ -19050,8 +20203,20 @@ impl serde::ser::Serialize for UpdateGlossaryRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateGlossaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGlossaryRequest");
+        debug_struct.field("glossary", &self.glossary);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetGlossary.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGlossaryRequest {
     /// Required. The name of the glossary to retrieve.
@@ -19180,8 +20345,19 @@ impl serde::ser::Serialize for GetGlossaryRequest {
     }
 }
 
+impl std::fmt::Debug for GetGlossaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGlossaryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteGlossary.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGlossaryRequest {
     /// Required. The name of the glossary to delete.
@@ -19310,8 +20486,19 @@ impl serde::ser::Serialize for DeleteGlossaryRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteGlossaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGlossaryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListGlossaries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGlossariesRequest {
     /// Required. The name of the project from which to list all of the glossaries.
@@ -19551,8 +20738,22 @@ impl serde::ser::Serialize for ListGlossariesRequest {
     }
 }
 
+impl std::fmt::Debug for ListGlossariesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGlossariesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListGlossaries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGlossariesResponse {
     /// The list of glossaries for a project.
@@ -19725,8 +20926,20 @@ impl serde::ser::Serialize for ListGlossariesResponse {
     }
 }
 
+impl std::fmt::Debug for ListGlossariesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGlossariesResponse");
+        debug_struct.field("glossaries", &self.glossaries);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the Get Glossary Entry Api
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGlossaryEntryRequest {
     /// Required. The resource name of the glossary entry to get
@@ -19855,8 +21068,19 @@ impl serde::ser::Serialize for GetGlossaryEntryRequest {
     }
 }
 
+impl std::fmt::Debug for GetGlossaryEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGlossaryEntryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for Delete Glossary Entry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGlossaryEntryRequest {
     /// Required. The resource name of the glossary entry to delete
@@ -19985,8 +21209,19 @@ impl serde::ser::Serialize for DeleteGlossaryEntryRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteGlossaryEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGlossaryEntryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListGlossaryEntries
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGlossaryEntriesRequest {
     /// Required. The parent glossary resource name for listing the glossary's
@@ -20188,8 +21423,21 @@ impl serde::ser::Serialize for ListGlossaryEntriesRequest {
     }
 }
 
+impl std::fmt::Debug for ListGlossaryEntriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGlossaryEntriesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListGlossaryEntries
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGlossaryEntriesResponse {
     /// Optional. The Glossary Entries
@@ -20362,8 +21610,20 @@ impl serde::ser::Serialize for ListGlossaryEntriesResponse {
     }
 }
 
+impl std::fmt::Debug for ListGlossaryEntriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGlossaryEntriesResponse");
+        debug_struct.field("glossary_entries", &self.glossary_entries);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateGlossaryEntry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGlossaryEntryRequest {
     /// Required. The resource name of the glossary to create the entry under.
@@ -20528,8 +21788,20 @@ impl serde::ser::Serialize for CreateGlossaryEntryRequest {
     }
 }
 
+impl std::fmt::Debug for CreateGlossaryEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGlossaryEntryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("glossary_entry", &self.glossary_entry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateGlossaryEntry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGlossaryEntryRequest {
     /// Required. The glossary entry to update.
@@ -20670,12 +21942,23 @@ impl serde::ser::Serialize for UpdateGlossaryEntryRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateGlossaryEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGlossaryEntryRequest");
+        debug_struct.field("glossary_entry", &self.glossary_entry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Stored in the
 /// [google.longrunning.Operation.metadata][google.longrunning.Operation.metadata]
 /// field returned by CreateGlossary.
 ///
 /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGlossaryMetadata {
     /// The name of the glossary that is being created.
@@ -20869,6 +22152,19 @@ impl serde::ser::Serialize for CreateGlossaryMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateGlossaryMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGlossaryMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("submit_time", &self.submit_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CreateGlossaryMetadata].
 pub mod create_glossary_metadata {
     #[allow(unused_imports)]
@@ -21034,7 +22330,7 @@ pub mod create_glossary_metadata {
 /// field returned by UpdateGlossary.
 ///
 /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGlossaryMetadata {
     /// The updated glossary object.
@@ -21240,6 +22536,19 @@ impl serde::ser::Serialize for UpdateGlossaryMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateGlossaryMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGlossaryMetadata");
+        debug_struct.field("glossary", &self.glossary);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("submit_time", &self.submit_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [UpdateGlossaryMetadata].
 pub mod update_glossary_metadata {
     #[allow(unused_imports)]
@@ -21405,7 +22714,7 @@ pub mod update_glossary_metadata {
 /// field returned by DeleteGlossary.
 ///
 /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGlossaryMetadata {
     /// The name of the glossary that is being deleted.
@@ -21599,6 +22908,19 @@ impl serde::ser::Serialize for DeleteGlossaryMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteGlossaryMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGlossaryMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("submit_time", &self.submit_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DeleteGlossaryMetadata].
 pub mod delete_glossary_metadata {
     #[allow(unused_imports)]
@@ -21764,7 +23086,7 @@ pub mod delete_glossary_metadata {
 /// field returned by DeleteGlossary.
 ///
 /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGlossaryResponse {
     /// The name of the deleted glossary.
@@ -21969,8 +23291,21 @@ impl serde::ser::Serialize for DeleteGlossaryResponse {
     }
 }
 
+impl std::fmt::Debug for DeleteGlossaryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGlossaryResponse");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("submit_time", &self.submit_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The BatchTranslateDocument request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateDocumentRequest {
     /// Required. Location to make a regional call.
@@ -22470,8 +23805,35 @@ impl serde::ser::Serialize for BatchTranslateDocumentRequest {
     }
 }
 
+impl std::fmt::Debug for BatchTranslateDocumentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchTranslateDocumentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("source_language_code", &self.source_language_code);
+        debug_struct.field("target_language_codes", &self.target_language_codes);
+        debug_struct.field("input_configs", &self.input_configs);
+        debug_struct.field("output_config", &self.output_config);
+        debug_struct.field("models", &self.models);
+        debug_struct.field("glossaries", &self.glossaries);
+        debug_struct.field("format_conversions", &self.format_conversions);
+        debug_struct.field("customized_attribution", &self.customized_attribution);
+        debug_struct.field(
+            "enable_shadow_removal_native_pdf",
+            &self.enable_shadow_removal_native_pdf,
+        );
+        debug_struct.field(
+            "enable_rotation_correction",
+            &self.enable_rotation_correction,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Input configuration for BatchTranslateDocument request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDocumentInputConfig {
     /// Specify the input.
@@ -22647,6 +24009,17 @@ impl serde::ser::Serialize for BatchDocumentInputConfig {
     }
 }
 
+impl std::fmt::Debug for BatchDocumentInputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchDocumentInputConfig");
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchDocumentInputConfig].
 pub mod batch_document_input_config {
     #[allow(unused_imports)]
@@ -22681,7 +24054,7 @@ pub mod batch_document_input_config {
 }
 
 /// Output configuration for BatchTranslateDocument request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDocumentOutputConfig {
     /// The destination of output. The destination directory provided must exist
@@ -22861,6 +24234,17 @@ impl serde::ser::Serialize for BatchDocumentOutputConfig {
     }
 }
 
+impl std::fmt::Debug for BatchDocumentOutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchDocumentOutputConfig");
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchDocumentOutputConfig].
 pub mod batch_document_output_config {
     #[allow(unused_imports)]
@@ -22926,7 +24310,7 @@ pub mod batch_document_output_config {
 /// translated successfully.
 ///
 /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateDocumentResponse {
     /// Total number of pages to translate in all documents. Documents without
@@ -23471,8 +24855,28 @@ impl serde::ser::Serialize for BatchTranslateDocumentResponse {
     }
 }
 
+impl std::fmt::Debug for BatchTranslateDocumentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchTranslateDocumentResponse");
+        debug_struct.field("total_pages", &self.total_pages);
+        debug_struct.field("translated_pages", &self.translated_pages);
+        debug_struct.field("failed_pages", &self.failed_pages);
+        debug_struct.field("total_billable_pages", &self.total_billable_pages);
+        debug_struct.field("total_characters", &self.total_characters);
+        debug_struct.field("translated_characters", &self.translated_characters);
+        debug_struct.field("failed_characters", &self.failed_characters);
+        debug_struct.field("total_billable_characters", &self.total_billable_characters);
+        debug_struct.field("submit_time", &self.submit_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// State metadata for the batch translation operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchTranslateDocumentMetadata {
     /// The state of the operation.
@@ -24008,6 +25412,26 @@ impl serde::ser::Serialize for BatchTranslateDocumentMetadata {
     }
 }
 
+impl std::fmt::Debug for BatchTranslateDocumentMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchTranslateDocumentMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("total_pages", &self.total_pages);
+        debug_struct.field("translated_pages", &self.translated_pages);
+        debug_struct.field("failed_pages", &self.failed_pages);
+        debug_struct.field("total_billable_pages", &self.total_billable_pages);
+        debug_struct.field("total_characters", &self.total_characters);
+        debug_struct.field("translated_characters", &self.translated_characters);
+        debug_struct.field("failed_characters", &self.failed_characters);
+        debug_struct.field("total_billable_characters", &self.total_billable_characters);
+        debug_struct.field("submit_time", &self.submit_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchTranslateDocumentMetadata].
 pub mod batch_translate_document_metadata {
     #[allow(unused_imports)]
@@ -24172,7 +25596,7 @@ pub mod batch_translate_document_metadata {
 
 /// Configures which glossary is used for a specific target language and defines
 /// options for applying that glossary.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslateTextGlossaryConfig {
     /// Required. The `glossary` to be applied for this translation.
@@ -24362,6 +25786,22 @@ impl serde::ser::Serialize for TranslateTextGlossaryConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TranslateTextGlossaryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TranslateTextGlossaryConfig");
+        debug_struct.field("glossary", &self.glossary);
+        debug_struct.field("ignore_case", &self.ignore_case);
+        debug_struct.field(
+            "contextual_translation_enabled",
+            &self.contextual_translation_enabled,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

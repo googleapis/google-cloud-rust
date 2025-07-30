@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// AuthConfig defines details of a authentication type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthConfig {
     /// The type of authentication configured.
@@ -442,13 +442,26 @@ impl serde::ser::Serialize for AuthConfig {
     }
 }
 
+impl std::fmt::Debug for AuthConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthConfig");
+        debug_struct.field("auth_type", &self.auth_type);
+        debug_struct.field("additional_variables", &self.additional_variables);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AuthConfig].
 pub mod auth_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Parameters to support Username and Password Authentication.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserPassword {
         /// Username.
@@ -615,10 +628,22 @@ pub mod auth_config {
         }
     }
 
+    impl std::fmt::Debug for UserPassword {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UserPassword");
+            debug_struct.field("username", &self.username);
+            debug_struct.field("password", &self.password);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Parameters to support JSON Web Token (JWT) Profile for Oauth 2.0
     /// Authorization Grant based authentication.
     /// See <https://tools.ietf.org/html/rfc7523> for more details.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Oauth2JwtBearer {
         /// Secret version reference containing a PKCS#8 PEM-encoded private
@@ -803,13 +828,25 @@ pub mod auth_config {
         }
     }
 
+    impl std::fmt::Debug for Oauth2JwtBearer {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Oauth2JwtBearer");
+            debug_struct.field("client_key", &self.client_key);
+            debug_struct.field("jwt_claims", &self.jwt_claims);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Oauth2JwtBearer].
     pub mod oauth_2_jwt_bearer {
         #[allow(unused_imports)]
         use super::*;
 
         /// JWT claims used for the jwt-bearer authorization grant.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct JwtClaims {
             /// Value for the "iss" claim.
@@ -998,11 +1035,24 @@ pub mod auth_config {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for JwtClaims {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("JwtClaims");
+                debug_struct.field("issuer", &self.issuer);
+                debug_struct.field("subject", &self.subject);
+                debug_struct.field("audience", &self.audience);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Parameters to support Oauth 2.0 Client Credentials Grant Authentication.
     /// See <https://tools.ietf.org/html/rfc6749#section-1.3.4> for more details.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Oauth2ClientCredentials {
         /// The client identifier.
@@ -1171,8 +1221,20 @@ pub mod auth_config {
         }
     }
 
+    impl std::fmt::Debug for Oauth2ClientCredentials {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Oauth2ClientCredentials");
+            debug_struct.field("client_id", &self.client_id);
+            debug_struct.field("client_secret", &self.client_secret);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Parameters to support Ssh public key Authentication.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SshPublicKey {
         /// The user account used to authenticate.
@@ -1401,6 +1463,20 @@ pub mod auth_config {
         }
     }
 
+    impl std::fmt::Debug for SshPublicKey {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SshPublicKey");
+            debug_struct.field("username", &self.username);
+            debug_struct.field("ssh_client_cert", &self.ssh_client_cert);
+            debug_struct.field("cert_type", &self.cert_type);
+            debug_struct.field("ssh_client_cert_pass", &self.ssh_client_cert_pass);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Supported auth types.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -1419,7 +1495,7 @@ pub mod auth_config {
 }
 
 /// AuthConfigTemplate defines required field over an authentication type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthConfigTemplate {
     /// The type of authentication configured.
@@ -1634,8 +1710,22 @@ impl serde::ser::Serialize for AuthConfigTemplate {
     }
 }
 
+impl std::fmt::Debug for AuthConfigTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthConfigTemplate");
+        debug_struct.field("auth_type", &self.auth_type);
+        debug_struct.field("config_variable_templates", &self.config_variable_templates);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -1941,9 +2031,26 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ConfigVariableTemplate provides metadata about a `ConfigVariable` that is
 /// used in a Connection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigVariableTemplate {
     /// Key of the config variable.
@@ -2363,6 +2470,27 @@ impl serde::ser::Serialize for ConfigVariableTemplate {
     }
 }
 
+impl std::fmt::Debug for ConfigVariableTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigVariableTemplate");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value_type", &self.value_type);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("validation_regex", &self.validation_regex);
+        debug_struct.field("required", &self.required);
+        debug_struct.field("role_grant", &self.role_grant);
+        debug_struct.field("enum_options", &self.enum_options);
+        debug_struct.field("authorization_code_link", &self.authorization_code_link);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("is_advanced", &self.is_advanced);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConfigVariableTemplate].
 pub mod config_variable_template {
     #[allow(unused_imports)]
@@ -2662,7 +2790,7 @@ pub mod config_variable_template {
 }
 
 /// Secret provides a reference to entries in Secret Manager.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Secret {
     /// The resource name of the secret version in the format,
@@ -2793,8 +2921,19 @@ impl serde::ser::Serialize for Secret {
     }
 }
 
+impl std::fmt::Debug for Secret {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Secret");
+        debug_struct.field("secret_version", &self.secret_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// EnumOption definition
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumOption {
     /// Id of the option.
@@ -2948,9 +3087,21 @@ impl serde::ser::Serialize for EnumOption {
     }
 }
 
+impl std::fmt::Debug for EnumOption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnumOption");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ConfigVariable represents a configuration variable present in a Connection.
 /// or AuthConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigVariable {
     /// Key of the config variable.
@@ -3305,6 +3456,18 @@ impl serde::ser::Serialize for ConfigVariable {
     }
 }
 
+impl std::fmt::Debug for ConfigVariable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigVariable");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConfigVariable].
 pub mod config_variable {
     #[allow(unused_imports)]
@@ -3330,7 +3493,7 @@ pub mod config_variable {
 /// account. These configurations will let UI display to customers what
 /// IAM roles need to be granted by them. Or these configurations can be used
 /// by the UI to render a 'grant' button to do the same on behalf of the user.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RoleGrant {
     /// Prinicipal/Identity for whom the role need to assigned.
@@ -3550,13 +3713,27 @@ impl serde::ser::Serialize for RoleGrant {
     }
 }
 
+impl std::fmt::Debug for RoleGrant {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RoleGrant");
+        debug_struct.field("principal", &self.principal);
+        debug_struct.field("roles", &self.roles);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("helper_text_template", &self.helper_text_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RoleGrant].
 pub mod role_grant {
     #[allow(unused_imports)]
     use super::*;
 
     /// Resource definition
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Resource {
         /// Different types of resource supported.
@@ -3720,6 +3897,18 @@ pub mod role_grant {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Resource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Resource");
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("path_template", &self.path_template);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -4012,7 +4201,7 @@ pub mod role_grant {
 
 /// This configuration captures the details required to render an authorization
 /// link for the OAuth Authorization Code Flow.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizationCodeLink {
     /// The base URI the user must click to trigger the authorization code login
@@ -4221,8 +4410,22 @@ impl serde::ser::Serialize for AuthorizationCodeLink {
     }
 }
 
+impl std::fmt::Debug for AuthorizationCodeLink {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthorizationCodeLink");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("scopes", &self.scopes);
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("enable_pkce", &self.enable_pkce);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Connection represents an instance of connector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connection {
     /// Output only. Resource name of the Connection.
@@ -4899,8 +5102,36 @@ impl serde::ser::Serialize for Connection {
     }
 }
 
+impl std::fmt::Debug for Connection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Connection");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("connector_version", &self.connector_version);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("config_variables", &self.config_variables);
+        debug_struct.field("auth_config", &self.auth_config);
+        debug_struct.field("lock_config", &self.lock_config);
+        debug_struct.field("destination_configs", &self.destination_configs);
+        debug_struct.field("image_location", &self.image_location);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("service_directory", &self.service_directory);
+        debug_struct.field("envoy_image_location", &self.envoy_image_location);
+        debug_struct.field("suspended", &self.suspended);
+        debug_struct.field("node_config", &self.node_config);
+        debug_struct.field("ssl_config", &self.ssl_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Node configuration for the connection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeConfig {
     /// Minimum number of nodes in the runtime nodes.
@@ -5093,10 +5324,22 @@ impl serde::ser::Serialize for NodeConfig {
     }
 }
 
+impl std::fmt::Debug for NodeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeConfig");
+        debug_struct.field("min_node_count", &self.min_node_count);
+        debug_struct.field("max_node_count", &self.max_node_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ConnectionSchemaMetadata is the singleton resource of each connection.
 /// It includes the entity and action names of runtime resources exposed
 /// by a connection backend.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectionSchemaMetadata {
     /// Output only. List of entity names.
@@ -5383,6 +5626,22 @@ impl serde::ser::Serialize for ConnectionSchemaMetadata {
     }
 }
 
+impl std::fmt::Debug for ConnectionSchemaMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectionSchemaMetadata");
+        debug_struct.field("entities", &self.entities);
+        debug_struct.field("actions", &self.actions);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("refresh_time", &self.refresh_time);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConnectionSchemaMetadata].
 pub mod connection_schema_metadata {
     #[allow(unused_imports)]
@@ -5522,7 +5781,7 @@ pub mod connection_schema_metadata {
 }
 
 /// Schema of a runtime entity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeEntitySchema {
     /// Output only. Name of the entity.
@@ -5682,13 +5941,25 @@ impl serde::ser::Serialize for RuntimeEntitySchema {
     }
 }
 
+impl std::fmt::Debug for RuntimeEntitySchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RuntimeEntitySchema");
+        debug_struct.field("entity", &self.entity);
+        debug_struct.field("fields", &self.fields);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RuntimeEntitySchema].
 pub mod runtime_entity_schema {
     #[allow(unused_imports)]
     use super::*;
 
     /// Metadata of an entity field.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Field {
         /// Name of the Field.
@@ -6020,10 +6291,28 @@ pub mod runtime_entity_schema {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Field {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Field");
+            debug_struct.field("field", &self.field);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("data_type", &self.data_type);
+            debug_struct.field("key", &self.key);
+            debug_struct.field("readonly", &self.readonly);
+            debug_struct.field("nullable", &self.nullable);
+            debug_struct.field("default_value", &self.default_value);
+            debug_struct.field("additional_details", &self.additional_details);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Schema of a runtime action.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeActionSchema {
     /// Output only. Name of the action.
@@ -6220,13 +6509,26 @@ impl serde::ser::Serialize for RuntimeActionSchema {
     }
 }
 
+impl std::fmt::Debug for RuntimeActionSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RuntimeActionSchema");
+        debug_struct.field("action", &self.action);
+        debug_struct.field("input_parameters", &self.input_parameters);
+        debug_struct.field("result_metadata", &self.result_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RuntimeActionSchema].
 pub mod runtime_action_schema {
     #[allow(unused_imports)]
     use super::*;
 
     /// Metadata of an input parameter.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InputParameter {
         /// Name of the Parameter.
@@ -6472,8 +6774,23 @@ pub mod runtime_action_schema {
         }
     }
 
+    impl std::fmt::Debug for InputParameter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InputParameter");
+            debug_struct.field("parameter", &self.parameter);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("data_type", &self.data_type);
+            debug_struct.field("nullable", &self.nullable);
+            debug_struct.field("default_value", &self.default_value);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Metadata of result field.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResultMetadata {
         /// Name of the result field.
@@ -6656,11 +6973,24 @@ pub mod runtime_action_schema {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ResultMetadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResultMetadata");
+            debug_struct.field("field", &self.field);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("data_type", &self.data_type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Determines whether or no a connection is locked. If locked, a reason must be
 /// specified.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LockConfig {
     /// Indicates whether or not the connection is locked.
@@ -6813,8 +7143,20 @@ impl serde::ser::Serialize for LockConfig {
     }
 }
 
+impl std::fmt::Debug for LockConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LockConfig");
+        debug_struct.field("locked", &self.locked);
+        debug_struct.field("reason", &self.reason);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ConnectorsService.ListConnections
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsRequest {
     /// Required. Parent resource of the Connection, of the form:
@@ -7086,8 +7428,24 @@ impl serde::ser::Serialize for ListConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ConnectorsService.ListConnections
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsResponse {
     /// Connections.
@@ -7285,8 +7643,21 @@ impl serde::ser::Serialize for ListConnectionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectionsResponse");
+        debug_struct.field("connections", &self.connections);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ConnectorsService.GetConnection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectionRequest {
     /// Required. Resource name of the form:
@@ -7441,8 +7812,20 @@ impl serde::ser::Serialize for GetConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for GetConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConnectionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ConnectorsService.CreateConnection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectionRequest {
     /// Required. Parent resource of the Connection, of the form:
@@ -7633,8 +8016,21 @@ impl serde::ser::Serialize for CreateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateConnectionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("connection_id", &self.connection_id);
+        debug_struct.field("connection", &self.connection);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ConnectorsService.UpdateConnection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectionRequest {
     /// Required. Connection resource.
@@ -7828,8 +8224,20 @@ impl serde::ser::Serialize for UpdateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConnectionRequest");
+        debug_struct.field("connection", &self.connection);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ConnectorsService.DeleteConnection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectionRequest {
     /// Required. Resource name of the form:
@@ -7959,8 +8367,19 @@ impl serde::ser::Serialize for DeleteConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteConnectionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ConnectorsService.GetConnectionSchemaMetadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectionSchemaMetadataRequest {
     /// Required. Connection name
@@ -8091,8 +8510,19 @@ impl serde::ser::Serialize for GetConnectionSchemaMetadataRequest {
     }
 }
 
+impl std::fmt::Debug for GetConnectionSchemaMetadataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConnectionSchemaMetadataRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ConnectorsService.RefreshConnectionSchemaMetadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RefreshConnectionSchemaMetadataRequest {
     /// Required. Resource name.
@@ -8224,11 +8654,22 @@ impl serde::ser::Serialize for RefreshConnectionSchemaMetadataRequest {
     }
 }
 
+impl std::fmt::Debug for RefreshConnectionSchemaMetadataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RefreshConnectionSchemaMetadataRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ConnectorsService.ListRuntimeEntitySchemas.
 /// For filter, only entity field is supported with literal equality operator.
 /// Accepted filter example: entity="Order"
 /// Wildcards are not supported in the filter currently.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeEntitySchemasRequest {
     /// Required. Parent resource of RuntimeEntitySchema
@@ -8456,8 +8897,22 @@ impl serde::ser::Serialize for ListRuntimeEntitySchemasRequest {
     }
 }
 
+impl std::fmt::Debug for ListRuntimeEntitySchemasRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRuntimeEntitySchemasRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ConnectorsService.ListRuntimeEntitySchemas.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeEntitySchemasResponse {
     /// Runtime entity schemas.
@@ -8633,11 +9088,23 @@ impl serde::ser::Serialize for ListRuntimeEntitySchemasResponse {
     }
 }
 
+impl std::fmt::Debug for ListRuntimeEntitySchemasResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRuntimeEntitySchemasResponse");
+        debug_struct.field("runtime_entity_schemas", &self.runtime_entity_schemas);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ConnectorsService.ListRuntimeActionSchemas.
 /// For filter, only action field is supported with literal equality operator.
 /// Accepted filter example: action="approveOrder"
 /// Wildcards are not supported in the filter currently.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeActionSchemasRequest {
     /// Required. Parent resource of RuntimeActionSchema
@@ -8865,8 +9332,22 @@ impl serde::ser::Serialize for ListRuntimeActionSchemasRequest {
     }
 }
 
+impl std::fmt::Debug for ListRuntimeActionSchemasRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRuntimeActionSchemasRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ConnectorsService.ListRuntimeActionSchemas.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeActionSchemasResponse {
     /// Runtime action schemas.
@@ -9042,8 +9523,20 @@ impl serde::ser::Serialize for ListRuntimeActionSchemasResponse {
     }
 }
 
+impl std::fmt::Debug for ListRuntimeActionSchemasResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRuntimeActionSchemasResponse");
+        debug_struct.field("runtime_action_schemas", &self.runtime_action_schemas);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ConnectionStatus indicates the state of the connection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectionStatus {
     /// State.
@@ -9218,6 +9711,19 @@ impl serde::ser::Serialize for ConnectionStatus {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ConnectionStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectionStatus");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("status", &self.status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -9396,7 +9902,7 @@ pub mod connection_status {
 }
 
 /// Connectors indicates a specific connector type, e.x. Salesforce, SAP etc.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connector {
     /// Output only. Resource name of the Connector.
@@ -9795,8 +10301,28 @@ impl serde::ser::Serialize for Connector {
     }
 }
 
+impl std::fmt::Debug for Connector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Connector");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("documentation_uri", &self.documentation_uri);
+        debug_struct.field("external_uri", &self.external_uri);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("web_assets_location", &self.web_assets_location);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("launch_stage", &self.launch_stage);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for Connectors.GetConnector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectorRequest {
     /// Required. Resource name of the form:
@@ -9927,8 +10453,19 @@ impl serde::ser::Serialize for GetConnectorRequest {
     }
 }
 
+impl std::fmt::Debug for GetConnectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConnectorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for Connectors.ListConnectors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorsRequest {
     /// Required. Parent resource of the connectors, of the form:
@@ -10127,8 +10664,21 @@ impl serde::ser::Serialize for ListConnectorsRequest {
     }
 }
 
+impl std::fmt::Debug for ListConnectorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectorsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for Connectors.ListConnectors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorsResponse {
     /// A list of connectors.
@@ -10326,8 +10876,21 @@ impl serde::ser::Serialize for ListConnectorsResponse {
     }
 }
 
+impl std::fmt::Debug for ListConnectorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectorsResponse");
+        debug_struct.field("connectors", &self.connectors);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ConnectorVersion indicates a specific version of a connector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectorVersion {
     /// Output only. Resource name of the Version.
@@ -10893,8 +11456,35 @@ impl serde::ser::Serialize for ConnectorVersion {
     }
 }
 
+impl std::fmt::Debug for ConnectorVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectorVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("launch_stage", &self.launch_stage);
+        debug_struct.field("release_version", &self.release_version);
+        debug_struct.field("auth_config_templates", &self.auth_config_templates);
+        debug_struct.field("config_variable_templates", &self.config_variable_templates);
+        debug_struct.field(
+            "supported_runtime_features",
+            &self.supported_runtime_features,
+        );
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("egress_control_config", &self.egress_control_config);
+        debug_struct.field("role_grants", &self.role_grants);
+        debug_struct.field("role_grant", &self.role_grant);
+        debug_struct.field("ssl_config_template", &self.ssl_config_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for Connectors.GetConnectorVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectorVersionRequest {
     /// Required. Resource name of the form:
@@ -11051,8 +11641,20 @@ impl serde::ser::Serialize for GetConnectorVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetConnectorVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConnectorVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for Connectors.ListConnectorVersions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorVersionsRequest {
     /// Required. Parent resource of the connectors, of the form:
@@ -11277,8 +11879,22 @@ impl serde::ser::Serialize for ListConnectorVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListConnectorVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectorVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for Connectors.ListConnectorVersions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectorVersionsResponse {
     /// A list of connector versions.
@@ -11481,11 +12097,24 @@ impl serde::ser::Serialize for ListConnectorVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListConnectorVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectorVersionsResponse");
+        debug_struct.field("connector_versions", &self.connector_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Supported runtime features of a connector version. This is passed to the
 /// management layer to add a new connector version by the connector developer.
 /// Details about how this proto is passed to the management layer is covered in
 /// this doc - go/runtime-manifest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SupportedRuntimeFeatures {
     /// Specifies if the connector supports entity apis like 'createEntity'.
@@ -11665,12 +12294,25 @@ impl serde::ser::Serialize for SupportedRuntimeFeatures {
     }
 }
 
+impl std::fmt::Debug for SupportedRuntimeFeatures {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SupportedRuntimeFeatures");
+        debug_struct.field("entity_apis", &self.entity_apis);
+        debug_struct.field("action_apis", &self.action_apis);
+        debug_struct.field("sql_query", &self.sql_query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Egress control config for connector runtime. These configurations define the
 /// rules to identify which outbound domains/hosts needs to be whitelisted. It
 /// may be a static information for a particular connector version or it is
 /// derived from the configurations provided by the customer in Connection
 /// resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EgressControlConfig {
     pub oneof_backends: std::option::Option<crate::model::egress_control_config::OneofBackends>,
@@ -11897,6 +12539,17 @@ impl serde::ser::Serialize for EgressControlConfig {
     }
 }
 
+impl std::fmt::Debug for EgressControlConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EgressControlConfig");
+        debug_struct.field("oneof_backends", &self.oneof_backends);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EgressControlConfig].
 pub mod egress_control_config {
     #[allow(unused_imports)]
@@ -11917,7 +12570,7 @@ pub mod egress_control_config {
 
 /// Extraction Rules to identity the backends from customer provided
 /// configuration in Connection resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExtractionRules {
     /// Collection of Extraction Rule.
@@ -12054,8 +12707,19 @@ impl serde::ser::Serialize for ExtractionRules {
     }
 }
 
+impl std::fmt::Debug for ExtractionRules {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExtractionRules");
+        debug_struct.field("extraction_rule", &self.extraction_rule);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Extraction Rule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExtractionRule {
     /// Source on which the rule is applied.
@@ -12224,13 +12888,25 @@ impl serde::ser::Serialize for ExtractionRule {
     }
 }
 
+impl std::fmt::Debug for ExtractionRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExtractionRule");
+        debug_struct.field("source", &self.source);
+        debug_struct.field("extraction_regex", &self.extraction_regex);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExtractionRule].
 pub mod extraction_rule {
     #[allow(unused_imports)]
     use super::*;
 
     /// Source to extract the backend from.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Source {
         /// Type of the source.
@@ -12393,6 +13069,18 @@ pub mod extraction_rule {
         }
     }
 
+    impl std::fmt::Debug for Source {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Source");
+            debug_struct.field("source_type", &self.source_type);
+            debug_struct.field("field_id", &self.field_id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Supported Source types for extraction.
     ///
     /// # Working with unknown values
@@ -12520,7 +13208,7 @@ pub mod extraction_rule {
 }
 
 /// Define the Connectors target endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationConfig {
     /// The key is the destination identifier that is supported by the Connector.
@@ -12676,7 +13364,19 @@ impl serde::ser::Serialize for DestinationConfig {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for DestinationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DestinationConfig");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("destinations", &self.destinations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Destination {
     /// The port is the target port number that is accepted by the destination.
@@ -12936,6 +13636,18 @@ impl serde::ser::Serialize for Destination {
     }
 }
 
+impl std::fmt::Debug for Destination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Destination");
+        debug_struct.field("port", &self.port);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Destination].
 pub mod destination {
     #[allow(unused_imports)]
@@ -12953,7 +13665,7 @@ pub mod destination {
 }
 
 /// Provider indicates the owner who provides the connectors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Provider {
     /// Output only. Resource name of the Provider.
@@ -13351,8 +14063,28 @@ impl serde::ser::Serialize for Provider {
     }
 }
 
+impl std::fmt::Debug for Provider {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Provider");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("documentation_uri", &self.documentation_uri);
+        debug_struct.field("external_uri", &self.external_uri);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("web_assets_location", &self.web_assets_location);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("launch_stage", &self.launch_stage);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for Connectors.GetProvider.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProviderRequest {
     /// Required. Resource name of the form:
@@ -13483,8 +14215,19 @@ impl serde::ser::Serialize for GetProviderRequest {
     }
 }
 
+impl std::fmt::Debug for GetProviderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProviderRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for Connectors.ListProviders.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvidersRequest {
     /// Required. Parent resource of the API, of the form:
@@ -13683,8 +14426,21 @@ impl serde::ser::Serialize for ListProvidersRequest {
     }
 }
 
+impl std::fmt::Debug for ListProvidersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProvidersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for Connectors.ListProviders.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvidersResponse {
     /// A list of providers.
@@ -13882,8 +14638,21 @@ impl serde::ser::Serialize for ListProvidersResponse {
     }
 }
 
+impl std::fmt::Debug for ListProvidersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProvidersResponse");
+        debug_struct.field("providers", &self.providers);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for Connectors.GetRuntimeConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRuntimeConfigRequest {
     /// Required. Resource name of the form:
@@ -14013,11 +14782,22 @@ impl serde::ser::Serialize for GetRuntimeConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetRuntimeConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRuntimeConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// RuntimeConfig is the singleton resource of each location.
 /// It includes generic resource configs consumed by control plane and runtime
 /// plane like: pub/sub topic/subscription resource name, Cloud Storage location
 /// storing schema etc.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeConfig {
     /// Output only. location_id of the runtime location. E.g. "us-west1".
@@ -14400,6 +15180,29 @@ impl serde::ser::Serialize for RuntimeConfig {
     }
 }
 
+impl std::fmt::Debug for RuntimeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RuntimeConfig");
+        debug_struct.field("location_id", &self.location_id);
+        debug_struct.field("connd_topic", &self.connd_topic);
+        debug_struct.field("connd_subscription", &self.connd_subscription);
+        debug_struct.field("control_plane_topic", &self.control_plane_topic);
+        debug_struct.field(
+            "control_plane_subscription",
+            &self.control_plane_subscription,
+        );
+        debug_struct.field("runtime_endpoint", &self.runtime_endpoint);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("schema_gcs_bucket", &self.schema_gcs_bucket);
+        debug_struct.field("service_directory", &self.service_directory);
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RuntimeConfig].
 pub mod runtime_config {
     #[allow(unused_imports)]
@@ -14569,7 +15372,7 @@ pub mod runtime_config {
 }
 
 /// Request for [GetGlobalSettingsRequest].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGlobalSettingsRequest {
     /// Required. The resource name of the Settings.
@@ -14698,8 +15501,19 @@ impl serde::ser::Serialize for GetGlobalSettingsRequest {
     }
 }
 
+impl std::fmt::Debug for GetGlobalSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGlobalSettingsRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Global Settings details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Settings {
     /// Output only. Resource name of the Connection.
@@ -14877,8 +15691,21 @@ impl serde::ser::Serialize for Settings {
     }
 }
 
+impl std::fmt::Debug for Settings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Settings");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("vpcsc", &self.vpcsc);
+        debug_struct.field("payg", &self.payg);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Ssl config details of a connector version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslConfigTemplate {
     /// Controls the ssl type for the given connector version
@@ -15121,8 +15948,23 @@ impl serde::ser::Serialize for SslConfigTemplate {
     }
 }
 
+impl std::fmt::Debug for SslConfigTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SslConfigTemplate");
+        debug_struct.field("ssl_type", &self.ssl_type);
+        debug_struct.field("is_tls_mandatory", &self.is_tls_mandatory);
+        debug_struct.field("server_cert_type", &self.server_cert_type);
+        debug_struct.field("client_cert_type", &self.client_cert_type);
+        debug_struct.field("additional_variables", &self.additional_variables);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SSL Configuration of a connection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslConfig {
     /// Controls the ssl type for the given connector version.
@@ -15536,6 +16378,29 @@ impl serde::ser::Serialize for SslConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for SslConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SslConfig");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("trust_model", &self.trust_model);
+        debug_struct.field(
+            "private_server_certificate",
+            &self.private_server_certificate,
+        );
+        debug_struct.field("client_certificate", &self.client_certificate);
+        debug_struct.field("client_private_key", &self.client_private_key);
+        debug_struct.field("client_private_key_pass", &self.client_private_key_pass);
+        debug_struct.field("server_cert_type", &self.server_cert_type);
+        debug_struct.field("client_cert_type", &self.client_cert_type);
+        debug_struct.field("use_ssl", &self.use_ssl);
+        debug_struct.field("additional_variables", &self.additional_variables);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

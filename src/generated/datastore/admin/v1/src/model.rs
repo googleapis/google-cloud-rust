@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Metadata common to all Datastore Admin operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonMetadata {
     /// The time that work began on the operation.
@@ -300,6 +300,21 @@ impl serde::ser::Serialize for CommonMetadata {
     }
 }
 
+impl std::fmt::Debug for CommonMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommonMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("operation_type", &self.operation_type);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CommonMetadata].
 pub mod common_metadata {
     #[allow(unused_imports)]
@@ -476,7 +491,7 @@ pub mod common_metadata {
 }
 
 /// Measures the progress of a particular metric.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Progress {
     /// The amount of work that has been completed. Note that this may be greater
@@ -671,11 +686,23 @@ impl serde::ser::Serialize for Progress {
     }
 }
 
+impl std::fmt::Debug for Progress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Progress");
+        debug_struct.field("work_completed", &self.work_completed);
+        debug_struct.field("work_estimated", &self.work_estimated);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [google.datastore.admin.v1.DatastoreAdmin.ExportEntities][google.datastore.admin.v1.DatastoreAdmin.ExportEntities].
 ///
 /// [google.datastore.admin.v1.DatastoreAdmin.ExportEntities]: crate::client::DatastoreAdmin::export_entities
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportEntitiesRequest {
     /// Required. Project ID against which to make the request.
@@ -923,11 +950,25 @@ impl serde::ser::Serialize for ExportEntitiesRequest {
     }
 }
 
+impl std::fmt::Debug for ExportEntitiesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportEntitiesRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("entity_filter", &self.entity_filter);
+        debug_struct.field("output_url_prefix", &self.output_url_prefix);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [google.datastore.admin.v1.DatastoreAdmin.ImportEntities][google.datastore.admin.v1.DatastoreAdmin.ImportEntities].
 ///
 /// [google.datastore.admin.v1.DatastoreAdmin.ImportEntities]: crate::client::DatastoreAdmin::import_entities
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportEntitiesRequest {
     /// Required. Project ID against which to make the request.
@@ -1171,11 +1212,25 @@ impl serde::ser::Serialize for ImportEntitiesRequest {
     }
 }
 
+impl std::fmt::Debug for ImportEntitiesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportEntitiesRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("input_url", &self.input_url);
+        debug_struct.field("entity_filter", &self.entity_filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [google.datastore.admin.v1.DatastoreAdmin.ExportEntities][google.datastore.admin.v1.DatastoreAdmin.ExportEntities].
 ///
 /// [google.datastore.admin.v1.DatastoreAdmin.ExportEntities]: crate::client::DatastoreAdmin::export_entities
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportEntitiesResponse {
     /// Location of the output metadata file. This can be used to begin an import
@@ -1310,8 +1365,19 @@ impl serde::ser::Serialize for ExportEntitiesResponse {
     }
 }
 
+impl std::fmt::Debug for ExportEntitiesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportEntitiesResponse");
+        debug_struct.field("output_url", &self.output_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for ExportEntities operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportEntitiesMetadata {
     /// Metadata common to all Datastore Admin operations.
@@ -1595,8 +1661,23 @@ impl serde::ser::Serialize for ExportEntitiesMetadata {
     }
 }
 
+impl std::fmt::Debug for ExportEntitiesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportEntitiesMetadata");
+        debug_struct.field("common", &self.common);
+        debug_struct.field("progress_entities", &self.progress_entities);
+        debug_struct.field("progress_bytes", &self.progress_bytes);
+        debug_struct.field("entity_filter", &self.entity_filter);
+        debug_struct.field("output_url_prefix", &self.output_url_prefix);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for ImportEntities operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportEntitiesMetadata {
     /// Metadata common to all Datastore Admin operations.
@@ -1875,6 +1956,21 @@ impl serde::ser::Serialize for ImportEntitiesMetadata {
     }
 }
 
+impl std::fmt::Debug for ImportEntitiesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportEntitiesMetadata");
+        debug_struct.field("common", &self.common);
+        debug_struct.field("progress_entities", &self.progress_entities);
+        debug_struct.field("progress_bytes", &self.progress_bytes);
+        debug_struct.field("entity_filter", &self.entity_filter);
+        debug_struct.field("input_url", &self.input_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identifies a subset of entities in a project. This is specified as
 /// combinations of kinds and namespaces (either or both of which may be all, as
 /// described in the following examples).
@@ -1894,7 +1990,7 @@ impl serde::ser::Serialize for ImportEntitiesMetadata {
 ///
 /// The entire Baz namespace:
 /// kinds=[], namespace_ids=['Baz']
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityFilter {
     /// If empty, then this represents all kinds.
@@ -2060,11 +2156,23 @@ impl serde::ser::Serialize for EntityFilter {
     }
 }
 
+impl std::fmt::Debug for EntityFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityFilter");
+        debug_struct.field("kinds", &self.kinds);
+        debug_struct.field("namespace_ids", &self.namespace_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [google.datastore.admin.v1.DatastoreAdmin.CreateIndex][google.datastore.admin.v1.DatastoreAdmin.CreateIndex].
 ///
 /// [google.datastore.admin.v1.DatastoreAdmin.CreateIndex]: crate::client::DatastoreAdmin::create_index
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateIndexRequest {
     /// Project ID against which to make the request.
@@ -2230,11 +2338,23 @@ impl serde::ser::Serialize for CreateIndexRequest {
     }
 }
 
+impl std::fmt::Debug for CreateIndexRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateIndexRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("index", &self.index);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [google.datastore.admin.v1.DatastoreAdmin.DeleteIndex][google.datastore.admin.v1.DatastoreAdmin.DeleteIndex].
 ///
 /// [google.datastore.admin.v1.DatastoreAdmin.DeleteIndex]: crate::client::DatastoreAdmin::delete_index
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteIndexRequest {
     /// Project ID against which to make the request.
@@ -2389,11 +2509,23 @@ impl serde::ser::Serialize for DeleteIndexRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteIndexRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteIndexRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("index_id", &self.index_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [google.datastore.admin.v1.DatastoreAdmin.GetIndex][google.datastore.admin.v1.DatastoreAdmin.GetIndex].
 ///
 /// [google.datastore.admin.v1.DatastoreAdmin.GetIndex]: crate::client::DatastoreAdmin::get_index
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIndexRequest {
     /// Project ID against which to make the request.
@@ -2548,11 +2680,23 @@ impl serde::ser::Serialize for GetIndexRequest {
     }
 }
 
+impl std::fmt::Debug for GetIndexRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIndexRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("index_id", &self.index_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [google.datastore.admin.v1.DatastoreAdmin.ListIndexes][google.datastore.admin.v1.DatastoreAdmin.ListIndexes].
 ///
 /// [google.datastore.admin.v1.DatastoreAdmin.ListIndexes]: crate::client::DatastoreAdmin::list_indexes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIndexesRequest {
     /// Project ID against which to make the request.
@@ -2774,11 +2918,25 @@ impl serde::ser::Serialize for ListIndexesRequest {
     }
 }
 
+impl std::fmt::Debug for ListIndexesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIndexesRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [google.datastore.admin.v1.DatastoreAdmin.ListIndexes][google.datastore.admin.v1.DatastoreAdmin.ListIndexes].
 ///
 /// [google.datastore.admin.v1.DatastoreAdmin.ListIndexes]: crate::client::DatastoreAdmin::list_indexes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIndexesResponse {
     /// The indexes.
@@ -2949,8 +3107,20 @@ impl serde::ser::Serialize for ListIndexesResponse {
     }
 }
 
+impl std::fmt::Debug for ListIndexesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIndexesResponse");
+        debug_struct.field("indexes", &self.indexes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for Index operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IndexOperationMetadata {
     /// Metadata common to all Datastore Admin operations.
@@ -3152,6 +3322,19 @@ impl serde::ser::Serialize for IndexOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for IndexOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IndexOperationMetadata");
+        debug_struct.field("common", &self.common);
+        debug_struct.field("progress_entities", &self.progress_entities);
+        debug_struct.field("index_id", &self.index_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for Datastore to Firestore migration operations.
 ///
 /// The DatastoreFirestoreMigration operation is not started by the end-user via
@@ -3160,7 +3343,7 @@ impl serde::ser::Serialize for IndexOperationMetadata {
 ///
 /// This singleton resource can be accessed at:
 /// "projects/{project_id}/operations/datastore-firestore-migration"
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatastoreFirestoreMigrationMetadata {
     /// The current state of migration from Cloud Datastore to Cloud Firestore in
@@ -3323,8 +3506,20 @@ impl serde::ser::Serialize for DatastoreFirestoreMigrationMetadata {
     }
 }
 
+impl std::fmt::Debug for DatastoreFirestoreMigrationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatastoreFirestoreMigrationMetadata");
+        debug_struct.field("migration_state", &self.migration_state);
+        debug_struct.field("migration_step", &self.migration_step);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Datastore composite index definition.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Index {
     /// Output only. Project ID.
@@ -3588,13 +3783,29 @@ impl serde::ser::Serialize for Index {
     }
 }
 
+impl std::fmt::Debug for Index {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Index");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("index_id", &self.index_id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("ancestor", &self.ancestor);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Index].
 pub mod index {
     #[allow(unused_imports)]
     use super::*;
 
     /// A property of an index.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IndexedProperty {
         /// Required. The property name to index.
@@ -3749,6 +3960,18 @@ pub mod index {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for IndexedProperty {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IndexedProperty");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("direction", &self.direction);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -4182,7 +4405,7 @@ pub mod index {
 /// An event signifying a change in state of a [migration from Cloud Datastore to
 /// Cloud Firestore in Datastore
 /// mode](https://cloud.google.com/datastore/docs/upgrade-to-firestore).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationStateEvent {
     /// The new state of the migration.
@@ -4311,10 +4534,21 @@ impl serde::ser::Serialize for MigrationStateEvent {
     }
 }
 
+impl std::fmt::Debug for MigrationStateEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MigrationStateEvent");
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An event signifying the start of a new step in a [migration from Cloud
 /// Datastore to Cloud Firestore in Datastore
 /// mode](https://cloud.google.com/datastore/docs/upgrade-to-firestore).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationProgressEvent {
     /// The step that is starting.
@@ -4589,13 +4823,25 @@ impl serde::ser::Serialize for MigrationProgressEvent {
     }
 }
 
+impl std::fmt::Debug for MigrationProgressEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MigrationProgressEvent");
+        debug_struct.field("step", &self.step);
+        debug_struct.field("step_details", &self.step_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MigrationProgressEvent].
 pub mod migration_progress_event {
     #[allow(unused_imports)]
     use super::*;
 
     /// Details for the `PREPARE` step.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrepareStepDetails {
         /// The concurrency mode this database will use when it reaches the
@@ -4736,8 +4982,19 @@ pub mod migration_progress_event {
         }
     }
 
+    impl std::fmt::Debug for PrepareStepDetails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PrepareStepDetails");
+            debug_struct.field("concurrency_mode", &self.concurrency_mode);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Details for the `REDIRECT_WRITES` step.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RedirectWritesStepDetails {
         /// Ths concurrency mode for this database.
@@ -4874,6 +5131,17 @@ pub mod migration_progress_event {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for RedirectWritesStepDetails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RedirectWritesStepDetails");
+            debug_struct.field("concurrency_mode", &self.concurrency_mode);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 

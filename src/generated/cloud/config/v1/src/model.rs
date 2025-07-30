@@ -37,7 +37,7 @@ extern crate wkt;
 
 /// A Deployment is a group of resources and configs managed and provisioned by
 /// Infra Manager.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Deployment {
     /// Identifier. Resource name of the deployment.
@@ -929,6 +929,39 @@ impl serde::ser::Serialize for Deployment {
     }
 }
 
+impl std::fmt::Debug for Deployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Deployment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("latest_revision", &self.latest_revision);
+        debug_struct.field("state_detail", &self.state_detail);
+        debug_struct.field("error_code", &self.error_code);
+        debug_struct.field("delete_results", &self.delete_results);
+        debug_struct.field("delete_build", &self.delete_build);
+        debug_struct.field("delete_logs", &self.delete_logs);
+        debug_struct.field("tf_errors", &self.tf_errors);
+        debug_struct.field("error_logs", &self.error_logs);
+        debug_struct.field("artifacts_gcs_bucket", &self.artifacts_gcs_bucket);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("import_existing_resources", &self.import_existing_resources);
+        debug_struct.field("worker_pool", &self.worker_pool);
+        debug_struct.field("lock_state", &self.lock_state);
+        debug_struct.field("tf_version_constraint", &self.tf_version_constraint);
+        debug_struct.field("tf_version", &self.tf_version);
+        debug_struct.field("quota_validation", &self.quota_validation);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("blueprint", &self.blueprint);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Deployment].
 pub mod deployment {
     #[allow(unused_imports)]
@@ -1441,7 +1474,7 @@ pub mod deployment {
 
 /// TerraformBlueprint describes the source of a Terraform root module which
 /// describes the resources and configs to be deployed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TerraformBlueprint {
     /// Optional. Input variable values for the Terraform blueprint.
@@ -1700,6 +1733,18 @@ impl serde::ser::Serialize for TerraformBlueprint {
     }
 }
 
+impl std::fmt::Debug for TerraformBlueprint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TerraformBlueprint");
+        debug_struct.field("input_values", &self.input_values);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TerraformBlueprint].
 pub mod terraform_blueprint {
     #[allow(unused_imports)]
@@ -1722,7 +1767,7 @@ pub mod terraform_blueprint {
 }
 
 /// A Terraform input variable.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TerraformVariable {
     /// Optional. Input variable value.
@@ -1864,8 +1909,19 @@ impl serde::ser::Serialize for TerraformVariable {
     }
 }
 
+impl std::fmt::Debug for TerraformVariable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TerraformVariable");
+        debug_struct.field("input_value", &self.input_value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Outputs and artifacts from applying a deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApplyResults {
     /// Location of a blueprint copy and other manifests in Google Cloud Storage.
@@ -2055,8 +2111,21 @@ impl serde::ser::Serialize for ApplyResults {
     }
 }
 
+impl std::fmt::Debug for ApplyResults {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApplyResults");
+        debug_struct.field("content", &self.content);
+        debug_struct.field("artifacts", &self.artifacts);
+        debug_struct.field("outputs", &self.outputs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a Terraform output.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TerraformOutput {
     /// Identifies whether Terraform has set this output as a potential
@@ -2222,7 +2291,19 @@ impl serde::ser::Serialize for TerraformOutput {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for TerraformOutput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TerraformOutput");
+        debug_struct.field("sensitive", &self.sensitive);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsRequest {
     /// Required. The parent in whose context the Deployments are listed. The
@@ -2495,7 +2576,22 @@ impl serde::ser::Serialize for ListDeploymentsRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for ListDeploymentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeploymentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsResponse {
     /// List of [Deployment][google.cloud.config.v1.Deployment]s.
@@ -2696,7 +2792,20 @@ impl serde::ser::Serialize for ListDeploymentsResponse {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for ListDeploymentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeploymentsResponse");
+        debug_struct.field("deployments", &self.deployments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDeploymentRequest {
     /// Required. The name of the deployment. Format:
@@ -2826,8 +2935,19 @@ impl serde::ser::Serialize for GetDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for GetDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list Revisions passed to a 'ListRevisions' call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRevisionsRequest {
     /// Required. The parent in whose context the Revisions are listed. The parent
@@ -3100,8 +3220,23 @@ impl serde::ser::Serialize for ListRevisionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListRevisionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRevisionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to a 'ListRevisions' call. Contains a list of Revisions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRevisionsResponse {
     /// List of [Revision][google.cloud.config.v1.Revision]s.
@@ -3303,8 +3438,21 @@ impl serde::ser::Serialize for ListRevisionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListRevisionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRevisionsResponse");
+        debug_struct.field("revisions", &self.revisions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get a Revision from a 'GetRevision' call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRevisionRequest {
     /// Required. The name of the Revision in the format:
@@ -3434,7 +3582,18 @@ impl serde::ser::Serialize for GetRevisionRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for GetRevisionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRevisionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDeploymentRequest {
     /// Required. The parent in whose context the Deployment is created. The parent
@@ -3664,7 +3823,21 @@ impl serde::ser::Serialize for CreateDeploymentRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for CreateDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDeploymentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("deployment_id", &self.deployment_id);
+        debug_struct.field("deployment", &self.deployment);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDeploymentRequest {
     /// Optional. Field mask used to specify the fields to be overwritten in the
@@ -3888,7 +4061,20 @@ impl serde::ser::Serialize for UpdateDeploymentRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for UpdateDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDeploymentRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("deployment", &self.deployment);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDeploymentRequest {
     /// Required. The name of the Deployment in the format:
@@ -4115,6 +4301,20 @@ impl serde::ser::Serialize for DeleteDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+        debug_struct.field("delete_policy", &self.delete_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DeleteDeploymentRequest].
 pub mod delete_deployment_request {
     #[allow(unused_imports)]
@@ -4254,7 +4454,7 @@ pub mod delete_deployment_request {
 }
 
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. Time when the operation was created.
@@ -4692,6 +4892,24 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        debug_struct.field("resource_metadata", &self.resource_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
@@ -4712,7 +4930,7 @@ pub mod operation_metadata {
 /// A child resource of a Deployment generated by a 'CreateDeployment' or
 /// 'UpdateDeployment' call. Each Revision contains metadata pertaining to a
 /// snapshot of a particular Deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Revision {
     /// Revision name. Format:
@@ -5446,6 +5664,36 @@ impl serde::ser::Serialize for Revision {
     }
 }
 
+impl std::fmt::Debug for Revision {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Revision");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("apply_results", &self.apply_results);
+        debug_struct.field("state_detail", &self.state_detail);
+        debug_struct.field("error_code", &self.error_code);
+        debug_struct.field("build", &self.build);
+        debug_struct.field("logs", &self.logs);
+        debug_struct.field("tf_errors", &self.tf_errors);
+        debug_struct.field("error_logs", &self.error_logs);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("import_existing_resources", &self.import_existing_resources);
+        debug_struct.field("worker_pool", &self.worker_pool);
+        debug_struct.field("tf_version_constraint", &self.tf_version_constraint);
+        debug_struct.field("tf_version", &self.tf_version);
+        debug_struct.field("quota_validation_results", &self.quota_validation_results);
+        debug_struct.field("quota_validation", &self.quota_validation);
+        debug_struct.field("blueprint", &self.blueprint);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Revision].
 pub mod revision {
     #[allow(unused_imports)]
@@ -5891,7 +6139,7 @@ pub mod revision {
 }
 
 /// Errors encountered during actuation using Terraform
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TerraformError {
     /// Address of the resource associated with the error,
@@ -6135,8 +6383,22 @@ impl serde::ser::Serialize for TerraformError {
     }
 }
 
+impl std::fmt::Debug for TerraformError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TerraformError");
+        debug_struct.field("resource_address", &self.resource_address);
+        debug_struct.field("http_response_code", &self.http_response_code);
+        debug_struct.field("error_description", &self.error_description);
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A set of files in a Git repository.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitSource {
     /// Optional. Repository URL.
@@ -6348,8 +6610,21 @@ impl serde::ser::Serialize for GitSource {
     }
 }
 
+impl std::fmt::Debug for GitSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GitSource");
+        debug_struct.field("repo", &self.repo);
+        debug_struct.field("directory", &self.directory);
+        debug_struct.field("r#ref", &self.r#ref);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Ephemeral metadata content describing the state of a deployment operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeploymentOperationMetadata {
     /// The current step the deployment operation is running.
@@ -6570,6 +6845,20 @@ impl serde::ser::Serialize for DeploymentOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for DeploymentOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeploymentOperationMetadata");
+        debug_struct.field("step", &self.step);
+        debug_struct.field("apply_results", &self.apply_results);
+        debug_struct.field("build", &self.build);
+        debug_struct.field("logs", &self.logs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DeploymentOperationMetadata].
 pub mod deployment_operation_metadata {
     #[allow(unused_imports)]
@@ -6785,7 +7074,7 @@ pub mod deployment_operation_metadata {
 
 /// Resource represents a Google Cloud Platform resource actuated by IM.
 /// Resources are child resources of Revisions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Resource {
     /// Output only. Resource name.
@@ -7040,6 +7329,21 @@ impl serde::ser::Serialize for Resource {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Resource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Resource");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("terraform_info", &self.terraform_info);
+        debug_struct.field("cai_assets", &self.cai_assets);
+        debug_struct.field("intent", &self.intent);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -7349,7 +7653,7 @@ pub mod resource {
 }
 
 /// Terraform info of a Resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceTerraformInfo {
     /// TF resource address that uniquely identifies this resource within this
@@ -7527,8 +7831,21 @@ impl serde::ser::Serialize for ResourceTerraformInfo {
     }
 }
 
+impl std::fmt::Debug for ResourceTerraformInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceTerraformInfo");
+        debug_struct.field("address", &self.address);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("id", &self.id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// CAI info of a Resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceCAIInfo {
     /// CAI resource name in the format following
@@ -7662,8 +7979,19 @@ impl serde::ser::Serialize for ResourceCAIInfo {
     }
 }
 
+impl std::fmt::Debug for ResourceCAIInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceCAIInfo");
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get a Resource from a 'GetResource' call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetResourceRequest {
     /// Required. The name of the Resource in the format:
@@ -7793,8 +8121,19 @@ impl serde::ser::Serialize for GetResourceRequest {
     }
 }
 
+impl std::fmt::Debug for GetResourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetResourceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list Resources passed to a 'ListResources' call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourcesRequest {
     /// Required. The parent in whose context the Resources are listed. The parent
@@ -8058,8 +8397,23 @@ impl serde::ser::Serialize for ListResourcesRequest {
     }
 }
 
+impl std::fmt::Debug for ListResourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourcesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to a 'ListResources' call. Contains a list of Resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourcesResponse {
     /// List of [Resources][google.cloud.config.v1.Resource].
@@ -8261,8 +8615,21 @@ impl serde::ser::Serialize for ListResourcesResponse {
     }
 }
 
+impl std::fmt::Debug for ListResourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourcesResponse");
+        debug_struct.field("resources", &self.resources);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains info about a Terraform state file
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Statefile {
     /// Output only. Cloud Storage signed URI used for downloading or uploading the
@@ -8393,9 +8760,20 @@ impl serde::ser::Serialize for Statefile {
     }
 }
 
+impl std::fmt::Debug for Statefile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Statefile");
+        debug_struct.field("signed_uri", &self.signed_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to export a state file passed to a 'ExportDeploymentStatefile'
 /// call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDeploymentStatefileRequest {
     /// Required. The parent in whose context the statefile is listed. The parent
@@ -8552,9 +8930,21 @@ impl serde::ser::Serialize for ExportDeploymentStatefileRequest {
     }
 }
 
+impl std::fmt::Debug for ExportDeploymentStatefileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportDeploymentStatefileRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("draft", &self.draft);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to export a state file passed to a 'ExportRevisionStatefile'
 /// call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportRevisionStatefileRequest {
     /// Required. The parent in whose context the statefile is listed. The parent
@@ -8685,8 +9075,19 @@ impl serde::ser::Serialize for ExportRevisionStatefileRequest {
     }
 }
 
+impl std::fmt::Debug for ExportRevisionStatefileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportRevisionStatefileRequest");
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to import a state file passed to a 'ImportStatefile' call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportStatefileRequest {
     /// Required. The parent in whose context the statefile is listed. The parent
@@ -8886,8 +9287,21 @@ impl serde::ser::Serialize for ImportStatefileRequest {
     }
 }
 
+impl std::fmt::Debug for ImportStatefileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportStatefileRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("lock_id", &self.lock_id);
+        debug_struct.field("skip_draft", &self.skip_draft);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete a state file passed to a 'DeleteStatefile' call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteStatefileRequest {
     /// Required. The name of the deployment in the format:
@@ -9061,8 +9475,20 @@ impl serde::ser::Serialize for DeleteStatefileRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteStatefileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteStatefileRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("lock_id", &self.lock_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to lock a deployment passed to a 'LockDeployment' call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LockDeploymentRequest {
     /// Required. The name of the deployment in the format:
@@ -9192,8 +9618,19 @@ impl serde::ser::Serialize for LockDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for LockDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LockDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to unlock a state file passed to a 'UnlockDeployment' call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnlockDeploymentRequest {
     /// Required. The name of the deployment in the format:
@@ -9366,8 +9803,20 @@ impl serde::ser::Serialize for UnlockDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for UnlockDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnlockDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("lock_id", &self.lock_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get a state file lock info passed to a 'ExportLockInfo' call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportLockInfoRequest {
     /// Required. The name of the deployment in the format:
@@ -9497,8 +9946,19 @@ impl serde::ser::Serialize for ExportLockInfoRequest {
     }
 }
 
+impl std::fmt::Debug for ExportLockInfoRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportLockInfoRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about the lock which locked the deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LockInfo {
     /// Unique ID for the lock to be overridden with generation ID in the backend.
@@ -9778,10 +10238,26 @@ impl serde::ser::Serialize for LockInfo {
     }
 }
 
+impl std::fmt::Debug for LockInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LockInfo");
+        debug_struct.field("lock_id", &self.lock_id);
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("info", &self.info);
+        debug_struct.field("who", &self.who);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("create_time", &self.create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A preview represents a set of actions Infra Manager would perform
 /// to move the resources towards the desired state as specified in the
 /// configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Preview {
     /// Identifier. Resource name of the preview. Resource name can be user
@@ -10555,6 +11031,36 @@ impl serde::ser::Serialize for Preview {
     }
 }
 
+impl std::fmt::Debug for Preview {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Preview");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("deployment", &self.deployment);
+        debug_struct.field("preview_mode", &self.preview_mode);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("artifacts_gcs_bucket", &self.artifacts_gcs_bucket);
+        debug_struct.field("worker_pool", &self.worker_pool);
+        debug_struct.field("error_code", &self.error_code);
+        debug_struct.field("error_status", &self.error_status);
+        debug_struct.field("build", &self.build);
+        debug_struct.field("tf_errors", &self.tf_errors);
+        debug_struct.field("error_logs", &self.error_logs);
+        debug_struct.field("preview_artifacts", &self.preview_artifacts);
+        debug_struct.field("logs", &self.logs);
+        debug_struct.field("tf_version", &self.tf_version);
+        debug_struct.field("tf_version_constraint", &self.tf_version_constraint);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("blueprint", &self.blueprint);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Preview].
 pub mod preview {
     #[allow(unused_imports)]
@@ -11041,7 +11547,7 @@ pub mod preview {
 }
 
 /// Ephemeral metadata content describing the state of a preview operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PreviewOperationMetadata {
     /// The current step the preview operation is running.
@@ -11262,6 +11768,20 @@ impl serde::ser::Serialize for PreviewOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for PreviewOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreviewOperationMetadata");
+        debug_struct.field("step", &self.step);
+        debug_struct.field("preview_artifacts", &self.preview_artifacts);
+        debug_struct.field("logs", &self.logs);
+        debug_struct.field("build", &self.build);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PreviewOperationMetadata].
 pub mod preview_operation_metadata {
     #[allow(unused_imports)]
@@ -11460,7 +11980,7 @@ pub mod preview_operation_metadata {
 }
 
 /// Artifacts created by preview.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PreviewArtifacts {
     /// Output only. Location of a blueprint copy and other content in Google Cloud
@@ -11615,8 +12135,20 @@ impl serde::ser::Serialize for PreviewArtifacts {
     }
 }
 
+impl std::fmt::Debug for PreviewArtifacts {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreviewArtifacts");
+        debug_struct.field("content", &self.content);
+        debug_struct.field("artifacts", &self.artifacts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to create a preview.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePreviewRequest {
     /// Required. The parent in whose context the Preview is created. The parent
@@ -11845,8 +12377,22 @@ impl serde::ser::Serialize for CreatePreviewRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePreviewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePreviewRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("preview_id", &self.preview_id);
+        debug_struct.field("preview", &self.preview);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get details about a preview.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPreviewRequest {
     /// Required. The name of the preview. Format:
@@ -11976,8 +12522,19 @@ impl serde::ser::Serialize for GetPreviewRequest {
     }
 }
 
+impl std::fmt::Debug for GetPreviewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPreviewRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list all previews for a given project and location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPreviewsRequest {
     /// Required. The parent in whose context the Previews are listed. The parent
@@ -12250,8 +12807,23 @@ impl serde::ser::Serialize for ListPreviewsRequest {
     }
 }
 
+impl std::fmt::Debug for ListPreviewsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPreviewsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to a `ListPreviews` call. Contains a list of Previews.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPreviewsResponse {
     /// List of [Previews][google.cloud.config.v1.Preview].
@@ -12452,8 +13024,21 @@ impl serde::ser::Serialize for ListPreviewsResponse {
     }
 }
 
+impl std::fmt::Debug for ListPreviewsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPreviewsResponse");
+        debug_struct.field("previews", &self.previews);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete a preview.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePreviewRequest {
     /// Required. The name of the Preview in the format:
@@ -12620,8 +13205,20 @@ impl serde::ser::Serialize for DeletePreviewRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePreviewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePreviewRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to export preview results.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportPreviewResultRequest {
     /// Required. The preview whose results should be exported. The preview value
@@ -12752,8 +13349,19 @@ impl serde::ser::Serialize for ExportPreviewResultRequest {
     }
 }
 
+impl std::fmt::Debug for ExportPreviewResultRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportPreviewResultRequest");
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to `ExportPreviewResult` call. Contains preview results.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportPreviewResultResponse {
     /// Output only. Signed URLs for accessing the plan files.
@@ -12893,8 +13501,19 @@ impl serde::ser::Serialize for ExportPreviewResultResponse {
     }
 }
 
+impl std::fmt::Debug for ExportPreviewResultResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportPreviewResultResponse");
+        debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains a signed Cloud Storage URLs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PreviewResult {
     /// Output only. Plan binary signed URL
@@ -13052,8 +13671,20 @@ impl serde::ser::Serialize for PreviewResult {
     }
 }
 
+impl std::fmt::Debug for PreviewResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreviewResult");
+        debug_struct.field("binary_signed_uri", &self.binary_signed_uri);
+        debug_struct.field("json_signed_uri", &self.json_signed_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetTerraformVersion method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTerraformVersionRequest {
     /// Required. The name of the TerraformVersion. Format:
@@ -13183,8 +13814,19 @@ impl serde::ser::Serialize for GetTerraformVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetTerraformVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTerraformVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListTerraformVersions method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTerraformVersionsRequest {
     /// Required. The parent in whose context the TerraformVersions are listed. The
@@ -13443,8 +14085,23 @@ impl serde::ser::Serialize for ListTerraformVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListTerraformVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTerraformVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the `ListTerraformVersions` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTerraformVersionsResponse {
     /// List of [TerraformVersion][google.cloud.config.v1.TerraformVersion]s.
@@ -13650,9 +14307,22 @@ impl serde::ser::Serialize for ListTerraformVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListTerraformVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTerraformVersionsResponse");
+        debug_struct.field("terraform_versions", &self.terraform_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A TerraformVersion represents the support state the corresponding
 /// Terraform version.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TerraformVersion {
     /// Identifier. The version name is in the format:
@@ -13915,6 +14585,21 @@ impl serde::ser::Serialize for TerraformVersion {
     }
 }
 
+impl std::fmt::Debug for TerraformVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TerraformVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("support_time", &self.support_time);
+        debug_struct.field("deprecate_time", &self.deprecate_time);
+        debug_struct.field("obsolete_time", &self.obsolete_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TerraformVersion].
 pub mod terraform_version {
     #[allow(unused_imports)]
@@ -14061,7 +14746,7 @@ pub mod terraform_version {
 }
 
 /// Terraform info of a ResourceChange.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceChangeTerraformInfo {
     /// Output only. TF resource address that uniquely identifies the resource.
@@ -14290,8 +14975,23 @@ impl serde::ser::Serialize for ResourceChangeTerraformInfo {
     }
 }
 
+impl std::fmt::Debug for ResourceChangeTerraformInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceChangeTerraformInfo");
+        debug_struct.field("address", &self.address);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("resource_name", &self.resource_name);
+        debug_struct.field("provider", &self.provider);
+        debug_struct.field("actions", &self.actions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A resource change represents a change to a resource in the state file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceChange {
     /// Identifier. The name of the resource change.
@@ -14515,6 +15215,20 @@ impl serde::ser::Serialize for ResourceChange {
     }
 }
 
+impl std::fmt::Debug for ResourceChange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceChange");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("terraform_info", &self.terraform_info);
+        debug_struct.field("intent", &self.intent);
+        debug_struct.field("property_changes", &self.property_changes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ResourceChange].
 pub mod resource_change {
     #[allow(unused_imports)]
@@ -14675,7 +15389,7 @@ pub mod resource_change {
 }
 
 /// A property change represents a change to a property in the state file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PropertyChange {
     /// Output only. The path of the property change.
@@ -14934,8 +15648,23 @@ impl serde::ser::Serialize for PropertyChange {
     }
 }
 
+impl std::fmt::Debug for PropertyChange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PropertyChange");
+        debug_struct.field("path", &self.path);
+        debug_struct.field("before_sensitive_paths", &self.before_sensitive_paths);
+        debug_struct.field("before", &self.before);
+        debug_struct.field("after_sensitive_paths", &self.after_sensitive_paths);
+        debug_struct.field("after", &self.after);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListResourceChanges method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceChangesRequest {
     /// Required. The parent in whose context the ResourceChanges are listed. The
@@ -15201,9 +15930,24 @@ impl serde::ser::Serialize for ListResourceChangesRequest {
     }
 }
 
+impl std::fmt::Debug for ListResourceChangesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourceChangesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to a 'ListResourceChanges' call. Contains a list of
 /// ResourceChanges.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceChangesResponse {
     /// List of ResourceChanges.
@@ -15408,8 +16152,21 @@ impl serde::ser::Serialize for ListResourceChangesResponse {
     }
 }
 
+impl std::fmt::Debug for ListResourceChangesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourceChangesResponse");
+        debug_struct.field("resource_changes", &self.resource_changes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetResourceChange method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetResourceChangeRequest {
     /// Required. The name of the resource change to retrieve.
@@ -15540,8 +16297,19 @@ impl serde::ser::Serialize for GetResourceChangeRequest {
     }
 }
 
+impl std::fmt::Debug for GetResourceChangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetResourceChangeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Terraform info of a ResourceChange.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceDriftTerraformInfo {
     /// Output only. The address of the drifted resource.
@@ -15743,8 +16511,22 @@ impl serde::ser::Serialize for ResourceDriftTerraformInfo {
     }
 }
 
+impl std::fmt::Debug for ResourceDriftTerraformInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceDriftTerraformInfo");
+        debug_struct.field("address", &self.address);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("resource_name", &self.resource_name);
+        debug_struct.field("provider", &self.provider);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A resource drift represents a drift to a resource in the state file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceDrift {
     /// Identifier. The name of the resource drift.
@@ -15939,8 +16721,21 @@ impl serde::ser::Serialize for ResourceDrift {
     }
 }
 
+impl std::fmt::Debug for ResourceDrift {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceDrift");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("terraform_info", &self.terraform_info);
+        debug_struct.field("property_drifts", &self.property_drifts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A property drift represents a drift to a property in the state file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PropertyDrift {
     /// Output only. The path of the property drift.
@@ -16199,8 +16994,23 @@ impl serde::ser::Serialize for PropertyDrift {
     }
 }
 
+impl std::fmt::Debug for PropertyDrift {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PropertyDrift");
+        debug_struct.field("path", &self.path);
+        debug_struct.field("before_sensitive_paths", &self.before_sensitive_paths);
+        debug_struct.field("before", &self.before);
+        debug_struct.field("after_sensitive_paths", &self.after_sensitive_paths);
+        debug_struct.field("after", &self.after);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListResourceDrifts method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceDriftsRequest {
     /// Required. The parent in whose context the ResourceDrifts are listed. The
@@ -16466,8 +17276,23 @@ impl serde::ser::Serialize for ListResourceDriftsRequest {
     }
 }
 
+impl std::fmt::Debug for ListResourceDriftsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourceDriftsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to a 'ListResourceDrifts' call. Contains a list of ResourceDrifts.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceDriftsResponse {
     /// List of ResourceDrifts.
@@ -16668,8 +17493,21 @@ impl serde::ser::Serialize for ListResourceDriftsResponse {
     }
 }
 
+impl std::fmt::Debug for ListResourceDriftsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourceDriftsResponse");
+        debug_struct.field("resource_drifts", &self.resource_drifts);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetResourceDrift method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetResourceDriftRequest {
     /// Required. The name of the resource drift to retrieve.
@@ -16797,6 +17635,17 @@ impl serde::ser::Serialize for GetResourceDriftRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GetResourceDriftRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetResourceDriftRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

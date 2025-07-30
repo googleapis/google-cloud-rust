@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Create a new environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEnvironmentRequest {
     /// The parent must be of the form
@@ -199,8 +199,20 @@ impl serde::ser::Serialize for CreateEnvironmentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEnvironmentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("environment", &self.environment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Get an environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEnvironmentRequest {
     /// The resource name of the environment to get, in the form:
@@ -330,8 +342,19 @@ impl serde::ser::Serialize for GetEnvironmentRequest {
     }
 }
 
+impl std::fmt::Debug for GetEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEnvironmentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List environments in a project and location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEnvironmentsRequest {
     /// List environments in the given project and location, in the form:
@@ -529,8 +552,21 @@ impl serde::ser::Serialize for ListEnvironmentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListEnvironmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEnvironmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The environments in a project and location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEnvironmentsResponse {
     /// The list of environments returned by a ListEnvironmentsRequest.
@@ -701,8 +737,20 @@ impl serde::ser::Serialize for ListEnvironmentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListEnvironmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEnvironmentsResponse");
+        debug_struct.field("environments", &self.environments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Delete an environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEnvironmentRequest {
     /// The environment to delete, in the form:
@@ -832,8 +880,19 @@ impl serde::ser::Serialize for DeleteEnvironmentRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteEnvironmentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Update an environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEnvironmentRequest {
     /// The relative resource name of the environment to update, in the form:
@@ -1163,8 +1222,21 @@ impl serde::ser::Serialize for UpdateEnvironmentRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEnvironmentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Execute Airflow Command request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecuteAirflowCommandRequest {
     /// The resource name of the environment in the form:
@@ -1372,8 +1444,22 @@ impl serde::ser::Serialize for ExecuteAirflowCommandRequest {
     }
 }
 
+impl std::fmt::Debug for ExecuteAirflowCommandRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteAirflowCommandRequest");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("command", &self.command);
+        debug_struct.field("subcommand", &self.subcommand);
+        debug_struct.field("parameters", &self.parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to ExecuteAirflowCommandRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecuteAirflowCommandResponse {
     /// The unique ID of the command execution for polling.
@@ -1576,8 +1662,22 @@ impl serde::ser::Serialize for ExecuteAirflowCommandResponse {
     }
 }
 
+impl std::fmt::Debug for ExecuteAirflowCommandResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteAirflowCommandResponse");
+        debug_struct.field("execution_id", &self.execution_id);
+        debug_struct.field("pod", &self.pod);
+        debug_struct.field("pod_namespace", &self.pod_namespace);
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Stop Airflow Command request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopAirflowCommandRequest {
     /// The resource name of the environment in the form:
@@ -1806,8 +1906,23 @@ impl serde::ser::Serialize for StopAirflowCommandRequest {
     }
 }
 
+impl std::fmt::Debug for StopAirflowCommandRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopAirflowCommandRequest");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("execution_id", &self.execution_id);
+        debug_struct.field("pod", &self.pod);
+        debug_struct.field("pod_namespace", &self.pod_namespace);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to StopAirflowCommandRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopAirflowCommandResponse {
     /// Whether the execution is still running.
@@ -1964,8 +2079,20 @@ impl serde::ser::Serialize for StopAirflowCommandResponse {
     }
 }
 
+impl std::fmt::Debug for StopAirflowCommandResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopAirflowCommandResponse");
+        debug_struct.field("is_done", &self.is_done);
+        debug_struct.field("output", &self.output);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Poll Airflow Command request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PollAirflowCommandRequest {
     /// The resource name of the environment in the form:
@@ -2213,8 +2340,23 @@ impl serde::ser::Serialize for PollAirflowCommandRequest {
     }
 }
 
+impl std::fmt::Debug for PollAirflowCommandRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PollAirflowCommandRequest");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("execution_id", &self.execution_id);
+        debug_struct.field("pod", &self.pod);
+        debug_struct.field("pod_namespace", &self.pod_namespace);
+        debug_struct.field("next_line_number", &self.next_line_number);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to PollAirflowCommandRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PollAirflowCommandResponse {
     /// Output from the command execution. It may not contain the full output
@@ -2415,13 +2557,26 @@ impl serde::ser::Serialize for PollAirflowCommandResponse {
     }
 }
 
+impl std::fmt::Debug for PollAirflowCommandResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PollAirflowCommandResponse");
+        debug_struct.field("output", &self.output);
+        debug_struct.field("output_end", &self.output_end);
+        debug_struct.field("exit_info", &self.exit_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PollAirflowCommandResponse].
 pub mod poll_airflow_command_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Contains information about a single line from logs.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Line {
         /// Number of the line.
@@ -2597,8 +2752,20 @@ pub mod poll_airflow_command_response {
         }
     }
 
+    impl std::fmt::Debug for Line {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Line");
+            debug_struct.field("line_number", &self.line_number);
+            debug_struct.field("content", &self.content);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Information about how a command ended.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExitInfo {
         /// The exit code from the command execution.
@@ -2773,10 +2940,22 @@ pub mod poll_airflow_command_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ExitInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ExitInfo");
+            debug_struct.field("exit_code", &self.exit_code);
+            debug_struct.field("error", &self.error);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Create user workloads Secret request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateUserWorkloadsSecretRequest {
     /// Required. The environment name to create a Secret for, in the form:
@@ -2942,8 +3121,20 @@ impl serde::ser::Serialize for CreateUserWorkloadsSecretRequest {
     }
 }
 
+impl std::fmt::Debug for CreateUserWorkloadsSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateUserWorkloadsSecretRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("user_workloads_secret", &self.user_workloads_secret);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Get user workloads Secret request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetUserWorkloadsSecretRequest {
     /// Required. The resource name of the Secret to get, in the form:
@@ -3073,8 +3264,19 @@ impl serde::ser::Serialize for GetUserWorkloadsSecretRequest {
     }
 }
 
+impl std::fmt::Debug for GetUserWorkloadsSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetUserWorkloadsSecretRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List user workloads Secrets request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUserWorkloadsSecretsRequest {
     /// Required. List Secrets in the given environment, in the form:
@@ -3273,8 +3475,21 @@ impl serde::ser::Serialize for ListUserWorkloadsSecretsRequest {
     }
 }
 
+impl std::fmt::Debug for ListUserWorkloadsSecretsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUserWorkloadsSecretsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Update user workloads Secret request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateUserWorkloadsSecretRequest {
     /// Optional. User workloads Secret to override.
@@ -3415,8 +3630,19 @@ impl serde::ser::Serialize for UpdateUserWorkloadsSecretRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateUserWorkloadsSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateUserWorkloadsSecretRequest");
+        debug_struct.field("user_workloads_secret", &self.user_workloads_secret);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Delete user workloads Secret request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteUserWorkloadsSecretRequest {
     /// Required. The Secret to delete, in the form:
@@ -3546,8 +3772,19 @@ impl serde::ser::Serialize for DeleteUserWorkloadsSecretRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteUserWorkloadsSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteUserWorkloadsSecretRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Create user workloads ConfigMap request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateUserWorkloadsConfigMapRequest {
     /// Required. The environment name to create a ConfigMap for, in the form:
@@ -3715,8 +3952,20 @@ impl serde::ser::Serialize for CreateUserWorkloadsConfigMapRequest {
     }
 }
 
+impl std::fmt::Debug for CreateUserWorkloadsConfigMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateUserWorkloadsConfigMapRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("user_workloads_config_map", &self.user_workloads_config_map);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Get user workloads ConfigMap request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetUserWorkloadsConfigMapRequest {
     /// Required. The resource name of the ConfigMap to get, in the form:
@@ -3846,8 +4095,19 @@ impl serde::ser::Serialize for GetUserWorkloadsConfigMapRequest {
     }
 }
 
+impl std::fmt::Debug for GetUserWorkloadsConfigMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetUserWorkloadsConfigMapRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List user workloads ConfigMaps request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUserWorkloadsConfigMapsRequest {
     /// Required. List ConfigMaps in the given environment, in the form:
@@ -4046,8 +4306,21 @@ impl serde::ser::Serialize for ListUserWorkloadsConfigMapsRequest {
     }
 }
 
+impl std::fmt::Debug for ListUserWorkloadsConfigMapsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUserWorkloadsConfigMapsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Update user workloads ConfigMap request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateUserWorkloadsConfigMapRequest {
     /// Optional. User workloads ConfigMap to override.
@@ -4190,8 +4463,19 @@ impl serde::ser::Serialize for UpdateUserWorkloadsConfigMapRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateUserWorkloadsConfigMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateUserWorkloadsConfigMapRequest");
+        debug_struct.field("user_workloads_config_map", &self.user_workloads_config_map);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Delete user workloads ConfigMap request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteUserWorkloadsConfigMapRequest {
     /// Required. The ConfigMap to delete, in the form:
@@ -4321,9 +4605,20 @@ impl serde::ser::Serialize for DeleteUserWorkloadsConfigMapRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteUserWorkloadsConfigMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteUserWorkloadsConfigMapRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// User workloads Secret used by Airflow tasks that run with Kubernetes executor
 /// or KubernetesPodOperator.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserWorkloadsSecret {
     /// Identifier. The resource name of the Secret, in the form:
@@ -4498,8 +4793,20 @@ impl serde::ser::Serialize for UserWorkloadsSecret {
     }
 }
 
+impl std::fmt::Debug for UserWorkloadsSecret {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserWorkloadsSecret");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data", &self.data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The user workloads Secrets for a given environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUserWorkloadsSecretsResponse {
     /// The list of Secrets returned by a ListUserWorkloadsSecretsRequest.
@@ -4675,9 +4982,21 @@ impl serde::ser::Serialize for ListUserWorkloadsSecretsResponse {
     }
 }
 
+impl std::fmt::Debug for ListUserWorkloadsSecretsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUserWorkloadsSecretsResponse");
+        debug_struct.field("user_workloads_secrets", &self.user_workloads_secrets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// User workloads ConfigMap used by Airflow tasks that run with Kubernetes
 /// executor or KubernetesPodOperator.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserWorkloadsConfigMap {
     /// Identifier. The resource name of the ConfigMap, in the form:
@@ -4851,8 +5170,20 @@ impl serde::ser::Serialize for UserWorkloadsConfigMap {
     }
 }
 
+impl std::fmt::Debug for UserWorkloadsConfigMap {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserWorkloadsConfigMap");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data", &self.data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The user workloads ConfigMaps for a given environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUserWorkloadsConfigMapsResponse {
     /// The list of ConfigMaps returned by a ListUserWorkloadsConfigMapsRequest.
@@ -5032,8 +5363,23 @@ impl serde::ser::Serialize for ListUserWorkloadsConfigMapsResponse {
     }
 }
 
+impl std::fmt::Debug for ListUserWorkloadsConfigMapsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUserWorkloadsConfigMapsResponse");
+        debug_struct.field(
+            "user_workloads_config_maps",
+            &self.user_workloads_config_maps,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for listing workloads in a Cloud Composer environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkloadsRequest {
     /// Required. The environment name to get workloads for, in the form:
@@ -5261,8 +5607,22 @@ impl serde::ser::Serialize for ListWorkloadsRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkloadsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkloadsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to ListWorkloadsRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkloadsResponse {
     /// The list of environment workloads.
@@ -5439,13 +5799,25 @@ impl serde::ser::Serialize for ListWorkloadsResponse {
     }
 }
 
+impl std::fmt::Debug for ListWorkloadsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkloadsResponse");
+        debug_struct.field("workloads", &self.workloads);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListWorkloadsResponse].
 pub mod list_workloads_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Information about a single workload.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ComposerWorkload {
         /// Name of a workload.
@@ -5645,8 +6017,21 @@ pub mod list_workloads_response {
         }
     }
 
+    impl std::fmt::Debug for ComposerWorkload {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ComposerWorkload");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("status", &self.status);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Workload status.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ComposerWorkloadStatus {
         /// Output only. Workload state.
@@ -5838,6 +6223,19 @@ pub mod list_workloads_response {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ComposerWorkloadStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ComposerWorkloadStatus");
+            debug_struct.field("state", &self.state);
+            debug_struct.field("status_message", &self.status_message);
+            debug_struct.field("detailed_status_message", &self.detailed_status_message);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -6179,7 +6577,7 @@ pub mod list_workloads_response {
 }
 
 /// Request to create a snapshot of a Cloud Composer environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SaveSnapshotRequest {
     /// The resource name of the source environment in the form:
@@ -6338,8 +6736,20 @@ impl serde::ser::Serialize for SaveSnapshotRequest {
     }
 }
 
+impl std::fmt::Debug for SaveSnapshotRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SaveSnapshotRequest");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("snapshot_location", &self.snapshot_location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to SaveSnapshotRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SaveSnapshotResponse {
     /// The fully-resolved Cloud Storage path of the created snapshot,
@@ -6472,8 +6882,19 @@ impl serde::ser::Serialize for SaveSnapshotResponse {
     }
 }
 
+impl std::fmt::Debug for SaveSnapshotResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SaveSnapshotResponse");
+        debug_struct.field("snapshot_path", &self.snapshot_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to load a snapshot into a Cloud Composer environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoadSnapshotRequest {
     /// The resource name of the target environment in the form:
@@ -6760,8 +7181,33 @@ impl serde::ser::Serialize for LoadSnapshotRequest {
     }
 }
 
+impl std::fmt::Debug for LoadSnapshotRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoadSnapshotRequest");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("snapshot_path", &self.snapshot_path);
+        debug_struct.field(
+            "skip_pypi_packages_installation",
+            &self.skip_pypi_packages_installation,
+        );
+        debug_struct.field(
+            "skip_environment_variables_setting",
+            &self.skip_environment_variables_setting,
+        );
+        debug_struct.field(
+            "skip_airflow_overrides_setting",
+            &self.skip_airflow_overrides_setting,
+        );
+        debug_struct.field("skip_gcs_data_copying", &self.skip_gcs_data_copying);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to LoadSnapshotRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoadSnapshotResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6863,9 +7309,19 @@ impl serde::ser::Serialize for LoadSnapshotResponse {
     }
 }
 
+impl std::fmt::Debug for LoadSnapshotResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoadSnapshotResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to trigger database failover (only for highly resilient
 /// environments).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseFailoverRequest {
     /// Target environment:
@@ -6995,8 +7451,19 @@ impl serde::ser::Serialize for DatabaseFailoverRequest {
     }
 }
 
+impl std::fmt::Debug for DatabaseFailoverRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseFailoverRequest");
+        debug_struct.field("environment", &self.environment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for DatabaseFailoverRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseFailoverResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7098,8 +7565,18 @@ impl serde::ser::Serialize for DatabaseFailoverResponse {
     }
 }
 
+impl std::fmt::Debug for DatabaseFailoverResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseFailoverResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to fetch properties of environment's database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchDatabasePropertiesRequest {
     /// Required. The resource name of the environment, in the form:
@@ -7229,8 +7706,19 @@ impl serde::ser::Serialize for FetchDatabasePropertiesRequest {
     }
 }
 
+impl std::fmt::Debug for FetchDatabasePropertiesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchDatabasePropertiesRequest");
+        debug_struct.field("environment", &self.environment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for FetchDatabasePropertiesRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchDatabasePropertiesResponse {
     /// The Compute Engine zone that the instance is currently serving from.
@@ -7426,8 +7914,24 @@ impl serde::ser::Serialize for FetchDatabasePropertiesResponse {
     }
 }
 
+impl std::fmt::Debug for FetchDatabasePropertiesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchDatabasePropertiesResponse");
+        debug_struct.field("primary_gce_zone", &self.primary_gce_zone);
+        debug_struct.field("secondary_gce_zone", &self.secondary_gce_zone);
+        debug_struct.field(
+            "is_failover_replica_available",
+            &self.is_failover_replica_available,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration for data storage in the environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageConfig {
     /// Optional. The name of the Cloud Storage bucket used by the environment. No
@@ -7557,8 +8061,19 @@ impl serde::ser::Serialize for StorageConfig {
     }
 }
 
+impl std::fmt::Debug for StorageConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StorageConfig");
+        debug_struct.field("bucket", &self.bucket);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration information for an environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnvironmentConfig {
     /// Output only. The Kubernetes Engine cluster used to run this environment.
@@ -8396,6 +8911,44 @@ impl serde::ser::Serialize for EnvironmentConfig {
     }
 }
 
+impl std::fmt::Debug for EnvironmentConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnvironmentConfig");
+        debug_struct.field("gke_cluster", &self.gke_cluster);
+        debug_struct.field("dag_gcs_prefix", &self.dag_gcs_prefix);
+        debug_struct.field("node_count", &self.node_count);
+        debug_struct.field("software_config", &self.software_config);
+        debug_struct.field("node_config", &self.node_config);
+        debug_struct.field(
+            "private_environment_config",
+            &self.private_environment_config,
+        );
+        debug_struct.field(
+            "web_server_network_access_control",
+            &self.web_server_network_access_control,
+        );
+        debug_struct.field("database_config", &self.database_config);
+        debug_struct.field("web_server_config", &self.web_server_config);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        debug_struct.field("maintenance_window", &self.maintenance_window);
+        debug_struct.field("workloads_config", &self.workloads_config);
+        debug_struct.field("environment_size", &self.environment_size);
+        debug_struct.field("airflow_uri", &self.airflow_uri);
+        debug_struct.field("airflow_byoid_uri", &self.airflow_byoid_uri);
+        debug_struct.field(
+            "master_authorized_networks_config",
+            &self.master_authorized_networks_config,
+        );
+        debug_struct.field("recovery_config", &self.recovery_config);
+        debug_struct.field("resilience_mode", &self.resilience_mode);
+        debug_struct.field("data_retention_config", &self.data_retention_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EnvironmentConfig].
 pub mod environment_config {
     #[allow(unused_imports)]
@@ -8667,7 +9220,7 @@ pub mod environment_config {
 }
 
 /// Network-level access control policy for the Airflow web server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WebServerNetworkAccessControl {
     /// A collection of allowed IP ranges with descriptions.
@@ -8801,13 +9354,24 @@ impl serde::ser::Serialize for WebServerNetworkAccessControl {
     }
 }
 
+impl std::fmt::Debug for WebServerNetworkAccessControl {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WebServerNetworkAccessControl");
+        debug_struct.field("allowed_ip_ranges", &self.allowed_ip_ranges);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WebServerNetworkAccessControl].
 pub mod web_server_network_access_control {
     #[allow(unused_imports)]
     use super::*;
 
     /// Allowed IP range with user-provided description.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllowedIpRange {
         /// IP address or range, defined using CIDR notation, of requests that this
@@ -8970,11 +9534,23 @@ pub mod web_server_network_access_control {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AllowedIpRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AllowedIpRange");
+            debug_struct.field("value", &self.value);
+            debug_struct.field("description", &self.description);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The configuration of Cloud SQL instance that is used by the Apache Airflow
 /// software.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseConfig {
     /// Optional. Cloud SQL machine type used by Airflow database.
@@ -9136,10 +9712,22 @@ impl serde::ser::Serialize for DatabaseConfig {
     }
 }
 
+impl std::fmt::Debug for DatabaseConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseConfig");
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration settings for the Airflow web server App Engine instance.
 /// Supported for Cloud Composer environments in versions
 /// composer-1.*.*-airflow-*.*.*
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WebServerConfig {
     /// Optional. Machine type on which Airflow web server is running.
@@ -9274,10 +9862,21 @@ impl serde::ser::Serialize for WebServerConfig {
     }
 }
 
+impl std::fmt::Debug for WebServerConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WebServerConfig");
+        debug_struct.field("machine_type", &self.machine_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The encryption options for the Cloud Composer environment
 /// and its dependencies.Supported for Cloud Composer environments in versions
 /// composer-1.*.*-airflow-*.*.*.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionConfig {
     /// Optional. Customer-managed Encryption Key available through Google's Key
@@ -9409,6 +10008,17 @@ impl serde::ser::Serialize for EncryptionConfig {
     }
 }
 
+impl std::fmt::Debug for EncryptionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionConfig");
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration settings for Cloud Composer maintenance window.
 /// The following example:
 ///
@@ -9422,7 +10032,7 @@ impl serde::ser::Serialize for EncryptionConfig {
 ///
 /// would define a maintenance window between 01 and 07 hours UTC during
 /// each Tuesday and Wednesday.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceWindow {
     /// Required. Start time of the first recurrence of the maintenance window.
@@ -9628,8 +10238,21 @@ impl serde::ser::Serialize for MaintenanceWindow {
     }
 }
 
+impl std::fmt::Debug for MaintenanceWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaintenanceWindow");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("recurrence", &self.recurrence);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the selection and configuration of software inside the environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SoftwareConfig {
     /// Optional. The version of the software running in the environment.
@@ -10098,6 +10721,27 @@ impl serde::ser::Serialize for SoftwareConfig {
     }
 }
 
+impl std::fmt::Debug for SoftwareConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SoftwareConfig");
+        debug_struct.field("image_version", &self.image_version);
+        debug_struct.field("airflow_config_overrides", &self.airflow_config_overrides);
+        debug_struct.field("pypi_packages", &self.pypi_packages);
+        debug_struct.field("env_variables", &self.env_variables);
+        debug_struct.field("python_version", &self.python_version);
+        debug_struct.field("scheduler_count", &self.scheduler_count);
+        debug_struct.field(
+            "cloud_data_lineage_integration",
+            &self.cloud_data_lineage_integration,
+        );
+        debug_struct.field("web_server_plugins_mode", &self.web_server_plugins_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SoftwareConfig].
 pub mod software_config {
     #[allow(unused_imports)]
@@ -10239,7 +10883,7 @@ pub mod software_config {
 
 /// Configuration for controlling how IPs are allocated in the
 /// GKE cluster running the Apache Airflow software.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IPAllocationPolicy {
     /// Optional. Whether or not to enable Alias IPs in the GKE cluster.
@@ -10632,6 +11276,19 @@ impl serde::ser::Serialize for IPAllocationPolicy {
     }
 }
 
+impl std::fmt::Debug for IPAllocationPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IPAllocationPolicy");
+        debug_struct.field("use_ip_aliases", &self.use_ip_aliases);
+        debug_struct.field("cluster_ip_allocation", &self.cluster_ip_allocation);
+        debug_struct.field("services_ip_allocation", &self.services_ip_allocation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [IPAllocationPolicy].
 pub mod ip_allocation_policy {
     #[allow(unused_imports)]
@@ -10698,7 +11355,7 @@ pub mod ip_allocation_policy {
 
 /// The configuration information for the Kubernetes Engine nodes running
 /// the Apache Airflow software.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeConfig {
     /// Optional. The Compute Engine [zone](/compute/docs/regions-zones) in which
@@ -11248,9 +11905,37 @@ impl serde::ser::Serialize for NodeConfig {
     }
 }
 
+impl std::fmt::Debug for NodeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeConfig");
+        debug_struct.field("location", &self.location);
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("subnetwork", &self.subnetwork);
+        debug_struct.field("disk_size_gb", &self.disk_size_gb);
+        debug_struct.field("oauth_scopes", &self.oauth_scopes);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("ip_allocation_policy", &self.ip_allocation_policy);
+        debug_struct.field("enable_ip_masq_agent", &self.enable_ip_masq_agent);
+        debug_struct.field(
+            "composer_network_attachment",
+            &self.composer_network_attachment,
+        );
+        debug_struct.field(
+            "composer_internal_ipv4_cidr_block",
+            &self.composer_internal_ipv4_cidr_block,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration options for the private GKE cluster in a Cloud Composer
 /// environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateClusterConfig {
     /// Optional. If `true`, access to the public endpoint of the GKE cluster is
@@ -11446,9 +12131,25 @@ impl serde::ser::Serialize for PrivateClusterConfig {
     }
 }
 
+impl std::fmt::Debug for PrivateClusterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrivateClusterConfig");
+        debug_struct.field("enable_private_endpoint", &self.enable_private_endpoint);
+        debug_struct.field("master_ipv4_cidr_block", &self.master_ipv4_cidr_block);
+        debug_struct.field(
+            "master_ipv4_reserved_range",
+            &self.master_ipv4_reserved_range,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration options for networking connections in the Composer 2
 /// environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkingConfig {
     /// Optional. Indicates the user requested specific connection type between
@@ -11584,6 +12285,17 @@ impl serde::ser::Serialize for NetworkingConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for NetworkingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkingConfig");
+        debug_struct.field("connection_type", &self.connection_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -11732,7 +12444,7 @@ pub mod networking_config {
 
 /// The configuration information for configuring a Private IP Cloud Composer
 /// environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateEnvironmentConfig {
     /// Optional. If `true`, a Private IP Cloud Composer environment is created.
@@ -12251,10 +12963,55 @@ impl serde::ser::Serialize for PrivateEnvironmentConfig {
     }
 }
 
+impl std::fmt::Debug for PrivateEnvironmentConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrivateEnvironmentConfig");
+        debug_struct.field(
+            "enable_private_environment",
+            &self.enable_private_environment,
+        );
+        debug_struct.field(
+            "enable_private_builds_only",
+            &self.enable_private_builds_only,
+        );
+        debug_struct.field("private_cluster_config", &self.private_cluster_config);
+        debug_struct.field(
+            "web_server_ipv4_cidr_block",
+            &self.web_server_ipv4_cidr_block,
+        );
+        debug_struct.field("cloud_sql_ipv4_cidr_block", &self.cloud_sql_ipv4_cidr_block);
+        debug_struct.field(
+            "web_server_ipv4_reserved_range",
+            &self.web_server_ipv4_reserved_range,
+        );
+        debug_struct.field(
+            "cloud_composer_network_ipv4_cidr_block",
+            &self.cloud_composer_network_ipv4_cidr_block,
+        );
+        debug_struct.field(
+            "cloud_composer_network_ipv4_reserved_range",
+            &self.cloud_composer_network_ipv4_reserved_range,
+        );
+        debug_struct.field(
+            "enable_privately_used_public_ips",
+            &self.enable_privately_used_public_ips,
+        );
+        debug_struct.field(
+            "cloud_composer_connection_subnetwork",
+            &self.cloud_composer_connection_subnetwork,
+        );
+        debug_struct.field("networking_config", &self.networking_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Kubernetes workloads configuration for GKE cluster associated with the
 /// Cloud Composer environment. Supported for Cloud Composer environments in
 /// versions composer-2.*.*-airflow-*.*.* and newer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkloadsConfig {
     /// Optional. Resources used by Airflow schedulers.
@@ -12544,13 +13301,28 @@ impl serde::ser::Serialize for WorkloadsConfig {
     }
 }
 
+impl std::fmt::Debug for WorkloadsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadsConfig");
+        debug_struct.field("scheduler", &self.scheduler);
+        debug_struct.field("web_server", &self.web_server);
+        debug_struct.field("worker", &self.worker);
+        debug_struct.field("triggerer", &self.triggerer);
+        debug_struct.field("dag_processor", &self.dag_processor);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WorkloadsConfig].
 pub mod workloads_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for resources used by Airflow schedulers.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SchedulerResource {
         /// Optional. CPU request and limit for a single Airflow scheduler replica.
@@ -12832,8 +13604,22 @@ pub mod workloads_config {
         }
     }
 
+    impl std::fmt::Debug for SchedulerResource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SchedulerResource");
+            debug_struct.field("cpu", &self.cpu);
+            debug_struct.field("memory_gb", &self.memory_gb);
+            debug_struct.field("storage_gb", &self.storage_gb);
+            debug_struct.field("count", &self.count);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for resources used by Airflow web server.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WebServerResource {
         /// Optional. CPU request and limit for Airflow web server.
@@ -13071,8 +13857,21 @@ pub mod workloads_config {
         }
     }
 
+    impl std::fmt::Debug for WebServerResource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WebServerResource");
+            debug_struct.field("cpu", &self.cpu);
+            debug_struct.field("memory_gb", &self.memory_gb);
+            debug_struct.field("storage_gb", &self.storage_gb);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for resources used by Airflow workers.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WorkerResource {
         /// Optional. CPU request and limit for a single Airflow worker replica.
@@ -13400,8 +14199,23 @@ pub mod workloads_config {
         }
     }
 
+    impl std::fmt::Debug for WorkerResource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WorkerResource");
+            debug_struct.field("cpu", &self.cpu);
+            debug_struct.field("memory_gb", &self.memory_gb);
+            debug_struct.field("storage_gb", &self.storage_gb);
+            debug_struct.field("min_count", &self.min_count);
+            debug_struct.field("max_count", &self.max_count);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for resources used by Airflow triggerers.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TriggererResource {
         /// Optional. The number of triggerers.
@@ -13638,11 +14452,24 @@ pub mod workloads_config {
         }
     }
 
+    impl std::fmt::Debug for TriggererResource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TriggererResource");
+            debug_struct.field("count", &self.count);
+            debug_struct.field("cpu", &self.cpu);
+            debug_struct.field("memory_gb", &self.memory_gb);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for resources used by Airflow DAG processors.
     ///
     /// This field is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DagProcessorResource {
         /// Optional. CPU request and limit for a single Airflow DAG processor
@@ -13925,10 +14752,24 @@ pub mod workloads_config {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for DagProcessorResource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DagProcessorResource");
+            debug_struct.field("cpu", &self.cpu);
+            debug_struct.field("memory_gb", &self.memory_gb);
+            debug_struct.field("storage_gb", &self.storage_gb);
+            debug_struct.field("count", &self.count);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The Recovery settings of an environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecoveryConfig {
     /// Optional. The configuration for scheduled snapshot creation mechanism.
@@ -14073,8 +14914,22 @@ impl serde::ser::Serialize for RecoveryConfig {
     }
 }
 
+impl std::fmt::Debug for RecoveryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecoveryConfig");
+        debug_struct.field(
+            "scheduled_snapshots_config",
+            &self.scheduled_snapshots_config,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration for scheduled snapshot creation mechanism.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScheduledSnapshotsConfig {
     /// Optional. Whether scheduled snapshots creation is enabled.
@@ -14292,11 +15147,28 @@ impl serde::ser::Serialize for ScheduledSnapshotsConfig {
     }
 }
 
+impl std::fmt::Debug for ScheduledSnapshotsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScheduledSnapshotsConfig");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("snapshot_location", &self.snapshot_location);
+        debug_struct.field(
+            "snapshot_creation_schedule",
+            &self.snapshot_creation_schedule,
+        );
+        debug_struct.field("time_zone", &self.time_zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration options for the master authorized networks feature. Enabled
 /// master authorized networks will disallow all external traffic to access
 /// Kubernetes master through HTTPS except traffic from the given CIDR blocks,
 /// Google Compute Engine Public IPs and Google Prod IPs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MasterAuthorizedNetworksConfig {
     /// Optional. Whether or not master authorized networks feature is enabled.
@@ -14460,13 +15332,25 @@ impl serde::ser::Serialize for MasterAuthorizedNetworksConfig {
     }
 }
 
+impl std::fmt::Debug for MasterAuthorizedNetworksConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MasterAuthorizedNetworksConfig");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("cidr_blocks", &self.cidr_blocks);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MasterAuthorizedNetworksConfig].
 pub mod master_authorized_networks_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// CIDR block with an optional name.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CidrBlock {
         /// User-defined name that identifies the CIDR block.
@@ -14626,10 +15510,22 @@ pub mod master_authorized_networks_config {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for CidrBlock {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CidrBlock");
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("cidr_block", &self.cidr_block);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Configuration for Cloud Data Lineage integration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudDataLineageIntegration {
     /// Optional. Whether or not Cloud Data Lineage integration is enabled.
@@ -14758,8 +15654,19 @@ impl serde::ser::Serialize for CloudDataLineageIntegration {
     }
 }
 
+impl std::fmt::Debug for CloudDataLineageIntegration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudDataLineageIntegration");
+        debug_struct.field("enabled", &self.enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An environment for running orchestration tasks.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Environment {
     /// Identifier. The resource name of the environment, in the form:
@@ -15178,6 +16085,26 @@ impl serde::ser::Serialize for Environment {
     }
 }
 
+impl std::fmt::Debug for Environment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Environment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("uuid", &self.uuid);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("storage_config", &self.storage_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Environment].
 pub mod environment {
     #[allow(unused_imports)]
@@ -15339,7 +16266,7 @@ pub mod environment {
 }
 
 /// Request to check whether image upgrade will succeed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckUpgradeRequest {
     /// Required. The resource name of the environment to check upgrade for, in the
@@ -15518,9 +16445,21 @@ impl serde::ser::Serialize for CheckUpgradeRequest {
     }
 }
 
+impl std::fmt::Debug for CheckUpgradeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckUpgradeRequest");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("image_version", &self.image_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message containing information about the result of an upgrade check
 /// operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckUpgradeResponse {
     /// Output only. Url for a docker build log of an upgraded image.
@@ -15787,6 +16726,27 @@ impl serde::ser::Serialize for CheckUpgradeResponse {
     }
 }
 
+impl std::fmt::Debug for CheckUpgradeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckUpgradeResponse");
+        debug_struct.field("build_log_uri", &self.build_log_uri);
+        debug_struct.field(
+            "contains_pypi_modules_conflict",
+            &self.contains_pypi_modules_conflict,
+        );
+        debug_struct.field(
+            "pypi_conflict_build_log_extract",
+            &self.pypi_conflict_build_log_extract,
+        );
+        debug_struct.field("image_version", &self.image_version);
+        debug_struct.field("pypi_dependencies", &self.pypi_dependencies);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CheckUpgradeResponse].
 pub mod check_upgrade_response {
     #[allow(unused_imports)]
@@ -15925,7 +16885,7 @@ pub mod check_upgrade_response {
 }
 
 /// The configuration setting for Airflow database data retention mechanism.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataRetentionConfig {
     /// Optional. The retention policy for airflow metadata database.
@@ -16119,8 +17079,26 @@ impl serde::ser::Serialize for DataRetentionConfig {
     }
 }
 
+impl std::fmt::Debug for DataRetentionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataRetentionConfig");
+        debug_struct.field(
+            "airflow_metadata_retention_config",
+            &self.airflow_metadata_retention_config,
+        );
+        debug_struct.field(
+            "task_logs_retention_config",
+            &self.task_logs_retention_config,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration setting for Task Logs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TaskLogsRetentionConfig {
     /// Optional. The mode of storage for Airflow workers task logs.
@@ -16254,6 +17232,17 @@ impl serde::ser::Serialize for TaskLogsRetentionConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TaskLogsRetentionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TaskLogsRetentionConfig");
+        debug_struct.field("storage_mode", &self.storage_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -16400,7 +17389,7 @@ pub mod task_logs_retention_config {
 }
 
 /// The policy for airflow metadata database retention.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AirflowMetadataRetentionPolicyConfig {
     /// Optional. Retention can be either enabled or disabled.
@@ -16577,6 +17566,18 @@ impl serde::ser::Serialize for AirflowMetadataRetentionPolicyConfig {
     }
 }
 
+impl std::fmt::Debug for AirflowMetadataRetentionPolicyConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AirflowMetadataRetentionPolicyConfig");
+        debug_struct.field("retention_mode", &self.retention_mode);
+        debug_struct.field("retention_days", &self.retention_days);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AirflowMetadataRetentionPolicyConfig].
 pub mod airflow_metadata_retention_policy_config {
     #[allow(unused_imports)]
@@ -16715,7 +17716,7 @@ pub mod airflow_metadata_retention_policy_config {
 }
 
 /// List ImageVersions in a project and location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListImageVersionsRequest {
     /// List ImageVersions in the given project and location, in the form:
@@ -16938,8 +17939,22 @@ impl serde::ser::Serialize for ListImageVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListImageVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListImageVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("include_past_releases", &self.include_past_releases);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ImageVersions in a project and location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListImageVersionsResponse {
     /// The list of supported ImageVersions in a location.
@@ -17111,8 +18126,20 @@ impl serde::ser::Serialize for ListImageVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListImageVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListImageVersionsResponse");
+        debug_struct.field("image_versions", &self.image_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ImageVersion information
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageVersion {
     /// The string identifier of the ImageVersion, in the form:
@@ -17391,8 +18418,24 @@ impl serde::ser::Serialize for ImageVersion {
     }
 }
 
+impl std::fmt::Debug for ImageVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageVersion");
+        debug_struct.field("image_version_id", &self.image_version_id);
+        debug_struct.field("is_default", &self.is_default);
+        debug_struct.field("supported_python_versions", &self.supported_python_versions);
+        debug_struct.field("release_date", &self.release_date);
+        debug_struct.field("creation_disabled", &self.creation_disabled);
+        debug_struct.field("upgrade_disabled", &self.upgrade_disabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata describing an operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The current operation state.
@@ -17668,6 +18711,22 @@ impl serde::ser::Serialize for OperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("operation_type", &self.operation_type);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("resource_uuid", &self.resource_uuid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

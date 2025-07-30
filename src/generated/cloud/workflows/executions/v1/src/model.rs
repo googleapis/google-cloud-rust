@@ -32,7 +32,7 @@ extern crate wkt;
 
 /// A running instance of a
 /// [Workflow](/workflows/docs/reference/rest/v1/projects.locations.workflows).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Execution {
     /// Output only. The resource name of the execution.
@@ -560,13 +560,36 @@ impl serde::ser::Serialize for Execution {
     }
 }
 
+impl std::fmt::Debug for Execution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Execution");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("argument", &self.argument);
+        debug_struct.field("result", &self.result);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("workflow_revision_id", &self.workflow_revision_id);
+        debug_struct.field("call_log_level", &self.call_log_level);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("state_error", &self.state_error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Execution].
 pub mod execution {
     #[allow(unused_imports)]
     use super::*;
 
     /// A single stack element (frame) where an error occurred.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StackTraceElement {
         /// The step the error occurred at.
@@ -758,6 +781,19 @@ pub mod execution {
         }
     }
 
+    impl std::fmt::Debug for StackTraceElement {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StackTraceElement");
+            debug_struct.field("step", &self.step);
+            debug_struct.field("routine", &self.routine);
+            debug_struct.field("position", &self.position);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [StackTraceElement].
     pub mod stack_trace_element {
         #[allow(unused_imports)]
@@ -766,7 +802,7 @@ pub mod execution {
         /// Position contains source position information about the stack trace
         /// element such as line number, column number and length of the code block
         /// in bytes.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Position {
             /// The source code line number the current instruction was generated from.
@@ -1014,10 +1050,23 @@ pub mod execution {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Position {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Position");
+                debug_struct.field("line", &self.line);
+                debug_struct.field("column", &self.column);
+                debug_struct.field("length", &self.length);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// A collection of stack elements (frames) where an error occurred.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StackTrace {
         /// An array of stack elements.
@@ -1156,8 +1205,19 @@ pub mod execution {
         }
     }
 
+    impl std::fmt::Debug for StackTrace {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StackTrace");
+            debug_struct.field("elements", &self.elements);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Error describes why the execution was abnormally terminated.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Error {
         /// Error message and data returned represented as a JSON string.
@@ -1349,8 +1409,21 @@ pub mod execution {
         }
     }
 
+    impl std::fmt::Debug for Error {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Error");
+            debug_struct.field("payload", &self.payload);
+            debug_struct.field("context", &self.context);
+            debug_struct.field("stack_trace", &self.stack_trace);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents the current status of this execution.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Status {
         /// A list of currently executing or last executed step names for the
@@ -1496,13 +1569,24 @@ pub mod execution {
         }
     }
 
+    impl std::fmt::Debug for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Status");
+            debug_struct.field("current_steps", &self.current_steps);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Status].
     pub mod status {
         #[allow(unused_imports)]
         use super::*;
 
         /// Represents a step of the workflow this execution is running.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Step {
             /// Name of a routine within the workflow.
@@ -1662,10 +1746,22 @@ pub mod execution {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Step {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Step");
+                debug_struct.field("routine", &self.routine);
+                debug_struct.field("step", &self.step);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Describes an error related to the current state of the Execution resource.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StateError {
         /// Provides specifics about the error.
@@ -1823,6 +1919,18 @@ pub mod execution {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for StateError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StateError");
+            debug_struct.field("details", &self.details);
+            debug_struct.field("r#type", &self.r#type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -2266,7 +2374,7 @@ pub mod execution {
 /// Request for the
 /// [ListExecutions][]
 /// method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExecutionsRequest {
     /// Required. Name of the workflow for which the executions should be listed.
@@ -2555,12 +2663,28 @@ impl serde::ser::Serialize for ListExecutionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListExecutionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExecutionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the
 /// [ListExecutions][google.cloud.workflows.executions.v1.Executions.ListExecutions]
 /// method.
 ///
 /// [google.cloud.workflows.executions.v1.Executions.ListExecutions]: crate::client::Executions::list_executions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExecutionsResponse {
     /// The executions which match the request.
@@ -2732,12 +2856,24 @@ impl serde::ser::Serialize for ListExecutionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListExecutionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExecutionsResponse");
+        debug_struct.field("executions", &self.executions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the
 /// [CreateExecution][google.cloud.workflows.executions.v1.Executions.CreateExecution]
 /// method.
 ///
 /// [google.cloud.workflows.executions.v1.Executions.CreateExecution]: crate::client::Executions::create_execution
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExecutionRequest {
     /// Required. Name of the workflow for which an execution should be created.
@@ -2903,12 +3039,24 @@ impl serde::ser::Serialize for CreateExecutionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateExecutionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateExecutionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("execution", &self.execution);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the
 /// [GetExecution][google.cloud.workflows.executions.v1.Executions.GetExecution]
 /// method.
 ///
 /// [google.cloud.workflows.executions.v1.Executions.GetExecution]: crate::client::Executions::get_execution
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetExecutionRequest {
     /// Required. Name of the execution to be retrieved.
@@ -3064,12 +3212,24 @@ impl serde::ser::Serialize for GetExecutionRequest {
     }
 }
 
+impl std::fmt::Debug for GetExecutionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetExecutionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the
 /// [CancelExecution][google.cloud.workflows.executions.v1.Executions.CancelExecution]
 /// method.
 ///
 /// [google.cloud.workflows.executions.v1.Executions.CancelExecution]: crate::client::Executions::cancel_execution
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelExecutionRequest {
     /// Required. Name of the execution to be cancelled.
@@ -3197,6 +3357,17 @@ impl serde::ser::Serialize for CancelExecutionRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for CancelExecutionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelExecutionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

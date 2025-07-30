@@ -51,43 +51,53 @@ func refresh(rootConfig *config.Config, cmdLine *CommandLine) error {
 	return refreshDir(override, cmdLine, cmdLine.Output)
 }
 
-func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) error {
+func loadDir(rootConfig *config.Config, output string) (*api.API, *config.Config, error) {
 	config, err := config.MergeConfigAndFile(rootConfig, path.Join(output, ".sidekick.toml"))
 	if err != nil {
-		return err
+		return nil, nil, err
 	}
 	if config.General.SpecificationFormat == "" {
-		return fmt.Errorf("must provide general.specification-format")
+		return nil, nil, fmt.Errorf("must provide general.specification-format")
 	}
 	if config.General.SpecificationSource == "" {
-		return fmt.Errorf("must provide general.specification-source")
+		return nil, nil, fmt.Errorf("must provide general.specification-source")
 	}
+	model, err := createModel(config)
+	if err != nil {
+		return nil, nil, err
+	}
+	return model, config, nil
+}
 
+func createModel(config *config.Config) (*api.API, error) {
+	var err error
 	var model *api.API
 	switch config.General.SpecificationFormat {
 	case "openapi":
 		model, err = parser.ParseOpenAPI(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
 	case "protobuf":
 		model, err = parser.ParseProtobuf(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
+	case "none":
+		return nil, nil
 	default:
-		return fmt.Errorf("unknown parser %q", config.General.SpecificationFormat)
+		return nil, fmt.Errorf("unknown parser %q", config.General.SpecificationFormat)
 	}
 	if err != nil {
-		return err
+		return nil, err
 	}
 	api.LabelRecursiveFields(model)
 	if err := api.CrossReference(model); err != nil {
-		return err
+		return nil, err
 	}
 	if err := api.SkipModelElements(model, config.Source); err != nil {
-		return err
+		return nil, err
 	}
 	if err := api.PatchDocumentation(model, config); err != nil {
-		return err
+		return nil, err
 	}
 	// Verify all the services, messages and enums are in the same package.
 	if err := api.Validate(model); err != nil {
-		return err
+		return nil, err
 	}
 	if name, ok := config.Source["name-override"]; ok {
 		model.Name = name
@@ -98,6 +108,14 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	if description, ok := config.Source["description-override"]; ok {
 		model.Description = description
 	}
+	return model, nil
+}
+
+func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) error {
+	model, config, err := loadDir(rootConfig, output)
+	if err != nil {
+		return err
+	}
 	if cmdLine.DryRun {
 		return nil
 	}
@@ -105,6 +123,19 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	switch config.General.Language {
 	case "rust":
 		return rust.Generate(model, output, config)
+	case "rust_storage":
+		// The StorageControl client depends on multiple specification sources.
+		// We load them both here manually, and pass them along to
+		// `rust.GenerateStorage` which will merge them appropriately.
+		storageModel, storageConfig, err := loadDir(rootConfig, "src/storage/src/generated/gapic")
+		if err != nil {
+			return err
+		}
+		controlModel, controlConfig, err := loadDir(rootConfig, "src/storage/src/generated/gapic_control")
+		if err != nil {
+			return err
+		}
+		return rust.GenerateStorage(output, storageModel, storageConfig, controlModel, controlConfig)
 	case "rust+prost":
 		return rust_prost.Generate(model, output, config)
 	case "go":

@@ -20,7 +20,7 @@
 /// Meant to encapsulate all types of tests: successes, skips, failures, etc.
 /// Therefore, this may or may not have a failure message. Failure messages
 /// may be truncated for our failure lists.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestStatus {
     pub name: std::string::String,
@@ -198,10 +198,23 @@ impl serde::ser::Serialize for TestStatus {
     }
 }
 
+impl std::fmt::Debug for TestStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestStatus");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("failure_message", &self.failure_message);
+        debug_struct.field("matched_name", &self.matched_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The conformance runner will request a list of failures as the first request.
 /// This will be known by message_type == "conformance.FailureSet", a conformance
 /// test should return a serialized FailureSet in protobuf_payload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailureSet {
     pub test: std::vec::Vec<crate::generated::gapic::model::TestStatus>,
@@ -336,12 +349,23 @@ impl serde::ser::Serialize for FailureSet {
     }
 }
 
+impl std::fmt::Debug for FailureSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FailureSet");
+        debug_struct.field("test", &self.test);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a single test case's input.  The testee should:
 ///
 /// 1. parse this proto (which should always succeed)
 /// 1. parse the protobuf or JSON payload in "payload" (which may fail)
 /// 1. if the parse succeeded, serialize the message in the requested format.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConformanceRequest {
     /// Which format should the testee serialize its message to?
@@ -835,6 +859,22 @@ impl serde::ser::Serialize for ConformanceRequest {
     }
 }
 
+impl std::fmt::Debug for ConformanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConformanceRequest");
+        debug_struct.field("requested_output_format", &self.requested_output_format);
+        debug_struct.field("message_type", &self.message_type);
+        debug_struct.field("test_category", &self.test_category);
+        debug_struct.field("jspb_encoding_options", &self.jspb_encoding_options);
+        debug_struct.field("print_unknown_fields", &self.print_unknown_fields);
+        debug_struct.field("payload", &self.payload);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConformanceRequest].
 pub mod conformance_request {
     #[allow(unused_imports)]
@@ -874,7 +914,7 @@ pub mod conformance_request {
 }
 
 /// Represents a single test case's output.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConformanceResponse {
     pub result: std::option::Option<crate::generated::gapic::model::conformance_response::Result>,
@@ -1448,6 +1488,17 @@ impl serde::ser::Serialize for ConformanceResponse {
     }
 }
 
+impl std::fmt::Debug for ConformanceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConformanceResponse");
+        debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConformanceResponse].
 pub mod conformance_response {
     #[allow(unused_imports)]
@@ -1533,7 +1584,7 @@ pub mod conformance_response {
 }
 
 /// Encoding options for jspb format.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JspbEncodingConfig {
     /// Encode the value field of Any as jspb array if true, otherwise binary.
@@ -1662,6 +1713,17 @@ impl serde::ser::Serialize for JspbEncodingConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for JspbEncodingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JspbEncodingConfig");
+        debug_struct.field("use_jspb_array_any_format", &self.use_jspb_array_any_format);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

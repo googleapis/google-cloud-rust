@@ -14,7 +14,10 @@
 
 package api
 
-import "slices"
+import (
+	"slices"
+	"strings"
+)
 
 // Typez represent different field types that may be found in messages.
 type Typez int
@@ -241,6 +244,76 @@ type Method struct {
 	Codec any
 }
 
+// The routing info is stored as a map from the key to a list of the variants.
+// e.g.:
+//
+// ```
+//
+//	{
+//	  a: [va1, va2, va3],
+//	  b: [vb1, vb2]
+//	  c: [vc1]
+//	}
+//
+// ```
+//
+// We reorganize each kv pair into a list of pairs. e.g.:
+//
+// ```
+// [
+//
+//	[(a, va1), (a, va2), (a, va3)],
+//	[(b, vb1), (b, vb2)],
+//	[(c, vc1)],
+//
+// ]
+// ```
+//
+// Then we take a Cartesian product of that list to find all the combinations.
+// e.g.:
+//
+// ```
+// [
+//
+//	[(a, va1), (b, vb1), (c, vc1)],
+//	[(a, va1), (b, vb2), (c, vc1)],
+//	[(a, va2), (b, vb1), (c, vc1)],
+//	[(a, va2), (b, vb2), (c, vc1)],
+//	[(a, va3), (b, vb1), (c, vc1)],
+//	[(a, va3), (b, vb2), (c, vc1)],
+//
+// ]
+// ```
+func (m *Method) RoutingCombos() []*RoutingInfoCombo {
+	combos := []*RoutingInfoCombo{
+		{},
+	}
+	for _, info := range m.Routing {
+		next := []*RoutingInfoCombo{}
+		for _, c := range combos {
+			for _, v := range info.Variants {
+				next = append(next, &RoutingInfoCombo{
+					Items: append(c.Items, &RoutingInfoComboItem{
+						Name:    info.Name,
+						Variant: v,
+					}),
+				})
+			}
+		}
+		combos = next
+	}
+	return combos
+}
+
+type RoutingInfoCombo struct {
+	Items []*RoutingInfoComboItem
+}
+
+type RoutingInfoComboItem struct {
+	Name    string
+	Variant *RoutingInfoVariant
+}
+
 func (m *Method) HasRouting() bool {
 	return len(m.Routing) != 0
 }
@@ -342,6 +415,18 @@ type RoutingInfoVariant struct {
 	Suffix RoutingPathSpec
 	// Language specific information
 	Codec any
+}
+
+func (v *RoutingInfoVariant) FieldName() string {
+	return strings.Join(v.FieldPath, ".")
+}
+
+func (v *RoutingInfoVariant) TemplateAsString() string {
+	var full []string
+	full = append(full, v.Prefix.Segments...)
+	full = append(full, v.Matching.Segments...)
+	full = append(full, v.Suffix.Segments...)
+	return strings.Join(full, "/")
 }
 
 type RoutingPathSpec struct {

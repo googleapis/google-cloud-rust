@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -341,8 +341,25 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification of a port-based selector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrafficPortSelector {
     /// Optional. A list of ports. Can be port numbers or port range
@@ -477,9 +494,20 @@ impl serde::ser::Serialize for TrafficPortSelector {
     }
 }
 
+impl std::fmt::Debug for TrafficPortSelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrafficPortSelector");
+        debug_struct.field("ports", &self.ports);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A definition of a matcher that selects endpoints to which the policies
 /// should be applied.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EndpointMatcher {
     /// Specifies type of the matcher used for this endpoint matcher.
@@ -662,13 +690,24 @@ impl serde::ser::Serialize for EndpointMatcher {
     }
 }
 
+impl std::fmt::Debug for EndpointMatcher {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EndpointMatcher");
+        debug_struct.field("matcher_type", &self.matcher_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EndpointMatcher].
 pub mod endpoint_matcher {
     #[allow(unused_imports)]
     use super::*;
 
     /// The matcher that is based on node metadata presented by xDS clients.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MetadataLabelMatcher {
         /// Specifies how matching should be done.
@@ -867,13 +906,28 @@ pub mod endpoint_matcher {
         }
     }
 
+    impl std::fmt::Debug for MetadataLabelMatcher {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MetadataLabelMatcher");
+            debug_struct.field(
+                "metadata_label_match_criteria",
+                &self.metadata_label_match_criteria,
+            );
+            debug_struct.field("metadata_labels", &self.metadata_labels);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [MetadataLabelMatcher].
     pub mod metadata_label_matcher {
         #[allow(unused_imports)]
         use super::*;
 
         /// Defines a name-pair value for a single label.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MetadataLabels {
             /// Required. Label name presented as key in xDS Node Metadata.
@@ -1045,6 +1099,18 @@ pub mod endpoint_matcher {
             }
         }
 
+        impl std::fmt::Debug for MetadataLabels {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("MetadataLabels");
+                debug_struct.field("label_name", &self.label_name);
+                debug_struct.field("label_value", &self.label_value);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Possible criteria values that define logic of how matching is made.
         ///
         /// # Working with unknown values
@@ -1195,7 +1261,7 @@ pub mod endpoint_matcher {
 
 /// A single extension chain wrapper that contains the match conditions and
 /// extensions to execute.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExtensionChain {
     /// Required. The name for this extension chain.
@@ -1402,13 +1468,26 @@ impl serde::ser::Serialize for ExtensionChain {
     }
 }
 
+impl std::fmt::Debug for ExtensionChain {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExtensionChain");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("match_condition", &self.match_condition);
+        debug_struct.field("extensions", &self.extensions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExtensionChain].
 pub mod extension_chain {
     #[allow(unused_imports)]
     use super::*;
 
     /// Conditions under which this chain is invoked for a request.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MatchCondition {
         /// Required. A Common Expression Language (CEL) expression that is used to
@@ -1548,8 +1627,19 @@ pub mod extension_chain {
         }
     }
 
+    impl std::fmt::Debug for MatchCondition {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MatchCondition");
+            debug_struct.field("cel_expression", &self.cel_expression);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A single extension in the chain to execute for the matching request.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Extension {
         /// Required. The name for this extension.
@@ -1967,13 +2057,31 @@ pub mod extension_chain {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Extension {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Extension");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("authority", &self.authority);
+            debug_struct.field("service", &self.service);
+            debug_struct.field("supported_events", &self.supported_events);
+            debug_struct.field("timeout", &self.timeout);
+            debug_struct.field("fail_open", &self.fail_open);
+            debug_struct.field("forward_headers", &self.forward_headers);
+            debug_struct.field("metadata", &self.metadata);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// `LbTrafficExtension` is a resource that lets the extension service modify the
 /// headers and payloads of both requests and responses without impacting the
 /// choice of backend services or any other security policies associated with the
 /// backend service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LbTrafficExtension {
     /// Required. Identifier. Name of the `LbTrafficExtension` resource in the
@@ -2392,8 +2500,27 @@ impl serde::ser::Serialize for LbTrafficExtension {
     }
 }
 
+impl std::fmt::Debug for LbTrafficExtension {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LbTrafficExtension");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("forwarding_rules", &self.forwarding_rules);
+        debug_struct.field("extension_chains", &self.extension_chains);
+        debug_struct.field("load_balancing_scheme", &self.load_balancing_scheme);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of `LbTrafficExtension` resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLbTrafficExtensionsRequest {
     /// Required. The project and location from which the `LbTrafficExtension`
@@ -2642,8 +2769,23 @@ impl serde::ser::Serialize for ListLbTrafficExtensionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListLbTrafficExtensionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLbTrafficExtensionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing `LbTrafficExtension` resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLbTrafficExtensionsResponse {
     /// The list of `LbTrafficExtension` resources.
@@ -2846,8 +2988,21 @@ impl serde::ser::Serialize for ListLbTrafficExtensionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListLbTrafficExtensionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLbTrafficExtensionsResponse");
+        debug_struct.field("lb_traffic_extensions", &self.lb_traffic_extensions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a `LbTrafficExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLbTrafficExtensionRequest {
     /// Required. A name of the `LbTrafficExtension` resource to get. Must be in
@@ -2978,8 +3133,19 @@ impl serde::ser::Serialize for GetLbTrafficExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for GetLbTrafficExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLbTrafficExtensionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a `LbTrafficExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLbTrafficExtensionRequest {
     /// Required. The parent resource of the `LbTrafficExtension` resource. Must be
@@ -3210,8 +3376,22 @@ impl serde::ser::Serialize for CreateLbTrafficExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateLbTrafficExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateLbTrafficExtensionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("lb_traffic_extension_id", &self.lb_traffic_extension_id);
+        debug_struct.field("lb_traffic_extension", &self.lb_traffic_extension);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a `LbTrafficExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLbTrafficExtensionRequest {
     /// Optional. Used to specify the fields to be overwritten in the
@@ -3428,8 +3608,21 @@ impl serde::ser::Serialize for UpdateLbTrafficExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateLbTrafficExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateLbTrafficExtensionRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("lb_traffic_extension", &self.lb_traffic_extension);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a `LbTrafficExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLbTrafficExtensionRequest {
     /// Required. The name of the `LbTrafficExtension` resource to delete. Must be
@@ -3596,9 +3789,21 @@ impl serde::ser::Serialize for DeleteLbTrafficExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteLbTrafficExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteLbTrafficExtensionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `LbRouteExtension` is a resource that lets you control where traffic is
 /// routed to for a given request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LbRouteExtension {
     /// Required. Identifier. Name of the `LbRouteExtension` resource in the
@@ -4017,8 +4222,27 @@ impl serde::ser::Serialize for LbRouteExtension {
     }
 }
 
+impl std::fmt::Debug for LbRouteExtension {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LbRouteExtension");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("forwarding_rules", &self.forwarding_rules);
+        debug_struct.field("extension_chains", &self.extension_chains);
+        debug_struct.field("load_balancing_scheme", &self.load_balancing_scheme);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of `LbRouteExtension` resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLbRouteExtensionsRequest {
     /// Required. The project and location from which the `LbRouteExtension`
@@ -4267,8 +4491,23 @@ impl serde::ser::Serialize for ListLbRouteExtensionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListLbRouteExtensionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLbRouteExtensionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing `LbRouteExtension` resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLbRouteExtensionsResponse {
     /// The list of `LbRouteExtension` resources.
@@ -4471,8 +4710,21 @@ impl serde::ser::Serialize for ListLbRouteExtensionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListLbRouteExtensionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLbRouteExtensionsResponse");
+        debug_struct.field("lb_route_extensions", &self.lb_route_extensions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a `LbRouteExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLbRouteExtensionRequest {
     /// Required. A name of the `LbRouteExtension` resource to get. Must be in the
@@ -4603,8 +4855,19 @@ impl serde::ser::Serialize for GetLbRouteExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for GetLbRouteExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLbRouteExtensionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a `LbRouteExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLbRouteExtensionRequest {
     /// Required. The parent resource of the `LbRouteExtension` resource. Must be
@@ -4836,8 +5099,22 @@ impl serde::ser::Serialize for CreateLbRouteExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateLbRouteExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateLbRouteExtensionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("lb_route_extension_id", &self.lb_route_extension_id);
+        debug_struct.field("lb_route_extension", &self.lb_route_extension);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a `LbRouteExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLbRouteExtensionRequest {
     /// Optional. Used to specify the fields to be overwritten in the
@@ -5055,8 +5332,21 @@ impl serde::ser::Serialize for UpdateLbRouteExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateLbRouteExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateLbRouteExtensionRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("lb_route_extension", &self.lb_route_extension);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a `LbRouteExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLbRouteExtensionRequest {
     /// Required. The name of the `LbRouteExtension` resource to delete. Must be in
@@ -5223,9 +5513,21 @@ impl serde::ser::Serialize for DeleteLbRouteExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteLbRouteExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteLbRouteExtensionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `AuthzExtension` is a resource that allows traffic forwarding
 /// to a callout backend service to make an authorization decision.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthzExtension {
     /// Required. Identifier. Name of the `AuthzExtension` resource in the
@@ -5757,8 +6059,31 @@ impl serde::ser::Serialize for AuthzExtension {
     }
 }
 
+impl std::fmt::Debug for AuthzExtension {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthzExtension");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("load_balancing_scheme", &self.load_balancing_scheme);
+        debug_struct.field("authority", &self.authority);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("timeout", &self.timeout);
+        debug_struct.field("fail_open", &self.fail_open);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("forward_headers", &self.forward_headers);
+        debug_struct.field("wire_format", &self.wire_format);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of `AuthzExtension` resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthzExtensionsRequest {
     /// Required. The project and location from which the `AuthzExtension`
@@ -6007,8 +6332,23 @@ impl serde::ser::Serialize for ListAuthzExtensionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAuthzExtensionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuthzExtensionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing `AuthzExtension` resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthzExtensionsResponse {
     /// The list of `AuthzExtension` resources.
@@ -6211,8 +6551,21 @@ impl serde::ser::Serialize for ListAuthzExtensionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAuthzExtensionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuthzExtensionsResponse");
+        debug_struct.field("authz_extensions", &self.authz_extensions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a `AuthzExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAuthzExtensionRequest {
     /// Required. A name of the `AuthzExtension` resource to get. Must be in
@@ -6343,8 +6696,19 @@ impl serde::ser::Serialize for GetAuthzExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for GetAuthzExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAuthzExtensionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a `AuthzExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAuthzExtensionRequest {
     /// Required. The parent resource of the `AuthzExtension` resource. Must
@@ -6576,8 +6940,22 @@ impl serde::ser::Serialize for CreateAuthzExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAuthzExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAuthzExtensionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("authz_extension_id", &self.authz_extension_id);
+        debug_struct.field("authz_extension", &self.authz_extension);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a `AuthzExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAuthzExtensionRequest {
     /// Required. Used to specify the fields to be overwritten in the
@@ -6795,8 +7173,21 @@ impl serde::ser::Serialize for UpdateAuthzExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAuthzExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAuthzExtensionRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("authz_extension", &self.authz_extension);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a `AuthzExtension` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAuthzExtensionRequest {
     /// Required. The name of the `AuthzExtension` resource to delete. Must
@@ -6963,11 +7354,23 @@ impl serde::ser::Serialize for DeleteAuthzExtensionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAuthzExtensionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAuthzExtensionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// EndpointPolicy is a resource that helps apply desired configuration
 /// on the endpoints that match specific criteria.
 /// For example, this resource can be used to apply "authentication config"
 /// an all endpoints that serve on port 8080.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EndpointPolicy {
     /// Identifier. Name of the EndpointPolicy resource. It matches pattern
@@ -7432,6 +7835,27 @@ impl serde::ser::Serialize for EndpointPolicy {
     }
 }
 
+impl std::fmt::Debug for EndpointPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EndpointPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("authorization_policy", &self.authorization_policy);
+        debug_struct.field("endpoint_matcher", &self.endpoint_matcher);
+        debug_struct.field("traffic_port_selector", &self.traffic_port_selector);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("server_tls_policy", &self.server_tls_policy);
+        debug_struct.field("client_tls_policy", &self.client_tls_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EndpointPolicy].
 pub mod endpoint_policy {
     #[allow(unused_imports)]
@@ -7571,7 +7995,7 @@ pub mod endpoint_policy {
 }
 
 /// Request used with the ListEndpointPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEndpointPoliciesRequest {
     /// Required. The project and location from which the EndpointPolicies should
@@ -7799,8 +8223,22 @@ impl serde::ser::Serialize for ListEndpointPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListEndpointPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEndpointPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListEndpointPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEndpointPoliciesResponse {
     /// List of EndpointPolicy resources.
@@ -8010,8 +8448,21 @@ impl serde::ser::Serialize for ListEndpointPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListEndpointPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEndpointPoliciesResponse");
+        debug_struct.field("endpoint_policies", &self.endpoint_policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used with the GetEndpointPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEndpointPolicyRequest {
     /// Required. A name of the EndpointPolicy to get. Must be in the format
@@ -8141,8 +8592,19 @@ impl serde::ser::Serialize for GetEndpointPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetEndpointPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEndpointPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used with the CreateEndpointPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEndpointPolicyRequest {
     /// Required. The parent resource of the EndpointPolicy. Must be in the
@@ -8338,8 +8800,21 @@ impl serde::ser::Serialize for CreateEndpointPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateEndpointPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEndpointPolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("endpoint_policy_id", &self.endpoint_policy_id);
+        debug_struct.field("endpoint_policy", &self.endpoint_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used with the UpdateEndpointPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEndpointPolicyRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -8521,8 +8996,20 @@ impl serde::ser::Serialize for UpdateEndpointPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateEndpointPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEndpointPolicyRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("endpoint_policy", &self.endpoint_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used with the DeleteEndpointPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEndpointPolicyRequest {
     /// Required. A name of the EndpointPolicy to delete. Must be in the format
@@ -8652,9 +9139,20 @@ impl serde::ser::Serialize for DeleteEndpointPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteEndpointPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteEndpointPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `WasmPlugin` is a resource representing a service executing
 /// a customer-provided Wasm module.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WasmPlugin {
     /// Identifier. Name of the `WasmPlugin` resource in the following format:
@@ -9070,6 +9568,25 @@ impl serde::ser::Serialize for WasmPlugin {
     }
 }
 
+impl std::fmt::Debug for WasmPlugin {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WasmPlugin");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("main_version_id", &self.main_version_id);
+        debug_struct.field("log_config", &self.log_config);
+        debug_struct.field("versions", &self.versions);
+        debug_struct.field("used_by", &self.used_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WasmPlugin].
 pub mod wasm_plugin {
     #[allow(unused_imports)]
@@ -9077,7 +9594,7 @@ pub mod wasm_plugin {
 
     /// Details of a `WasmPluginVersion` resource to be inlined in the
     /// `WasmPlugin` resource.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VersionDetails {
         /// Output only. The timestamp when the resource was created.
@@ -9559,6 +10076,24 @@ pub mod wasm_plugin {
         }
     }
 
+    impl std::fmt::Debug for VersionDetails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VersionDetails");
+            debug_struct.field("create_time", &self.create_time);
+            debug_struct.field("update_time", &self.update_time);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("labels", &self.labels);
+            debug_struct.field("image_uri", &self.image_uri);
+            debug_struct.field("image_digest", &self.image_digest);
+            debug_struct.field("plugin_config_digest", &self.plugin_config_digest);
+            debug_struct.field("plugin_config_source", &self.plugin_config_source);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [VersionDetails].
     pub mod version_details {
         #[allow(unused_imports)]
@@ -9587,7 +10122,7 @@ pub mod wasm_plugin {
     /// Specifies the logging options for the activity performed by this
     /// plugin. If logging is enabled, plugin logs are exported to
     /// Cloud Logging.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LogConfig {
         /// Optional. Specifies whether to enable logging for activity by this
@@ -9813,6 +10348,19 @@ pub mod wasm_plugin {
         }
     }
 
+    impl std::fmt::Debug for LogConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LogConfig");
+            debug_struct.field("enable", &self.enable);
+            debug_struct.field("sample_rate", &self.sample_rate);
+            debug_struct.field("min_log_level", &self.min_log_level);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [LogConfig].
     pub mod log_config {
         #[allow(unused_imports)]
@@ -9984,7 +10532,7 @@ pub mod wasm_plugin {
     }
 
     /// Defines a resource that uses the `WasmPlugin` resource.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UsedBy {
         /// Output only. Full name of the resource
@@ -10117,11 +10665,22 @@ pub mod wasm_plugin {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for UsedBy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UsedBy");
+            debug_struct.field("name", &self.name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A single immutable version of a `WasmPlugin` resource.
 /// Defines the Wasm module used and optionally its runtime config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WasmPluginVersion {
     /// Identifier. Name of the `WasmPluginVersion` resource in the following
@@ -10611,6 +11170,25 @@ impl serde::ser::Serialize for WasmPluginVersion {
     }
 }
 
+impl std::fmt::Debug for WasmPluginVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WasmPluginVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("image_uri", &self.image_uri);
+        debug_struct.field("image_digest", &self.image_digest);
+        debug_struct.field("plugin_config_digest", &self.plugin_config_digest);
+        debug_struct.field("plugin_config_source", &self.plugin_config_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WasmPluginVersion].
 pub mod wasm_plugin_version {
     #[allow(unused_imports)]
@@ -10636,7 +11214,7 @@ pub mod wasm_plugin_version {
 }
 
 /// Request used with the `ListWasmPlugins` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWasmPluginsRequest {
     /// Required. The project and location from which the `WasmPlugin` resources
@@ -10840,8 +11418,21 @@ impl serde::ser::Serialize for ListWasmPluginsRequest {
     }
 }
 
+impl std::fmt::Debug for ListWasmPluginsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWasmPluginsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the `ListWasmPlugins` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWasmPluginsResponse {
     /// List of `WasmPlugin` resources.
@@ -11045,8 +11636,21 @@ impl serde::ser::Serialize for ListWasmPluginsResponse {
     }
 }
 
+impl std::fmt::Debug for ListWasmPluginsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWasmPluginsResponse");
+        debug_struct.field("wasm_plugins", &self.wasm_plugins);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the `GetWasmPlugin` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWasmPluginRequest {
     /// Required. A name of the `WasmPlugin` resource to get. Must be in the
@@ -11201,8 +11805,20 @@ impl serde::ser::Serialize for GetWasmPluginRequest {
     }
 }
 
+impl std::fmt::Debug for GetWasmPluginRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWasmPluginRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the `CreateWasmPlugin` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWasmPluginRequest {
     /// Required. The parent resource of the `WasmPlugin` resource. Must be in the
@@ -11393,8 +12009,21 @@ impl serde::ser::Serialize for CreateWasmPluginRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWasmPluginRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWasmPluginRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("wasm_plugin_id", &self.wasm_plugin_id);
+        debug_struct.field("wasm_plugin", &self.wasm_plugin);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the `UpdateWasmPlugin` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWasmPluginRequest {
     /// Optional. Used to specify the fields to be overwritten in the
@@ -11580,8 +12209,20 @@ impl serde::ser::Serialize for UpdateWasmPluginRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateWasmPluginRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateWasmPluginRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("wasm_plugin", &self.wasm_plugin);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the `DeleteWasmPlugin` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWasmPluginRequest {
     /// Required. A name of the `WasmPlugin` resource to delete. Must be in the
@@ -11711,8 +12352,19 @@ impl serde::ser::Serialize for DeleteWasmPluginRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteWasmPluginRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWasmPluginRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used with the `ListWasmPluginVersions` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWasmPluginVersionsRequest {
     /// Required. The `WasmPlugin` resource whose `WasmPluginVersion`s
@@ -11917,8 +12569,21 @@ impl serde::ser::Serialize for ListWasmPluginVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListWasmPluginVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWasmPluginVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the `ListWasmPluginVersions` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWasmPluginVersionsResponse {
     /// List of `WasmPluginVersion` resources.
@@ -12126,8 +12791,21 @@ impl serde::ser::Serialize for ListWasmPluginVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListWasmPluginVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWasmPluginVersionsResponse");
+        debug_struct.field("wasm_plugin_versions", &self.wasm_plugin_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the `GetWasmPluginVersion` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWasmPluginVersionRequest {
     /// Required. A name of the `WasmPluginVersion` resource to get. Must be in
@@ -12258,8 +12936,19 @@ impl serde::ser::Serialize for GetWasmPluginVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetWasmPluginVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWasmPluginVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the `CreateWasmPluginVersion` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWasmPluginVersionRequest {
     /// Required. The parent resource of the `WasmPluginVersion` resource. Must be
@@ -12456,8 +13145,21 @@ impl serde::ser::Serialize for CreateWasmPluginVersionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWasmPluginVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWasmPluginVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("wasm_plugin_version_id", &self.wasm_plugin_version_id);
+        debug_struct.field("wasm_plugin_version", &self.wasm_plugin_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the `DeleteWasmPluginVersion` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWasmPluginVersionRequest {
     /// Required. A name of the `WasmPluginVersion` resource to delete. Must be in
@@ -12588,11 +13290,22 @@ impl serde::ser::Serialize for DeleteWasmPluginVersionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteWasmPluginVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWasmPluginVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Gateway represents the configuration for a proxy, typically a load balancer.
 /// It captures the ip:port over which the services are exposed by the proxy,
 /// along with any policy configurations. Routes have reference to to Gateways to
 /// dictate how requests should be routed by this Gateway.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Gateway {
     /// Identifier. Name of the Gateway resource. It matches pattern
@@ -13266,6 +13979,34 @@ impl serde::ser::Serialize for Gateway {
     }
 }
 
+impl std::fmt::Debug for Gateway {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Gateway");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("addresses", &self.addresses);
+        debug_struct.field("ports", &self.ports);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("server_tls_policy", &self.server_tls_policy);
+        debug_struct.field("certificate_urls", &self.certificate_urls);
+        debug_struct.field("gateway_security_policy", &self.gateway_security_policy);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("subnetwork", &self.subnetwork);
+        debug_struct.field("ip_version", &self.ip_version);
+        debug_struct.field("envoy_headers", &self.envoy_headers);
+        debug_struct.field("routing_mode", &self.routing_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Gateway].
 pub mod gateway {
     #[allow(unused_imports)]
@@ -13680,7 +14421,7 @@ pub mod gateway {
 }
 
 /// Request used with the ListGateways method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGatewaysRequest {
     /// Required. The project and location from which the Gateways should be
@@ -13880,8 +14621,21 @@ impl serde::ser::Serialize for ListGatewaysRequest {
     }
 }
 
+impl std::fmt::Debug for ListGatewaysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGatewaysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListGateways method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGatewaysResponse {
     /// List of Gateway resources.
@@ -14081,8 +14835,21 @@ impl serde::ser::Serialize for ListGatewaysResponse {
     }
 }
 
+impl std::fmt::Debug for ListGatewaysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGatewaysResponse");
+        debug_struct.field("gateways", &self.gateways);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the GetGateway method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGatewayRequest {
     /// Required. A name of the Gateway to get. Must be in the format
@@ -14212,8 +14979,19 @@ impl serde::ser::Serialize for GetGatewayRequest {
     }
 }
 
+impl std::fmt::Debug for GetGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGatewayRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the CreateGateway method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGatewayRequest {
     /// Required. The parent resource of the Gateway. Must be in the
@@ -14403,8 +15181,21 @@ impl serde::ser::Serialize for CreateGatewayRequest {
     }
 }
 
+impl std::fmt::Debug for CreateGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGatewayRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("gateway_id", &self.gateway_id);
+        debug_struct.field("gateway", &self.gateway);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the UpdateGateway method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGatewayRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -14584,8 +15375,20 @@ impl serde::ser::Serialize for UpdateGatewayRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGatewayRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("gateway", &self.gateway);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the DeleteGateway method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGatewayRequest {
     /// Required. A name of the Gateway to delete. Must be in the format
@@ -14715,9 +15518,20 @@ impl serde::ser::Serialize for DeleteGatewayRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGatewayRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GrpcRoute is the resource defining how gRPC traffic routed by a Mesh
 /// or Gateway resource is routed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GrpcRoute {
     /// Identifier. Name of the GrpcRoute resource. It matches pattern
@@ -15160,13 +15974,33 @@ impl serde::ser::Serialize for GrpcRoute {
     }
 }
 
+impl std::fmt::Debug for GrpcRoute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GrpcRoute");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("hostnames", &self.hostnames);
+        debug_struct.field("meshes", &self.meshes);
+        debug_struct.field("gateways", &self.gateways);
+        debug_struct.field("rules", &self.rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GrpcRoute].
 pub mod grpc_route {
     #[allow(unused_imports)]
     use super::*;
 
     /// Specifies a match against a method.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MethodMatch {
         /// Optional. Specifies how to match against the name. If not specified, a
@@ -15397,6 +16231,20 @@ pub mod grpc_route {
         }
     }
 
+    impl std::fmt::Debug for MethodMatch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MethodMatch");
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("grpc_service", &self.grpc_service);
+            debug_struct.field("grpc_method", &self.grpc_method);
+            debug_struct.field("case_sensitive", &self.case_sensitive);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [MethodMatch].
     pub mod method_match {
         #[allow(unused_imports)]
@@ -15540,7 +16388,7 @@ pub mod grpc_route {
     }
 
     /// A match against a collection of headers.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HeaderMatch {
         /// Optional. Specifies how to match against the value of the header. If not
@@ -15726,6 +16574,19 @@ pub mod grpc_route {
         }
     }
 
+    impl std::fmt::Debug for HeaderMatch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("HeaderMatch");
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("key", &self.key);
+            debug_struct.field("value", &self.value);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [HeaderMatch].
     pub mod header_match {
         #[allow(unused_imports)]
@@ -15870,7 +16731,7 @@ pub mod grpc_route {
 
     /// Criteria for matching traffic. A RouteMatch will be considered to match
     /// when all supplied fields match.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteMatch {
         /// Optional. A gRPC method to match against. If this field is empty or
@@ -16045,8 +16906,20 @@ pub mod grpc_route {
         }
     }
 
+    impl std::fmt::Debug for RouteMatch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteMatch");
+            debug_struct.field("method", &self.method);
+            debug_struct.field("headers", &self.headers);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The destination to which traffic will be routed.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Destination {
         /// Optional. Specifies the proportion of requests forwarded to the backend
@@ -16295,6 +17168,18 @@ pub mod grpc_route {
         }
     }
 
+    impl std::fmt::Debug for Destination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Destination");
+            debug_struct.field("weight", &self.weight);
+            debug_struct.field("destination_type", &self.destination_type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Destination].
     pub mod destination {
         #[allow(unused_imports)]
@@ -16316,7 +17201,7 @@ pub mod grpc_route {
     /// introduced on a percentage of requests before sending those requests to the
     /// destination service. Similarly requests from clients can be aborted by for
     /// a percentage of requests.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FaultInjectionPolicy {
         /// The specification for injecting delay to client requests.
@@ -16496,6 +17381,18 @@ pub mod grpc_route {
         }
     }
 
+    impl std::fmt::Debug for FaultInjectionPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FaultInjectionPolicy");
+            debug_struct.field("delay", &self.delay);
+            debug_struct.field("abort", &self.abort);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [FaultInjectionPolicy].
     pub mod fault_injection_policy {
         #[allow(unused_imports)]
@@ -16503,7 +17400,7 @@ pub mod grpc_route {
 
         /// Specification of how client requests are delayed as part of fault
         /// injection before being sent to a destination.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Delay {
             /// Specify a fixed delay before forwarding the request.
@@ -16715,9 +17612,21 @@ pub mod grpc_route {
             }
         }
 
+        impl std::fmt::Debug for Delay {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Delay");
+                debug_struct.field("fixed_delay", &self.fixed_delay);
+                debug_struct.field("percentage", &self.percentage);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Specification of how client requests are aborted as part of fault
         /// injection before being sent to a destination.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Abort {
             /// The HTTP status code used to abort the request.
@@ -16954,6 +17863,18 @@ pub mod grpc_route {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Abort {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Abort");
+                debug_struct.field("http_status", &self.http_status);
+                debug_struct.field("percentage", &self.percentage);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// The specification for cookie-based stateful session affinity where the
@@ -16965,7 +17886,7 @@ pub mod grpc_route {
     /// The gRPC proxyless mesh library or sidecar proxy will manage the session
     /// cookie but the client application code is responsible for copying the
     /// cookie from each RPC in the session to the next.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StatefulSessionAffinityPolicy {
         /// Required. The cookie TTL value for the Set-Cookie header generated by the
@@ -17113,10 +18034,21 @@ pub mod grpc_route {
         }
     }
 
+    impl std::fmt::Debug for StatefulSessionAffinityPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StatefulSessionAffinityPolicy");
+            debug_struct.field("cookie_ttl", &self.cookie_ttl);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The specifications for retries.
     /// Specifies one or more conditions for which this retry rule applies. Valid
     /// values are:
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RetryPolicy {
         /// - connect-failure: Router will retry on failures connecting to Backend
@@ -17312,8 +18244,20 @@ pub mod grpc_route {
         }
     }
 
+    impl std::fmt::Debug for RetryPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RetryPolicy");
+            debug_struct.field("retry_conditions", &self.retry_conditions);
+            debug_struct.field("num_retries", &self.num_retries);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Specifies how to route matched traffic.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteAction {
         /// Optional. The destination services to which traffic should be forwarded.
@@ -17664,8 +18608,24 @@ pub mod grpc_route {
         }
     }
 
+    impl std::fmt::Debug for RouteAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteAction");
+            debug_struct.field("destinations", &self.destinations);
+            debug_struct.field("fault_injection_policy", &self.fault_injection_policy);
+            debug_struct.field("timeout", &self.timeout);
+            debug_struct.field("retry_policy", &self.retry_policy);
+            debug_struct.field("stateful_session_affinity", &self.stateful_session_affinity);
+            debug_struct.field("idle_timeout", &self.idle_timeout);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Describes how to route traffic.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteRule {
         /// Optional. Matches define conditions used for matching the rule against
@@ -17842,10 +18802,22 @@ pub mod grpc_route {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for RouteRule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteRule");
+            debug_struct.field("matches", &self.matches);
+            debug_struct.field("action", &self.action);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request used with the ListGrpcRoutes method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGrpcRoutesRequest {
     /// Required. The project and location from which the GrpcRoutes should be
@@ -18072,8 +19044,22 @@ impl serde::ser::Serialize for ListGrpcRoutesRequest {
     }
 }
 
+impl std::fmt::Debug for ListGrpcRoutesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGrpcRoutesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListGrpcRoutes method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGrpcRoutesResponse {
     /// List of GrpcRoute resources.
@@ -18279,8 +19265,21 @@ impl serde::ser::Serialize for ListGrpcRoutesResponse {
     }
 }
 
+impl std::fmt::Debug for ListGrpcRoutesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGrpcRoutesResponse");
+        debug_struct.field("grpc_routes", &self.grpc_routes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the GetGrpcRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGrpcRouteRequest {
     /// Required. A name of the GrpcRoute to get. Must be in the format
@@ -18410,8 +19409,19 @@ impl serde::ser::Serialize for GetGrpcRouteRequest {
     }
 }
 
+impl std::fmt::Debug for GetGrpcRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGrpcRouteRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the CreateGrpcRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGrpcRouteRequest {
     /// Required. The parent resource of the GrpcRoute. Must be in the
@@ -18602,8 +19612,21 @@ impl serde::ser::Serialize for CreateGrpcRouteRequest {
     }
 }
 
+impl std::fmt::Debug for CreateGrpcRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGrpcRouteRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("grpc_route_id", &self.grpc_route_id);
+        debug_struct.field("grpc_route", &self.grpc_route);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the UpdateGrpcRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGrpcRouteRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -18784,8 +19807,20 @@ impl serde::ser::Serialize for UpdateGrpcRouteRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateGrpcRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGrpcRouteRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("grpc_route", &self.grpc_route);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the DeleteGrpcRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGrpcRouteRequest {
     /// Required. A name of the GrpcRoute to delete. Must be in the format
@@ -18915,9 +19950,20 @@ impl serde::ser::Serialize for DeleteGrpcRouteRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteGrpcRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGrpcRouteRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// HttpRoute is the resource defining how HTTP traffic should be routed by a
 /// Mesh or Gateway resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRoute {
     /// Identifier. Name of the HttpRoute resource. It matches pattern
@@ -19353,13 +20399,33 @@ impl serde::ser::Serialize for HttpRoute {
     }
 }
 
+impl std::fmt::Debug for HttpRoute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpRoute");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("hostnames", &self.hostnames);
+        debug_struct.field("meshes", &self.meshes);
+        debug_struct.field("gateways", &self.gateways);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("rules", &self.rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [HttpRoute].
 pub mod http_route {
     #[allow(unused_imports)]
     use super::*;
 
     /// Specifies how to select a route rule based on HTTP request headers.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HeaderMatch {
         /// The name of the HTTP header to match against.
@@ -19849,13 +20915,26 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for HeaderMatch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("HeaderMatch");
+            debug_struct.field("header", &self.header);
+            debug_struct.field("invert_match", &self.invert_match);
+            debug_struct.field("match_type", &self.match_type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [HeaderMatch].
     pub mod header_match {
         #[allow(unused_imports)]
         use super::*;
 
         /// Represents an integer value range.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct IntegerRange {
             /// Start of the range (inclusive)
@@ -20057,6 +21136,18 @@ pub mod http_route {
             }
         }
 
+        impl std::fmt::Debug for IntegerRange {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("IntegerRange");
+                debug_struct.field("start", &self.start);
+                debug_struct.field("end", &self.end);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum MatchType {
@@ -20081,7 +21172,7 @@ pub mod http_route {
     }
 
     /// Specifications to match a query parameter in the request.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueryParameterMatch {
         /// The name of the query parameter to match.
@@ -20380,6 +21471,18 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for QueryParameterMatch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QueryParameterMatch");
+            debug_struct.field("query_parameter", &self.query_parameter);
+            debug_struct.field("match_type", &self.match_type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [QueryParameterMatch].
     pub mod query_parameter_match {
         #[allow(unused_imports)]
@@ -20411,7 +21514,7 @@ pub mod http_route {
     /// RouteMatch defines specifications used to match requests. If multiple match
     /// types are set, this RouteMatch will match if ALL type of matches are
     /// matched.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteMatch {
         /// Specifies if prefix_match and full_path_match matches are case sensitive.
@@ -20786,6 +21889,20 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for RouteMatch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteMatch");
+            debug_struct.field("ignore_case", &self.ignore_case);
+            debug_struct.field("headers", &self.headers);
+            debug_struct.field("query_parameters", &self.query_parameters);
+            debug_struct.field("path_match", &self.path_match);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [RouteMatch].
     pub mod route_match {
         #[allow(unused_imports)]
@@ -20817,7 +21934,7 @@ pub mod http_route {
     }
 
     /// Specifications of a destination to which the request should be routed to.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Destination {
         /// The URL of a BackendService to route traffic to.
@@ -21100,8 +22217,22 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for Destination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Destination");
+            debug_struct.field("service_name", &self.service_name);
+            debug_struct.field("weight", &self.weight);
+            debug_struct.field("request_header_modifier", &self.request_header_modifier);
+            debug_struct.field("response_header_modifier", &self.response_header_modifier);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The specification for redirecting traffic.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Redirect {
         /// The host that will be used in the redirect response instead of the one
@@ -21435,6 +22566,23 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for Redirect {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Redirect");
+            debug_struct.field("host_redirect", &self.host_redirect);
+            debug_struct.field("path_redirect", &self.path_redirect);
+            debug_struct.field("prefix_rewrite", &self.prefix_rewrite);
+            debug_struct.field("response_code", &self.response_code);
+            debug_struct.field("https_redirect", &self.https_redirect);
+            debug_struct.field("strip_query", &self.strip_query);
+            debug_struct.field("port_redirect", &self.port_redirect);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Redirect].
     pub mod redirect {
         #[allow(unused_imports)]
@@ -21605,7 +22753,7 @@ pub mod http_route {
     /// introduced by client proxy on a percentage of requests before sending those
     /// requests to the destination service. Similarly requests can be aborted by
     /// client proxy for a percentage of requests.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FaultInjectionPolicy {
         /// The specification for injecting delay to client requests.
@@ -21785,6 +22933,18 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for FaultInjectionPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FaultInjectionPolicy");
+            debug_struct.field("delay", &self.delay);
+            debug_struct.field("abort", &self.abort);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [FaultInjectionPolicy].
     pub mod fault_injection_policy {
         #[allow(unused_imports)]
@@ -21792,7 +22952,7 @@ pub mod http_route {
 
         /// Specification of how client requests are delayed as part of fault
         /// injection before being sent to a destination.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Delay {
             /// Specify a fixed delay before forwarding the request.
@@ -21991,9 +23151,21 @@ pub mod http_route {
             }
         }
 
+        impl std::fmt::Debug for Delay {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Delay");
+                debug_struct.field("fixed_delay", &self.fixed_delay);
+                debug_struct.field("percentage", &self.percentage);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Specification of how client requests are aborted as part of fault
         /// injection before being sent to a destination.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Abort {
             /// The HTTP status code used to abort the request.
@@ -22204,6 +23376,18 @@ pub mod http_route {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Abort {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Abort");
+                debug_struct.field("http_status", &self.http_status);
+                debug_struct.field("percentage", &self.percentage);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// The specification for cookie-based stateful session affinity where the
@@ -22215,7 +23399,7 @@ pub mod http_route {
     /// The gRPC proxyless mesh library or sidecar proxy will manage the session
     /// cookie but the client application code is responsible for copying the
     /// cookie from each RPC in the session to the next.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StatefulSessionAffinityPolicy {
         /// Required. The cookie TTL value for the Set-Cookie header generated by
@@ -22363,9 +23547,20 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for StatefulSessionAffinityPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StatefulSessionAffinityPolicy");
+            debug_struct.field("cookie_ttl", &self.cookie_ttl);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The specification for modifying HTTP header in HTTP request and HTTP
     /// response.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HeaderModifier {
         /// Completely overwrite/replace the headers with given map where key is the
@@ -22572,9 +23767,22 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for HeaderModifier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("HeaderModifier");
+            debug_struct.field("set", &self.set);
+            debug_struct.field("add", &self.add);
+            debug_struct.field("remove", &self.remove);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The specification for modifying the URL of the request, prior to forwarding
     /// the request to the destination.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct URLRewrite {
         /// Prior to forwarding the request to the selected destination, the matching
@@ -22740,8 +23948,20 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for URLRewrite {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("URLRewrite");
+            debug_struct.field("path_prefix_rewrite", &self.path_prefix_rewrite);
+            debug_struct.field("host_rewrite", &self.host_rewrite);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The specifications for retries.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RetryPolicy {
         /// Specifies one or more conditions when this retry policy applies. Valid
@@ -22979,12 +24199,25 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for RetryPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RetryPolicy");
+            debug_struct.field("retry_conditions", &self.retry_conditions);
+            debug_struct.field("num_retries", &self.num_retries);
+            debug_struct.field("per_try_timeout", &self.per_try_timeout);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Specifies the policy on how requests are shadowed to a separate mirrored
     /// destination service. The proxy does not wait for responses from the
     /// shadow service. Prior to sending traffic to the shadow service, the
     /// host/authority header is suffixed with -shadow.
     /// Mirroring is currently not supported for Cloud Run destinations.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RequestMirrorPolicy {
         /// The destination the requests will be mirrored to. The weight of the
@@ -23173,8 +24406,20 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for RequestMirrorPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RequestMirrorPolicy");
+            debug_struct.field("destination", &self.destination);
+            debug_struct.field("mirror_percent", &self.mirror_percent);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The Specification for allowing client side cross-origin requests.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CorsPolicy {
         /// Specifies the list of origins that will be allowed to do CORS requests.
@@ -23506,8 +24751,26 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for CorsPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CorsPolicy");
+            debug_struct.field("allow_origins", &self.allow_origins);
+            debug_struct.field("allow_origin_regexes", &self.allow_origin_regexes);
+            debug_struct.field("allow_methods", &self.allow_methods);
+            debug_struct.field("allow_headers", &self.allow_headers);
+            debug_struct.field("expose_headers", &self.expose_headers);
+            debug_struct.field("max_age", &self.max_age);
+            debug_struct.field("allow_credentials", &self.allow_credentials);
+            debug_struct.field("disabled", &self.disabled);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Static HTTP response object to be returned.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HttpDirectResponse {
         /// Required. Status to return as part of HTTP Response. Must be a positive
@@ -23799,6 +25062,18 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for HttpDirectResponse {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("HttpDirectResponse");
+            debug_struct.field("status", &self.status);
+            debug_struct.field("http_body", &self.http_body);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [HttpDirectResponse].
     pub mod http_direct_response {
         #[allow(unused_imports)]
@@ -23817,7 +25092,7 @@ pub mod http_route {
     }
 
     /// The specifications for routing traffic and applying associated policies.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteAction {
         /// The destination to which traffic should be forwarded.
@@ -24444,9 +25719,32 @@ pub mod http_route {
         }
     }
 
+    impl std::fmt::Debug for RouteAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteAction");
+            debug_struct.field("destinations", &self.destinations);
+            debug_struct.field("redirect", &self.redirect);
+            debug_struct.field("fault_injection_policy", &self.fault_injection_policy);
+            debug_struct.field("request_header_modifier", &self.request_header_modifier);
+            debug_struct.field("response_header_modifier", &self.response_header_modifier);
+            debug_struct.field("url_rewrite", &self.url_rewrite);
+            debug_struct.field("timeout", &self.timeout);
+            debug_struct.field("retry_policy", &self.retry_policy);
+            debug_struct.field("request_mirror_policy", &self.request_mirror_policy);
+            debug_struct.field("cors_policy", &self.cors_policy);
+            debug_struct.field("stateful_session_affinity", &self.stateful_session_affinity);
+            debug_struct.field("direct_response", &self.direct_response);
+            debug_struct.field("idle_timeout", &self.idle_timeout);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Specifies how to match traffic and how to route traffic when traffic is
     /// matched.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteRule {
         /// A list of matches define conditions used for matching the rule against
@@ -24627,10 +25925,22 @@ pub mod http_route {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for RouteRule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteRule");
+            debug_struct.field("matches", &self.matches);
+            debug_struct.field("action", &self.action);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request used with the ListHttpRoutes method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHttpRoutesRequest {
     /// Required. The project and location from which the HttpRoutes should be
@@ -24857,8 +26167,22 @@ impl serde::ser::Serialize for ListHttpRoutesRequest {
     }
 }
 
+impl std::fmt::Debug for ListHttpRoutesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHttpRoutesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListHttpRoutes method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHttpRoutesResponse {
     /// List of HttpRoute resources.
@@ -25064,8 +26388,21 @@ impl serde::ser::Serialize for ListHttpRoutesResponse {
     }
 }
 
+impl std::fmt::Debug for ListHttpRoutesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHttpRoutesResponse");
+        debug_struct.field("http_routes", &self.http_routes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the GetHttpRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetHttpRouteRequest {
     /// Required. A name of the HttpRoute to get. Must be in the format
@@ -25195,8 +26532,19 @@ impl serde::ser::Serialize for GetHttpRouteRequest {
     }
 }
 
+impl std::fmt::Debug for GetHttpRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetHttpRouteRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the HttpRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateHttpRouteRequest {
     /// Required. The parent resource of the HttpRoute. Must be in the
@@ -25387,8 +26735,21 @@ impl serde::ser::Serialize for CreateHttpRouteRequest {
     }
 }
 
+impl std::fmt::Debug for CreateHttpRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateHttpRouteRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("http_route_id", &self.http_route_id);
+        debug_struct.field("http_route", &self.http_route);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the UpdateHttpRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateHttpRouteRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -25569,8 +26930,20 @@ impl serde::ser::Serialize for UpdateHttpRouteRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateHttpRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateHttpRouteRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("http_route", &self.http_route);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the DeleteHttpRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteHttpRouteRequest {
     /// Required. A name of the HttpRoute to delete. Must be in the format
@@ -25700,10 +27073,21 @@ impl serde::ser::Serialize for DeleteHttpRouteRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteHttpRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteHttpRouteRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Mesh represents a logical configuration grouping for workload to workload
 /// communication within a service mesh. Routes that point to mesh dictate how
 /// requests are routed within this logical mesh boundary.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Mesh {
     /// Identifier. Name of the Mesh resource. It matches pattern
@@ -26077,8 +27461,26 @@ impl serde::ser::Serialize for Mesh {
     }
 }
 
+impl std::fmt::Debug for Mesh {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Mesh");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("interception_port", &self.interception_port);
+        debug_struct.field("envoy_headers", &self.envoy_headers);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used with the ListMeshes method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMeshesRequest {
     /// Required. The project and location from which the Meshes should be
@@ -26305,8 +27707,22 @@ impl serde::ser::Serialize for ListMeshesRequest {
     }
 }
 
+impl std::fmt::Debug for ListMeshesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMeshesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListMeshes method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMeshesResponse {
     /// List of Mesh resources.
@@ -26508,8 +27924,21 @@ impl serde::ser::Serialize for ListMeshesResponse {
     }
 }
 
+impl std::fmt::Debug for ListMeshesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMeshesResponse");
+        debug_struct.field("meshes", &self.meshes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the GetMesh method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMeshRequest {
     /// Required. A name of the Mesh to get. Must be in the format
@@ -26639,8 +28068,19 @@ impl serde::ser::Serialize for GetMeshRequest {
     }
 }
 
+impl std::fmt::Debug for GetMeshRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMeshRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the CreateMesh method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMeshRequest {
     /// Required. The parent resource of the Mesh. Must be in the
@@ -26830,8 +28270,21 @@ impl serde::ser::Serialize for CreateMeshRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMeshRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMeshRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("mesh_id", &self.mesh_id);
+        debug_struct.field("mesh", &self.mesh);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the UpdateMesh method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateMeshRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -27011,8 +28464,20 @@ impl serde::ser::Serialize for UpdateMeshRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateMeshRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateMeshRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("mesh", &self.mesh);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the DeleteMesh method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMeshRequest {
     /// Required. A name of the Mesh to delete. Must be in the format
@@ -27142,8 +28607,19 @@ impl serde::ser::Serialize for DeleteMeshRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteMeshRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMeshRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GatewayRouteView defines view-only resource for Routes to a Gateway
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GatewayRouteView {
     /// Output only. Identifier. Full path name of the GatewayRouteView resource.
@@ -27393,8 +28869,23 @@ impl serde::ser::Serialize for GatewayRouteView {
     }
 }
 
+impl std::fmt::Debug for GatewayRouteView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GatewayRouteView");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("route_project_number", &self.route_project_number);
+        debug_struct.field("route_location", &self.route_location);
+        debug_struct.field("route_type", &self.route_type);
+        debug_struct.field("route_id", &self.route_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// MeshRouteView defines view-only resource for Routes to a Mesh
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MeshRouteView {
     /// Output only. Identifier. Full path name of the MeshRouteView resource.
@@ -27644,8 +29135,23 @@ impl serde::ser::Serialize for MeshRouteView {
     }
 }
 
+impl std::fmt::Debug for MeshRouteView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MeshRouteView");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("route_project_number", &self.route_project_number);
+        debug_struct.field("route_location", &self.route_location);
+        debug_struct.field("route_type", &self.route_type);
+        debug_struct.field("route_id", &self.route_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used with the GetGatewayRouteView method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGatewayRouteViewRequest {
     /// Required. Name of the GatewayRouteView resource.
@@ -27776,8 +29282,19 @@ impl serde::ser::Serialize for GetGatewayRouteViewRequest {
     }
 }
 
+impl std::fmt::Debug for GetGatewayRouteViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGatewayRouteViewRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used with the GetMeshRouteView method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMeshRouteViewRequest {
     /// Required. Name of the MeshRouteView resource.
@@ -27908,8 +29425,19 @@ impl serde::ser::Serialize for GetMeshRouteViewRequest {
     }
 }
 
+impl std::fmt::Debug for GetMeshRouteViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMeshRouteViewRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used with the ListGatewayRouteViews method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGatewayRouteViewsRequest {
     /// Required. The Gateway to which a Route is associated.
@@ -28110,8 +29638,21 @@ impl serde::ser::Serialize for ListGatewayRouteViewsRequest {
     }
 }
 
+impl std::fmt::Debug for ListGatewayRouteViewsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGatewayRouteViewsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used with the ListMeshRouteViews method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMeshRouteViewsRequest {
     /// Required. The Mesh to which a Route is associated.
@@ -28312,8 +29853,21 @@ impl serde::ser::Serialize for ListMeshRouteViewsRequest {
     }
 }
 
+impl std::fmt::Debug for ListMeshRouteViewsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMeshRouteViewsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListGatewayRouteViews method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGatewayRouteViewsResponse {
     /// List of GatewayRouteView resources.
@@ -28519,8 +30073,21 @@ impl serde::ser::Serialize for ListGatewayRouteViewsResponse {
     }
 }
 
+impl std::fmt::Debug for ListGatewayRouteViewsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGatewayRouteViewsResponse");
+        debug_struct.field("gateway_route_views", &self.gateway_route_views);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListMeshRouteViews method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMeshRouteViewsResponse {
     /// List of MeshRouteView resources.
@@ -28722,6 +30289,19 @@ impl serde::ser::Serialize for ListMeshRouteViewsResponse {
     }
 }
 
+impl std::fmt::Debug for ListMeshRouteViewsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMeshRouteViewsResponse");
+        debug_struct.field("mesh_route_views", &self.mesh_route_views);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ServiceBinding can be used to:
 ///
 /// - Bind a Service Directory Service to be used in a BackendService resource.
@@ -28730,7 +30310,7 @@ impl serde::ser::Serialize for ListMeshRouteViewsResponse {
 ///   Cloud Service Mesh or Application Load Balancers.
 /// - Bind a Cloud Run service to be used in consumer Cloud Service Mesh or
 ///   Application Load Balancers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceBinding {
     /// Identifier. Name of the ServiceBinding resource. It matches pattern
@@ -29052,8 +30632,25 @@ impl serde::ser::Serialize for ServiceBinding {
     }
 }
 
+impl std::fmt::Debug for ServiceBinding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceBinding");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("service_id", &self.service_id);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used with the ListServiceBindings method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceBindingsRequest {
     /// Required. The project and location from which the ServiceBindings should be
@@ -29253,8 +30850,21 @@ impl serde::ser::Serialize for ListServiceBindingsRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceBindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceBindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListServiceBindings method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceBindingsResponse {
     /// List of ServiceBinding resources.
@@ -29461,8 +31071,21 @@ impl serde::ser::Serialize for ListServiceBindingsResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceBindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceBindingsResponse");
+        debug_struct.field("service_bindings", &self.service_bindings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the GetServiceBinding method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceBindingRequest {
     /// Required. A name of the ServiceBinding to get. Must be in the format
@@ -29592,8 +31215,19 @@ impl serde::ser::Serialize for GetServiceBindingRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceBindingRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the ServiceBinding method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceBindingRequest {
     /// Required. The parent resource of the ServiceBinding. Must be in the
@@ -29788,8 +31422,21 @@ impl serde::ser::Serialize for CreateServiceBindingRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceBindingRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("service_binding_id", &self.service_binding_id);
+        debug_struct.field("service_binding", &self.service_binding);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the UpdateServiceBinding method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceBindingRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -29971,8 +31618,20 @@ impl serde::ser::Serialize for UpdateServiceBindingRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceBindingRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("service_binding", &self.service_binding);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the DeleteServiceBinding method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceBindingRequest {
     /// Required. A name of the ServiceBinding to delete. Must be in the format
@@ -30102,9 +31761,20 @@ impl serde::ser::Serialize for DeleteServiceBindingRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceBindingRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ServiceLbPolicy holds global load balancing and traffic distribution
 /// configuration that can be applied to a BackendService.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceLbPolicy {
     /// Identifier. Name of the ServiceLbPolicy resource. It matches pattern
@@ -30515,6 +32185,25 @@ impl serde::ser::Serialize for ServiceLbPolicy {
     }
 }
 
+impl std::fmt::Debug for ServiceLbPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceLbPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("load_balancing_algorithm", &self.load_balancing_algorithm);
+        debug_struct.field("auto_capacity_drain", &self.auto_capacity_drain);
+        debug_struct.field("failover_config", &self.failover_config);
+        debug_struct.field("isolation_config", &self.isolation_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServiceLbPolicy].
 pub mod service_lb_policy {
     #[allow(unused_imports)]
@@ -30522,7 +32211,7 @@ pub mod service_lb_policy {
 
     /// Option to specify if an unhealthy IG/NEG should be considered for global
     /// load balancing and traffic routing.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutoCapacityDrain {
         /// Optional. If set to 'True', an unhealthy IG/NEG will be set as drained.
@@ -30659,9 +32348,20 @@ pub mod service_lb_policy {
         }
     }
 
+    impl std::fmt::Debug for AutoCapacityDrain {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AutoCapacityDrain");
+            debug_struct.field("enable", &self.enable);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Option to specify health based failover behavior.
     /// This is not related to Network load balancer FailoverPolicy.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FailoverConfig {
         /// Optional. The percentage threshold that a load balancer will begin to
@@ -30825,9 +32525,20 @@ pub mod service_lb_policy {
         }
     }
 
+    impl std::fmt::Debug for FailoverConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FailoverConfig");
+            debug_struct.field("failover_health_threshold", &self.failover_health_threshold);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration to provide isolation support for the associated Backend
     /// Service.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IsolationConfig {
         /// Optional. The isolation granularity of the load balancer.
@@ -30996,6 +32707,18 @@ pub mod service_lb_policy {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for IsolationConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IsolationConfig");
+            debug_struct.field("isolation_granularity", &self.isolation_granularity);
+            debug_struct.field("isolation_mode", &self.isolation_mode);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -31416,7 +33139,7 @@ pub mod service_lb_policy {
 }
 
 /// Request used with the ListServiceLbPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceLbPoliciesRequest {
     /// Required. The project and location from which the ServiceLbPolicies should
@@ -31617,8 +33340,21 @@ impl serde::ser::Serialize for ListServiceLbPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceLbPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceLbPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListServiceLbPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceLbPoliciesResponse {
     /// List of ServiceLbPolicy resources.
@@ -31825,8 +33561,21 @@ impl serde::ser::Serialize for ListServiceLbPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceLbPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceLbPoliciesResponse");
+        debug_struct.field("service_lb_policies", &self.service_lb_policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the GetServiceLbPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceLbPolicyRequest {
     /// Required. A name of the ServiceLbPolicy to get. Must be in the format
@@ -31956,8 +33705,19 @@ impl serde::ser::Serialize for GetServiceLbPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceLbPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceLbPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the ServiceLbPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceLbPolicyRequest {
     /// Required. The parent resource of the ServiceLbPolicy. Must be in the
@@ -32155,8 +33915,21 @@ impl serde::ser::Serialize for CreateServiceLbPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceLbPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceLbPolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("service_lb_policy_id", &self.service_lb_policy_id);
+        debug_struct.field("service_lb_policy", &self.service_lb_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the UpdateServiceLbPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceLbPolicyRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -32338,8 +34111,20 @@ impl serde::ser::Serialize for UpdateServiceLbPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceLbPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceLbPolicyRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("service_lb_policy", &self.service_lb_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the DeleteServiceLbPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceLbPolicyRequest {
     /// Required. A name of the ServiceLbPolicy to delete. Must be in the format
@@ -32469,9 +34254,20 @@ impl serde::ser::Serialize for DeleteServiceLbPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceLbPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceLbPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// TcpRoute is the resource defining how TCP traffic should be routed by a
 /// Mesh/Gateway resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TcpRoute {
     /// Identifier. Name of the TcpRoute resource. It matches pattern
@@ -32855,6 +34651,25 @@ impl serde::ser::Serialize for TcpRoute {
     }
 }
 
+impl std::fmt::Debug for TcpRoute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TcpRoute");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("rules", &self.rules);
+        debug_struct.field("meshes", &self.meshes);
+        debug_struct.field("gateways", &self.gateways);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TcpRoute].
 pub mod tcp_route {
     #[allow(unused_imports)]
@@ -32862,7 +34677,7 @@ pub mod tcp_route {
 
     /// Specifies how to match traffic and how to route traffic when traffic is
     /// matched.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteRule {
         /// Optional. RouteMatch defines the predicate used to match requests to a
@@ -33039,11 +34854,23 @@ pub mod tcp_route {
         }
     }
 
+    impl std::fmt::Debug for RouteRule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteRule");
+            debug_struct.field("matches", &self.matches);
+            debug_struct.field("action", &self.action);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// RouteMatch defines the predicate used to match requests to a given action.
     /// Multiple match types are "OR"ed for evaluation.
     /// If no routeMatch field is specified, this rule will unconditionally match
     /// traffic.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteMatch {
         /// Required. Must be specified in the CIDR range format. A CIDR range
@@ -33206,8 +35033,20 @@ pub mod tcp_route {
         }
     }
 
+    impl std::fmt::Debug for RouteMatch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteMatch");
+            debug_struct.field("address", &self.address);
+            debug_struct.field("port", &self.port);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The specifications for routing traffic and applying associated policies.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteAction {
         /// Optional. The destination services to which traffic should be forwarded.
@@ -33415,8 +35254,21 @@ pub mod tcp_route {
         }
     }
 
+    impl std::fmt::Debug for RouteAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteAction");
+            debug_struct.field("destinations", &self.destinations);
+            debug_struct.field("original_destination", &self.original_destination);
+            debug_struct.field("idle_timeout", &self.idle_timeout);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Describe the destination for traffic to be routed to.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteDestination {
         /// Required. The URL of a BackendService to route traffic to.
@@ -33607,10 +35459,22 @@ pub mod tcp_route {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for RouteDestination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteDestination");
+            debug_struct.field("service_name", &self.service_name);
+            debug_struct.field("weight", &self.weight);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request used with the ListTcpRoutes method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTcpRoutesRequest {
     /// Required. The project and location from which the TcpRoutes should be
@@ -33837,8 +35701,22 @@ impl serde::ser::Serialize for ListTcpRoutesRequest {
     }
 }
 
+impl std::fmt::Debug for ListTcpRoutesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTcpRoutesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListTcpRoutes method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTcpRoutesResponse {
     /// List of TcpRoute resources.
@@ -34044,8 +35922,21 @@ impl serde::ser::Serialize for ListTcpRoutesResponse {
     }
 }
 
+impl std::fmt::Debug for ListTcpRoutesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTcpRoutesResponse");
+        debug_struct.field("tcp_routes", &self.tcp_routes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the GetTcpRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTcpRouteRequest {
     /// Required. A name of the TcpRoute to get. Must be in the format
@@ -34175,8 +36066,19 @@ impl serde::ser::Serialize for GetTcpRouteRequest {
     }
 }
 
+impl std::fmt::Debug for GetTcpRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTcpRouteRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the TcpRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTcpRouteRequest {
     /// Required. The parent resource of the TcpRoute. Must be in the
@@ -34367,8 +36269,21 @@ impl serde::ser::Serialize for CreateTcpRouteRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTcpRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTcpRouteRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tcp_route_id", &self.tcp_route_id);
+        debug_struct.field("tcp_route", &self.tcp_route);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the UpdateTcpRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTcpRouteRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -34549,8 +36464,20 @@ impl serde::ser::Serialize for UpdateTcpRouteRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTcpRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTcpRouteRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("tcp_route", &self.tcp_route);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the DeleteTcpRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTcpRouteRequest {
     /// Required. A name of the TcpRoute to delete. Must be in the format
@@ -34680,9 +36607,20 @@ impl serde::ser::Serialize for DeleteTcpRouteRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTcpRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTcpRouteRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// TlsRoute defines how traffic should be routed based on SNI and other matching
 /// L3 attributes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TlsRoute {
     /// Identifier. Name of the TlsRoute resource. It matches pattern
@@ -35066,6 +37004,25 @@ impl serde::ser::Serialize for TlsRoute {
     }
 }
 
+impl std::fmt::Debug for TlsRoute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TlsRoute");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("rules", &self.rules);
+        debug_struct.field("meshes", &self.meshes);
+        debug_struct.field("gateways", &self.gateways);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TlsRoute].
 pub mod tls_route {
     #[allow(unused_imports)]
@@ -35073,7 +37030,7 @@ pub mod tls_route {
 
     /// Specifies how to match traffic and how to route traffic when traffic is
     /// matched.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteRule {
         /// Required. RouteMatch defines the predicate used to match requests to a
@@ -35249,9 +37206,21 @@ pub mod tls_route {
         }
     }
 
+    impl std::fmt::Debug for RouteRule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteRule");
+            debug_struct.field("matches", &self.matches);
+            debug_struct.field("action", &self.action);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// RouteMatch defines the predicate used to match requests to a given action.
     /// Multiple match types are "AND"ed for evaluation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteMatch {
         /// Optional. SNI (server name indicator) to match against.
@@ -35424,8 +37393,20 @@ pub mod tls_route {
         }
     }
 
+    impl std::fmt::Debug for RouteMatch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteMatch");
+            debug_struct.field("sni_host", &self.sni_host);
+            debug_struct.field("alpn", &self.alpn);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The specifications for routing traffic and applying associated policies.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteAction {
         /// Required. The destination services to which traffic should be forwarded.
@@ -35605,8 +37586,20 @@ pub mod tls_route {
         }
     }
 
+    impl std::fmt::Debug for RouteAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteAction");
+            debug_struct.field("destinations", &self.destinations);
+            debug_struct.field("idle_timeout", &self.idle_timeout);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Describe the destination for traffic to be routed to.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RouteDestination {
         /// Required. The URL of a BackendService to route traffic to.
@@ -35787,10 +37780,22 @@ pub mod tls_route {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for RouteDestination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RouteDestination");
+            debug_struct.field("service_name", &self.service_name);
+            debug_struct.field("weight", &self.weight);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request used with the ListTlsRoutes method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTlsRoutesRequest {
     /// Required. The project and location from which the TlsRoutes should be
@@ -36017,8 +38022,22 @@ impl serde::ser::Serialize for ListTlsRoutesRequest {
     }
 }
 
+impl std::fmt::Debug for ListTlsRoutesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTlsRoutesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response returned by the ListTlsRoutes method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTlsRoutesResponse {
     /// List of TlsRoute resources.
@@ -36224,8 +38243,21 @@ impl serde::ser::Serialize for ListTlsRoutesResponse {
     }
 }
 
+impl std::fmt::Debug for ListTlsRoutesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTlsRoutesResponse");
+        debug_struct.field("tls_routes", &self.tls_routes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the GetTlsRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTlsRouteRequest {
     /// Required. A name of the TlsRoute to get. Must be in the format
@@ -36355,8 +38387,19 @@ impl serde::ser::Serialize for GetTlsRouteRequest {
     }
 }
 
+impl std::fmt::Debug for GetTlsRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTlsRouteRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the TlsRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTlsRouteRequest {
     /// Required. The parent resource of the TlsRoute. Must be in the
@@ -36547,8 +38590,21 @@ impl serde::ser::Serialize for CreateTlsRouteRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTlsRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTlsRouteRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tls_route_id", &self.tls_route_id);
+        debug_struct.field("tls_route", &self.tls_route);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the UpdateTlsRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTlsRouteRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -36729,8 +38785,20 @@ impl serde::ser::Serialize for UpdateTlsRouteRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTlsRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTlsRouteRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("tls_route", &self.tls_route);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request used by the DeleteTlsRoute method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTlsRouteRequest {
     /// Required. A name of the TlsRoute to delete. Must be in the format
@@ -36857,6 +38925,17 @@ impl serde::ser::Serialize for DeleteTlsRouteRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteTlsRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTlsRouteRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

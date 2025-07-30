@@ -40,6 +40,7 @@ use gax::{
     retry_policy::{RetryPolicy, RetryPolicyExt},
     retry_result::RetryResult,
 };
+use std::sync::Arc;
 use std::time::Duration;
 
 /// The default retry policy for the Storage client.
@@ -101,6 +102,33 @@ impl RetryPolicy for RecommendedPolicy {
     }
 }
 
+#[derive(Clone, Debug)]
+pub(crate) struct ContinueOn308<T> {
+    inner: T,
+}
+
+impl<T> ContinueOn308<T> {
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl RetryPolicy for ContinueOn308<Arc<dyn RetryPolicy + 'static>> {
+    fn on_error(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+        idempotent: bool,
+        error: Error,
+    ) -> RetryResult {
+        if error.http_status_code() == Some(308) {
+            return RetryResult::Continue(error);
+        }
+        self.inner
+            .on_error(loop_start, attempt_count, idempotent, error)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -133,6 +161,24 @@ mod tests {
         assert!(p.on_error(now, 0, false, http_error(code)).is_permanent());
 
         let t = p.on_throttle(now, 0, http_error(code));
+        assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
+    }
+
+    #[test]
+    fn continue_on_308() {
+        let inner: Arc<dyn RetryPolicy + 'static> = Arc::new(RecommendedPolicy);
+        let p = ContinueOn308::new(inner);
+        let now = std::time::Instant::now();
+        assert!(p.on_error(now, 0, true, http_error(308)).is_continue());
+        assert!(p.on_error(now, 0, false, http_error(308)).is_continue());
+
+        assert!(p.on_error(now, 0, true, http_error(429)).is_continue());
+        assert!(p.on_error(now, 0, false, http_error(429)).is_permanent());
+
+        let t = p.on_throttle(now, 0, http_error(308));
+        assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
+
+        let t = p.on_throttle(now, 0, http_error(429));
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
     }
 

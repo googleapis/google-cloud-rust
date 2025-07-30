@@ -26,7 +26,7 @@ extern crate wkt;
 
 /// Defines a Cloud Organization `Policy` which is used to specify `Constraints`
 /// for configurations of Cloud Platform resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
     /// Version of the `Policy`. Default version is 0;
@@ -488,6 +488,21 @@ impl serde::ser::Serialize for Policy {
     }
 }
 
+impl std::fmt::Debug for Policy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Policy");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("constraint", &self.constraint);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("policy_type", &self.policy_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Policy].
 pub mod policy {
     #[allow(unused_imports)]
@@ -516,7 +531,7 @@ pub mod policy {
     /// `ALL_VALUES_UNSPECIFIED`. `ALLOW` or `DENY` are used to allow or deny all
     /// values. If `all_values` is set to either `ALLOW` or `DENY`,
     /// `allowed_values` and `denied_values` must be unset.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListPolicy {
         /// List of values allowed  at this resource. Can only be set if `all_values`
@@ -866,6 +881,21 @@ pub mod policy {
         }
     }
 
+    impl std::fmt::Debug for ListPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ListPolicy");
+            debug_struct.field("allowed_values", &self.allowed_values);
+            debug_struct.field("denied_values", &self.denied_values);
+            debug_struct.field("all_values", &self.all_values);
+            debug_struct.field("suggested_value", &self.suggested_value);
+            debug_struct.field("inherit_from_parent", &self.inherit_from_parent);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ListPolicy].
     pub mod list_policy {
         #[allow(unused_imports)]
@@ -1017,7 +1047,7 @@ pub mod policy {
 
     /// Used in `policy_type` to specify how `boolean_policy` will behave at this
     /// resource.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BooleanPolicy {
         /// If `true`, then the `Policy` is enforced. If `false`, then any
@@ -1193,6 +1223,17 @@ pub mod policy {
         }
     }
 
+    impl std::fmt::Debug for BooleanPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BooleanPolicy");
+            debug_struct.field("enforced", &self.enforced);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Ignores policies set above this resource and restores the
     /// `constraint_default` enforcement behavior of the specific `Constraint` at
     /// this resource.
@@ -1205,7 +1246,7 @@ pub mod policy {
     /// several experimental projects, restoring the `constraint_default`
     /// enforcement of the `Constraint` for only those projects, allowing those
     /// projects to have all services activated.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RestoreDefault {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1307,6 +1348,16 @@ pub mod policy {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for RestoreDefault {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RestoreDefault");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 

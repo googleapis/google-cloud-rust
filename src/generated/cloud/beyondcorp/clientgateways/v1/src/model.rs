@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Message describing ClientGateway object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientGateway {
     /// Required. name of resource. The name is ignored during creation.
@@ -317,6 +317,22 @@ impl serde::ser::Serialize for ClientGateway {
     }
 }
 
+impl std::fmt::Debug for ClientGateway {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClientGateway");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("client_connector_service", &self.client_connector_service);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ClientGateway].
 pub mod client_gateway {
     #[allow(unused_imports)]
@@ -485,7 +501,7 @@ pub mod client_gateway {
 }
 
 /// Message for requesting list of ClientGateways.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientGatewaysRequest {
     /// Required. Parent value for ListClientGatewaysRequest.
@@ -732,8 +748,23 @@ impl serde::ser::Serialize for ListClientGatewaysRequest {
     }
 }
 
+impl std::fmt::Debug for ListClientGatewaysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClientGatewaysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing ClientGateways.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientGatewaysResponse {
     /// The list of ClientGateway.
@@ -932,8 +963,21 @@ impl serde::ser::Serialize for ListClientGatewaysResponse {
     }
 }
 
+impl std::fmt::Debug for ListClientGatewaysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClientGatewaysResponse");
+        debug_struct.field("client_gateways", &self.client_gateways);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a ClientGateway.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClientGatewayRequest {
     /// Required. Name of the resource
@@ -1062,8 +1106,19 @@ impl serde::ser::Serialize for GetClientGatewayRequest {
     }
 }
 
+impl std::fmt::Debug for GetClientGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetClientGatewayRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a ClientGateway.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClientGatewayRequest {
     /// Required. Value for parent.
@@ -1323,8 +1378,23 @@ impl serde::ser::Serialize for CreateClientGatewayRequest {
     }
 }
 
+impl std::fmt::Debug for CreateClientGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateClientGatewayRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("client_gateway_id", &self.client_gateway_id);
+        debug_struct.field("client_gateway", &self.client_gateway);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a ClientGateway
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClientGatewayRequest {
     /// Required. Name of the resource
@@ -1516,8 +1586,21 @@ impl serde::ser::Serialize for DeleteClientGatewayRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteClientGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteClientGatewayRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientGatewayOperationMetadata {
     /// Output only. The time the operation was created.
@@ -1820,5 +1903,22 @@ impl serde::ser::Serialize for ClientGatewayOperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ClientGatewayOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClientGatewayOperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
