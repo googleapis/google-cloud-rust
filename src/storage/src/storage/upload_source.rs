@@ -157,7 +157,7 @@ impl From<tokio::fs::File> for InsertPayload<FileSource> {
     }
 }
 
-struct FileSource {
+pub struct FileSource {
     inner: tokio::fs::File,
 }
 

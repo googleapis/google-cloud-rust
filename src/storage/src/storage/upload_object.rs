@@ -16,17 +16,19 @@ use super::client::*;
 use super::perform_upload::PerformUpload;
 use super::upload_source::{Seek, StreamingSource};
 use super::*;
+use crate::storage::checksum::{ChecksumEngine, Crc32c, Md5, Null, Precomputed};
 
 /// A request builder for uploads without rewind.
-pub struct UploadObject<T> {
+pub struct UploadObject<T, C = Crc32c> {
     inner: std::sync::Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
     payload: InsertPayload<T>,
     options: super::request_options::RequestOptions,
+    checksum: C,
 }
 
-impl<T> UploadObject<T> {
+impl<T, C> UploadObject<T, C> {
     /// Set a [request precondition] on the object generation to match.
     ///
     /// With this precondition the request fails if the current object
@@ -525,30 +527,84 @@ impl<T> UploadObject<T> {
         self
     }
 
-    // TODO(#2050) - this should be automatically computed?
-    #[allow(dead_code)]
-    pub(crate) fn with_crc32c<V>(mut self, v: V) -> Self
+    /// Provide a precomputed value for the CRC32C checksum.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use crc32c::crc32c;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_known_crc32c(crc32c(b"hello world"))
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// In some applications, the payload's CRC32C checksum is already known.
+    /// For example, the application may be downloading the data from another
+    /// blob storage system.
+    ///
+    /// In such cases, it is safer to pass the known CRC32C of the payload to
+    /// [Cloud Storage], and more efficient to skip the computation in the
+    /// client library.
+    ///
+    /// Note that once you provide a CRC32C value to this builder you cannot
+    /// use [compute_crc32c()] or [compute_md5()] to also have the
+    /// library compute the checksums.
+    ///
+    /// [compute_crc32c()]: UploadObject::compute_crc32c
+    /// [compute_md5()]: UploadObject::compute_md5
+    pub fn with_known_crc32c<V>(mut self, v: V) -> UploadObject<T, Precomputed>
     where
         V: Into<u32>,
     {
-        let mut checksum = self.mut_resource().checksums.take().unwrap_or_default();
+        let checksum = self.mut_resource().checksums.get_or_insert_default();
         checksum.crc32c = Some(v.into());
-        self.mut_resource().checksums = Some(checksum);
-        self
+        self.switch_checksum(|_| Precomputed)
     }
 
-    // TODO(#2050) - this should be automatically computed?
-    #[allow(dead_code)]
-    pub(crate) fn with_md5_hash<I, V>(mut self, i: I) -> Self
+    /// Provide a precomputed value for the MD5 hash.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use md5::compute;
+    /// let hash = md5::compute(b"hello world");
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_known_md5_hash(bytes::Bytes::from_owner(hash.0))
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// In some applications, the payload's MD5 hash is already known. For
+    /// example, the application may be downloading the data from another blob
+    /// storage system.
+    ///
+    /// In such cases, it is safer to pass the known MD5 of the payload to
+    /// [Cloud Storage], and more efficient to skip the computation in the
+    /// client library.
+    ///
+    /// Note that once you provide a MD5 value to this builder you cannot
+    /// use [compute_crc32c()] or [compute_md5()] to also have the library
+    /// compute the checksums.
+    ///
+    /// [compute_crc32c()]: UploadObject::compute_crc32c
+    /// [compute_md5()]: UploadObject::compute_md5
+    pub fn with_known_md5_hash<I, V>(mut self, i: I) -> UploadObject<T, Precomputed>
     where
         I: IntoIterator<Item = V>,
         V: Into<u8>,
     {
-        let mut checksum = self.mut_resource().checksums.take().unwrap_or_default();
+        let checksum = self.mut_resource().checksums.get_or_insert_default();
         checksum.md5_hash = i.into_iter().map(|v| v.into()).collect();
-        // TODO(#2050) - should we return an error (or panic?) if the size is wrong?
-        self.mut_resource().checksums = Some(checksum);
-        self
+        self.switch_checksum(|_| Precomputed)
     }
 
     /// The retry policy used for this request.
@@ -709,6 +765,179 @@ impl<T> UploadObject<T> {
             .expect("resource field initialized in `new()`")
     }
 
+    pub(crate) fn build(self) -> PerformUpload<InsertPayload<T>> {
+        PerformUpload::new(
+            self.payload,
+            self.inner,
+            self.spec,
+            self.params,
+            self.options,
+        )
+    }
+
+    fn switch_checksum<F, U>(self, new: F) -> UploadObject<T, U>
+    where
+        F: FnOnce(C) -> U,
+    {
+        UploadObject {
+            payload: self.payload,
+            inner: self.inner,
+            spec: self.spec,
+            params: self.params,
+            options: self.options,
+            checksum: new(self.checksum),
+        }
+    }
+}
+
+impl<T> UploadObject<T, Null> {
+    /// Enables computation of CRC32C checksums.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .disable_computed_checksums() // override any defaults
+    ///     .compute_crc32c()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn compute_crc32c(self) -> UploadObject<T, Crc32c> {
+        self.switch_checksum(Crc32c::from_inner)
+    }
+
+    /// Enables computation of MD5 hashes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .compute_md5()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn compute_md5(self) -> UploadObject<T, Md5> {
+        self.switch_checksum(Md5::from_inner)
+    }
+}
+
+impl<T, C> UploadObject<T, Crc32c<C>> {
+    /// Enables computation of MD5 hashes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .compute_md5()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn compute_md5(self) -> UploadObject<T, Md5<Crc32c<C>>> {
+        self.switch_checksum(Md5::from_inner)
+    }
+
+    /// Disables CRC32C checksums and MD5 hashes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .disable_computed_checksums()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn disable_computed_checksums(self) -> UploadObject<T, Null> {
+        self.switch_checksum(|_| Null)
+    }
+}
+
+impl<T, C> UploadObject<T, Md5<C>> {
+    /// Enables computation of CRC32C checksums.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .disable_computed_checksums() // override any defaults
+    ///     .compute_md5()
+    ///     .compute_crc32c()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn compute_crc32c(self) -> UploadObject<T, Crc32c<Md5<C>>> {
+        self.switch_checksum(Crc32c::from_inner)
+    }
+
+    /// Disables CRC32C checksums and MD5 hashes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .disable_computed_checksums()
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// details on how checksums are used by the client library and their
+    /// limitations.
+    pub fn disable_computed_checksums(self) -> UploadObject<T, Null> {
+        self.switch_checksum(|_| Null)
+    }
+}
+
+impl<T> UploadObject<T> {
     pub(crate) fn new<B, O, P>(
         inner: std::sync::Arc<StorageInner>,
         bucket: B,
@@ -730,21 +959,12 @@ impl<T> UploadObject<T> {
             params: None,
             payload: payload.into(),
             options,
+            checksum: Crc32c::default(),
         }
-    }
-
-    pub(crate) fn build(self) -> PerformUpload<InsertPayload<T>> {
-        PerformUpload::new(
-            self.payload,
-            self.inner,
-            self.spec,
-            self.params,
-            self.options,
-        )
     }
 }
 
-impl<T> UploadObject<T>
+impl<T, C> UploadObject<T, C>
 where
     T: StreamingSource + Seek + Send + Sync + 'static,
     <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
@@ -766,9 +986,59 @@ where
     pub async fn send_unbuffered(self) -> Result<Object> {
         self.build().send_unbuffered().await
     }
+
+    /// Precompute the payload checksums before uploading the data.
+    ///
+    /// If the checksums are known when the upload starts, the client library
+    /// can include the checksums with the upload request, and the service can
+    /// reject the upload if the payload and the checksums do not match.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .precompute_checksums()
+    ///     .await?
+    ///     .send_unbuffered()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// Precomputing the checksums can be expensive if the data source is slow
+    /// to read. Therefore, the client library does not precompute the checksums
+    /// by default. The client library compares the checksums computed by the
+    /// service against its own checksums. If they do not match, the client
+    /// library returns an error. However, the service has already created the
+    /// object with the (likely incorrect) data.
+    ///
+    /// The client library currently uses the [JSON API], it is not possible to
+    /// send the checksums at the end of the upload with this API.
+    ///
+    /// [JSON API]: https://cloud.google.com/storage/docs/json_api
+    pub async fn precompute_checksums(mut self) -> Result<UploadObject<T, Precomputed>>
+    where
+        C: ChecksumEngine + Send + Sync + 'static,
+    {
+        if self.mut_resource().checksums.is_some() {
+            return Ok(self.switch_checksum(|_| Precomputed));
+        }
+        let mut offset = 0_u64;
+        self.payload.seek(offset).await.map_err(Error::ser)?;
+        while let Some(n) = self.payload.next().await.transpose().map_err(Error::ser)? {
+            self.checksum.update(offset, &n);
+            offset += n.len() as u64;
+        }
+        let ck = self.checksum.finalize();
+        let _ = self.mut_resource().checksums.insert(ck);
+        Ok(self.switch_checksum(|_| Precomputed))
+    }
 }
 
-impl<T> UploadObject<T>
+impl<T, C> UploadObject<T, C>
 where
     T: StreamingSource + Send + Sync + 'static,
     T::Error: std::error::Error + Send + Sync + 'static,
@@ -791,11 +1061,31 @@ where
     }
 }
 
+// We need `Debug` to use `expect_err()` in `Result<UploadObject, ...>`.
+impl<T, C> std::fmt::Debug for UploadObject<T, C>
+where
+    C: std::fmt::Debug,
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("UploadObject")
+            .field("inner", &self.inner)
+            .field("spec", &self.spec)
+            .field("params", &self.params)
+            // skip payload, as it is not `Debug`
+            .field("options", &self.options)
+            .field("checksum", &self.checksum)
+            .finish()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
-    use crate::model::WriteObjectSpec;
+    use crate::model::{ObjectChecksums, WriteObjectSpec};
+    use crate::upload_source::tests::MockSeekSource;
+    use std::error::Error as _;
+    use std::io::{Error as IoError, ErrorKind};
 
     type Result = anyhow::Result<()>;
 
@@ -893,10 +1183,10 @@ mod tests {
             .with_content_encoding("gzip")
             .with_content_language("en")
             .with_content_type("text/plain")
-            .with_crc32c(crc32c::crc32c(b""))
+            .with_known_crc32c(crc32c::crc32c(b""))
             .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
             .with_event_based_hold(true)
-            .with_md5_hash(md5::compute(b"").0)
+            .with_known_md5_hash(md5::compute(b"").0)
             .with_metadata([("k0", "v0"), ("k1", "v1")])
             .with_retention(
                 crate::model::object::Retention::new()
@@ -969,5 +1259,235 @@ mod tests {
             .with_resumable_upload_buffer_size(456_usize);
         assert_eq!(request.options.resumable_upload_threshold, 345);
         assert_eq!(request.options.resumable_upload_buffer_size, 456);
+    }
+
+    const QUICK: &str = "the quick brown fox jumps over the lazy dog";
+    const VEXING: &str = "how vexingly quick daft zebras jump";
+
+    fn quick_checksum<E: ChecksumEngine>(mut engine: E) -> ObjectChecksums {
+        engine.update(0, &bytes::Bytes::from_static(QUICK.as_bytes()));
+        engine.finalize()
+    }
+
+    #[tokio::test]
+    async fn checksum_default() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Crc32c::default());
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_disabled_from_default() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Null);
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_disabled_from_crc32c() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .compute_md5()
+            .compute_crc32c()
+            .disable_computed_checksums()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Null);
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_disabled_from_md5() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .compute_md5()
+            .disable_computed_checksums()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Null);
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_disabled_from_null() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .compute_md5()
+            .disable_computed_checksums()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Null);
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_crc32c_only() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .compute_crc32c()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Crc32c::default());
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_md5_only() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .compute_md5()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Md5::default());
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_md5_and_crc32c() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .compute_md5()
+            .compute_crc32c()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Crc32c::from_inner(Md5::default()));
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_crc32c_and_md5() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .compute_crc32c()
+            .compute_md5()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Crc32c::from_inner(Md5::default()));
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_precomputed() -> Result {
+        let mut engine = Crc32c::from_inner(Md5::default());
+        engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
+        let ck = engine.finalize();
+
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .with_known_crc32c(ck.crc32c.unwrap())
+            .with_known_md5_hash(ck.md5_hash.clone())
+            .precompute_checksums()
+            .await?;
+        // Note that the checksums do not match the data. This is intentional,
+        // we are trying to verify that whatever is provided in with_crc32c()
+        // and with_md5() is respected.
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(ck));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn precompute_checksums_seek_error() -> Result {
+        let mut source = MockSeekSource::new();
+        source
+            .expect_seek()
+            .once()
+            .returning(|_| Err(IoError::new(ErrorKind::Deadlock, "test-only")));
+
+        let client = test_builder().build().await?;
+        let err = client
+            .upload_object("my-bucket", "my-object", source)
+            .precompute_checksums()
+            .await
+            .expect_err("seek() returns an error");
+        assert!(err.is_serialization(), "{err:?}");
+        assert!(
+            err.source()
+                .and_then(|e| e.downcast_ref::<IoError>())
+                .is_some(),
+            "{err:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn precompute_checksums_next_error() -> Result {
+        let mut source = MockSeekSource::new();
+        source.expect_seek().returning(|_| Ok(()));
+        let mut seq = mockall::Sequence::new();
+        source
+            .expect_next()
+            .times(3)
+            .in_sequence(&mut seq)
+            .returning(|| Some(Ok(bytes::Bytes::new())));
+        source
+            .expect_next()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|| Some(Err(IoError::new(ErrorKind::BrokenPipe, "test-only"))));
+
+        let client = test_builder().build().await?;
+        let err = client
+            .upload_object("my-bucket", "my-object", source)
+            .precompute_checksums()
+            .await
+            .expect_err("seek() returns an error");
+        assert!(err.is_serialization(), "{err:?}");
+        assert!(
+            err.source()
+                .and_then(|e| e.downcast_ref::<IoError>())
+                .is_some(),
+            "{err:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn debug() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", "")
+            .precompute_checksums()
+            .await;
+
+        let fmt = format!("{upload:?}");
+        ["UploadObject", "inner", "spec", "options", "checksum"]
+            .into_iter()
+            .for_each(|text| {
+                assert!(fmt.contains(text), "expected {text} in {fmt}");
+            });
+        Ok(())
     }
 }
