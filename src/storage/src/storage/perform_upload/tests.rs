@@ -121,7 +121,7 @@ async fn start_resumable_upload_metadata_in_request() -> Result {
         .with_known_crc32c(crc32c::crc32c(b""))
         .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
         .with_event_based_hold(true)
-        .with_md5_hash(md5::compute(b"").0)
+        .with_known_md5_hash(md5::compute(b"").0)
         .with_metadata([("k0", "v0"), ("k1", "v1")])
         .with_retention(
             crate::model::object::Retention::new()

@@ -536,7 +536,7 @@ impl<T, C> UploadObject<T, C> {
     /// use crc32c::crc32c;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_crc32c(crc32c(b"hello world"))
+    ///     .with_known_crc32c(crc32c(b"hello world"))
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -576,7 +576,7 @@ impl<T, C> UploadObject<T, C> {
     /// let hash = md5::compute(b"hello world");
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_md5_hash(bytes::Bytes::from_owner(hash.0))
+    ///     .with_known_md5_hash(bytes::Bytes::from_owner(hash.0))
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -597,7 +597,7 @@ impl<T, C> UploadObject<T, C> {
     ///
     /// [compute_crc32c()]: UploadObject::compute_crc32c
     /// [compute_md5()]: UploadObject::compute_md5
-    pub fn with_md5_hash<I, V>(mut self, i: I) -> UploadObject<T, Precomputed>
+    pub fn with_known_md5_hash<I, V>(mut self, i: I) -> UploadObject<T, Precomputed>
     where
         I: IntoIterator<Item = V>,
         V: Into<u8>,
@@ -801,7 +801,7 @@ impl<T> UploadObject<T, Null> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
     ///     .disable_computed_checksums() // override any defaults
-    ///     .with_computed_crc32c()
+    ///     .compute_crc32c()
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -811,7 +811,7 @@ impl<T> UploadObject<T, Null> {
     /// See [precompute_checksums][UploadObject::precompute_checksums] for more
     /// details on how checksums are used by the client library and their
     /// limitations.
-    pub fn with_computed_crc32c(self) -> UploadObject<T, Crc32c> {
+    pub fn compute_crc32c(self) -> UploadObject<T, Crc32c> {
         self.switch_checksum(Crc32c::from_inner)
     }
 
@@ -824,7 +824,7 @@ impl<T> UploadObject<T, Null> {
     /// let payload = tokio::fs::File::open("my-data").await?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
-    ///     .with_computed_md5()
+    ///     .compute_md5()
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -849,7 +849,7 @@ impl<T, C> UploadObject<T, Crc32c<C>> {
     /// let payload = tokio::fs::File::open("my-data").await?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
-    ///     .with_computed_md5()
+    ///     .compute_md5()
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -898,8 +898,8 @@ impl<T, C> UploadObject<T, Md5<C>> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
     ///     .disable_computed_checksums() // override any defaults
-    ///     .with_computed_md5()
-    ///     .with_computed_crc32c()
+    ///     .compute_md5()
+    ///     .compute_crc32c()
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -1186,7 +1186,7 @@ mod tests {
             .with_known_crc32c(crc32c::crc32c(b""))
             .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
             .with_event_based_hold(true)
-            .with_md5_hash(md5::compute(b"").0)
+            .with_known_md5_hash(md5::compute(b"").0)
             .with_metadata([("k0", "v0"), ("k1", "v1")])
             .with_retention(
                 crate::model::object::Retention::new()
@@ -1343,7 +1343,7 @@ mod tests {
         let upload = client
             .upload_object("my-bucket", "my-object", QUICK)
             .disable_computed_checksums()
-            .with_computed_crc32c()
+            .compute_crc32c()
             .precompute_checksums()
             .await?;
         let want = quick_checksum(Crc32c::default());
@@ -1386,7 +1386,7 @@ mod tests {
         let upload = client
             .upload_object("my-bucket", "my-object", QUICK)
             .disable_computed_checksums()
-            .with_computed_crc32c()
+            .compute_crc32c()
             .compute_md5()
             .precompute_checksums()
             .await?;
@@ -1405,7 +1405,7 @@ mod tests {
         let upload = client
             .upload_object("my-bucket", "my-object", QUICK)
             .with_known_crc32c(ck.crc32c.unwrap())
-            .with_md5_hash(ck.md5_hash.clone())
+            .with_known_md5_hash(ck.md5_hash.clone())
             .precompute_checksums()
             .await?;
         // Note that the checksums do not match the data. This is intentional,
