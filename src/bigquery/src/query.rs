@@ -159,7 +159,7 @@ impl Query {
         }
         self.page_token = res.page_token;
         // rows are only present if query is complete as has schema
-        self.cached_rows = res.rows.into_iter().map(|r| r).collect();
+        self.cached_rows = res.rows.into_iter().collect();
     }
 }
 

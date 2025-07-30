@@ -137,31 +137,31 @@ impl FromSql for chrono::DateTime<chrono::Utc> {
         // BigQuery returns timestamps as a string representing a unix timestamp with microsecond precision.
         let micros: i64 = s.parse::<i64>().map_err(|e| Error::Parse(e.to_string()))?;
         chrono::DateTime::from_timestamp_micros(micros)
-            .ok_or_else(|| Error::InvalidValue(format!("invalid timestamp value: {}", micros)))
+            .ok_or_else(|| Error::InvalidValue(format!("invalid timestamp value: {micros}")))
     }
 }
 
 impl FromSql for chrono::NaiveDate {
     fn from_sql(value: Value) -> Result<Self, Error> {
         let s = String::from_sql(value)?;
-        Ok(chrono::NaiveDate::from_str(&s)
-            .map_err(|e| Error::Chrono(format!("invalid date value: {}", e)))?)
+        chrono::NaiveDate::from_str(&s)
+            .map_err(|e| Error::Chrono(format!("invalid date value: {e}")))
     }
 }
 
 impl FromSql for chrono::NaiveTime {
     fn from_sql(value: Value) -> Result<Self, Error> {
         let s = String::from_sql(value)?;
-        Ok(chrono::NaiveTime::from_str(&s)
-            .map_err(|e| Error::Chrono(format!("invalid date value: {}", e)))?)
+        chrono::NaiveTime::from_str(&s)
+            .map_err(|e| Error::Chrono(format!("invalid date value: {e}")))
     }
 }
 
 impl FromSql for chrono::NaiveDateTime {
     fn from_sql(value: Value) -> Result<Self, Error> {
         let s = String::from_sql(value)?;
-        Ok(chrono::NaiveDateTime::from_str(&s)
-            .map_err(|e| Error::Chrono(format!("invalid date value: {}", e)))?)
+        chrono::NaiveDateTime::from_str(&s)
+            .map_err(|e| Error::Chrono(format!("invalid date value: {e}")))
     }
 }
 

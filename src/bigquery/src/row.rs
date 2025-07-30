@@ -83,10 +83,10 @@ fn get_field_list(row: Struct) -> Result<Vec<Value>> {
         return Err(crate::Error::deser(ParsingError::MissingValueFields));
     }
 
-    return match fields.unwrap().as_array() {
+    match fields.unwrap().as_array() {
         Some(v) => Ok(v.to_vec()),
-        _ => return Err(crate::Error::deser(ParsingError::InvalidValueFields)),
-    };
+        _ => Err(crate::Error::deser(ParsingError::InvalidValueFields)),
+    }
 }
 
 fn get_field_value(value: Value) -> Result<Value> {

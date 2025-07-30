@@ -23,7 +23,7 @@ pub async fn run_query(builder: ClientBuilder) -> Result<()> {
 
     // Simple query
     let query = client
-        .query("SELECT 17 as foo, CURRENT_TIMESTAMP() as ts, SESSION_USER() as bar".to_string())
+        .query("SELECT 17 as num, CURRENT_TIMESTAMP() as ts, SESSION_USER() as bar".to_string())
         .await?;
     let mut iter = query.read().await?;
     let mut rows = vec![];
@@ -35,18 +35,18 @@ pub async fn run_query(builder: ClientBuilder) -> Result<()> {
     let first_row = rows[0].clone();
 
     // Read each field as a native type
-    let foo: Option<i64> = first_row.get("foo")?;
-    assert_eq!(foo, Some(17));
+    let num: Option<i64> = first_row.get("num")?;
+    assert_eq!(num, Some(17));
     let ts: Option<chrono::DateTime<chrono::Utc>> = first_row.get("ts")?;
-    assert_eq!(ts.is_some(), true);
+    assert!(ts.is_some());
     let bar: Option<String> = first_row.get("bar")?;
-    assert_eq!(bar.is_some(), true);
-    println!("row: {foo:?}, {ts:?}, {bar:?}");
+    assert!(bar.is_some());
+    println!("row: {num:?}, {ts:?}, {bar:?}");
 
     // Parse as user defined struct
     #[derive(serde::Deserialize, Debug)]
     struct MyStruct {
-        foo: i64,
+        num: i64,
         #[serde(with = "bigquery::value")]
         ts: chrono::DateTime<chrono::Utc>,
         bar: String,
@@ -54,7 +54,7 @@ pub async fn run_query(builder: ClientBuilder) -> Result<()> {
 
     let my_struct: MyStruct =
         serde_json::from_value(first_row.to_value()).expect("Should parse as user defined struct");
-    assert_eq!(my_struct.foo, 17);
+    assert_eq!(my_struct.num, 17);
     assert_eq!(my_struct.ts, ts.unwrap());
     assert_eq!(my_struct.bar, bar.unwrap());
     println!("struct row: {my_struct:?}");
@@ -243,6 +243,6 @@ fn random_dataset_id() -> String {
 }
 
 fn extract_dataset_id(project_id: &str, id: String) -> Option<String> {
-    id.strip_prefix(&format!("projects/{}/datasets/", project_id))
+    id.strip_prefix(&format!("projects/{project_id}/datasets/"))
         .map(|v| v.to_string())
 }
