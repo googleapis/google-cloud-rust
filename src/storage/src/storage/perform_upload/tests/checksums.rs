@@ -329,7 +329,7 @@ fn bad_checksums_body() -> Value {
     // The magic strings can be regenerated using:
     //     rm empty.txt
     //     touch empty.txt
-    //     gcloud hash vexing.txt
+    //     gcloud hash empty.txt
     json!({
         "bucket": "/projects/_/buckets/test-bucket",
         "name": "test-object",

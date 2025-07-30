@@ -791,7 +791,7 @@ pub async fn checksums(
     const VEXING: &str = "how vexingly quick daft zebras jump";
 
     type ObjectResult = storage::Result<storage::model::Object>;
-    type Boxed = std::pin::Pin<Box<dyn Future<Output = ObjectResult>>>;
+    type Boxed = futures::future::BoxFuture<'static, ObjectResult>;
     let uploads: Vec<(&str, Boxed)> = vec![
         (
             "verify/default",
@@ -841,6 +841,7 @@ pub async fn checksums(
                     .upload_object(bucket_name, "verify/both", VEXING)
                     .with_if_generation_match(0)
                     .disable_computed_checksums()
+                    .compute_crc32c()
                     .compute_md5()
                     .send(),
             ),
@@ -901,6 +902,7 @@ pub async fn checksums(
                     .upload_object(bucket_name, "computed/both", VEXING)
                     .with_if_generation_match(0)
                     .disable_computed_checksums()
+                    .compute_crc32c()
                     .compute_md5()
                     .precompute_checksums()
                     .await?
