@@ -15,6 +15,8 @@
 use super::client::*;
 use super::*;
 use crate::download_resume_policy::DownloadResumePolicy;
+use crate::model::ObjectChecksums;
+use crate::storage::checksum::{ChecksumEngine, Crc32c, validate};
 use base64::Engine;
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
@@ -497,8 +499,10 @@ pub struct ReadObjectResponse {
     inner: Option<reqwest::Response>,
     highlights: ObjectHighlights,
     // Fields for tracking the crc checksum checks.
-    response_crc32c: Option<u32>,
-    crc32c: u32,
+    response_checksums: ObjectChecksums,
+    checksums: Crc32c,
+    offset: u64,
+    // Fields for resuming download.
     range: ReadRange,
     generation: i64,
     builder: ReadObject,
@@ -509,6 +513,7 @@ impl ReadObjectResponse {
     fn new(builder: ReadObject, inner: reqwest::Response) -> Result<Self> {
         let full = builder.request.read_offset == 0 && builder.request.read_limit == 0;
         let response_crc32c = crc32c_from_response(full, inner.status(), inner.headers());
+        let response_checksums = ObjectChecksums::new().set_or_clear_crc32c(response_crc32c);
         let range = response_range(&inner).map_err(Error::deser)?;
         let generation = response_generation(&inner).map_err(Error::deser)?;
 
@@ -547,8 +552,11 @@ impl ReadObjectResponse {
         Ok(Self {
             inner: Some(inner),
             highlights,
-            response_crc32c,
-            crc32c: 0, // no bytes read yet.
+            // Fields for computing checksums.
+            response_checksums,
+            checksums: Crc32c::default(),
+            offset: 0,
+            // Fields for resuming download.
             range,
             generation,
             builder,
@@ -615,8 +623,11 @@ impl ReadObjectResponse {
         let res = inner.chunk().await.map_err(Error::io);
         match res {
             Ok(Some(chunk)) => {
-                if self.response_crc32c.is_some() {
-                    self.crc32c = crc32c::crc32c_append(self.crc32c, &chunk);
+                if self.response_checksums.crc32c.is_some()
+                    || !self.response_checksums.md5_hash.is_empty()
+                {
+                    self.checksums.update(self.offset, &chunk);
+                    self.offset += chunk.len() as u64;
                 }
                 let len = chunk.len() as u64;
                 if self.range.limit < len {
@@ -633,9 +644,12 @@ impl ReadObjectResponse {
                 if self.range.limit != 0 {
                     return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
                 }
-                let res = check_crc32c_match(self.crc32c, self.response_crc32c);
+                let res = validate(
+                    self.response_checksums.clone(),
+                    &Some(self.checksums.finalize()),
+                );
                 match res {
-                    Err(e) => Some(Err(e)),
+                    Err(e) => Some(Err(Error::deser(ReadError::ChecksumMismatch(e)))),
                     Ok(()) => None,
                 }
             }
@@ -738,9 +752,8 @@ pub struct ObjectHighlights {
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 enum ReadError {
-    /// The calculated crc32c did not match server provided crc32c.
-    #[error("bad CRC on read: got {got}, want {want}")]
-    BadCrc { got: u32, want: u32 },
+    #[error("checksum mismatch")]
+    ChecksumMismatch(crate::storage::checksum::ChecksumMismatch),
 
     #[error("missing {0} bytes at the end of the stream")]
     ShortRead(u64),
@@ -793,18 +806,6 @@ fn crc32c_from_response(
         return None;
     }
     headers_to_crc32c(headers)
-}
-
-fn check_crc32c_match(crc32c: u32, response: Option<u32>) -> Result<()> {
-    if let Some(response) = response {
-        if crc32c != response {
-            return Err(Error::deser(ReadError::BadCrc {
-                got: crc32c,
-                want: response,
-            }));
-        }
-    }
-    Ok(())
 }
 
 fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange, ReadError> {
@@ -1130,9 +1131,6 @@ mod tests {
             ),
         );
 
-        let expected_got = crc32c::crc32c("hello world".as_bytes()); // calculated from data.
-        let expected_want = crc32c::crc32c("goodbye world".as_bytes()); // returned from server.
-
         let client = Storage::builder()
             .with_endpoint(format!("http://{}", server.addr()))
             .with_credentials(auth::credentials::testing::test_credentials())
@@ -1154,8 +1152,13 @@ mod tests {
         let err = err.expect("expect error on incorrect crc32c");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
-            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == expected_got && want == expected_want),
-            "err={err:?}, expected_got={expected_got}, expected_want={expected_want}"
+            matches!(
+                source,
+                Some(&ReadError::ChecksumMismatch(
+                    crate::storage::checksum::ChecksumMismatch::Crc32c { .. }
+                ))
+            ),
+            "err={err:?}"
         );
 
         let mut response = client
@@ -1172,8 +1175,13 @@ mod tests {
         .expect_err("expect error on incorrect crc32c");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
-            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == expected_got && want == expected_want),
-            "err={err:?}, expected_got={expected_got}, expected_want={expected_want}"
+            matches!(
+                source,
+                Some(&ReadError::ChecksumMismatch(
+                    crate::storage::checksum::ChecksumMismatch::Crc32c { .. }
+                ))
+            ),
+            "err={err:?}"
         );
 
         use futures::TryStreamExt;
@@ -1187,8 +1195,13 @@ mod tests {
             .expect_err("expect error on incorrect crc32c");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
-            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == expected_got && want == expected_want),
-            "err={err:?}, expected_got={expected_got}, expected_want={expected_want}"
+            matches!(
+                source,
+                Some(&ReadError::ChecksumMismatch(
+                    crate::storage::checksum::ChecksumMismatch::Crc32c { .. }
+                ))
+            ),
+            "err={err:?}"
         );
         Ok(())
     }
@@ -1367,25 +1380,6 @@ mod tests {
         let got = request.url().path_segments().unwrap().next_back().unwrap();
         assert_eq!(got, want);
         Ok(())
-    }
-
-    #[test_case(10, Some(10); "Match values")]
-    #[test_case(10, None; "None response")]
-    fn check_crc_success(crc: u32, resp_crc: Option<u32>) {
-        let res = check_crc32c_match(crc, resp_crc);
-        assert!(res.is_ok(), "{res:?}");
-    }
-
-    #[test_case(10, 20)]
-    fn check_crc_error(crc: u32, response: u32) {
-        let err = check_crc32c_match(crc, Some(response))
-            .expect_err("mismatched CRC values should result in error");
-        assert!(err.is_deserialization());
-        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
-        assert!(
-            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == crc && want == response),
-            "{err:?}"
-        );
     }
 
     #[test]
