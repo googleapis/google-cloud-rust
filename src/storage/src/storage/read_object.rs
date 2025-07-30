@@ -501,58 +501,37 @@ impl ReadObjectResponse {
         let response_crc32c = crc32c_from_response(full, inner.status(), inner.headers());
         let range = response_range(&inner).map_err(Error::deser)?;
         let generation = response_generation(&inner).map_err(Error::deser)?;
+
         let headers = inner.headers();
-        let highlights = ObjectHighlights {
-            generation: headers
-                .get("x-goog-generation")
-                .and_then(|g| g.to_str().ok())
-                .and_then(|g| g.parse::<i64>().ok())
-                .unwrap_or_default(),
-            metageneration: headers
-                .get("x-goog-metageneration")
-                .and_then(|m| m.to_str().ok())
-                .and_then(|m| m.parse::<i64>().ok())
-                .unwrap_or_default(),
-            size: headers
-                .get("x-goog-stored-content-length")
+        let get_as_i64 = |header_name: &str| -> i64 {
+            headers
+                .get(header_name)
                 .and_then(|s| s.to_str().ok())
                 .and_then(|s| s.parse::<i64>().ok())
-                .unwrap_or_default(),
-            content_encoding: headers
-                .get("x-goog-stored-content-encoding")
-                .and_then(|ce| ce.to_str().ok())
-                .map(|ce| ce.to_string())
-                .unwrap_or_default(),
+                .unwrap_or_default()
+        };
+        let get_as_string = |header_name: &str| -> String {
+            headers
+                .get(header_name)
+                .and_then(|sc| sc.to_str().ok())
+                .map(|sc| sc.to_string())
+                .unwrap_or_default()
+        };
+        let highlights = ObjectHighlights {
+            generation,
+            metageneration: get_as_i64("x-goog-metageneration"),
+            size: get_as_i64("x-goog-stored-content-length"),
+            content_encoding: get_as_string("x-goog-stored-content-encoding"),
+            storage_class: get_as_string("x-goog-storage-class"),
+            content_type: get_as_string("content-type"),
+            content_language: get_as_string("content-language"),
+            content_disposition: get_as_string("content-disposition"),
+            etag: get_as_string("etag"),
             checksums: headers.get("x-goog-hash").map(|_| {
                 crate::model::ObjectChecksums::new()
                     .set_or_clear_crc32c(headers_to_crc32c(headers))
                     .set_md5_hash(headers_to_md5_hash(headers))
             }),
-            storage_class: headers
-                .get("x-goog-storage-class")
-                .and_then(|sc| sc.to_str().ok())
-                .map(|sc| sc.to_string())
-                .unwrap_or_default(),
-            content_type: headers
-                .get("content-type")
-                .and_then(|sc| sc.to_str().ok())
-                .map(|sc| sc.to_string())
-                .unwrap_or_default(),
-            content_language: headers
-                .get("content-language")
-                .and_then(|sc| sc.to_str().ok())
-                .map(|sc| sc.to_string())
-                .unwrap_or_default(),
-            content_disposition: headers
-                .get("content-disposition")
-                .and_then(|sc| sc.to_str().ok())
-                .map(|sc| sc.to_string())
-                .unwrap_or_default(),
-            etag: headers
-                .get("etag")
-                .and_then(|sc| sc.to_str().ok())
-                .map(|sc| sc.to_string())
-                .unwrap_or_default(),
         };
 
         Ok(Self {
@@ -728,20 +707,20 @@ pub struct ObjectHighlights {
 
     /// Content-Language of the object data, matching
     /// [<https://tools.ietf.org/html/rfc7231#section-3.1.3.2>][RFC 7231 §3.1.3.2].
-    pub content_language: std::string::String,
+    pub content_language: String,
 
     /// Content-Type of the object data, matching
     /// [<https://tools.ietf.org/html/rfc7231#section-3.1.1.5>][RFC 7231 §3.1.1.5].
     /// If an object is stored without a Content-Type, it is served as
     /// `application/octet-stream`.
-    pub content_type: std::string::String,
+    pub content_type: String,
 
     /// Content-Disposition of the object data, matching
     /// [<https://tools.ietf.org/html/rfc6266>][RFC 6266].
-    pub content_disposition: std::string::String,
+    pub content_disposition: String,
 
     /// The etag of the object.
-    pub etag: std::string::String,
+    pub etag: String,
 }
 
 /// Represents an error that can occur when reading response data.
