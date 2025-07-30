@@ -153,7 +153,7 @@ impl From<RetryPolicyArg> for Arc<dyn RetryPolicy> {
 
 /// Extension trait for [`RetryPolicy`]
 pub trait RetryPolicyExt: RetryPolicy + Sized {
-    /// Decorate a [`RetryPolicy`] to limit the total elapsed time in the retry loop.
+    /// Decorate a [RetryPolicy] to limit the total elapsed time in the retry loop.
     ///
     /// While the time spent in the retry loop (including time in backoff) is
     /// less than the prescribed duration the `on_error()` method returns the
@@ -204,6 +204,45 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// ```
     fn with_attempt_limit(self, maximum_attempts: u32) -> LimitedAttemptCount<Self> {
         LimitedAttemptCount::custom(self, maximum_attempts)
+    }
+
+    /// Decorate a [RetryPolicy] to treat all requests as idempotent.
+    ///
+    /// This may be useful is some services where request that are not
+    /// idempotent in general, can be idempotent under some configurations.
+    /// For example, in Google Cloud Storage uploading a new object is not
+    /// always idempotent as the destination bucket may be enabled to keep
+    /// multiple object versions. However, if the bucket is configured to keep
+    /// only one version the operation is idempotent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gax::retry_policy::*;
+    /// use std::time::Instant;
+    /// let policy = Aip194Strict.always_idempotent();
+    /// assert!(policy.on_error(Instant::now(), 1, false, transient_error()).is_continue());
+    ///
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
+    /// ```
+    fn always_idempotent(self) -> FixedIdempotency<Self> {
+        FixedIdempotency::new(self, true)
+    }
+
+    /// Decorate a [RetryPolicy] to treat all requests as *not* idempotent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gax::retry_policy::*;
+    /// use std::time::Instant;
+    /// let policy = Aip194Strict.never_idempotent();
+    /// assert!(policy.on_error(Instant::now(), 1, true, transient_error()).is_permanent());
+    ///
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
+    /// ```
+    fn never_idempotent(self) -> FixedIdempotency<Self> {
+        FixedIdempotency::new(self, false)
     }
 }
 
@@ -608,6 +647,81 @@ where
     }
 }
 
+/// A retry policy decorator that fixes the idempotency.
+///
+/// This policy decorates an inner policy and treats all requests as-if they
+/// were idempotent or all requests as-if they were not idempotent. Most
+/// applications would use this policy through the [always_idempotent()] or
+/// [never_idempotent()] methods in [RetryPolicyExt].
+///
+/// # Parameters
+/// * `P` - the inner retry policy.
+///
+/// [always_idempotent()]: RetryPolicyExt::always_idempotent()
+/// [never_idempotent()]: RetryPolicyExt::never_idempotent()
+#[derive(Debug)]
+pub struct FixedIdempotency<P>
+where
+    P: RetryPolicy,
+{
+    inner: P,
+    idempotency: bool,
+}
+
+impl<P> FixedIdempotency<P>
+where
+    P: RetryPolicy,
+{
+    /// Creates a new instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gax::retry_policy::*;
+    /// use std::time::Instant;
+    /// let policy = FixedIdempotency::new(Aip194Strict, true);
+    /// assert!(policy.on_error(Instant::now(), 1, true,  transient_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 1, false, transient_error()).is_continue());
+    ///
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
+    /// ```
+    pub fn new(inner: P, idempotency: bool) -> Self {
+        Self { inner, idempotency }
+    }
+}
+
+impl<P> RetryPolicy for FixedIdempotency<P>
+where
+    P: RetryPolicy,
+{
+    fn on_error(
+        &self,
+        start: std::time::Instant,
+        count: u32,
+        _idempotent: bool,
+        error: Error,
+    ) -> RetryResult {
+        self.inner.on_error(start, count, self.idempotency, error)
+    }
+
+    fn on_throttle(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+        error: Error,
+    ) -> ThrottleResult {
+        self.inner.on_throttle(loop_start, attempt_count, error)
+    }
+
+    fn remaining_time(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+    ) -> Option<Duration> {
+        self.inner.remaining_time(loop_start, attempt_count)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -734,6 +848,32 @@ mod tests {
             p.on_error(now, 0, false, http_permission_denied())
                 .is_exhausted()
         );
+    }
+
+    #[test]
+    fn fixed_idempotency_idempotent() {
+        let p = Aip194Strict.always_idempotent();
+        let now = std::time::Instant::now();
+        assert!(p.remaining_time(now, 0).is_none());
+        assert!(p.on_error(now, 0, true, http_unavailable()).is_continue());
+        assert!(p.on_error(now, 0, false, http_unavailable()).is_continue());
+        assert!(matches!(
+            p.on_throttle(now, 0, http_unavailable()),
+            ThrottleResult::Continue(_)
+        ));
+    }
+
+    #[test]
+    fn fixed_idempotency_not_idempotent() {
+        let p = Aip194Strict.never_idempotent();
+        let now = std::time::Instant::now();
+        assert!(p.remaining_time(now, 0).is_none());
+        assert!(p.on_error(now, 0, true, http_unavailable()).is_permanent());
+        assert!(p.on_error(now, 0, false, http_unavailable()).is_permanent());
+        assert!(matches!(
+            p.on_throttle(now, 0, http_unavailable()),
+            ThrottleResult::Continue(_)
+        ));
     }
 
     #[test_case::test_case(true, Error::io("err"))]
