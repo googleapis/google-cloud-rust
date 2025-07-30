@@ -791,8 +791,8 @@ pub async fn checksums(
     const VEXING: &str = "how vexingly quick daft zebras jump";
 
     type ObjectResult = storage::Result<storage::model::Object>;
-
-    let uploads: Vec<(&str, std::pin::Pin<Box<dyn Future<Output = ObjectResult>>>)> = vec![
+    type Boxed = std::pin::Pin<Box<dyn Future<Output = ObjectResult>>>;
+    let uploads: Vec<(&str, Boxed)> = vec![
         (
             "verify/default",
             Box::pin(
