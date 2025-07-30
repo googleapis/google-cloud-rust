@@ -128,6 +128,9 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     let insert = client
         .upload_object(&bucket.name, "quick.text", CONTENTS)
         .with_metadata([("verify-metadata-works", "yes")])
+        .with_content_type("text/plain")
+        .with_content_language("en")
+        .with_storage_class("STANDARD")
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -155,6 +158,11 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
         object.checksums.unwrap().crc32c,
         Some(crc32c::crc32c(CONTENTS.as_bytes()))
     );
+    assert_eq!(object.storage_class, "STANDARD");
+    assert_eq!(object.content_language, "en");
+    assert_eq!(object.content_type, "text/plain");
+    assert!(!object.content_disposition.is_empty());
+    assert!(!object.etag.is_empty());
 
     let mut contents = Vec::new();
     while let Some(b) = response.next().await.transpose()? {

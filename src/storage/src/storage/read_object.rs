@@ -528,6 +528,31 @@ impl ReadObjectResponse {
                     .set_or_clear_crc32c(headers_to_crc32c(headers))
                     .set_md5_hash(headers_to_md5_hash(headers))
             }),
+            storage_class: headers
+                .get("x-goog-storage-class")
+                .and_then(|sc| sc.to_str().ok())
+                .map(|sc| sc.to_string())
+                .unwrap_or_default(),
+            content_type: headers
+                .get("content-type")
+                .and_then(|sc| sc.to_str().ok())
+                .map(|sc| sc.to_string())
+                .unwrap_or_default(),
+            content_language: headers
+                .get("content-language")
+                .and_then(|sc| sc.to_str().ok())
+                .map(|sc| sc.to_string())
+                .unwrap_or_default(),
+            content_disposition: headers
+                .get("content-disposition")
+                .and_then(|sc| sc.to_str().ok())
+                .map(|sc| sc.to_string())
+                .unwrap_or_default(),
+            etag: headers
+                .get("etag")
+                .and_then(|sc| sc.to_str().ok())
+                .map(|sc| sc.to_string())
+                .unwrap_or_default(),
         };
 
         Ok(Self {
@@ -697,6 +722,26 @@ pub struct ObjectHighlights {
     /// the client should compute one of these checksums over the downloaded
     /// object and compare it against the value provided here.
     pub checksums: std::option::Option<crate::model::ObjectChecksums>,
+
+    /// Storage class of the object.
+    pub storage_class: String,
+
+    /// Content-Language of the object data, matching
+    /// [<https://tools.ietf.org/html/rfc7231#section-3.1.3.2>][RFC 7231 §3.1.3.2].
+    pub content_language: std::string::String,
+
+    /// Content-Type of the object data, matching
+    /// [<https://tools.ietf.org/html/rfc7231#section-3.1.1.5>][RFC 7231 §3.1.1.5].
+    /// If an object is stored without a Content-Type, it is served as
+    /// `application/octet-stream`.
+    pub content_type: std::string::String,
+
+    /// Content-Disposition of the object data, matching
+    /// [<https://tools.ietf.org/html/rfc6266>][RFC 6266].
+    pub content_disposition: std::string::String,
+
+    /// The etag of the object.
+    pub etag: std::string::String,
 }
 
 /// Represents an error that can occur when reading response data.
@@ -928,7 +973,12 @@ mod tests {
                     .append_header("x-goog-generation", 500)
                     .append_header("x-goog-metageneration", "1")
                     .append_header("x-goog-stored-content-length", 30)
-                    .append_header("x-goog-stored-content-encoding", "identity"),
+                    .append_header("x-goog-stored-content-encoding", "identity")
+                    .append_header("x-goog-storage-class", "STANDARD")
+                    .append_header("content-language", "en")
+                    .append_header("content-type", "text/plain")
+                    .append_header("content-disposition", "inline")
+                    .append_header("etag", "etagval"),
             ),
         );
 
