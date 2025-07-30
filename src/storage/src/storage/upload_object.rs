@@ -1273,6 +1273,14 @@ mod tests {
         engine.finalize()
     }
 
+    async fn collect<S: StreamingSource>(mut stream: S) -> anyhow::Result<Vec<u8>> {
+        let mut collected = Vec::new();
+        while let Some(b) = stream.next().await.transpose()? {
+            collected.extend_from_slice(&b);
+        }
+        Ok(collected)
+    }
+
     #[tokio::test]
     async fn checksum_default() -> Result {
         let client = test_builder().build().await?;
@@ -1282,6 +1290,8 @@ mod tests {
             .await?;
         let want = quick_checksum(Crc32c::default());
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        let collected = collect(upload.payload).await?;
+        assert_eq!(collected, QUICK.as_bytes());
         Ok(())
     }
 
