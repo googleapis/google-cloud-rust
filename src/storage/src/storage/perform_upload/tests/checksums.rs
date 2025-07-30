@@ -56,8 +56,8 @@ mod buffered_single_shot {
         let server = prepare_server(bad_checksums_body());
         let err = start_upload(&server)
             .await?
-            .with_crc32c(vexing_crc32c())
-            .with_md5_hash(vexing_md5())
+            .with_known_crc32c(vexing_crc32c())
+            .with_known_md5_hash(vexing_md5())
             .send()
             .await
             .expect_err("expected a checksum error");
@@ -70,8 +70,8 @@ mod buffered_single_shot {
         let server = prepare_server(good_checksums_body());
         let object = start_upload(&server)
             .await?
-            .with_crc32c(vexing_crc32c())
-            .with_md5_hash(vexing_md5())
+            .with_known_crc32c(vexing_crc32c())
+            .with_known_md5_hash(vexing_md5())
             .send()
             .await?;
         assert_eq!(object.name, "test-object");
@@ -114,8 +114,8 @@ mod buffered_resumable {
         let server = prepare_server(bad_checksums_body());
         let err = start_upload(&server)
             .await?
-            .with_crc32c(vexing_crc32c())
-            .with_md5_hash(vexing_md5())
+            .with_known_crc32c(vexing_crc32c())
+            .with_known_md5_hash(vexing_md5())
             .send()
             .await
             .expect_err("expected a checksum error");
@@ -128,8 +128,8 @@ mod buffered_resumable {
         let server = prepare_server(good_checksums_body());
         let object = start_upload(&server)
             .await?
-            .with_crc32c(vexing_crc32c())
-            .with_md5_hash(vexing_md5())
+            .with_known_crc32c(vexing_crc32c())
+            .with_known_md5_hash(vexing_md5())
             .send()
             .await?;
         assert_eq!(object.name, "test-object");
@@ -172,8 +172,8 @@ mod unbuffered_single_shot {
         let server = prepare_server(bad_checksums_body());
         let err = start_upload(&server)
             .await?
-            .with_crc32c(vexing_crc32c())
-            .with_md5_hash(vexing_md5())
+            .with_known_crc32c(vexing_crc32c())
+            .with_known_md5_hash(vexing_md5())
             .send_unbuffered()
             .await
             .expect_err("expected a checksum error");
@@ -186,8 +186,8 @@ mod unbuffered_single_shot {
         let server = prepare_server(good_checksums_body());
         let object = start_upload(&server)
             .await?
-            .with_crc32c(vexing_crc32c())
-            .with_md5_hash(vexing_md5())
+            .with_known_crc32c(vexing_crc32c())
+            .with_known_md5_hash(vexing_md5())
             .send_unbuffered()
             .await?;
         assert_eq!(object.name, "test-object");
@@ -230,8 +230,8 @@ mod unbuffered_resumable {
         let server = prepare_server(bad_checksums_body());
         let err = start_upload(&server)
             .await?
-            .with_crc32c(vexing_crc32c())
-            .with_md5_hash(vexing_md5())
+            .with_known_crc32c(vexing_crc32c())
+            .with_known_md5_hash(vexing_md5())
             .send_unbuffered()
             .await
             .expect_err("expected a checksum error");
@@ -244,8 +244,8 @@ mod unbuffered_resumable {
         let server = prepare_server(good_checksums_body());
         let object = start_upload(&server)
             .await?
-            .with_crc32c(vexing_crc32c())
-            .with_md5_hash(vexing_md5())
+            .with_known_crc32c(vexing_crc32c())
+            .with_known_md5_hash(vexing_md5())
             .send_unbuffered()
             .await?;
         assert_eq!(object.name, "test-object");
