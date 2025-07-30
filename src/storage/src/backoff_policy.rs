@@ -21,7 +21,7 @@ use std::time::Duration;
 ///
 /// The service recommends exponential backoff with jitter, starting with a one
 /// second backoff and doubling on each attempt.
-pub(crate) fn default() -> impl BackoffPolicy {
+pub fn default() -> impl BackoffPolicy {
     ExponentialBackoffBuilder::new()
         .with_initial_delay(Duration::from_secs(1))
         .with_maximum_delay(Duration::from_secs(60))

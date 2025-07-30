@@ -44,6 +44,7 @@ pub use gax::retry_result::RetryResult as ResumeResult;
 
 /// Defines the interface to resume policies.
 pub trait DownloadResumePolicy: Send + Sync + std::fmt::Debug {
+    /// Determines if the download should continue after an error.
     fn on_error(&self, status: &ResumeQuery, error: Error) -> ResumeResult;
 }
 

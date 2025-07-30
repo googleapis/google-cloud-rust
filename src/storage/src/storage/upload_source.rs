@@ -157,6 +157,20 @@ impl From<tokio::fs::File> for InsertPayload<FileSource> {
     }
 }
 
+/// Implements [StreamingSource] for a [tokio::fs::File].
+///
+/// # Example
+/// ```
+/// # use google_cloud_storage::client::Storage;
+/// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+/// let payload = tokio::fs::File::open("my-data").await?;
+/// let response = client
+///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+///     .send_unbuffered()
+///     .await?;
+/// println!("response details={response:?}");
+/// # Ok(()) }
+/// ```
 pub struct FileSource {
     inner: tokio::fs::File,
 }
@@ -197,7 +211,20 @@ impl Seek for FileSource {
     }
 }
 
-/// Wrap a `bytes::Bytes` to support `StreamingSource`.
+/// Implements [StreamingSource] for [bytes::Bytes].
+///
+/// # Example
+/// ```
+/// # use google_cloud_storage::client::Storage;
+/// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+/// let payload = bytes::Bytes::from_static(b"Hello World!");
+/// let response = client
+///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+///     .send_unbuffered()
+///     .await?;
+/// println!("response details={response:?}");
+/// # Ok(()) }
+/// ```
 pub struct BytesSource {
     contents: bytes::Bytes,
     current: Option<bytes::Bytes>,
@@ -233,7 +260,8 @@ impl Seek for BytesSource {
     }
 }
 
-pub struct IterSource {
+/// Implements [StreamingSource] for a sequence of [bytes::Bytes].
+pub(crate) struct IterSource {
     contents: Vec<bytes::Bytes>,
     current: VecDeque<bytes::Bytes>,
 }

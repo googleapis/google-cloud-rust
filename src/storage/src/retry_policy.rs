@@ -24,10 +24,11 @@
 //! - [503 - Service Unavailable][503]
 //! - [504 - Gateway Timeout][504]
 //!
-//! In addition, resumable uploads return [308 - Resume Incomplete]. This is
-//! not handled by the retry policy.
+//! In addition, resumable uploads return [308 - Resume Incomplete][308]. This
+//! is not handled by the [recommended][RecommendedPolicy] retry policy.
 //!
 //! [recommends]: https://cloud.google.com/storage/docs/retry-strategy
+//! [308]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#308_Resume_Incomplete
 //! [408]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#408_Request_Timeout
 //! [429]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#429_Too_Many_Requests
 //! [500]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#500_Internal_Server_Error
