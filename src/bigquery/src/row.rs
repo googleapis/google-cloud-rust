@@ -66,7 +66,7 @@ pub enum ParsingError {
     #[error("field value is not an object")]
     InvalidFieldValue,
     /// Only complete Query Jobs can be read.
-    #[error("unkown field value type")]
+    #[error("unknown field value type")]
     UnknownFieldValueType,
     /// Only complete Query Jobs can be read.
     #[error("schema/row length mismatch")]
