@@ -30,11 +30,11 @@ use bigquery_v2::model::PostQueryRequest;
 /// # use google_cloud_bigquery::client::QueryClient;
 /// let client = QueryClient::builder().build().await?;
 /// // use `client` to run queries to BigQuery.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
-/// [with_endpoint()]: super::builder::bigquery::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::bigquery::ClientBuilder::with_credentials
+/// [with_endpoint()]: ClientBuilder::with_endpoint
+/// [with_credentials()]: ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]

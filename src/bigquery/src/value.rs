@@ -166,7 +166,7 @@ impl FromSql for chrono::NaiveDateTime {
 }
 
 /// Implements deserialized_with trait
-/// See: https://serde.rs/custom-date-format.html
+/// See: <https://serde.rs/custom-date-format.html>
 pub fn deserialize<'de, D, T>(deserializer: D) -> Result<T, D::Error>
 where
     D: Deserializer<'de>,

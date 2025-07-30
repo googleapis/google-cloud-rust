@@ -57,3 +57,4 @@ path    = "../generated/cloud/bigquery/v2"
 
 [dev-dependencies]
 tokio-test.workspace = true
+anyhow.workspace     = true
