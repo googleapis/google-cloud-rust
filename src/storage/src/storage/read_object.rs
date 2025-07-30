@@ -31,8 +31,12 @@ use serde_with::DeserializeAs;
 /// #   .with_endpoint("https://storage.googleapis.com")
 /// #    .build().await?;
 /// let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
-/// let contents = builder.send().await?.all_bytes().await?;
-/// println!("object contents={contents:?}");
+/// let mut reader = builder.send().await?;
+/// let mut contents = Vec::new();
+/// while let Some(chunk) = reader.next().await.transpose()? {
+///     contents.extend_from_slice(&chunk);
+/// }
+/// println!("object contents={:?}", bytes::Bytes::from_owner(contents));
 /// # Ok::<(), anyhow::Error>(()) });
 /// ```
 #[derive(Clone, Debug)]
@@ -563,30 +567,6 @@ impl ReadObjectResponse {
         self.highlights.clone()
     }
 
-    // Get the full object as bytes.
-    //
-    /// # Example
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
-    /// let contents = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .send()
-    ///     .await?
-    ///     .all_bytes()
-    ///     .await?;
-    /// println!("object contents={contents:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
-    /// ```
-    pub async fn all_bytes(mut self) -> Result<bytes::Bytes> {
-        let mut contents = Vec::with_capacity(self.range.limit as usize);
-        while let Some(b) = self.next().await.transpose()? {
-            contents.extend_from_slice(&b);
-        }
-        Ok(bytes::Bytes::from_owner(contents))
-    }
-
     /// Stream the next bytes of the object.
     ///
     /// When the response has been exhausted, this will return None.
@@ -916,12 +896,15 @@ mod tests {
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
-        let reader = client
+        let mut reader = client
             .read_object("projects/_/buckets/test-bucket", "test-object")
             .send()
             .await?;
-        let got = reader.all_bytes().await?;
-        assert_eq!(got, "hello world");
+        let mut got = Vec::new();
+        while let Some(b) = reader.next().await.transpose()? {
+            got.extend_from_slice(&b);
+        }
+        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
 
         Ok(())
     }
@@ -1025,7 +1008,7 @@ mod tests {
                 request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
-            .times(2)
+            .times(1)
             .respond_with(
                 status_code(200)
                     .body(contents.clone())
@@ -1039,21 +1022,6 @@ mod tests {
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
-
-        // Read some bytes, then get all.
-        let mut response = client
-            .read_object("projects/_/buckets/test-bucket", "test-object")
-            .send()
-            .await?;
-
-        let mut all_bytes = bytes::BytesMut::new();
-        let chunk = response.next().await.transpose()?.unwrap();
-        assert!(!chunk.is_empty());
-        all_bytes.extend(chunk);
-        let remainder = response.all_bytes().await?;
-        assert!(!remainder.is_empty());
-        all_bytes.extend(remainder);
-        assert_eq!(all_bytes, contents);
 
         // Read some bytes, then remainder with stream.
         let mut response = client
@@ -1130,14 +1098,20 @@ mod tests {
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
-        let response = client
+        let mut response = client
             .read_object("projects/_/buckets/test-bucket", "test-object")
             .send()
             .await?;
-        let err = response
-            .all_bytes()
-            .await
-            .expect_err("expect error on incorrect crc32c");
+        let mut partial = Vec::new();
+        let mut err = None;
+        while let Some(r) = response.next().await {
+            match r {
+                Ok(b) => partial.extend_from_slice(&b),
+                Err(e) => err = Some(e),
+            };
+        }
+        assert_eq!(bytes::Bytes::from_owner(partial), "hello world");
+        let err = err.expect("expect error on incorrect crc32c");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
             matches!(source, Some(&ReadError::BadCrc { got, want }) if got == expected_got && want == expected_want),
