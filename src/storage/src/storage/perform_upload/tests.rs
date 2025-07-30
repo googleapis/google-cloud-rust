@@ -118,7 +118,7 @@ async fn start_resumable_upload_metadata_in_request() -> Result {
         .with_content_encoding("gzip")
         .with_content_language("en")
         .with_content_type("text/plain")
-        .with_crc32c(crc32c::crc32c(b""))
+        .with_known_crc32c(crc32c::crc32c(b""))
         .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
         .with_event_based_hold(true)
         .with_md5_hash(md5::compute(b"").0)

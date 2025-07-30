@@ -552,8 +552,12 @@ impl<T, C> UploadObject<T, C> {
     /// client library.
     ///
     /// Note that once you provide a CRC32C value to this builder you cannot
-    /// enable additional checksums.
-    pub fn with_crc32c<V>(mut self, v: V) -> UploadObject<T, Precomputed>
+    /// use [compute_crc32c()] or [compute_md5()] to also have the
+    /// library compute the checksums.
+    ///
+    /// [compute_crc32c()]: UploadObject::compute_crc32c
+    /// [compute_md5()]: UploadObject::compute_md5
+    pub fn with_known_crc32c<V>(mut self, v: V) -> UploadObject<T, Precomputed>
     where
         V: Into<u32>,
     {
@@ -587,8 +591,12 @@ impl<T, C> UploadObject<T, C> {
     /// [Cloud Storage], and more efficient to skip the computation in the
     /// client library.
     ///
-    /// Note that once you provide a CRC32C value to this builder you cannot
-    /// enable additional checksums.
+    /// Note that once you provide a MD5 value to this builder you cannot
+    /// use [compute_crc32c()] or [compute_md5()] to also have the library
+    /// compute the checksums.
+    ///
+    /// [compute_crc32c()]: UploadObject::compute_crc32c
+    /// [compute_md5()]: UploadObject::compute_md5
     pub fn with_md5_hash<I, V>(mut self, i: I) -> UploadObject<T, Precomputed>
     where
         I: IntoIterator<Item = V>,
@@ -826,7 +834,7 @@ impl<T> UploadObject<T, Null> {
     /// See [precompute_checksums][UploadObject::precompute_checksums] for more
     /// details on how checksums are used by the client library and their
     /// limitations.
-    pub fn with_computed_md5(self) -> UploadObject<T, Md5> {
+    pub fn compute_md5(self) -> UploadObject<T, Md5> {
         self.switch_checksum(Md5::from_inner)
     }
 }
@@ -851,7 +859,7 @@ impl<T, C> UploadObject<T, Crc32c<C>> {
     /// See [precompute_checksums][UploadObject::precompute_checksums] for more
     /// details on how checksums are used by the client library and their
     /// limitations.
-    pub fn with_computed_md5(self) -> UploadObject<T, Md5<Crc32c<C>>> {
+    pub fn compute_md5(self) -> UploadObject<T, Md5<Crc32c<C>>> {
         self.switch_checksum(Md5::from_inner)
     }
 
@@ -901,7 +909,7 @@ impl<T, C> UploadObject<T, Md5<C>> {
     /// See [precompute_checksums][UploadObject::precompute_checksums] for more
     /// details on how checksums are used by the client library and their
     /// limitations.
-    pub fn with_computed_crc32c(self) -> UploadObject<T, Crc32c<Md5<C>>> {
+    pub fn compute_crc32c(self) -> UploadObject<T, Crc32c<Md5<C>>> {
         self.switch_checksum(Crc32c::from_inner)
     }
 
@@ -981,6 +989,10 @@ where
 
     /// Precompute the payload checksums before uploading the data.
     ///
+    /// If the checksums are known when the upload starts, the client library
+    /// can include the checksums with the upload request, and the service can
+    /// reject the upload if the payload and the checksums do not match.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
@@ -1002,10 +1014,6 @@ where
     /// service against its own checksums. If they do not match, the client
     /// library returns an error. However, the service has already created the
     /// object with the (likely incorrect) data.
-    ///
-    /// If the checksums are known when the upload starts, the client library
-    /// can include the checksums with the upload request, and the service can
-    /// reject the upload if the payload and the checksums do not match.
     ///
     /// The client library currently uses the [JSON API], it is not possible to
     /// send the checksums at the end of the upload with this API.
@@ -1175,7 +1183,7 @@ mod tests {
             .with_content_encoding("gzip")
             .with_content_language("en")
             .with_content_type("text/plain")
-            .with_crc32c(crc32c::crc32c(b""))
+            .with_known_crc32c(crc32c::crc32c(b""))
             .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
             .with_event_based_hold(true)
             .with_md5_hash(md5::compute(b"").0)
@@ -1291,8 +1299,8 @@ mod tests {
         let client = test_builder().build().await?;
         let upload = client
             .upload_object("my-bucket", "my-object", QUICK)
-            .with_computed_md5()
-            .with_computed_crc32c()
+            .compute_md5()
+            .compute_crc32c()
             .disable_computed_checksums()
             .precompute_checksums()
             .await?;
@@ -1306,7 +1314,7 @@ mod tests {
         let client = test_builder().build().await?;
         let upload = client
             .upload_object("my-bucket", "my-object", QUICK)
-            .with_computed_md5()
+            .compute_md5()
             .disable_computed_checksums()
             .precompute_checksums()
             .await?;
@@ -1320,7 +1328,7 @@ mod tests {
         let client = test_builder().build().await?;
         let upload = client
             .upload_object("my-bucket", "my-object", QUICK)
-            .with_computed_md5()
+            .compute_md5()
             .disable_computed_checksums()
             .precompute_checksums()
             .await?;
@@ -1349,7 +1357,7 @@ mod tests {
         let upload = client
             .upload_object("my-bucket", "my-object", QUICK)
             .disable_computed_checksums()
-            .with_computed_md5()
+            .compute_md5()
             .precompute_checksums()
             .await?;
         let want = quick_checksum(Md5::default());
@@ -1363,8 +1371,8 @@ mod tests {
         let upload = client
             .upload_object("my-bucket", "my-object", QUICK)
             .disable_computed_checksums()
-            .with_computed_md5()
-            .with_computed_crc32c()
+            .compute_md5()
+            .compute_crc32c()
             .precompute_checksums()
             .await?;
         let want = quick_checksum(Crc32c::from_inner(Md5::default()));
@@ -1379,7 +1387,7 @@ mod tests {
             .upload_object("my-bucket", "my-object", QUICK)
             .disable_computed_checksums()
             .with_computed_crc32c()
-            .with_computed_md5()
+            .compute_md5()
             .precompute_checksums()
             .await?;
         let want = quick_checksum(Crc32c::from_inner(Md5::default()));
@@ -1396,7 +1404,7 @@ mod tests {
         let client = test_builder().build().await?;
         let upload = client
             .upload_object("my-bucket", "my-object", QUICK)
-            .with_crc32c(ck.crc32c.unwrap())
+            .with_known_crc32c(ck.crc32c.unwrap())
             .with_md5_hash(ck.md5_hash.clone())
             .precompute_checksums()
             .await?;
