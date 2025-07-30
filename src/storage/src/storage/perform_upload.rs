@@ -15,6 +15,7 @@
 use super::client::{StorageInner, apply_customer_supplied_encryption_headers};
 use crate::model::Object;
 use crate::retry_policy::ContinueOn308;
+use crate::storage::checksum::{ChecksumEngine, ChecksummedSource, Precomputed};
 use crate::storage::client::enc;
 use crate::storage::client::info::X_GOOG_API_CLIENT_HEADER;
 use crate::storage::v1;
@@ -35,17 +36,18 @@ mod unbuffered;
 ///
 /// TODO(#2050) - payload will become `ChecksummedSource<C, S>` to automatically
 ///   compute the checksum.
-pub struct PerformUpload<S> {
+pub struct PerformUpload<C, S> {
     // We need `Arc<Mutex<>>` because this is re-used in retryable uploads.
-    payload: Arc<Mutex<S>>,
+    payload: Arc<Mutex<ChecksummedSource<C, S>>>,
     inner: Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
     options: super::request_options::RequestOptions,
 }
 
-impl<S> PerformUpload<S> {
+impl<C, S> PerformUpload<C, S> {
     pub(crate) fn new(
+        checksum: C,
         payload: S,
         inner: Arc<StorageInner>,
         spec: crate::model::WriteObjectSpec,
@@ -53,7 +55,7 @@ impl<S> PerformUpload<S> {
         options: super::request_options::RequestOptions,
     ) -> Self {
         Self {
-            payload: Arc::new(Mutex::new(payload)),
+            payload: Arc::new(Mutex::new(ChecksummedSource::new(checksum, payload))),
             inner,
             spec,
             params,

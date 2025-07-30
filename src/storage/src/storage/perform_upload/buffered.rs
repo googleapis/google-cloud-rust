@@ -13,17 +13,20 @@
 // limitations under the License.
 
 use super::{
-    ContinueOn308, Error, IterSource, Object, PerformUpload, Result, ResumableUploadStatus,
-    StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
+    ChecksumEngine, ChecksummedSource, ContinueOn308, Error, IterSource, Object, PerformUpload,
+    Precomputed, Result, ResumableUploadStatus, StreamingSource, X_GOOG_API_CLIENT_HEADER,
+    apply_customer_supplied_encryption_headers,
 };
+use crate::storage::checksum::validate as validate_checksum;
 use progress::InProgressUpload;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
 mod progress;
 
-impl<S> PerformUpload<S>
+impl<C, S> PerformUpload<C, S>
 where
+    C: ChecksumEngine + Send + Sync + 'static,
     S: StreamingSource + Send + Sync + 'static,
     S::Error: std::error::Error + Send + Sync + 'static,
 {
@@ -97,7 +100,9 @@ where
                     progress.handle_error();
                     return Err(e);
                 }
-                Ok(ResumableUploadStatus::Finalized(object)) => return Ok(*object),
+                Ok(ResumableUploadStatus::Finalized(object)) => {
+                    return self.validate_response_object(*object).await;
+                }
                 Ok(ResumableUploadStatus::Partial(persisted_size)) => {
                     progress.handle_partial(persisted_size)?;
                 }
@@ -127,20 +132,50 @@ where
         Ok(builder.body(progress.put_body()))
     }
 
-    async fn send_buffered_single_shot(self) -> Result<Object> {
+    async fn send_buffered_single_shot(mut self) -> Result<Object> {
         let mut stream = self.payload.lock().await;
         let mut collected = Vec::new();
         while let Some(b) = stream.next().await.transpose().map_err(Error::ser)? {
             collected.push(b);
         }
+        let source = IterSource::new(collected);
+        // Use the computed checksum, if any, and if the spec does not have a
+        // checksum already.
+        let computed = stream.final_checksum();
+        let has = self
+            .spec
+            .resource
+            .get_or_insert_default()
+            .checksums
+            .get_or_insert_default();
+        if has.crc32c.is_none() {
+            has.crc32c = computed.crc32c;
+        }
+        if has.md5_hash.is_empty() {
+            has.md5_hash = computed.md5_hash;
+        }
         let upload = PerformUpload {
-            payload: Arc::new(Mutex::new(IterSource::new(collected))),
+            payload: Arc::new(Mutex::new(ChecksummedSource::new(Precomputed, source))),
             inner: self.inner,
             spec: self.spec,
             params: self.params,
             options: self.options,
         };
         upload.send_unbuffered_single_shot().await
+    }
+
+    pub(crate) async fn validate_response_object(&self, object: Object) -> Result<Object> {
+        if let Some(pre) = self
+            .spec
+            .resource
+            .as_ref()
+            .and_then(|r| r.checksums.as_ref())
+        {
+            self::validate_checksum(pre, &object.checksums).map_err(Error::ser)?;
+        }
+        let computed = self.payload.lock().await.final_checksum();
+        self::validate_checksum(&computed, &object.checksums).map_err(Error::ser)?;
+        Ok(object)
     }
 }
 

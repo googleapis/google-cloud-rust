@@ -33,7 +33,7 @@ pub enum ChecksumMismatch {
 /// the client (where only CRC32C is enabled by default) and for missing MD5
 /// hashes on the server (common with composed objects).
 pub fn validate(
-    expected: ObjectChecksums,
+    expected: &ObjectChecksums,
     received: &Option<ObjectChecksums>,
 ) -> Result<(), ChecksumMismatch> {
     let Some(recv) = received else {
@@ -326,14 +326,14 @@ mod tests {
     #[test_case(md5_only(), Some(crc32c_only()))]
     #[test_case(md5_only(), Some(md5_only()))]
     fn validate_ok(expected: ObjectChecksums, received: Option<ObjectChecksums>) {
-        let compare = super::validate(expected, &received);
+        let compare = super::validate(&expected, &received);
         assert!(compare.is_ok(), "{compare:?}");
     }
 
     #[test_case(crc32c_only(), crc32c_only().set_crc32c(0_u32))]
     #[test_case(both(), crc32c_only().set_crc32c(0_u32))]
     fn validate_bad_crc32c(expected: ObjectChecksums, received: ObjectChecksums) {
-        let err = super::validate(expected.clone(), &Some(received.clone()))
+        let err = super::validate(&expected, &Some(received.clone()))
             .expect_err("values should not match");
         assert!(matches!(&err, &ChecksumMismatch::Crc32c { .. }), "{err:?}");
     }
@@ -341,14 +341,14 @@ mod tests {
     #[test_case(md5_only(), md5_only().set_md5_hash(bytes::Bytes::from_static(b"cde")))]
     #[test_case(both(), md5_only().set_md5_hash(bytes::Bytes::from_static(b"cde")))]
     fn validate_bad_md5(expected: ObjectChecksums, received: ObjectChecksums) {
-        let err = super::validate(expected.clone(), &Some(received.clone()))
+        let err = super::validate(&expected, &Some(received.clone()))
             .expect_err("values should not match");
         assert!(matches!(&err, &ChecksumMismatch::MD5 { .. }), "{err:?}");
     }
 
     #[test_case(both(), both().set_crc32c(0_u32).set_md5_hash(bytes::Bytes::from_static(b"cde")))]
     fn validate_bad_both(expected: ObjectChecksums, received: ObjectChecksums) {
-        let err = super::validate(expected.clone(), &Some(received.clone()))
+        let err = super::validate(&expected, &Some(received.clone()))
             .expect_err("values should not match");
         assert!(matches!(&err, &ChecksumMismatch::Both { .. }), "{err:?}");
     }

@@ -765,8 +765,9 @@ impl<T, C> UploadObject<T, C> {
             .expect("resource field initialized in `new()`")
     }
 
-    pub(crate) fn build(self) -> PerformUpload<InsertPayload<T>> {
+    pub(crate) fn build(self) -> PerformUpload<C, InsertPayload<T>> {
         PerformUpload::new(
+            self.checksum,
             self.payload,
             self.inner,
             self.spec,
@@ -966,6 +967,7 @@ impl<T> UploadObject<T> {
 
 impl<T, C> UploadObject<T, C>
 where
+    C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Seek + Send + Sync + 'static,
     <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
@@ -1033,6 +1035,7 @@ where
             offset += n.len() as u64;
         }
         let ck = self.checksum.finalize();
+        self.payload.seek(0_u64).await.map_err(Error::ser)?;
         let _ = self.mut_resource().checksums.insert(ck);
         Ok(self.switch_checksum(|_| Precomputed))
     }
@@ -1040,6 +1043,7 @@ where
 
 impl<T, C> UploadObject<T, C>
 where
+    C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Send + Sync + 'static,
     T::Error: std::error::Error + Send + Sync + 'static,
 {
@@ -1269,6 +1273,14 @@ mod tests {
         engine.finalize()
     }
 
+    async fn collect<S: StreamingSource>(mut stream: S) -> anyhow::Result<Vec<u8>> {
+        let mut collected = Vec::new();
+        while let Some(b) = stream.next().await.transpose()? {
+            collected.extend_from_slice(&b);
+        }
+        Ok(collected)
+    }
+
     #[tokio::test]
     async fn checksum_default() -> Result {
         let client = test_builder().build().await?;
@@ -1278,6 +1290,8 @@ mod tests {
             .await?;
         let want = quick_checksum(Crc32c::default());
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        let collected = collect(upload.payload).await?;
+        assert_eq!(collected, QUICK.as_bytes());
         Ok(())
     }
 

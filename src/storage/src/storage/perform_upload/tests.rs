@@ -24,6 +24,8 @@ use test_case::test_case;
 
 type Result = anyhow::Result<()>;
 
+mod checksums;
+
 fn response_body() -> Value {
     json!({
         "name": "test-object",

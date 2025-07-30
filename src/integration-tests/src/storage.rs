@@ -767,6 +767,164 @@ async fn abort_upload_buffered(client: storage::client::Storage, bucket_name: &s
     Ok(())
 }
 
+pub async fn checksums(
+    builder: storage::builder::storage::ClientBuilder,
+    bucket_name: &str,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    tracing::info!("checksums test, using bucket {bucket_name}");
+
+    let client = builder.build().await?;
+    const VEXING: &str = "how vexingly quick daft zebras jump";
+
+    type ObjectResult = storage::Result<storage::model::Object>;
+    type Boxed = futures::future::BoxFuture<'static, ObjectResult>;
+    let uploads: Vec<(&str, Boxed)> = vec![
+        (
+            "verify/default",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/default", VEXING)
+                    .with_if_generation_match(0)
+                    .send(),
+            ),
+        ),
+        (
+            "verify/disabled",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/disabled", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .send(),
+            ),
+        ),
+        (
+            "verify/crc32c",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/crc32c", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_crc32c()
+                    .send(),
+            ),
+        ),
+        (
+            "verify/md5",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/md5", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_md5()
+                    .send(),
+            ),
+        ),
+        (
+            "verify/both",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/both", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_crc32c()
+                    .compute_md5()
+                    .send(),
+            ),
+        ),
+        (
+            "computed/default",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/default", VEXING)
+                    .with_if_generation_match(0)
+                    .precompute_checksums()
+                    .await?
+                    .send(),
+            ),
+        ),
+        (
+            "computed/disabled",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/disabled", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .precompute_checksums()
+                    .await?
+                    .send(),
+            ),
+        ),
+        (
+            "computed/crc32c",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/crc32c", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_crc32c()
+                    .precompute_checksums()
+                    .await?
+                    .send(),
+            ),
+        ),
+        (
+            "computed/md5",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/md5", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_md5()
+                    .precompute_checksums()
+                    .await?
+                    .send(),
+            ),
+        ),
+        (
+            "computed/both",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/both", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_crc32c()
+                    .compute_md5()
+                    .precompute_checksums()
+                    .await?
+                    .send(),
+            ),
+        ),
+    ];
+
+    for (name, upload) in uploads.into_iter() {
+        tracing::info!("waiting for {name}");
+        match upload.await {
+            Ok(_) => {}
+            Err(e) => {
+                println!("error running in {name}: {e:?}");
+                return Err(e.into());
+            }
+        }
+    }
+
+    Ok(())
+}
+
 pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
     let project_id = crate::project_id()?;
     let client = StorageControl::builder()
