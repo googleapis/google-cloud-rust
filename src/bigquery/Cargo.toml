@@ -27,6 +27,7 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
+auth.workspace        = true
 async-trait.workspace = true
 bytes.workspace       = true
 http.workspace        = true
@@ -40,12 +41,15 @@ tonic.workspace       = true
 tokio                 = { workspace = true, features = ["macros", "rt-multi-thread"] }
 tracing.workspace     = true
 # Local crates
-gax              = { workspace = true, features = ["unstable-sdk-client"] }
-gaxi             = { workspace = true, features = ["_internal_common", "_internal_grpc_client"] }
+gax.workspace  = true
+gaxi.workspace = true
 gtype.workspace  = true
 # bigquery_v2.workspace = true
 rpc.workspace    = true
 wkt.workspace    = true
+thiserror = { workspace = true }
+chrono = { workspace = true, features = ["serde"] }
+base64 = { workspace = true }
 
 [dependencies.bigquery_v2]
 package = "google-cloud-bigquery-v2"

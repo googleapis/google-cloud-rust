@@ -25,10 +25,10 @@ mod driver {
             .with_attempt_limit(5)
     }
 
-    #[test_case(bigquery::client::DatasetService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
+    #[test_case(bigquery_admin::client::DatasetService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_bigquery(
-        builder: bigquery::builder::dataset_service::ClientBuilder,
+        builder: bigquery_admin::builder::dataset_service::ClientBuilder,
     ) -> integration_tests::Result<()> {
         integration_tests::bigquery::dataset_admin(builder)
             .await
@@ -47,14 +47,25 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(bigquery::client::QueryClient::builder().with_retry_policy(retry_policy()).with_tracing(); "with retry enabled")]
+    #[test_case(bigquery::client::QueryClient::builder(); "default")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_bigquery_query(
         builder: bigquery::client::ClientBuilder,
     ) -> integration_tests::Result<()> {
         integration_tests::bigquery::run_query(builder)
             .await
-            .map_err(report)
+            .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(bigquery::client::QueryClient::builder(), bigquery_admin::client::DatasetService::builder(); "default")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_bigquery_query_dml(
+        builder: bigquery::client::ClientBuilder,
+        dataset_builder: bigquery_admin::builder::dataset_service::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::bigquery::run_dml_query(builder, dataset_builder)
+            .await
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(sm::client::SecretManagerService::builder(); "default")]

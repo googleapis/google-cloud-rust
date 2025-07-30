@@ -14,7 +14,13 @@
 
 //! Contains the BigQuery client and related types.
 
-use tokio::time::Duration;
+use std::sync::Arc;
+
+use crate::Result;
+use crate::query::Query;
+use crate::query_request::IntoPostQueryRequest;
+use bigquery_v2::client::JobService;
+use bigquery_v2::model::PostQueryRequest;
 
 /// Implements a Query client for the BigQuery API.
 ///
@@ -33,197 +39,157 @@ use tokio::time::Duration;
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
 pub struct QueryClient {
-    job_service: bigquery_v2::client::JobService,
+    job_service: Arc<JobService>,
+    project_id: String,
 }
+
+const DEFAULT_HOST: &str = "https://bigquery.googleapis.com";
 
 impl QueryClient {
     /// Returns a builder for [QueryClient].
     ///
-    /// ```no_run
-    /// # tokio_test::block_on(async {
+    /// # Example
+    /// ```
     /// # use google_cloud_bigquery::client::QueryClient;
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let client = QueryClient::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> ClientBuilder {
-        gax::client_builder::internal::new_builder(client_builder::Factory)
+        ClientBuilder::new()
     }
 
-    /// Start a QueryRequest and returns a QueryResult handler to monitor progress.
-    ///
-    /// # Parameters
-    /// * `sql` - Query to run.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery::client::QueryClient;
-    /// async fn example(client: &QueryClient) -> gax::Result<()> {
-    ///     client.start_query("SELECT 17 as foo").send().await?;
-    ///     Ok(())
-    /// }
-    /// ```
-    pub async fn start_query_from_sql(
-        &self,
-        project_id: &str,
-        sql: String,
-    ) -> gax::Result<QueryResult> {
-        let req = bigquery_v2::model::QueryRequest::new().set_query(sql);
-        let query_result = self.start_query(project_id, req).await?;
-        Ok(query_result)
-    }
-
-    /// Start a QueryRequest and returns a QueryResult handler to monitor progress.
-    ///
-    /// # Parameters
-    /// * `sql` - Query to run.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery::client::QueryClient;
-    /// async fn example(client: &QueryClient) -> gax::Result<()> {
-    ///     client.start_query("SELECT 17 as foo").send().await?;
-    ///     Ok(())
-    /// }
-    /// ```
-    pub async fn start_query(
-        &self,
-        project_id: &str,
-        req: bigquery_v2::model::QueryRequest,
-    ) -> gax::Result<QueryResult> {
+    /// Start a QueryRequest and returns a Query handle to monitor progress.
+    pub async fn query<T>(&self, req: T) -> Result<Query>
+    where
+        T: IntoPostQueryRequest,
+    {
+        let mut req: PostQueryRequest = req.into_post_query_request();
+        if req.project_id.is_empty() {
+            req.project_id = self.project_id.clone();
+        }
         let res = self
             .job_service
-            .query(project_id)
-            .set_query_request(req)
+            .query()
+            .set_project_id(req.project_id)
+            .set_or_clear_query_request(req.query_request)
             .send()
             .await?;
-
-        let mut query_result: QueryResult<'_> = QueryResult {
-            inner: self,
-            project_id: project_id.to_owned(),
-            schema: None,
-            query_id: None,
-            page_token: String::default(),
-            job_id: String::default(),
-            location: String::default(),
-            completed: false,
-            cached_rows: Vec::new(),
-        };
-        query_result.consume_query_response(res);
-
-        Ok(query_result)
+        Ok(Query::new(self.job_service.clone(), res))
     }
 
-    pub(crate) async fn new(_config: gaxi::options::ClientConfig) -> gax::Result<Self> {
-        let job_service = bigquery_v2::client::JobService::builder().build().await?;
-        Ok(Self { job_service })
-    }
-}
-
-#[derive(Debug)]
-pub struct QueryResult<'a> {
-    pub(crate) inner: &'a QueryClient,
-    pub schema: Option<bigquery_v2::model::TableSchema>,
-    pub project_id: String,
-    pub location: String,
-    pub page_token: String,
-    pub job_id: String,
-    pub query_id: Option<String>,
-    pub completed: bool,
-    pub cached_rows: std::vec::Vec<wkt::Struct>,
-}
-
-impl QueryResult<'_> {
-    /*pub async fn paginator(&mut self) -> impl gax::paginator::Paginator<wkt::Struct, gax::error::Error> {
-        let token = self.page_token.clone();
-        let execute = move |token: String| {
-            let res = self.get_query_results()
-                .set_page_token(self.page_token)
-                .send()
-                .await?
-            res.rows
-        };
-        gax::paginator::internal::new_paginator(token, execute);
-    }*/
-
-    pub async fn wait(&mut self) -> gax::Result<()> {
-        if self.completed {
-            return Ok(());
-        }
-        let sleep = async |d| tokio::time::sleep(d).await;
-        loop {
-            let complete = self.poll_job().await?;
-            if complete {
-                return Ok(());
-            }
-            sleep(Duration::from_millis(300)).await;
-        }
-    }
-
-    pub(crate) fn get_query_results(&self) -> bigquery_v2::builder::job_service::GetQueryResults {
-        self.inner
-            .job_service
-            .get_query_results(self.project_id.to_owned().as_str(), self.job_id.as_str())
-    }
-
-    pub(crate) fn consume_query_response(&mut self, res: bigquery_v2::model::QueryResponse) {
-        if let Some(job_complete) = res.job_complete {
-            if job_complete {
-                if let Some(job_ref) = res.job_reference {
-                    self.job_id = job_ref.job_id.to_owned();
-                    if let Some(location) = job_ref.location {
-                        self.location = location;
-                    }
-                }
-                self.completed = job_complete;
-            }
-            self.schema = res.schema;
-            self.page_token = res.page_token;
-            self.cached_rows = res.rows;
-            if res.query_id != "" {
-                self.query_id = Some(res.query_id);
-            }
-        }
-    }
-
-    pub(crate) async fn poll_job(&mut self) -> gax::Result<bool> {
-        let res = self.get_query_results().set_max_results(0).send().await?;
-        self.consume_query_response(
-            bigquery_v2::model::QueryResponse::new()
-                .set_job_complete(res.job_complete)
-                .set_job_reference(res.job_reference)
-                .set_total_rows(res.total_rows)
-                .set_rows(res.rows)
-                .set_schema(res.schema)
-                .set_page_token(res.page_token),
-        );
-        return Ok(self.completed);
+    pub(crate) async fn new(builder: ClientBuilder) -> gax::client_builder::Result<Self> {
+        let job_service = bigquery_v2::client::JobService::builder()
+            //.with_credentials(builder.credentials)
+            .with_endpoint(builder.endpoint.unwrap_or(DEFAULT_HOST.to_string()))
+            .build()
+            .await?;
+        Ok(Self {
+            job_service: Arc::new(job_service),
+            project_id: builder.project_id.unwrap_or_default(),
+        })
     }
 }
 
 /// A builder for [QueryClient].
 ///
 /// ```
-/// # tokio_test::block_on(async {
-/// # use google_cloud_bigquery::*;
-/// # use client::ClientBuilder;
-/// # use client::QueryClient;
-/// let builder : ClientBuilder = Storage::builder();
+/// # use google_cloud_bigquery::client::QueryClient;
+/// # async fn sample() -> anyhow::Result<()> {
+/// let builder = QueryClient::builder();
 /// let client = builder
-///     .with_endpoint("https://storage.googleapis.com")
-///     .build().await?;
-/// # gax::Result::<()>::Ok(()) });
+///     .with_endpoint("https://bigquery.googleapis.com")
+///     .build()
+///     .await?;
+/// # Ok(()) }
 /// ```
-pub type ClientBuilder =
-    gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
+pub struct ClientBuilder {
+    pub(crate) endpoint: Option<String>,
+    pub(crate) project_id: Option<String>,
+    pub(crate) credentials: Option<auth::credentials::Credentials>,
+}
 
-pub(crate) mod client_builder {
-    use super::QueryClient;
-    pub struct Factory;
-    impl gax::client_builder::internal::ClientFactory for Factory {
-        type Client = QueryClient;
-        type Credentials = gaxi::options::Credentials;
-        async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
-            Self::Client::new(config).await
+impl ClientBuilder {
+    pub(crate) fn new() -> Self {
+        Self {
+            endpoint: None,
+            project_id: None,
+            credentials: None,
         }
+    }
+
+    /// Creates a new client.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::QueryClient;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = QueryClient::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub async fn build(self) -> gax::client_builder::Result<QueryClient> {
+        QueryClient::new(self).await
+    }
+
+    /// Sets the endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::QueryClient;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = QueryClient::builder()
+    ///     .with_endpoint("https://private.googleapis.com")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_endpoint<V: Into<String>>(mut self, v: V) -> Self {
+        self.endpoint = Some(v.into());
+        self
+    }
+
+    /// Sets the project id.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::QueryClient;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = QueryClient::builder()
+    ///     .with_project_id("my-project-id")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_project_id<V: Into<String>>(mut self, v: V) -> Self {
+        self.project_id = Some(v.into());
+        self
+    }
+
+    /// Configures the authentication credentials.
+    ///
+    /// Google Cloud BigQuery requires authentication. Use this
+    /// method to change the credentials used by the client. More information
+    /// about valid credentials types can be found in the [google-cloud-auth]
+    /// crate documentation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::QueryClient;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use auth::credentials::mds;
+    /// let client = QueryClient::builder()
+    ///     .with_credentials(
+    ///         mds::Builder::default()
+    ///             .with_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
+    ///             .build()?)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
+    pub fn with_credentials<V: Into<auth::credentials::Credentials>>(mut self, v: V) -> Self {
+        self.credentials = Some(v.into());
+        self
     }
 }

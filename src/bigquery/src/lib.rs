@@ -25,3 +25,12 @@
 //! [bigquery]: https://cloud.google.com/bigquery
 
 pub mod client;
+pub mod iterator;
+pub mod query;
+pub mod query_request;
+pub mod row;
+pub mod schema;
+pub mod value;
+
+pub use gax::Result;
+pub use gax::error::Error;
