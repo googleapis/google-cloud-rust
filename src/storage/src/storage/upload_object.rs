@@ -1035,6 +1035,7 @@ where
             offset += n.len() as u64;
         }
         let ck = self.checksum.finalize();
+        self.payload.seek(0_u64).await.map_err(Error::ser)?;
         let _ = self.mut_resource().checksums.insert(ck);
         Ok(self.switch_checksum(|_| Precomputed))
     }
