@@ -572,6 +572,34 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn single_shot_retry_transient_override_idempotency() -> Result {
+        let server = Server::run();
+        let matching = || {
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
+                request::query(url_decoded(contains(("name", "object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+        };
+        server.expect(matching().times(3).respond_with(cycle![
+            status_code(429).body("try-again"),
+            status_code(429).body("try-again"),
+            json_encoded(response_body()).append_header("content-type", "application/json"),
+        ]));
+
+        let inner =
+            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
+        let got = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .with_idempotency(true)
+            .send_unbuffered()
+            .await?;
+        let want = Object::from(serde_json::from_value::<v1::Object>(response_body())?);
+        assert_eq!(got, want);
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn single_shot_retry_transient_failures_then_success() -> Result {
         let server = Server::run();
         let matching = || {
