@@ -15,6 +15,13 @@
 use crate::model::ObjectChecksums;
 use crate::storage::ChecksumMismatch;
 
+pub fn update(known: &mut ObjectChecksums, computed: ObjectChecksums) {
+    known.crc32c = known.crc32c.or(computed.crc32c);
+    if known.md5_hash.is_empty() {
+        known.md5_hash = computed.md5_hash;
+    }
+}
+
 /// Compare the received object checksums vs. the computed checksums.
 ///
 /// If the `crc32c` field is `None`, or the `md5_mash` field is empty, they do
@@ -84,13 +91,40 @@ impl ChecksumEngine for Null {
     }
 }
 
-/// Assumes the checksums are provided as part of the object metadata.
+/// Assumes the CRC32C checksum is known and included in the object metadata.
 #[derive(Clone, Debug)]
-pub struct Precomputed;
+pub struct KnownCrc32c;
 
-impl sealed::ChecksumEngine for Precomputed {}
+impl sealed::ChecksumEngine for KnownCrc32c {}
 
-impl ChecksumEngine for Precomputed {
+impl ChecksumEngine for KnownCrc32c {
+    fn update(&mut self, _offset: u64, _data: &bytes::Bytes) {}
+    fn finalize(&self) -> ObjectChecksums {
+        ObjectChecksums::new()
+    }
+}
+
+/// Assumes the MD5 hash is known and included in the object metadata.
+#[derive(Clone, Debug)]
+pub struct KnownMd5;
+
+impl sealed::ChecksumEngine for KnownMd5 {}
+
+impl ChecksumEngine for KnownMd5 {
+    fn update(&mut self, _offset: u64, _data: &bytes::Bytes) {}
+    fn finalize(&self) -> ObjectChecksums {
+        ObjectChecksums::new()
+    }
+}
+
+/// Assumes both the CRC32C checksum, and the MD5 checksums are known and
+/// included in the object metadata.
+#[derive(Clone, Debug)]
+pub struct Known;
+
+impl sealed::ChecksumEngine for Known {}
+
+impl ChecksumEngine for Known {
     fn update(&mut self, _offset: u64, _data: &bytes::Bytes) {}
     fn finalize(&self) -> ObjectChecksums {
         ObjectChecksums::new()
@@ -359,7 +393,7 @@ mod tests {
 
     #[test]
     fn precomputed() {
-        let mut engine = Precomputed;
+        let mut engine = Known;
         engine.update(0, &data());
         assert_eq!(engine.finalize(), ObjectChecksums::new());
     }

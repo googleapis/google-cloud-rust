@@ -20,7 +20,9 @@ use super::client::*;
 use super::perform_upload::PerformUpload;
 use super::upload_source::{Seek, StreamingSource};
 use super::*;
-use crate::storage::checksum::{ChecksumEngine, Crc32c, Md5, Precomputed};
+use crate::storage::checksum::{
+    ChecksumEngine, Crc32c, Md5, Known, KnownCrc32c, KnownMd5,
+};
 
 /// A request builder for object uploads.
 ///
@@ -579,82 +581,6 @@ impl<T, C> UploadObject<T, C> {
         self
     }
 
-    /// Provide a precomputed value for the CRC32C checksum.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage::client::Storage;
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use crc32c::crc32c;
-    /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_known_crc32c(crc32c(b"hello world"))
-    ///     .send()
-    ///     .await?;
-    /// println!("response details={response:?}");
-    /// # Ok(()) }
-    /// ```
-    ///
-    /// In some applications, the payload's CRC32C checksum is already known.
-    /// For example, the application may be downloading the data from another
-    /// blob storage system.
-    ///
-    /// In such cases, it is safer to pass the known CRC32C of the payload to
-    /// [Cloud Storage], and more efficient to skip the computation in the
-    /// client library.
-    ///
-    /// Note that once you provide a CRC32C value to this builder you cannot
-    /// use [compute_md5()] to also have the library compute the checksums.
-    ///
-    /// [compute_md5()]: UploadObject::compute_md5
-    pub fn with_known_crc32c<V>(mut self, v: V) -> UploadObject<T, Precomputed>
-    where
-        V: Into<u32>,
-    {
-        let checksum = self.mut_resource().checksums.get_or_insert_default();
-        checksum.crc32c = Some(v.into());
-        self.switch_checksum(|_| Precomputed)
-    }
-
-    /// Provide a precomputed value for the MD5 hash.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage::client::Storage;
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use md5::compute;
-    /// let hash = md5::compute(b"hello world");
-    /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_known_md5_hash(bytes::Bytes::from_owner(hash.0))
-    ///     .send()
-    ///     .await?;
-    /// println!("response details={response:?}");
-    /// # Ok(()) }
-    /// ```
-    ///
-    /// In some applications, the payload's MD5 hash is already known. For
-    /// example, the application may be downloading the data from another blob
-    /// storage system.
-    ///
-    /// In such cases, it is safer to pass the known MD5 of the payload to
-    /// [Cloud Storage], and more efficient to skip the computation in the
-    /// client library.
-    ///
-    /// Note that once you provide a MD5 value to this builder you cannot
-    /// use [compute_md5()] to also have the library compute the checksums.
-    ///
-    /// [compute_md5()]: UploadObject::compute_md5
-    pub fn with_known_md5_hash<I, V>(mut self, i: I) -> UploadObject<T, Precomputed>
-    where
-        I: IntoIterator<Item = V>,
-        V: Into<u8>,
-    {
-        let checksum = self.mut_resource().checksums.get_or_insert_default();
-        checksum.md5_hash = i.into_iter().map(|v| v.into()).collect();
-        self.switch_checksum(|_| Precomputed)
-    }
-
     /// Configure the idempotency for this upload.
     ///
     /// By default, the client library treats single-shot uploads without
@@ -877,9 +803,96 @@ impl<T, C> UploadObject<T, C> {
             checksum: new(self.checksum),
         }
     }
+
+    fn set_crc32c<V: Into<u32>>(mut self, v: V) -> Self {
+        let checksum = self.mut_resource().checksums.get_or_insert_default();
+        checksum.crc32c = Some(v.into());
+        self
+    }
+
+    pub fn set_md5_hash<I, V>(mut self, i: I) -> Self
+    where
+        I: IntoIterator<Item = V>,
+        V: Into<u8>,
+    {
+        let checksum = self.mut_resource().checksums.get_or_insert_default();
+        checksum.md5_hash = i.into_iter().map(|v| v.into()).collect();
+        self
+    }
 }
 
-impl<T, C> UploadObject<T, Crc32c<C>> {
+impl<T> UploadObject<T, Crc32c> {
+    /// Provide a precomputed value for the CRC32C checksum.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use crc32c::crc32c;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_known_crc32c(crc32c(b"hello world"))
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// In some applications, the payload's CRC32C checksum is already known.
+    /// For example, the application may be downloading the data from another
+    /// blob storage system.
+    ///
+    /// In such cases, it is safer to pass the known CRC32C of the payload to
+    /// [Cloud Storage], and more efficient to skip the computation in the
+    /// client library.
+    ///
+    /// Note that once you provide a CRC32C value to this builder you cannot
+    /// use [compute_md5()] to also have the library compute the checksums.
+    ///
+    /// [compute_md5()]: UploadObject::compute_md5
+    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> UploadObject<T, KnownCrc32c> {
+        let this = self.switch_checksum(|_| KnownCrc32c);
+        this.set_crc32c(v)
+    }
+
+    /// Provide a precomputed value for the MD5 hash.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use md5::compute;
+    /// let hash = md5::compute(b"hello world");
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_known_md5_hash(bytes::Bytes::from_owner(hash.0))
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// In some applications, the payload's MD5 hash is already known. For
+    /// example, the application may be downloading the data from another blob
+    /// storage system.
+    ///
+    /// In such cases, it is safer to pass the known MD5 of the payload to
+    /// [Cloud Storage], and more efficient to skip the computation in the
+    /// client library.
+    ///
+    /// Note that once you provide a MD5 value to this builder you cannot
+    /// use [compute_md5()] to also have the library compute the checksums.
+    ///
+    /// [compute_md5()]: UploadObject::compute_md5
+    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Crc32c<KnownMd5>>
+    where
+        I: IntoIterator<Item = V>,
+        V: Into<u8>,
+    {
+        let this = self.switch_checksum(|_| Crc32c::from_inner(KnownMd5));
+        this.set_md5_hash(i)
+    }
+
     /// Enables computation of MD5 hashes.
     ///
     /// # Example
@@ -899,7 +912,62 @@ impl<T, C> UploadObject<T, Crc32c<C>> {
     /// See [precompute_checksums][UploadObject::precompute_checksums] for more
     /// details on how checksums are used by the client library and their
     /// limitations.
-    pub fn compute_md5(self) -> UploadObject<T, Md5<Crc32c<C>>> {
+    pub fn compute_md5(self) -> UploadObject<T, Md5<Crc32c>> {
+        self.switch_checksum(Md5::from_inner)
+    }
+}
+
+impl<T> UploadObject<T, Crc32c<KnownMd5>> {
+    /// See [UploadObject<T, Crc32c>::with_known_crc32c].
+    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> UploadObject<T, Known> {
+        let this = self.switch_checksum(|_| Known);
+        this.set_crc32c(v)
+    }
+}
+
+impl<T> UploadObject<T, Md5<Crc32c>> {
+    /// See [UploadObject<T, Crc32c>::with_known_crc32c].
+    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> UploadObject<T, Md5<KnownCrc32c>> {
+        let this = self.switch_checksum(|_| Md5::from_inner(KnownCrc32c));
+        this.set_crc32c(v)
+    }
+
+    /// See [UploadObject<T, Crc32c>::with_known_md5_hash].
+    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Crc32c<KnownMd5>>
+    where
+        I: IntoIterator<Item = V>,
+        V: Into<u8>,
+    {
+        let this = self.switch_checksum(|_| Crc32c::from_inner(KnownMd5));
+        this.set_md5_hash(i)
+    }
+}
+
+impl<T> UploadObject<T, Md5<KnownCrc32c>> {
+    /// See [UploadObject<T, Crc32c>::with_known_md5_hash].
+    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Known>
+    where
+        I: IntoIterator<Item = V>,
+        V: Into<u8>,
+    {
+        let this = self.switch_checksum(|_| Known);
+        this.set_md5_hash(i)
+    }
+}
+
+impl<T> UploadObject<T, KnownCrc32c> {
+    /// See [UploadObject<T, Crc32c>::with_known_md5_hash].
+    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Known>
+    where
+        I: IntoIterator<Item = V>,
+        V: Into<u8>,
+    {
+        let this = self.switch_checksum(|_| Known);
+        this.set_md5_hash(i)
+    }
+
+    /// See [UploadObject<T, Crc32c>::compute_md5()].
+    pub fn compute_md5(self) -> UploadObject<T, Md5<KnownCrc32c>> {
         self.switch_checksum(Md5::from_inner)
     }
 }
@@ -987,23 +1055,21 @@ where
     /// send the checksums at the end of the upload with this API.
     ///
     /// [JSON API]: https://cloud.google.com/storage/docs/json_api
-    pub async fn precompute_checksums(mut self) -> Result<UploadObject<T, Precomputed>>
+    pub async fn precompute_checksums(mut self) -> Result<UploadObject<T, Known>>
     where
         C: ChecksumEngine + Send + Sync + 'static,
     {
-        if self.mut_resource().checksums.is_some() {
-            return Ok(self.switch_checksum(|_| Precomputed));
-        }
         let mut offset = 0_u64;
         self.payload.seek(offset).await.map_err(Error::ser)?;
         while let Some(n) = self.payload.next().await.transpose().map_err(Error::ser)? {
             self.checksum.update(offset, &n);
             offset += n.len() as u64;
         }
-        let ck = self.checksum.finalize();
         self.payload.seek(0_u64).await.map_err(Error::ser)?;
-        let _ = self.mut_resource().checksums.insert(ck);
-        Ok(self.switch_checksum(|_| Precomputed))
+        let computed = self.checksum.finalize();
+        let current = self.mut_resource().checksums.get_or_insert_default();
+        crate::storage::checksum::update(current, computed);
+        Ok(self.switch_checksum(|_| Known))
     }
 }
 
@@ -1291,6 +1357,117 @@ mod tests {
         // we are trying to verify that whatever is provided in with_crc32c()
         // and with_md5() is respected.
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(ck));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_crc32c_known_md5_computed() -> Result {
+        let mut engine = Crc32c::from_inner(Md5::default());
+        engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
+        let ck = engine.finalize();
+
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .compute_md5()
+            .with_known_crc32c(ck.crc32c.unwrap())
+            .precompute_checksums()
+            .await?;
+        // Note that the checksums do not match the data. This is intentional,
+        // we are trying to verify that whatever is provided in with_known*()
+        // is respected.
+        let want = quick_checksum(Md5::default()).set_crc32c(ck.crc32c.unwrap());
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_mixed_then_precomputed() -> Result {
+        let mut engine = Crc32c::from_inner(Md5::default());
+        engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
+        let ck = engine.finalize();
+
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .with_known_md5_hash(ck.md5_hash.clone())
+            .with_known_crc32c(ck.crc32c.unwrap())
+            .precompute_checksums()
+            .await?;
+        // Note that the checksums do not match the data. This is intentional,
+        // we are trying to verify that whatever is provided in with_known*()
+        // is respected.
+        let want = ck.clone();
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_full_computed_then_md5_precomputed() -> Result {
+        let mut engine = Crc32c::from_inner(Md5::default());
+        engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
+        let ck = engine.finalize();
+
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .compute_md5()
+            .with_known_md5_hash(ck.md5_hash.clone())
+            .precompute_checksums()
+            .await?;
+        // Note that the checksums do not match the data. This is intentional,
+        // we are trying to verify that whatever is provided in with_known*()
+        // is respected.
+        let want = quick_checksum(Crc32c::default()).set_md5_hash(ck.md5_hash.clone());
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_known_crc32_then_computed_md5() -> Result {
+        let mut engine = Crc32c::from_inner(Md5::default());
+        engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
+        let ck = engine.finalize();
+
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .with_known_crc32c(ck.crc32c.unwrap())
+            .compute_md5()
+            .with_known_md5_hash(ck.md5_hash.clone())
+            .precompute_checksums()
+            .await?;
+        // Note that the checksums do not match the data. This is intentional,
+        // we are trying to verify that whatever is provided in with_known*()
+        // is respected.
+        let want = ck.clone();
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_known_crc32_then_known_md5() -> Result {
+        let mut engine = Crc32c::from_inner(Md5::default());
+        engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
+        let ck = engine.finalize();
+
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .with_known_crc32c(ck.crc32c.unwrap())
+            .with_known_md5_hash(ck.md5_hash.clone())
+            .precompute_checksums()
+            .await?;
+        // Note that the checksums do not match the data. This is intentional,
+        // we are trying to verify that whatever is provided in with_known*()
+        // is respected.
+        let want = ck.clone();
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
 
         Ok(())
     }

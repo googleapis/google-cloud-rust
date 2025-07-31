@@ -15,7 +15,7 @@
 use super::client::{StorageInner, apply_customer_supplied_encryption_headers};
 use crate::model::Object;
 use crate::retry_policy::ContinueOn308;
-use crate::storage::checksum::{ChecksumEngine, ChecksummedSource, Precomputed};
+use crate::storage::checksum::{ChecksumEngine, ChecksummedSource, Known};
 use crate::storage::client::enc;
 use crate::storage::client::info::X_GOOG_API_CLIENT_HEADER;
 use crate::storage::v1;
