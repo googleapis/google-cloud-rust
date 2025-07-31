@@ -46842,6 +46842,24 @@ pub mod prediction_service {
             self
         }
 
+        /// Sets the value of [model_armor_config][crate::model::GenerateContentRequest::model_armor_config].
+        pub fn set_model_armor_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ModelArmorConfig>,
+        {
+            self.0.request.model_armor_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model_armor_config][crate::model::GenerateContentRequest::model_armor_config].
+        pub fn set_or_clear_model_armor_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ModelArmorConfig>,
+        {
+            self.0.request.model_armor_config = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [generation_config][crate::model::GenerateContentRequest::generation_config].
         pub fn set_generation_config<T>(mut self, v: T) -> Self
         where

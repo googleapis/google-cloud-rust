@@ -28,6 +28,7 @@ rust-version.workspace = true
 
 [features]
 default = [
+    "assistant-service",
     "cmek-config-service",
     "completion-service",
     "control-service",
@@ -44,10 +45,13 @@ default = [
     "search-service",
     "search-tuning-service",
     "serving-config-service",
+    "session-service",
     "site-search-engine-service",
     "user-event-service",
     "user-license-service",
 ]
+# Enables `client::AssistantService` and all the types it depends on.
+assistant-service = []
 # Enables `client::CmekConfigService` and all the types it depends on.
 cmek-config-service = []
 # Enables `client::CompletionService` and all the types it depends on.
@@ -80,6 +84,8 @@ search-service = []
 search-tuning-service = []
 # Enables `client::ServingConfigService` and all the types it depends on.
 serving-config-service = []
+# Enables `client::SessionService` and all the types it depends on.
+session-service = []
 # Enables `client::SiteSearchEngineService` and all the types it depends on.
 site-search-engine-service = []
 # Enables `client::UserEventService` and all the types it depends on.

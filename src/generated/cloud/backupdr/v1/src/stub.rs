@@ -251,6 +251,17 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::BackupDR::update_backup_plan].
+    fn update_backup_plan(
+        &self,
+        _req: crate::model::UpdateBackupPlanRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::BackupDR::get_backup_plan].
     fn get_backup_plan(
         &self,
@@ -284,10 +295,45 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::BackupDR::get_backup_plan_revision].
+    fn get_backup_plan_revision(
+        &self,
+        _req: crate::model::GetBackupPlanRevisionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BackupPlanRevision>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::list_backup_plan_revisions].
+    fn list_backup_plan_revisions(
+        &self,
+        _req: crate::model::ListBackupPlanRevisionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListBackupPlanRevisionsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::BackupDR::create_backup_plan_association].
     fn create_backup_plan_association(
         &self,
         _req: crate::model::CreateBackupPlanAssociationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::update_backup_plan_association].
+    fn update_backup_plan_association(
+        &self,
+        _req: crate::model::UpdateBackupPlanAssociationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
@@ -319,6 +365,21 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::BackupDR::fetch_backup_plan_associations_for_resource_type].
+    fn fetch_backup_plan_associations_for_resource_type(
+        &self,
+        _req: crate::model::FetchBackupPlanAssociationsForResourceTypeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<
+                crate::model::FetchBackupPlanAssociationsForResourceTypeResponse,
+            >,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::BackupDR::delete_backup_plan_association].
     fn delete_backup_plan_association(
         &self,
@@ -337,6 +398,30 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::get_data_source_reference].
+    fn get_data_source_reference(
+        &self,
+        _req: crate::model::GetDataSourceReferenceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DataSourceReference>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::fetch_data_source_references_for_resource_type].
+    fn fetch_data_source_references_for_resource_type(
+        &self,
+        _req: crate::model::FetchDataSourceReferencesForResourceTypeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::FetchDataSourceReferencesForResourceTypeResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

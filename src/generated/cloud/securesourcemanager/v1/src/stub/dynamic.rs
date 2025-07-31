@@ -59,9 +59,45 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
+    async fn update_repository(
+        &self,
+        req: crate::model::UpdateRepositoryRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn delete_repository(
         &self,
         req: crate::model::DeleteRepositoryRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_hooks(
+        &self,
+        req: crate::model::ListHooksRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListHooksResponse>>;
+
+    async fn get_hook(
+        &self,
+        req: crate::model::GetHookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Hook>>;
+
+    async fn create_hook(
+        &self,
+        req: crate::model::CreateHookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_hook(
+        &self,
+        req: crate::model::UpdateHookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_hook(
+        &self,
+        req: crate::model::DeleteHookRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
@@ -110,6 +146,186 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     async fn delete_branch_rule(
         &self,
         req: crate::model::DeleteBranchRuleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn create_pull_request(
+        &self,
+        req: crate::model::CreatePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn get_pull_request(
+        &self,
+        req: crate::model::GetPullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PullRequest>>;
+
+    async fn list_pull_requests(
+        &self,
+        req: crate::model::ListPullRequestsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPullRequestsResponse>>;
+
+    async fn update_pull_request(
+        &self,
+        req: crate::model::UpdatePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn merge_pull_request(
+        &self,
+        req: crate::model::MergePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn open_pull_request(
+        &self,
+        req: crate::model::OpenPullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn close_pull_request(
+        &self,
+        req: crate::model::ClosePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_pull_request_file_diffs(
+        &self,
+        req: crate::model::ListPullRequestFileDiffsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPullRequestFileDiffsResponse>>;
+
+    async fn fetch_tree(
+        &self,
+        req: crate::model::FetchTreeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::FetchTreeResponse>>;
+
+    async fn fetch_blob(
+        &self,
+        req: crate::model::FetchBlobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::FetchBlobResponse>>;
+
+    async fn create_issue(
+        &self,
+        req: crate::model::CreateIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn get_issue(
+        &self,
+        req: crate::model::GetIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Issue>>;
+
+    async fn list_issues(
+        &self,
+        req: crate::model::ListIssuesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListIssuesResponse>>;
+
+    async fn update_issue(
+        &self,
+        req: crate::model::UpdateIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_issue(
+        &self,
+        req: crate::model::DeleteIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn open_issue(
+        &self,
+        req: crate::model::OpenIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn close_issue(
+        &self,
+        req: crate::model::CloseIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn get_pull_request_comment(
+        &self,
+        req: crate::model::GetPullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PullRequestComment>>;
+
+    async fn list_pull_request_comments(
+        &self,
+        req: crate::model::ListPullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPullRequestCommentsResponse>>;
+
+    async fn create_pull_request_comment(
+        &self,
+        req: crate::model::CreatePullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_pull_request_comment(
+        &self,
+        req: crate::model::UpdatePullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_pull_request_comment(
+        &self,
+        req: crate::model::DeletePullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn batch_create_pull_request_comments(
+        &self,
+        req: crate::model::BatchCreatePullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn resolve_pull_request_comments(
+        &self,
+        req: crate::model::ResolvePullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn unresolve_pull_request_comments(
+        &self,
+        req: crate::model::UnresolvePullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn create_issue_comment(
+        &self,
+        req: crate::model::CreateIssueCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn get_issue_comment(
+        &self,
+        req: crate::model::GetIssueCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IssueComment>>;
+
+    async fn list_issue_comments(
+        &self,
+        req: crate::model::ListIssueCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListIssueCommentsResponse>>;
+
+    async fn update_issue_comment(
+        &self,
+        req: crate::model::UpdateIssueCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_issue_comment(
+        &self,
+        req: crate::model::DeleteIssueCommentRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
@@ -245,12 +461,66 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_repository(
+        &self,
+        req: crate::model::UpdateRepositoryRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_repository(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_repository(
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_repository(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_hooks(
+        &self,
+        req: crate::model::ListHooksRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListHooksResponse>> {
+        T::list_hooks(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_hook(
+        &self,
+        req: crate::model::GetHookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Hook>> {
+        T::get_hook(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_hook(
+        &self,
+        req: crate::model::CreateHookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_hook(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_hook(
+        &self,
+        req: crate::model::UpdateHookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_hook(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_hook(
+        &self,
+        req: crate::model::DeleteHookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_hook(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -323,6 +593,277 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_branch_rule(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_pull_request(
+        &self,
+        req: crate::model::CreatePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_pull_request(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_pull_request(
+        &self,
+        req: crate::model::GetPullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PullRequest>> {
+        T::get_pull_request(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_pull_requests(
+        &self,
+        req: crate::model::ListPullRequestsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPullRequestsResponse>> {
+        T::list_pull_requests(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_pull_request(
+        &self,
+        req: crate::model::UpdatePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_pull_request(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn merge_pull_request(
+        &self,
+        req: crate::model::MergePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::merge_pull_request(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn open_pull_request(
+        &self,
+        req: crate::model::OpenPullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::open_pull_request(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn close_pull_request(
+        &self,
+        req: crate::model::ClosePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::close_pull_request(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_pull_request_file_diffs(
+        &self,
+        req: crate::model::ListPullRequestFileDiffsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPullRequestFileDiffsResponse>>
+    {
+        T::list_pull_request_file_diffs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn fetch_tree(
+        &self,
+        req: crate::model::FetchTreeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::FetchTreeResponse>> {
+        T::fetch_tree(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn fetch_blob(
+        &self,
+        req: crate::model::FetchBlobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::FetchBlobResponse>> {
+        T::fetch_blob(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_issue(
+        &self,
+        req: crate::model::CreateIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_issue(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_issue(
+        &self,
+        req: crate::model::GetIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Issue>> {
+        T::get_issue(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_issues(
+        &self,
+        req: crate::model::ListIssuesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListIssuesResponse>> {
+        T::list_issues(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_issue(
+        &self,
+        req: crate::model::UpdateIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_issue(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_issue(
+        &self,
+        req: crate::model::DeleteIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_issue(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn open_issue(
+        &self,
+        req: crate::model::OpenIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::open_issue(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn close_issue(
+        &self,
+        req: crate::model::CloseIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::close_issue(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_pull_request_comment(
+        &self,
+        req: crate::model::GetPullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PullRequestComment>> {
+        T::get_pull_request_comment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_pull_request_comments(
+        &self,
+        req: crate::model::ListPullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPullRequestCommentsResponse>> {
+        T::list_pull_request_comments(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_pull_request_comment(
+        &self,
+        req: crate::model::CreatePullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_pull_request_comment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_pull_request_comment(
+        &self,
+        req: crate::model::UpdatePullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_pull_request_comment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_pull_request_comment(
+        &self,
+        req: crate::model::DeletePullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_pull_request_comment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn batch_create_pull_request_comments(
+        &self,
+        req: crate::model::BatchCreatePullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::batch_create_pull_request_comments(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn resolve_pull_request_comments(
+        &self,
+        req: crate::model::ResolvePullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::resolve_pull_request_comments(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn unresolve_pull_request_comments(
+        &self,
+        req: crate::model::UnresolvePullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::unresolve_pull_request_comments(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_issue_comment(
+        &self,
+        req: crate::model::CreateIssueCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_issue_comment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_issue_comment(
+        &self,
+        req: crate::model::GetIssueCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IssueComment>> {
+        T::get_issue_comment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_issue_comments(
+        &self,
+        req: crate::model::ListIssueCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListIssueCommentsResponse>> {
+        T::list_issue_comments(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_issue_comment(
+        &self,
+        req: crate::model::UpdateIssueCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_issue_comment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_issue_comment(
+        &self,
+        req: crate::model::DeleteIssueCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_issue_comment(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -391,6 +391,9 @@ pub mod template {
         /// Optional. If true, log sanitize operations.
         pub log_sanitize_operations: bool,
 
+        /// Optional. Enforcement type for Model Armor filters.
+        pub enforcement_type: crate::model::template::template_metadata::EnforcementType,
+
         /// Optional. Metadata for multi language detection.
         pub multi_language_detection:
             std::option::Option<crate::model::template::template_metadata::MultiLanguageDetection>,
@@ -464,6 +467,17 @@ pub mod template {
             self
         }
 
+        /// Sets the value of [enforcement_type][crate::model::template::TemplateMetadata::enforcement_type].
+        pub fn set_enforcement_type<
+            T: std::convert::Into<crate::model::template::template_metadata::EnforcementType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.enforcement_type = v.into();
+            self
+        }
+
         /// Sets the value of [multi_language_detection][crate::model::template::TemplateMetadata::multi_language_detection].
         pub fn set_multi_language_detection<T>(mut self, v: T) -> Self
         where
@@ -510,6 +524,7 @@ pub mod template {
                 __custom_llm_response_safety_error_message,
                 __log_template_operations,
                 __log_sanitize_operations,
+                __enforcement_type,
                 __multi_language_detection,
                 Unknown(std::string::String),
             }
@@ -576,6 +591,8 @@ pub mod template {
                                 "log_sanitize_operations" => {
                                     Ok(__FieldTag::__log_sanitize_operations)
                                 }
+                                "enforcementType" => Ok(__FieldTag::__enforcement_type),
+                                "enforcement_type" => Ok(__FieldTag::__enforcement_type),
                                 "multiLanguageDetection" => {
                                     Ok(__FieldTag::__multi_language_detection)
                                 }
@@ -703,6 +720,18 @@ pub mod template {
                                     .next_value::<std::option::Option<bool>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__enforcement_type => {
+                                if !fields.insert(__FieldTag::__enforcement_type) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for enforcement_type",
+                                    ));
+                                }
+                                result.enforcement_type = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::template::template_metadata::EnforcementType,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
                             __FieldTag::__multi_language_detection => {
                                 if !fields.insert(__FieldTag::__multi_language_detection) {
                                     return std::result::Result::Err(A::Error::duplicate_field(
@@ -789,6 +818,9 @@ pub mod template {
             if !wkt::internal::is_default(&self.log_sanitize_operations) {
                 state.serialize_entry("logSanitizeOperations", &self.log_sanitize_operations)?;
             }
+            if !wkt::internal::is_default(&self.enforcement_type) {
+                state.serialize_entry("enforcementType", &self.enforcement_type)?;
+            }
             if self.multi_language_detection.is_some() {
                 state.serialize_entry("multiLanguageDetection", &self.multi_language_detection)?;
             }
@@ -826,6 +858,7 @@ pub mod template {
             );
             debug_struct.field("log_template_operations", &self.log_template_operations);
             debug_struct.field("log_sanitize_operations", &self.log_sanitize_operations);
+            debug_struct.field("enforcement_type", &self.enforcement_type);
             debug_struct.field("multi_language_detection", &self.multi_language_detection);
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1002,6 +1035,143 @@ pub mod template {
                 debug_struct.finish()
             }
         }
+
+        /// Enforcement type for Model Armor filters.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum EnforcementType {
+            /// Default value. Same as INSPECT_AND_BLOCK.
+            Unspecified,
+            /// Model Armor filters will run in inspect only mode. No action will be
+            /// taken on the request.
+            InspectOnly,
+            /// Model Armor filters will run in inspect and block mode. Requests
+            /// that trip Model Armor filters will be blocked.
+            InspectAndBlock,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [EnforcementType::value] or
+            /// [EnforcementType::name].
+            UnknownValue(enforcement_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod enforcement_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl EnforcementType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::InspectOnly => std::option::Option::Some(1),
+                    Self::InspectAndBlock => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("ENFORCEMENT_TYPE_UNSPECIFIED"),
+                    Self::InspectOnly => std::option::Option::Some("INSPECT_ONLY"),
+                    Self::InspectAndBlock => std::option::Option::Some("INSPECT_AND_BLOCK"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for EnforcementType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for EnforcementType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for EnforcementType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::InspectOnly,
+                    2 => Self::InspectAndBlock,
+                    _ => Self::UnknownValue(enforcement_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for EnforcementType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "ENFORCEMENT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "INSPECT_ONLY" => Self::InspectOnly,
+                    "INSPECT_AND_BLOCK" => Self::InspectAndBlock,
+                    _ => Self::UnknownValue(enforcement_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for EnforcementType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::InspectOnly => serializer.serialize_i32(1),
+                    Self::InspectAndBlock => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for EnforcementType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnforcementType>::new(
+                    ".google.cloud.modelarmor.v1.Template.TemplateMetadata.EnforcementType",
+                ))
+            }
+        }
     }
 }
 
@@ -1023,6 +1193,17 @@ pub struct FloorSetting {
 
     /// Optional. Floor Settings enforcement status.
     pub enable_floor_setting_enforcement: std::option::Option<bool>,
+
+    /// Optional. List of integrated services for which the floor setting is
+    /// applicable.
+    pub integrated_services: std::vec::Vec<crate::model::floor_setting::IntegratedService>,
+
+    /// Optional. AI Platform floor setting.
+    pub ai_platform_floor_setting: std::option::Option<crate::model::AiPlatformFloorSetting>,
+
+    /// Optional. Metadata for FloorSetting
+    pub floor_setting_metadata:
+        std::option::Option<crate::model::floor_setting::FloorSettingMetadata>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1112,6 +1293,53 @@ impl FloorSetting {
         self.enable_floor_setting_enforcement = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [integrated_services][crate::model::FloorSetting::integrated_services].
+    pub fn set_integrated_services<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::floor_setting::IntegratedService>,
+    {
+        use std::iter::Iterator;
+        self.integrated_services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ai_platform_floor_setting][crate::model::FloorSetting::ai_platform_floor_setting].
+    pub fn set_ai_platform_floor_setting<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AiPlatformFloorSetting>,
+    {
+        self.ai_platform_floor_setting = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ai_platform_floor_setting][crate::model::FloorSetting::ai_platform_floor_setting].
+    pub fn set_or_clear_ai_platform_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AiPlatformFloorSetting>,
+    {
+        self.ai_platform_floor_setting = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [floor_setting_metadata][crate::model::FloorSetting::floor_setting_metadata].
+    pub fn set_floor_setting_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::floor_setting::FloorSettingMetadata>,
+    {
+        self.floor_setting_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [floor_setting_metadata][crate::model::FloorSetting::floor_setting_metadata].
+    pub fn set_or_clear_floor_setting_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::floor_setting::FloorSettingMetadata>,
+    {
+        self.floor_setting_metadata = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for FloorSetting {
@@ -1135,6 +1363,9 @@ impl<'de> serde::de::Deserialize<'de> for FloorSetting {
             __update_time,
             __filter_config,
             __enable_floor_setting_enforcement,
+            __integrated_services,
+            __ai_platform_floor_setting,
+            __floor_setting_metadata,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1168,6 +1399,14 @@ impl<'de> serde::de::Deserialize<'de> for FloorSetting {
                             "enable_floor_setting_enforcement" => {
                                 Ok(__FieldTag::__enable_floor_setting_enforcement)
                             }
+                            "integratedServices" => Ok(__FieldTag::__integrated_services),
+                            "integrated_services" => Ok(__FieldTag::__integrated_services),
+                            "aiPlatformFloorSetting" => Ok(__FieldTag::__ai_platform_floor_setting),
+                            "ai_platform_floor_setting" => {
+                                Ok(__FieldTag::__ai_platform_floor_setting)
+                            }
+                            "floorSettingMetadata" => Ok(__FieldTag::__floor_setting_metadata),
+                            "floor_setting_metadata" => Ok(__FieldTag::__floor_setting_metadata),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1239,6 +1478,37 @@ impl<'de> serde::de::Deserialize<'de> for FloorSetting {
                             result.enable_floor_setting_enforcement =
                                 map.next_value::<std::option::Option<bool>>()?;
                         }
+                        __FieldTag::__integrated_services => {
+                            if !fields.insert(__FieldTag::__integrated_services) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for integrated_services",
+                                ));
+                            }
+                            result.integrated_services = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::floor_setting::IntegratedService>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ai_platform_floor_setting => {
+                            if !fields.insert(__FieldTag::__ai_platform_floor_setting) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ai_platform_floor_setting",
+                                ));
+                            }
+                            result.ai_platform_floor_setting = map.next_value::<std::option::Option<crate::model::AiPlatformFloorSetting>>()?
+                                ;
+                        }
+                        __FieldTag::__floor_setting_metadata => {
+                            if !fields.insert(__FieldTag::__floor_setting_metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for floor_setting_metadata",
+                                ));
+                            }
+                            result.floor_setting_metadata = map.next_value::<std::option::Option<
+                                crate::model::floor_setting::FloorSettingMetadata,
+                            >>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1280,6 +1550,15 @@ impl serde::ser::Serialize for FloorSetting {
                 &self.enable_floor_setting_enforcement,
             )?;
         }
+        if !self.integrated_services.is_empty() {
+            state.serialize_entry("integratedServices", &self.integrated_services)?;
+        }
+        if self.ai_platform_floor_setting.is_some() {
+            state.serialize_entry("aiPlatformFloorSetting", &self.ai_platform_floor_setting)?;
+        }
+        if self.floor_setting_metadata.is_some() {
+            state.serialize_entry("floorSettingMetadata", &self.floor_setting_metadata)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1300,10 +1579,757 @@ impl std::fmt::Debug for FloorSetting {
             "enable_floor_setting_enforcement",
             &self.enable_floor_setting_enforcement,
         );
+        debug_struct.field("integrated_services", &self.integrated_services);
+        debug_struct.field("ai_platform_floor_setting", &self.ai_platform_floor_setting);
+        debug_struct.field("floor_setting_metadata", &self.floor_setting_metadata);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [FloorSetting].
+pub mod floor_setting {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// message describing FloorSetting Metadata
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct FloorSettingMetadata {
+        /// Optional. Metadata for multi language detection.
+        pub multi_language_detection: std::option::Option<
+            crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection,
+        >,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl FloorSettingMetadata {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [multi_language_detection][crate::model::floor_setting::FloorSettingMetadata::multi_language_detection].
+        pub fn set_multi_language_detection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection,
+                >,
+        {
+            self.multi_language_detection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [multi_language_detection][crate::model::floor_setting::FloorSettingMetadata::multi_language_detection].
+        pub fn set_or_clear_multi_language_detection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection,
+                >,
+        {
+            self.multi_language_detection = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for FloorSettingMetadata {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.modelarmor.v1.FloorSetting.FloorSettingMetadata"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for FloorSettingMetadata {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __multi_language_detection,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for FloorSettingMetadata")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "multiLanguageDetection" => {
+                                    Ok(__FieldTag::__multi_language_detection)
+                                }
+                                "multi_language_detection" => {
+                                    Ok(__FieldTag::__multi_language_detection)
+                                }
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = FloorSettingMetadata;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct FloorSettingMetadata")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__multi_language_detection => {
+                                if !fields.insert(__FieldTag::__multi_language_detection) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for multi_language_detection",
+                                    ));
+                                }
+                                result.multi_language_detection = map.next_value::<std::option::Option<crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection>>()?
+                                    ;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for FloorSettingMetadata {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.multi_language_detection.is_some() {
+                state.serialize_entry("multiLanguageDetection", &self.multi_language_detection)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for FloorSettingMetadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FloorSettingMetadata");
+            debug_struct.field("multi_language_detection", &self.multi_language_detection);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Defines additional types related to [FloorSettingMetadata].
+    pub mod floor_setting_metadata {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Metadata to enable multi language detection via floor setting.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct MultiLanguageDetection {
+            /// Required. If true, multi language detection will be enabled.
+            pub enable_multi_language_detection: bool,
+
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl MultiLanguageDetection {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [enable_multi_language_detection][crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection::enable_multi_language_detection].
+            pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.enable_multi_language_detection = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for MultiLanguageDetection {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.modelarmor.v1.FloorSetting.FloorSettingMetadata.MultiLanguageDetection"
+            }
+        }
+
+        #[doc(hidden)]
+        impl<'de> serde::de::Deserialize<'de> for MultiLanguageDetection {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                #[allow(non_camel_case_types)]
+                #[doc(hidden)]
+                #[derive(PartialEq, Eq, Hash)]
+                enum __FieldTag {
+                    __enable_multi_language_detection,
+                    Unknown(std::string::String),
+                }
+                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        struct Visitor;
+                        impl<'de> serde::de::Visitor<'de> for Visitor {
+                            type Value = __FieldTag;
+                            fn expecting(
+                                &self,
+                                formatter: &mut std::fmt::Formatter,
+                            ) -> std::fmt::Result {
+                                formatter.write_str("a field name for MultiLanguageDetection")
+                            }
+                            fn visit_str<E>(
+                                self,
+                                value: &str,
+                            ) -> std::result::Result<Self::Value, E>
+                            where
+                                E: serde::de::Error,
+                            {
+                                use std::result::Result::Ok;
+                                use std::string::ToString;
+                                match value {
+                                    "enableMultiLanguageDetection" => {
+                                        Ok(__FieldTag::__enable_multi_language_detection)
+                                    }
+                                    "enable_multi_language_detection" => {
+                                        Ok(__FieldTag::__enable_multi_language_detection)
+                                    }
+                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
+                                }
+                            }
+                        }
+                        deserializer.deserialize_identifier(Visitor)
+                    }
+                }
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = MultiLanguageDetection;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("struct MultiLanguageDetection")
+                    }
+                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                    where
+                        A: serde::de::MapAccess<'de>,
+                    {
+                        #[allow(unused_imports)]
+                        use serde::de::Error;
+                        use std::option::Option::Some;
+                        let mut fields = std::collections::HashSet::new();
+                        let mut result = Self::Value::new();
+                        while let Some(tag) = map.next_key::<__FieldTag>()? {
+                            #[allow(clippy::match_single_binding)]
+                            match tag {
+                                __FieldTag::__enable_multi_language_detection => {
+                                    if !fields.insert(__FieldTag::__enable_multi_language_detection)
+                                    {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for enable_multi_language_detection",
+                                            ),
+                                        );
+                                    }
+                                    result.enable_multi_language_detection = map
+                                        .next_value::<std::option::Option<bool>>()?
+                                        .unwrap_or_default();
+                                }
+                                __FieldTag::Unknown(key) => {
+                                    let value = map.next_value::<serde_json::Value>()?;
+                                    result._unknown_fields.insert(key, value);
+                                }
+                            }
+                        }
+                        std::result::Result::Ok(result)
+                    }
+                }
+                deserializer.deserialize_any(Visitor)
+            }
+        }
+
+        #[doc(hidden)]
+        impl serde::ser::Serialize for MultiLanguageDetection {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                use serde::ser::SerializeMap;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
+                let mut state = serializer.serialize_map(std::option::Option::None)?;
+                if !wkt::internal::is_default(&self.enable_multi_language_detection) {
+                    state.serialize_entry(
+                        "enableMultiLanguageDetection",
+                        &self.enable_multi_language_detection,
+                    )?;
+                }
+                if !self._unknown_fields.is_empty() {
+                    for (key, value) in self._unknown_fields.iter() {
+                        state.serialize_entry(key, &value)?;
+                    }
+                }
+                state.end()
+            }
+        }
+
+        impl std::fmt::Debug for MultiLanguageDetection {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("MultiLanguageDetection");
+                debug_struct.field(
+                    "enable_multi_language_detection",
+                    &self.enable_multi_language_detection,
+                );
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+    }
+
+    /// Integrated service for which the floor setting is applicable.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IntegratedService {
+        /// Unspecified integrated service.
+        Unspecified,
+        /// AI Platform.
+        AiPlatform,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IntegratedService::value] or
+        /// [IntegratedService::name].
+        UnknownValue(integrated_service::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod integrated_service {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl IntegratedService {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AiPlatform => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("INTEGRATED_SERVICE_UNSPECIFIED"),
+                Self::AiPlatform => std::option::Option::Some("AI_PLATFORM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for IntegratedService {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for IntegratedService {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for IntegratedService {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AiPlatform,
+                _ => Self::UnknownValue(integrated_service::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for IntegratedService {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "INTEGRATED_SERVICE_UNSPECIFIED" => Self::Unspecified,
+                "AI_PLATFORM" => Self::AiPlatform,
+                _ => Self::UnknownValue(integrated_service::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for IntegratedService {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AiPlatform => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IntegratedService {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IntegratedService>::new(
+                ".google.cloud.modelarmor.v1.FloorSetting.IntegratedService",
+            ))
+        }
+    }
+}
+
+/// message describing AiPlatformFloorSetting
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AiPlatformFloorSetting {
+    /// Optional. If true, log Model Armor filter results to Cloud Logging.
+    pub enable_cloud_logging: bool,
+
+    /// enforcement type for Model Armor filters.
+    pub enforcement_type:
+        std::option::Option<crate::model::ai_platform_floor_setting::EnforcementType>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AiPlatformFloorSetting {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enable_cloud_logging][crate::model::AiPlatformFloorSetting::enable_cloud_logging].
+    pub fn set_enable_cloud_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_cloud_logging = v.into();
+        self
+    }
+
+    /// Sets the value of [enforcement_type][crate::model::AiPlatformFloorSetting::enforcement_type].
+    ///
+    /// Note that all the setters affecting `enforcement_type` are mutually
+    /// exclusive.
+    pub fn set_enforcement_type<
+        T: std::convert::Into<
+                std::option::Option<crate::model::ai_platform_floor_setting::EnforcementType>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enforcement_type = v.into();
+        self
+    }
+
+    /// The value of [enforcement_type][crate::model::AiPlatformFloorSetting::enforcement_type]
+    /// if it holds a `InspectOnly`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn inspect_only(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.enforcement_type.as_ref().and_then(|v| match v {
+            crate::model::ai_platform_floor_setting::EnforcementType::InspectOnly(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [enforcement_type][crate::model::AiPlatformFloorSetting::enforcement_type]
+    /// to hold a `InspectOnly`.
+    ///
+    /// Note that all the setters affecting `enforcement_type` are
+    /// mutually exclusive.
+    pub fn set_inspect_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enforcement_type = std::option::Option::Some(
+            crate::model::ai_platform_floor_setting::EnforcementType::InspectOnly(v.into()),
+        );
+        self
+    }
+
+    /// The value of [enforcement_type][crate::model::AiPlatformFloorSetting::enforcement_type]
+    /// if it holds a `InspectAndBlock`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn inspect_and_block(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.enforcement_type.as_ref().and_then(|v| match v {
+            crate::model::ai_platform_floor_setting::EnforcementType::InspectAndBlock(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [enforcement_type][crate::model::AiPlatformFloorSetting::enforcement_type]
+    /// to hold a `InspectAndBlock`.
+    ///
+    /// Note that all the setters affecting `enforcement_type` are
+    /// mutually exclusive.
+    pub fn set_inspect_and_block<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enforcement_type = std::option::Option::Some(
+            crate::model::ai_platform_floor_setting::EnforcementType::InspectAndBlock(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for AiPlatformFloorSetting {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.AiPlatformFloorSetting"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AiPlatformFloorSetting {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __inspect_only,
+            __inspect_and_block,
+            __enable_cloud_logging,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AiPlatformFloorSetting")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "inspectOnly" => Ok(__FieldTag::__inspect_only),
+                            "inspect_only" => Ok(__FieldTag::__inspect_only),
+                            "inspectAndBlock" => Ok(__FieldTag::__inspect_and_block),
+                            "inspect_and_block" => Ok(__FieldTag::__inspect_and_block),
+                            "enableCloudLogging" => Ok(__FieldTag::__enable_cloud_logging),
+                            "enable_cloud_logging" => Ok(__FieldTag::__enable_cloud_logging),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AiPlatformFloorSetting;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AiPlatformFloorSetting")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__inspect_only => {
+                            if !fields.insert(__FieldTag::__inspect_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for inspect_only",
+                                ));
+                            }
+                            if result.enforcement_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `enforcement_type`, a oneof with full ID .google.cloud.modelarmor.v1.AiPlatformFloorSetting.inspect_only, latest field was inspectOnly",
+                                ));
+                            }
+                            result.enforcement_type = std::option::Option::Some(
+                                crate::model::ai_platform_floor_setting::EnforcementType::InspectOnly(
+                                    map.next_value::<std::option::Option<bool>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__inspect_and_block => {
+                            if !fields.insert(__FieldTag::__inspect_and_block) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for inspect_and_block",
+                                ));
+                            }
+                            if result.enforcement_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `enforcement_type`, a oneof with full ID .google.cloud.modelarmor.v1.AiPlatformFloorSetting.inspect_and_block, latest field was inspectAndBlock",
+                                ));
+                            }
+                            result.enforcement_type = std::option::Option::Some(
+                                crate::model::ai_platform_floor_setting::EnforcementType::InspectAndBlock(
+                                    map.next_value::<std::option::Option<bool>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__enable_cloud_logging => {
+                            if !fields.insert(__FieldTag::__enable_cloud_logging) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_cloud_logging",
+                                ));
+                            }
+                            result.enable_cloud_logging = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AiPlatformFloorSetting {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.inspect_only() {
+            state.serialize_entry("inspectOnly", value)?;
+        }
+        if let Some(value) = self.inspect_and_block() {
+            state.serialize_entry("inspectAndBlock", value)?;
+        }
+        if !wkt::internal::is_default(&self.enable_cloud_logging) {
+            state.serialize_entry("enableCloudLogging", &self.enable_cloud_logging)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for AiPlatformFloorSetting {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AiPlatformFloorSetting");
+        debug_struct.field("enable_cloud_logging", &self.enable_cloud_logging);
+        debug_struct.field("enforcement_type", &self.enforcement_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [AiPlatformFloorSetting].
+pub mod ai_platform_floor_setting {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// enforcement type for Model Armor filters.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EnforcementType {
+        /// Optional. If true, Model Armor filters will be run in inspect only mode.
+        /// No action will be taken on the request.
+        InspectOnly(bool),
+        /// Optional. If true, Model Armor filters will be run in inspect and block
+        /// mode. Requests that trip Model Armor filters will be blocked.
+        InspectAndBlock(bool),
     }
 }
 

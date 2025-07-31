@@ -209,6 +209,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn update_backup_plan(
+        &self,
+        req: crate::model::UpdateBackupPlanRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_backup_plan(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_backup_plan(
         &self,
         req: crate::model::GetBackupPlanRequest,
@@ -236,6 +245,24 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn get_backup_plan_revision(
+        &self,
+        req: crate::model::GetBackupPlanRevisionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::BackupPlanRevision>> {
+        self.inner.get_backup_plan_revision(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_backup_plan_revisions(
+        &self,
+        req: crate::model::ListBackupPlanRevisionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListBackupPlanRevisionsResponse>> {
+        self.inner.list_backup_plan_revisions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn create_backup_plan_association(
         &self,
         req: crate::model::CreateBackupPlanAssociationRequest,
@@ -243,6 +270,17 @@ where
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner
             .create_backup_plan_association(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_backup_plan_association(
+        &self,
+        req: crate::model::UpdateBackupPlanAssociationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner
+            .update_backup_plan_association(req, options)
             .await
     }
 
@@ -265,6 +303,19 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn fetch_backup_plan_associations_for_resource_type(
+        &self,
+        req: crate::model::FetchBackupPlanAssociationsForResourceTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<
+        gax::response::Response<crate::model::FetchBackupPlanAssociationsForResourceTypeResponse>,
+    > {
+        self.inner
+            .fetch_backup_plan_associations_for_resource_type(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
     async fn delete_backup_plan_association(
         &self,
         req: crate::model::DeleteBackupPlanAssociationRequest,
@@ -282,6 +333,28 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.trigger_backup(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_data_source_reference(
+        &self,
+        req: crate::model::GetDataSourceReferenceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::DataSourceReference>> {
+        self.inner.get_data_source_reference(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn fetch_data_source_references_for_resource_type(
+        &self,
+        req: crate::model::FetchDataSourceReferencesForResourceTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<
+        gax::response::Response<crate::model::FetchDataSourceReferencesForResourceTypeResponse>,
+    > {
+        self.inner
+            .fetch_data_source_references_for_resource_type(req, options)
+            .await
     }
 
     #[tracing::instrument(ret)]

@@ -19,6 +19,13 @@ service-config = 'google/spanner/admin/database/v1/spanner.yaml'
 [codec]
 copyright-year       = '2025'
 
+[source]
+skipped-ids = """\
+.google.spanner.admin.database.v1.DatabaseAdmin.InternalUpdateGraphOperation,\
+.google.spanner.admin.database.v1.InternalUpdateGraphOperationRequest,\
+.google.spanner.admin.database.v1.InternalUpdateGraphOperationResponse\
+"""
+
 [[documentation-overrides]]
 id      = '.google.spanner.admin.database.v1.ListBackupsRequest.filter'
 match   = """
