@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-apps-script-type-sheets"
-version                = "0.4.2"
+version                = "0.4.3"
 description            = "Google Cloud Client Libraries for Rust - Google Apps Script Types"
 edition.workspace      = true
 authors.workspace      = true

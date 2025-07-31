@@ -36,6 +36,6 @@ operations.
 [codec]
 # We inherited an existing crate for `google-cloud-longrunning`. We need to use
 # version numbers higher than the existing releases until we hit 1.0.
-version               = "0.25.2"
+version               = "0.25.3"
 copyright-year        = '2024'
 'package:longrunning' = 'ignore=true'
