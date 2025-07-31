@@ -32,15 +32,15 @@ name = "getting_started"
 google-cloud-longrunning = { version = "0.25.2", path = "../../src/generated/longrunning" }
 # ANCHOR_END: longrunning
 # ANCHOR: language
-google-cloud-language-v2 = { version = "0.4.2", path = "../../src/generated/cloud/language/v2" }
+google-cloud-language-v2 = { version = "0.4.3", path = "../../src/generated/cloud/language/v2" }
 # ANCHOR_END: language
-google-cloud-rpc = { version = "0.4.2", path = "../../src/generated/rpc/types" }
-google-cloud-wkt = { version = "0.5.2", path = "../../src/wkt" }
+google-cloud-rpc = { version = "0.4.3", path = "../../src/generated/rpc/types" }
+google-cloud-wkt = { version = "0.5.3", path = "../../src/wkt" }
 anyhow.workspace = true
 
 # ANCHOR: speech
 [dependencies.google-cloud-speech-v2]
-version = "0.4.2"
+version = "0.4.3"
 # ANCHOR_END: speech
 path = "../../src/generated/cloud/speech/v2"
 
@@ -57,13 +57,13 @@ workspace = true
 
 # ANCHOR: secretmanager
 [dependencies.google-cloud-secretmanager-v1]
-version = "0.4.2"
+version = "0.4.3"
 # ANCHOR_END: secretmanager
 path = "../../src/generated/cloud/secretmanager/v1"
 
 # ANCHOR: aiplatform
 [dependencies.google-cloud-aiplatform-v1]
-version          = "0.4.2"
+version          = "0.4.3"
 default-features = false
 features         = ["prediction-service"]
 # ANCHOR_END: aiplatform
