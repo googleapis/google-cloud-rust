@@ -32,8 +32,8 @@ library. If not, read the [quickstart guide].
 
 ## Add the client library as a dependency
 
-```toml
-{{#include ../../samples/Cargo.toml:storage}}
+```shell
+cargo add google-cloud-storage
 ```
 
 ## Create source data

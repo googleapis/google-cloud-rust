@@ -338,18 +338,23 @@ tokio-test     = { default-features = false, version = "0.4" }
 # Local packages used as dependencies
 auth                          = { version = "0.22.2", path = "src/auth", package = "google-cloud-auth" }
 gax                           = { version = "0.23.2", path = "src/gax", package = "google-cloud-gax" }
+google-cloud-gax              = { version = "0.23.2", path = "src/gax", package = "google-cloud-gax" }
 gaxi                          = { version = "0.4.1", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "0.4.3", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
 location                      = { version = "0.4.3", path = "src/generated/cloud/location", package = "google-cloud-location" }
 longrunning                   = { version = "0.25.3", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
+google-cloud-longrunning      = { version = "0.25.3", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
 lro                           = { version = "0.3.3", path = "src/lro", package = "google-cloud-lro" }
+google-cloud-lro              = { version = "0.3.3", path = "src/lro", package = "google-cloud-lro" }
 wkt                           = { version = "0.5.3", path = "src/wkt", package = "google-cloud-wkt" }
+google-cloud-wkt              = { version = "0.5.3", path = "src/wkt", package = "google-cloud-wkt" }
 api                           = { version = "0.4.3", path = "src/generated/api/types", package = "google-cloud-api" }
 cloud_common                  = { version = "0.4.3", path = "src/generated/cloud/common", package = "google-cloud-common" }
 gtype                         = { version = "0.4.3", path = "src/generated/type", package = "google-cloud-type" }
 grafeas                       = { version = "0.4.3", path = "src/generated/grafeas/v1", package = "google-cloud-grafeas-v1" }
 logging_type                  = { version = "0.4.3", path = "src/generated/logging/type", package = "google-cloud-logging-type" }
 rpc                           = { version = "0.4.3", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
+google-cloud-rpc              = { version = "0.4.3", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
 rpc_context                   = { version = "0.4.3", path = "src/generated/rpc/context", package = "google-cloud-rpc-context" }
 apps_script_type              = { version = "0.4.3", path = "src/generated/apps/script/gtype", package = "google-cloud-apps-script-type" }
 accesscontextmanager_v1       = { version = "0.4.3", path = "src/generated/identity/accesscontextmanager/v1", package = "google-cloud-identity-accesscontextmanager-v1" }
@@ -369,6 +374,11 @@ oslogin_common                = { version = "0.4.3", path = "src/generated/oslog
 iam_v2                        = { version = "0.4.3", path = "src/generated/iam/v2", package = "google-cloud-iam-v2" }
 recommender                   = { version = "0.4.3", path = "src/generated/cloud/recommender/v1", package = "google-cloud-recommender-v1" }
 accesscontextmanager_type     = { version = "0.4.3", path = "src/generated/identity/accesscontextmanager/type", package = "google-cloud-identity-accesscontextmanager-type" }
+google-cloud-language-v2      = { version = "0.4.3", path = "src/generated/cloud/language/v2" }
+google-cloud-speech-v2        = { version = "0.4.3", path = "src/generated/cloud/speech/v2" }
+google-cloud-secretmanager-v1 = { version = "0.4.3", path = "src/generated/cloud/secretmanager/v1" }
+google-cloud-aiplatform-v1    = { version = "0.4.3", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
+google-cloud-storage          = { version = "0.25.0-preview4", path = "src/storage" }
 
 # Local test package
 integration-tests = { path = "src/integration-tests" }

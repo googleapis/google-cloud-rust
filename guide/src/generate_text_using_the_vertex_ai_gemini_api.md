@@ -30,8 +30,8 @@ The Vertex AI client library includes many features. Compiling all of them is
 relatively slow. To speed up compilation, you can just enable the features you
 need:
 
-```toml
-{{#include ../samples/Cargo.toml:aiplatform}}
+```shell
+cargo add google-cloud-aiplatform-v1 --no-default-features --features prediction-service
 ```
 
 ## Send a prompt to the Vertex AI Gemini API
