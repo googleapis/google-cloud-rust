@@ -607,6 +607,46 @@ impl<T, C> UploadObject<T, C> {
         self.switch_checksum(|_| Precomputed)
     }
 
+    /// Configure the idempotency for this upload.
+    ///
+    /// By default, the client library treats single-shot uploads without
+    /// preconditions, as non-idempotent. If the destination bucket is
+    /// configured with [object versioning] then the operation may succeed
+    /// multiple times with observable side-effects. With object versioning and
+    /// a [lifecycle] policy limiting the number of versions uploading the same
+    /// data multiple times may result in data loss.
+    ///
+    /// The client library cannot efficiently determine if these conditions
+    /// apply to your upload. If they do, or your application can tolerate
+    /// multiple versions of the same data for other reasons, consider using
+    /// `with_idempotency(true)`
+    ///
+    /// The client library treats resumable uploads as idempotent, regardless of
+    /// the value in this option. Such uploads can succeed at most once.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::retry_policy::RecommendedPolicy;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// use gax::retry_policy::RetryPolicyExt;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_idempotency(true)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [lifecycle]: https://cloud.google.com/storage/docs/lifecycle
+    /// [object versioning]: https://cloud.google.com/storage/docs/object-versioning
+    pub fn with_idempotency(mut self, v: bool) -> Self {
+        self.options.idempotency = Some(v);
+        self
+    }
+
     /// The retry policy used for this request.
     ///
     /// # Example

@@ -28,6 +28,7 @@ pub(crate) struct RequestOptions {
     pub download_resume_policy: Arc<dyn DownloadResumePolicy>,
     pub resumable_upload_threshold: usize,
     pub resumable_upload_buffer_size: usize,
+    pub idempotency: Option<bool>,
 }
 
 const MIB: usize = 1024 * 1024_usize;
@@ -49,6 +50,7 @@ impl RequestOptions {
             download_resume_policy,
             resumable_upload_threshold: RESUMABLE_UPLOAD_THRESHOLD,
             resumable_upload_buffer_size: RESUMABLE_UPLOAD_TARGET_CHUNK,
+            idempotency: None,
         }
     }
 }

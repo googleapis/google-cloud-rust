@@ -108,10 +108,10 @@ where
     }
 
     pub(super) async fn send_unbuffered_single_shot(self) -> Result<Object> {
-        // TODO(#1655) - make idempotency configurable.
         // Single shot uploads are idempotent only if they have pre-conditions.
-        let idempotent =
-            self.spec.if_generation_match.is_some() || self.spec.if_metageneration_match.is_some();
+        let idempotent = self.options.idempotency.unwrap_or(
+            self.spec.if_generation_match.is_some() || self.spec.if_metageneration_match.is_some(),
+        );
         let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
         let backoff = self.options.backoff_policy.clone();
