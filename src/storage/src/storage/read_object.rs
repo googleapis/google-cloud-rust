@@ -678,6 +678,7 @@ impl ReadObjectResponse {
 
 /// ObjectHighlights contains select metadata from a [crate::model::Object].
 #[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
 pub struct ObjectHighlights {
     /// The content generation of this object. Used for object versioning.
     pub generation: i64,
@@ -689,11 +690,11 @@ pub struct ObjectHighlights {
     pub metageneration: i64,
 
     /// Content-Length of the object data in bytes, matching
-    /// [<https://tools.ietf.org/html/rfc7230#section-3.3.2>][RFC 7230 §3.3.2].
+    /// [RFC 7230 §3.3.2][<https://tools.ietf.org/html/rfc7230#section-3.3.2>]
     pub size: i64,
 
     /// Content-Encoding of the object data, matching
-    /// [<https://tools.ietf.org/html/rfc7231#section-3.1.2.2>][RFC 7231 §3.1.2.2]
+    /// [RFC 7231 §3.1.2.2][<https://tools.ietf.org/html/rfc7231#section-3.1.2.2>]
     pub content_encoding: String,
 
     /// Hashes for the data part of this object. The checksums of the complete
@@ -706,17 +707,17 @@ pub struct ObjectHighlights {
     pub storage_class: String,
 
     /// Content-Language of the object data, matching
-    /// [<https://tools.ietf.org/html/rfc7231#section-3.1.3.2>][RFC 7231 §3.1.3.2].
+    /// [RFC 7231 §3.1.3.2][<https://tools.ietf.org/html/rfc7231#section-3.1.3.2>].
     pub content_language: String,
 
     /// Content-Type of the object data, matching
-    /// [<https://tools.ietf.org/html/rfc7231#section-3.1.1.5>][RFC 7231 §3.1.1.5].
+    /// [RFC 7231 §3.1.1.5][<https://tools.ietf.org/html/rfc7231#section-3.1.1.5>].
     /// If an object is stored without a Content-Type, it is served as
     /// `application/octet-stream`.
     pub content_type: String,
 
     /// Content-Disposition of the object data, matching
-    /// [<https://tools.ietf.org/html/rfc6266>][RFC 6266].
+    /// [RFC 6266][<https://tools.ietf.org/html/rfc6266>].
     pub content_disposition: String,
 
     /// The etag of the object.
