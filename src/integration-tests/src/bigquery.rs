@@ -15,8 +15,8 @@
 use crate::Result;
 use bigquery::client::ClientBuilder;
 use rand::{Rng, distr::Alphanumeric};
-use wkt::Value;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use wkt::Value;
 
 pub async fn run_query(builder: ClientBuilder) -> Result<()> {
     let project_id = crate::project_id()?;
