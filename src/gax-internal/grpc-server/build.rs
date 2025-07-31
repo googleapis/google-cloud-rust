@@ -15,7 +15,7 @@
 fn main() {
     #[cfg(feature = "_generate-protos")]
     {
-        tonic_build::configure()
+        tonic_prost_build::configure()
             .out_dir("src/generated/protos")
             .compile_protos(&["protos/service.proto"], &["."])
             .expect("error compiling protos");

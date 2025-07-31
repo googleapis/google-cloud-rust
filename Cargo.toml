@@ -294,9 +294,9 @@ http-body-util     = { default-features = false, version = "0.1" }
 lazy_static        = { default-features = false, version = "1" }
 percent-encoding   = { default-features = false, version = "2" }
 pin-project        = { default-features = false, version = "1" }
-prost              = { default-features = false, version = "0.13" }
-prost-build        = { default-features = false, version = "0.13" }
-prost-types        = { default-features = false, version = "0.13" }
+prost              = { default-features = false, version = "0.14", features = ["std"] }
+prost-build        = { default-features = false, version = "0.14" }
+prost-types        = { default-features = false, version = "0.14" }
 rand               = { default-features = false, version = "0.9" }
 reqwest            = { default-features = false, version = "0.12", features = ["json"] }
 rustls             = { default-features = false, version = "0.23" }
@@ -308,8 +308,9 @@ sha2               = { default-features = false, version = "0.10" }
 thiserror          = { default-features = false, version = "2" }
 time               = { default-features = false, version = "0.3" }
 tokio              = { default-features = false, version = "1" }
-tonic              = { default-features = false, version = "0.13", features = ["prost", "tls-native-roots", "tls-ring"] }
-tonic-build        = { default-features = false, version = "0.13" }
+tonic              = { default-features = false, version = "0.14", features = ["tls-native-roots", "tls-ring"] }
+tonic-prost        = { default-features = false, version = "0.14" }
+tonic-prost-build  = { default-features = false, version = "0.14" }
 tracing            = { default-features = false, version = "0.1", features = ["attributes"] }
 tracing-subscriber = { default-features = false, version = "0.3" }
 url                = { default-features = false, version = "2" }
