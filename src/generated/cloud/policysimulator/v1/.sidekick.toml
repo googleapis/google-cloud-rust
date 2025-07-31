@@ -18,5 +18,4 @@ service-config = 'google/cloud/policysimulator/v1/policysimulator_v1.yaml'
 
 [codec]
 copyright-year         = '2025'
-version                = "0.4.3"
 'package:orgpolicy_v2' = 'package=google-cloud-orgpolicy-v2,source=google.cloud.orgpolicy.v2'
