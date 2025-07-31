@@ -803,45 +803,11 @@ pub async fn checksums(
             ),
         ),
         (
-            "verify/disabled",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "verify/disabled", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .send(),
-            ),
-        ),
-        (
-            "verify/crc32c",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "verify/crc32c", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_crc32c()
-                    .send(),
-            ),
-        ),
-        (
             "verify/md5",
             Box::pin(
                 client
                     .upload_object(bucket_name, "verify/md5", VEXING)
                     .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_md5()
-                    .send(),
-            ),
-        ),
-        (
-            "verify/both",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "verify/both", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_crc32c()
                     .compute_md5()
                     .send(),
             ),
@@ -858,51 +824,11 @@ pub async fn checksums(
             ),
         ),
         (
-            "computed/disabled",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "computed/disabled", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .precompute_checksums()
-                    .await?
-                    .send(),
-            ),
-        ),
-        (
-            "computed/crc32c",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "computed/crc32c", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_crc32c()
-                    .precompute_checksums()
-                    .await?
-                    .send(),
-            ),
-        ),
-        (
             "computed/md5",
             Box::pin(
                 client
                     .upload_object(bucket_name, "computed/md5", VEXING)
                     .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_md5()
-                    .precompute_checksums()
-                    .await?
-                    .send(),
-            ),
-        ),
-        (
-            "computed/both",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "computed/both", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_crc32c()
                     .compute_md5()
                     .precompute_checksums()
                     .await?
