@@ -85,19 +85,30 @@ pub async fn run_query_nested_data(builder: ClientBuilder) -> Result<()> {
     assert!(nested_array.is_some());
     let nested_array = nested_array.unwrap();
     assert_eq!(nested_array.len(), 1);
-    let object = nested_array[0].as_object().expect("nested item should be an object");
-    let nested_object = object.get("object")
+    let object = nested_array[0]
+        .as_object()
+        .expect("nested item should be an object");
+    let nested_object = object
+        .get("object")
         .expect("msg object should have `object` field")
         .as_object()
         .expect("msg object should have `object` object field");
-    assert_eq!(nested_object.get("a")
-        .expect("msg object should have `a` field")
-        .as_str()
-        .expect("msg object should have `a` string field"), "1");
-    assert_eq!(nested_object.get("b")
-        .expect("msg object should have `b` field")
-        .as_str()
-        .expect("msg object should have `b` string field"), "2");
+    assert_eq!(
+        nested_object
+            .get("a")
+            .expect("msg object should have `a` field")
+            .as_str()
+            .expect("msg object should have `a` string field"),
+        "1"
+    );
+    assert_eq!(
+        nested_object
+            .get("b")
+            .expect("msg object should have `b` field")
+            .as_str()
+            .expect("msg object should have `b` string field"),
+        "2"
+    );
 
     // Parse as user defined struct
     #[derive(serde::Deserialize, Debug)]
@@ -106,15 +117,15 @@ pub async fn run_query_nested_data(builder: ClientBuilder) -> Result<()> {
     }
 
     #[derive(serde::Deserialize, Debug)]
-    struct NestedArrayObject{
-        object: NestedObject
+    struct NestedArrayObject {
+        object: NestedObject,
     }
 
     #[derive(serde::Deserialize, Debug)]
-    struct NestedObject {        
+    struct NestedObject {
         a: String,
-        b: String
-    }    
+        b: String,
+    }
 
     let my_struct: MyStruct =
         serde_json::from_value(first_row.to_value()).expect("Should parse as user defined struct");
