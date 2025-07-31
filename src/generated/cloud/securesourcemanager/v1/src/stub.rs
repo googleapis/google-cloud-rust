@@ -115,10 +115,76 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::SecureSourceManager::update_repository].
+    fn update_repository(
+        &self,
+        _req: crate::model::UpdateRepositoryRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::SecureSourceManager::delete_repository].
     fn delete_repository(
         &self,
         _req: crate::model::DeleteRepositoryRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::list_hooks].
+    fn list_hooks(
+        &self,
+        _req: crate::model::ListHooksRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListHooksResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::get_hook].
+    fn get_hook(
+        &self,
+        _req: crate::model::GetHookRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Hook>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::create_hook].
+    fn create_hook(
+        &self,
+        _req: crate::model::CreateHookRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::update_hook].
+    fn update_hook(
+        &self,
+        _req: crate::model::UpdateHookRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::delete_hook].
+    fn delete_hook(
+        &self,
+        _req: crate::model::DeleteHookRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
@@ -207,6 +273,340 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     fn delete_branch_rule(
         &self,
         _req: crate::model::DeleteBranchRuleRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::create_pull_request].
+    fn create_pull_request(
+        &self,
+        _req: crate::model::CreatePullRequestRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::get_pull_request].
+    fn get_pull_request(
+        &self,
+        _req: crate::model::GetPullRequestRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PullRequest>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::list_pull_requests].
+    fn list_pull_requests(
+        &self,
+        _req: crate::model::ListPullRequestsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListPullRequestsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::update_pull_request].
+    fn update_pull_request(
+        &self,
+        _req: crate::model::UpdatePullRequestRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::merge_pull_request].
+    fn merge_pull_request(
+        &self,
+        _req: crate::model::MergePullRequestRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::open_pull_request].
+    fn open_pull_request(
+        &self,
+        _req: crate::model::OpenPullRequestRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::close_pull_request].
+    fn close_pull_request(
+        &self,
+        _req: crate::model::ClosePullRequestRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::list_pull_request_file_diffs].
+    fn list_pull_request_file_diffs(
+        &self,
+        _req: crate::model::ListPullRequestFileDiffsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListPullRequestFileDiffsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::fetch_tree].
+    fn fetch_tree(
+        &self,
+        _req: crate::model::FetchTreeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FetchTreeResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::fetch_blob].
+    fn fetch_blob(
+        &self,
+        _req: crate::model::FetchBlobRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FetchBlobResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::create_issue].
+    fn create_issue(
+        &self,
+        _req: crate::model::CreateIssueRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::get_issue].
+    fn get_issue(
+        &self,
+        _req: crate::model::GetIssueRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Issue>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::list_issues].
+    fn list_issues(
+        &self,
+        _req: crate::model::ListIssuesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListIssuesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::update_issue].
+    fn update_issue(
+        &self,
+        _req: crate::model::UpdateIssueRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::delete_issue].
+    fn delete_issue(
+        &self,
+        _req: crate::model::DeleteIssueRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::open_issue].
+    fn open_issue(
+        &self,
+        _req: crate::model::OpenIssueRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::close_issue].
+    fn close_issue(
+        &self,
+        _req: crate::model::CloseIssueRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::get_pull_request_comment].
+    fn get_pull_request_comment(
+        &self,
+        _req: crate::model::GetPullRequestCommentRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PullRequestComment>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::list_pull_request_comments].
+    fn list_pull_request_comments(
+        &self,
+        _req: crate::model::ListPullRequestCommentsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListPullRequestCommentsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::create_pull_request_comment].
+    fn create_pull_request_comment(
+        &self,
+        _req: crate::model::CreatePullRequestCommentRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::update_pull_request_comment].
+    fn update_pull_request_comment(
+        &self,
+        _req: crate::model::UpdatePullRequestCommentRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::delete_pull_request_comment].
+    fn delete_pull_request_comment(
+        &self,
+        _req: crate::model::DeletePullRequestCommentRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::batch_create_pull_request_comments].
+    fn batch_create_pull_request_comments(
+        &self,
+        _req: crate::model::BatchCreatePullRequestCommentsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::resolve_pull_request_comments].
+    fn resolve_pull_request_comments(
+        &self,
+        _req: crate::model::ResolvePullRequestCommentsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::unresolve_pull_request_comments].
+    fn unresolve_pull_request_comments(
+        &self,
+        _req: crate::model::UnresolvePullRequestCommentsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::create_issue_comment].
+    fn create_issue_comment(
+        &self,
+        _req: crate::model::CreateIssueCommentRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::get_issue_comment].
+    fn get_issue_comment(
+        &self,
+        _req: crate::model::GetIssueCommentRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::IssueComment>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::list_issue_comments].
+    fn list_issue_comments(
+        &self,
+        _req: crate::model::ListIssueCommentsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListIssueCommentsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::update_issue_comment].
+    fn update_issue_comment(
+        &self,
+        _req: crate::model::UpdateIssueCommentRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecureSourceManager::delete_issue_comment].
+    fn delete_issue_comment(
+        &self,
+        _req: crate::model::DeleteIssueCommentRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,

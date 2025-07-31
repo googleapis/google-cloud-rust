@@ -21,6 +21,136 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_discoveryengine_v1::client::AssistantService;
+/// let client = AssistantService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing Assistant configuration and assisting users.
+///
+/// # Configuration
+///
+/// To configure `AssistantService` use the `with_*` methods in the type returned
+/// by [builder()][AssistantService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://discoveryengine.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::assistant_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::assistant_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `AssistantService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `AssistantService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "assistant-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "assistant-service")))]
+#[derive(Clone, Debug)]
+pub struct AssistantService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::AssistantService>,
+}
+
+#[cfg(feature = "assistant-service")]
+impl AssistantService {
+    /// Returns a builder for [AssistantService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::client::AssistantService;
+    /// let client = AssistantService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::assistant_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::assistant_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::AssistantService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AssistantService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AssistantService> {
+        super::transport::AssistantService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AssistantService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AssistantService::new)
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::assistant_service::ListOperations {
+        super::builder::assistant_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::assistant_service::GetOperation {
+        super::builder::assistant_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::assistant_service::CancelOperation {
+        super::builder::assistant_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Discovery Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
 /// let client = CmekConfigService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -2883,6 +3013,177 @@ impl ServingConfigService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::serving_config_service::CancelOperation {
         super::builder::serving_config_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Discovery Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_discoveryengine_v1::client::SessionService;
+/// let client = SessionService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing Sessions and Session-related resources.
+///
+/// # Configuration
+///
+/// To configure `SessionService` use the `with_*` methods in the type returned
+/// by [builder()][SessionService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://discoveryengine.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::session_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::session_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SessionService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `SessionService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "session-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "session-service")))]
+#[derive(Clone, Debug)]
+pub struct SessionService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::SessionService>,
+}
+
+#[cfg(feature = "session-service")]
+impl SessionService {
+    /// Returns a builder for [SessionService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::client::SessionService;
+    /// let client = SessionService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::session_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::session_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::SessionService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SessionService>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SessionService> {
+        super::transport::SessionService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SessionService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SessionService::new)
+    }
+
+    /// Creates a Session.
+    ///
+    /// If the [Session][google.cloud.discoveryengine.v1.Session] to create already
+    /// exists, an ALREADY_EXISTS error is returned.
+    ///
+    /// [google.cloud.discoveryengine.v1.Session]: crate::model::Session
+    pub fn create_session(&self) -> super::builder::session_service::CreateSession {
+        super::builder::session_service::CreateSession::new(self.inner.clone())
+    }
+
+    /// Deletes a Session.
+    ///
+    /// If the [Session][google.cloud.discoveryengine.v1.Session] to delete does
+    /// not exist, a NOT_FOUND error is returned.
+    ///
+    /// [google.cloud.discoveryengine.v1.Session]: crate::model::Session
+    pub fn delete_session(&self) -> super::builder::session_service::DeleteSession {
+        super::builder::session_service::DeleteSession::new(self.inner.clone())
+    }
+
+    /// Updates a Session.
+    ///
+    /// [Session][google.cloud.discoveryengine.v1.Session] action type cannot be
+    /// changed. If the [Session][google.cloud.discoveryengine.v1.Session] to
+    /// update does not exist, a NOT_FOUND error is returned.
+    ///
+    /// [google.cloud.discoveryengine.v1.Session]: crate::model::Session
+    pub fn update_session(&self) -> super::builder::session_service::UpdateSession {
+        super::builder::session_service::UpdateSession::new(self.inner.clone())
+    }
+
+    /// Gets a Session.
+    pub fn get_session(&self) -> super::builder::session_service::GetSession {
+        super::builder::session_service::GetSession::new(self.inner.clone())
+    }
+
+    /// Lists all Sessions by their parent
+    /// [DataStore][google.cloud.discoveryengine.v1.DataStore].
+    ///
+    /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    pub fn list_sessions(&self) -> super::builder::session_service::ListSessions {
+        super::builder::session_service::ListSessions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::session_service::ListOperations {
+        super::builder::session_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::session_service::GetOperation {
+        super::builder::session_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::session_service::CancelOperation {
+        super::builder::session_service::CancelOperation::new(self.inner.clone())
     }
 }
 

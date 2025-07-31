@@ -33,23 +33,6 @@
 ///
 /// Access Secure Source Manager instances, resources, and repositories.
 ///
-/// This API is split across two servers: the Control Plane and the Data Plane.
-///
-/// Data Plane endpoints are hosted directly by your Secure Source Manager
-/// instance, so you must connect to your instance's API hostname to access
-/// them. The API hostname looks like the following:
-///
-/// https://[instance-id]-[project-number]-api.[location].sourcemanager.dev
-///
-/// For example,
-///
-/// <https://my-instance-702770452863-api.us-central1.sourcemanager.dev>
-///
-/// Data Plane endpoints are denoted with **Host: Data Plane**.
-///
-/// All other endpoints are found in the normal Cloud API location, namely,
-/// `securcesourcemanager.googleapis.com`.
-///
 /// # Configuration
 ///
 /// To configure `SecureSourceManager` use the `with_*` methods in the type returned
@@ -182,21 +165,21 @@ impl SecureSourceManager {
 
     /// Lists Repositories in a given project and location.
     ///
-    /// **Host: Data Plane**
+    /// The instance field is required in the query parameter for requests using
+    /// the securesourcemanager.googleapis.com endpoint.
     pub fn list_repositories(&self) -> super::builder::secure_source_manager::ListRepositories {
         super::builder::secure_source_manager::ListRepositories::new(self.inner.clone())
     }
 
     /// Gets metadata of a repository.
-    ///
-    /// **Host: Data Plane**
     pub fn get_repository(&self) -> super::builder::secure_source_manager::GetRepository {
         super::builder::secure_source_manager::GetRepository::new(self.inner.clone())
     }
 
     /// Creates a new repository in a given project and location.
     ///
-    /// **Host: Data Plane**
+    /// The Repository.Instance field is required in the request body for requests
+    /// using the securesourcemanager.googleapis.com endpoint.
     ///
     /// # Long running operations
     ///
@@ -211,9 +194,22 @@ impl SecureSourceManager {
         super::builder::secure_source_manager::CreateRepository::new(self.inner.clone())
     }
 
-    /// Deletes a Repository.
+    /// Updates the metadata of a repository.
     ///
-    /// **Host: Data Plane**
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_repository(&self) -> super::builder::secure_source_manager::UpdateRepository {
+        super::builder::secure_source_manager::UpdateRepository::new(self.inner.clone())
+    }
+
+    /// Deletes a Repository.
     ///
     /// # Long running operations
     ///
@@ -226,6 +222,61 @@ impl SecureSourceManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_repository(&self) -> super::builder::secure_source_manager::DeleteRepository {
         super::builder::secure_source_manager::DeleteRepository::new(self.inner.clone())
+    }
+
+    /// Lists hooks in a given repository.
+    pub fn list_hooks(&self) -> super::builder::secure_source_manager::ListHooks {
+        super::builder::secure_source_manager::ListHooks::new(self.inner.clone())
+    }
+
+    /// Gets metadata of a hook.
+    pub fn get_hook(&self) -> super::builder::secure_source_manager::GetHook {
+        super::builder::secure_source_manager::GetHook::new(self.inner.clone())
+    }
+
+    /// Creates a new hook in a given repository.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_hook(&self) -> super::builder::secure_source_manager::CreateHook {
+        super::builder::secure_source_manager::CreateHook::new(self.inner.clone())
+    }
+
+    /// Updates the metadata of a hook.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_hook(&self) -> super::builder::secure_source_manager::UpdateHook {
+        super::builder::secure_source_manager::UpdateHook::new(self.inner.clone())
+    }
+
+    /// Deletes a Hook.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_hook(&self) -> super::builder::secure_source_manager::DeleteHook {
+        super::builder::secure_source_manager::DeleteHook::new(self.inner.clone())
     }
 
     /// Get IAM policy for a repository.
@@ -299,6 +350,386 @@ impl SecureSourceManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_branch_rule(&self) -> super::builder::secure_source_manager::DeleteBranchRule {
         super::builder::secure_source_manager::DeleteBranchRule::new(self.inner.clone())
+    }
+
+    /// Creates a pull request.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_pull_request(&self) -> super::builder::secure_source_manager::CreatePullRequest {
+        super::builder::secure_source_manager::CreatePullRequest::new(self.inner.clone())
+    }
+
+    /// Gets a pull request.
+    pub fn get_pull_request(&self) -> super::builder::secure_source_manager::GetPullRequest {
+        super::builder::secure_source_manager::GetPullRequest::new(self.inner.clone())
+    }
+
+    /// Lists pull requests in a repository.
+    pub fn list_pull_requests(&self) -> super::builder::secure_source_manager::ListPullRequests {
+        super::builder::secure_source_manager::ListPullRequests::new(self.inner.clone())
+    }
+
+    /// Updates a pull request.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_pull_request(&self) -> super::builder::secure_source_manager::UpdatePullRequest {
+        super::builder::secure_source_manager::UpdatePullRequest::new(self.inner.clone())
+    }
+
+    /// Merges a pull request.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn merge_pull_request(&self) -> super::builder::secure_source_manager::MergePullRequest {
+        super::builder::secure_source_manager::MergePullRequest::new(self.inner.clone())
+    }
+
+    /// Opens a pull request.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn open_pull_request(&self) -> super::builder::secure_source_manager::OpenPullRequest {
+        super::builder::secure_source_manager::OpenPullRequest::new(self.inner.clone())
+    }
+
+    /// Closes a pull request without merging.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn close_pull_request(&self) -> super::builder::secure_source_manager::ClosePullRequest {
+        super::builder::secure_source_manager::ClosePullRequest::new(self.inner.clone())
+    }
+
+    /// Lists a pull request's file diffs.
+    pub fn list_pull_request_file_diffs(
+        &self,
+    ) -> super::builder::secure_source_manager::ListPullRequestFileDiffs {
+        super::builder::secure_source_manager::ListPullRequestFileDiffs::new(self.inner.clone())
+    }
+
+    /// Fetches a tree from a repository.
+    pub fn fetch_tree(&self) -> super::builder::secure_source_manager::FetchTree {
+        super::builder::secure_source_manager::FetchTree::new(self.inner.clone())
+    }
+
+    /// Fetches a blob from a repository.
+    pub fn fetch_blob(&self) -> super::builder::secure_source_manager::FetchBlob {
+        super::builder::secure_source_manager::FetchBlob::new(self.inner.clone())
+    }
+
+    /// Creates an issue.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_issue(&self) -> super::builder::secure_source_manager::CreateIssue {
+        super::builder::secure_source_manager::CreateIssue::new(self.inner.clone())
+    }
+
+    /// Gets an issue.
+    pub fn get_issue(&self) -> super::builder::secure_source_manager::GetIssue {
+        super::builder::secure_source_manager::GetIssue::new(self.inner.clone())
+    }
+
+    /// Lists issues in a repository.
+    pub fn list_issues(&self) -> super::builder::secure_source_manager::ListIssues {
+        super::builder::secure_source_manager::ListIssues::new(self.inner.clone())
+    }
+
+    /// Updates a issue.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_issue(&self) -> super::builder::secure_source_manager::UpdateIssue {
+        super::builder::secure_source_manager::UpdateIssue::new(self.inner.clone())
+    }
+
+    /// Deletes an issue.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_issue(&self) -> super::builder::secure_source_manager::DeleteIssue {
+        super::builder::secure_source_manager::DeleteIssue::new(self.inner.clone())
+    }
+
+    /// Opens an issue.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn open_issue(&self) -> super::builder::secure_source_manager::OpenIssue {
+        super::builder::secure_source_manager::OpenIssue::new(self.inner.clone())
+    }
+
+    /// Closes an issue.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn close_issue(&self) -> super::builder::secure_source_manager::CloseIssue {
+        super::builder::secure_source_manager::CloseIssue::new(self.inner.clone())
+    }
+
+    /// Gets a pull request comment.
+    pub fn get_pull_request_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::GetPullRequestComment {
+        super::builder::secure_source_manager::GetPullRequestComment::new(self.inner.clone())
+    }
+
+    /// Lists pull request comments.
+    pub fn list_pull_request_comments(
+        &self,
+    ) -> super::builder::secure_source_manager::ListPullRequestComments {
+        super::builder::secure_source_manager::ListPullRequestComments::new(self.inner.clone())
+    }
+
+    /// Creates a pull request comment. This function is used to create a single
+    /// PullRequestComment of type Comment, or a single PullRequestComment of type
+    /// Code that's replying to another PullRequestComment of type Code. Use
+    /// BatchCreatePullRequestComments to create multiple PullRequestComments for
+    /// code reviews.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_pull_request_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::CreatePullRequestComment {
+        super::builder::secure_source_manager::CreatePullRequestComment::new(self.inner.clone())
+    }
+
+    /// Updates a pull request comment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_pull_request_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::UpdatePullRequestComment {
+        super::builder::secure_source_manager::UpdatePullRequestComment::new(self.inner.clone())
+    }
+
+    /// Deletes a pull request comment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_pull_request_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::DeletePullRequestComment {
+        super::builder::secure_source_manager::DeletePullRequestComment::new(self.inner.clone())
+    }
+
+    /// Batch creates pull request comments. This function is used to create
+    /// multiple PullRequestComments for code review. There needs to be exactly one
+    /// PullRequestComment of type Review, and at most 100 PullRequestComments of
+    /// type Code per request. The Postition of the code comments must be unique
+    /// within the request.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn batch_create_pull_request_comments(
+        &self,
+    ) -> super::builder::secure_source_manager::BatchCreatePullRequestComments {
+        super::builder::secure_source_manager::BatchCreatePullRequestComments::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Resolves pull request comments. A list of PullRequestComment names must be
+    /// provided. The PullRequestComment names must be in the same conversation
+    /// thread. If auto_fill is set, all comments in the conversation thread will
+    /// be resolved.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn resolve_pull_request_comments(
+        &self,
+    ) -> super::builder::secure_source_manager::ResolvePullRequestComments {
+        super::builder::secure_source_manager::ResolvePullRequestComments::new(self.inner.clone())
+    }
+
+    /// Unresolves pull request comments. A list of PullRequestComment names must
+    /// be provided. The PullRequestComment names must be in the same conversation
+    /// thread. If auto_fill is set, all comments in the conversation thread will
+    /// be unresolved.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn unresolve_pull_request_comments(
+        &self,
+    ) -> super::builder::secure_source_manager::UnresolvePullRequestComments {
+        super::builder::secure_source_manager::UnresolvePullRequestComments::new(self.inner.clone())
+    }
+
+    /// Creates an issue comment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_issue_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::CreateIssueComment {
+        super::builder::secure_source_manager::CreateIssueComment::new(self.inner.clone())
+    }
+
+    /// Gets an issue comment.
+    pub fn get_issue_comment(&self) -> super::builder::secure_source_manager::GetIssueComment {
+        super::builder::secure_source_manager::GetIssueComment::new(self.inner.clone())
+    }
+
+    /// Lists comments in an issue.
+    pub fn list_issue_comments(&self) -> super::builder::secure_source_manager::ListIssueComments {
+        super::builder::secure_source_manager::ListIssueComments::new(self.inner.clone())
+    }
+
+    /// Updates an issue comment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_issue_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::UpdateIssueComment {
+        super::builder::secure_source_manager::UpdateIssueComment::new(self.inner.clone())
+    }
+
+    /// Deletes an issue comment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_issue_comment(
+        &self,
+    ) -> super::builder::secure_source_manager::DeleteIssueComment {
+        super::builder::secure_source_manager::DeleteIssueComment::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.

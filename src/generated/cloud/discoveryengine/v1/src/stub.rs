@@ -26,6 +26,52 @@
 
 pub(crate) mod dynamic;
 
+/// Defines the trait used to implement [super::client::AssistantService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::AssistantService`.  In other use-cases, application developers only
+/// use `client::AssistantService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "assistant-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "assistant-service")))]
+pub trait AssistantService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::AssistantService::list_operations].
+    fn list_operations(
+        &self,
+        _req: longrunning::model::ListOperationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AssistantService::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AssistantService::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: longrunning::model::CancelOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::CmekConfigService].
 ///
 /// Application developers may need to implement this trait to mock
@@ -1686,6 +1732,105 @@ pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::ServingConfigService::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: longrunning::model::CancelOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::SessionService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::SessionService`.  In other use-cases, application developers only
+/// use `client::SessionService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "session-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "session-service")))]
+pub trait SessionService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::SessionService::create_session].
+    fn create_session(
+        &self,
+        _req: crate::model::CreateSessionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Session>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SessionService::delete_session].
+    fn delete_session(
+        &self,
+        _req: crate::model::DeleteSessionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SessionService::update_session].
+    fn update_session(
+        &self,
+        _req: crate::model::UpdateSessionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Session>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SessionService::get_session].
+    fn get_session(
+        &self,
+        _req: crate::model::GetSessionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Session>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SessionService::list_sessions].
+    fn list_sessions(
+        &self,
+        _req: crate::model::ListSessionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSessionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SessionService::list_operations].
+    fn list_operations(
+        &self,
+        _req: longrunning::model::ListOperationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SessionService::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SessionService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

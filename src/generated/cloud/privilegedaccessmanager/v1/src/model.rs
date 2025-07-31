@@ -6510,6 +6510,42 @@ pub mod grant {
                 );
                 self
             }
+
+            /// The value of [event][crate::model::grant::timeline::Event::event]
+            /// if it holds a `Withdrawn`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn withdrawn(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::grant::timeline::event::Withdrawn>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.event.as_ref().and_then(|v| match v {
+                    crate::model::grant::timeline::event::Event::Withdrawn(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [event][crate::model::grant::timeline::Event::event]
+            /// to hold a `Withdrawn`.
+            ///
+            /// Note that all the setters affecting `event` are
+            /// mutually exclusive.
+            pub fn set_withdrawn<
+                T: std::convert::Into<
+                        std::boxed::Box<crate::model::grant::timeline::event::Withdrawn>,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.event = std::option::Option::Some(
+                    crate::model::grant::timeline::event::Event::Withdrawn(v.into()),
+                );
+                self
+            }
         }
 
         impl wkt::message::Message for Event {
@@ -6538,6 +6574,7 @@ pub mod grant {
                     __expired,
                     __ended,
                     __externally_modified,
+                    __withdrawn,
                     __event_time,
                     Unknown(std::string::String),
                 }
@@ -6577,6 +6614,7 @@ pub mod grant {
                                     "ended" => Ok(__FieldTag::__ended),
                                     "externallyModified" => Ok(__FieldTag::__externally_modified),
                                     "externally_modified" => Ok(__FieldTag::__externally_modified),
+                                    "withdrawn" => Ok(__FieldTag::__withdrawn),
                                     "eventTime" => Ok(__FieldTag::__event_time),
                                     "event_time" => Ok(__FieldTag::__event_time),
                                     _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -6850,6 +6888,32 @@ pub mod grant {
                                         ),
                                     );
                                 }
+                                __FieldTag::__withdrawn => {
+                                    if !fields.insert(__FieldTag::__withdrawn) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for withdrawn",
+                                            ),
+                                        );
+                                    }
+                                    if result.event.is_some() {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for `event`, a oneof with full ID .google.cloud.privilegedaccessmanager.v1.Grant.Timeline.Event.withdrawn, latest field was withdrawn",
+                                            ),
+                                        );
+                                    }
+                                    result.event = std::option::Option::Some(
+                                        crate::model::grant::timeline::event::Event::Withdrawn(
+                                            map.next_value::<std::option::Option<
+                                                std::boxed::Box<
+                                                    crate::model::grant::timeline::event::Withdrawn,
+                                                >,
+                                            >>()?
+                                            .unwrap_or_default(),
+                                        ),
+                                    );
+                                }
                                 __FieldTag::__event_time => {
                                     if !fields.insert(__FieldTag::__event_time) {
                                         return std::result::Result::Err(
@@ -6913,6 +6977,9 @@ pub mod grant {
                 }
                 if let Some(value) = self.externally_modified() {
                     state.serialize_entry("externallyModified", value)?;
+                }
+                if let Some(value) = self.withdrawn() {
+                    state.serialize_entry("withdrawn", value)?;
                 }
                 if self.event_time.is_some() {
                     state.serialize_entry("eventTime", &self.event_time)?;
@@ -7676,6 +7743,131 @@ pub mod grant {
                     let mut debug_struct = f.debug_struct("Revoked");
                     debug_struct.field("reason", &self.reason);
                     debug_struct.field("actor", &self.actor);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
+            /// An event representing that the grant was withdrawn.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct Withdrawn {
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl Withdrawn {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+            }
+
+            impl wkt::message::Message for Withdrawn {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.privilegedaccessmanager.v1.Grant.Timeline.Event.Withdrawn"
+                }
+            }
+
+            #[doc(hidden)]
+            impl<'de> serde::de::Deserialize<'de> for Withdrawn {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    #[allow(non_camel_case_types)]
+                    #[doc(hidden)]
+                    #[derive(PartialEq, Eq, Hash)]
+                    enum __FieldTag {
+                        Unknown(std::string::String),
+                    }
+                    impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                        where
+                            D: serde::Deserializer<'de>,
+                        {
+                            struct Visitor;
+                            impl<'de> serde::de::Visitor<'de> for Visitor {
+                                type Value = __FieldTag;
+                                fn expecting(
+                                    &self,
+                                    formatter: &mut std::fmt::Formatter,
+                                ) -> std::fmt::Result {
+                                    formatter.write_str("a field name for Withdrawn")
+                                }
+                                fn visit_str<E>(
+                                    self,
+                                    value: &str,
+                                ) -> std::result::Result<Self::Value, E>
+                                where
+                                    E: serde::de::Error,
+                                {
+                                    use std::result::Result::Ok;
+                                    use std::string::ToString;
+                                    Ok(__FieldTag::Unknown(value.to_string()))
+                                }
+                            }
+                            deserializer.deserialize_identifier(Visitor)
+                        }
+                    }
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = Withdrawn;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("struct Withdrawn")
+                        }
+                        fn visit_map<A>(
+                            self,
+                            mut map: A,
+                        ) -> std::result::Result<Self::Value, A::Error>
+                        where
+                            A: serde::de::MapAccess<'de>,
+                        {
+                            #[allow(unused_imports)]
+                            use serde::de::Error;
+                            use std::option::Option::Some;
+                            let mut result = Self::Value::new();
+                            while let Some(tag) = map.next_key::<__FieldTag>()? {
+                                #[allow(clippy::match_single_binding)]
+                                match tag {
+                                    __FieldTag::Unknown(key) => {
+                                        let value = map.next_value::<serde_json::Value>()?;
+                                        result._unknown_fields.insert(key, value);
+                                    }
+                                }
+                            }
+                            std::result::Result::Ok(result)
+                        }
+                    }
+                    deserializer.deserialize_any(Visitor)
+                }
+            }
+
+            #[doc(hidden)]
+            impl serde::ser::Serialize for Withdrawn {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    use serde::ser::SerializeMap;
+                    #[allow(unused_imports)]
+                    use std::option::Option::Some;
+                    let mut state = serializer.serialize_map(std::option::Option::None)?;
+                    if !self._unknown_fields.is_empty() {
+                        for (key, value) in self._unknown_fields.iter() {
+                            state.serialize_entry(key, &value)?;
+                        }
+                    }
+                    state.end()
+                }
+            }
+
+            impl std::fmt::Debug for Withdrawn {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Withdrawn");
                     if !self._unknown_fields.is_empty() {
                         debug_struct.field("_unknown_fields", &self._unknown_fields);
                     }
@@ -8561,6 +8753,8 @@ pub mod grant {
                 ExternallyModified(
                     std::boxed::Box<crate::model::grant::timeline::event::ExternallyModified>,
                 ),
+                /// The grant was withdrawn.
+                Withdrawn(std::boxed::Box<crate::model::grant::timeline::event::Withdrawn>),
             }
         }
     }
@@ -8807,6 +9001,10 @@ pub mod grant {
         /// System took back access as the requested duration was over. This is a
         /// terminal state.
         Ended,
+        /// Access is being withdrawn.
+        Withdrawing,
+        /// Grant was withdrawn by the grant owner. This is a terminal state.
+        Withdrawn,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -8840,6 +9038,8 @@ pub mod grant {
                 Self::Revoking => std::option::Option::Some(9),
                 Self::Revoked => std::option::Option::Some(10),
                 Self::Ended => std::option::Option::Some(11),
+                Self::Withdrawing => std::option::Option::Some(12),
+                Self::Withdrawn => std::option::Option::Some(13),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -8861,6 +9061,8 @@ pub mod grant {
                 Self::Revoking => std::option::Option::Some("REVOKING"),
                 Self::Revoked => std::option::Option::Some("REVOKED"),
                 Self::Ended => std::option::Option::Some("ENDED"),
+                Self::Withdrawing => std::option::Option::Some("WITHDRAWING"),
+                Self::Withdrawn => std::option::Option::Some("WITHDRAWN"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -8893,6 +9095,8 @@ pub mod grant {
                 9 => Self::Revoking,
                 10 => Self::Revoked,
                 11 => Self::Ended,
+                12 => Self::Withdrawing,
+                13 => Self::Withdrawn,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -8915,6 +9119,8 @@ pub mod grant {
                 "REVOKING" => Self::Revoking,
                 "REVOKED" => Self::Revoked,
                 "ENDED" => Self::Ended,
+                "WITHDRAWING" => Self::Withdrawing,
+                "WITHDRAWN" => Self::Withdrawn,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -8939,6 +9145,8 @@ pub mod grant {
                 Self::Revoking => serializer.serialize_i32(9),
                 Self::Revoked => serializer.serialize_i32(10),
                 Self::Ended => serializer.serialize_i32(11),
+                Self::Withdrawing => serializer.serialize_i32(12),
+                Self::Withdrawn => serializer.serialize_i32(13),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

@@ -1136,6 +1136,12 @@ pub mod backup_dr {
             self.0.request.force = v.into();
             self
         }
+
+        /// Sets the value of [force_update_access_restriction][crate::model::UpdateBackupVaultRequest::force_update_access_restriction].
+        pub fn set_force_update_access_restriction<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.force_update_access_restriction = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2175,6 +2181,36 @@ pub mod backup_dr {
             self
         }
 
+        /// Sets the value of [target_environment][crate::model::RestoreBackupRequest::target_environment]
+        /// to hold a `DiskTargetEnvironment`.
+        ///
+        /// Note that all the setters affecting `target_environment` are
+        /// mutually exclusive.
+        pub fn set_disk_target_environment<
+            T: std::convert::Into<std::boxed::Box<crate::model::DiskTargetEnvironment>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_disk_target_environment(v);
+            self
+        }
+
+        /// Sets the value of [target_environment][crate::model::RestoreBackupRequest::target_environment]
+        /// to hold a `RegionDiskTargetEnvironment`.
+        ///
+        /// Note that all the setters affecting `target_environment` are
+        /// mutually exclusive.
+        pub fn set_region_disk_target_environment<
+            T: std::convert::Into<std::boxed::Box<crate::model::RegionDiskTargetEnvironment>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_region_disk_target_environment(v);
+            self
+        }
+
         /// Sets the value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties].
         ///
         /// Note that all the setters affecting `instance_properties` are
@@ -2201,6 +2237,21 @@ pub mod backup_dr {
             v: T,
         ) -> Self {
             self.0.request = self.0.request.set_compute_instance_restore_properties(v);
+            self
+        }
+
+        /// Sets the value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties]
+        /// to hold a `DiskRestoreProperties`.
+        ///
+        /// Note that all the setters affecting `instance_properties` are
+        /// mutually exclusive.
+        pub fn set_disk_restore_properties<
+            T: std::convert::Into<std::boxed::Box<crate::model::DiskRestoreProperties>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_disk_restore_properties(v);
             self
         }
     }
@@ -2346,6 +2397,151 @@ pub mod backup_dr {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for CreateBackupPlan {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BackupDR::update_backup_plan][crate::client::BackupDR::update_backup_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::UpdateBackupPlan;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackupPlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateBackupPlan(RequestBuilder<crate::model::UpdateBackupPlanRequest>);
+
+    impl UpdateBackupPlan {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateBackupPlanRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_backup_plan][crate::client::BackupDR::update_backup_plan].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_backup_plan(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_backup_plan`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::BackupPlan, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::BackupPlan, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_backup_plan<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlan>,
+        {
+            self.0.request.backup_plan = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlan>,
+        {
+            self.0.request.backup_plan = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateBackupPlanRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupPlanRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateBackupPlanRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackupPlan {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2636,6 +2832,180 @@ pub mod backup_dr {
         }
     }
 
+    /// The request builder for [BackupDR::get_backup_plan_revision][crate::client::BackupDR::get_backup_plan_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::GetBackupPlanRevision;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupPlanRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetBackupPlanRevision(RequestBuilder<crate::model::GetBackupPlanRevisionRequest>);
+
+    impl GetBackupPlanRevision {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetBackupPlanRevisionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::BackupPlanRevision> {
+            (*self.0.stub)
+                .get_backup_plan_revision(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetBackupPlanRevisionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackupPlanRevision {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BackupDR::list_backup_plan_revisions][crate::client::BackupDR::list_backup_plan_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::ListBackupPlanRevisions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackupPlanRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListBackupPlanRevisions(
+        RequestBuilder<crate::model::ListBackupPlanRevisionsRequest>,
+    );
+
+    impl ListBackupPlanRevisions {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListBackupPlanRevisionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListBackupPlanRevisionsResponse> {
+            (*self.0.stub)
+                .list_backup_plan_revisions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListBackupPlanRevisionsResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListBackupPlanRevisionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListBackupPlanRevisionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListBackupPlanRevisionsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListBackupPlanRevisionsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackupPlanRevisions {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [BackupDR::create_backup_plan_association][crate::client::BackupDR::create_backup_plan_association] calls.
     ///
     /// # Example
@@ -2778,6 +3148,156 @@ pub mod backup_dr {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for CreateBackupPlanAssociation {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BackupDR::update_backup_plan_association][crate::client::BackupDR::update_backup_plan_association] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::UpdateBackupPlanAssociation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackupPlanAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateBackupPlanAssociation(
+        RequestBuilder<crate::model::UpdateBackupPlanAssociationRequest>,
+    );
+
+    impl UpdateBackupPlanAssociation {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateBackupPlanAssociationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_backup_plan_association][crate::client::BackupDR::update_backup_plan_association].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_backup_plan_association(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_backup_plan_association`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::BackupPlanAssociation, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::BackupPlanAssociation,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [backup_plan_association][crate::model::UpdateBackupPlanAssociationRequest::backup_plan_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_backup_plan_association<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlanAssociation>,
+        {
+            self.0.request.backup_plan_association = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_plan_association][crate::model::UpdateBackupPlanAssociationRequest::backup_plan_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_plan_association<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlanAssociation>,
+        {
+            self.0.request.backup_plan_association = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateBackupPlanAssociationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupPlanAssociationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateBackupPlanAssociationRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackupPlanAssociation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -2960,6 +3480,140 @@ pub mod backup_dr {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for ListBackupPlanAssociations {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BackupDR::fetch_backup_plan_associations_for_resource_type][crate::client::BackupDR::fetch_backup_plan_associations_for_resource_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::FetchBackupPlanAssociationsForResourceType;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchBackupPlanAssociationsForResourceType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchBackupPlanAssociationsForResourceType(
+        RequestBuilder<crate::model::FetchBackupPlanAssociationsForResourceTypeRequest>,
+    );
+
+    impl FetchBackupPlanAssociationsForResourceType {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::FetchBackupPlanAssociationsForResourceTypeRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::FetchBackupPlanAssociationsForResourceTypeResponse> {
+            (*self.0.stub)
+                .fetch_backup_plan_associations_for_resource_type(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::FetchBackupPlanAssociationsForResourceTypeResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::FetchBackupPlanAssociationsForResourceTypeResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [resource_type][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::resource_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource_type = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchBackupPlanAssociationsForResourceType {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3195,6 +3849,204 @@ pub mod backup_dr {
         }
     }
 
+    /// The request builder for [BackupDR::get_data_source_reference][crate::client::BackupDR::get_data_source_reference] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::GetDataSourceReference;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataSourceReference {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetDataSourceReference(RequestBuilder<crate::model::GetDataSourceReferenceRequest>);
+
+    impl GetDataSourceReference {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetDataSourceReferenceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DataSourceReference> {
+            (*self.0.stub)
+                .get_data_source_reference(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetDataSourceReferenceRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDataSourceReference {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BackupDR::fetch_data_source_references_for_resource_type][crate::client::BackupDR::fetch_data_source_references_for_resource_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::FetchDataSourceReferencesForResourceType;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchDataSourceReferencesForResourceType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchDataSourceReferencesForResourceType(
+        RequestBuilder<crate::model::FetchDataSourceReferencesForResourceTypeRequest>,
+    );
+
+    impl FetchDataSourceReferencesForResourceType {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::FetchDataSourceReferencesForResourceTypeRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::FetchDataSourceReferencesForResourceTypeResponse> {
+            (*self.0.stub)
+                .fetch_data_source_references_for_resource_type(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::FetchDataSourceReferencesForResourceTypeResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::FetchDataSourceReferencesForResourceTypeResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::FetchDataSourceReferencesForResourceTypeRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [resource_type][crate::model::FetchDataSourceReferencesForResourceTypeRequest::resource_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource_type = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::FetchDataSourceReferencesForResourceTypeRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::FetchDataSourceReferencesForResourceTypeRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::FetchDataSourceReferencesForResourceTypeRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::FetchDataSourceReferencesForResourceTypeRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchDataSourceReferencesForResourceType {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [BackupDR::initialize_service][crate::client::BackupDR::initialize_service] calls.
     ///
     /// # Example
@@ -3304,6 +4156,38 @@ pub mod backup_dr {
         /// Sets the value of [request_id][crate::model::InitializeServiceRequest::request_id].
         pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.request_id = v.into();
+            self
+        }
+
+        /// Sets the value of [initialization_config][crate::model::InitializeServiceRequest::initialization_config].
+        ///
+        /// Note that all the setters affecting `initialization_config` are
+        /// mutually exclusive.
+        pub fn set_initialization_config<
+            T: Into<Option<crate::model::initialize_service_request::InitializationConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.initialization_config = v.into();
+            self
+        }
+
+        /// Sets the value of [initialization_config][crate::model::InitializeServiceRequest::initialization_config]
+        /// to hold a `CloudSqlInstanceInitializationConfig`.
+        ///
+        /// Note that all the setters affecting `initialization_config` are
+        /// mutually exclusive.
+        pub fn set_cloud_sql_instance_initialization_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlInstanceInitializationConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self
+                .0
+                .request
+                .set_cloud_sql_instance_initialization_config(v);
             self
         }
     }

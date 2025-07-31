@@ -813,6 +813,149 @@ pub mod secure_source_manager {
         }
     }
 
+    /// The request builder for [SecureSourceManager::update_repository][crate::client::SecureSourceManager::update_repository] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::UpdateRepository;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRepository {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateRepository(RequestBuilder<crate::model::UpdateRepositoryRequest>);
+
+    impl UpdateRepository {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateRepositoryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_repository][crate::client::SecureSourceManager::update_repository].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_repository(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_repository`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [repository][crate::model::UpdateRepositoryRequest::repository].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_repository<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [repository][crate::model::UpdateRepositoryRequest::repository].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::UpdateRepositoryRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateRepository {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [SecureSourceManager::delete_repository][crate::client::SecureSourceManager::delete_repository] calls.
     ///
     /// # Example
@@ -921,6 +1064,546 @@ pub mod secure_source_manager {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for DeleteRepository {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::list_hooks][crate::client::SecureSourceManager::list_hooks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ListHooks;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListHooks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListHooks(RequestBuilder<crate::model::ListHooksRequest>);
+
+    impl ListHooks {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListHooksRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListHooksResponse> {
+            (*self.0.stub)
+                .list_hooks(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListHooksResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListHooksResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListHooksRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListHooksRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListHooksRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListHooks {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::get_hook][crate::client::SecureSourceManager::get_hook] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetHook;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetHook {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetHook(RequestBuilder<crate::model::GetHookRequest>);
+
+    impl GetHook {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetHookRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Hook> {
+            (*self.0.stub)
+                .get_hook(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetHookRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetHook {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::create_hook][crate::client::SecureSourceManager::create_hook] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::CreateHook;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateHook {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateHook(RequestBuilder<crate::model::CreateHookRequest>);
+
+    impl CreateHook {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateHookRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_hook][crate::client::SecureSourceManager::create_hook].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_hook(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_hook`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Hook, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Hook, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateHookRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [hook][crate::model::CreateHookRequest::hook].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_hook<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Hook>,
+        {
+            self.0.request.hook = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [hook][crate::model::CreateHookRequest::hook].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_hook<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Hook>,
+        {
+            self.0.request.hook = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [hook_id][crate::model::CreateHookRequest::hook_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_hook_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.hook_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateHook {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::update_hook][crate::client::SecureSourceManager::update_hook] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::UpdateHook;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateHook {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateHook(RequestBuilder<crate::model::UpdateHookRequest>);
+
+    impl UpdateHook {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateHookRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_hook][crate::client::SecureSourceManager::update_hook].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_hook(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_hook`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Hook, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Hook, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateHookRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateHookRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [hook][crate::model::UpdateHookRequest::hook].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_hook<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Hook>,
+        {
+            self.0.request.hook = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [hook][crate::model::UpdateHookRequest::hook].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_hook<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Hook>,
+        {
+            self.0.request.hook = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateHook {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::delete_hook][crate::client::SecureSourceManager::delete_hook] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::DeleteHook;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteHook {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteHook(RequestBuilder<crate::model::DeleteHookRequest>);
+
+    impl DeleteHook {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteHookRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_hook][crate::client::SecureSourceManager::delete_hook].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_hook(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_hook`.
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteHookRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteHook {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -1745,6 +2428,3307 @@ pub mod secure_source_manager {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for DeleteBranchRule {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::create_pull_request][crate::client::SecureSourceManager::create_pull_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::CreatePullRequest;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePullRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreatePullRequest(RequestBuilder<crate::model::CreatePullRequestRequest>);
+
+    impl CreatePullRequest {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreatePullRequestRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_pull_request][crate::client::SecureSourceManager::create_pull_request].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_pull_request(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_pull_request`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::PullRequest,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreatePullRequestRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [pull_request][crate::model::CreatePullRequestRequest::pull_request].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pull_request<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequest>,
+        {
+            self.0.request.pull_request = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pull_request][crate::model::CreatePullRequestRequest::pull_request].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pull_request<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequest>,
+        {
+            self.0.request.pull_request = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreatePullRequest {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::get_pull_request][crate::client::SecureSourceManager::get_pull_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetPullRequest;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPullRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetPullRequest(RequestBuilder<crate::model::GetPullRequestRequest>);
+
+    impl GetPullRequest {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetPullRequestRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::PullRequest> {
+            (*self.0.stub)
+                .get_pull_request(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetPullRequestRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPullRequest {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::list_pull_requests][crate::client::SecureSourceManager::list_pull_requests] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ListPullRequests;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPullRequests {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListPullRequests(RequestBuilder<crate::model::ListPullRequestsRequest>);
+
+    impl ListPullRequests {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListPullRequestsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListPullRequestsResponse> {
+            (*self.0.stub)
+                .list_pull_requests(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListPullRequestsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPullRequestsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListPullRequestsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListPullRequestsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListPullRequestsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPullRequests {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::update_pull_request][crate::client::SecureSourceManager::update_pull_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::UpdatePullRequest;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePullRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdatePullRequest(RequestBuilder<crate::model::UpdatePullRequestRequest>);
+
+    impl UpdatePullRequest {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdatePullRequestRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_pull_request][crate::client::SecureSourceManager::update_pull_request].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_pull_request(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_pull_request`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::PullRequest,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [pull_request][crate::model::UpdatePullRequestRequest::pull_request].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pull_request<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequest>,
+        {
+            self.0.request.pull_request = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pull_request][crate::model::UpdatePullRequestRequest::pull_request].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pull_request<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequest>,
+        {
+            self.0.request.pull_request = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdatePullRequestRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePullRequestRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePullRequest {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::merge_pull_request][crate::client::SecureSourceManager::merge_pull_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::MergePullRequest;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MergePullRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct MergePullRequest(RequestBuilder<crate::model::MergePullRequestRequest>);
+
+    impl MergePullRequest {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::MergePullRequestRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [merge_pull_request][crate::client::SecureSourceManager::merge_pull_request].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .merge_pull_request(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `merge_pull_request`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::PullRequest,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [name][crate::model::MergePullRequestRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MergePullRequest {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::open_pull_request][crate::client::SecureSourceManager::open_pull_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::OpenPullRequest;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> OpenPullRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct OpenPullRequest(RequestBuilder<crate::model::OpenPullRequestRequest>);
+
+    impl OpenPullRequest {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::OpenPullRequestRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [open_pull_request][crate::client::SecureSourceManager::open_pull_request].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .open_pull_request(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `open_pull_request`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::PullRequest,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [name][crate::model::OpenPullRequestRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for OpenPullRequest {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::close_pull_request][crate::client::SecureSourceManager::close_pull_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ClosePullRequest;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ClosePullRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ClosePullRequest(RequestBuilder<crate::model::ClosePullRequestRequest>);
+
+    impl ClosePullRequest {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ClosePullRequestRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [close_pull_request][crate::client::SecureSourceManager::close_pull_request].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .close_pull_request(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `close_pull_request`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::PullRequest,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [name][crate::model::ClosePullRequestRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ClosePullRequest {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::list_pull_request_file_diffs][crate::client::SecureSourceManager::list_pull_request_file_diffs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ListPullRequestFileDiffs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPullRequestFileDiffs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListPullRequestFileDiffs(
+        RequestBuilder<crate::model::ListPullRequestFileDiffsRequest>,
+    );
+
+    impl ListPullRequestFileDiffs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListPullRequestFileDiffsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListPullRequestFileDiffsResponse> {
+            (*self.0.stub)
+                .list_pull_request_file_diffs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListPullRequestFileDiffsResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPullRequestFileDiffsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][crate::model::ListPullRequestFileDiffsRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListPullRequestFileDiffsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListPullRequestFileDiffsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPullRequestFileDiffs {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::fetch_tree][crate::client::SecureSourceManager::fetch_tree] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::FetchTree;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchTree {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchTree(RequestBuilder<crate::model::FetchTreeRequest>);
+
+    impl FetchTree {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchTreeRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FetchTreeResponse> {
+            (*self.0.stub)
+                .fetch_tree(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::FetchTreeResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::FetchTreeResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [repository][crate::model::FetchTreeRequest::repository].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_repository<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.repository = v.into();
+            self
+        }
+
+        /// Sets the value of [r#ref][crate::model::FetchTreeRequest::ref].
+        pub fn set_ref<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.r#ref = v.into();
+            self
+        }
+
+        /// Sets the value of [recursive][crate::model::FetchTreeRequest::recursive].
+        pub fn set_recursive<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.recursive = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::FetchTreeRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::FetchTreeRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchTree {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::fetch_blob][crate::client::SecureSourceManager::fetch_blob] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::FetchBlob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchBlob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchBlob(RequestBuilder<crate::model::FetchBlobRequest>);
+
+    impl FetchBlob {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchBlobRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FetchBlobResponse> {
+            (*self.0.stub)
+                .fetch_blob(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [repository][crate::model::FetchBlobRequest::repository].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_repository<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.repository = v.into();
+            self
+        }
+
+        /// Sets the value of [sha][crate::model::FetchBlobRequest::sha].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_sha<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.sha = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchBlob {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::create_issue][crate::client::SecureSourceManager::create_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::CreateIssue;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateIssue(RequestBuilder<crate::model::CreateIssueRequest>);
+
+    impl CreateIssue {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateIssueRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_issue][crate::client::SecureSourceManager::create_issue].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_issue(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_issue`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateIssueRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [issue][crate::model::CreateIssueRequest::issue].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_issue<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Issue>,
+        {
+            self.0.request.issue = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [issue][crate::model::CreateIssueRequest::issue].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Issue>,
+        {
+            self.0.request.issue = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateIssue {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::get_issue][crate::client::SecureSourceManager::get_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetIssue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetIssue(RequestBuilder<crate::model::GetIssueRequest>);
+
+    impl GetIssue {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetIssueRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Issue> {
+            (*self.0.stub)
+                .get_issue(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetIssueRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIssue {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::list_issues][crate::client::SecureSourceManager::list_issues] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ListIssues;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListIssues {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListIssues(RequestBuilder<crate::model::ListIssuesRequest>);
+
+    impl ListIssues {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListIssuesRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListIssuesResponse> {
+            (*self.0.stub)
+                .list_issues(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListIssuesResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListIssuesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListIssuesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListIssuesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListIssuesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListIssuesRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListIssues {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::update_issue][crate::client::SecureSourceManager::update_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::UpdateIssue;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateIssue(RequestBuilder<crate::model::UpdateIssueRequest>);
+
+    impl UpdateIssue {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateIssueRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_issue][crate::client::SecureSourceManager::update_issue].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_issue(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_issue`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [issue][crate::model::UpdateIssueRequest::issue].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_issue<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Issue>,
+        {
+            self.0.request.issue = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [issue][crate::model::UpdateIssueRequest::issue].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Issue>,
+        {
+            self.0.request.issue = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateIssue {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::delete_issue][crate::client::SecureSourceManager::delete_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::DeleteIssue;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteIssue(RequestBuilder<crate::model::DeleteIssueRequest>);
+
+    impl DeleteIssue {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteIssueRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_issue][crate::client::SecureSourceManager::delete_issue].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_issue(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_issue`.
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteIssueRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteIssueRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteIssue {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::open_issue][crate::client::SecureSourceManager::open_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::OpenIssue;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> OpenIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct OpenIssue(RequestBuilder<crate::model::OpenIssueRequest>);
+
+    impl OpenIssue {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::OpenIssueRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [open_issue][crate::client::SecureSourceManager::open_issue].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .open_issue(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `open_issue`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [name][crate::model::OpenIssueRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::OpenIssueRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for OpenIssue {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::close_issue][crate::client::SecureSourceManager::close_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::CloseIssue;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CloseIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CloseIssue(RequestBuilder<crate::model::CloseIssueRequest>);
+
+    impl CloseIssue {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CloseIssueRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [close_issue][crate::client::SecureSourceManager::close_issue].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .close_issue(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `close_issue`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [name][crate::model::CloseIssueRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::CloseIssueRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CloseIssue {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::get_pull_request_comment][crate::client::SecureSourceManager::get_pull_request_comment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetPullRequestComment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPullRequestComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetPullRequestComment(RequestBuilder<crate::model::GetPullRequestCommentRequest>);
+
+    impl GetPullRequestComment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetPullRequestCommentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::PullRequestComment> {
+            (*self.0.stub)
+                .get_pull_request_comment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetPullRequestCommentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetPullRequestComment {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::list_pull_request_comments][crate::client::SecureSourceManager::list_pull_request_comments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ListPullRequestComments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPullRequestComments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListPullRequestComments(
+        RequestBuilder<crate::model::ListPullRequestCommentsRequest>,
+    );
+
+    impl ListPullRequestComments {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListPullRequestCommentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListPullRequestCommentsResponse> {
+            (*self.0.stub)
+                .list_pull_request_comments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListPullRequestCommentsResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPullRequestCommentsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListPullRequestCommentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListPullRequestCommentsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListPullRequestCommentsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPullRequestComments {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::create_pull_request_comment][crate::client::SecureSourceManager::create_pull_request_comment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::CreatePullRequestComment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePullRequestComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreatePullRequestComment(
+        RequestBuilder<crate::model::CreatePullRequestCommentRequest>,
+    );
+
+    impl CreatePullRequestComment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreatePullRequestCommentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_pull_request_comment][crate::client::SecureSourceManager::create_pull_request_comment].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_pull_request_comment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_pull_request_comment`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::PullRequestComment, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::PullRequestComment,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreatePullRequestCommentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [pull_request_comment][crate::model::CreatePullRequestCommentRequest::pull_request_comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pull_request_comment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequestComment>,
+        {
+            self.0.request.pull_request_comment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pull_request_comment][crate::model::CreatePullRequestCommentRequest::pull_request_comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pull_request_comment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequestComment>,
+        {
+            self.0.request.pull_request_comment = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreatePullRequestComment {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::update_pull_request_comment][crate::client::SecureSourceManager::update_pull_request_comment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::UpdatePullRequestComment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePullRequestComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdatePullRequestComment(
+        RequestBuilder<crate::model::UpdatePullRequestCommentRequest>,
+    );
+
+    impl UpdatePullRequestComment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdatePullRequestCommentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_pull_request_comment][crate::client::SecureSourceManager::update_pull_request_comment].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_pull_request_comment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_pull_request_comment`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::PullRequestComment, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::PullRequestComment,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [pull_request_comment][crate::model::UpdatePullRequestCommentRequest::pull_request_comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pull_request_comment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequestComment>,
+        {
+            self.0.request.pull_request_comment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pull_request_comment][crate::model::UpdatePullRequestCommentRequest::pull_request_comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pull_request_comment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequestComment>,
+        {
+            self.0.request.pull_request_comment = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdatePullRequestCommentRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePullRequestCommentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePullRequestComment {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::delete_pull_request_comment][crate::client::SecureSourceManager::delete_pull_request_comment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::DeletePullRequestComment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePullRequestComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeletePullRequestComment(
+        RequestBuilder<crate::model::DeletePullRequestCommentRequest>,
+    );
+
+    impl DeletePullRequestComment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeletePullRequestCommentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_pull_request_comment][crate::client::SecureSourceManager::delete_pull_request_comment].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_pull_request_comment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_pull_request_comment`.
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeletePullRequestCommentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePullRequestComment {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::batch_create_pull_request_comments][crate::client::SecureSourceManager::batch_create_pull_request_comments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::BatchCreatePullRequestComments;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchCreatePullRequestComments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct BatchCreatePullRequestComments(
+        RequestBuilder<crate::model::BatchCreatePullRequestCommentsRequest>,
+    );
+
+    impl BatchCreatePullRequestComments {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::BatchCreatePullRequestCommentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [batch_create_pull_request_comments][crate::client::SecureSourceManager::batch_create_pull_request_comments].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .batch_create_pull_request_comments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `batch_create_pull_request_comments`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<
+            crate::model::BatchCreatePullRequestCommentsResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::BatchCreatePullRequestCommentsResponse,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::BatchCreatePullRequestCommentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [requests][crate::model::BatchCreatePullRequestCommentsRequest::requests].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_requests<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::CreatePullRequestCommentRequest>,
+        {
+            use std::iter::Iterator;
+            self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BatchCreatePullRequestComments {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::resolve_pull_request_comments][crate::client::SecureSourceManager::resolve_pull_request_comments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ResolvePullRequestComments;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResolvePullRequestComments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ResolvePullRequestComments(
+        RequestBuilder<crate::model::ResolvePullRequestCommentsRequest>,
+    );
+
+    impl ResolvePullRequestComments {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ResolvePullRequestCommentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [resolve_pull_request_comments][crate::client::SecureSourceManager::resolve_pull_request_comments].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .resolve_pull_request_comments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `resolve_pull_request_comments`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<
+            crate::model::ResolvePullRequestCommentsResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::ResolvePullRequestCommentsResponse,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::ResolvePullRequestCommentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [names][crate::model::ResolvePullRequestCommentsRequest::names].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [auto_fill][crate::model::ResolvePullRequestCommentsRequest::auto_fill].
+        pub fn set_auto_fill<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.auto_fill = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResolvePullRequestComments {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::unresolve_pull_request_comments][crate::client::SecureSourceManager::unresolve_pull_request_comments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::UnresolvePullRequestComments;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UnresolvePullRequestComments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UnresolvePullRequestComments(
+        RequestBuilder<crate::model::UnresolvePullRequestCommentsRequest>,
+    );
+
+    impl UnresolvePullRequestComments {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UnresolvePullRequestCommentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [unresolve_pull_request_comments][crate::client::SecureSourceManager::unresolve_pull_request_comments].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .unresolve_pull_request_comments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `unresolve_pull_request_comments`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<
+            crate::model::UnresolvePullRequestCommentsResponse,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::UnresolvePullRequestCommentsResponse,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::UnresolvePullRequestCommentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [names][crate::model::UnresolvePullRequestCommentsRequest::names].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [auto_fill][crate::model::UnresolvePullRequestCommentsRequest::auto_fill].
+        pub fn set_auto_fill<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.auto_fill = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UnresolvePullRequestComments {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::create_issue_comment][crate::client::SecureSourceManager::create_issue_comment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::CreateIssueComment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateIssueComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateIssueComment(RequestBuilder<crate::model::CreateIssueCommentRequest>);
+
+    impl CreateIssueComment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateIssueCommentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_issue_comment][crate::client::SecureSourceManager::create_issue_comment].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_issue_comment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_issue_comment`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::IssueComment, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::IssueComment,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateIssueCommentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [issue_comment][crate::model::CreateIssueCommentRequest::issue_comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_issue_comment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueComment>,
+        {
+            self.0.request.issue_comment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [issue_comment][crate::model::CreateIssueCommentRequest::issue_comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_issue_comment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueComment>,
+        {
+            self.0.request.issue_comment = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateIssueComment {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::get_issue_comment][crate::client::SecureSourceManager::get_issue_comment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetIssueComment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIssueComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetIssueComment(RequestBuilder<crate::model::GetIssueCommentRequest>);
+
+    impl GetIssueComment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetIssueCommentRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::IssueComment> {
+            (*self.0.stub)
+                .get_issue_comment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetIssueCommentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetIssueComment {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::list_issue_comments][crate::client::SecureSourceManager::list_issue_comments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ListIssueComments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListIssueComments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListIssueComments(RequestBuilder<crate::model::ListIssueCommentsRequest>);
+
+    impl ListIssueComments {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListIssueCommentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListIssueCommentsResponse> {
+            (*self.0.stub)
+                .list_issue_comments(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListIssueCommentsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListIssueCommentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListIssueCommentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListIssueCommentsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListIssueCommentsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListIssueComments {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::update_issue_comment][crate::client::SecureSourceManager::update_issue_comment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::UpdateIssueComment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateIssueComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateIssueComment(RequestBuilder<crate::model::UpdateIssueCommentRequest>);
+
+    impl UpdateIssueComment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateIssueCommentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_issue_comment][crate::client::SecureSourceManager::update_issue_comment].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_issue_comment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_issue_comment`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::IssueComment, crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::IssueComment,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [issue_comment][crate::model::UpdateIssueCommentRequest::issue_comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_issue_comment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueComment>,
+        {
+            self.0.request.issue_comment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [issue_comment][crate::model::UpdateIssueCommentRequest::issue_comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_issue_comment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueComment>,
+        {
+            self.0.request.issue_comment = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateIssueCommentRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateIssueCommentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateIssueComment {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecureSourceManager::delete_issue_comment][crate::client::SecureSourceManager::delete_issue_comment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::DeleteIssueComment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteIssueComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteIssueComment(RequestBuilder<crate::model::DeleteIssueCommentRequest>);
+
+    impl DeleteIssueComment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteIssueCommentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_issue_comment][crate::client::SecureSourceManager::delete_issue_comment].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_issue_comment(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_issue_comment`.
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteIssueCommentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteIssueComment {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

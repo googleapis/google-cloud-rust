@@ -23,6 +23,7 @@ Discovery Engine API.
 
 The main types to work with this crate are the clients:
 
+- [AssistantService]: enabled by the `assistant-service` feature.
 - [CmekConfigService]: enabled by the `cmek-config-service` feature.
 - [CompletionService]: enabled by the `completion-service` feature.
 - [ControlService]: enabled by the `control-service` feature.
@@ -39,6 +40,7 @@ The main types to work with this crate are the clients:
 - [SearchService]: enabled by the `search-service` feature.
 - [SearchTuningService]: enabled by the `search-tuning-service` feature.
 - [ServingConfigService]: enabled by the `serving-config-service` feature.
+- [SessionService]: enabled by the `session-service` feature.
 - [SiteSearchEngineService]: enabled by the `site-search-engine-service` feature.
 - [UserEventService]: enabled by the `user-event-service` feature.
 - [UserLicenseService]: enabled by the `user-license-service` feature.
@@ -47,6 +49,7 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-discoveryengine-v1/latest/google-cloud-discoveryengine-v1)
 
+[AssistantService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.AssistantService.html
 [CmekConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.CmekConfigService.html
 [CompletionService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.CompletionService.html
 [ControlService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ControlService.html
@@ -63,6 +66,7 @@ The main types to work with this crate are the clients:
 [SearchService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SearchService.html
 [SearchTuningService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SearchTuningService.html
 [ServingConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ServingConfigService.html
+[SessionService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SessionService.html
 [SiteSearchEngineService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html
 [UserEventService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.UserEventService.html
 [UserLicenseService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.UserLicenseService.html

@@ -2976,6 +2976,10 @@ pub struct InitializeServiceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     pub request_id: std::string::String,
 
+    /// The configuration for initializing the resource.
+    pub initialization_config:
+        std::option::Option<crate::model::initialize_service_request::InitializationConfig>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3001,6 +3005,55 @@ impl InitializeServiceRequest {
         self.request_id = v.into();
         self
     }
+
+    /// Sets the value of [initialization_config][crate::model::InitializeServiceRequest::initialization_config].
+    ///
+    /// Note that all the setters affecting `initialization_config` are mutually
+    /// exclusive.
+    pub fn set_initialization_config<
+        T: std::convert::Into<
+                std::option::Option<crate::model::initialize_service_request::InitializationConfig>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.initialization_config = v.into();
+        self
+    }
+
+    /// The value of [initialization_config][crate::model::InitializeServiceRequest::initialization_config]
+    /// if it holds a `CloudSqlInstanceInitializationConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_sql_instance_initialization_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlInstanceInitializationConfig>>
+    {
+        #[allow(unreachable_patterns)]
+        self.initialization_config.as_ref().and_then(|v| match v {
+            crate::model::initialize_service_request::InitializationConfig::CloudSqlInstanceInitializationConfig(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [initialization_config][crate::model::InitializeServiceRequest::initialization_config]
+    /// to hold a `CloudSqlInstanceInitializationConfig`.
+    ///
+    /// Note that all the setters affecting `initialization_config` are
+    /// mutually exclusive.
+    pub fn set_cloud_sql_instance_initialization_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlInstanceInitializationConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.initialization_config = std::option::Option::Some(
+            crate::model::initialize_service_request::InitializationConfig::CloudSqlInstanceInitializationConfig(
+                v.into()
+            )
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for InitializeServiceRequest {
@@ -3022,6 +3075,7 @@ impl<'de> serde::de::Deserialize<'de> for InitializeServiceRequest {
             __name,
             __resource_type,
             __request_id,
+            __cloud_sql_instance_initialization_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3047,6 +3101,12 @@ impl<'de> serde::de::Deserialize<'de> for InitializeServiceRequest {
                             "resource_type" => Ok(__FieldTag::__resource_type),
                             "requestId" => Ok(__FieldTag::__request_id),
                             "request_id" => Ok(__FieldTag::__request_id),
+                            "cloudSqlInstanceInitializationConfig" => {
+                                Ok(__FieldTag::__cloud_sql_instance_initialization_config)
+                            }
+                            "cloud_sql_instance_initialization_config" => {
+                                Ok(__FieldTag::__cloud_sql_instance_initialization_config)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3102,6 +3162,25 @@ impl<'de> serde::de::Deserialize<'de> for InitializeServiceRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__cloud_sql_instance_initialization_config => {
+                            if !fields
+                                .insert(__FieldTag::__cloud_sql_instance_initialization_config)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cloud_sql_instance_initialization_config",
+                                ));
+                            }
+                            if result.initialization_config.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `initialization_config`, a oneof with full ID .google.cloud.backupdr.v1.InitializeServiceRequest.cloud_sql_instance_initialization_config, latest field was cloudSqlInstanceInitializationConfig",
+                                ));
+                            }
+                            result.initialization_config = std::option::Option::Some(
+                                crate::model::initialize_service_request::InitializationConfig::CloudSqlInstanceInitializationConfig(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::CloudSqlInstanceInitializationConfig>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3134,6 +3213,9 @@ impl serde::ser::Serialize for InitializeServiceRequest {
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
         }
+        if let Some(value) = self.cloud_sql_instance_initialization_config() {
+            state.serialize_entry("cloudSqlInstanceInitializationConfig", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3149,10 +3231,27 @@ impl std::fmt::Debug for InitializeServiceRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("resource_type", &self.resource_type);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("initialization_config", &self.initialization_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [InitializeServiceRequest].
+pub mod initialize_service_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The configuration for initializing the resource.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum InitializationConfig {
+        /// Optional. The configuration for initializing a Cloud SQL instance.
+        CloudSqlInstanceInitializationConfig(
+            std::boxed::Box<crate::model::CloudSqlInstanceInitializationConfig>,
+        ),
     }
 }
 
@@ -3737,7 +3836,8 @@ pub struct BackupPlan {
 
     /// Required. The resource type to which the `BackupPlan` will be applied.
     /// Examples include, "compute.googleapis.com/Instance",
-    /// "sqladmin.googleapis.com/Instance", or "alloydb.googleapis.com/Cluster".
+    /// "sqladmin.googleapis.com/Instance", "alloydb.googleapis.com/Cluster",
+    /// "compute.googleapis.com/Disk".
     pub resource_type: std::string::String,
 
     /// Optional. `etag` is returned from the service in the response. As a user of
@@ -3754,6 +3854,27 @@ pub struct BackupPlan {
     /// BackupVault for taking backups. Specify the email address of the Backup
     /// Vault Service Account.
     pub backup_vault_service_account: std::string::String,
+
+    /// Optional. Applicable only for CloudSQL resource_type.
+    ///
+    /// Configures how long logs will be stored. It is defined in “days”. This
+    /// value should be greater than or equal to minimum enforced log retention
+    /// duration of the backup vault.
+    pub log_retention_days: i64,
+
+    /// Output only. All resource types to which backupPlan can be applied.
+    pub supported_resource_types: std::vec::Vec<std::string::String>,
+
+    /// Output only. The user friendly revision ID of the `BackupPlanRevision`.
+    ///
+    /// Example: v0, v1, v2, etc.
+    pub revision_id: std::string::String,
+
+    /// Output only. The resource id of the `BackupPlanRevision`.
+    ///
+    /// Format:
+    /// `projects/{project}/locations/{location}/backupPlans/{backup_plan}/revisions/{revision_id}`
+    pub revision_name: std::string::String,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3869,6 +3990,35 @@ impl BackupPlan {
         self.backup_vault_service_account = v.into();
         self
     }
+
+    /// Sets the value of [log_retention_days][crate::model::BackupPlan::log_retention_days].
+    pub fn set_log_retention_days<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.log_retention_days = v.into();
+        self
+    }
+
+    /// Sets the value of [supported_resource_types][crate::model::BackupPlan::supported_resource_types].
+    pub fn set_supported_resource_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.supported_resource_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [revision_id][crate::model::BackupPlan::revision_id].
+    pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.revision_id = v.into();
+        self
+    }
+
+    /// Sets the value of [revision_name][crate::model::BackupPlan::revision_name].
+    pub fn set_revision_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.revision_name = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for BackupPlan {
@@ -3898,6 +4048,10 @@ impl<'de> serde::de::Deserialize<'de> for BackupPlan {
             __etag,
             __backup_vault,
             __backup_vault_service_account,
+            __log_retention_days,
+            __supported_resource_types,
+            __revision_id,
+            __revision_name,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3939,6 +4093,16 @@ impl<'de> serde::de::Deserialize<'de> for BackupPlan {
                             "backup_vault_service_account" => {
                                 Ok(__FieldTag::__backup_vault_service_account)
                             }
+                            "logRetentionDays" => Ok(__FieldTag::__log_retention_days),
+                            "log_retention_days" => Ok(__FieldTag::__log_retention_days),
+                            "supportedResourceTypes" => Ok(__FieldTag::__supported_resource_types),
+                            "supported_resource_types" => {
+                                Ok(__FieldTag::__supported_resource_types)
+                            }
+                            "revisionId" => Ok(__FieldTag::__revision_id),
+                            "revision_id" => Ok(__FieldTag::__revision_id),
+                            "revisionName" => Ok(__FieldTag::__revision_name),
+                            "revision_name" => Ok(__FieldTag::__revision_name),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4073,6 +4237,54 @@ impl<'de> serde::de::Deserialize<'de> for BackupPlan {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__log_retention_days => {
+                            if !fields.insert(__FieldTag::__log_retention_days) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for log_retention_days",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.log_retention_days =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__supported_resource_types => {
+                            if !fields.insert(__FieldTag::__supported_resource_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for supported_resource_types",
+                                ));
+                            }
+                            result.supported_resource_types = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__revision_id => {
+                            if !fields.insert(__FieldTag::__revision_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for revision_id",
+                                ));
+                            }
+                            result.revision_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__revision_name => {
+                            if !fields.insert(__FieldTag::__revision_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for revision_name",
+                                ));
+                            }
+                            result.revision_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4132,6 +4344,27 @@ impl serde::ser::Serialize for BackupPlan {
                 &self.backup_vault_service_account,
             )?;
         }
+        if !wkt::internal::is_default(&self.log_retention_days) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("logRetentionDays", &__With(&self.log_retention_days))?;
+        }
+        if !self.supported_resource_types.is_empty() {
+            state.serialize_entry("supportedResourceTypes", &self.supported_resource_types)?;
+        }
+        if !self.revision_id.is_empty() {
+            state.serialize_entry("revisionId", &self.revision_id)?;
+        }
+        if !self.revision_name.is_empty() {
+            state.serialize_entry("revisionName", &self.revision_name)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4158,6 +4391,10 @@ impl std::fmt::Debug for BackupPlan {
             "backup_vault_service_account",
             &self.backup_vault_service_account,
         );
+        debug_struct.field("log_retention_days", &self.log_retention_days);
+        debug_struct.field("supported_resource_types", &self.supported_resource_types);
+        debug_struct.field("revision_id", &self.revision_id);
+        debug_struct.field("revision_name", &self.revision_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4198,6 +4435,8 @@ pub mod backup_plan {
         Deleting,
         /// The resource has been created but is not usable.
         Inactive,
+        /// The resource is being updated.
+        Updating,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -4225,6 +4464,7 @@ pub mod backup_plan {
                 Self::Active => std::option::Option::Some(2),
                 Self::Deleting => std::option::Option::Some(3),
                 Self::Inactive => std::option::Option::Some(4),
+                Self::Updating => std::option::Option::Some(5),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -4240,6 +4480,7 @@ pub mod backup_plan {
                 Self::Active => std::option::Option::Some("ACTIVE"),
                 Self::Deleting => std::option::Option::Some("DELETING"),
                 Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -4266,6 +4507,7 @@ pub mod backup_plan {
                 2 => Self::Active,
                 3 => Self::Deleting,
                 4 => Self::Inactive,
+                5 => Self::Updating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -4282,6 +4524,7 @@ pub mod backup_plan {
                 "ACTIVE" => Self::Active,
                 "DELETING" => Self::Deleting,
                 "INACTIVE" => Self::Inactive,
+                "UPDATING" => Self::Updating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -4300,6 +4543,7 @@ pub mod backup_plan {
                 Self::Active => serializer.serialize_i32(2),
                 Self::Deleting => serializer.serialize_i32(3),
                 Self::Inactive => serializer.serialize_i32(4),
+                Self::Updating => serializer.serialize_i32(5),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -4331,11 +4575,9 @@ pub struct BackupRule {
     /// defined in “days”. The value should be greater than or equal to minimum
     /// enforced retention of the backup vault.
     ///
-    /// Minimum value is 1 and maximum value is 90 for hourly backups.
-    /// Minimum value is 1 and maximum value is 90 for daily backups.
-    /// Minimum value is 7 and maximum value is 186 for weekly backups.
-    /// Minimum value is 30 and maximum value is 732 for monthly backups.
-    /// Minimum value is 365 and maximum value is 36159 for yearly backups.
+    /// Minimum value is 1 and maximum value is 36159 for custom retention
+    /// on-demand backup.
+    /// Minimum and maximum values are workload specific for all other rules.
     pub backup_retention_days: i32,
 
     /// The schedule that defines the automated backup workloads for this
@@ -4602,7 +4844,7 @@ pub mod backup_rule {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum BackupScheduleOneof {
-        /// Required. Defines a schedule that runs within the confines of a defined
+        /// Optional. Defines a schedule that runs within the confines of a defined
         /// window of time.
         StandardSchedule(std::boxed::Box<crate::model::StandardSchedule>),
     }
@@ -4624,7 +4866,7 @@ pub struct StandardSchedule {
     /// otherwise. A validation error will occur if a value is supplied and
     /// `recurrence_type` is not `HOURLY`.
     ///
-    /// Value of hourly frequency should be between 6 and 23.
+    /// Value of hourly frequency should be between 4 and 23.
     ///
     /// Reason for limit : We found that there is bandwidth limitation of 3GB/S for
     /// GMI while taking a backup and 5GB/S while doing a restore. Given the amount
@@ -6843,149 +7085,97 @@ impl std::fmt::Debug for DeleteBackupPlanRequest {
     }
 }
 
-/// A BackupPlanAssociation represents a single BackupPlanAssociation which
-/// contains details like workload, backup plan etc
+/// Request message for updating a backup plan.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
-pub struct BackupPlanAssociation {
-    /// Output only. Identifier. The resource name of BackupPlanAssociation in
-    /// below format Format :
-    /// projects/{project}/locations/{location}/backupPlanAssociations/{backupPlanAssociationId}
-    pub name: std::string::String,
+pub struct UpdateBackupPlanRequest {
+    /// Required. The resource being updated
+    pub backup_plan: std::option::Option<crate::model::BackupPlan>,
 
-    /// Required. Immutable. Resource type of workload on which backupplan is
-    /// applied
-    pub resource_type: std::string::String,
+    /// Required. The list of fields to update.
+    /// Field mask is used to specify the fields to be overwritten in the
+    /// BackupPlan resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then the request will fail.
+    /// Currently, these fields are supported in update: description, schedules,
+    /// retention period, adding and removing Backup Rules.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    /// Required. Immutable. Resource name of workload on which backupplan is
-    /// applied
-    pub resource: std::string::String,
-
-    /// Required. Resource name of backup plan which needs to be applied on
-    /// workload. Format:
-    /// projects/{project}/locations/{location}/backupPlans/{backupPlanId}
-    pub backup_plan: std::string::String,
-
-    /// Output only. The time when the instance was created.
-    pub create_time: std::option::Option<wkt::Timestamp>,
-
-    /// Output only. The time when the instance was updated.
-    pub update_time: std::option::Option<wkt::Timestamp>,
-
-    /// Output only. The BackupPlanAssociation resource state.
-    pub state: crate::model::backup_plan_association::State,
-
-    /// Output only. The config info related to backup rules.
-    pub rules_config_info: std::vec::Vec<crate::model::RuleConfigInfo>,
-
-    /// Output only. Resource name of data source which will be used as storage
-    /// location for backups taken. Format :
-    /// projects/{project}/locations/{location}/backupVaults/{backupvault}/dataSources/{datasource}
-    pub data_source: std::string::String,
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and t
+    /// he request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-impl BackupPlanAssociation {
+impl UpdateBackupPlanRequest {
     pub fn new() -> Self {
         std::default::Default::default()
     }
 
-    /// Sets the value of [name][crate::model::BackupPlanAssociation::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_type][crate::model::BackupPlanAssociation::resource_type].
-    pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.resource_type = v.into();
-        self
-    }
-
-    /// Sets the value of [resource][crate::model::BackupPlanAssociation::resource].
-    pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.resource = v.into();
-        self
-    }
-
-    /// Sets the value of [backup_plan][crate::model::BackupPlanAssociation::backup_plan].
-    pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.backup_plan = v.into();
-        self
-    }
-
-    /// Sets the value of [create_time][crate::model::BackupPlanAssociation::create_time].
-    pub fn set_create_time<T>(mut self, v: T) -> Self
+    /// Sets the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
+    pub fn set_backup_plan<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<wkt::Timestamp>,
+        T: std::convert::Into<crate::model::BackupPlan>,
     {
-        self.create_time = std::option::Option::Some(v.into());
+        self.backup_plan = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [create_time][crate::model::BackupPlanAssociation::create_time].
-    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    /// Sets or clears the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
+    pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<wkt::Timestamp>,
+        T: std::convert::Into<crate::model::BackupPlan>,
     {
-        self.create_time = v.map(|x| x.into());
+        self.backup_plan = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [update_time][crate::model::BackupPlanAssociation::update_time].
-    pub fn set_update_time<T>(mut self, v: T) -> Self
+    /// Sets the value of [update_mask][crate::model::UpdateBackupPlanRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<wkt::Timestamp>,
+        T: std::convert::Into<wkt::FieldMask>,
     {
-        self.update_time = std::option::Option::Some(v.into());
+        self.update_mask = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [update_time][crate::model::BackupPlanAssociation::update_time].
-    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBackupPlanRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<wkt::Timestamp>,
+        T: std::convert::Into<wkt::FieldMask>,
     {
-        self.update_time = v.map(|x| x.into());
+        self.update_mask = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [state][crate::model::BackupPlanAssociation::state].
-    pub fn set_state<T: std::convert::Into<crate::model::backup_plan_association::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
-        self
-    }
-
-    /// Sets the value of [rules_config_info][crate::model::BackupPlanAssociation::rules_config_info].
-    pub fn set_rules_config_info<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RuleConfigInfo>,
-    {
-        use std::iter::Iterator;
-        self.rules_config_info = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [data_source][crate::model::BackupPlanAssociation::data_source].
-    pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.data_source = v.into();
+    /// Sets the value of [request_id][crate::model::UpdateBackupPlanRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
         self
     }
 }
 
-impl wkt::message::Message for BackupPlanAssociation {
+impl wkt::message::Message for UpdateBackupPlanRequest {
     fn typename() -> &'static str {
-        "type.googleapis.com/google.cloud.backupdr.v1.BackupPlanAssociation"
+        "type.googleapis.com/google.cloud.backupdr.v1.UpdateBackupPlanRequest"
     }
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for BackupPlanAssociation {
+impl<'de> serde::de::Deserialize<'de> for UpdateBackupPlanRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -6994,15 +7184,9 @@ impl<'de> serde::de::Deserialize<'de> for BackupPlanAssociation {
         #[doc(hidden)]
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
-            __name,
-            __resource_type,
-            __resource,
             __backup_plan,
-            __create_time,
-            __update_time,
-            __state,
-            __rules_config_info,
-            __data_source,
+            __update_mask,
+            __request_id,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7014,7 +7198,7 @@ impl<'de> serde::de::Deserialize<'de> for BackupPlanAssociation {
                 impl<'de> serde::de::Visitor<'de> for Visitor {
                     type Value = __FieldTag;
                     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for BackupPlanAssociation")
+                        formatter.write_str("a field name for UpdateBackupPlanRequest")
                     }
                     fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
                     where
@@ -7023,21 +7207,12 @@ impl<'de> serde::de::Deserialize<'de> for BackupPlanAssociation {
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "resourceType" => Ok(__FieldTag::__resource_type),
-                            "resource_type" => Ok(__FieldTag::__resource_type),
-                            "resource" => Ok(__FieldTag::__resource),
                             "backupPlan" => Ok(__FieldTag::__backup_plan),
                             "backup_plan" => Ok(__FieldTag::__backup_plan),
-                            "createTime" => Ok(__FieldTag::__create_time),
-                            "create_time" => Ok(__FieldTag::__create_time),
-                            "updateTime" => Ok(__FieldTag::__update_time),
-                            "update_time" => Ok(__FieldTag::__update_time),
-                            "state" => Ok(__FieldTag::__state),
-                            "rulesConfigInfo" => Ok(__FieldTag::__rules_config_info),
-                            "rules_config_info" => Ok(__FieldTag::__rules_config_info),
-                            "dataSource" => Ok(__FieldTag::__data_source),
-                            "data_source" => Ok(__FieldTag::__data_source),
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7047,9 +7222,256 @@ impl<'de> serde::de::Deserialize<'de> for BackupPlanAssociation {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = BackupPlanAssociation;
+            type Value = UpdateBackupPlanRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct BackupPlanAssociation")
+                formatter.write_str("struct UpdateBackupPlanRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__backup_plan => {
+                            if !fields.insert(__FieldTag::__backup_plan) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_plan",
+                                ));
+                            }
+                            result.backup_plan =
+                                map.next_value::<std::option::Option<crate::model::BackupPlan>>()?;
+                        }
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateBackupPlanRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.backup_plan.is_some() {
+            state.serialize_entry("backupPlan", &self.backup_plan)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateBackupPlanRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBackupPlanRequest");
+        debug_struct.field("backup_plan", &self.backup_plan);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// `BackupPlanRevision` represents a snapshot of a `BackupPlan` at a point in
+/// time.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackupPlanRevision {
+    /// Output only. Identifier. The resource name of the `BackupPlanRevision`.
+    ///
+    /// Format:
+    /// `projects/{project}/locations/{location}/backupPlans/{backup_plan}/revisions/{revision}`
+    pub name: std::string::String,
+
+    /// Output only. The user friendly revision ID of the `BackupPlanRevision`.
+    ///
+    /// Example: v0, v1, v2, etc.
+    pub revision_id: std::string::String,
+
+    /// Output only. Resource State
+    pub state: crate::model::backup_plan_revision::State,
+
+    /// The Backup Plan being encompassed by this revision.
+    pub backup_plan_snapshot: std::option::Option<crate::model::BackupPlan>,
+
+    /// Output only. The timestamp that the revision was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupPlanRevision {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BackupPlanRevision::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [revision_id][crate::model::BackupPlanRevision::revision_id].
+    pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.revision_id = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::BackupPlanRevision::state].
+    pub fn set_state<T: std::convert::Into<crate::model::backup_plan_revision::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_plan_snapshot][crate::model::BackupPlanRevision::backup_plan_snapshot].
+    pub fn set_backup_plan_snapshot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupPlan>,
+    {
+        self.backup_plan_snapshot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_plan_snapshot][crate::model::BackupPlanRevision::backup_plan_snapshot].
+    pub fn set_or_clear_backup_plan_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupPlan>,
+    {
+        self.backup_plan_snapshot = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::BackupPlanRevision::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::BackupPlanRevision::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for BackupPlanRevision {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BackupPlanRevision"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for BackupPlanRevision {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __revision_id,
+            __state,
+            __backup_plan_snapshot,
+            __create_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BackupPlanRevision")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "revisionId" => Ok(__FieldTag::__revision_id),
+                            "revision_id" => Ok(__FieldTag::__revision_id),
+                            "state" => Ok(__FieldTag::__state),
+                            "backupPlanSnapshot" => Ok(__FieldTag::__backup_plan_snapshot),
+                            "backup_plan_snapshot" => Ok(__FieldTag::__backup_plan_snapshot),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = BackupPlanRevision;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BackupPlanRevision")
             }
             fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
             where
@@ -7073,35 +7495,32 @@ impl<'de> serde::de::Deserialize<'de> for BackupPlanAssociation {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
-                        __FieldTag::__resource_type => {
-                            if !fields.insert(__FieldTag::__resource_type) {
+                        __FieldTag::__revision_id => {
+                            if !fields.insert(__FieldTag::__revision_id) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for resource_type",
+                                    "multiple values for revision_id",
                                 ));
                             }
-                            result.resource_type = map
+                            result.revision_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
-                        __FieldTag::__resource => {
-                            if !fields.insert(__FieldTag::__resource) {
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for resource",
+                                    "multiple values for state",
                                 ));
                             }
-                            result.resource = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.state = map.next_value::<std::option::Option<crate::model::backup_plan_revision::State>>()?.unwrap_or_default();
                         }
-                        __FieldTag::__backup_plan => {
-                            if !fields.insert(__FieldTag::__backup_plan) {
+                        __FieldTag::__backup_plan_snapshot => {
+                            if !fields.insert(__FieldTag::__backup_plan_snapshot) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for backup_plan",
+                                    "multiple values for backup_plan_snapshot",
                                 ));
                             }
-                            result.backup_plan = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.backup_plan_snapshot =
+                                map.next_value::<std::option::Option<crate::model::BackupPlan>>()?;
                         }
                         __FieldTag::__create_time => {
                             if !fields.insert(__FieldTag::__create_time) {
@@ -7111,49 +7530,6 @@ impl<'de> serde::de::Deserialize<'de> for BackupPlanAssociation {
                             }
                             result.create_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__update_time => {
-                            if !fields.insert(__FieldTag::__update_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for update_time",
-                                ));
-                            }
-                            result.update_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__state => {
-                            if !fields.insert(__FieldTag::__state) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for state",
-                                ));
-                            }
-                            result.state =
-                                map.next_value::<std::option::Option<
-                                    crate::model::backup_plan_association::State,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__rules_config_info => {
-                            if !fields.insert(__FieldTag::__rules_config_info) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for rules_config_info",
-                                ));
-                            }
-                            result.rules_config_info =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::RuleConfigInfo>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__data_source => {
-                            if !fields.insert(__FieldTag::__data_source) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for data_source",
-                                ));
-                            }
-                            result.data_source = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7169,7 +7545,7 @@ impl<'de> serde::de::Deserialize<'de> for BackupPlanAssociation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for BackupPlanAssociation {
+impl serde::ser::Serialize for BackupPlanRevision {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7181,29 +7557,17 @@ impl serde::ser::Serialize for BackupPlanAssociation {
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
         }
-        if !self.resource_type.is_empty() {
-            state.serialize_entry("resourceType", &self.resource_type)?;
-        }
-        if !self.resource.is_empty() {
-            state.serialize_entry("resource", &self.resource)?;
-        }
-        if !self.backup_plan.is_empty() {
-            state.serialize_entry("backupPlan", &self.backup_plan)?;
-        }
-        if self.create_time.is_some() {
-            state.serialize_entry("createTime", &self.create_time)?;
-        }
-        if self.update_time.is_some() {
-            state.serialize_entry("updateTime", &self.update_time)?;
+        if !self.revision_id.is_empty() {
+            state.serialize_entry("revisionId", &self.revision_id)?;
         }
         if !wkt::internal::is_default(&self.state) {
             state.serialize_entry("state", &self.state)?;
         }
-        if !self.rules_config_info.is_empty() {
-            state.serialize_entry("rulesConfigInfo", &self.rules_config_info)?;
+        if self.backup_plan_snapshot.is_some() {
+            state.serialize_entry("backupPlanSnapshot", &self.backup_plan_snapshot)?;
         }
-        if !self.data_source.is_empty() {
-            state.serialize_entry("dataSource", &self.data_source)?;
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7214,18 +7578,14 @@ impl serde::ser::Serialize for BackupPlanAssociation {
     }
 }
 
-impl std::fmt::Debug for BackupPlanAssociation {
+impl std::fmt::Debug for BackupPlanRevision {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("BackupPlanAssociation");
+        let mut debug_struct = f.debug_struct("BackupPlanRevision");
         debug_struct.field("name", &self.name);
-        debug_struct.field("resource_type", &self.resource_type);
-        debug_struct.field("resource", &self.resource);
-        debug_struct.field("backup_plan", &self.backup_plan);
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("revision_id", &self.revision_id);
         debug_struct.field("state", &self.state);
-        debug_struct.field("rules_config_info", &self.rules_config_info);
-        debug_struct.field("data_source", &self.data_source);
+        debug_struct.field("backup_plan_snapshot", &self.backup_plan_snapshot);
+        debug_struct.field("create_time", &self.create_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7233,12 +7593,12 @@ impl std::fmt::Debug for BackupPlanAssociation {
     }
 }
 
-/// Defines additional types related to [BackupPlanAssociation].
-pub mod backup_plan_association {
+/// Defines additional types related to [BackupPlanRevision].
+pub mod backup_plan_revision {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Enum for State of BackupPlan Association
+    /// The state of the `BackupPlanRevision`.
     ///
     /// # Working with unknown values
     ///
@@ -7379,9 +7739,1326 @@ pub mod backup_plan_association {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.backupdr.v1.BackupPlanRevision.State",
+            ))
+        }
+    }
+}
+
+/// The request message for getting a `BackupPlanRevision`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetBackupPlanRevisionRequest {
+    /// Required. The resource name of the `BackupPlanRevision` to retrieve.
+    ///
+    /// Format:
+    /// `projects/{project}/locations/{location}/backupPlans/{backup_plan}/revisions/{revision}`
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetBackupPlanRevisionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetBackupPlanRevisionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetBackupPlanRevisionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.GetBackupPlanRevisionRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetBackupPlanRevisionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetBackupPlanRevisionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetBackupPlanRevisionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetBackupPlanRevisionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetBackupPlanRevisionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for GetBackupPlanRevisionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupPlanRevisionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// The request message for getting a list of `BackupPlanRevision`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBackupPlanRevisionsRequest {
+    /// Required. The project and location for which to retrieve
+    /// `BackupPlanRevisions` information. Format:
+    /// `projects/{project}/locations/{location}/backupPlans/{backup_plan}`. In
+    /// Cloud BackupDR, locations map to GCP regions, for e.g. **us-central1**.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of `BackupPlans` to return in a single
+    /// response. If not specified, a default value will be chosen by the service.
+    /// Note that the response may include a partial list and a caller should
+    /// only rely on the response's
+    /// [next_page_token][google.cloud.backupdr.v1.ListBackupPlansResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    ///
+    /// [google.cloud.backupdr.v1.ListBackupPlansResponse.next_page_token]: crate::model::ListBackupPlansResponse::next_page_token
+    pub page_size: i32,
+
+    /// Optional. The value of
+    /// [next_page_token][google.cloud.backupdr.v1.ListBackupPlansResponse.next_page_token]
+    /// received from a previous `ListBackupPlans` call.
+    /// Provide this to retrieve the subsequent page in a multi-page list of
+    /// results. When paginating, all other parameters provided to
+    /// `ListBackupPlans` must match the call that provided the page token.
+    ///
+    /// [google.cloud.backupdr.v1.ListBackupPlansResponse.next_page_token]: crate::model::ListBackupPlansResponse::next_page_token
+    pub page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupPlanRevisionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListBackupPlanRevisionsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListBackupPlanRevisionsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListBackupPlanRevisionsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupPlanRevisionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListBackupPlanRevisionsRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListBackupPlanRevisionsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListBackupPlanRevisionsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListBackupPlanRevisionsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListBackupPlanRevisionsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListBackupPlanRevisionsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListBackupPlanRevisionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupPlanRevisionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// The response message for getting a list of `BackupPlanRevision`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBackupPlanRevisionsResponse {
+    /// The list of `BackupPlanRevisions` in the project for the specified
+    /// location.
+    ///
+    /// If the `{location}` value in the request is "-", the response contains a
+    /// list of resources from all locations. In case any location is unreachable,
+    /// the response will only return backup plans in reachable locations and
+    /// the 'unreachable' field will be populated with a list of unreachable
+    /// locations.
+    pub backup_plan_revisions: std::vec::Vec<crate::model::BackupPlanRevision>,
+
+    /// A token which may be sent as
+    /// [page_token][google.cloud.backupdr.v1.ListBackupPlanRevisionsRequest.page_token]
+    /// in a subsequent `ListBackupPlanRevisions` call to retrieve the next page of
+    /// results. If this field is omitted or empty, then there are no more results
+    /// to return.
+    ///
+    /// [google.cloud.backupdr.v1.ListBackupPlanRevisionsRequest.page_token]: crate::model::ListBackupPlanRevisionsRequest::page_token
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupPlanRevisionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backup_plan_revisions][crate::model::ListBackupPlanRevisionsResponse::backup_plan_revisions].
+    pub fn set_backup_plan_revisions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupPlanRevision>,
+    {
+        use std::iter::Iterator;
+        self.backup_plan_revisions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupPlanRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListBackupPlanRevisionsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupPlanRevisionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListBackupPlanRevisionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupPlanRevisionsResponse {
+    type PageItem = crate::model::BackupPlanRevision;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.backup_plan_revisions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListBackupPlanRevisionsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __backup_plan_revisions,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListBackupPlanRevisionsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "backupPlanRevisions" => Ok(__FieldTag::__backup_plan_revisions),
+                            "backup_plan_revisions" => Ok(__FieldTag::__backup_plan_revisions),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListBackupPlanRevisionsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListBackupPlanRevisionsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__backup_plan_revisions => {
+                            if !fields.insert(__FieldTag::__backup_plan_revisions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_plan_revisions",
+                                ));
+                            }
+                            result.backup_plan_revisions = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::BackupPlanRevision>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListBackupPlanRevisionsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.backup_plan_revisions.is_empty() {
+            state.serialize_entry("backupPlanRevisions", &self.backup_plan_revisions)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListBackupPlanRevisionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupPlanRevisionsResponse");
+        debug_struct.field("backup_plan_revisions", &self.backup_plan_revisions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// A BackupPlanAssociation represents a single BackupPlanAssociation which
+/// contains details like workload, backup plan etc
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackupPlanAssociation {
+    /// Output only. Identifier. The resource name of BackupPlanAssociation in
+    /// below format Format :
+    /// projects/{project}/locations/{location}/backupPlanAssociations/{backupPlanAssociationId}
+    pub name: std::string::String,
+
+    /// Required. Immutable. Resource type of workload on which backupplan is
+    /// applied
+    pub resource_type: std::string::String,
+
+    /// Required. Immutable. Resource name of workload on which the backup plan is
+    /// applied.
+    ///
+    /// The format can either be the resource name (e.g.,
+    /// "projects/my-project/zones/us-central1-a/instances/my-instance") or the
+    /// full resource URI (e.g.,
+    /// `https://www.googleapis.com/compute/v1/projects/my-project/zones/us-central1-a/instances/my-instance`).
+    pub resource: std::string::String,
+
+    /// Required. Resource name of backup plan which needs to be applied on
+    /// workload. Format:
+    /// projects/{project}/locations/{location}/backupPlans/{backupPlanId}
+    pub backup_plan: std::string::String,
+
+    /// Output only. The time when the instance was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time when the instance was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The BackupPlanAssociation resource state.
+    pub state: crate::model::backup_plan_association::State,
+
+    /// Output only. The config info related to backup rules.
+    pub rules_config_info: std::vec::Vec<crate::model::RuleConfigInfo>,
+
+    /// Output only. Resource name of data source which will be used as storage
+    /// location for backups taken. Format :
+    /// projects/{project}/locations/{location}/backupVaults/{backupvault}/dataSources/{datasource}
+    pub data_source: std::string::String,
+
+    /// Output only. The user friendly revision ID of the `BackupPlanRevision`.
+    ///
+    /// Example: v0, v1, v2, etc.
+    pub backup_plan_revision_id: std::string::String,
+
+    /// Output only. The resource id of the `BackupPlanRevision`.
+    ///
+    /// Format:
+    /// `projects/{project}/locations/{location}/backupPlans/{backup_plan}/revisions/{revision_id}`
+    pub backup_plan_revision_name: std::string::String,
+
+    /// Properties of the protected GCP resource.
+    pub resource_properties:
+        std::option::Option<crate::model::backup_plan_association::ResourceProperties>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupPlanAssociation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BackupPlanAssociation::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_type][crate::model::BackupPlanAssociation::resource_type].
+    pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [resource][crate::model::BackupPlanAssociation::resource].
+    pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_plan][crate::model::BackupPlanAssociation::backup_plan].
+    pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup_plan = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::BackupPlanAssociation::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::BackupPlanAssociation::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::BackupPlanAssociation::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::BackupPlanAssociation::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::BackupPlanAssociation::state].
+    pub fn set_state<T: std::convert::Into<crate::model::backup_plan_association::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [rules_config_info][crate::model::BackupPlanAssociation::rules_config_info].
+    pub fn set_rules_config_info<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RuleConfigInfo>,
+    {
+        use std::iter::Iterator;
+        self.rules_config_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [data_source][crate::model::BackupPlanAssociation::data_source].
+    pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_source = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_plan_revision_id][crate::model::BackupPlanAssociation::backup_plan_revision_id].
+    pub fn set_backup_plan_revision_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_plan_revision_id = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_plan_revision_name][crate::model::BackupPlanAssociation::backup_plan_revision_name].
+    pub fn set_backup_plan_revision_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_plan_revision_name = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_properties][crate::model::BackupPlanAssociation::resource_properties].
+    ///
+    /// Note that all the setters affecting `resource_properties` are mutually
+    /// exclusive.
+    pub fn set_resource_properties<
+        T: std::convert::Into<
+                std::option::Option<crate::model::backup_plan_association::ResourceProperties>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resource_properties = v.into();
+        self
+    }
+
+    /// The value of [resource_properties][crate::model::BackupPlanAssociation::resource_properties]
+    /// if it holds a `CloudSqlInstanceBackupPlanAssociationProperties`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_sql_instance_backup_plan_association_properties(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::CloudSqlInstanceBackupPlanAssociationProperties>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.resource_properties.as_ref().and_then(|v| match v {
+            crate::model::backup_plan_association::ResourceProperties::CloudSqlInstanceBackupPlanAssociationProperties(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [resource_properties][crate::model::BackupPlanAssociation::resource_properties]
+    /// to hold a `CloudSqlInstanceBackupPlanAssociationProperties`.
+    ///
+    /// Note that all the setters affecting `resource_properties` are
+    /// mutually exclusive.
+    pub fn set_cloud_sql_instance_backup_plan_association_properties<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::CloudSqlInstanceBackupPlanAssociationProperties>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resource_properties = std::option::Option::Some(
+            crate::model::backup_plan_association::ResourceProperties::CloudSqlInstanceBackupPlanAssociationProperties(
+                v.into()
+            )
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for BackupPlanAssociation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BackupPlanAssociation"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for BackupPlanAssociation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __resource_type,
+            __resource,
+            __backup_plan,
+            __create_time,
+            __update_time,
+            __state,
+            __rules_config_info,
+            __data_source,
+            __cloud_sql_instance_backup_plan_association_properties,
+            __backup_plan_revision_id,
+            __backup_plan_revision_name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BackupPlanAssociation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "resourceType" => Ok(__FieldTag::__resource_type),
+                            "resource_type" => Ok(__FieldTag::__resource_type),
+                            "resource" => Ok(__FieldTag::__resource),
+                            "backupPlan" => Ok(__FieldTag::__backup_plan),
+                            "backup_plan" => Ok(__FieldTag::__backup_plan),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "state" => Ok(__FieldTag::__state),
+                            "rulesConfigInfo" => Ok(__FieldTag::__rules_config_info),
+                            "rules_config_info" => Ok(__FieldTag::__rules_config_info),
+                            "dataSource" => Ok(__FieldTag::__data_source),
+                            "data_source" => Ok(__FieldTag::__data_source),
+                            "cloudSqlInstanceBackupPlanAssociationProperties" => Ok(
+                                __FieldTag::__cloud_sql_instance_backup_plan_association_properties,
+                            ),
+                            "cloud_sql_instance_backup_plan_association_properties" => Ok(
+                                __FieldTag::__cloud_sql_instance_backup_plan_association_properties,
+                            ),
+                            "backupPlanRevisionId" => Ok(__FieldTag::__backup_plan_revision_id),
+                            "backup_plan_revision_id" => Ok(__FieldTag::__backup_plan_revision_id),
+                            "backupPlanRevisionName" => Ok(__FieldTag::__backup_plan_revision_name),
+                            "backup_plan_revision_name" => {
+                                Ok(__FieldTag::__backup_plan_revision_name)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = BackupPlanAssociation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BackupPlanAssociation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__resource_type => {
+                            if !fields.insert(__FieldTag::__resource_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_type",
+                                ));
+                            }
+                            result.resource_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__resource => {
+                            if !fields.insert(__FieldTag::__resource) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource",
+                                ));
+                            }
+                            result.resource = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__backup_plan => {
+                            if !fields.insert(__FieldTag::__backup_plan) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_plan",
+                                ));
+                            }
+                            result.backup_plan = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state =
+                                map.next_value::<std::option::Option<
+                                    crate::model::backup_plan_association::State,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__rules_config_info => {
+                            if !fields.insert(__FieldTag::__rules_config_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rules_config_info",
+                                ));
+                            }
+                            result.rules_config_info =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::RuleConfigInfo>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__data_source => {
+                            if !fields.insert(__FieldTag::__data_source) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data_source",
+                                ));
+                            }
+                            result.data_source = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cloud_sql_instance_backup_plan_association_properties => {
+                            if !fields.insert(
+                                __FieldTag::__cloud_sql_instance_backup_plan_association_properties,
+                            ) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cloud_sql_instance_backup_plan_association_properties",
+                                ));
+                            }
+                            if result.resource_properties.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `resource_properties`, a oneof with full ID .google.cloud.backupdr.v1.BackupPlanAssociation.cloud_sql_instance_backup_plan_association_properties, latest field was cloudSqlInstanceBackupPlanAssociationProperties",
+                                ));
+                            }
+                            result.resource_properties = std::option::Option::Some(
+                                crate::model::backup_plan_association::ResourceProperties::CloudSqlInstanceBackupPlanAssociationProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::CloudSqlInstanceBackupPlanAssociationProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__backup_plan_revision_id => {
+                            if !fields.insert(__FieldTag::__backup_plan_revision_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_plan_revision_id",
+                                ));
+                            }
+                            result.backup_plan_revision_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__backup_plan_revision_name => {
+                            if !fields.insert(__FieldTag::__backup_plan_revision_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_plan_revision_name",
+                                ));
+                            }
+                            result.backup_plan_revision_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for BackupPlanAssociation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.resource_type.is_empty() {
+            state.serialize_entry("resourceType", &self.resource_type)?;
+        }
+        if !self.resource.is_empty() {
+            state.serialize_entry("resource", &self.resource)?;
+        }
+        if !self.backup_plan.is_empty() {
+            state.serialize_entry("backupPlan", &self.backup_plan)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self.rules_config_info.is_empty() {
+            state.serialize_entry("rulesConfigInfo", &self.rules_config_info)?;
+        }
+        if !self.data_source.is_empty() {
+            state.serialize_entry("dataSource", &self.data_source)?;
+        }
+        if let Some(value) = self.cloud_sql_instance_backup_plan_association_properties() {
+            state.serialize_entry("cloudSqlInstanceBackupPlanAssociationProperties", value)?;
+        }
+        if !self.backup_plan_revision_id.is_empty() {
+            state.serialize_entry("backupPlanRevisionId", &self.backup_plan_revision_id)?;
+        }
+        if !self.backup_plan_revision_name.is_empty() {
+            state.serialize_entry("backupPlanRevisionName", &self.backup_plan_revision_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for BackupPlanAssociation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupPlanAssociation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("backup_plan", &self.backup_plan);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("rules_config_info", &self.rules_config_info);
+        debug_struct.field("data_source", &self.data_source);
+        debug_struct.field("backup_plan_revision_id", &self.backup_plan_revision_id);
+        debug_struct.field("backup_plan_revision_name", &self.backup_plan_revision_name);
+        debug_struct.field("resource_properties", &self.resource_properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [BackupPlanAssociation].
+pub mod backup_plan_association {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Enum for State of BackupPlan Association
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not set.
+        Unspecified,
+        /// The resource is being created.
+        Creating,
+        /// The resource has been created and is fully usable.
+        Active,
+        /// The resource is being deleted.
+        Deleting,
+        /// The resource has been created but is not usable.
+        Inactive,
+        /// The resource is being updated.
+        Updating,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Inactive => std::option::Option::Some(4),
+                Self::Updating => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Deleting,
+                4 => Self::Inactive,
+                5 => Self::Updating,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "DELETING" => Self::Deleting,
+                "INACTIVE" => Self::Inactive,
+                "UPDATING" => Self::Updating,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Inactive => serializer.serialize_i32(4),
+                Self::Updating => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
                 ".google.cloud.backupdr.v1.BackupPlanAssociation.State",
             ))
         }
+    }
+
+    /// Properties of the protected GCP resource.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ResourceProperties {
+        /// Output only. Cloud SQL instance's backup plan association properties.
+        CloudSqlInstanceBackupPlanAssociationProperties(
+            std::boxed::Box<crate::model::CloudSqlInstanceBackupPlanAssociationProperties>,
+        ),
     }
 }
 
@@ -8525,6 +10202,517 @@ impl std::fmt::Debug for ListBackupPlanAssociationsResponse {
     }
 }
 
+/// Request for the FetchBackupPlanAssociationsForResourceType method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchBackupPlanAssociationsForResourceTypeRequest {
+    /// Required. The parent resource name.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Required. The type of the GCP resource.
+    /// Ex: sql.googleapis.com/Instance
+    pub resource_type: std::string::String,
+
+    /// Optional. The maximum number of BackupPlanAssociations to return. The
+    /// service may return fewer than this value. If unspecified, at most 50
+    /// BackupPlanAssociations will be returned. The maximum value is 100; values
+    /// above 100 will be coerced to 100.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous call of
+    /// `FetchBackupPlanAssociationsForResourceType`.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `FetchBackupPlanAssociationsForResourceType` must match
+    /// the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. A filter expression that filters the results fetched in the
+    /// response. The expression must specify the field name, a comparison
+    /// operator, and the value that you want to use for filtering. Supported
+    /// fields:
+    ///
+    /// * resource
+    /// * backup_plan
+    /// * state
+    /// * data_source
+    /// * cloud_sql_instance_backup_plan_association_properties.instance_create_time
+    pub filter: std::string::String,
+
+    /// Optional. A comma-separated list of fields to order by, sorted in ascending
+    /// order. Use "desc" after a field name for descending.
+    ///
+    /// Supported fields:
+    ///
+    /// * name
+    pub order_by: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchBackupPlanAssociationsForResourceTypeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_type][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::resource_type].
+    pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::FetchBackupPlanAssociationsForResourceTypeRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchBackupPlanAssociationsForResourceTypeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.FetchBackupPlanAssociationsForResourceTypeRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FetchBackupPlanAssociationsForResourceTypeRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __resource_type,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for FetchBackupPlanAssociationsForResourceTypeRequest",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "resourceType" => Ok(__FieldTag::__resource_type),
+                            "resource_type" => Ok(__FieldTag::__resource_type),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FetchBackupPlanAssociationsForResourceTypeRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FetchBackupPlanAssociationsForResourceTypeRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__resource_type => {
+                            if !fields.insert(__FieldTag::__resource_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_type",
+                                ));
+                            }
+                            result.resource_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FetchBackupPlanAssociationsForResourceTypeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.resource_type.is_empty() {
+            state.serialize_entry("resourceType", &self.resource_type)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for FetchBackupPlanAssociationsForResourceTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchBackupPlanAssociationsForResourceTypeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Response for the FetchBackupPlanAssociationsForResourceType method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchBackupPlanAssociationsForResourceTypeResponse {
+    /// Output only. The BackupPlanAssociations from the specified parent.
+    pub backup_plan_associations: std::vec::Vec<crate::model::BackupPlanAssociation>,
+
+    /// Output only. A token, which can be sent as `page_token` to retrieve the
+    /// next page. If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchBackupPlanAssociationsForResourceTypeResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backup_plan_associations][crate::model::FetchBackupPlanAssociationsForResourceTypeResponse::backup_plan_associations].
+    pub fn set_backup_plan_associations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupPlanAssociation>,
+    {
+        use std::iter::Iterator;
+        self.backup_plan_associations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchBackupPlanAssociationsForResourceTypeResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchBackupPlanAssociationsForResourceTypeResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.FetchBackupPlanAssociationsForResourceTypeResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse
+    for FetchBackupPlanAssociationsForResourceTypeResponse
+{
+    type PageItem = crate::model::BackupPlanAssociation;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.backup_plan_associations
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FetchBackupPlanAssociationsForResourceTypeResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __backup_plan_associations,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for FetchBackupPlanAssociationsForResourceTypeResponse",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "backupPlanAssociations" => Ok(__FieldTag::__backup_plan_associations),
+                            "backup_plan_associations" => {
+                                Ok(__FieldTag::__backup_plan_associations)
+                            }
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FetchBackupPlanAssociationsForResourceTypeResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FetchBackupPlanAssociationsForResourceTypeResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__backup_plan_associations => {
+                            if !fields.insert(__FieldTag::__backup_plan_associations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_plan_associations",
+                                ));
+                            }
+                            result.backup_plan_associations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::BackupPlanAssociation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FetchBackupPlanAssociationsForResourceTypeResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.backup_plan_associations.is_empty() {
+            state.serialize_entry("backupPlanAssociations", &self.backup_plan_associations)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for FetchBackupPlanAssociationsForResourceTypeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchBackupPlanAssociationsForResourceTypeResponse");
+        debug_struct.field("backup_plan_associations", &self.backup_plan_associations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for getting a BackupPlanAssociation resource.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -8839,6 +11027,240 @@ impl std::fmt::Debug for DeleteBackupPlanAssociationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteBackupPlanAssociationRequest");
         debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Request message for updating a backup plan association.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateBackupPlanAssociationRequest {
+    /// Required. The resource being updated
+    pub backup_plan_association: std::option::Option<crate::model::BackupPlanAssociation>,
+
+    /// Required. The list of fields to update.
+    /// Field mask is used to specify the fields to be overwritten in the
+    /// BackupPlanAssociation resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then the request will fail.
+    /// Currently backup_plan_association.backup_plan is the only supported field.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and t
+    /// he request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateBackupPlanAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backup_plan_association][crate::model::UpdateBackupPlanAssociationRequest::backup_plan_association].
+    pub fn set_backup_plan_association<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupPlanAssociation>,
+    {
+        self.backup_plan_association = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_plan_association][crate::model::UpdateBackupPlanAssociationRequest::backup_plan_association].
+    pub fn set_or_clear_backup_plan_association<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupPlanAssociation>,
+    {
+        self.backup_plan_association = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateBackupPlanAssociationRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBackupPlanAssociationRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateBackupPlanAssociationRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateBackupPlanAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.UpdateBackupPlanAssociationRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateBackupPlanAssociationRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __backup_plan_association,
+            __update_mask,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateBackupPlanAssociationRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "backupPlanAssociation" => Ok(__FieldTag::__backup_plan_association),
+                            "backup_plan_association" => Ok(__FieldTag::__backup_plan_association),
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateBackupPlanAssociationRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateBackupPlanAssociationRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__backup_plan_association => {
+                            if !fields.insert(__FieldTag::__backup_plan_association) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_plan_association",
+                                ));
+                            }
+                            result.backup_plan_association = map.next_value::<std::option::Option<crate::model::BackupPlanAssociation>>()?
+                                ;
+                        }
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateBackupPlanAssociationRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.backup_plan_association.is_some() {
+            state.serialize_entry("backupPlanAssociation", &self.backup_plan_association)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateBackupPlanAssociationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBackupPlanAssociationRequest");
+        debug_struct.field("backup_plan_association", &self.backup_plan_association);
+        debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -9784,6 +12206,8 @@ pub mod backup_vault {
         Deleting,
         /// The backup vault is experiencing an issue and might be unusable.
         Error,
+        /// The backup vault is being updated.
+        Updating,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -9811,6 +12235,7 @@ pub mod backup_vault {
                 Self::Active => std::option::Option::Some(2),
                 Self::Deleting => std::option::Option::Some(3),
                 Self::Error => std::option::Option::Some(4),
+                Self::Updating => std::option::Option::Some(5),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -9826,6 +12251,7 @@ pub mod backup_vault {
                 Self::Active => std::option::Option::Some("ACTIVE"),
                 Self::Deleting => std::option::Option::Some("DELETING"),
                 Self::Error => std::option::Option::Some("ERROR"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -9852,6 +12278,7 @@ pub mod backup_vault {
                 2 => Self::Active,
                 3 => Self::Deleting,
                 4 => Self::Error,
+                5 => Self::Updating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -9868,6 +12295,7 @@ pub mod backup_vault {
                 "ACTIVE" => Self::Active,
                 "DELETING" => Self::Deleting,
                 "ERROR" => Self::Error,
+                "UPDATING" => Self::Updating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -9886,6 +12314,7 @@ pub mod backup_vault {
                 Self::Active => serializer.serialize_i32(2),
                 Self::Deleting => serializer.serialize_i32(3),
                 Self::Error => serializer.serialize_i32(4),
+                Self::Updating => serializer.serialize_i32(5),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -10096,6 +12525,10 @@ pub struct DataSource {
     /// Output only. Details of how the resource is configured for backup.
     pub backup_config_info: std::option::Option<crate::model::BackupConfigInfo>,
 
+    /// Output only. This field is set to true if the backup is blocked by vault
+    /// access restriction.
+    pub backup_blocked_by_vault_access_restriction: bool,
+
     /// The source resource that is represented by this DataSource. It can be a
     /// Google Cloud resource, or one backed up by a Backup Appliance.
     pub source_resource: std::option::Option<crate::model::data_source::SourceResource>,
@@ -10252,6 +12685,15 @@ impl DataSource {
         self
     }
 
+    /// Sets the value of [backup_blocked_by_vault_access_restriction][crate::model::DataSource::backup_blocked_by_vault_access_restriction].
+    pub fn set_backup_blocked_by_vault_access_restriction<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_blocked_by_vault_access_restriction = v.into();
+        self
+    }
+
     /// Sets the value of [source_resource][crate::model::DataSource::source_resource].
     ///
     /// Note that all the setters affecting `source_resource` are mutually
@@ -10362,6 +12804,7 @@ impl<'de> serde::de::Deserialize<'de> for DataSource {
             __backup_config_info,
             __data_source_gcp_resource,
             __data_source_backup_appliance_application,
+            __backup_blocked_by_vault_access_restriction,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10407,6 +12850,12 @@ impl<'de> serde::de::Deserialize<'de> for DataSource {
                             }
                             "data_source_backup_appliance_application" => {
                                 Ok(__FieldTag::__data_source_backup_appliance_application)
+                            }
+                            "backupBlockedByVaultAccessRestriction" => {
+                                Ok(__FieldTag::__backup_blocked_by_vault_access_restriction)
+                            }
+                            "backup_blocked_by_vault_access_restriction" => {
+                                Ok(__FieldTag::__backup_blocked_by_vault_access_restriction)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -10591,6 +13040,18 @@ impl<'de> serde::de::Deserialize<'de> for DataSource {
                                 ),
                             );
                         }
+                        __FieldTag::__backup_blocked_by_vault_access_restriction => {
+                            if !fields
+                                .insert(__FieldTag::__backup_blocked_by_vault_access_restriction)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_blocked_by_vault_access_restriction",
+                                ));
+                            }
+                            result.backup_blocked_by_vault_access_restriction = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -10672,6 +13133,12 @@ impl serde::ser::Serialize for DataSource {
         if let Some(value) = self.data_source_backup_appliance_application() {
             state.serialize_entry("dataSourceBackupApplianceApplication", value)?;
         }
+        if !wkt::internal::is_default(&self.backup_blocked_by_vault_access_restriction) {
+            state.serialize_entry(
+                "backupBlockedByVaultAccessRestriction",
+                &self.backup_blocked_by_vault_access_restriction,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -10694,6 +13161,10 @@ impl std::fmt::Debug for DataSource {
         debug_struct.field("total_stored_bytes", &self.total_stored_bytes);
         debug_struct.field("config_state", &self.config_state);
         debug_struct.field("backup_config_info", &self.backup_config_info);
+        debug_struct.field(
+            "backup_blocked_by_vault_access_restriction",
+            &self.backup_blocked_by_vault_access_restriction,
+        );
         debug_struct.field("source_resource", &self.source_resource);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -11426,6 +13897,13 @@ pub struct GcpBackupConfig {
     /// The names of the backup plan rules which point to this backupvault
     pub backup_plan_rules: std::vec::Vec<std::string::String>,
 
+    /// The name of the backup plan revision.
+    pub backup_plan_revision_name: std::string::String,
+
+    /// The user friendly id of the backup plan revision.
+    /// E.g. v0, v1 etc.
+    pub backup_plan_revision_id: std::string::String,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11468,6 +13946,24 @@ impl GcpBackupConfig {
         self.backup_plan_rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [backup_plan_revision_name][crate::model::GcpBackupConfig::backup_plan_revision_name].
+    pub fn set_backup_plan_revision_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_plan_revision_name = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_plan_revision_id][crate::model::GcpBackupConfig::backup_plan_revision_id].
+    pub fn set_backup_plan_revision_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_plan_revision_id = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for GcpBackupConfig {
@@ -11490,6 +13986,8 @@ impl<'de> serde::de::Deserialize<'de> for GcpBackupConfig {
             __backup_plan_description,
             __backup_plan_association,
             __backup_plan_rules,
+            __backup_plan_revision_name,
+            __backup_plan_revision_id,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -11518,6 +14016,12 @@ impl<'de> serde::de::Deserialize<'de> for GcpBackupConfig {
                             "backup_plan_association" => Ok(__FieldTag::__backup_plan_association),
                             "backupPlanRules" => Ok(__FieldTag::__backup_plan_rules),
                             "backup_plan_rules" => Ok(__FieldTag::__backup_plan_rules),
+                            "backupPlanRevisionName" => Ok(__FieldTag::__backup_plan_revision_name),
+                            "backup_plan_revision_name" => {
+                                Ok(__FieldTag::__backup_plan_revision_name)
+                            }
+                            "backupPlanRevisionId" => Ok(__FieldTag::__backup_plan_revision_id),
+                            "backup_plan_revision_id" => Ok(__FieldTag::__backup_plan_revision_id),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -11581,6 +14085,26 @@ impl<'de> serde::de::Deserialize<'de> for GcpBackupConfig {
                             }
                             result.backup_plan_rules = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__backup_plan_revision_name => {
+                            if !fields.insert(__FieldTag::__backup_plan_revision_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_plan_revision_name",
+                                ));
+                            }
+                            result.backup_plan_revision_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__backup_plan_revision_id => {
+                            if !fields.insert(__FieldTag::__backup_plan_revision_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_plan_revision_id",
+                                ));
+                            }
+                            result.backup_plan_revision_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -11616,6 +14140,12 @@ impl serde::ser::Serialize for GcpBackupConfig {
         if !self.backup_plan_rules.is_empty() {
             state.serialize_entry("backupPlanRules", &self.backup_plan_rules)?;
         }
+        if !self.backup_plan_revision_name.is_empty() {
+            state.serialize_entry("backupPlanRevisionName", &self.backup_plan_revision_name)?;
+        }
+        if !self.backup_plan_revision_id.is_empty() {
+            state.serialize_entry("backupPlanRevisionId", &self.backup_plan_revision_id)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -11632,6 +14162,8 @@ impl std::fmt::Debug for GcpBackupConfig {
         debug_struct.field("backup_plan_description", &self.backup_plan_description);
         debug_struct.field("backup_plan_association", &self.backup_plan_association);
         debug_struct.field("backup_plan_rules", &self.backup_plan_rules);
+        debug_struct.field("backup_plan_revision_name", &self.backup_plan_revision_name);
+        debug_struct.field("backup_plan_revision_id", &self.backup_plan_revision_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12079,6 +14611,71 @@ impl DataSourceGcpResource {
         );
         self
     }
+
+    /// The value of [gcp_resource_properties][crate::model::DataSourceGcpResource::gcp_resource_properties]
+    /// if it holds a `CloudSqlInstanceDatasourceProperties`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_sql_instance_datasource_properties(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlInstanceDataSourceProperties>>
+    {
+        #[allow(unreachable_patterns)]
+        self.gcp_resource_properties.as_ref().and_then(|v| match v {
+            crate::model::data_source_gcp_resource::GcpResourceProperties::CloudSqlInstanceDatasourceProperties(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [gcp_resource_properties][crate::model::DataSourceGcpResource::gcp_resource_properties]
+    /// to hold a `CloudSqlInstanceDatasourceProperties`.
+    ///
+    /// Note that all the setters affecting `gcp_resource_properties` are
+    /// mutually exclusive.
+    pub fn set_cloud_sql_instance_datasource_properties<
+        T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlInstanceDataSourceProperties>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gcp_resource_properties = std::option::Option::Some(
+            crate::model::data_source_gcp_resource::GcpResourceProperties::CloudSqlInstanceDatasourceProperties(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [gcp_resource_properties][crate::model::DataSourceGcpResource::gcp_resource_properties]
+    /// if it holds a `DiskDatasourceProperties`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn disk_datasource_properties(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DiskDataSourceProperties>> {
+        #[allow(unreachable_patterns)]
+        self.gcp_resource_properties.as_ref().and_then(|v| match v {
+            crate::model::data_source_gcp_resource::GcpResourceProperties::DiskDatasourceProperties(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [gcp_resource_properties][crate::model::DataSourceGcpResource::gcp_resource_properties]
+    /// to hold a `DiskDatasourceProperties`.
+    ///
+    /// Note that all the setters affecting `gcp_resource_properties` are
+    /// mutually exclusive.
+    pub fn set_disk_datasource_properties<
+        T: std::convert::Into<std::boxed::Box<crate::model::DiskDataSourceProperties>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gcp_resource_properties = std::option::Option::Some(
+            crate::model::data_source_gcp_resource::GcpResourceProperties::DiskDatasourceProperties(
+                v.into(),
+            ),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for DataSourceGcpResource {
@@ -12101,6 +14698,8 @@ impl<'de> serde::de::Deserialize<'de> for DataSourceGcpResource {
             __location,
             __type,
             __compute_instance_datasource_properties,
+            __cloud_sql_instance_datasource_properties,
+            __disk_datasource_properties,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -12130,6 +14729,18 @@ impl<'de> serde::de::Deserialize<'de> for DataSourceGcpResource {
                             }
                             "compute_instance_datasource_properties" => {
                                 Ok(__FieldTag::__compute_instance_datasource_properties)
+                            }
+                            "cloudSqlInstanceDatasourceProperties" => {
+                                Ok(__FieldTag::__cloud_sql_instance_datasource_properties)
+                            }
+                            "cloud_sql_instance_datasource_properties" => {
+                                Ok(__FieldTag::__cloud_sql_instance_datasource_properties)
+                            }
+                            "diskDatasourceProperties" => {
+                                Ok(__FieldTag::__disk_datasource_properties)
+                            }
+                            "disk_datasource_properties" => {
+                                Ok(__FieldTag::__disk_datasource_properties)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -12204,6 +14815,42 @@ impl<'de> serde::de::Deserialize<'de> for DataSourceGcpResource {
                                 ),
                             );
                         }
+                        __FieldTag::__cloud_sql_instance_datasource_properties => {
+                            if !fields
+                                .insert(__FieldTag::__cloud_sql_instance_datasource_properties)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cloud_sql_instance_datasource_properties",
+                                ));
+                            }
+                            if result.gcp_resource_properties.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `gcp_resource_properties`, a oneof with full ID .google.cloud.backupdr.v1.DataSourceGcpResource.cloud_sql_instance_datasource_properties, latest field was cloudSqlInstanceDatasourceProperties",
+                                ));
+                            }
+                            result.gcp_resource_properties = std::option::Option::Some(
+                                crate::model::data_source_gcp_resource::GcpResourceProperties::CloudSqlInstanceDatasourceProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::CloudSqlInstanceDataSourceProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__disk_datasource_properties => {
+                            if !fields.insert(__FieldTag::__disk_datasource_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for disk_datasource_properties",
+                                ));
+                            }
+                            if result.gcp_resource_properties.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `gcp_resource_properties`, a oneof with full ID .google.cloud.backupdr.v1.DataSourceGcpResource.disk_datasource_properties, latest field was diskDatasourceProperties",
+                                ));
+                            }
+                            result.gcp_resource_properties = std::option::Option::Some(
+                                crate::model::data_source_gcp_resource::GcpResourceProperties::DiskDatasourceProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::DiskDataSourceProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -12238,6 +14885,12 @@ impl serde::ser::Serialize for DataSourceGcpResource {
         }
         if let Some(value) = self.compute_instance_datasource_properties() {
             state.serialize_entry("computeInstanceDatasourceProperties", value)?;
+        }
+        if let Some(value) = self.cloud_sql_instance_datasource_properties() {
+            state.serialize_entry("cloudSqlInstanceDatasourceProperties", value)?;
+        }
+        if let Some(value) = self.disk_datasource_properties() {
+            state.serialize_entry("diskDatasourceProperties", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -12276,6 +14929,14 @@ pub mod data_source_gcp_resource {
         ComputeInstanceDatasourceProperties(
             std::boxed::Box<crate::model::ComputeInstanceDataSourceProperties>,
         ),
+        /// Output only. CloudSqlInstanceDataSourceProperties has a subset of Cloud
+        /// SQL Instance properties that are useful at the Datasource level.
+        CloudSqlInstanceDatasourceProperties(
+            std::boxed::Box<crate::model::CloudSqlInstanceDataSourceProperties>,
+        ),
+        /// DiskDataSourceProperties has a subset of Disk properties that are useful
+        /// at the Datasource level.
+        DiskDatasourceProperties(std::boxed::Box<crate::model::DiskDataSourceProperties>),
     }
 }
 
@@ -13568,6 +16229,12 @@ pub struct Backup {
     /// Output only. source resource size in bytes at the time of the backup.
     pub resource_size_bytes: i64,
 
+    /// Optional. Output only. Reserved for future use.
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Optional. Output only. Reserved for future use.
+    pub satisfies_pzi: std::option::Option<bool>,
+
     /// Workload specific backup properties.
     pub backup_properties: std::option::Option<crate::model::backup::BackupProperties>,
 
@@ -13769,6 +16436,42 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
+    pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::Backup::satisfies_pzi].
+    pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzi][crate::model::Backup::satisfies_pzi].
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [backup_properties][crate::model::Backup::backup_properties].
     ///
     /// Note that all the setters affecting `backup_properties` are mutually
@@ -13816,6 +16519,38 @@ impl Backup {
     }
 
     /// The value of [backup_properties][crate::model::Backup::backup_properties]
+    /// if it holds a `CloudSqlInstanceBackupProperties`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_sql_instance_backup_properties(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlInstanceBackupProperties>> {
+        #[allow(unreachable_patterns)]
+        self.backup_properties.as_ref().and_then(|v| match v {
+            crate::model::backup::BackupProperties::CloudSqlInstanceBackupProperties(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [backup_properties][crate::model::Backup::backup_properties]
+    /// to hold a `CloudSqlInstanceBackupProperties`.
+    ///
+    /// Note that all the setters affecting `backup_properties` are
+    /// mutually exclusive.
+    pub fn set_cloud_sql_instance_backup_properties<
+        T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlInstanceBackupProperties>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_properties = std::option::Option::Some(
+            crate::model::backup::BackupProperties::CloudSqlInstanceBackupProperties(v.into()),
+        );
+        self
+    }
+
+    /// The value of [backup_properties][crate::model::Backup::backup_properties]
     /// if it holds a `BackupApplianceBackupProperties`, `None` if the field is not set or
     /// holds a different branch.
     pub fn backup_appliance_backup_properties(
@@ -13843,6 +16578,38 @@ impl Backup {
     ) -> Self {
         self.backup_properties = std::option::Option::Some(
             crate::model::backup::BackupProperties::BackupApplianceBackupProperties(v.into()),
+        );
+        self
+    }
+
+    /// The value of [backup_properties][crate::model::Backup::backup_properties]
+    /// if it holds a `DiskBackupProperties`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn disk_backup_properties(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DiskBackupProperties>> {
+        #[allow(unreachable_patterns)]
+        self.backup_properties.as_ref().and_then(|v| match v {
+            crate::model::backup::BackupProperties::DiskBackupProperties(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [backup_properties][crate::model::Backup::backup_properties]
+    /// to hold a `DiskBackupProperties`.
+    ///
+    /// Note that all the setters affecting `backup_properties` are
+    /// mutually exclusive.
+    pub fn set_disk_backup_properties<
+        T: std::convert::Into<std::boxed::Box<crate::model::DiskBackupProperties>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_properties = std::option::Option::Some(
+            crate::model::backup::BackupProperties::DiskBackupProperties(v.into()),
         );
         self
     }
@@ -13920,10 +16687,14 @@ impl<'de> serde::de::Deserialize<'de> for Backup {
             __service_locks,
             __backup_appliance_locks,
             __compute_instance_backup_properties,
+            __cloud_sql_instance_backup_properties,
             __backup_appliance_backup_properties,
+            __disk_backup_properties,
             __backup_type,
             __gcp_backup_plan_info,
             __resource_size_bytes,
+            __satisfies_pzs,
+            __satisfies_pzi,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13973,18 +16744,30 @@ impl<'de> serde::de::Deserialize<'de> for Backup {
                             "compute_instance_backup_properties" => {
                                 Ok(__FieldTag::__compute_instance_backup_properties)
                             }
+                            "cloudSqlInstanceBackupProperties" => {
+                                Ok(__FieldTag::__cloud_sql_instance_backup_properties)
+                            }
+                            "cloud_sql_instance_backup_properties" => {
+                                Ok(__FieldTag::__cloud_sql_instance_backup_properties)
+                            }
                             "backupApplianceBackupProperties" => {
                                 Ok(__FieldTag::__backup_appliance_backup_properties)
                             }
                             "backup_appliance_backup_properties" => {
                                 Ok(__FieldTag::__backup_appliance_backup_properties)
                             }
+                            "diskBackupProperties" => Ok(__FieldTag::__disk_backup_properties),
+                            "disk_backup_properties" => Ok(__FieldTag::__disk_backup_properties),
                             "backupType" => Ok(__FieldTag::__backup_type),
                             "backup_type" => Ok(__FieldTag::__backup_type),
                             "gcpBackupPlanInfo" => Ok(__FieldTag::__gcp_backup_plan_info),
                             "gcp_backup_plan_info" => Ok(__FieldTag::__gcp_backup_plan_info),
                             "resourceSizeBytes" => Ok(__FieldTag::__resource_size_bytes),
                             "resource_size_bytes" => Ok(__FieldTag::__resource_size_bytes),
+                            "satisfiesPzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfies_pzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfiesPzi" => Ok(__FieldTag::__satisfies_pzi),
+                            "satisfies_pzi" => Ok(__FieldTag::__satisfies_pzi),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -14141,6 +16924,23 @@ impl<'de> serde::de::Deserialize<'de> for Backup {
                                 ),
                             );
                         }
+                        __FieldTag::__cloud_sql_instance_backup_properties => {
+                            if !fields.insert(__FieldTag::__cloud_sql_instance_backup_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cloud_sql_instance_backup_properties",
+                                ));
+                            }
+                            if result.backup_properties.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `backup_properties`, a oneof with full ID .google.cloud.backupdr.v1.Backup.cloud_sql_instance_backup_properties, latest field was cloudSqlInstanceBackupProperties",
+                                ));
+                            }
+                            result.backup_properties = std::option::Option::Some(
+                                crate::model::backup::BackupProperties::CloudSqlInstanceBackupProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::CloudSqlInstanceBackupProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::__backup_appliance_backup_properties => {
                             if !fields.insert(__FieldTag::__backup_appliance_backup_properties) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -14155,6 +16955,26 @@ impl<'de> serde::de::Deserialize<'de> for Backup {
                             result.backup_properties = std::option::Option::Some(
                                 crate::model::backup::BackupProperties::BackupApplianceBackupProperties(
                                     map.next_value::<std::option::Option<std::boxed::Box<crate::model::BackupApplianceBackupProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__disk_backup_properties => {
+                            if !fields.insert(__FieldTag::__disk_backup_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for disk_backup_properties",
+                                ));
+                            }
+                            if result.backup_properties.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `backup_properties`, a oneof with full ID .google.cloud.backupdr.v1.Backup.disk_backup_properties, latest field was diskBackupProperties",
+                                ));
+                            }
+                            result.backup_properties = std::option::Option::Some(
+                                crate::model::backup::BackupProperties::DiskBackupProperties(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::DiskBackupProperties>,
+                                    >>()?
+                                    .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -14205,6 +17025,22 @@ impl<'de> serde::de::Deserialize<'de> for Backup {
                             }
                             result.resource_size_bytes =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__satisfies_pzs => {
+                            if !fields.insert(__FieldTag::__satisfies_pzs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzs",
+                                ));
+                            }
+                            result.satisfies_pzs = map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__satisfies_pzi => {
+                            if !fields.insert(__FieldTag::__satisfies_pzi) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzi",
+                                ));
+                            }
+                            result.satisfies_pzi = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14271,8 +17107,14 @@ impl serde::ser::Serialize for Backup {
         if let Some(value) = self.compute_instance_backup_properties() {
             state.serialize_entry("computeInstanceBackupProperties", value)?;
         }
+        if let Some(value) = self.cloud_sql_instance_backup_properties() {
+            state.serialize_entry("cloudSqlInstanceBackupProperties", value)?;
+        }
         if let Some(value) = self.backup_appliance_backup_properties() {
             state.serialize_entry("backupApplianceBackupProperties", value)?;
+        }
+        if let Some(value) = self.disk_backup_properties() {
+            state.serialize_entry("diskBackupProperties", value)?;
         }
         if !wkt::internal::is_default(&self.backup_type) {
             state.serialize_entry("backupType", &self.backup_type)?;
@@ -14291,6 +17133,12 @@ impl serde::ser::Serialize for Backup {
                 }
             }
             state.serialize_entry("resourceSizeBytes", &__With(&self.resource_size_bytes))?;
+        }
+        if self.satisfies_pzs.is_some() {
+            state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
+        }
+        if self.satisfies_pzi.is_some() {
+            state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -14321,6 +17169,8 @@ impl std::fmt::Debug for Backup {
         debug_struct.field("backup_appliance_locks", &self.backup_appliance_locks);
         debug_struct.field("backup_type", &self.backup_type);
         debug_struct.field("resource_size_bytes", &self.resource_size_bytes);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("backup_properties", &self.backup_properties);
         debug_struct.field("plan_info", &self.plan_info);
         if !self._unknown_fields.is_empty() {
@@ -14350,6 +17200,16 @@ pub mod backup {
         /// scheduled backup or used for
         pub backup_plan_rule_id: std::string::String,
 
+        /// Resource name of the backup plan revision which triggered this backup in
+        /// case of scheduled backup or used for on demand backup.
+        /// Format:
+        /// projects/{project}/locations/{location}/backupPlans/{backupPlanId}/revisions/{revisionId}
+        pub backup_plan_revision_name: std::string::String,
+
+        /// The user friendly id of the backup plan revision which triggered this
+        /// backup in case of scheduled backup or used for on demand backup.
+        pub backup_plan_revision_id: std::string::String,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -14372,6 +17232,24 @@ pub mod backup {
             self.backup_plan_rule_id = v.into();
             self
         }
+
+        /// Sets the value of [backup_plan_revision_name][crate::model::backup::GCPBackupPlanInfo::backup_plan_revision_name].
+        pub fn set_backup_plan_revision_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.backup_plan_revision_name = v.into();
+            self
+        }
+
+        /// Sets the value of [backup_plan_revision_id][crate::model::backup::GCPBackupPlanInfo::backup_plan_revision_id].
+        pub fn set_backup_plan_revision_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.backup_plan_revision_id = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for GCPBackupPlanInfo {
@@ -14392,6 +17270,8 @@ pub mod backup {
             enum __FieldTag {
                 __backup_plan,
                 __backup_plan_rule_id,
+                __backup_plan_revision_name,
+                __backup_plan_revision_id,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -14419,6 +17299,16 @@ pub mod backup {
                                 "backup_plan" => Ok(__FieldTag::__backup_plan),
                                 "backupPlanRuleId" => Ok(__FieldTag::__backup_plan_rule_id),
                                 "backup_plan_rule_id" => Ok(__FieldTag::__backup_plan_rule_id),
+                                "backupPlanRevisionName" => {
+                                    Ok(__FieldTag::__backup_plan_revision_name)
+                                }
+                                "backup_plan_revision_name" => {
+                                    Ok(__FieldTag::__backup_plan_revision_name)
+                                }
+                                "backupPlanRevisionId" => Ok(__FieldTag::__backup_plan_revision_id),
+                                "backup_plan_revision_id" => {
+                                    Ok(__FieldTag::__backup_plan_revision_id)
+                                }
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -14464,6 +17354,26 @@ pub mod backup {
                                     .next_value::<std::option::Option<std::string::String>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__backup_plan_revision_name => {
+                                if !fields.insert(__FieldTag::__backup_plan_revision_name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for backup_plan_revision_name",
+                                    ));
+                                }
+                                result.backup_plan_revision_name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__backup_plan_revision_id => {
+                                if !fields.insert(__FieldTag::__backup_plan_revision_id) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for backup_plan_revision_id",
+                                    ));
+                                }
+                                result.backup_plan_revision_id = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -14493,6 +17403,12 @@ pub mod backup {
             if !self.backup_plan_rule_id.is_empty() {
                 state.serialize_entry("backupPlanRuleId", &self.backup_plan_rule_id)?;
             }
+            if !self.backup_plan_revision_name.is_empty() {
+                state.serialize_entry("backupPlanRevisionName", &self.backup_plan_revision_name)?;
+            }
+            if !self.backup_plan_revision_id.is_empty() {
+                state.serialize_entry("backupPlanRevisionId", &self.backup_plan_revision_id)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -14507,6 +17423,8 @@ pub mod backup {
             let mut debug_struct = f.debug_struct("GCPBackupPlanInfo");
             debug_struct.field("backup_plan", &self.backup_plan);
             debug_struct.field("backup_plan_rule_id", &self.backup_plan_rule_id);
+            debug_struct.field("backup_plan_revision_name", &self.backup_plan_revision_name);
+            debug_struct.field("backup_plan_revision_id", &self.backup_plan_revision_id);
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -14542,6 +17460,8 @@ pub mod backup {
         Deleting,
         /// The backup is experiencing an issue and might be unusable.
         Error,
+        /// The backup is being uploaded.
+        Uploading,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -14569,6 +17489,7 @@ pub mod backup {
                 Self::Active => std::option::Option::Some(2),
                 Self::Deleting => std::option::Option::Some(3),
                 Self::Error => std::option::Option::Some(4),
+                Self::Uploading => std::option::Option::Some(5),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -14584,6 +17505,7 @@ pub mod backup {
                 Self::Active => std::option::Option::Some("ACTIVE"),
                 Self::Deleting => std::option::Option::Some("DELETING"),
                 Self::Error => std::option::Option::Some("ERROR"),
+                Self::Uploading => std::option::Option::Some("UPLOADING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -14610,6 +17532,7 @@ pub mod backup {
                 2 => Self::Active,
                 3 => Self::Deleting,
                 4 => Self::Error,
+                5 => Self::Uploading,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -14626,6 +17549,7 @@ pub mod backup {
                 "ACTIVE" => Self::Active,
                 "DELETING" => Self::Deleting,
                 "ERROR" => Self::Error,
+                "UPLOADING" => Self::Uploading,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -14644,6 +17568,7 @@ pub mod backup {
                 Self::Active => serializer.serialize_i32(2),
                 Self::Deleting => serializer.serialize_i32(3),
                 Self::Error => serializer.serialize_i32(4),
+                Self::Uploading => serializer.serialize_i32(5),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -14684,6 +17609,8 @@ pub mod backup {
         Scheduled,
         /// On demand backup.
         OnDemand,
+        /// Operational backup.
+        OnDemandOperational,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [BackupType::value] or
@@ -14709,6 +17636,7 @@ pub mod backup {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Scheduled => std::option::Option::Some(1),
                 Self::OnDemand => std::option::Option::Some(2),
+                Self::OnDemandOperational => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -14722,6 +17650,7 @@ pub mod backup {
                 Self::Unspecified => std::option::Option::Some("BACKUP_TYPE_UNSPECIFIED"),
                 Self::Scheduled => std::option::Option::Some("SCHEDULED"),
                 Self::OnDemand => std::option::Option::Some("ON_DEMAND"),
+                Self::OnDemandOperational => std::option::Option::Some("ON_DEMAND_OPERATIONAL"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -14746,6 +17675,7 @@ pub mod backup {
                 0 => Self::Unspecified,
                 1 => Self::Scheduled,
                 2 => Self::OnDemand,
+                3 => Self::OnDemandOperational,
                 _ => Self::UnknownValue(backup_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -14760,6 +17690,7 @@ pub mod backup {
                 "BACKUP_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SCHEDULED" => Self::Scheduled,
                 "ON_DEMAND" => Self::OnDemand,
+                "ON_DEMAND_OPERATIONAL" => Self::OnDemandOperational,
                 _ => Self::UnknownValue(backup_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -14776,6 +17707,7 @@ pub mod backup {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Scheduled => serializer.serialize_i32(1),
                 Self::OnDemand => serializer.serialize_i32(2),
+                Self::OnDemandOperational => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -14800,10 +17732,16 @@ pub mod backup {
         ComputeInstanceBackupProperties(
             std::boxed::Box<crate::model::ComputeInstanceBackupProperties>,
         ),
+        /// Output only. Cloud SQL specific backup properties.
+        CloudSqlInstanceBackupProperties(
+            std::boxed::Box<crate::model::CloudSqlInstanceBackupProperties>,
+        ),
         /// Output only. Backup Appliance specific backup properties.
         BackupApplianceBackupProperties(
             std::boxed::Box<crate::model::BackupApplianceBackupProperties>,
         ),
+        /// Output only. Disk specific backup properties.
+        DiskBackupProperties(std::boxed::Box<crate::model::DiskBackupProperties>),
     }
 
     /// Configuration Info has the resource format-specific configuration.
@@ -16293,6 +19231,10 @@ pub struct UpdateBackupVaultRequest {
     /// enforcement duration.
     pub force: bool,
 
+    /// Optional. If set to true, we will force update access restriction even if
+    /// some non compliant data sources are present. The default is 'false'.
+    pub force_update_access_restriction: bool,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -16354,6 +19296,15 @@ impl UpdateBackupVaultRequest {
         self.force = v.into();
         self
     }
+
+    /// Sets the value of [force_update_access_restriction][crate::model::UpdateBackupVaultRequest::force_update_access_restriction].
+    pub fn set_force_update_access_restriction<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.force_update_access_restriction = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for UpdateBackupVaultRequest {
@@ -16377,6 +19328,7 @@ impl<'de> serde::de::Deserialize<'de> for UpdateBackupVaultRequest {
             __request_id,
             __validate_only,
             __force,
+            __force_update_access_restriction,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -16406,6 +19358,12 @@ impl<'de> serde::de::Deserialize<'de> for UpdateBackupVaultRequest {
                             "validateOnly" => Ok(__FieldTag::__validate_only),
                             "validate_only" => Ok(__FieldTag::__validate_only),
                             "force" => Ok(__FieldTag::__force),
+                            "forceUpdateAccessRestriction" => {
+                                Ok(__FieldTag::__force_update_access_restriction)
+                            }
+                            "force_update_access_restriction" => {
+                                Ok(__FieldTag::__force_update_access_restriction)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -16479,6 +19437,16 @@ impl<'de> serde::de::Deserialize<'de> for UpdateBackupVaultRequest {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__force_update_access_restriction => {
+                            if !fields.insert(__FieldTag::__force_update_access_restriction) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for force_update_access_restriction",
+                                ));
+                            }
+                            result.force_update_access_restriction = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -16517,6 +19485,12 @@ impl serde::ser::Serialize for UpdateBackupVaultRequest {
         if !wkt::internal::is_default(&self.force) {
             state.serialize_entry("force", &self.force)?;
         }
+        if !wkt::internal::is_default(&self.force_update_access_restriction) {
+            state.serialize_entry(
+                "forceUpdateAccessRestriction",
+                &self.force_update_access_restriction,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -16534,6 +19508,10 @@ impl std::fmt::Debug for UpdateBackupVaultRequest {
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("force", &self.force);
+        debug_struct.field(
+            "force_update_access_restriction",
+            &self.force_update_access_restriction,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -18942,6 +21920,72 @@ impl RestoreBackupRequest {
         self
     }
 
+    /// The value of [target_environment][crate::model::RestoreBackupRequest::target_environment]
+    /// if it holds a `DiskTargetEnvironment`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn disk_target_environment(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DiskTargetEnvironment>> {
+        #[allow(unreachable_patterns)]
+        self.target_environment.as_ref().and_then(|v| match v {
+            crate::model::restore_backup_request::TargetEnvironment::DiskTargetEnvironment(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target_environment][crate::model::RestoreBackupRequest::target_environment]
+    /// to hold a `DiskTargetEnvironment`.
+    ///
+    /// Note that all the setters affecting `target_environment` are
+    /// mutually exclusive.
+    pub fn set_disk_target_environment<
+        T: std::convert::Into<std::boxed::Box<crate::model::DiskTargetEnvironment>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_environment = std::option::Option::Some(
+            crate::model::restore_backup_request::TargetEnvironment::DiskTargetEnvironment(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [target_environment][crate::model::RestoreBackupRequest::target_environment]
+    /// if it holds a `RegionDiskTargetEnvironment`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn region_disk_target_environment(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RegionDiskTargetEnvironment>> {
+        #[allow(unreachable_patterns)]
+        self.target_environment.as_ref().and_then(|v| match v {
+            crate::model::restore_backup_request::TargetEnvironment::RegionDiskTargetEnvironment(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target_environment][crate::model::RestoreBackupRequest::target_environment]
+    /// to hold a `RegionDiskTargetEnvironment`.
+    ///
+    /// Note that all the setters affecting `target_environment` are
+    /// mutually exclusive.
+    pub fn set_region_disk_target_environment<
+        T: std::convert::Into<std::boxed::Box<crate::model::RegionDiskTargetEnvironment>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_environment = std::option::Option::Some(
+            crate::model::restore_backup_request::TargetEnvironment::RegionDiskTargetEnvironment(
+                v.into(),
+            ),
+        );
+        self
+    }
+
     /// Sets the value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties].
     ///
     /// Note that all the setters affecting `instance_properties` are mutually
@@ -18989,6 +22033,40 @@ impl RestoreBackupRequest {
         );
         self
     }
+
+    /// The value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties]
+    /// if it holds a `DiskRestoreProperties`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn disk_restore_properties(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DiskRestoreProperties>> {
+        #[allow(unreachable_patterns)]
+        self.instance_properties.as_ref().and_then(|v| match v {
+            crate::model::restore_backup_request::InstanceProperties::DiskRestoreProperties(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties]
+    /// to hold a `DiskRestoreProperties`.
+    ///
+    /// Note that all the setters affecting `instance_properties` are
+    /// mutually exclusive.
+    pub fn set_disk_restore_properties<
+        T: std::convert::Into<std::boxed::Box<crate::model::DiskRestoreProperties>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.instance_properties = std::option::Option::Some(
+            crate::model::restore_backup_request::InstanceProperties::DiskRestoreProperties(
+                v.into(),
+            ),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for RestoreBackupRequest {
@@ -19010,7 +22088,10 @@ impl<'de> serde::de::Deserialize<'de> for RestoreBackupRequest {
             __name,
             __request_id,
             __compute_instance_target_environment,
+            __disk_target_environment,
+            __region_disk_target_environment,
             __compute_instance_restore_properties,
+            __disk_restore_properties,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -19040,12 +22121,22 @@ impl<'de> serde::de::Deserialize<'de> for RestoreBackupRequest {
                             "compute_instance_target_environment" => {
                                 Ok(__FieldTag::__compute_instance_target_environment)
                             }
+                            "diskTargetEnvironment" => Ok(__FieldTag::__disk_target_environment),
+                            "disk_target_environment" => Ok(__FieldTag::__disk_target_environment),
+                            "regionDiskTargetEnvironment" => {
+                                Ok(__FieldTag::__region_disk_target_environment)
+                            }
+                            "region_disk_target_environment" => {
+                                Ok(__FieldTag::__region_disk_target_environment)
+                            }
                             "computeInstanceRestoreProperties" => {
                                 Ok(__FieldTag::__compute_instance_restore_properties)
                             }
                             "compute_instance_restore_properties" => {
                                 Ok(__FieldTag::__compute_instance_restore_properties)
                             }
+                            "diskRestoreProperties" => Ok(__FieldTag::__disk_restore_properties),
+                            "disk_restore_properties" => Ok(__FieldTag::__disk_restore_properties),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -19108,6 +22199,40 @@ impl<'de> serde::de::Deserialize<'de> for RestoreBackupRequest {
                                 ),
                             );
                         }
+                        __FieldTag::__disk_target_environment => {
+                            if !fields.insert(__FieldTag::__disk_target_environment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for disk_target_environment",
+                                ));
+                            }
+                            if result.target_environment.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `target_environment`, a oneof with full ID .google.cloud.backupdr.v1.RestoreBackupRequest.disk_target_environment, latest field was diskTargetEnvironment",
+                                ));
+                            }
+                            result.target_environment = std::option::Option::Some(
+                                crate::model::restore_backup_request::TargetEnvironment::DiskTargetEnvironment(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::DiskTargetEnvironment>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__region_disk_target_environment => {
+                            if !fields.insert(__FieldTag::__region_disk_target_environment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for region_disk_target_environment",
+                                ));
+                            }
+                            if result.target_environment.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `target_environment`, a oneof with full ID .google.cloud.backupdr.v1.RestoreBackupRequest.region_disk_target_environment, latest field was regionDiskTargetEnvironment",
+                                ));
+                            }
+                            result.target_environment = std::option::Option::Some(
+                                crate::model::restore_backup_request::TargetEnvironment::RegionDiskTargetEnvironment(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::RegionDiskTargetEnvironment>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::__compute_instance_restore_properties => {
                             if !fields.insert(__FieldTag::__compute_instance_restore_properties) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -19122,6 +22247,23 @@ impl<'de> serde::de::Deserialize<'de> for RestoreBackupRequest {
                             result.instance_properties = std::option::Option::Some(
                                 crate::model::restore_backup_request::InstanceProperties::ComputeInstanceRestoreProperties(
                                     map.next_value::<std::option::Option<std::boxed::Box<crate::model::ComputeInstanceRestoreProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__disk_restore_properties => {
+                            if !fields.insert(__FieldTag::__disk_restore_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for disk_restore_properties",
+                                ));
+                            }
+                            if result.instance_properties.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `instance_properties`, a oneof with full ID .google.cloud.backupdr.v1.RestoreBackupRequest.disk_restore_properties, latest field was diskRestoreProperties",
+                                ));
+                            }
+                            result.instance_properties = std::option::Option::Some(
+                                crate::model::restore_backup_request::InstanceProperties::DiskRestoreProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::DiskRestoreProperties>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -19157,8 +22299,17 @@ impl serde::ser::Serialize for RestoreBackupRequest {
         if let Some(value) = self.compute_instance_target_environment() {
             state.serialize_entry("computeInstanceTargetEnvironment", value)?;
         }
+        if let Some(value) = self.disk_target_environment() {
+            state.serialize_entry("diskTargetEnvironment", value)?;
+        }
+        if let Some(value) = self.region_disk_target_environment() {
+            state.serialize_entry("regionDiskTargetEnvironment", value)?;
+        }
         if let Some(value) = self.compute_instance_restore_properties() {
             state.serialize_entry("computeInstanceRestoreProperties", value)?;
+        }
+        if let Some(value) = self.disk_restore_properties() {
+            state.serialize_entry("diskRestoreProperties", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -19196,6 +22347,10 @@ pub mod restore_backup_request {
         ComputeInstanceTargetEnvironment(
             std::boxed::Box<crate::model::ComputeInstanceTargetEnvironment>,
         ),
+        /// Disk target environment to be used during restore.
+        DiskTargetEnvironment(std::boxed::Box<crate::model::DiskTargetEnvironment>),
+        /// Region disk target environment to be used during restore.
+        RegionDiskTargetEnvironment(std::boxed::Box<crate::model::RegionDiskTargetEnvironment>),
     }
 
     /// The property overrides for the instance being restored.
@@ -19206,6 +22361,8 @@ pub mod restore_backup_request {
         ComputeInstanceRestoreProperties(
             std::boxed::Box<crate::model::ComputeInstanceRestoreProperties>,
         ),
+        /// Disk properties to be overridden during restore.
+        DiskRestoreProperties(std::boxed::Box<crate::model::DiskRestoreProperties>),
     }
 }
 
@@ -20052,6 +23209,3506 @@ impl std::fmt::Debug for BackupApplianceBackupProperties {
     }
 }
 
+/// CloudSqlInstanceDataSourceProperties represents the properties of a
+/// Cloud SQL resource that are stored in the DataSource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloudSqlInstanceDataSourceProperties {
+    /// Output only. Name of the Cloud SQL instance backed up by the datasource.
+    /// Format:
+    /// projects/{project}/instances/{instance}
+    pub name: std::string::String,
+
+    /// Output only. The installed database version of the Cloud SQL instance.
+    pub database_installed_version: std::string::String,
+
+    /// Output only. The instance creation timestamp.
+    pub instance_create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The tier (or machine type) for this instance. Example:
+    /// `db-custom-1-3840`
+    pub instance_tier: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudSqlInstanceDataSourceProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::CloudSqlInstanceDataSourceProperties::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [database_installed_version][crate::model::CloudSqlInstanceDataSourceProperties::database_installed_version].
+    pub fn set_database_installed_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.database_installed_version = v.into();
+        self
+    }
+
+    /// Sets the value of [instance_create_time][crate::model::CloudSqlInstanceDataSourceProperties::instance_create_time].
+    pub fn set_instance_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.instance_create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance_create_time][crate::model::CloudSqlInstanceDataSourceProperties::instance_create_time].
+    pub fn set_or_clear_instance_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.instance_create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [instance_tier][crate::model::CloudSqlInstanceDataSourceProperties::instance_tier].
+    pub fn set_instance_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance_tier = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CloudSqlInstanceDataSourceProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.CloudSqlInstanceDataSourceProperties"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CloudSqlInstanceDataSourceProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __database_installed_version,
+            __instance_create_time,
+            __instance_tier,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CloudSqlInstanceDataSourceProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "databaseInstalledVersion" => {
+                                Ok(__FieldTag::__database_installed_version)
+                            }
+                            "database_installed_version" => {
+                                Ok(__FieldTag::__database_installed_version)
+                            }
+                            "instanceCreateTime" => Ok(__FieldTag::__instance_create_time),
+                            "instance_create_time" => Ok(__FieldTag::__instance_create_time),
+                            "instanceTier" => Ok(__FieldTag::__instance_tier),
+                            "instance_tier" => Ok(__FieldTag::__instance_tier),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CloudSqlInstanceDataSourceProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CloudSqlInstanceDataSourceProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__database_installed_version => {
+                            if !fields.insert(__FieldTag::__database_installed_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database_installed_version",
+                                ));
+                            }
+                            result.database_installed_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__instance_create_time => {
+                            if !fields.insert(__FieldTag::__instance_create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for instance_create_time",
+                                ));
+                            }
+                            result.instance_create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__instance_tier => {
+                            if !fields.insert(__FieldTag::__instance_tier) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for instance_tier",
+                                ));
+                            }
+                            result.instance_tier = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CloudSqlInstanceDataSourceProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.database_installed_version.is_empty() {
+            state.serialize_entry("databaseInstalledVersion", &self.database_installed_version)?;
+        }
+        if self.instance_create_time.is_some() {
+            state.serialize_entry("instanceCreateTime", &self.instance_create_time)?;
+        }
+        if !self.instance_tier.is_empty() {
+            state.serialize_entry("instanceTier", &self.instance_tier)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CloudSqlInstanceDataSourceProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlInstanceDataSourceProperties");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "database_installed_version",
+            &self.database_installed_version,
+        );
+        debug_struct.field("instance_create_time", &self.instance_create_time);
+        debug_struct.field("instance_tier", &self.instance_tier);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// CloudSqlInstanceBackupProperties represents Cloud SQL Instance
+/// Backup properties.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloudSqlInstanceBackupProperties {
+    /// Output only. The installed database version of the Cloud SQL instance
+    /// when the backup was taken.
+    pub database_installed_version: std::string::String,
+
+    /// Output only. Whether the backup is a final backup.
+    pub final_backup: bool,
+
+    /// Output only. The source instance of the backup.
+    /// Format:
+    /// projects/{project}/instances/{instance}
+    pub source_instance: std::string::String,
+
+    /// Output only. The tier (or machine type) for this instance. Example:
+    /// `db-custom-1-3840`
+    pub instance_tier: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudSqlInstanceBackupProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [database_installed_version][crate::model::CloudSqlInstanceBackupProperties::database_installed_version].
+    pub fn set_database_installed_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.database_installed_version = v.into();
+        self
+    }
+
+    /// Sets the value of [final_backup][crate::model::CloudSqlInstanceBackupProperties::final_backup].
+    pub fn set_final_backup<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.final_backup = v.into();
+        self
+    }
+
+    /// Sets the value of [source_instance][crate::model::CloudSqlInstanceBackupProperties::source_instance].
+    pub fn set_source_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_instance = v.into();
+        self
+    }
+
+    /// Sets the value of [instance_tier][crate::model::CloudSqlInstanceBackupProperties::instance_tier].
+    pub fn set_instance_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance_tier = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CloudSqlInstanceBackupProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.CloudSqlInstanceBackupProperties"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CloudSqlInstanceBackupProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __database_installed_version,
+            __final_backup,
+            __source_instance,
+            __instance_tier,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CloudSqlInstanceBackupProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "databaseInstalledVersion" => {
+                                Ok(__FieldTag::__database_installed_version)
+                            }
+                            "database_installed_version" => {
+                                Ok(__FieldTag::__database_installed_version)
+                            }
+                            "finalBackup" => Ok(__FieldTag::__final_backup),
+                            "final_backup" => Ok(__FieldTag::__final_backup),
+                            "sourceInstance" => Ok(__FieldTag::__source_instance),
+                            "source_instance" => Ok(__FieldTag::__source_instance),
+                            "instanceTier" => Ok(__FieldTag::__instance_tier),
+                            "instance_tier" => Ok(__FieldTag::__instance_tier),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CloudSqlInstanceBackupProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CloudSqlInstanceBackupProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__database_installed_version => {
+                            if !fields.insert(__FieldTag::__database_installed_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database_installed_version",
+                                ));
+                            }
+                            result.database_installed_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__final_backup => {
+                            if !fields.insert(__FieldTag::__final_backup) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for final_backup",
+                                ));
+                            }
+                            result.final_backup = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__source_instance => {
+                            if !fields.insert(__FieldTag::__source_instance) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for source_instance",
+                                ));
+                            }
+                            result.source_instance = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__instance_tier => {
+                            if !fields.insert(__FieldTag::__instance_tier) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for instance_tier",
+                                ));
+                            }
+                            result.instance_tier = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CloudSqlInstanceBackupProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.database_installed_version.is_empty() {
+            state.serialize_entry("databaseInstalledVersion", &self.database_installed_version)?;
+        }
+        if !wkt::internal::is_default(&self.final_backup) {
+            state.serialize_entry("finalBackup", &self.final_backup)?;
+        }
+        if !self.source_instance.is_empty() {
+            state.serialize_entry("sourceInstance", &self.source_instance)?;
+        }
+        if !self.instance_tier.is_empty() {
+            state.serialize_entry("instanceTier", &self.instance_tier)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CloudSqlInstanceBackupProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlInstanceBackupProperties");
+        debug_struct.field(
+            "database_installed_version",
+            &self.database_installed_version,
+        );
+        debug_struct.field("final_backup", &self.final_backup);
+        debug_struct.field("source_instance", &self.source_instance);
+        debug_struct.field("instance_tier", &self.instance_tier);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// CloudSqlInstanceDataSourceReferenceProperties represents the properties of a
+/// Cloud SQL resource that are stored in the DataSourceReference.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloudSqlInstanceDataSourceReferenceProperties {
+    /// Output only. Name of the Cloud SQL instance backed up by the datasource.
+    /// Format:
+    /// projects/{project}/instances/{instance}
+    pub name: std::string::String,
+
+    /// Output only. The installed database version of the Cloud SQL instance.
+    pub database_installed_version: std::string::String,
+
+    /// Output only. The instance creation timestamp.
+    pub instance_create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The tier (or machine type) for this instance. Example:
+    /// `db-custom-1-3840`
+    pub instance_tier: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudSqlInstanceDataSourceReferenceProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::CloudSqlInstanceDataSourceReferenceProperties::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [database_installed_version][crate::model::CloudSqlInstanceDataSourceReferenceProperties::database_installed_version].
+    pub fn set_database_installed_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.database_installed_version = v.into();
+        self
+    }
+
+    /// Sets the value of [instance_create_time][crate::model::CloudSqlInstanceDataSourceReferenceProperties::instance_create_time].
+    pub fn set_instance_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.instance_create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance_create_time][crate::model::CloudSqlInstanceDataSourceReferenceProperties::instance_create_time].
+    pub fn set_or_clear_instance_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.instance_create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [instance_tier][crate::model::CloudSqlInstanceDataSourceReferenceProperties::instance_tier].
+    pub fn set_instance_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance_tier = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CloudSqlInstanceDataSourceReferenceProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.CloudSqlInstanceDataSourceReferenceProperties"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CloudSqlInstanceDataSourceReferenceProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __database_installed_version,
+            __instance_create_time,
+            __instance_tier,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for CloudSqlInstanceDataSourceReferenceProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "databaseInstalledVersion" => {
+                                Ok(__FieldTag::__database_installed_version)
+                            }
+                            "database_installed_version" => {
+                                Ok(__FieldTag::__database_installed_version)
+                            }
+                            "instanceCreateTime" => Ok(__FieldTag::__instance_create_time),
+                            "instance_create_time" => Ok(__FieldTag::__instance_create_time),
+                            "instanceTier" => Ok(__FieldTag::__instance_tier),
+                            "instance_tier" => Ok(__FieldTag::__instance_tier),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CloudSqlInstanceDataSourceReferenceProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CloudSqlInstanceDataSourceReferenceProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__database_installed_version => {
+                            if !fields.insert(__FieldTag::__database_installed_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database_installed_version",
+                                ));
+                            }
+                            result.database_installed_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__instance_create_time => {
+                            if !fields.insert(__FieldTag::__instance_create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for instance_create_time",
+                                ));
+                            }
+                            result.instance_create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__instance_tier => {
+                            if !fields.insert(__FieldTag::__instance_tier) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for instance_tier",
+                                ));
+                            }
+                            result.instance_tier = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CloudSqlInstanceDataSourceReferenceProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.database_installed_version.is_empty() {
+            state.serialize_entry("databaseInstalledVersion", &self.database_installed_version)?;
+        }
+        if self.instance_create_time.is_some() {
+            state.serialize_entry("instanceCreateTime", &self.instance_create_time)?;
+        }
+        if !self.instance_tier.is_empty() {
+            state.serialize_entry("instanceTier", &self.instance_tier)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CloudSqlInstanceDataSourceReferenceProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlInstanceDataSourceReferenceProperties");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "database_installed_version",
+            &self.database_installed_version,
+        );
+        debug_struct.field("instance_create_time", &self.instance_create_time);
+        debug_struct.field("instance_tier", &self.instance_tier);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// CloudSqlInstanceInitializationConfig contains the configuration for
+/// initializing a Cloud SQL instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloudSqlInstanceInitializationConfig {
+    /// Required. The edition of the Cloud SQL instance.
+    pub edition: crate::model::cloud_sql_instance_initialization_config::Edition,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudSqlInstanceInitializationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [edition][crate::model::CloudSqlInstanceInitializationConfig::edition].
+    pub fn set_edition<
+        T: std::convert::Into<crate::model::cloud_sql_instance_initialization_config::Edition>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.edition = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CloudSqlInstanceInitializationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.CloudSqlInstanceInitializationConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CloudSqlInstanceInitializationConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __edition,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CloudSqlInstanceInitializationConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "edition" => Ok(__FieldTag::__edition),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CloudSqlInstanceInitializationConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CloudSqlInstanceInitializationConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__edition => {
+                            if !fields.insert(__FieldTag::__edition) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for edition",
+                                ));
+                            }
+                            result.edition = map
+                                .next_value::<std::option::Option<
+                                    crate::model::cloud_sql_instance_initialization_config::Edition,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CloudSqlInstanceInitializationConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.edition) {
+            state.serialize_entry("edition", &self.edition)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CloudSqlInstanceInitializationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlInstanceInitializationConfig");
+        debug_struct.field("edition", &self.edition);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [CloudSqlInstanceInitializationConfig].
+pub mod cloud_sql_instance_initialization_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The edition of the Cloud SQL instance. For details, see
+    /// <https://cloud.google.com/sql/docs/editions-intro>.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Edition {
+        /// Unspecified edition.
+        Unspecified,
+        /// Enterprise edition.
+        Enterprise,
+        /// Enterprise Plus edition.
+        EnterprisePlus,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Edition::value] or
+        /// [Edition::name].
+        UnknownValue(edition::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod edition {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Edition {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enterprise => std::option::Option::Some(1),
+                Self::EnterprisePlus => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EDITION_UNSPECIFIED"),
+                Self::Enterprise => std::option::Option::Some("ENTERPRISE"),
+                Self::EnterprisePlus => std::option::Option::Some("ENTERPRISE_PLUS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Edition {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Edition {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Edition {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enterprise,
+                2 => Self::EnterprisePlus,
+                _ => Self::UnknownValue(edition::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Edition {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EDITION_UNSPECIFIED" => Self::Unspecified,
+                "ENTERPRISE" => Self::Enterprise,
+                "ENTERPRISE_PLUS" => Self::EnterprisePlus,
+                _ => Self::UnknownValue(edition::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Edition {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enterprise => serializer.serialize_i32(1),
+                Self::EnterprisePlus => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Edition {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Edition>::new(
+                ".google.cloud.backupdr.v1.CloudSqlInstanceInitializationConfig.Edition",
+            ))
+        }
+    }
+}
+
+/// Cloud SQL instance's BPA properties.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloudSqlInstanceBackupPlanAssociationProperties {
+    /// Output only. The time when the instance was created.
+    pub instance_create_time: std::option::Option<wkt::Timestamp>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudSqlInstanceBackupPlanAssociationProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance_create_time][crate::model::CloudSqlInstanceBackupPlanAssociationProperties::instance_create_time].
+    pub fn set_instance_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.instance_create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance_create_time][crate::model::CloudSqlInstanceBackupPlanAssociationProperties::instance_create_time].
+    pub fn set_or_clear_instance_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.instance_create_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CloudSqlInstanceBackupPlanAssociationProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.CloudSqlInstanceBackupPlanAssociationProperties"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CloudSqlInstanceBackupPlanAssociationProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __instance_create_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for CloudSqlInstanceBackupPlanAssociationProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "instanceCreateTime" => Ok(__FieldTag::__instance_create_time),
+                            "instance_create_time" => Ok(__FieldTag::__instance_create_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CloudSqlInstanceBackupPlanAssociationProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CloudSqlInstanceBackupPlanAssociationProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__instance_create_time => {
+                            if !fields.insert(__FieldTag::__instance_create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for instance_create_time",
+                                ));
+                            }
+                            result.instance_create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CloudSqlInstanceBackupPlanAssociationProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.instance_create_time.is_some() {
+            state.serialize_entry("instanceCreateTime", &self.instance_create_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CloudSqlInstanceBackupPlanAssociationProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlInstanceBackupPlanAssociationProperties");
+        debug_struct.field("instance_create_time", &self.instance_create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// DiskTargetEnvironment represents the target environment for the disk.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DiskTargetEnvironment {
+    /// Required. Target project for the disk.
+    pub project: std::string::String,
+
+    /// Required. Target zone for the disk.
+    pub zone: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DiskTargetEnvironment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project][crate::model::DiskTargetEnvironment::project].
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [zone][crate::model::DiskTargetEnvironment::zone].
+    pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.zone = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DiskTargetEnvironment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.DiskTargetEnvironment"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DiskTargetEnvironment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __project,
+            __zone,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DiskTargetEnvironment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "project" => Ok(__FieldTag::__project),
+                            "zone" => Ok(__FieldTag::__zone),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DiskTargetEnvironment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DiskTargetEnvironment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__project => {
+                            if !fields.insert(__FieldTag::__project) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for project",
+                                ));
+                            }
+                            result.project = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__zone => {
+                            if !fields.insert(__FieldTag::__zone) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for zone",
+                                ));
+                            }
+                            result.zone = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DiskTargetEnvironment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.project.is_empty() {
+            state.serialize_entry("project", &self.project)?;
+        }
+        if !self.zone.is_empty() {
+            state.serialize_entry("zone", &self.zone)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DiskTargetEnvironment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiskTargetEnvironment");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// RegionDiskTargetEnvironment represents the target environment for the disk.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RegionDiskTargetEnvironment {
+    /// Required. Target project for the disk.
+    pub project: std::string::String,
+
+    /// Required. Target region for the disk.
+    pub region: std::string::String,
+
+    /// Required. Target URLs of the replica zones for the disk.
+    pub replica_zones: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RegionDiskTargetEnvironment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project][crate::model::RegionDiskTargetEnvironment::project].
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [region][crate::model::RegionDiskTargetEnvironment::region].
+    pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.region = v.into();
+        self
+    }
+
+    /// Sets the value of [replica_zones][crate::model::RegionDiskTargetEnvironment::replica_zones].
+    pub fn set_replica_zones<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.replica_zones = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for RegionDiskTargetEnvironment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.RegionDiskTargetEnvironment"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for RegionDiskTargetEnvironment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __project,
+            __region,
+            __replica_zones,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RegionDiskTargetEnvironment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "project" => Ok(__FieldTag::__project),
+                            "region" => Ok(__FieldTag::__region),
+                            "replicaZones" => Ok(__FieldTag::__replica_zones),
+                            "replica_zones" => Ok(__FieldTag::__replica_zones),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = RegionDiskTargetEnvironment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RegionDiskTargetEnvironment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__project => {
+                            if !fields.insert(__FieldTag::__project) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for project",
+                                ));
+                            }
+                            result.project = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__region => {
+                            if !fields.insert(__FieldTag::__region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for region",
+                                ));
+                            }
+                            result.region = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__replica_zones => {
+                            if !fields.insert(__FieldTag::__replica_zones) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for replica_zones",
+                                ));
+                            }
+                            result.replica_zones = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for RegionDiskTargetEnvironment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.project.is_empty() {
+            state.serialize_entry("project", &self.project)?;
+        }
+        if !self.region.is_empty() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if !self.replica_zones.is_empty() {
+            state.serialize_entry("replicaZones", &self.replica_zones)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for RegionDiskTargetEnvironment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionDiskTargetEnvironment");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("replica_zones", &self.replica_zones);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// DiskRestoreProperties represents the properties of a Disk restore.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DiskRestoreProperties {
+    /// Required. Name of the disk.
+    pub name: std::option::Option<std::string::String>,
+
+    /// Optional. An optional description of this resource. Provide this property
+    /// when you create the resource.
+    pub description: std::option::Option<std::string::String>,
+
+    /// Required. The size of the disk in GB.
+    pub size_gb: std::option::Option<i64>,
+
+    /// Optional. A list of publicly available licenses that are applicable to this
+    /// backup. This is applicable if the original image had licenses attached,
+    /// e.g. Windows image
+    pub licenses: std::vec::Vec<std::string::String>,
+
+    /// Optional. A list of features to enable in the guest operating system. This
+    /// is applicable only for bootable images.
+    pub guest_os_feature: std::vec::Vec<crate::model::GuestOsFeature>,
+
+    /// Optional. Encrypts the disk using a
+    /// customer-supplied encryption key or a customer-managed encryption key.
+    pub disk_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
+
+    /// Optional. Physical block size of the persistent disk, in bytes.
+    /// If not present in a request, a default value is used.
+    /// Currently, the supported size is 4096.
+    pub physical_block_size_bytes: std::option::Option<i64>,
+
+    /// Optional. Indicates how many IOPS to provision for the disk. This sets the
+    /// number of I/O operations per second that the disk can handle.
+    pub provisioned_iops: std::option::Option<i64>,
+
+    /// Optional. Indicates how much throughput to provision for the disk. This
+    /// sets the number of throughput MB per second that the disk can handle.
+    pub provisioned_throughput: std::option::Option<i64>,
+
+    /// Optional. Indicates whether this disk is using confidential compute mode.
+    /// Encryption with a Cloud KMS key is required to enable this option.
+    pub enable_confidential_compute: std::option::Option<bool>,
+
+    /// Optional. The storage pool in which the new disk is created. You can
+    /// provide this as a partial or full URL to the resource.
+    pub storage_pool: std::option::Option<std::string::String>,
+
+    /// Optional. The access mode of the disk.
+    pub access_mode: std::option::Option<crate::model::disk_restore_properties::AccessMode>,
+
+    /// Optional. The architecture of the source disk. Valid values are
+    /// ARM64 or X86_64.
+    pub architecture: std::option::Option<crate::model::disk_restore_properties::Architecture>,
+
+    /// Optional. Resource policies applied to this disk.
+    pub resource_policy: std::vec::Vec<std::string::String>,
+
+    /// Required. URL of the disk type resource describing which disk type to use
+    /// to create the disk.
+    pub r#type: std::option::Option<std::string::String>,
+
+    /// Optional. Labels to apply to this disk. These can be modified later using
+    /// \<code\>setLabels\</code\> method. Label values can be empty.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Resource manager tags to be bound to the disk.
+    pub resource_manager_tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DiskRestoreProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DiskRestoreProperties::name].
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::DiskRestoreProperties::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::DiskRestoreProperties::description].
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::DiskRestoreProperties::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [size_gb][crate::model::DiskRestoreProperties::size_gb].
+    pub fn set_size_gb<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.size_gb = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [size_gb][crate::model::DiskRestoreProperties::size_gb].
+    pub fn set_or_clear_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.size_gb = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [licenses][crate::model::DiskRestoreProperties::licenses].
+    pub fn set_licenses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.licenses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [guest_os_feature][crate::model::DiskRestoreProperties::guest_os_feature].
+    pub fn set_guest_os_feature<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GuestOsFeature>,
+    {
+        use std::iter::Iterator;
+        self.guest_os_feature = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [disk_encryption_key][crate::model::DiskRestoreProperties::disk_encryption_key].
+    pub fn set_disk_encryption_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.disk_encryption_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disk_encryption_key][crate::model::DiskRestoreProperties::disk_encryption_key].
+    pub fn set_or_clear_disk_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.disk_encryption_key = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [physical_block_size_bytes][crate::model::DiskRestoreProperties::physical_block_size_bytes].
+    pub fn set_physical_block_size_bytes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.physical_block_size_bytes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [physical_block_size_bytes][crate::model::DiskRestoreProperties::physical_block_size_bytes].
+    pub fn set_or_clear_physical_block_size_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.physical_block_size_bytes = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [provisioned_iops][crate::model::DiskRestoreProperties::provisioned_iops].
+    pub fn set_provisioned_iops<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_iops = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [provisioned_iops][crate::model::DiskRestoreProperties::provisioned_iops].
+    pub fn set_or_clear_provisioned_iops<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_iops = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [provisioned_throughput][crate::model::DiskRestoreProperties::provisioned_throughput].
+    pub fn set_provisioned_throughput<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_throughput = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [provisioned_throughput][crate::model::DiskRestoreProperties::provisioned_throughput].
+    pub fn set_or_clear_provisioned_throughput<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_throughput = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [enable_confidential_compute][crate::model::DiskRestoreProperties::enable_confidential_compute].
+    pub fn set_enable_confidential_compute<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_confidential_compute = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_confidential_compute][crate::model::DiskRestoreProperties::enable_confidential_compute].
+    pub fn set_or_clear_enable_confidential_compute<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_confidential_compute = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [storage_pool][crate::model::DiskRestoreProperties::storage_pool].
+    pub fn set_storage_pool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.storage_pool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [storage_pool][crate::model::DiskRestoreProperties::storage_pool].
+    pub fn set_or_clear_storage_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.storage_pool = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [access_mode][crate::model::DiskRestoreProperties::access_mode].
+    pub fn set_access_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::disk_restore_properties::AccessMode>,
+    {
+        self.access_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [access_mode][crate::model::DiskRestoreProperties::access_mode].
+    pub fn set_or_clear_access_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::disk_restore_properties::AccessMode>,
+    {
+        self.access_mode = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [architecture][crate::model::DiskRestoreProperties::architecture].
+    pub fn set_architecture<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::disk_restore_properties::Architecture>,
+    {
+        self.architecture = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [architecture][crate::model::DiskRestoreProperties::architecture].
+    pub fn set_or_clear_architecture<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::disk_restore_properties::Architecture>,
+    {
+        self.architecture = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [resource_policy][crate::model::DiskRestoreProperties::resource_policy].
+    pub fn set_resource_policy<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_policy = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::DiskRestoreProperties::type].
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::DiskRestoreProperties::type].
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.r#type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::DiskRestoreProperties::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [resource_manager_tags][crate::model::DiskRestoreProperties::resource_manager_tags].
+    pub fn set_resource_manager_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_manager_tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DiskRestoreProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.DiskRestoreProperties"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DiskRestoreProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __description,
+            __size_gb,
+            __licenses,
+            __guest_os_feature,
+            __disk_encryption_key,
+            __physical_block_size_bytes,
+            __provisioned_iops,
+            __provisioned_throughput,
+            __enable_confidential_compute,
+            __storage_pool,
+            __access_mode,
+            __architecture,
+            __resource_policy,
+            __type,
+            __labels,
+            __resource_manager_tags,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DiskRestoreProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "description" => Ok(__FieldTag::__description),
+                            "sizeGb" => Ok(__FieldTag::__size_gb),
+                            "size_gb" => Ok(__FieldTag::__size_gb),
+                            "licenses" => Ok(__FieldTag::__licenses),
+                            "guestOsFeature" => Ok(__FieldTag::__guest_os_feature),
+                            "guest_os_feature" => Ok(__FieldTag::__guest_os_feature),
+                            "diskEncryptionKey" => Ok(__FieldTag::__disk_encryption_key),
+                            "disk_encryption_key" => Ok(__FieldTag::__disk_encryption_key),
+                            "physicalBlockSizeBytes" => Ok(__FieldTag::__physical_block_size_bytes),
+                            "physical_block_size_bytes" => {
+                                Ok(__FieldTag::__physical_block_size_bytes)
+                            }
+                            "provisionedIops" => Ok(__FieldTag::__provisioned_iops),
+                            "provisioned_iops" => Ok(__FieldTag::__provisioned_iops),
+                            "provisionedThroughput" => Ok(__FieldTag::__provisioned_throughput),
+                            "provisioned_throughput" => Ok(__FieldTag::__provisioned_throughput),
+                            "enableConfidentialCompute" => {
+                                Ok(__FieldTag::__enable_confidential_compute)
+                            }
+                            "enable_confidential_compute" => {
+                                Ok(__FieldTag::__enable_confidential_compute)
+                            }
+                            "storagePool" => Ok(__FieldTag::__storage_pool),
+                            "storage_pool" => Ok(__FieldTag::__storage_pool),
+                            "accessMode" => Ok(__FieldTag::__access_mode),
+                            "access_mode" => Ok(__FieldTag::__access_mode),
+                            "architecture" => Ok(__FieldTag::__architecture),
+                            "resourcePolicy" => Ok(__FieldTag::__resource_policy),
+                            "resource_policy" => Ok(__FieldTag::__resource_policy),
+                            "type" => Ok(__FieldTag::__type),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "resourceManagerTags" => Ok(__FieldTag::__resource_manager_tags),
+                            "resource_manager_tags" => Ok(__FieldTag::__resource_manager_tags),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DiskRestoreProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DiskRestoreProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__size_gb => {
+                            if !fields.insert(__FieldTag::__size_gb) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for size_gb",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.size_gb = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__licenses => {
+                            if !fields.insert(__FieldTag::__licenses) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for licenses",
+                                ));
+                            }
+                            result.licenses = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__guest_os_feature => {
+                            if !fields.insert(__FieldTag::__guest_os_feature) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for guest_os_feature",
+                                ));
+                            }
+                            result.guest_os_feature =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GuestOsFeature>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__disk_encryption_key => {
+                            if !fields.insert(__FieldTag::__disk_encryption_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for disk_encryption_key",
+                                ));
+                            }
+                            result.disk_encryption_key = map.next_value::<std::option::Option<crate::model::CustomerEncryptionKey>>()?
+                                ;
+                        }
+                        __FieldTag::__physical_block_size_bytes => {
+                            if !fields.insert(__FieldTag::__physical_block_size_bytes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for physical_block_size_bytes",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.physical_block_size_bytes = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__provisioned_iops => {
+                            if !fields.insert(__FieldTag::__provisioned_iops) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for provisioned_iops",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.provisioned_iops = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__provisioned_throughput => {
+                            if !fields.insert(__FieldTag::__provisioned_throughput) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for provisioned_throughput",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.provisioned_throughput = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__enable_confidential_compute => {
+                            if !fields.insert(__FieldTag::__enable_confidential_compute) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_confidential_compute",
+                                ));
+                            }
+                            result.enable_confidential_compute =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__storage_pool => {
+                            if !fields.insert(__FieldTag::__storage_pool) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage_pool",
+                                ));
+                            }
+                            result.storage_pool =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__access_mode => {
+                            if !fields.insert(__FieldTag::__access_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_mode",
+                                ));
+                            }
+                            result.access_mode = map.next_value::<std::option::Option<
+                                crate::model::disk_restore_properties::AccessMode,
+                            >>()?;
+                        }
+                        __FieldTag::__architecture => {
+                            if !fields.insert(__FieldTag::__architecture) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for architecture",
+                                ));
+                            }
+                            result.architecture = map.next_value::<std::option::Option<
+                                crate::model::disk_restore_properties::Architecture,
+                            >>()?;
+                        }
+                        __FieldTag::__resource_policy => {
+                            if !fields.insert(__FieldTag::__resource_policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_policy",
+                                ));
+                            }
+                            result.resource_policy = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__resource_manager_tags => {
+                            if !fields.insert(__FieldTag::__resource_manager_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_manager_tags",
+                                ));
+                            }
+                            result.resource_manager_tags = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DiskRestoreProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.description.is_some() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if self.size_gb.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("sizeGb", &__With(&self.size_gb))?;
+        }
+        if !self.licenses.is_empty() {
+            state.serialize_entry("licenses", &self.licenses)?;
+        }
+        if !self.guest_os_feature.is_empty() {
+            state.serialize_entry("guestOsFeature", &self.guest_os_feature)?;
+        }
+        if self.disk_encryption_key.is_some() {
+            state.serialize_entry("diskEncryptionKey", &self.disk_encryption_key)?;
+        }
+        if self.physical_block_size_bytes.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "physicalBlockSizeBytes",
+                &__With(&self.physical_block_size_bytes),
+            )?;
+        }
+        if self.provisioned_iops.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("provisionedIops", &__With(&self.provisioned_iops))?;
+        }
+        if self.provisioned_throughput.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "provisionedThroughput",
+                &__With(&self.provisioned_throughput),
+            )?;
+        }
+        if self.enable_confidential_compute.is_some() {
+            state.serialize_entry(
+                "enableConfidentialCompute",
+                &self.enable_confidential_compute,
+            )?;
+        }
+        if self.storage_pool.is_some() {
+            state.serialize_entry("storagePool", &self.storage_pool)?;
+        }
+        if self.access_mode.is_some() {
+            state.serialize_entry("accessMode", &self.access_mode)?;
+        }
+        if self.architecture.is_some() {
+            state.serialize_entry("architecture", &self.architecture)?;
+        }
+        if !self.resource_policy.is_empty() {
+            state.serialize_entry("resourcePolicy", &self.resource_policy)?;
+        }
+        if self.r#type.is_some() {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DiskRestoreProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiskRestoreProperties");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("size_gb", &self.size_gb);
+        debug_struct.field("licenses", &self.licenses);
+        debug_struct.field("guest_os_feature", &self.guest_os_feature);
+        debug_struct.field("disk_encryption_key", &self.disk_encryption_key);
+        debug_struct.field("physical_block_size_bytes", &self.physical_block_size_bytes);
+        debug_struct.field("provisioned_iops", &self.provisioned_iops);
+        debug_struct.field("provisioned_throughput", &self.provisioned_throughput);
+        debug_struct.field(
+            "enable_confidential_compute",
+            &self.enable_confidential_compute,
+        );
+        debug_struct.field("storage_pool", &self.storage_pool);
+        debug_struct.field("access_mode", &self.access_mode);
+        debug_struct.field("architecture", &self.architecture);
+        debug_struct.field("resource_policy", &self.resource_policy);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [DiskRestoreProperties].
+pub mod disk_restore_properties {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The supported access modes of the disk.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AccessMode {
+        /// The default AccessMode, means the disk can be attached to single instance
+        /// in RW mode.
+        ReadWriteSingle,
+        /// The AccessMode means the disk can be attached to multiple instances in RW
+        /// mode.
+        ReadWriteMany,
+        /// The AccessMode means the disk can be attached to multiple instances in RO
+        /// mode.
+        ReadOnlyMany,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AccessMode::value] or
+        /// [AccessMode::name].
+        UnknownValue(access_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod access_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AccessMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::ReadWriteSingle => std::option::Option::Some(0),
+                Self::ReadWriteMany => std::option::Option::Some(1),
+                Self::ReadOnlyMany => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::ReadWriteSingle => std::option::Option::Some("READ_WRITE_SINGLE"),
+                Self::ReadWriteMany => std::option::Option::Some("READ_WRITE_MANY"),
+                Self::ReadOnlyMany => std::option::Option::Some("READ_ONLY_MANY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AccessMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AccessMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AccessMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::ReadWriteSingle,
+                1 => Self::ReadWriteMany,
+                2 => Self::ReadOnlyMany,
+                _ => Self::UnknownValue(access_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AccessMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "READ_WRITE_SINGLE" => Self::ReadWriteSingle,
+                "READ_WRITE_MANY" => Self::ReadWriteMany,
+                "READ_ONLY_MANY" => Self::ReadOnlyMany,
+                _ => Self::UnknownValue(access_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AccessMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::ReadWriteSingle => serializer.serialize_i32(0),
+                Self::ReadWriteMany => serializer.serialize_i32(1),
+                Self::ReadOnlyMany => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AccessMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AccessMode>::new(
+                ".google.cloud.backupdr.v1.DiskRestoreProperties.AccessMode",
+            ))
+        }
+    }
+
+    /// Architecture of the source disk.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Architecture {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Disks with architecture X86_64
+        X8664,
+        /// Disks with architecture ARM64
+        Arm64,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Architecture::value] or
+        /// [Architecture::name].
+        UnknownValue(architecture::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod architecture {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Architecture {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::X8664 => std::option::Option::Some(1),
+                Self::Arm64 => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ARCHITECTURE_UNSPECIFIED"),
+                Self::X8664 => std::option::Option::Some("X86_64"),
+                Self::Arm64 => std::option::Option::Some("ARM64"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Architecture {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Architecture {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Architecture {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::X8664,
+                2 => Self::Arm64,
+                _ => Self::UnknownValue(architecture::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Architecture {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ARCHITECTURE_UNSPECIFIED" => Self::Unspecified,
+                "X86_64" => Self::X8664,
+                "ARM64" => Self::Arm64,
+                _ => Self::UnknownValue(architecture::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Architecture {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::X8664 => serializer.serialize_i32(1),
+                Self::Arm64 => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Architecture {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Architecture>::new(
+                ".google.cloud.backupdr.v1.DiskRestoreProperties.Architecture",
+            ))
+        }
+    }
+}
+
+/// DiskBackupProperties represents the properties of a Disk backup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DiskBackupProperties {
+    /// A description of the source disk.
+    pub description: std::option::Option<std::string::String>,
+
+    /// A list of publicly available licenses that are applicable to this backup.
+    /// This is applicable if the original image had licenses attached, e.g.
+    /// Windows image.
+    pub licenses: std::vec::Vec<std::string::String>,
+
+    /// A list of guest OS features that are applicable to this backup.
+    pub guest_os_feature: std::vec::Vec<crate::model::GuestOsFeature>,
+
+    /// The architecture of the source disk. Valid values are
+    /// ARM64 or X86_64.
+    pub architecture: std::option::Option<crate::model::disk_backup_properties::Architecture>,
+
+    /// The URL of the type of the disk.
+    pub r#type: std::option::Option<std::string::String>,
+
+    /// Size(in GB) of the source disk.
+    pub size_gb: std::option::Option<i64>,
+
+    /// Region and zone are mutually exclusive fields.
+    /// The URL of the region of the source disk.
+    pub region: std::option::Option<std::string::String>,
+
+    /// The URL of the Zone where the source disk.
+    pub zone: std::option::Option<std::string::String>,
+
+    /// The URL of the Zones where the source disk should be replicated.
+    pub replica_zones: std::vec::Vec<std::string::String>,
+
+    /// The source disk used to create this backup.
+    pub source_disk: std::option::Option<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DiskBackupProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [description][crate::model::DiskBackupProperties::description].
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::DiskBackupProperties::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [licenses][crate::model::DiskBackupProperties::licenses].
+    pub fn set_licenses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.licenses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [guest_os_feature][crate::model::DiskBackupProperties::guest_os_feature].
+    pub fn set_guest_os_feature<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GuestOsFeature>,
+    {
+        use std::iter::Iterator;
+        self.guest_os_feature = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [architecture][crate::model::DiskBackupProperties::architecture].
+    pub fn set_architecture<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::disk_backup_properties::Architecture>,
+    {
+        self.architecture = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [architecture][crate::model::DiskBackupProperties::architecture].
+    pub fn set_or_clear_architecture<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::disk_backup_properties::Architecture>,
+    {
+        self.architecture = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::DiskBackupProperties::type].
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::DiskBackupProperties::type].
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.r#type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [size_gb][crate::model::DiskBackupProperties::size_gb].
+    pub fn set_size_gb<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.size_gb = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [size_gb][crate::model::DiskBackupProperties::size_gb].
+    pub fn set_or_clear_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.size_gb = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [region][crate::model::DiskBackupProperties::region].
+    pub fn set_region<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.region = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [region][crate::model::DiskBackupProperties::region].
+    pub fn set_or_clear_region<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.region = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [zone][crate::model::DiskBackupProperties::zone].
+    pub fn set_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [zone][crate::model::DiskBackupProperties::zone].
+    pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [replica_zones][crate::model::DiskBackupProperties::replica_zones].
+    pub fn set_replica_zones<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.replica_zones = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [source_disk][crate::model::DiskBackupProperties::source_disk].
+    pub fn set_source_disk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_disk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_disk][crate::model::DiskBackupProperties::source_disk].
+    pub fn set_or_clear_source_disk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_disk = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DiskBackupProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.DiskBackupProperties"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DiskBackupProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __description,
+            __licenses,
+            __guest_os_feature,
+            __architecture,
+            __type,
+            __size_gb,
+            __region,
+            __zone,
+            __replica_zones,
+            __source_disk,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DiskBackupProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "description" => Ok(__FieldTag::__description),
+                            "licenses" => Ok(__FieldTag::__licenses),
+                            "guestOsFeature" => Ok(__FieldTag::__guest_os_feature),
+                            "guest_os_feature" => Ok(__FieldTag::__guest_os_feature),
+                            "architecture" => Ok(__FieldTag::__architecture),
+                            "type" => Ok(__FieldTag::__type),
+                            "sizeGb" => Ok(__FieldTag::__size_gb),
+                            "size_gb" => Ok(__FieldTag::__size_gb),
+                            "region" => Ok(__FieldTag::__region),
+                            "zone" => Ok(__FieldTag::__zone),
+                            "replicaZones" => Ok(__FieldTag::__replica_zones),
+                            "replica_zones" => Ok(__FieldTag::__replica_zones),
+                            "sourceDisk" => Ok(__FieldTag::__source_disk),
+                            "source_disk" => Ok(__FieldTag::__source_disk),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DiskBackupProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DiskBackupProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__licenses => {
+                            if !fields.insert(__FieldTag::__licenses) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for licenses",
+                                ));
+                            }
+                            result.licenses = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__guest_os_feature => {
+                            if !fields.insert(__FieldTag::__guest_os_feature) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for guest_os_feature",
+                                ));
+                            }
+                            result.guest_os_feature =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GuestOsFeature>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__architecture => {
+                            if !fields.insert(__FieldTag::__architecture) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for architecture",
+                                ));
+                            }
+                            result.architecture = map.next_value::<std::option::Option<
+                                crate::model::disk_backup_properties::Architecture,
+                            >>()?;
+                        }
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__size_gb => {
+                            if !fields.insert(__FieldTag::__size_gb) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for size_gb",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.size_gb = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__region => {
+                            if !fields.insert(__FieldTag::__region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for region",
+                                ));
+                            }
+                            result.region =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__zone => {
+                            if !fields.insert(__FieldTag::__zone) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for zone",
+                                ));
+                            }
+                            result.zone =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__replica_zones => {
+                            if !fields.insert(__FieldTag::__replica_zones) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for replica_zones",
+                                ));
+                            }
+                            result.replica_zones = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__source_disk => {
+                            if !fields.insert(__FieldTag::__source_disk) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for source_disk",
+                                ));
+                            }
+                            result.source_disk =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DiskBackupProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.description.is_some() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.licenses.is_empty() {
+            state.serialize_entry("licenses", &self.licenses)?;
+        }
+        if !self.guest_os_feature.is_empty() {
+            state.serialize_entry("guestOsFeature", &self.guest_os_feature)?;
+        }
+        if self.architecture.is_some() {
+            state.serialize_entry("architecture", &self.architecture)?;
+        }
+        if self.r#type.is_some() {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if self.size_gb.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("sizeGb", &__With(&self.size_gb))?;
+        }
+        if self.region.is_some() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if self.zone.is_some() {
+            state.serialize_entry("zone", &self.zone)?;
+        }
+        if !self.replica_zones.is_empty() {
+            state.serialize_entry("replicaZones", &self.replica_zones)?;
+        }
+        if self.source_disk.is_some() {
+            state.serialize_entry("sourceDisk", &self.source_disk)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DiskBackupProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiskBackupProperties");
+        debug_struct.field("description", &self.description);
+        debug_struct.field("licenses", &self.licenses);
+        debug_struct.field("guest_os_feature", &self.guest_os_feature);
+        debug_struct.field("architecture", &self.architecture);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("size_gb", &self.size_gb);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("replica_zones", &self.replica_zones);
+        debug_struct.field("source_disk", &self.source_disk);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [DiskBackupProperties].
+pub mod disk_backup_properties {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Architecture of the source disk.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Architecture {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Disks with architecture X86_64
+        X8664,
+        /// Disks with architecture ARM64
+        Arm64,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Architecture::value] or
+        /// [Architecture::name].
+        UnknownValue(architecture::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod architecture {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Architecture {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::X8664 => std::option::Option::Some(1),
+                Self::Arm64 => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ARCHITECTURE_UNSPECIFIED"),
+                Self::X8664 => std::option::Option::Some("X86_64"),
+                Self::Arm64 => std::option::Option::Some("ARM64"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Architecture {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Architecture {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Architecture {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::X8664,
+                2 => Self::Arm64,
+                _ => Self::UnknownValue(architecture::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Architecture {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ARCHITECTURE_UNSPECIFIED" => Self::Unspecified,
+                "X86_64" => Self::X8664,
+                "ARM64" => Self::Arm64,
+                _ => Self::UnknownValue(architecture::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Architecture {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::X8664 => serializer.serialize_i32(1),
+                Self::Arm64 => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Architecture {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Architecture>::new(
+                ".google.cloud.backupdr.v1.DiskBackupProperties.Architecture",
+            ))
+        }
+    }
+}
+
+/// DiskDataSourceProperties represents the properties of a
+/// Disk resource that are stored in the DataSource.
+/// .
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DiskDataSourceProperties {
+    /// Name of the disk backed up by the datasource.
+    pub name: std::string::String,
+
+    /// The description of the disk.
+    pub description: std::string::String,
+
+    /// The type of the disk.
+    pub r#type: std::string::String,
+
+    /// The size of the disk in GB.
+    pub size_gb: i64,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DiskDataSourceProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DiskDataSourceProperties::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::DiskDataSourceProperties::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::DiskDataSourceProperties::type].
+    pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [size_gb][crate::model::DiskDataSourceProperties::size_gb].
+    pub fn set_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.size_gb = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DiskDataSourceProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.DiskDataSourceProperties"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DiskDataSourceProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __description,
+            __type,
+            __size_gb,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DiskDataSourceProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "description" => Ok(__FieldTag::__description),
+                            "type" => Ok(__FieldTag::__type),
+                            "sizeGb" => Ok(__FieldTag::__size_gb),
+                            "size_gb" => Ok(__FieldTag::__size_gb),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DiskDataSourceProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DiskDataSourceProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__size_gb => {
+                            if !fields.insert(__FieldTag::__size_gb) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for size_gb",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.size_gb = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DiskDataSourceProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.r#type.is_empty() {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !wkt::internal::is_default(&self.size_gb) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("sizeGb", &__With(&self.size_gb))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DiskDataSourceProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiskDataSourceProperties");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("size_gb", &self.size_gb);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ComputeInstanceBackupProperties represents Compute Engine instance backup
 /// properties.
 #[derive(Clone, Default, PartialEq)]
@@ -20723,7 +27380,8 @@ pub struct ComputeInstanceRestoreProperties {
     pub description: std::option::Option<std::string::String>,
 
     /// Optional. Array of disks associated with this instance. Persistent disks
-    /// must be created before you can assign them.
+    /// must be created before you can assign them. Source regional persistent
+    /// disks will be restored with default replica zones if not specified.
     pub disks: std::vec::Vec<crate::model::AttachedDisk>,
 
     /// Optional. Enables display device for the instance.
@@ -20763,7 +27421,7 @@ pub struct ComputeInstanceRestoreProperties {
     /// Optional. An array of network configurations for this instance. These
     /// specify how interfaces are configured to interact with other network
     /// services, such as connecting to the internet. Multiple interfaces are
-    /// supported per instance.
+    /// supported per instance. Required to restore in different project or region.
     pub network_interfaces: std::vec::Vec<crate::model::NetworkInterface>,
 
     /// Optional. Configure network performance such as egress bandwidth tier.
@@ -20783,6 +27441,7 @@ pub struct ComputeInstanceRestoreProperties {
     pub allocation_affinity: std::option::Option<crate::model::AllocationAffinity>,
 
     /// Optional. Resource policies applied to this instance.
+    /// By default, no resource policies will be applied.
     pub resource_policies: std::vec::Vec<std::string::String>,
 
     /// Optional. Sets the scheduling options for this instance.
@@ -21334,7 +27993,7 @@ impl<'de> serde::de::Deserialize<'de> for ComputeInstanceRestoreProperties {
                             "private_ipv6_google_access" => {
                                 Ok(__FieldTag::__private_ipv6_google_access)
                             }
-                            "allocationAffinity" => Ok(__FieldTag::__allocation_affinity),
+                            "reservationAffinity" => Ok(__FieldTag::__allocation_affinity),
                             "allocation_affinity" => Ok(__FieldTag::__allocation_affinity),
                             "resourcePolicies" => Ok(__FieldTag::__resource_policies),
                             "resource_policies" => Ok(__FieldTag::__resource_policies),
@@ -21693,7 +28352,7 @@ impl serde::ser::Serialize for ComputeInstanceRestoreProperties {
             state.serialize_entry("privateIpv6GoogleAccess", &self.private_ipv6_google_access)?;
         }
         if self.allocation_affinity.is_some() {
-            state.serialize_entry("allocationAffinity", &self.allocation_affinity)?;
+            state.serialize_entry("reservationAffinity", &self.allocation_affinity)?;
         }
         if !self.resource_policies.is_empty() {
             state.serialize_entry("resourcePolicies", &self.resource_policies)?;
@@ -24262,7 +30921,7 @@ impl<'de> serde::de::Deserialize<'de> for NetworkInterface {
                         match value {
                             "network" => Ok(__FieldTag::__network),
                             "subnetwork" => Ok(__FieldTag::__subnetwork),
-                            "ipAddress" => Ok(__FieldTag::__ip_address),
+                            "networkIP" => Ok(__FieldTag::__ip_address),
                             "ip_address" => Ok(__FieldTag::__ip_address),
                             "ipv6Address" => Ok(__FieldTag::__ipv6_address),
                             "ipv6_address" => Ok(__FieldTag::__ipv6_address),
@@ -24488,7 +31147,7 @@ impl serde::ser::Serialize for NetworkInterface {
             state.serialize_entry("subnetwork", &self.subnetwork)?;
         }
         if self.ip_address.is_some() {
-            state.serialize_entry("ipAddress", &self.ip_address)?;
+            state.serialize_entry("networkIP", &self.ip_address)?;
         }
         if self.ipv6_address.is_some() {
             state.serialize_entry("ipv6Address", &self.ipv6_address)?;
@@ -25526,7 +32185,7 @@ impl<'de> serde::de::Deserialize<'de> for AccessConfig {
                         match value {
                             "type" => Ok(__FieldTag::__type),
                             "name" => Ok(__FieldTag::__name),
-                            "externalIp" => Ok(__FieldTag::__external_ip),
+                            "natIP" => Ok(__FieldTag::__external_ip),
                             "external_ip" => Ok(__FieldTag::__external_ip),
                             "externalIpv6" => Ok(__FieldTag::__external_ipv6),
                             "external_ipv6" => Ok(__FieldTag::__external_ipv6),
@@ -25679,7 +32338,7 @@ impl serde::ser::Serialize for AccessConfig {
             state.serialize_entry("name", &self.name)?;
         }
         if self.external_ip.is_some() {
-            state.serialize_entry("externalIp", &self.external_ip)?;
+            state.serialize_entry("natIP", &self.external_ip)?;
         }
         if self.external_ipv6.is_some() {
             state.serialize_entry("externalIpv6", &self.external_ipv6)?;
@@ -26466,7 +33125,7 @@ impl<'de> serde::de::Deserialize<'de> for AllocationAffinity {
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
-                            "consumeAllocationType" => Ok(__FieldTag::__consume_allocation_type),
+                            "consumeReservationType" => Ok(__FieldTag::__consume_allocation_type),
                             "consume_allocation_type" => Ok(__FieldTag::__consume_allocation_type),
                             "key" => Ok(__FieldTag::__key),
                             "values" => Ok(__FieldTag::__values),
@@ -26545,7 +33204,7 @@ impl serde::ser::Serialize for AllocationAffinity {
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.consume_allocation_type.is_some() {
-            state.serialize_entry("consumeAllocationType", &self.consume_allocation_type)?;
+            state.serialize_entry("consumeReservationType", &self.consume_allocation_type)?;
         }
         if self.key.is_some() {
             state.serialize_entry("key", &self.key)?;
@@ -30405,6 +37064,1563 @@ pub mod guest_os_feature {
                 ".google.cloud.backupdr.v1.GuestOsFeature.FeatureType",
             ))
         }
+    }
+}
+
+/// DataSourceReference is a reference to a DataSource resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataSourceReference {
+    /// Identifier. The resource name of the DataSourceReference.
+    /// Format:
+    /// projects/{project}/locations/{location}/dataSourceReferences/{data_source_reference}
+    pub name: std::string::String,
+
+    /// Output only. The resource name of the DataSource.
+    /// Format:
+    /// projects/{project}/locations/{location}/backupVaults/{backupVault}/dataSources/{dataSource}
+    pub data_source: std::string::String,
+
+    /// Output only. The time when the DataSourceReference was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The backup configuration state of the DataSource.
+    pub data_source_backup_config_state: crate::model::BackupConfigState,
+
+    /// Output only. Number of backups in the DataSource.
+    pub data_source_backup_count: i64,
+
+    /// Output only. Information of backup configuration on the DataSource.
+    pub data_source_backup_config_info:
+        std::option::Option<crate::model::DataSourceBackupConfigInfo>,
+
+    /// Output only. The GCP resource that the DataSource is associated with.
+    pub data_source_gcp_resource_info: std::option::Option<crate::model::DataSourceGcpResourceInfo>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataSourceReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DataSourceReference::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [data_source][crate::model::DataSourceReference::data_source].
+    pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_source = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::DataSourceReference::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DataSourceReference::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [data_source_backup_config_state][crate::model::DataSourceReference::data_source_backup_config_state].
+    pub fn set_data_source_backup_config_state<
+        T: std::convert::Into<crate::model::BackupConfigState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_source_backup_config_state = v.into();
+        self
+    }
+
+    /// Sets the value of [data_source_backup_count][crate::model::DataSourceReference::data_source_backup_count].
+    pub fn set_data_source_backup_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.data_source_backup_count = v.into();
+        self
+    }
+
+    /// Sets the value of [data_source_backup_config_info][crate::model::DataSourceReference::data_source_backup_config_info].
+    pub fn set_data_source_backup_config_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceBackupConfigInfo>,
+    {
+        self.data_source_backup_config_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_source_backup_config_info][crate::model::DataSourceReference::data_source_backup_config_info].
+    pub fn set_or_clear_data_source_backup_config_info<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceBackupConfigInfo>,
+    {
+        self.data_source_backup_config_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [data_source_gcp_resource_info][crate::model::DataSourceReference::data_source_gcp_resource_info].
+    pub fn set_data_source_gcp_resource_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceGcpResourceInfo>,
+    {
+        self.data_source_gcp_resource_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_source_gcp_resource_info][crate::model::DataSourceReference::data_source_gcp_resource_info].
+    pub fn set_or_clear_data_source_gcp_resource_info<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceGcpResourceInfo>,
+    {
+        self.data_source_gcp_resource_info = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DataSourceReference {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.DataSourceReference"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DataSourceReference {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __data_source,
+            __create_time,
+            __data_source_backup_config_state,
+            __data_source_backup_count,
+            __data_source_backup_config_info,
+            __data_source_gcp_resource_info,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DataSourceReference")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "dataSource" => Ok(__FieldTag::__data_source),
+                            "data_source" => Ok(__FieldTag::__data_source),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "dataSourceBackupConfigState" => {
+                                Ok(__FieldTag::__data_source_backup_config_state)
+                            }
+                            "data_source_backup_config_state" => {
+                                Ok(__FieldTag::__data_source_backup_config_state)
+                            }
+                            "dataSourceBackupCount" => Ok(__FieldTag::__data_source_backup_count),
+                            "data_source_backup_count" => {
+                                Ok(__FieldTag::__data_source_backup_count)
+                            }
+                            "dataSourceBackupConfigInfo" => {
+                                Ok(__FieldTag::__data_source_backup_config_info)
+                            }
+                            "data_source_backup_config_info" => {
+                                Ok(__FieldTag::__data_source_backup_config_info)
+                            }
+                            "dataSourceGcpResourceInfo" => {
+                                Ok(__FieldTag::__data_source_gcp_resource_info)
+                            }
+                            "data_source_gcp_resource_info" => {
+                                Ok(__FieldTag::__data_source_gcp_resource_info)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DataSourceReference;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DataSourceReference")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__data_source => {
+                            if !fields.insert(__FieldTag::__data_source) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data_source",
+                                ));
+                            }
+                            result.data_source = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__data_source_backup_config_state => {
+                            if !fields.insert(__FieldTag::__data_source_backup_config_state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data_source_backup_config_state",
+                                ));
+                            }
+                            result.data_source_backup_config_state = map
+                                .next_value::<std::option::Option<crate::model::BackupConfigState>>(
+                                )?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__data_source_backup_count => {
+                            if !fields.insert(__FieldTag::__data_source_backup_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data_source_backup_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.data_source_backup_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__data_source_backup_config_info => {
+                            if !fields.insert(__FieldTag::__data_source_backup_config_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data_source_backup_config_info",
+                                ));
+                            }
+                            result.data_source_backup_config_info = map.next_value::<std::option::Option<crate::model::DataSourceBackupConfigInfo>>()?
+                                ;
+                        }
+                        __FieldTag::__data_source_gcp_resource_info => {
+                            if !fields.insert(__FieldTag::__data_source_gcp_resource_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data_source_gcp_resource_info",
+                                ));
+                            }
+                            result.data_source_gcp_resource_info = map.next_value::<std::option::Option<crate::model::DataSourceGcpResourceInfo>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DataSourceReference {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.data_source.is_empty() {
+            state.serialize_entry("dataSource", &self.data_source)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if !wkt::internal::is_default(&self.data_source_backup_config_state) {
+            state.serialize_entry(
+                "dataSourceBackupConfigState",
+                &self.data_source_backup_config_state,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.data_source_backup_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "dataSourceBackupCount",
+                &__With(&self.data_source_backup_count),
+            )?;
+        }
+        if self.data_source_backup_config_info.is_some() {
+            state.serialize_entry(
+                "dataSourceBackupConfigInfo",
+                &self.data_source_backup_config_info,
+            )?;
+        }
+        if self.data_source_gcp_resource_info.is_some() {
+            state.serialize_entry(
+                "dataSourceGcpResourceInfo",
+                &self.data_source_gcp_resource_info,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DataSourceReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSourceReference");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data_source", &self.data_source);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field(
+            "data_source_backup_config_state",
+            &self.data_source_backup_config_state,
+        );
+        debug_struct.field("data_source_backup_count", &self.data_source_backup_count);
+        debug_struct.field(
+            "data_source_backup_config_info",
+            &self.data_source_backup_config_info,
+        );
+        debug_struct.field(
+            "data_source_gcp_resource_info",
+            &self.data_source_gcp_resource_info,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Information of backup configuration on the DataSource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataSourceBackupConfigInfo {
+    /// Output only. The status of the last backup in this DataSource
+    pub last_backup_state: crate::model::backup_config_info::LastBackupState,
+
+    /// Output only. Timestamp of the last successful backup to this DataSource.
+    pub last_successful_backup_consistency_time: std::option::Option<wkt::Timestamp>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataSourceBackupConfigInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [last_backup_state][crate::model::DataSourceBackupConfigInfo::last_backup_state].
+    pub fn set_last_backup_state<
+        T: std::convert::Into<crate::model::backup_config_info::LastBackupState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_backup_state = v.into();
+        self
+    }
+
+    /// Sets the value of [last_successful_backup_consistency_time][crate::model::DataSourceBackupConfigInfo::last_successful_backup_consistency_time].
+    pub fn set_last_successful_backup_consistency_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_successful_backup_consistency_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_successful_backup_consistency_time][crate::model::DataSourceBackupConfigInfo::last_successful_backup_consistency_time].
+    pub fn set_or_clear_last_successful_backup_consistency_time<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_successful_backup_consistency_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DataSourceBackupConfigInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.DataSourceBackupConfigInfo"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DataSourceBackupConfigInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __last_backup_state,
+            __last_successful_backup_consistency_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DataSourceBackupConfigInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "lastBackupState" => Ok(__FieldTag::__last_backup_state),
+                            "last_backup_state" => Ok(__FieldTag::__last_backup_state),
+                            "lastSuccessfulBackupConsistencyTime" => {
+                                Ok(__FieldTag::__last_successful_backup_consistency_time)
+                            }
+                            "last_successful_backup_consistency_time" => {
+                                Ok(__FieldTag::__last_successful_backup_consistency_time)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DataSourceBackupConfigInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DataSourceBackupConfigInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__last_backup_state => {
+                            if !fields.insert(__FieldTag::__last_backup_state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for last_backup_state",
+                                ));
+                            }
+                            result.last_backup_state = map
+                                .next_value::<std::option::Option<
+                                    crate::model::backup_config_info::LastBackupState,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__last_successful_backup_consistency_time => {
+                            if !fields.insert(__FieldTag::__last_successful_backup_consistency_time)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for last_successful_backup_consistency_time",
+                                ));
+                            }
+                            result.last_successful_backup_consistency_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DataSourceBackupConfigInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.last_backup_state) {
+            state.serialize_entry("lastBackupState", &self.last_backup_state)?;
+        }
+        if self.last_successful_backup_consistency_time.is_some() {
+            state.serialize_entry(
+                "lastSuccessfulBackupConsistencyTime",
+                &self.last_successful_backup_consistency_time,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DataSourceBackupConfigInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSourceBackupConfigInfo");
+        debug_struct.field("last_backup_state", &self.last_backup_state);
+        debug_struct.field(
+            "last_successful_backup_consistency_time",
+            &self.last_successful_backup_consistency_time,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// The GCP resource that the DataSource is associated with.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataSourceGcpResourceInfo {
+    /// Output only. The resource name of the GCP resource.
+    /// Ex: projects/{project}/zones/{zone}/instances/{instance}
+    pub gcp_resourcename: std::string::String,
+
+    /// Output only. The type of the GCP resource.
+    /// Ex: compute.googleapis.com/Instance
+    pub r#type: std::string::String,
+
+    /// Output only. The location of the GCP resource.
+    /// Ex: \<region\>/\<zone\>/"global"/"unspecified"
+    pub location: std::string::String,
+
+    /// The properties of the GCP resource.
+    pub resource_properties:
+        std::option::Option<crate::model::data_source_gcp_resource_info::ResourceProperties>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataSourceGcpResourceInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [gcp_resourcename][crate::model::DataSourceGcpResourceInfo::gcp_resourcename].
+    pub fn set_gcp_resourcename<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gcp_resourcename = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::DataSourceGcpResourceInfo::type].
+    pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::DataSourceGcpResourceInfo::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_properties][crate::model::DataSourceGcpResourceInfo::resource_properties].
+    ///
+    /// Note that all the setters affecting `resource_properties` are mutually
+    /// exclusive.
+    pub fn set_resource_properties<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::data_source_gcp_resource_info::ResourceProperties,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resource_properties = v.into();
+        self
+    }
+
+    /// The value of [resource_properties][crate::model::DataSourceGcpResourceInfo::resource_properties]
+    /// if it holds a `CloudSqlInstanceProperties`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_sql_instance_properties(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::CloudSqlInstanceDataSourceReferenceProperties>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.resource_properties.as_ref().and_then(|v| match v {
+            crate::model::data_source_gcp_resource_info::ResourceProperties::CloudSqlInstanceProperties(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [resource_properties][crate::model::DataSourceGcpResourceInfo::resource_properties]
+    /// to hold a `CloudSqlInstanceProperties`.
+    ///
+    /// Note that all the setters affecting `resource_properties` are
+    /// mutually exclusive.
+    pub fn set_cloud_sql_instance_properties<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::CloudSqlInstanceDataSourceReferenceProperties>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resource_properties = std::option::Option::Some(
+            crate::model::data_source_gcp_resource_info::ResourceProperties::CloudSqlInstanceProperties(
+                v.into()
+            )
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for DataSourceGcpResourceInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.DataSourceGcpResourceInfo"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DataSourceGcpResourceInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __gcp_resourcename,
+            __type,
+            __location,
+            __cloud_sql_instance_properties,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DataSourceGcpResourceInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "gcpResourcename" => Ok(__FieldTag::__gcp_resourcename),
+                            "gcp_resourcename" => Ok(__FieldTag::__gcp_resourcename),
+                            "type" => Ok(__FieldTag::__type),
+                            "location" => Ok(__FieldTag::__location),
+                            "cloudSqlInstanceProperties" => {
+                                Ok(__FieldTag::__cloud_sql_instance_properties)
+                            }
+                            "cloud_sql_instance_properties" => {
+                                Ok(__FieldTag::__cloud_sql_instance_properties)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DataSourceGcpResourceInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DataSourceGcpResourceInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__gcp_resourcename => {
+                            if !fields.insert(__FieldTag::__gcp_resourcename) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcp_resourcename",
+                                ));
+                            }
+                            result.gcp_resourcename = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cloud_sql_instance_properties => {
+                            if !fields.insert(__FieldTag::__cloud_sql_instance_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cloud_sql_instance_properties",
+                                ));
+                            }
+                            if result.resource_properties.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `resource_properties`, a oneof with full ID .google.cloud.backupdr.v1.DataSourceGcpResourceInfo.cloud_sql_instance_properties, latest field was cloudSqlInstanceProperties",
+                                ));
+                            }
+                            result.resource_properties = std::option::Option::Some(
+                                crate::model::data_source_gcp_resource_info::ResourceProperties::CloudSqlInstanceProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::CloudSqlInstanceDataSourceReferenceProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DataSourceGcpResourceInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.gcp_resourcename.is_empty() {
+            state.serialize_entry("gcpResourcename", &self.gcp_resourcename)?;
+        }
+        if !self.r#type.is_empty() {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if let Some(value) = self.cloud_sql_instance_properties() {
+            state.serialize_entry("cloudSqlInstanceProperties", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DataSourceGcpResourceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSourceGcpResourceInfo");
+        debug_struct.field("gcp_resourcename", &self.gcp_resourcename);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("resource_properties", &self.resource_properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [DataSourceGcpResourceInfo].
+pub mod data_source_gcp_resource_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The properties of the GCP resource.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ResourceProperties {
+        /// Output only. The properties of the Cloud SQL instance.
+        CloudSqlInstanceProperties(
+            std::boxed::Box<crate::model::CloudSqlInstanceDataSourceReferenceProperties>,
+        ),
+    }
+}
+
+/// Request for the GetDataSourceReference method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDataSourceReferenceRequest {
+    /// Required. The name of the DataSourceReference to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/dataSourceReferences/{data_source_reference}
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDataSourceReferenceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDataSourceReferenceRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDataSourceReferenceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.GetDataSourceReferenceRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetDataSourceReferenceRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetDataSourceReferenceRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetDataSourceReferenceRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetDataSourceReferenceRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetDataSourceReferenceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for GetDataSourceReferenceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDataSourceReferenceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Request for the FetchDataSourceReferencesForResourceType method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchDataSourceReferencesForResourceTypeRequest {
+    /// Required. The parent resource name.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Required. The type of the GCP resource.
+    /// Ex: sql.googleapis.com/Instance
+    pub resource_type: std::string::String,
+
+    /// Optional. The maximum number of DataSourceReferences to return. The service
+    /// may return fewer than this value. If unspecified, at most 50
+    /// DataSourceReferences will be returned. The maximum value is 100; values
+    /// above 100 will be coerced to 100.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous call of
+    /// `FetchDataSourceReferencesForResourceType`.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `FetchDataSourceReferencesForResourceType` must match
+    /// the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. A filter expression that filters the results fetched in the
+    /// response. The expression must specify the field name, a comparison
+    /// operator, and the value that you want to use for filtering. Supported
+    /// fields:
+    ///
+    /// * data_source
+    /// * data_source_gcp_resource_info.gcp_resourcename
+    /// * data_source_backup_config_state
+    /// * data_source_backup_count
+    /// * data_source_backup_config_info.last_backup_state
+    /// * data_source_gcp_resource_info.gcp_resourcename
+    /// * data_source_gcp_resource_info.type
+    /// * data_source_gcp_resource_info.location
+    /// * data_source_gcp_resource_info.cloud_sql_instance_properties.instance_create_time
+    pub filter: std::string::String,
+
+    /// Optional. A comma-separated list of fields to order by, sorted in ascending
+    /// order. Use "desc" after a field name for descending.
+    ///
+    /// Supported fields:
+    ///
+    /// * name
+    pub order_by: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchDataSourceReferencesForResourceTypeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::FetchDataSourceReferencesForResourceTypeRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_type][crate::model::FetchDataSourceReferencesForResourceTypeRequest::resource_type].
+    pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::FetchDataSourceReferencesForResourceTypeRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::FetchDataSourceReferencesForResourceTypeRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::FetchDataSourceReferencesForResourceTypeRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::FetchDataSourceReferencesForResourceTypeRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchDataSourceReferencesForResourceTypeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.FetchDataSourceReferencesForResourceTypeRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FetchDataSourceReferencesForResourceTypeRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __resource_type,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for FetchDataSourceReferencesForResourceTypeRequest",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "resourceType" => Ok(__FieldTag::__resource_type),
+                            "resource_type" => Ok(__FieldTag::__resource_type),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FetchDataSourceReferencesForResourceTypeRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FetchDataSourceReferencesForResourceTypeRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__resource_type => {
+                            if !fields.insert(__FieldTag::__resource_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_type",
+                                ));
+                            }
+                            result.resource_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FetchDataSourceReferencesForResourceTypeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.resource_type.is_empty() {
+            state.serialize_entry("resourceType", &self.resource_type)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for FetchDataSourceReferencesForResourceTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchDataSourceReferencesForResourceTypeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Response for the FetchDataSourceReferencesForResourceType method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchDataSourceReferencesForResourceTypeResponse {
+    /// The DataSourceReferences from the specified parent.
+    pub data_source_references: std::vec::Vec<crate::model::DataSourceReference>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchDataSourceReferencesForResourceTypeResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_source_references][crate::model::FetchDataSourceReferencesForResourceTypeResponse::data_source_references].
+    pub fn set_data_source_references<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataSourceReference>,
+    {
+        use std::iter::Iterator;
+        self.data_source_references = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchDataSourceReferencesForResourceTypeResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchDataSourceReferencesForResourceTypeResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.FetchDataSourceReferencesForResourceTypeResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse
+    for FetchDataSourceReferencesForResourceTypeResponse
+{
+    type PageItem = crate::model::DataSourceReference;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.data_source_references
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FetchDataSourceReferencesForResourceTypeResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __data_source_references,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for FetchDataSourceReferencesForResourceTypeResponse",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "dataSourceReferences" => Ok(__FieldTag::__data_source_references),
+                            "data_source_references" => Ok(__FieldTag::__data_source_references),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FetchDataSourceReferencesForResourceTypeResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FetchDataSourceReferencesForResourceTypeResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__data_source_references => {
+                            if !fields.insert(__FieldTag::__data_source_references) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data_source_references",
+                                ));
+                            }
+                            result.data_source_references = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::DataSourceReference>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FetchDataSourceReferencesForResourceTypeResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.data_source_references.is_empty() {
+            state.serialize_entry("dataSourceReferences", &self.data_source_references)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for FetchDataSourceReferencesForResourceTypeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchDataSourceReferencesForResourceTypeResponse");
+        debug_struct.field("data_source_references", &self.data_source_references);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
