@@ -117,6 +117,9 @@ impl std::fmt::Display for PathMismatch {
 
 impl std::fmt::Display for BindingError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if self.paths.len() == 1 {
+            return write!(f, "{}", self.paths[0]);
+        }
         write!(f, "at least one of the conditions must be met: ")?;
         for (i, sub) in self.paths.iter().enumerate() {
             if i != 0 {
@@ -231,6 +234,33 @@ mod tests {
         assert!(
             c2.contains("(3)") && c2.contains("id") && c2.contains("needs to be set"),
             "{c2}"
+        );
+    }
+
+    #[test]
+    fn fmt_binding_error_one_path() {
+        let e = BindingError {
+            paths: vec![PathMismatch {
+                subs: vec![SubstitutionMismatch {
+                    field_name: "parent",
+                    problem: SubstitutionFail::MismatchExpecting(
+                        "project-id-only".to_string(),
+                        "projects/*",
+                    ),
+                }],
+            }],
+        };
+        let fmt = format!("{e}");
+        assert!(
+            !fmt.contains("one of the conditions must be met") && !fmt.contains(" OR "),
+            "{fmt}"
+        );
+        assert!(
+            fmt.contains("parent")
+                && fmt.contains("should match")
+                && fmt.contains("projects/*")
+                && fmt.contains("project-id-only"),
+            "{fmt}"
         );
     }
 }
