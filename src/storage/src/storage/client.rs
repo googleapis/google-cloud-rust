@@ -18,7 +18,7 @@ use crate::builder::storage::ReadObject;
 use crate::builder::storage::UploadObject;
 use crate::download_resume_policy::DownloadResumePolicy;
 use crate::storage::checksum::Crc32c;
-use crate::upload_source::InsertPayload;
+use crate::upload_source::Payload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
@@ -167,7 +167,7 @@ impl Storage {
     where
         B: Into<String>,
         O: Into<String>,
-        T: Into<InsertPayload<P>>,
+        T: Into<Payload<P>>,
     {
         UploadObject::new(self.inner.clone(), bucket, object, payload)
     }

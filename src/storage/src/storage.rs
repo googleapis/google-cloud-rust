@@ -23,7 +23,7 @@ pub mod upload_source;
 pub(crate) mod v1;
 
 use crate::model::Object;
-use crate::upload_source::InsertPayload;
+use crate::upload_source::Payload;
 use crate::{Error, Result};
 
 /// An unrecoverable problem in the upload protocol.

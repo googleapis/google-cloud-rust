@@ -26,22 +26,22 @@ use std::collections::VecDeque;
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_storage::upload_source::InsertPayload;
+/// # use google_cloud_storage::upload_source::Payload;
 /// use google_cloud_storage::upload_source::StreamingSource;
 /// let buffer : &[u8] = b"the quick brown fox jumps over the lazy dog";
 /// let mut size = 0_usize;
-/// let mut payload = InsertPayload::from(bytes::Bytes::from_static(buffer));
+/// let mut payload = Payload::from(bytes::Bytes::from_static(buffer));
 /// while let Some(bytes) = payload.next().await.transpose()? {
 ///     size += bytes.len();
 /// }
 /// assert_eq!(size, buffer.len());
 /// # anyhow::Result::<()>::Ok(()) });
 /// ```
-pub struct InsertPayload<T> {
+pub struct Payload<T> {
     payload: T,
 }
 
-impl<T> InsertPayload<T>
+impl<T> Payload<T>
 where
     T: StreamingSource,
 {
@@ -50,7 +50,7 @@ where
     }
 }
 
-impl<T> StreamingSource for InsertPayload<T>
+impl<T> StreamingSource for Payload<T>
 where
     T: StreamingSource + Send + Sync,
 {
@@ -65,7 +65,7 @@ where
     }
 }
 
-impl<T> Seek for InsertPayload<T>
+impl<T> Seek for Payload<T>
 where
     T: Seek,
 {
@@ -76,28 +76,28 @@ where
     }
 }
 
-impl From<bytes::Bytes> for InsertPayload<BytesSource> {
+impl From<bytes::Bytes> for Payload<BytesSource> {
     fn from(value: bytes::Bytes) -> Self {
         let payload = BytesSource::new(value);
         Self { payload }
     }
 }
 
-impl From<&'static str> for InsertPayload<BytesSource> {
+impl From<&'static str> for Payload<BytesSource> {
     fn from(value: &'static str) -> Self {
         let b = bytes::Bytes::from_static(value.as_bytes());
-        InsertPayload::from(b)
+        Payload::from(b)
     }
 }
 
-impl From<Vec<bytes::Bytes>> for InsertPayload<IterSource> {
+impl From<Vec<bytes::Bytes>> for Payload<IterSource> {
     fn from(value: Vec<bytes::Bytes>) -> Self {
         let payload = IterSource::new(value);
         Self { payload }
     }
 }
 
-impl<S> From<S> for InsertPayload<S>
+impl<S> From<S> for Payload<S>
 where
     S: StreamingSource,
 {
@@ -149,7 +149,7 @@ pub trait Seek {
 
 const READ_SIZE: usize = 256 * 1024;
 
-impl From<tokio::fs::File> for InsertPayload<FileSource> {
+impl From<tokio::fs::File> for Payload<FileSource> {
     fn from(value: tokio::fs::File) -> Self {
         Self {
             payload: FileSource::new(value),
@@ -394,7 +394,7 @@ pub mod tests {
 
     #[tokio::test]
     async fn empty_bytes() -> Result {
-        let buffer = InsertPayload::from(bytes::Bytes::default());
+        let buffer = Payload::from(bytes::Bytes::default());
         let range = buffer.size_hint().await?;
         assert_eq!(range, (0, Some(0)));
         let got = collect(buffer).await?;
@@ -405,7 +405,7 @@ pub mod tests {
 
     #[tokio::test]
     async fn simple_bytes() -> Result {
-        let buffer = InsertPayload::from(bytes::Bytes::from_static(CONTENTS));
+        let buffer = Payload::from(bytes::Bytes::from_static(CONTENTS));
         let range = buffer.size_hint().await?;
         assert_eq!(range, (CONTENTS.len() as u64, Some(CONTENTS.len() as u64)));
         let got = collect(buffer).await?;
@@ -416,7 +416,7 @@ pub mod tests {
     #[tokio::test]
     async fn simple_str() -> Result {
         const LAZY: &str = "the quick brown fox jumps over the lazy dog";
-        let buffer = InsertPayload::from(LAZY);
+        let buffer = Payload::from(LAZY);
         let range = buffer.size_hint().await?;
         assert_eq!(range, (LAZY.len() as u64, Some(LAZY.len() as u64)));
         let got = collect(buffer).await?;
@@ -426,7 +426,7 @@ pub mod tests {
 
     #[tokio::test]
     async fn seek_bytes() -> Result {
-        let mut buffer = InsertPayload::from(bytes::Bytes::from_static(CONTENTS));
+        let mut buffer = Payload::from(bytes::Bytes::from_static(CONTENTS));
         buffer.seek(8).await?;
         let got = collect(buffer).await?;
         assert_eq!(got[..], CONTENTS[8..], "{got:?}");
@@ -436,7 +436,7 @@ pub mod tests {
     #[tokio::test]
     async fn empty_stream() -> Result {
         let source = IterSource::new(vec![]);
-        let payload = InsertPayload::from(source);
+        let payload = Payload::from(source);
         let range = payload.size_hint().await?;
         assert_eq!(range, (0, Some(0)));
         let got = collect(payload).await?;
@@ -451,7 +451,7 @@ pub mod tests {
             ["how ", "vexingly ", "quick ", "daft ", "zebras ", "jump"]
                 .map(|v| bytes::Bytes::from_static(v.as_bytes())),
         );
-        let payload = InsertPayload::from_stream(source);
+        let payload = Payload::from_stream(source);
         let got = collect(payload).await?;
         assert_eq!(got[..], CONTENTS[..]);
 
@@ -462,7 +462,7 @@ pub mod tests {
     async fn empty_file() -> Result {
         let file = NamedTempFile::new()?;
         let read = tokio::fs::File::from(file.reopen()?);
-        let payload = InsertPayload::from(read);
+        let payload = Payload::from(read);
         let hint = payload.size_hint().await?;
         assert_eq!(hint, (0_u64, Some(0_u64)));
         let got = collect(payload).await?;
@@ -476,7 +476,7 @@ pub mod tests {
         assert_eq!(file.write(CONTENTS)?, CONTENTS.len());
         file.flush()?;
         let read = tokio::fs::File::from(file.reopen()?);
-        let payload = InsertPayload::from(read);
+        let payload = Payload::from(read);
         let hint = payload.size_hint().await?;
         let s = CONTENTS.len() as u64;
         assert_eq!(hint, (s, Some(s)));
@@ -491,7 +491,7 @@ pub mod tests {
         assert_eq!(file.write(CONTENTS)?, CONTENTS.len());
         file.flush()?;
         let read = tokio::fs::File::from(file.reopen()?);
-        let mut payload = InsertPayload::from(read);
+        let mut payload = Payload::from(read);
         payload.seek(8).await?;
         let got = collect(payload).await?;
         assert_eq!(got[..], CONTENTS[8..], "{got:?}");
@@ -508,7 +508,7 @@ pub mod tests {
         file.flush()?;
         assert_eq!(READ_SIZE % 2, 0);
         let read = tokio::fs::File::from(file.reopen()?);
-        let mut payload = InsertPayload::from(read);
+        let mut payload = Payload::from(read);
         payload.seek((READ_SIZE + READ_SIZE / 2) as u64).await?;
         let got = collect(payload).await?;
         let mut want = Vec::new();
