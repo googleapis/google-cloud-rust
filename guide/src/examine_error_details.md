@@ -40,9 +40,8 @@ and that your account has the necessary permissions.
 As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
 file:
 
-```toml
-[dependencies]
-{{#include ../samples/Cargo.toml:language}}
+```shell
+cargo add google-cloud-language-v2
 ```
 
 ## Examining error details

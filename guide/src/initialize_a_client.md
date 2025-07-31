@@ -41,8 +41,8 @@ log in to configure the [Application Default Credentials] used in this guide.
 
 As usual with Rust, you must declare the dependency in your `Cargo.toml` file:
 
-```toml
-{{#include ../samples/Cargo.toml:secretmanager}}
+```shell
+cargo add google-cloud-secretmanager-v1
 ```
 
 To initialize a client, you first call `Client::builder()` to obtain an

@@ -40,8 +40,8 @@ and that your account has the necessary permissions.
 As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
 file. We use:
 
-```toml
-{{#include ../samples/Cargo.toml:secretmanager}}
+```shell
+cargo add google-cloud-secretmanager-v1
 ```
 
 ## Iterating List methods
@@ -74,8 +74,8 @@ You may want to use these APIs in the larger Rust ecosystem of asynchronous
 streams, such as `tokio::Stream`. This is readily done, but you must first
 enable the `unstable-streams` feature in the `google_cloud_gax` crate:
 
-```toml
-{{#include ../samples/Cargo.toml:gax-with-streams}}
+```shell
+cargo add google-cloud-gax --features unstable-stream
 ```
 
 The name of this feature is intended to convey that we consider these APIs
@@ -86,8 +86,8 @@ with any breaks that result from incompatible changes to the
 The examples will also use the `futures::stream::StreamExt` trait, so we must
 add the crate that defines it.
 
-```toml
-{{#include ../samples/Cargo.toml:futures}}
+```shell
+cargo add futures
 ```
 
 We use the `into_stream` function to convert the Paginator into a

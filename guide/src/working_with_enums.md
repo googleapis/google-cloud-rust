@@ -41,9 +41,8 @@ enumeration in any other client library.
 As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
 file. We use:
 
-```toml
-{{#include ../samples/Cargo.toml:secretmanager}}
-{{#include ../samples/Cargo.toml:serde_json}}
+```shell
+cargo add google-cloud-secretmanager-v1 serde_json
 ```
 
 ## Handling known values
