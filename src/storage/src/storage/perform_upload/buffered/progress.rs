@@ -232,7 +232,7 @@ impl InProgressUpload {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::storage::upload_source::{InsertPayload, IterSource};
+    use crate::storage::upload_source::{IterSource, Payload};
     use http_body_util::BodyExt;
     use std::error::Error as _;
     use test_case::test_case;
@@ -252,7 +252,7 @@ mod tests {
     async fn upload_debug() -> Result {
         const LEN: usize = 1000;
         let stream = IterSource::new((0..8).map(|i| new_line(i, LEN)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(LEN);
         upload.next_buffer(&mut payload).await?;
@@ -282,7 +282,7 @@ mod tests {
     async fn next_buffer_success() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..5).map(|i| new_line(i, LEN)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(LEN * 2);
         upload.next_buffer(&mut payload).await?;
@@ -307,7 +307,7 @@ mod tests {
     async fn next_buffer_split() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..5).map(|i| new_line(i, LEN)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(LEN * 2 + LEN / 2);
         upload.next_buffer(&mut payload).await?;
@@ -345,7 +345,7 @@ mod tests {
             .collect::<Vec<_>>()
             .join("");
         let stream = IterSource::new(vec![bytes::Bytes::from_owner(buffer), new_line(3, LEN)]);
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(LEN);
         upload.next_buffer(&mut payload).await?;
@@ -381,7 +381,7 @@ mod tests {
             bytes::Bytes::from_owner(buffer.clone()),
             new_line(3, LEN),
         ]);
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(2 * LEN);
         upload.next_buffer(&mut payload).await?;
@@ -410,7 +410,7 @@ mod tests {
     async fn next_buffer_done() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..2).map(|i| new_line(i, LEN)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(4 * LEN);
         upload.next_buffer(&mut payload).await?;
@@ -429,7 +429,7 @@ mod tests {
     #[tokio::test]
     async fn range_header_known_size() -> Result {
         let stream = IterSource::new((0..1).map(|i| new_line(i, 1024)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::new(0, (1024, Some(1024)));
         assert_eq!(upload.range_header(), "bytes */1024");
@@ -441,7 +441,7 @@ mod tests {
 
     #[tokio::test]
     async fn range_header_empty() -> Result {
-        let mut payload = InsertPayload::from("");
+        let mut payload = Payload::from("");
 
         let mut upload = InProgressUpload::new(0, (0, Some(0)));
         assert_eq!(upload.range_header(), "bytes */0");
@@ -453,7 +453,7 @@ mod tests {
 
     #[tokio::test]
     async fn range_header_unknown_empty() -> Result {
-        let mut payload = InsertPayload::from("");
+        let mut payload = Payload::from("");
         let mut upload = InProgressUpload::new(0, (0, None));
         upload.next_buffer(&mut payload).await?;
         assert_eq!(upload.range_header(), "bytes */0");
@@ -465,7 +465,7 @@ mod tests {
         const LEN: usize = 1024;
         const LINES: i32 = (RESUMABLE_UPLOAD_QUANTUM / LEN) as i32 + 1;
         let stream = IterSource::new((0..LINES).map(|i| new_line(i, LEN)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::new(0, (0, None));
         upload.next_buffer(&mut payload).await?;
@@ -493,7 +493,7 @@ mod tests {
     async fn put_body() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..8).map(|i| new_line(i, LEN)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(4 * LEN);
         upload.next_buffer(&mut payload).await?;
@@ -514,7 +514,7 @@ mod tests {
     async fn handle_partial_full() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..8).map(|i| new_line(i, LEN)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(2 * LEN);
         upload.next_buffer(&mut payload).await?;
@@ -532,7 +532,7 @@ mod tests {
     async fn handle_partial_partial() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..8).map(|i| new_line(i, LEN)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(2 * LEN);
         upload.next_buffer(&mut payload).await?;
@@ -550,7 +550,7 @@ mod tests {
     async fn handle_partial_partial_with_remainder() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..8).map(|i| new_line(i, 4 * LEN)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(2 * LEN);
         upload.next_buffer(&mut payload).await?;
@@ -592,7 +592,7 @@ mod tests {
     async fn handle_partial_too_much_progress() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..8).map(|i| new_line(i, LEN)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(2 * LEN);
         upload.next_buffer(&mut payload).await?;
@@ -615,7 +615,7 @@ mod tests {
     async fn handle_partial_rewind() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..8).map(|i| new_line(i, LEN)));
-        let mut payload = InsertPayload::from(stream);
+        let mut payload = Payload::from(stream);
 
         let mut upload = InProgressUpload::fake(2 * LEN);
         upload.next_buffer(&mut payload).await?;
@@ -639,7 +639,7 @@ mod tests {
 
     #[tokio::test]
     async fn handle_error() -> Result {
-        let mut payload = InsertPayload::from("");
+        let mut payload = Payload::from("");
         let mut upload = InProgressUpload::fake(0);
         upload.next_buffer(&mut payload).await?;
         upload.handle_error();

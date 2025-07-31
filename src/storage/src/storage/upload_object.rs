@@ -77,7 +77,7 @@ pub struct UploadObject<T, C = Crc32c> {
     inner: std::sync::Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
-    payload: InsertPayload<T>,
+    payload: Payload<T>,
     options: super::request_options::RequestOptions,
     checksum: C,
 }
@@ -819,7 +819,7 @@ impl<T, C> UploadObject<T, C> {
             .expect("resource field initialized in `new()`")
     }
 
-    pub(crate) fn build(self) -> PerformUpload<C, InsertPayload<T>> {
+    pub(crate) fn build(self) -> PerformUpload<C, Payload<T>> {
         PerformUpload::new(
             self.checksum,
             self.payload,
@@ -1002,7 +1002,7 @@ impl<T> UploadObject<T> {
     where
         B: Into<String>,
         O: Into<String>,
-        P: Into<InsertPayload<T>>,
+        P: Into<Payload<T>>,
     {
         let options = inner.options.clone();
         let resource = crate::model::Object::new()
