@@ -613,13 +613,13 @@ impl<T, C> UploadObject<T, C> {
     /// preconditions, as non-idempotent. If the destination bucket is
     /// configured with [object versioning] then the operation may succeed
     /// multiple times with observable side-effects. With object versioning and
-    /// a [lifecycle] policy limiting the number of versions uploading the same
+    /// a [lifecycle] policy limiting the number of versions, uploading the same
     /// data multiple times may result in data loss.
     ///
     /// The client library cannot efficiently determine if these conditions
     /// apply to your upload. If they do, or your application can tolerate
     /// multiple versions of the same data for other reasons, consider using
-    /// `with_idempotency(true)`
+    /// `with_idempotency(true)`.
     ///
     /// The client library treats resumable uploads as idempotent, regardless of
     /// the value in this option. Such uploads can succeed at most once.
