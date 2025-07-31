@@ -77,7 +77,7 @@ pub enum UploadError {
 /// The error type for checksum comparisons.
 ///
 /// By default the client library computes a checksum of the uploaded data, and
-/// compares this checksums against the value returned by the service.
+/// compares this checksum against the value returned by the service.
 ///
 /// # Example
 /// ```
