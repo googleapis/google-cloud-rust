@@ -153,7 +153,7 @@ impl From<RetryPolicyArg> for Arc<dyn RetryPolicy> {
 
 /// Extension trait for [`RetryPolicy`]
 pub trait RetryPolicyExt: RetryPolicy + Sized {
-    /// Decorate a [`RetryPolicy`] to limit the total elapsed time in the retry loop.
+    /// Decorate a [RetryPolicy] to limit the total elapsed time in the retry loop.
     ///
     /// While the time spent in the retry loop (including time in backoff) is
     /// less than the prescribed duration the `on_error()` method returns the
