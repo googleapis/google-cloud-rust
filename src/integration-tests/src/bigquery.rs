@@ -15,6 +15,7 @@
 use crate::Result;
 use bigquery::client::ClientBuilder;
 use rand::{Rng, distr::Alphanumeric};
+use wkt::Value;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 pub async fn run_query(builder: ClientBuilder) -> Result<()> {
@@ -57,6 +58,68 @@ pub async fn run_query(builder: ClientBuilder) -> Result<()> {
     assert_eq!(my_struct.num, 17);
     assert_eq!(my_struct.ts, ts.unwrap());
     assert_eq!(my_struct.bar, bar.unwrap());
+    println!("struct row: {my_struct:?}");
+
+    Ok(())
+}
+
+pub async fn run_query_nested_data(builder: ClientBuilder) -> Result<()> {
+    let project_id = crate::project_id()?;
+    let client = builder.with_project_id(project_id).build().await?;
+
+    // deeply nested query result
+    let query = client
+        .query("SELECT [STRUCT(STRUCT('1' as a, '2' as b) as object)] as nested".to_string())
+        .await?;
+    let mut iter = query.read().await?;
+    let mut rows = vec![];
+    while let Some(row) = iter.next().await {
+        rows.push(row?);
+    }
+
+    assert_eq!(rows.len(), 1);
+    let first_row = rows[0].clone();
+
+    // Read nested field
+    let nested_array: Option<Vec<Value>> = first_row.get("nested")?;
+    assert!(nested_array.is_some());
+    let nested_array = nested_array.unwrap();
+    assert_eq!(nested_array.len(), 1);
+    let object = nested_array[0].as_object().expect("nested item should be an object");
+    let nested_object = object.get("object")
+        .expect("msg object should have `object` field")
+        .as_object()
+        .expect("msg object should have `object` object field");
+    assert_eq!(nested_object.get("a")
+        .expect("msg object should have `a` field")
+        .as_str()
+        .expect("msg object should have `a` string field"), "1");
+    assert_eq!(nested_object.get("b")
+        .expect("msg object should have `b` field")
+        .as_str()
+        .expect("msg object should have `b` string field"), "2");
+
+    // Parse as user defined struct
+    #[derive(serde::Deserialize, Debug)]
+    struct MyStruct {
+        nested: Vec<NestedArrayObject>,
+    }
+
+    #[derive(serde::Deserialize, Debug)]
+    struct NestedArrayObject{
+        object: NestedObject
+    }
+
+    #[derive(serde::Deserialize, Debug)]
+    struct NestedObject {        
+        a: String,
+        b: String
+    }    
+
+    let my_struct: MyStruct =
+        serde_json::from_value(first_row.to_value()).expect("Should parse as user defined struct");
+    assert_eq!(my_struct.nested[0].object.a, "1");
+    assert_eq!(my_struct.nested[0].object.b, "2");
     println!("struct row: {my_struct:?}");
 
     Ok(())

@@ -57,6 +57,16 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
+    #[test_case(bigquery::client::QueryClient::builder(); "default")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_bigquery_query_nested_data(
+        builder: bigquery::client::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::bigquery::run_query_nested_data(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
     #[test_case(bigquery::client::QueryClient::builder(), bigquery_admin::client::DatasetService::builder(); "default")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_bigquery_query_dml(
