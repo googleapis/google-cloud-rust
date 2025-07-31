@@ -68,6 +68,9 @@ pub mod builder {
 pub use crate::control::model;
 pub use crate::control::stub;
 
+pub use storage::ChecksumMismatch;
+pub use storage::UploadError;
+
 #[allow(dead_code)]
 pub(crate) mod generated;
 

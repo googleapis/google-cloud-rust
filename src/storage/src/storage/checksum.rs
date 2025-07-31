@@ -13,18 +13,7 @@
 // limitations under the License.
 
 use crate::model::ObjectChecksums;
-
-/// The error type for checksum comparisons.
-#[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-pub enum ChecksumMismatch {
-    #[error("mismatched CRC32C values {0}")]
-    Crc32c(String),
-    #[error("mismatched MD5 values: {0}")]
-    MD5(String),
-    #[error("mismatched CRC32C and MD5 values {0}")]
-    Both(String),
-}
+use crate::storage::ChecksumMismatch;
 
 /// Compare the received object checksums vs. the computed checksums.
 ///
