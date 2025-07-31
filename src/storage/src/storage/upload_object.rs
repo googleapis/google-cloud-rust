@@ -12,13 +12,67 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Contains the request builder for [upload_object()] and related types.
+//!
+//! [upload_object()]: crate::storage::client::Storage::upload_object()
+
 use super::client::*;
 use super::perform_upload::PerformUpload;
 use super::upload_source::{Seek, StreamingSource};
 use super::*;
 use crate::storage::checksum::{ChecksumEngine, Crc32c, Md5, Null, Precomputed};
 
-/// A request builder for uploads without rewind.
+/// A request builder for object uploads.
+///
+/// # Example: hello world
+/// ```
+/// use google_cloud_storage::client::Storage;
+/// async fn sample(client: &Storage) -> anyhow::Result<()> {
+///     let response = client
+///         .upload_object("projects/_/buckets/my-bucket", "hello", "Hello World!")
+///         .disable_computed_checksums() // override any defaults
+///         .compute_crc32c()
+///         .send_unbuffered()
+///         .await?;
+///     println!("response details={response:?}");
+///     Ok(())
+/// }
+/// ```
+///
+/// # Example: upload a file
+/// ```
+/// use google_cloud_storage::client::Storage;
+/// async fn sample(client: &Storage) -> anyhow::Result<()> {
+///     let payload = tokio::fs::File::open("my-data").await?;
+///     let response = client
+///         .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+///         .send_unbuffered()
+///         .await?;
+///     println!("response details={response:?}");
+///     Ok(())
+/// }
+/// ```
+///
+/// # Example: upload a custom data source
+/// ```
+/// use google_cloud_storage::{client::Storage, upload_source::StreamingSource};
+/// struct DataSource;
+/// impl StreamingSource for DataSource {
+///     type Error = std::io::Error;
+///     async fn next(&mut self) -> Option<Result<bytes::Bytes, Self::Error>> {
+///         # panic!();
+///     }
+/// }
+///
+/// async fn sample(client: &Storage) -> anyhow::Result<()> {
+///     let response = client
+///         .upload_object("projects/_/buckets/my-bucket", "my-object", DataSource)
+///         .send()
+///         .await?;
+///     println!("response details={response:?}");
+///     Ok(())
+/// }
+/// ```
 pub struct UploadObject<T, C = Crc32c> {
     inner: std::sync::Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,

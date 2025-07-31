@@ -22,22 +22,39 @@ use serde_with::DeserializeAs;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
-/// # Example
+/// # Example: accumulate the contents of an object into a vector
 /// ```
-/// # tokio_test::block_on(async {
-/// # use google_cloud_storage::client::Storage;
-/// use google_cloud_storage::builder::storage::ReadObject;
-/// # let client = Storage::builder()
-/// #   .with_endpoint("https://storage.googleapis.com")
-/// #    .build().await?;
-/// let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
-/// let mut reader = builder.send().await?;
-/// let mut contents = Vec::new();
-/// while let Some(chunk) = reader.next().await.transpose()? {
-///     contents.extend_from_slice(&chunk);
+/// use google_cloud_storage::{client::Storage, builder::storage::ReadObject};
+/// async fn sample(client: &Storage) -> anyhow::Result<()> {
+///     let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
+///     let mut reader = builder.send().await?;
+///     let mut contents = Vec::new();
+///     while let Some(chunk) = reader.next().await.transpose()? {
+///         contents.extend_from_slice(&chunk);
+///     }
+///     println!("object contents={:?}", contents);
+///     Ok(())
 /// }
-/// println!("object contents={:?}", bytes::Bytes::from_owner(contents));
-/// # Ok::<(), anyhow::Error>(()) });
+/// ```
+///
+/// # Example: read part of an object
+/// ```
+/// use google_cloud_storage::{client::Storage, builder::storage::ReadObject};
+/// async fn sample(client: &Storage) -> anyhow::Result<()> {
+///     const MIB: i64 = 1024 * 1024;
+///     let mut contents = Vec::new();
+///     let mut reader = client
+///         .read_object("projects/_/buckets/my-bucket", "my-object")
+///         .with_read_offset(4 * MIB)
+///         .with_read_limit(2 * MIB)
+///         .send()
+///         .await?;
+///     while let Some(chunk) = reader.next().await.transpose()? {
+///         contents.extend_from_slice(&chunk);
+///     }
+///     println!("range contents={:?}", contents);
+///     Ok(())
+/// }
 /// ```
 #[derive(Clone, Debug)]
 pub struct ReadObject {
@@ -122,37 +139,34 @@ impl ReadObject {
     ///
     /// Read starting at 100 bytes to end of file.
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_read_offset(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// Read last 100 bytes of file:
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_read_offset(-100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// Read bytes 1000 to 1099.
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_read_offset(1000)
@@ -160,7 +174,7 @@ impl ReadObject {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_read_offset<T>(mut self, v: T) -> Self
     where
@@ -180,23 +194,21 @@ impl ReadObject {
     ///
     /// Read first 100 bytes.
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_read_limit(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// Read bytes 1000 to 1099.
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_read_offset(1000)
@@ -204,7 +216,7 @@ impl ReadObject {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_read_limit<T>(mut self, v: T) -> Self
     where
@@ -219,10 +231,8 @@ impl ReadObject {
     ///
     /// Example:
     /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
-    /// # let client = Storage::builder().build().await?;
+    /// # use google_cloud_storage::client::{KeyAes256, Storage};
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let key: &[u8] = &[97; 32];
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
@@ -230,7 +240,7 @@ impl ReadObject {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_key(mut self, v: KeyAes256) -> Self {
         self.request.common_object_request_params = Some(v.into());
@@ -242,8 +252,8 @@ impl ReadObject {
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::retry_policy::RecommendedPolicy;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::retry_policy::RecommendedPolicy;
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
     /// let response = client
