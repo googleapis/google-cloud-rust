@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-rpc"
-version                = "0.4.2"
+version                = "0.4.3"
 description            = "Google Cloud Client Libraries for Rust - Google RPC Types"
 edition.workspace      = true
 authors.workspace      = true
