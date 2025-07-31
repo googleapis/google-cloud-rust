@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use super::{
-    ChecksumEngine, ChecksummedSource, ContinueOn308, Error, IterSource, Object, PerformUpload,
-    Known, Result, ResumableUploadStatus, StreamingSource, X_GOOG_API_CLIENT_HEADER,
+    ChecksumEngine, ChecksummedSource, ContinueOn308, Error, IterSource, Known, Object,
+    PerformUpload, Result, ResumableUploadStatus, StreamingSource, X_GOOG_API_CLIENT_HEADER,
     apply_customer_supplied_encryption_headers,
 };
 use crate::storage::checksum::validate as validate_checksum;

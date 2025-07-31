@@ -20,9 +20,7 @@ use super::client::*;
 use super::perform_upload::PerformUpload;
 use super::upload_source::{Seek, StreamingSource};
 use super::*;
-use crate::storage::checksum::{
-    ChecksumEngine, Crc32c, Md5, Known, KnownCrc32c, KnownMd5,
-};
+use crate::storage::checksum::{ChecksumEngine, Crc32c, Known, KnownCrc32c, KnownMd5, Md5};
 
 /// A request builder for object uploads.
 ///
