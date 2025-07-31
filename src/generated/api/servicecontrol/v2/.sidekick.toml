@@ -22,13 +22,11 @@ copyright-year       = '2025'
 [[documentation-overrides]]
 id      = '.google.api.servicecontrol.v2.ResourceInfo.container'
 match   = """
-    - `projects/<project-id or project-number>`
-    - `folders/<folder-id>`
-    - `organizations/<organization-id>`
+    - `folders/<folder-number>`
+    - `organizations/<organization-number>`
 """
 replace = """
-- `projects/<project-id or project-number>`
-- `folders/<folder-id>`
-- `organizations/<organization-id>`
+- `folders/<folder-number>`
+- `organizations/<organization-number>`
 
 """
