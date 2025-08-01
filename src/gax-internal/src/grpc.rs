@@ -167,7 +167,7 @@ impl Client {
         {
             request.set_timeout(timeout);
         }
-        let codec = tonic::codec::ProstCodec::<Request, Response>::default();
+        let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
         inner
