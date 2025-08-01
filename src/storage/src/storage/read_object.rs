@@ -624,9 +624,7 @@ impl ReadObjectResponse {
         let res = inner.chunk().await.map_err(Error::io);
         match res {
             Ok(Some(chunk)) => {
-                if self.response_checksums.crc32c.is_some()
-                    || !self.response_checksums.md5_hash.is_empty()
-                {
+                if self.response_checksums.crc32c.is_some() {
                     self.checksums.update(self.offset, &chunk);
                     self.offset += chunk.len() as u64;
                 }
