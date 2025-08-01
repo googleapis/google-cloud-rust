@@ -97,26 +97,27 @@ struct TokenRefresher<T: TokenProvider> {
 
 impl<T: TokenProvider + 'static> TokenRefresher<T> {
     async fn run(self) {
-        let result = self.execute_retry_loop(self.retry_policy.clone()).await;
-        // The receiver may be dropped if the caller is not interested in the result.
-        // This is not an error.
-        self.token_watch_tx.send(Some(result)).ok();
+        self.execute_retry_loop(self.retry_policy.clone()).await;
     }
 
-    async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) -> Result<Token> {
+    async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) {
         let inner = self.inner.clone();
         let sleep = async |d| tokio::time::sleep(d).await;
+        let tx = self.token_watch_tx.clone();
+
         let fetch_token = move |_| {
             let inner = inner.clone();
+            let tx = tx.clone();
             async move {
-                inner
-                    .token()
-                    .await
-                    .map_err(gax::error::Error::authentication)
+                let result = inner.token().await;
+                // The receiver may be dropped if the caller is not interested in the result.
+                // This is not an error.
+                tx.send(Some(result.clone())).ok();
+                result.map_err(gax::error::Error::authentication)
             }
         };
 
-        retry_loop(
+        let final_result = retry_loop(
             fetch_token,
             sleep,
             true, // token fetching is idempotent
@@ -124,8 +125,13 @@ impl<T: TokenProvider + 'static> TokenRefresher<T> {
             retry_policy,
             self.backoff_policy.clone(),
         )
-        .await
-        .map_err(Self::map_retry_error)
+        .await;
+
+        if let Err(e) = final_result {
+            self.token_watch_tx
+                .send(Some(Err(Self::map_retry_error(e))))
+                .ok();
+        }
     }
 
     fn map_retry_error(e: gax::error::Error) -> CredentialsError {
@@ -149,24 +155,45 @@ impl TokenProvider for TokenProviderWithRetry {
     async fn token(&self) -> Result<Token> {
         let mut rx = self.token_watch.clone();
 
-        // If a value is already available, return it.
-        if let Some(result) = &*rx.borrow() {
-            // This clone requires Token and CredentialsError to be Clone.
-            return result.clone();
+        // Check initial value.
+        {
+            let guard = rx.borrow();
+            if let Some(result) = &*guard {
+                let is_transient = match result {
+                    Err(e) => e.is_transient(),
+                    _ => false,
+                };
+                if !is_transient {
+                    return result.clone();
+                }
+            }
         }
 
-        // Otherwise, wait for the value to be computed.
-        if rx.changed().await.is_err() {
-            // The channel is closed, which means the refresher task has panicked or exited.
-            return Err(CredentialsError::from_msg(
-                false,
-                "token provider background task has been terminated",
-            ));
-        }
+        loop {
+            if rx.changed().await.is_err() {
+                // The channel is closed, which means the refresher task has panicked or exited.
+                // Return the last known value, or an error if there's no value.
+                let guard = rx.borrow();
+                return match &*guard {
+                    Some(result) => result.clone(),
+                    None => Err(CredentialsError::from_msg(
+                        false,
+                        "token provider background task has been terminated",
+                    )),
+                };
+            }
 
-        // The value is guaranteed to be Some now.
-        let result = rx.borrow().as_ref().unwrap().clone();
-        result
+            let guard = rx.borrow();
+            // Value is guaranteed to be Some after `changed()` returns Ok.
+            let result = guard.as_ref().unwrap();
+            let is_transient = match result {
+                Err(e) => e.is_transient(),
+                _ => false,
+            };
+            if !is_transient {
+                return result.clone();
+            }
+        }
     }
 }
 
