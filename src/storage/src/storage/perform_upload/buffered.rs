@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use super::{
-    ChecksumEngine, ChecksummedSource, ContinueOn308, Error, IterSource, Object, PerformUpload,
-    Precomputed, Result, ResumableUploadStatus, StreamingSource, X_GOOG_API_CLIENT_HEADER,
+    ChecksumEngine, ChecksummedSource, ContinueOn308, Error, IterSource, Known, Object,
+    PerformUpload, Result, ResumableUploadStatus, StreamingSource, X_GOOG_API_CLIENT_HEADER,
     apply_customer_supplied_encryption_headers,
 };
 use crate::storage::checksum::validate as validate_checksum;
@@ -142,20 +142,15 @@ where
         // Use the computed checksum, if any, and if the spec does not have a
         // checksum already.
         let computed = stream.final_checksum();
-        let has = self
+        let current = self
             .spec
             .resource
             .get_or_insert_default()
             .checksums
             .get_or_insert_default();
-        if has.crc32c.is_none() {
-            has.crc32c = computed.crc32c;
-        }
-        if has.md5_hash.is_empty() {
-            has.md5_hash = computed.md5_hash;
-        }
+        crate::storage::checksum::update(current, computed);
         let upload = PerformUpload {
-            payload: Arc::new(Mutex::new(ChecksummedSource::new(Precomputed, source))),
+            payload: Arc::new(Mutex::new(ChecksummedSource::new(Known, source))),
             inner: self.inner,
             spec: self.spec,
             params: self.params,
