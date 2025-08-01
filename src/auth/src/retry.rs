@@ -155,45 +155,22 @@ impl TokenProvider for TokenProviderWithRetry {
     async fn token(&self) -> Result<Token> {
         let mut rx = self.token_watch.clone();
 
-        // Check initial value.
-        {
-            let guard = rx.borrow();
-            if let Some(result) = &*guard {
-                let is_transient = match result {
-                    Err(e) => e.is_transient(),
-                    _ => false,
-                };
-                if !is_transient {
-                    return result.clone();
-                }
-            }
+        // If a value is already available, return it.
+        if let Some(result) = &*rx.borrow() {
+            return result.clone();
         }
 
-        loop {
-            if rx.changed().await.is_err() {
-                // The channel is closed, which means the refresher task has panicked or exited.
-                // Return the last known value, or an error if there's no value.
-                let guard = rx.borrow();
-                return match &*guard {
-                    Some(result) => result.clone(),
-                    None => Err(CredentialsError::from_msg(
-                        false,
-                        "token provider background task has been terminated",
-                    )),
-                };
-            }
-
-            let guard = rx.borrow();
-            // Value is guaranteed to be Some after `changed()` returns Ok.
-            let result = guard.as_ref().unwrap();
-            let is_transient = match result {
-                Err(e) => e.is_transient(),
-                _ => false,
-            };
-            if !is_transient {
-                return result.clone();
-            }
+        // Otherwise, wait for the first value to be computed.
+        if rx.changed().await.is_err() {
+            // The channel is closed, which means the refresher task has panicked or exited.
+            return Err(CredentialsError::from_msg(
+                false,
+                "token provider background task has been terminated",
+            ));
         }
+
+        // The value is guaranteed to be Some now.
+        rx.borrow().as_ref().unwrap().clone()
     }
 }
 
