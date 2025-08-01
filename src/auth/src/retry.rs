@@ -22,13 +22,11 @@ use gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyArg, RetryPolicyExt
 use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
 use std::error::Error;
 use std::sync::{Arc, Mutex};
+use tokio::sync::watch;
 
 #[derive(Debug)]
-pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
-    pub(crate) inner: Arc<T>,
-    retry_policy: Arc<dyn RetryPolicy>,
-    backoff_policy: Arc<dyn BackoffPolicy>,
-    retry_throttler: SharedRetryThrottler,
+pub(crate) struct TokenProviderWithRetry {
+    token_watch: watch::Receiver<Option<Result<Token>>>,
 }
 
 #[derive(Debug, Default)]
@@ -54,7 +52,10 @@ impl Builder {
         self
     }
 
-    pub(crate) fn build<T: TokenProvider>(self, token_provider: T) -> TokenProviderWithRetry<T> {
+    pub(crate) fn build<T: TokenProvider + Send + Sync + 'static>(
+        self,
+        token_provider: T,
+    ) -> TokenProviderWithRetry {
         let backoff_policy: Arc<dyn BackoffPolicy> = match self.backoff_policy {
             Some(p) => p.into(),
             None => Arc::new(ExponentialBackoff::default()),
@@ -64,32 +65,44 @@ impl Builder {
             None => Arc::new(Mutex::new(AdaptiveThrottler::default())),
         };
 
-        let retry_policy = match self.retry_policy {
+        let retry_policy: Arc<dyn RetryPolicy> = match self.retry_policy {
             Some(p) => p,
             None => AlwaysRetry.with_attempt_limit(1).into(),
         }
         .into();
 
-        TokenProviderWithRetry {
+        let (tx, rx) = watch::channel(None);
+
+        let refresher = TokenRefresher {
             inner: Arc::new(token_provider),
             retry_policy,
             backoff_policy,
             retry_throttler,
-        }
+            token_watch_tx: tx,
+        };
+
+        tokio::spawn(refresher.run());
+
+        TokenProviderWithRetry { token_watch: rx }
     }
 }
 
-#[async_trait::async_trait]
-impl<T: TokenProvider + 'static> TokenProvider for TokenProviderWithRetry<T> {
-    async fn token(&self) -> Result<Token> {
-        self.execute_retry_loop(self.retry_policy.clone()).await
-    }
+struct TokenRefresher<T: TokenProvider> {
+    inner: Arc<T>,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
+    retry_throttler: SharedRetryThrottler,
+    token_watch_tx: watch::Sender<Option<Result<Token>>>,
 }
 
-impl<T> TokenProviderWithRetry<T>
-where
-    T: TokenProvider,
-{
+impl<T: TokenProvider + 'static> TokenRefresher<T> {
+    async fn run(self) {
+        let result = self.execute_retry_loop(self.retry_policy.clone()).await;
+        // The receiver may be dropped if the caller is not interested in the result.
+        // This is not an error.
+        self.token_watch_tx.send(Some(result)).ok();
+    }
+
     async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) -> Result<Token> {
         let inner = self.inner.clone();
         let sleep = async |d| tokio::time::sleep(d).await;
@@ -128,6 +141,32 @@ where
             _ => constants::TOKEN_FETCH_FAILED_ERROR,
         };
         CredentialsError::new(false, msg, e)
+    }
+}
+
+#[async_trait::async_trait]
+impl TokenProvider for TokenProviderWithRetry {
+    async fn token(&self) -> Result<Token> {
+        let mut rx = self.token_watch.clone();
+
+        // If a value is already available, return it.
+        if let Some(result) = &*rx.borrow() {
+            // This clone requires Token and CredentialsError to be Clone.
+            return result.clone();
+        }
+
+        // Otherwise, wait for the value to be computed.
+        if rx.changed().await.is_err() {
+            // The channel is closed, which means the refresher task has panicked or exited.
+            return Err(CredentialsError::from_msg(
+                false,
+                "token provider background task has been terminated",
+            ));
+        }
+
+        // The value is guaranteed to be Some now.
+        let result = rx.borrow().as_ref().unwrap().clone();
+        result
     }
 }
 
@@ -368,41 +407,6 @@ mod tests {
         assert!(!original_error.is_transient());
     }
 
-    #[test_case(
-        true,
-        &["AuthRetryPolicy", "max_attempts: 5", "TestBackoffPolicy", "AdaptiveThrottler", "factor: 4.0"];
-        "with_custom_values"
-    )]
-    #[test_case(
-        false,
-        &["LimitedAttemptCount", "ExponentialBackoff", "AdaptiveThrottler", "factor: 2.0"];
-        "with_default_values"
-    )]
-    fn test_builder(use_custom_config: bool, expected_substrings: &[&str]) {
-        let mock_provider = MockTokenProvider::new();
-        let mut builder = Builder::default();
-
-        if use_custom_config {
-            let retry_policy = AuthRetryPolicy { max_attempts: 5 };
-            let backoff_policy = TestBackoffPolicy::default();
-            let retry_throttler = AdaptiveThrottler::new(4.0).unwrap();
-            builder = builder
-                .with_retry_policy(retry_policy.into())
-                .with_backoff_policy(backoff_policy.into())
-                .with_retry_throttler(retry_throttler.into());
-        }
-
-        let provider = builder.build(mock_provider);
-        let debug_str = format!("{provider:?}");
-
-        for sub in expected_substrings {
-            assert!(
-                debug_str.contains(sub),
-                "Expected to find '{sub}' in '{debug_str:?}'"
-            );
-        }
-    }
-
     #[tokio::test]
     async fn test_full_retry_mechanism() {
         // 1. Setup Mocks
@@ -478,7 +482,7 @@ mod tests {
 
         // 2. Call the function under test.
         let credentials_error =
-            TokenProviderWithRetry::<MockTokenProvider>::map_retry_error(original_error);
+            TokenRefresher::<MockTokenProvider>::map_retry_error(original_error);
 
         // 3. Assert that the resulting error is not transient and wraps the original error.
         assert!(!credentials_error.is_transient());

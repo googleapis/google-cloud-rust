@@ -77,7 +77,7 @@ where
                     }
                 },
                 // An error in the result is still a valid result to propagate to the client library
-                Err(e) => Err(e),
+                Err(_) => wait_for_next_token(rx).await,
             }
         } else {
             wait_for_next_token(rx).await
@@ -102,7 +102,15 @@ where
 async fn wait_for_next_token(
     mut rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
 ) -> Result<(Token, EntityTag)> {
-    rx_token.changed().await.unwrap();
+    if rx_token.changed().await.is_err() {
+        // Sender was dropped. This means the background task terminated.
+        // The last value sent before termination is the one we should use.
+        return rx_token
+            .borrow()
+            .clone()
+            .expect("channel should have a value before sender is dropped")
+            .map_err(|e| e.into());
+    }
     let token_result = rx_token.borrow().clone();
 
     token_result.expect("There should always be a token or error in the channel after changed()")
@@ -149,10 +157,18 @@ async fn refresh_task<T>(
                     break;
                 }
             }
-            Err(_) => {
-                // The retry policy has been used already by the inner token provider.
-                // If it ended in an error, just quit the background task.
-                break;
+            Err(e) => {
+                // The error is already sent to the channel.
+                // Now, check if we should retry based on the error information.
+                if let Ok(duration) = e.retry_in() {
+                    // It's a transient error with a retry duration. Wait for that long.
+                    sleep(duration).await;
+                    // The loop continues to the next iteration to retry.
+                } else {
+                    // It's a permanent error, or a transient one without a retry duration.
+                    // Quit the background task.
+                    break;
+                }
             }
         }
     }
@@ -725,5 +741,51 @@ mod tests {
         assert!(debug_output.contains("TokenCache"));
         assert!(debug_output.contains("rx_token"));
         assert!(debug_output.contains("token_provider: MockTokenProvider")); // Check for MockTokenProvider specific output part
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn transient_error_retries_after_delay() -> TestResult {
+        let retry_duration = Duration::from_millis(100);
+        let transient_error =
+            CredentialsError::from_msg(true, "transient failure").with_retry_in(retry_duration);
+
+        let success_token = Token {
+            token: "successful-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: Some(Instant::now() + TOKEN_VALID_DURATION),
+            metadata: None,
+        };
+        let success_token_clone = success_token.clone();
+
+        let mut mock = MockTokenProvider::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_token()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|| Err(transient_error));
+        mock.expect_token()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|| Ok(success_token_clone));
+
+        let cache = TokenCache::new(mock);
+
+        // First call should return the transient error immediately.
+        let first_result = cache.token(Extensions::new()).await;
+        assert!(first_result.is_err());
+        let err_msg = first_result.unwrap_err().to_string();
+        assert!(err_msg.contains("transient failure"));
+
+        // Advance time past the retry duration.
+        tokio::time::advance(retry_duration + Duration::from_millis(50)).await;
+        // Yield to allow the background refresh task to run.
+        tokio::task::yield_now().await;
+
+        // Second call should now succeed.
+        let second_result = cache.token(Extensions::new()).await.unwrap();
+        let actual_token = get_cached_token(second_result)?;
+        assert_eq!(actual_token, success_token);
+
+        Ok(())
     }
 }

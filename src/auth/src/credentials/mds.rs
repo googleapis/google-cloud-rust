@@ -272,7 +272,7 @@ impl Builder {
         }
     }
 
-    fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
+    fn build_token_provider(self) -> TokenProviderWithRetry {
         let final_endpoint: String;
         let endpoint_overridden: bool;
 

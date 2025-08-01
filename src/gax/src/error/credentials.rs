@@ -13,10 +13,17 @@
 // limitations under the License.
 
 use std::error::Error;
-use std::fmt::{Debug, Display, Formatter, Result};
+use std::fmt::{Debug, Display, Formatter, Result as FmtResult};
 use std::sync::Arc;
+use std::time::Duration;
 
 type ArcError = Arc<dyn Error + Send + Sync>;
+
+#[derive(Clone, Debug)]
+enum Retryability {
+    Permanent,
+    Transient { retry_in: Option<Duration> },
+}
 
 /// Represents an error using [Credentials].
 ///
@@ -49,7 +56,7 @@ type ArcError = Arc<dyn Error + Send + Sync>;
 /// [Credentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credential.html
 #[derive(Clone, Debug)]
 pub struct CredentialsError {
-    is_transient: bool,
+    retryability: Retryability,
     message: Option<String>,
     source: Option<ArcError>,
 }
@@ -82,8 +89,13 @@ impl CredentialsError {
     /// * `source` - The underlying error that caused the auth failure.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn from_source<T: Error + Send + Sync + 'static>(is_transient: bool, source: T) -> Self {
+        let retryability = if is_transient {
+            Retryability::Transient { retry_in: None }
+        } else {
+            Retryability::Permanent
+        };
         CredentialsError {
-            is_transient,
+            retryability,
             source: Some(Arc::new(source)),
             message: None,
         }
@@ -110,8 +122,13 @@ impl CredentialsError {
     /// * `message` - The underlying error that caused the auth failure.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn from_msg<T: Into<String>>(is_transient: bool, message: T) -> Self {
+        let retryability = if is_transient {
+            Retryability::Transient { retry_in: None }
+        } else {
+            Retryability::Permanent
+        };
         CredentialsError {
-            is_transient,
+            retryability,
             message: Some(message.into()),
             source: None,
         }
@@ -145,8 +162,13 @@ impl CredentialsError {
         M: Into<String>,
         S: std::error::Error + Send + Sync + 'static,
     {
+        let retryability = if is_transient {
+            Retryability::Transient { retry_in: None }
+        } else {
+            Retryability::Permanent
+        };
         CredentialsError {
-            is_transient,
+            retryability,
             message: Some(message.into()),
             source: Some(Arc::new(source)),
         }
@@ -169,7 +191,30 @@ impl CredentialsError {
     /// }
     /// ```
     pub fn is_transient(&self) -> bool {
-        self.is_transient
+        matches!(self.retryability, Retryability::Transient { .. })
+    }
+
+    /// Sets the duration to wait before a retry attempt may succeed.
+    ///
+    /// This is only meaningful for transient errors. If the error is not
+    /// transient, this function has no effect.
+    pub fn with_retry_in(mut self, duration: Duration) -> Self {
+        if let Retryability::Transient { retry_in: r } = &mut self.retryability {
+            *r = Some(duration);
+        }
+        self
+    }
+
+    /// Returns the duration to wait before a retry attempt may succeed.
+    ///
+    /// Returns a `PermanentError` if the error is not transient.
+    pub fn retry_in(&self) -> Result<Duration, PermanentError> {
+        match self.retryability {
+            Retryability::Transient { retry_in } => {
+                retry_in.ok_or(PermanentError::new("retry duration not set"))
+            }
+            Retryability::Permanent => Err(PermanentError::new("error is permanent")),
+        }
     }
 }
 
@@ -186,8 +231,8 @@ const PERMANENT_MSG: &str = "and future attempts will not succeed";
 
 impl Display for CredentialsError {
     /// Formats the error message to include retryability and source.
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        let msg = if self.is_transient {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        let msg = if self.is_transient() {
             TRANSIENT_MSG
         } else {
             PERMANENT_MSG
@@ -195,13 +240,42 @@ impl Display for CredentialsError {
         match &self.message {
             None => write!(f, "cannot create auth headers {msg}"),
             Some(m) => write!(f, "{m} {msg}"),
+        }?;
+        if let Retryability::Transient { retry_in } = self.retryability {
+            if let Some(duration) = retry_in {
+                write!(f, ", retry in {:?}", duration)?;
+            }
+        }
+        Ok(())
+    }
+}
+
+/// An error returned when `retry_in` is called on a permanent `CredentialsError`.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct PermanentError {
+    message: String,
+}
+
+impl PermanentError {
+    fn new(message: &str) -> Self {
+        Self {
+            message: message.to_string(),
         }
     }
 }
 
+impl Display for PermanentError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        write!(f, "{}", self.message)
+    }
+}
+
+impl Error for PermanentError {}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::time::Duration;
     use test_case::test_case;
 
     #[test_case(true)]
@@ -260,5 +334,42 @@ mod tests {
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
         assert!(got.contains(PERMANENT_MSG), "{got}");
+    }
+
+    #[test]
+    fn with_retry_in() {
+        let duration = Duration::from_secs(10);
+        let err = CredentialsError::from_msg(true, "transient").with_retry_in(duration);
+        assert_eq!(err.retry_in().unwrap(), duration);
+
+        // should not set for non-transient
+        let err = CredentialsError::from_msg(false, "permanent").with_retry_in(duration);
+        assert!(err.retry_in().is_err());
+    }
+
+    #[test]
+    fn retry_in_on_permanent_error() {
+        let err = CredentialsError::from_msg(false, "permanent");
+        let result = err.retry_in();
+        assert!(result.is_err());
+        assert_eq!(result.unwrap_err().to_string(), "error is permanent");
+    }
+
+    #[test]
+    fn retry_in_on_transient_without_time() {
+        let err = CredentialsError::from_msg(true, "transient");
+        let result = err.retry_in();
+        assert!(result.is_err());
+        assert_eq!(result.unwrap_err().to_string(), "retry duration not set");
+    }
+
+    #[test]
+    fn fmt_with_retry_in() {
+        let duration = Duration::from_secs(10);
+        let e = CredentialsError::from_msg(true, "test-only-err-123").with_retry_in(duration);
+        let got = format!("{e}");
+        assert!(got.contains("test-only-err-123"), "{got}");
+        assert!(got.contains(TRANSIENT_MSG), "{got}");
+        assert!(got.contains(", retry in 10s"), "{got}");
     }
 }

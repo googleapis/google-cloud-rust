@@ -426,12 +426,7 @@ impl Builder {
         })
     }
 
-    fn build_components(
-        self,
-    ) -> BuildResult<(
-        TokenProviderWithRetry<ImpersonatedTokenProvider>,
-        Option<String>,
-    )> {
+    fn build_components(self) -> BuildResult<(TokenProviderWithRetry, Option<String>)> {
         let (source_credentials, service_account_impersonation_url, delegates, quota_project_id) =
             match self.source {
                 BuilderSource::FromJson(json) => {
