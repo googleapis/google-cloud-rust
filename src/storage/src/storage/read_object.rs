@@ -515,6 +515,7 @@ impl ReadObjectResponse {
         let response_crc32c = crc32c_from_response(full, inner.status(), inner.headers());
         let response_checksums = ObjectChecksums::new().set_or_clear_crc32c(response_crc32c);
         let range = response_range(&inner).map_err(Error::deser)?;
+        let offset = range.start;
         let generation = response_generation(&inner).map_err(Error::deser)?;
 
         let headers = inner.headers();
@@ -555,7 +556,7 @@ impl ReadObjectResponse {
             // Fields for computing checksums.
             response_checksums,
             checksums: Crc32c::default(),
-            offset: 0,
+            offset,
             // Fields for resuming download.
             range,
             generation,
@@ -644,10 +645,7 @@ impl ReadObjectResponse {
                 if self.range.limit != 0 {
                     return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
                 }
-                let res = validate(
-                    self.response_checksums.clone(),
-                    &Some(self.checksums.finalize()),
-                );
+                let res = validate(&self.response_checksums, &Some(self.checksums.finalize()));
                 match res {
                     Err(e) => Some(Err(Error::deser(ReadError::ChecksumMismatch(e)))),
                     Ok(()) => None,
@@ -753,7 +751,7 @@ pub struct ObjectHighlights {
 #[non_exhaustive]
 enum ReadError {
     #[error("checksum mismatch")]
-    ChecksumMismatch(crate::storage::checksum::ChecksumMismatch),
+    ChecksumMismatch(crate::ChecksumMismatch),
 
     #[error("missing {0} bytes at the end of the stream")]
     ShortRead(u64),
@@ -1155,7 +1153,7 @@ mod tests {
             matches!(
                 source,
                 Some(&ReadError::ChecksumMismatch(
-                    crate::storage::checksum::ChecksumMismatch::Crc32c { .. }
+                    crate::ChecksumMismatch::Crc32c { .. }
                 ))
             ),
             "err={err:?}"
@@ -1178,7 +1176,7 @@ mod tests {
             matches!(
                 source,
                 Some(&ReadError::ChecksumMismatch(
-                    crate::storage::checksum::ChecksumMismatch::Crc32c { .. }
+                    crate::ChecksumMismatch::Crc32c { .. }
                 ))
             ),
             "err={err:?}"
@@ -1198,7 +1196,7 @@ mod tests {
             matches!(
                 source,
                 Some(&ReadError::ChecksumMismatch(
-                    crate::storage::checksum::ChecksumMismatch::Crc32c { .. }
+                    crate::ChecksumMismatch::Crc32c { .. }
                 ))
             ),
             "err={err:?}"
