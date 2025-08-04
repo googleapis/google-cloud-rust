@@ -501,7 +501,6 @@ pub struct ReadObjectResponse {
     // Fields for tracking the crc checksum checks.
     response_checksums: ObjectChecksums,
     checksums: Crc32c,
-    offset: u64,
     // Fields for resuming download.
     range: ReadRange,
     generation: i64,
@@ -515,7 +514,6 @@ impl ReadObjectResponse {
         let response_crc32c = crc32c_from_response(full, inner.status(), inner.headers());
         let response_checksums = ObjectChecksums::new().set_or_clear_crc32c(response_crc32c);
         let range = response_range(&inner).map_err(Error::deser)?;
-        let offset = range.start;
         let generation = response_generation(&inner).map_err(Error::deser)?;
 
         let headers = inner.headers();
@@ -556,7 +554,6 @@ impl ReadObjectResponse {
             // Fields for computing checksums.
             response_checksums,
             checksums: Crc32c::default(),
-            offset,
             // Fields for resuming download.
             range,
             generation,
@@ -625,8 +622,7 @@ impl ReadObjectResponse {
         match res {
             Ok(Some(chunk)) => {
                 if self.response_checksums.crc32c.is_some() {
-                    self.checksums.update(self.offset, &chunk);
-                    self.offset += chunk.len() as u64;
+                    self.checksums.update(self.range.start, &chunk);
                 }
                 let len = chunk.len() as u64;
                 if self.range.limit < len {
