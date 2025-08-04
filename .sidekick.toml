@@ -13,13 +13,13 @@
 # limitations under the License.
 
 [general]
-language             = 'rust'
+language = 'rust'
 specification-format = 'protobuf'
-ignored-directories = [ 
-    # This is where Rust puts all the binaries.
-    "target",
-    # We are incubating a Dart SDK in google-cloud-rust, we want to ignore it.
-    "dart"
+ignored-directories = [
+  # This is where Rust puts all the binaries.
+  "target",
+  # We are incubating a Dart SDK in google-cloud-rust, we want to ignore it.
+  "dart",
 ]
 
 [source]
