@@ -948,6 +948,16 @@ pub async fn object_names(
 
     assert_eq!(got, want);
 
+    for name in names {
+        control
+            .delete_object()
+            .set_bucket(bucket_name)
+            .set_object(name)
+            .with_idempotency(true)
+            .send()
+            .await?;
+    }
+
     Ok(())
 }
 
