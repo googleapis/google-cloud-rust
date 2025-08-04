@@ -210,6 +210,20 @@ mod driver {
         result
     }
 
+    #[test_case(Storage::builder(); "default")]
+    #[tokio::test]
+    async fn run_storage_object_names(
+        builder: storage::builder::storage::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
+        let result =
+            integration_tests::storage::object_names(builder, control.clone(), &bucket.name)
+                .await
+                .map_err(integration_tests::report_error);
+        let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+        result
+    }
+
     #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects_with_key(
