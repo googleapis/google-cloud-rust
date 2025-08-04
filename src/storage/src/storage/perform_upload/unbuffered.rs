@@ -15,7 +15,7 @@
 use super::{
     ChecksumEngine, ContinueOn308, Error, Object, PerformUpload, Result, ResumableUploadStatus,
     Seek, StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
-    enc, handle_object_response, v1,
+    handle_object_response, v1,
 };
 use futures::stream::unfold;
 use std::sync::Arc;
@@ -152,7 +152,7 @@ where
                 format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
             )
             .query(&[("uploadType", "multipart")])
-            .query(&[("name", enc(object))])
+            .query(&[("name", object)])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
