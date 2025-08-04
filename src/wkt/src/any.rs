@@ -56,7 +56,7 @@ use crate::message::MessageSerializer;
 /// If the embedded message type is well-known and has a custom JSON
 /// representation, that representation will be embedded adding a field
 /// `value` which holds the custom JSON in addition to the `@type`
-/// field. Example (for message [google.protobuf.Duration][]):
+/// field. Example (for message [google.protobuf.Duration][crate::Duration]):
 ///
 /// ```norust
 ///     {
