@@ -25,9 +25,6 @@ on:
 jobs:
   generator-build:
     runs-on: ubuntu-24.04
-    defaults:
-      run:
-        working-directory: generator
     steps:
       - uses: actions/checkout@v4
       - name: Install protoc
@@ -46,15 +43,14 @@ jobs:
 
       # Run pub get.
       - run: dart pub get
-        working-directory: generator/dart
+        working-directory: dart
 
       # Regenerate and check the existing clients. If there is any difference
       # between the generated code and the committed code that is an error; all
       # the inputs should be pinned, including the generator version and the
       # googleapis SHA.
       - name: Regenerate existing clients
-        working-directory: generator
-        run: go run ./cmd/sidekick refreshall -project-root dart
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.1-0.20250804194958-6ac562e139c4 refreshall -project-root dart
       - run: git diff --exit-code
 
   validate-packages:
@@ -67,31 +63,31 @@ jobs:
 
       # Run pub get.
       - run: dart pub get
-        working-directory: generator/dart
+        working-directory: dart
 
       # Analyze code.
       - run: dart analyze examples
-        working-directory: generator/dart
+        working-directory: dart
       - run: dart analyze generated
-        working-directory: generator/dart
+        working-directory: dart
       - run: dart analyze packages
-        working-directory: generator/dart
+        working-directory: dart
       - run: dart analyze tests
-        working-directory: generator/dart
+        working-directory: dart
 
       # Run tests.
       - name: "dart/tests"
         run: dart test
-        working-directory: generator/dart/tests
+        working-directory: dart/tests
       - name: "test package:google_cloud_longrunning"
         run: dart test
-        working-directory: generator/dart/generated/google_cloud_longrunning
+        working-directory: dart/generated/google_cloud_longrunning
       - name: "test package:google_cloud_protobuf"
         run: dart test
-        working-directory: generator/dart/generated/google_cloud_protobuf
+        working-directory: dart/generated/google_cloud_protobuf
       - name: "test package:google_cloud_gax"
         run: dart test
-        working-directory: generator/dart/packages/google_cloud_gax
+        working-directory: dart/packages/google_cloud_gax
       - name: "test package:google_cloud_rpc"
         run: dart test
-        working-directory: generator/dart/generated/google_cloud_rpc
+        working-directory: dart/generated/google_cloud_rpc
