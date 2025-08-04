@@ -45,8 +45,7 @@ This command will generate the library, add the library to Cargo and git, and
 run the necessary tests:
 
 ```bash
-go -C generator/ run ./cmd/sidekick rust-generate \
-    -project-root .. \
+go run github.com/googleapis/librarian/cmd/sidekick@main rust-generate \
     -service-config ${yaml}
 ```
 
@@ -62,7 +61,7 @@ Run:
 
 ```bash
 git checkout -b chore-update-googleapis-sha-circa-$(date +%Y-%m-%d)
-go -C generator/ run ./cmd/sidekick update -project-root .. && taplo fmt .sidekick.toml && cargo fmt
+go run github.com/googleapis/librarian/cmd/sidekick@main update && taplo fmt .sidekick.toml && cargo fmt
 git commit -m"chore: update googleapis SHA circa $(date +%Y-%m-%d)" .
 ```
 
@@ -75,7 +74,7 @@ Then send a PR with whatever changed.
 Run:
 
 ```bash
-go -C generator/ run ./cmd/sidekick refreshall -project-root .. && cargo fmt
+go run github.com/googleapis/librarian/cmd/sidekick@main refreshall && cargo fmt
 ```
 
 Then run the unit tests and send a PR with whatever changed.
@@ -88,20 +87,18 @@ When iterating, it can be useful to regenerate the code associated with a single
 Run:
 
 ```bash
-go -C generator/ run ./cmd/sidekick refresh \
-    -output src/generated/cloud/secretmanager/v1 \
-    -project-root .. && \
+go run github.com/googleapis/librarian/cmd/sidekick@main refresh \
+    -output src/generated/cloud/secretmanager/v1 && \
     cargo fmt -p google-cloud-secretmanager-v1
 ```
 
 ## The Glorious Future
 
-Someday `sidekick` will be stable enough that (a) it will not be part of the
-`google-cloud-rust` repository, and (b) we will be able to install it. At that
-point we will be able to say:
+Someday `sidekick` will be stable enough that we will be able to install it. At
+that point we will be able to say:
 
 ```bash
-go install github.com/googleapis/google-cloud-generator/sidekick@v1.0.0
+go install github.com/googleapis/librarian/sidekick@v0.1.1
 ```
 
 And we will be able to issue shorter commands, such as:
@@ -111,6 +108,33 @@ sidekick update && taplo fmt .sidekick.toml && cargo fmt
 ```
 
 ## Special cases
+
+### Making changes to `sidekick`
+
+Clone the `librarian` directory:
+
+```bash
+git -C .. clone git@github.com:googleapis/librarian
+git -C ../librarian checkout -b fancy-rust-feature
+```
+
+You can make changes in the `librarian` directory as usual. To test them change
+the normal commands to use that directory. For example:
+
+```bash
+go -C ../librarian ./cmd/sidekick refreshall -project-root $PWD && cargo fmt
+```
+
+Once the changes work then send a PR in the librarian repo to make your changes.
+Wait for the PR to be approved and merged. Then finish your PR in
+`google-cloud-rust` by running sidekick again:
+
+```bash
+go run github.com/googleapis/librarian/cmd/sidekick@main refreshall && cargo fmt
+```
+
+Then update any references in this document and in the `.github/workflows/*`
+files.
 
 ### Generating a library with customized directories
 
@@ -123,8 +147,7 @@ use `google/api` as an example.
 ```bash
 cargo new --lib --vcs none src/generated/api/types
 taplo fmt Cargo.toml
-go -C generator/ run ./cmd/sidekick generate \
-    -project-root .. \
+go run github.com/googleapis/librarian/cmd/sidekick@main generate \
     -specification-source google/api \
     -service-config google/api/serviceconfig.yaml \
     -output src/generated/api/types # This is non-standard
@@ -162,7 +185,7 @@ git commit -m"Remove for testing" Cargo.toml Cargo.lock src/generated/cloud/webs
 Now add the library back:
 
 ```shell
-go -C generator/ run ./cmd/sidekick rust-generate -project-root .. \
+go run github.com/googleapis/librarian/cmd/sidekick@main rust-generate \
     -service-config google/cloud/websecurityscanner/v1/websecurityscanner_v1.yaml
 ```
 
