@@ -9,10 +9,10 @@
 
 ## Developing
 
-### Testing
-
-From `generator/`: `go test ./...`
-
 ### Regenerating the Dart packages
 
-From `generator/`: `go run ./cmd/sidekick refreshall -project-root dart`
+From `dart/`:
+
+```bash
+go run github.com/googleapis/librarian/cmd/sidekick@main  refreshall
+```
