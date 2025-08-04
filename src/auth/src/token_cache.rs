@@ -77,7 +77,7 @@ where
                     }
                 },
                 // An error in the result is still a valid result to propagate to the client library
-                Err(_) => wait_for_next_token(rx).await,
+                Err(e) => Err(e),
             }
         } else {
             wait_for_next_token(rx).await
@@ -778,8 +778,6 @@ mod tests {
 
         // Advance time past the retry duration.
         tokio::time::advance(retry_duration + Duration::from_millis(50)).await;
-        // Yield to allow the background refresh task to run.
-        tokio::task::yield_now().await;
 
         // Second call should now succeed.
         let second_result = cache.token(Extensions::new()).await.unwrap();

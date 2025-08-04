@@ -169,8 +169,8 @@ impl TokenProvider for TokenProviderWithRetry {
             ));
         }
 
-        // The value is guaranteed to be Some now.
-        rx.borrow().as_ref().unwrap().clone()
+        let result = rx.borrow().as_ref().unwrap().clone();
+        result
     }
 }
 
@@ -186,7 +186,6 @@ mod tests {
     use std::error::Error;
     use std::sync::Arc;
     use std::sync::atomic::{AtomicBool, Ordering};
-    use test_case::test_case;
 
     mock! {
         #[derive(Debug)]
