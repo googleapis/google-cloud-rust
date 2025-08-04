@@ -55,27 +55,27 @@ jobs:
         run: |
           cargo build --release --bin check-copyright
           git ls-files -z -- '*.yaml' '*.yml' '*.toml' '*.go' '*.rs' \
-            ':!:**/testdata/**' ':!:**.md' ':!:**.mustache' ':!:**/generated/protos/**' | \
+            ':!:testdata/**' ':!:**.md' ':!:**.mustache' ':!:**/generated/protos/**' | \
             xargs -0 -r -P "$(nproc)" -n 50 cargo run --release --bin check-copyright
       - name: Format Markdown Files
         run: |
           pip install -r ci/requirements.txt
-          git ls-files -z -- '*.md' ':!:**/testdata/**' ':!:**/generated/**' | \
+          git ls-files -z -- '*.md' ':!:testdata/**' ':!:**/generated/**' | \
             xargs -0 mdformat
       - name: Format YAML Files
         run: |
           go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
-          git ls-files -z -- '*.yaml' '*.yml' ':!:**/testdata/**' ':!:**/generated/**' | \
+          git ls-files -z -- '*.yaml' '*.yml' ':!:testdata/**' ':!:**/generated/**' | \
             xargs -0 yamlfmt
       - name: Format TOML files
         run: |
           cargo install taplo-cli --version 0.9.3 --locked
-          git ls-files -z -- '*.toml' ':!:**/testdata/**' ':!:**/generated/**' | \
+          git ls-files -z -- '*.toml' ':!:testdata/**' ':!:**/generated/**' | \
             xargs -0 taplo fmt
       - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
       - name: Format Terraform files
         run: |
-          git ls-files -z -- '*.tf' ':!:**/testdata/**' ':!:**/generated/**' | \
+          git ls-files -z -- '*.tf' ':!:testdata/**' ':!:**/generated/**' | \
             xargs -0 terraform fmt
       - name: Check for changes
         run: git diff --exit-code
