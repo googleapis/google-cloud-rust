@@ -220,7 +220,7 @@ mod driver {
             integration_tests::storage::object_names(builder, control.clone(), &bucket.name)
                 .await
                 .map_err(integration_tests::report_error);
-        // let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+        let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
         result
     }
 
