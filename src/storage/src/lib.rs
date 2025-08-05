@@ -72,8 +72,8 @@ pub use storage::ChecksumMismatch;
 pub use storage::ReadError;
 pub use storage::UploadError;
 
-pub use storage::read_object::ReadObjectResponse;
 pub use storage::read_object::ObjectHighlights;
+pub use storage::read_object::ReadObjectResponse;
 
 #[allow(dead_code)]
 pub(crate) mod generated;
