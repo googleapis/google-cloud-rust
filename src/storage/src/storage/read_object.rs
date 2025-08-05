@@ -705,12 +705,14 @@ pub struct ObjectHighlights {
     /// generation of a particular object.
     pub metageneration: i64,
 
-    /// Content-Length of the object data in bytes, matching
-    /// [RFC 7230 §3.3.2][<https://tools.ietf.org/html/rfc7230#section-3.3.2>]
+    /// Content-Length of the object data in bytes, matching [RFC 7230 §3.3.2].
+    ///
+    /// [rfc 7230 §3.3.2]: https://tools.ietf.org/html/rfc7230#section-3.3.2
     pub size: i64,
 
-    /// Content-Encoding of the object data, matching
-    /// [RFC 7231 §3.1.2.2][<https://tools.ietf.org/html/rfc7231#section-3.1.2.2>]
+    /// Content-Encoding of the object data, matching [RFC 7231 §3.1.2.2].
+    ///
+    /// [rfc 7231 §3.1.2.2]: https://tools.ietf.org/html/rfc7231#section-3.1.2.2
     pub content_encoding: String,
 
     /// Hashes for the data part of this object. The checksums of the complete
@@ -722,51 +724,25 @@ pub struct ObjectHighlights {
     /// Storage class of the object.
     pub storage_class: String,
 
-    /// Content-Language of the object data, matching
-    /// [RFC 7231 §3.1.3.2][<https://tools.ietf.org/html/rfc7231#section-3.1.3.2>].
+    /// Content-Language of the object data, matching [RFC 7231 §3.1.3.2].
+    ///
+    /// [rfc 7231 §3.1.3.2]: https://tools.ietf.org/html/rfc7231#section-3.1.3.2
     pub content_language: String,
 
-    /// Content-Type of the object data, matching
-    /// [RFC 7231 §3.1.1.5][<https://tools.ietf.org/html/rfc7231#section-3.1.1.5>].
-    /// If an object is stored without a Content-Type, it is served as
+    /// Content-Type of the object data, matching [RFC 7231 §3.1.1.5]. If an
+    /// object is stored without a Content-Type, it is served as
     /// `application/octet-stream`.
+    ///
+    /// [rfc 7231 §3.1.1.5]: https://tools.ietf.org/html/rfc7231#section-3.1.1.5
     pub content_type: String,
 
-    /// Content-Disposition of the object data, matching
-    /// [RFC 6266][<https://tools.ietf.org/html/rfc6266>].
+    /// Content-Disposition of the object data, matching [RFC 6266].
+    ///
+    /// [rfc 6266]: https://tools.ietf.org/html/rfc6266
     pub content_disposition: String,
 
     /// The etag of the object.
     pub etag: String,
-}
-
-/// Represents an error that can occur when reading response data.
-#[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-enum ReadError {
-    #[error("checksum mismatch")]
-    ChecksumMismatch(crate::ChecksumMismatch),
-
-    #[error("missing {0} bytes at the end of the stream")]
-    ShortRead(u64),
-
-    #[error("too many bytes received: expected {expected}, stopped download at {got}")]
-    LongRead { got: u64, expected: u64 },
-
-    /// Only 200 and 206 status codes are expected in successful responses.
-    #[error("unexpected success code {0} in read request, only 200 and 206 are expected")]
-    UnexpectedSuccessCode(u16),
-
-    /// Successful HTTP response must include some headers.
-    #[error("the response is missing '{0}', a required header")]
-    MissingHeader(&'static str),
-
-    /// The received header format is invalid.
-    #[error("the format for header '{0}' is incorrect")]
-    BadHeaderFormat(
-        &'static str,
-        #[source] Box<dyn std::error::Error + Send + Sync + 'static>,
-    ),
 }
 
 fn crc32c_from_response(

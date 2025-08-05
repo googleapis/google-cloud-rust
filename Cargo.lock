@@ -4295,7 +4295,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-storage"
-version = "0.25.0-preview4"
+version = "0.25.0-preview5"
 dependencies = [
  "anyhow",
  "async-trait",
