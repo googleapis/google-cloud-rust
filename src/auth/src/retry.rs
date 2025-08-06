@@ -17,11 +17,12 @@ use crate::token::{Token, TokenProvider};
 use crate::{Result, constants};
 use gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use gax::exponential_backoff::ExponentialBackoff;
-use gax::retry_loop_internal::retry_loop;
+use gax::retry_loop_internal::retry_loop_with_callback;
 use gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
 use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
 use std::error::Error;
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
 use tokio::sync::watch;
 
 #[derive(Debug)]
@@ -79,6 +80,7 @@ impl Builder {
             backoff_policy,
             retry_throttler,
             token_watch_tx: tx,
+            last_delay: Arc::new(Mutex::new(None)),
         };
 
         tokio::spawn(refresher.run());
@@ -93,60 +95,90 @@ struct TokenRefresher<T: TokenProvider> {
     backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
     token_watch_tx: watch::Sender<Option<Result<Token>>>,
+    last_delay: Arc<Mutex<Option<Duration>>>,
 }
 
 impl<T: TokenProvider + 'static> TokenRefresher<T> {
     async fn run(self) {
-        self.execute_retry_loop(self.retry_policy.clone()).await;
+        self.execute_retry_loop().await;
     }
 
-    async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) {
-        let inner = self.inner.clone();
+    async fn execute_retry_loop(self) {
+        let inn = self.inner.clone();
         let sleep = async |d| tokio::time::sleep(d).await;
-        let tx = self.token_watch_tx.clone();
 
+        // Simplified fetch_token, does not send on the channel.
         let fetch_token = move |_| {
-            let inner = inner.clone();
-            let tx = tx.clone();
+            let inner = inn.clone();
             async move {
-                let result = inner.token().await;
-                // The receiver may be dropped if the caller is not interested in the result.
-                // This is not an error.
-                tx.send(Some(result.clone())).ok();
-                result.map_err(gax::error::Error::authentication)
+                inner
+                    .token()
+                    .await
+                    .map_err(gax::error::Error::authentication)
             }
         };
 
-        let final_result = retry_loop(
+        // The on_retry callback sends intermediate errors and stores the last delay.
+        let last_delay = self.last_delay.clone();
+        let tx_for_retry = self.token_watch_tx.clone();
+        let on_retry = move |_, error: &gax::error::Error, delay: Duration| {
+            // Store the delay. If the loop terminates on the next attempt, this will be the relevant delay.
+            *last_delay.lock().unwrap() = Some(delay);
+
+            // Create an owned version of the error to pass to map_retry_error.
+            let owned_error = error
+                .source()
+                .and_then(|s| s.downcast_ref::<CredentialsError>())
+                .map(|cred_error| gax::error::Error::authentication(cred_error.clone()))
+                .unwrap_or_else(|| gax::error::Error::io(error.to_string()));
+
+            // Create the intermediate error message to send out.
+            let cred_error = Self::map_retry_error(owned_error, Some(delay));
+            // Send the intermediate error.
+            tx_for_retry.send(Some(Err(cred_error))).ok();
+        };
+
+        let final_result = retry_loop_with_callback(
             fetch_token,
             sleep,
             true, // token fetching is idempotent
             self.retry_throttler.clone(),
-            retry_policy,
+            self.retry_policy.clone(),
             self.backoff_policy.clone(),
+            on_retry,
         )
         .await;
 
-        if let Err(e) = final_result {
-            self.token_watch_tx
-                .send(Some(Err(Self::map_retry_error(e))))
-                .ok();
+        // Send the final result, whether success or a terminal error.
+        match final_result {
+            Ok(token) => {
+                self.token_watch_tx.send(Some(Ok(token))).ok();
+            }
+            Err(e) => {
+                // The final error, this can only be non-transient error.
+                let final_error = Self::map_retry_error(e, None);
+                self.token_watch_tx.send(Some(Err(final_error))).ok();
+            }
         }
     }
 
-    fn map_retry_error(e: gax::error::Error) -> CredentialsError {
-        if !e.is_authentication() {
-            return CredentialsError::from_source(false, e);
-        }
-
-        let msg = match e
-            .source()
-            .and_then(|s| s.downcast_ref::<CredentialsError>())
-        {
-            Some(cred_error) if cred_error.is_transient() => constants::RETRY_EXHAUSTED_ERROR,
-            _ => constants::TOKEN_FETCH_FAILED_ERROR,
+    fn map_retry_error(e: gax::error::Error, last_delay: Option<Duration>) -> CredentialsError {
+        let mut cred_error = if !e.is_authentication() {
+            CredentialsError::from_source(false, e)
+        } else {
+            let msg = match e
+                .source()
+                .and_then(|s| s.downcast_ref::<CredentialsError>())
+            {
+                Some(cred_error) if cred_error.is_transient() => constants::RETRY_EXHAUSTED_ERROR,
+                _ => constants::TOKEN_FETCH_FAILED_ERROR,
+            };
+            CredentialsError::new(false, msg, e)
         };
-        CredentialsError::new(false, msg, e)
+        if let Some(delay) = last_delay {
+            cred_error = cred_error.with_retry_in(delay);
+        }
+        cred_error
     }
 }
 

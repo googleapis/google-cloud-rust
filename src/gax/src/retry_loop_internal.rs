@@ -48,7 +48,7 @@ impl RetryLoopAttempt {
 /// In between calls the function waits the amount of time prescribed by the
 /// backoff policy, using `sleep` to implement any sleep.
 pub async fn retry_loop<F, S, Response>(
-    mut inner: F,
+    inner: F,
     sleep: S,
     idempotent: bool,
     retry_throttler: Arc<Mutex<dyn RetryThrottler>>,
@@ -59,16 +59,54 @@ where
     F: AsyncFnMut(Option<Duration>) -> Result<Response> + Send,
     S: AsyncFn(Duration) -> () + Send,
 {
+    retry_loop_with_callback(
+        inner,
+        sleep,
+        idempotent,
+        retry_throttler,
+        retry_policy,
+        backoff_policy,
+        |_, _, _| {},
+    )
+    .await
+}
+
+/// Runs the retry loop for a given function with a callback for retries.
+///
+/// This functions calls an inner function as long as (1) the retry policy has
+/// not expired, (2) the inner function has not returned a successful request,
+/// and (3) the retry throttler allows more calls.
+///
+/// In between calls the function waits the amount of time prescribed by the
+/// backoff policy, using `sleep` to implement any sleep.
+///
+/// The `on_retry` callback is called before sleeping, with the attempt count,
+/// the error, and the delay.
+pub async fn retry_loop_with_callback<F, S, OnRetry, Response>(
+    mut inner: F,
+    sleep: S,
+    idempotent: bool,
+    retry_throttler: Arc<Mutex<dyn RetryThrottler>>,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
+    mut on_retry: OnRetry,
+) -> Result<Response>
+where
+    F: AsyncFnMut(Option<Duration>) -> Result<Response> + Send,
+    S: AsyncFn(Duration) -> () + Send,
+    OnRetry: FnMut(u32, &Error, Duration) + Send,
+{
     let loop_start = tokio::time::Instant::now().into_std();
-    let mut attempt = RetryLoopAttempt::Initial;
+    let mut attempt_state = RetryLoopAttempt::Initial;
     loop {
-        let mut attempt_count = attempt.count();
+        let mut attempt_count = attempt_state.count();
         let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);
 
-        if let RetryLoopAttempt::Retry(attempt_count, delay, prev_error) = attempt {
+        if let RetryLoopAttempt::Retry(attempt_count, delay, prev_error) = attempt_state {
             if remaining_time.is_some_and(|remaining| remaining < delay) {
                 return Err(Error::exhausted(prev_error));
             }
+            on_retry(attempt_count, &prev_error, delay);
             sleep(delay).await;
 
             if retry_throttler
@@ -84,7 +122,7 @@ where
                     ThrottleResult::Continue(e) => e,
                 };
                 let delay = backoff_policy.on_failure(loop_start, attempt_count);
-                attempt = RetryLoopAttempt::Retry(attempt_count, delay, error);
+                attempt_state = RetryLoopAttempt::Retry(attempt_count, delay, error);
                 continue;
             }
         }
@@ -107,7 +145,7 @@ where
                 match flow {
                     RetryResult::Permanent(e) | RetryResult::Exhausted(e) => return Err(e),
                     RetryResult::Continue(e) => {
-                        attempt = RetryLoopAttempt::Retry(attempt_count, delay, e);
+                        attempt_state = RetryLoopAttempt::Retry(attempt_count, delay, e);
                         continue;
                     }
                 }
@@ -720,13 +758,14 @@ mod tests {
 
         let inner = async move |d| call.call(d);
         let backoff = async move |d| sleep.sleep(d).await;
-        let response = retry_loop(
+        let response = retry_loop_with_callback(
             inner,
             backoff,
             true,
             to_retry_throttler(throttler),
             to_retry_policy(retry_policy),
             to_backoff_policy(backoff_policy),
+            |_, _, _| (),
         )
         .await;
         let err = response.expect_err("retry loop should terminate");
@@ -840,13 +879,14 @@ mod tests {
 
         let inner = async move |d| call.call(d);
         let backoff = async move |d| sleep.sleep(d).await;
-        let response = retry_loop(
+        let response = retry_loop_with_callback(
             inner,
             backoff,
             true,
             to_retry_throttler(throttler),
             to_retry_policy(retry_policy),
             to_backoff_policy(backoff_policy),
+            |_, _, _| (),
         )
         .await;
         let err = response.expect_err("retry loop should terminate");
