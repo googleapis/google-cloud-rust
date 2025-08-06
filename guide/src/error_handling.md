@@ -78,8 +78,8 @@ First make an attempt to create a new secret version:
 {{#include ../samples/src/error_handling.rs:update-secret-initial-attempt}}
 ```
 
-If [`update_attempt`](#update_attempt) succeeds, you can just
-print the successful result and return:
+If [`update_attempt`](#update_attempt) succeeds, you can just print the
+successful result and return:
 
 ```rust,ignore
 {{#include ../samples/src/error_handling.rs:update-secret-success}}
@@ -109,9 +109,8 @@ returns on failure:
 {{#include ../samples/src/error_handling.rs:update-secret-create}}
 ```
 
-Assuming [`create_secret`](#create_secret) is successful, you can
-try to add the secret version again, this time just returning an error if
-anything fails:
+Assuming [`create_secret`](#create_secret) is successful, you can try to add the
+secret version again, this time just returning an error if anything fails:
 
 ```rust,ignore
 {{#include ../samples/src/error_handling.rs:update-secret-try-again}}
@@ -147,7 +146,7 @@ For the complete sample, see [error_handling.rs].
 [examine error details]: examine_error_details.md
 [handling binding errors]: binding_errors.md
 [quickstart]: https://cloud.google.com/secret-manager/docs/quickstart
-[secrets]: https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets
 [secret manager]: https://cloud.google.com/secret-manager
 [secret version]: https://cloud.google.com/secret-manager/docs/add-secret-version
+[secrets]: https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets
 [setting up your development environment]: setting_up_your_development_environment.md
