@@ -78,7 +78,7 @@ First make an attempt to create a new secret version:
 {{#include ../samples/src/error_handling.rs:update-secret-initial-attempt}}
 ```
 
-If [`update_attempt`](#update_attempt-complete-code) succeeds, you can just
+If [`update_attempt`](#update_attempt) succeeds, you can just
 print the successful result and return:
 
 ```rust,ignore
@@ -109,7 +109,7 @@ returns on failure:
 {{#include ../samples/src/error_handling.rs:update-secret-create}}
 ```
 
-Assuming [`create_secret`](#create_secret-complete-code) is successful, you can
+Assuming [`create_secret`](#create_secret) is successful, you can
 try to add the secret version again, this time just returning an error if
 anything fails:
 
@@ -126,19 +126,21 @@ Learn more about error handling:
 
 ______________________________________________________________________
 
-## `update_attempt`: complete code
+## Code samples
+
+For the complete sample, see [error_handling.rs].
+
+### `update_attempt`
 
 ```rust,ignore
 {{#include ../samples/src/error_handling.rs:update-attempt}}
 ```
 
-## `create_secret`: complete code
+### `create_secret`
 
 ```rust,ignore
 {{#include ../samples/src/error_handling.rs:create-secret}}
 ```
-
-For the complete sample, see [error_handling.rs]. 
 
 [configuring retry policies]: /configuring_retry_policies.md
 [error_handling.rs]: https://github.com/pcoet/google-cloud-rust/blob/main/guide/samples/src/error_handling.rs
