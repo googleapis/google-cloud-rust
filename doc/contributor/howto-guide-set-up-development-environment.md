@@ -108,6 +108,12 @@ cargo build --package user-guide-samples
 and verify they run using the instructions in the
 [Integration Tests](#integration-tests) section.
 
+To format the example code in the user guide, run the following command:
+
+```bash
+cargo fmt -p user-guide-samples
+```
+
 ### Using `mdbook serve`
 
 If you are working on the user guide you may find this handy:
