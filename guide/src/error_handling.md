@@ -110,7 +110,7 @@ returns on failure:
 ```
 
 Assuming [`create_secret`](#create_secret-complete-code) is successful, you can
-try to update the secret version again, this time just returning an error if
+try to add the secret version again, this time just returning an error if
 anything fails:
 
 ```rust,ignore
