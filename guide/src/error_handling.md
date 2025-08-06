@@ -32,9 +32,9 @@ such errors.
 The guide uses the [Secret Manager] service to demonstrate error handling, but
 the concepts apply to other services as well.
 
-You may want to follow the service [quickstart]. This guide shows you how to
-enable the service and ensure that you've logged in and that your account has
-the necessary permissions.
+You may want to follow the service [quickstart], which shows you how to enable
+the service and ensure that you've logged in and that your account has the
+necessary permissions.
 
 For complete setup instructions for the Rust libraries, see
 [Setting up your development environment].
