@@ -66,11 +66,8 @@ when the container already exists.
 
 ## Handling the error
 
-Here's the code for updating a secret version:
-
-```rust,ignore
-{{#include ../samples/src/error_handling.rs:update-secret}}
-```
+This section walks you through a function to update a secret. For the full code
+sample, see [`update_secret`](#update_secret).
 
 First make an attempt to create a new secret version:
 
@@ -127,7 +124,11 @@ ______________________________________________________________________
 
 ## Code samples
 
-For the complete sample, see [error_handling.rs].
+### `update_secret`
+
+```rust,ignore
+{{#include ../samples/src/error_handling.rs:update-secret}}
+```
 
 ### `update_attempt`
 
@@ -142,7 +143,6 @@ For the complete sample, see [error_handling.rs].
 ```
 
 [configuring retry policies]: /configuring_retry_policies.md
-[error_handling.rs]: https://github.com/pcoet/google-cloud-rust/blob/main/guide/samples/src/error_handling.rs
 [examine error details]: examine_error_details.md
 [handling binding errors]: binding_errors.md
 [quickstart]: https://cloud.google.com/secret-manager/docs/quickstart
