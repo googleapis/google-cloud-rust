@@ -121,8 +121,8 @@ pub enum ChecksumMismatch {
 #[non_exhaustive]
 pub enum ReadError {
     /// The calculated crc32c did not match server provided crc32c.
-    #[error("bad CRC on read: got {got}, want {want}")]
-    BadCrc { got: u32, want: u32 },
+    #[error("checksum mismatch")]
+    ChecksumMismatch(crate::ChecksumMismatch),
 
     /// The read was interrupted before all the expected bytes arrived.
     #[error("missing {0} bytes at the end of the stream")]
