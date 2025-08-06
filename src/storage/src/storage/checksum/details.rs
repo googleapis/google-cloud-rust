@@ -34,19 +34,30 @@ pub fn validate(
     let Some(recv) = received else {
         return Ok(());
     };
-    let crc32c = match (&expected.crc32c, &recv.crc32c) {
-        (Some(e), Some(r)) if e != r => Some(format!("{e} != {r}")),
+    let crc32c = match (expected.crc32c, recv.crc32c) {
+        (Some(e), Some(r)) if e != r => Some((r, e)),
         _ => None,
     };
     let md5 = match (&expected.md5_hash, &recv.md5_hash) {
         (e, r) if e.is_empty() || r.is_empty() || e == r => None,
-        (e, r) => Some(format!("{e:?} != {r:?}")),
+        (e, r) => Some((r.clone(), e.clone())),
     };
     match (crc32c, md5) {
         (None, None) => Ok(()),
-        (Some(m), None) => Err(ChecksumMismatch::Crc32c(m)),
-        (None, Some(m)) => Err(ChecksumMismatch::MD5(m)),
-        (Some(m), Some(n)) => Err(ChecksumMismatch::Both(format!("{m} AND {n}"))),
+        (Some((got, want)), None) => Err(ChecksumMismatch::Crc32c { got, want }),
+        (None, Some((got, want))) => Err(ChecksumMismatch::Md5 { got, want }),
+        (Some(crc32c), Some(md5)) => {
+            let got = ObjectChecksums::new()
+                .set_crc32c(crc32c.0)
+                .set_md5_hash(md5.0);
+            let want = ObjectChecksums::new()
+                .set_crc32c(crc32c.1)
+                .set_md5_hash(md5.1);
+            Err(ChecksumMismatch::Both {
+                got: Box::new(got),
+                want: Box::new(want),
+            })
+        }
     }
 }
 
@@ -346,7 +357,7 @@ mod tests {
     fn validate_bad_md5(expected: ObjectChecksums, received: ObjectChecksums) {
         let err = super::validate(&expected, &Some(received.clone()))
             .expect_err("values should not match");
-        assert!(matches!(&err, &ChecksumMismatch::MD5 { .. }), "{err:?}");
+        assert!(matches!(&err, &ChecksumMismatch::Md5 { .. }), "{err:?}");
     }
 
     #[test_case(both(), both().set_crc32c(0_u32).set_md5_hash(bytes::Bytes::from_static(b"cde")))]

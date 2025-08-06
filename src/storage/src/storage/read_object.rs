@@ -1126,7 +1126,7 @@ mod tests {
             matches!(
                 source,
                 Some(&ReadError::ChecksumMismatch(
-                    crate::ChecksumMismatch::Crc32c { .. }
+                    ChecksumMismatch::Crc32c { .. }
                 ))
             ),
             "err={err:?}"
@@ -1149,7 +1149,7 @@ mod tests {
             matches!(
                 source,
                 Some(&ReadError::ChecksumMismatch(
-                    crate::ChecksumMismatch::Crc32c { .. }
+                    ChecksumMismatch::Crc32c { .. }
                 ))
             ),
             "err={err:?}"
@@ -1169,7 +1169,7 @@ mod tests {
             matches!(
                 source,
                 Some(&ReadError::ChecksumMismatch(
-                    crate::ChecksumMismatch::Crc32c { .. }
+                    ChecksumMismatch::Crc32c { .. }
                 ))
             ),
             "err={err:?}"
