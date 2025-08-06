@@ -115,3 +115,35 @@ pub enum ChecksumMismatch {
     #[error("mismatched CRC32C and MD5 values {0}")]
     Both(String),
 }
+
+/// Represents an error that can occur when reading response data.
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum ReadError {
+    /// The calculated crc32c did not match server provided crc32c.
+    #[error("bad CRC on read: got {got}, want {want}")]
+    BadCrc { got: u32, want: u32 },
+
+    /// The read was interrupted before all the expected bytes arrived.
+    #[error("missing {0} bytes at the end of the stream")]
+    ShortRead(u64),
+
+    /// The read received more bytes than expected.
+    #[error("too many bytes received: expected {expected}, stopped download at {got}")]
+    LongRead { got: u64, expected: u64 },
+
+    /// Only 200 and 206 status codes are expected in successful responses.
+    #[error("unexpected success code {0} in read request, only 200 and 206 are expected")]
+    UnexpectedSuccessCode(u16),
+
+    /// Successful HTTP response must include some headers.
+    #[error("the response is missing '{0}', a required header")]
+    MissingHeader(&'static str),
+
+    /// The received header format is invalid.
+    #[error("the format for header '{0}' is incorrect")]
+    BadHeaderFormat(
+        &'static str,
+        #[source] Box<dyn std::error::Error + Send + Sync + 'static>,
+    ),
+}

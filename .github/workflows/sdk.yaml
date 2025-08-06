@@ -209,8 +209,6 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ fromJson(env.GHA_GO_VERSIONS)[matrix.go-version] }}
-          cache-dependency-path: |
-            generator/go.sum
       - run: |
           cargo test --features run-showcase-tests -p integration-tests
 
@@ -362,8 +360,6 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ fromJson(env.GHA_GO_VERSIONS)[matrix.go-version] }}
-          cache-dependency-path: |
-            generator/go.sum
       - name: Install protoc
         run: |
           set -e
@@ -372,8 +368,7 @@ jobs:
           sudo unzip -x /tmp/protoc.zip
           protoc --version
       - name: Regenerate all the code
-        working-directory: generator
-        run: go run ./cmd/sidekick refreshall -project-root ..
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.1-0.20250804221951-906e2e01fdac refreshall -project-root .
       - run: cargo fmt
         # If there is any difference between the generated code and the
         # committed code that is an error. All the inputs should be pinned,

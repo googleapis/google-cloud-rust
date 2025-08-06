@@ -42,14 +42,14 @@ and that your account has the necessary permissions.
 As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
 file. We use:
 
-```toml
-{{#include ../samples/Cargo.toml:secretmanager}}
+```shell
+cargo add google-cloud-secretmanager-v1
 ```
 
 In addition, this guide uses `crc32c` to calculate the checksum:
 
-```toml
-{{#include ../samples/Cargo.toml:crc32c}}
+```shell
+cargo add crc32c
 ```
 
 ## Motivation

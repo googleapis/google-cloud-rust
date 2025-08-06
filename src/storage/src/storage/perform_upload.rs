@@ -15,8 +15,7 @@
 use super::client::{StorageInner, apply_customer_supplied_encryption_headers};
 use crate::model::Object;
 use crate::retry_policy::ContinueOn308;
-use crate::storage::checksum::{ChecksumEngine, ChecksummedSource, Precomputed};
-use crate::storage::client::enc;
+use crate::storage::checksum::{ChecksumEngine, ChecksummedSource, Known};
 use crate::storage::client::info::X_GOOG_API_CLIENT_HEADER;
 use crate::storage::v1;
 use crate::upload_source::{IterSource, Seek, StreamingSource};
@@ -92,7 +91,7 @@ impl<C, S> PerformUpload<C, S> {
                 format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
             )
             .query(&[("uploadType", "resumable")])
-            .query(&[("name", enc(object))])
+            .query(&[("name", object)])
             .header("content-type", "application/json")
             .header(
                 "x-goog-api-client",

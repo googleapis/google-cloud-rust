@@ -30,8 +30,8 @@ The guide assumes you have an existing [Google Cloud project] with
 
 ## Add the client library as a dependency
 
-```toml
-{{#include ../../samples/Cargo.toml:storage}}
+```shell
+cargo add google-cloud-storage
 ```
 
 ## Convert a queue to an upload source

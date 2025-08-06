@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use super::{
-    ChecksumEngine, ChecksummedSource, ContinueOn308, Error, IterSource, Object, PerformUpload,
-    Precomputed, Result, ResumableUploadStatus, StreamingSource, X_GOOG_API_CLIENT_HEADER,
+    ChecksumEngine, ChecksummedSource, ContinueOn308, Error, IterSource, Known, Object,
+    PerformUpload, Result, ResumableUploadStatus, StreamingSource, X_GOOG_API_CLIENT_HEADER,
     apply_customer_supplied_encryption_headers,
 };
 use crate::storage::checksum::validate as validate_checksum;
@@ -142,20 +142,15 @@ where
         // Use the computed checksum, if any, and if the spec does not have a
         // checksum already.
         let computed = stream.final_checksum();
-        let has = self
+        let current = self
             .spec
             .resource
             .get_or_insert_default()
             .checksums
             .get_or_insert_default();
-        if has.crc32c.is_none() {
-            has.crc32c = computed.crc32c;
-        }
-        if has.md5_hash.is_empty() {
-            has.md5_hash = computed.md5_hash;
-        }
+        crate::storage::checksum::update(current, computed);
         let upload = PerformUpload {
-            payload: Arc::new(Mutex::new(ChecksummedSource::new(Precomputed, source))),
+            payload: Arc::new(Mutex::new(ChecksummedSource::new(Known, source))),
             inner: self.inner,
             spec: self.spec,
             params: self.params,
@@ -277,22 +272,21 @@ mod tests {
         Ok(())
     }
 
-    #[test_case("projects/p", "projects%2Fp")]
-    #[test_case("kebab-case", "kebab-case")]
-    #[test_case("dot.name", "dot.name")]
-    #[test_case("under_score", "under_score")]
-    #[test_case("tilde~123", "tilde~123")]
-    #[test_case("exclamation!point!", "exclamation%21point%21")]
-    #[test_case("spaces   spaces", "spaces%20%20%20spaces")]
-    #[test_case("preserve%percent%21", "preserve%percent%21")]
-    #[test_case(
-        "testall !#$&'()*+,/:;=?@[]",
-        "testall%20%21%23%24%26%27%28%29%2A%2B%2C%2F%3A%3B%3D%3F%40%5B%5D"
-    )]
+    #[test_case("projects/p")]
+    #[test_case("kebab-case")]
+    #[test_case("dot.name")]
+    #[test_case("under_score")]
+    #[test_case("tilde~123")]
+    #[test_case("exclamation!point!")]
+    #[test_case("spaces   spaces")]
+    #[test_case("preserve%percent%21")]
+    #[test_case("testall !#$&'()*+,/:;=?@[]")]
+    #[test_case(concat!("Benjamín pidió una bebida de kiwi y fresa. ",
+            "Noé, sin vergüenza, la más exquisita champaña del menú"))]
     #[tokio::test]
-    async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
+    async fn test_percent_encoding_object_name(want: &str) -> Result {
         let inner = test_inner_client(test_builder());
-        let request = UploadObject::new(inner, "projects/_/buckets/bucket", name, "hello")
+        let request = UploadObject::new(inner, "projects/_/buckets/bucket", want, "hello")
             .build()
             .start_resumable_upload_request()
             .await?

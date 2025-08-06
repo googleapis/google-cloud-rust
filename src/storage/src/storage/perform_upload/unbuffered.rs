@@ -15,7 +15,7 @@
 use super::{
     ChecksumEngine, ContinueOn308, Error, Object, PerformUpload, Result, ResumableUploadStatus,
     Seek, StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
-    enc, handle_object_response, v1,
+    handle_object_response, v1,
 };
 use futures::stream::unfold;
 use std::sync::Arc;
@@ -110,10 +110,10 @@ where
     }
 
     pub(super) async fn send_unbuffered_single_shot(self) -> Result<Object> {
-        // TODO(#1655) - make idempotency configurable.
         // Single shot uploads are idempotent only if they have pre-conditions.
-        let idempotent =
-            self.spec.if_generation_match.is_some() || self.spec.if_metageneration_match.is_some();
+        let idempotent = self.options.idempotency.unwrap_or(
+            self.spec.if_generation_match.is_some() || self.spec.if_metageneration_match.is_some(),
+        );
         let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
         let backoff = self.options.backoff_policy.clone();
@@ -152,7 +152,7 @@ where
                 format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
             )
             .query(&[("uploadType", "multipart")])
-            .query(&[("name", enc(object))])
+            .query(&[("name", object)])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
@@ -570,6 +570,34 @@ mod tests {
             .await
             .expect_err("expected error as request is not idempotent");
         assert_eq!(err.http_status_code(), Some(503), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_retry_transient_override_idempotency() -> Result {
+        let server = Server::run();
+        let matching = || {
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
+                request::query(url_decoded(contains(("name", "object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+        };
+        server.expect(matching().times(3).respond_with(cycle![
+            status_code(429).body("try-again"),
+            status_code(429).body("try-again"),
+            json_encoded(response_body()).append_header("content-type", "application/json"),
+        ]));
+
+        let inner =
+            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
+        let got = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .with_idempotency(true)
+            .send_unbuffered()
+            .await?;
+        let want = Object::from(serde_json::from_value::<v1::Object>(response_body())?);
+        assert_eq!(got, want);
 
         Ok(())
     }

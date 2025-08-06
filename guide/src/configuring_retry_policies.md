@@ -39,8 +39,8 @@ and that your account has the necessary permissions.
 
 As usual with Rust, you must declare dependencies in your `Cargo.toml` file:
 
-```toml
-{{#include ../samples/Cargo.toml:secretmanager}}
+```shell
+cargo add google-cloud-secretmanager-v1
 ```
 
 ## Configuring the default retry policy

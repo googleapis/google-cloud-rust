@@ -128,6 +128,9 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     let insert = client
         .upload_object(&bucket.name, "quick.text", CONTENTS)
         .with_metadata([("verify-metadata-works", "yes")])
+        .with_content_type("text/plain")
+        .with_content_language("en")
+        .with_storage_class("STANDARD")
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -155,6 +158,11 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
         object.checksums.unwrap().crc32c,
         Some(crc32c::crc32c(CONTENTS.as_bytes()))
     );
+    assert_eq!(object.storage_class, "STANDARD");
+    assert_eq!(object.content_language, "en");
+    assert_eq!(object.content_type, "text/plain");
+    assert!(!object.content_disposition.is_empty());
+    assert!(!object.etag.is_empty());
 
     let mut contents = Vec::new();
     while let Some(b) = response.next().await.transpose()? {
@@ -803,45 +811,11 @@ pub async fn checksums(
             ),
         ),
         (
-            "verify/disabled",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "verify/disabled", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .send(),
-            ),
-        ),
-        (
-            "verify/crc32c",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "verify/crc32c", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_crc32c()
-                    .send(),
-            ),
-        ),
-        (
             "verify/md5",
             Box::pin(
                 client
                     .upload_object(bucket_name, "verify/md5", VEXING)
                     .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_md5()
-                    .send(),
-            ),
-        ),
-        (
-            "verify/both",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "verify/both", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_crc32c()
                     .compute_md5()
                     .send(),
             ),
@@ -858,51 +832,11 @@ pub async fn checksums(
             ),
         ),
         (
-            "computed/disabled",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "computed/disabled", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .precompute_checksums()
-                    .await?
-                    .send(),
-            ),
-        ),
-        (
-            "computed/crc32c",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "computed/crc32c", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_crc32c()
-                    .precompute_checksums()
-                    .await?
-                    .send(),
-            ),
-        ),
-        (
             "computed/md5",
             Box::pin(
                 client
                     .upload_object(bucket_name, "computed/md5", VEXING)
                     .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_md5()
-                    .precompute_checksums()
-                    .await?
-                    .send(),
-            ),
-        ),
-        (
-            "computed/both",
-            Box::pin(
-                client
-                    .upload_object(bucket_name, "computed/both", VEXING)
-                    .with_if_generation_match(0)
-                    .disable_computed_checksums()
-                    .compute_crc32c()
                     .compute_md5()
                     .precompute_checksums()
                     .await?
@@ -920,6 +854,108 @@ pub async fn checksums(
                 return Err(e.into());
             }
         }
+    }
+
+    Ok(())
+}
+
+pub async fn object_names(
+    builder: storage::builder::storage::ClientBuilder,
+    control: storage::client::StorageControl,
+    bucket_name: &str,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    tracing::info!("object names test, using bucket {bucket_name}");
+
+    let client = builder.build().await?;
+
+    let names = ["a/1", "a/2", "b/c/d/e", "b/c/d/e#1", "b/c/d/f", "b/c/d/g"];
+
+    for name in names {
+        let upload = client
+            .upload_object(bucket_name, name, "")
+            .with_if_generation_match(0)
+            .send_unbuffered()
+            .await?;
+        assert_eq!(upload.bucket, bucket_name);
+        assert_eq!(upload.name, name);
+        assert_eq!(upload.size, 0_i64);
+
+        let reader = client
+            .read_object(&upload.bucket, &upload.name)
+            .with_generation(upload.generation)
+            .send()
+            .await?;
+        let highlights = reader.object();
+        assert_eq!(highlights.storage_class, "STANDARD");
+        assert_eq!(highlights.generation, upload.generation);
+        assert_eq!(highlights.metageneration, upload.metageneration);
+        assert_eq!(highlights.etag, upload.etag);
+        assert_eq!(highlights.size, upload.size);
+
+        let get = control
+            .get_object()
+            .set_bucket(&upload.bucket)
+            .set_object(&upload.name)
+            .set_generation(upload.generation)
+            .send()
+            .await?;
+        // Not all fields match (the service returns different values with
+        // equivalent semantics).
+        assert_eq!(get.bucket, upload.bucket);
+        assert_eq!(get.name, upload.name);
+        assert_eq!(get.etag, upload.etag);
+        assert_eq!(get.generation, upload.generation);
+        assert_eq!(get.metageneration, upload.metageneration);
+        assert_eq!(get.storage_class, upload.storage_class);
+        assert_eq!(get.size, upload.size);
+        assert_eq!(get.create_time, upload.create_time);
+        assert_eq!(get.checksums, upload.checksums);
+    }
+
+    use gax::paginator::ItemPaginator;
+    let mut list = control
+        .list_objects()
+        .set_parent(bucket_name)
+        .set_prefix("b/c")
+        .by_item();
+    let mut from_list = Vec::new();
+    while let Some(o) = list.next().await.transpose()? {
+        from_list.push(o.name);
+    }
+    use std::collections::BTreeSet;
+    let got = from_list
+        .iter()
+        .map(String::as_str)
+        .collect::<BTreeSet<_>>();
+    let want = names
+        .iter()
+        .filter_map(|n| n.strip_prefix("b/c").map(|_| *n))
+        .collect::<BTreeSet<_>>();
+
+    assert_eq!(got, want);
+
+    for name in names {
+        control
+            .delete_object()
+            .set_bucket(bucket_name)
+            .set_object(name)
+            .with_idempotency(true)
+            .send()
+            .await?;
     }
 
     Ok(())

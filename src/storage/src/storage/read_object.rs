@@ -511,28 +511,32 @@ impl ReadObjectResponse {
         let response_crc32c = crc32c_from_response(full, inner.status(), inner.headers());
         let range = response_range(&inner).map_err(Error::deser)?;
         let generation = response_generation(&inner).map_err(Error::deser)?;
+
         let headers = inner.headers();
-        let highlights = ObjectHighlights {
-            generation: headers
-                .get("x-goog-generation")
-                .and_then(|g| g.to_str().ok())
-                .and_then(|g| g.parse::<i64>().ok())
-                .unwrap_or_default(),
-            metageneration: headers
-                .get("x-goog-metageneration")
-                .and_then(|m| m.to_str().ok())
-                .and_then(|m| m.parse::<i64>().ok())
-                .unwrap_or_default(),
-            size: headers
-                .get("x-goog-stored-content-length")
+        let get_as_i64 = |header_name: &str| -> i64 {
+            headers
+                .get(header_name)
                 .and_then(|s| s.to_str().ok())
                 .and_then(|s| s.parse::<i64>().ok())
-                .unwrap_or_default(),
-            content_encoding: headers
-                .get("x-goog-stored-content-encoding")
-                .and_then(|ce| ce.to_str().ok())
-                .map(|ce| ce.to_string())
-                .unwrap_or_default(),
+                .unwrap_or_default()
+        };
+        let get_as_string = |header_name: &str| -> String {
+            headers
+                .get(header_name)
+                .and_then(|sc| sc.to_str().ok())
+                .map(|sc| sc.to_string())
+                .unwrap_or_default()
+        };
+        let highlights = ObjectHighlights {
+            generation,
+            metageneration: get_as_i64("x-goog-metageneration"),
+            size: get_as_i64("x-goog-stored-content-length"),
+            content_encoding: get_as_string("x-goog-stored-content-encoding"),
+            storage_class: get_as_string("x-goog-storage-class"),
+            content_type: get_as_string("content-type"),
+            content_language: get_as_string("content-language"),
+            content_disposition: get_as_string("content-disposition"),
+            etag: get_as_string("etag"),
             checksums: headers.get("x-goog-hash").map(|_| {
                 crate::model::ObjectChecksums::new()
                     .set_or_clear_crc32c(headers_to_crc32c(headers))
@@ -684,6 +688,7 @@ impl ReadObjectResponse {
 
 /// ObjectHighlights contains select metadata from a [crate::model::Object].
 #[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
 pub struct ObjectHighlights {
     /// The content generation of this object. Used for object versioning.
     pub generation: i64,
@@ -694,12 +699,14 @@ pub struct ObjectHighlights {
     /// generation of a particular object.
     pub metageneration: i64,
 
-    /// Content-Length of the object data in bytes, matching
-    /// [<https://tools.ietf.org/html/rfc7230#section-3.3.2>][RFC 7230 §3.3.2].
+    /// Content-Length of the object data in bytes, matching [RFC 7230 §3.3.2].
+    ///
+    /// [rfc 7230 §3.3.2]: https://tools.ietf.org/html/rfc7230#section-3.3.2
     pub size: i64,
 
-    /// Content-Encoding of the object data, matching
-    /// [<https://tools.ietf.org/html/rfc7231#section-3.1.2.2>][RFC 7231 §3.1.2.2]
+    /// Content-Encoding of the object data, matching [RFC 7231 §3.1.2.2].
+    ///
+    /// [rfc 7231 §3.1.2.2]: https://tools.ietf.org/html/rfc7231#section-3.1.2.2
     pub content_encoding: String,
 
     /// Hashes for the data part of this object. The checksums of the complete
@@ -707,36 +714,29 @@ pub struct ObjectHighlights {
     /// the client should compute one of these checksums over the downloaded
     /// object and compare it against the value provided here.
     pub checksums: std::option::Option<crate::model::ObjectChecksums>,
-}
 
-/// Represents an error that can occur when reading response data.
-#[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-enum ReadError {
-    /// The calculated crc32c did not match server provided crc32c.
-    #[error("bad CRC on read: got {got}, want {want}")]
-    BadCrc { got: u32, want: u32 },
+    /// Storage class of the object.
+    pub storage_class: String,
 
-    #[error("missing {0} bytes at the end of the stream")]
-    ShortRead(u64),
+    /// Content-Language of the object data, matching [RFC 7231 §3.1.3.2].
+    ///
+    /// [rfc 7231 §3.1.3.2]: https://tools.ietf.org/html/rfc7231#section-3.1.3.2
+    pub content_language: String,
 
-    #[error("too many bytes received: expected {expected}, stopped download at {got}")]
-    LongRead { got: u64, expected: u64 },
+    /// Content-Type of the object data, matching [RFC 7231 §3.1.1.5]. If an
+    /// object is stored without a Content-Type, it is served as
+    /// `application/octet-stream`.
+    ///
+    /// [rfc 7231 §3.1.1.5]: https://tools.ietf.org/html/rfc7231#section-3.1.1.5
+    pub content_type: String,
 
-    /// Only 200 and 206 status codes are expected in successful responses.
-    #[error("unexpected success code {0} in read request, only 200 and 206 are expected")]
-    UnexpectedSuccessCode(u16),
+    /// Content-Disposition of the object data, matching [RFC 6266].
+    ///
+    /// [rfc 6266]: https://tools.ietf.org/html/rfc6266
+    pub content_disposition: String,
 
-    /// Successful HTTP response must include some headers.
-    #[error("the response is missing '{0}', a required header")]
-    MissingHeader(&'static str),
-
-    /// The received header format is invalid.
-    #[error("the format for header '{0}' is incorrect")]
-    BadHeaderFormat(
-        &'static str,
-        #[source] Box<dyn std::error::Error + Send + Sync + 'static>,
-    ),
+    /// The etag of the object.
+    pub etag: String,
 }
 
 fn crc32c_from_response(
@@ -938,7 +938,12 @@ mod tests {
                     .append_header("x-goog-generation", 500)
                     .append_header("x-goog-metageneration", "1")
                     .append_header("x-goog-stored-content-length", 30)
-                    .append_header("x-goog-stored-content-encoding", "identity"),
+                    .append_header("x-goog-stored-content-encoding", "identity")
+                    .append_header("x-goog-storage-class", "STANDARD")
+                    .append_header("content-language", "en")
+                    .append_header("content-type", "text/plain")
+                    .append_header("content-disposition", "inline")
+                    .append_header("etag", "etagval"),
             ),
         );
 

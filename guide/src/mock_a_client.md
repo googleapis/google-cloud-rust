@@ -29,8 +29,8 @@ This guide shows how.
 There are several [mocking frameworks] in Rust. This guide uses [`mockall`],
 which seems to be the most popular.
 
-```toml
-{{#include ../samples/Cargo.toml:mockall}}
+```shell
+cargo add --dev mockall
 ```
 
 This guide will use a [`Speech`][speech-client] client. Note that the same ideas
@@ -39,10 +39,8 @@ in this guide apply to all of the clients, not just the `Speech` client.
 We declare the dependency in our `Cargo.toml`. Yours will be similar, but
 without the custom `path`.
 
-```toml
-{{#include ../samples/Cargo.toml:speech}}
-
-{{#include ../samples/Cargo.toml:lro}}
+```shell
+cargo add google-cloud-speech-v2 google-cloud-lro
 ```
 
 ## Mocking a client
