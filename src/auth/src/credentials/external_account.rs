@@ -1824,7 +1824,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_external_account_retries_on_transient_failures() {
         let mut subject_token_server = Server::run();
         let mut sts_server = Server::run();
@@ -1859,6 +1859,21 @@ mod tests {
             .with_retry_throttler(get_mock_retry_throttler())
             .build()
             .unwrap();
+
+        tokio::time::advance(std::time::Duration::from_millis(1)).await;
+        let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.is_transient());
+
+        let delay = err.retry_in().expect("error should have a retry_in duration");
+        tokio::time::advance(delay).await;
+        tokio::time::sleep(std::time::Duration::from_millis(5)).await;
+
+        let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.is_transient());
+
+        let delay = err.retry_in().expect("error should have a retry_in duration");
+        tokio::time::advance(delay).await;
+        tokio::time::sleep(std::time::Duration::from_millis(5)).await;
 
         let err = creds.headers(Extensions::new()).await.unwrap_err();
         assert!(!err.is_transient());
@@ -1907,7 +1922,7 @@ mod tests {
         sts_server.verify_and_clear();
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_external_account_retries_for_success() {
         let mut subject_token_server = Server::run();
         let mut sts_server = Server::run();
@@ -1952,6 +1967,14 @@ mod tests {
             .build()
             .unwrap();
 
+        tokio::time::advance(std::time::Duration::from_millis(1)).await;
+        let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.is_transient());
+
+        let delay = err.retry_in().expect("error should have a retry_in duration");
+        tokio::time::advance(delay).await;
+        tokio::time::sleep(Duration::from_secs(5)).await;
+
         let headers = creds.headers(Extensions::new()).await.unwrap();
         match headers {
             CacheableResource::New { data, .. } => {
@@ -1964,7 +1987,7 @@ mod tests {
         subject_token_server.verify_and_clear();
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_programmatic_builder_retries_on_transient_failures() {
         let provider = Arc::new(TestSubjectTokenProvider);
         let mut sts_server = Server::run();
@@ -1984,6 +2007,21 @@ mod tests {
             .with_retry_throttler(get_mock_retry_throttler())
             .build()
             .unwrap();
+
+        tokio::time::advance(std::time::Duration::from_millis(1)).await;
+        let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.is_transient());
+
+        let delay = err.retry_in().expect("error should have a retry_in duration");
+        tokio::time::advance(delay).await;
+        tokio::task::yield_now().await;
+
+        let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.is_transient());
+
+        let delay = err.retry_in().expect("error should have a retry_in duration");
+        tokio::time::advance(delay).await;
+        tokio::task::yield_now().await;
 
         let err = creds.headers(Extensions::new()).await.unwrap_err();
         assert!(!err.is_transient());
@@ -2016,7 +2054,7 @@ mod tests {
         sts_server.verify_and_clear();
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_programmatic_builder_retries_for_success() {
         let provider = Arc::new(TestSubjectTokenProvider);
         let mut sts_server = Server::run();
@@ -2045,6 +2083,8 @@ mod tests {
             .with_retry_throttler(get_mock_retry_throttler())
             .build()
             .unwrap();
+
+        tokio::time::advance(std::time::Duration::from_millis(500)).await;
 
         let headers = creds.headers(Extensions::new()).await.unwrap();
         match headers {

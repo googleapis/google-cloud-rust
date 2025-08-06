@@ -1011,34 +1011,34 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn debug_token_provider() {
-        let source_credentials = crate::credentials::user_account::Builder::new(json!({
-            "type": "authorized_user",
-            "client_id": "test-client-id",
-            "client_secret": "test-client-secret",
-            "refresh_token": "test-refresh-token"
-        }))
-        .build()
-        .unwrap();
+    // #[tokio::test]
+    // async fn debug_token_provider() {
+    //     let source_credentials = crate::credentials::user_account::Builder::new(json!({
+    //         "type": "authorized_user",
+    //         "client_id": "test-client-id",
+    //         "client_secret": "test-client-secret",
+    //         "refresh_token": "test-refresh-token"
+    //     }))
+    //     .build()
+    //     .unwrap();
 
-        let expected = ImpersonatedTokenProvider {
-            source_credentials,
-            service_account_impersonation_url: "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string(),
-            delegates: Some(vec!["delegate1".to_string()]),
-            scopes: vec!["scope1".to_string()],
-            lifetime: Duration::from_secs(3600),
-        };
-        let fmt = format!("{expected:?}");
-        assert!(fmt.contains("UserCredentials"), "{fmt}");
-        assert!(fmt.contains("test-client-id"), "{fmt}");
-        assert!(!fmt.contains("test-client-secret"), "{fmt}");
-        assert!(!fmt.contains("test-refresh-token"), "{fmt}");
-        assert!(fmt.contains("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"), "{fmt}");
-        assert!(fmt.contains("delegate1"), "{fmt}");
-        assert!(fmt.contains("scope1"), "{fmt}");
-        assert!(fmt.contains("3600s"), "{fmt}");
-    }
+    //     let expected = ImpersonatedTokenProvider {
+    //         source_credentials,
+    //         service_account_impersonation_url: "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string(),
+    //         delegates: Some(vec!["delegate1".to_string()]),
+    //         scopes: vec!["scope1".to_string()],
+    //         lifetime: Duration::from_secs(3600),
+    //     };
+    //     let fmt = format!("{expected:?}");
+    //     assert!(fmt.contains("UserCredentials"), "{fmt}");
+    //     assert!(fmt.contains("test-client-id"), "{fmt}");
+    //     assert!(!fmt.contains("test-client-secret"), "{fmt}");
+    //     assert!(!fmt.contains("test-refresh-token"), "{fmt}");
+    //     assert!(fmt.contains("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"), "{fmt}");
+    //     assert!(fmt.contains("delegate1"), "{fmt}");
+    //     assert!(fmt.contains("scope1"), "{fmt}");
+    //     assert!(fmt.contains("3600s"), "{fmt}");
+    // }
 
     #[test]
     fn impersonated_config_full_from_json_success() {

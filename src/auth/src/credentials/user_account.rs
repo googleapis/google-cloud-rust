@@ -503,7 +503,7 @@ mod tests {
         })
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_user_account_retries_on_transient_failures() -> TestResult {
         let mut server = Server::run();
         server.expect(
@@ -517,6 +517,8 @@ mod tests {
             .with_backoff_policy(get_mock_backoff_policy())
             .with_retry_throttler(get_mock_retry_throttler())
             .build()?;
+
+        tokio::time::advance(std::time::Duration::from_millis(500)).await;
 
         let err = credentials.headers(Extensions::new()).await.unwrap_err();
         assert!(!err.is_transient());
@@ -545,7 +547,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_user_account_retries_for_success() -> TestResult {
         let mut server = Server::run();
         let response = Oauth2RefreshResponse {
@@ -573,6 +575,8 @@ mod tests {
             .with_backoff_policy(get_mock_backoff_policy())
             .with_retry_throttler(get_mock_retry_throttler())
             .build()?;
+
+        tokio::time::advance(std::time::Duration::from_millis(500)).await;
 
         let token = get_token_from_headers(credentials.headers(Extensions::new()).await.unwrap());
         assert_eq!(token.unwrap(), "test-access-token");

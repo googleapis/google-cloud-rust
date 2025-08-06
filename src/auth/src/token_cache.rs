@@ -762,7 +762,7 @@ mod tests {
         mock.expect_token()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(|| Err(transient_error));
+            .return_once(move || Err(transient_error.clone()));
         mock.expect_token()
             .times(1)
             .in_sequence(&mut seq)
@@ -777,10 +777,11 @@ mod tests {
         assert!(err_msg.contains("transient failure"));
 
         // Advance time past the retry duration.
-        tokio::time::advance(retry_duration + Duration::from_millis(50)).await;
+        tokio::time::advance(retry_duration).await;
+        tokio::time::sleep(Duration::from_millis(1)).await;
 
         // Second call should now succeed.
-        let second_result = cache.token(Extensions::new()).await.unwrap();
+        let second_result = cache.token(Extensions::new()).await?;
         let actual_token = get_cached_token(second_result)?;
         assert_eq!(actual_token, success_token);
 

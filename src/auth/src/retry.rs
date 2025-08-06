@@ -14,20 +14,27 @@
 
 use crate::errors::CredentialsError;
 use crate::token::{Token, TokenProvider};
-use crate::{Result, constants};
+use crate::Result;
 use gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_loop_internal::retry_loop_with_callback;
 use gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
 use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
 use std::error::Error;
+use std::fmt::Debug;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::watch;
 
-#[derive(Debug)]
 pub(crate) struct TokenProviderWithRetry {
     token_watch: watch::Receiver<Option<Result<Token>>>,
+}
+
+impl Debug for TokenProviderWithRetry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("TokenProviderWithRetry")
+            .finish_non_exhaustive()
+    }
 }
 
 #[derive(Debug, Default)]
@@ -163,18 +170,9 @@ impl<T: TokenProvider + 'static> TokenRefresher<T> {
     }
 
     fn map_retry_error(e: gax::error::Error, last_delay: Option<Duration>) -> CredentialsError {
-        let mut cred_error = if !e.is_authentication() {
-            CredentialsError::from_source(false, e)
-        } else {
-            let msg = match e
-                .source()
-                .and_then(|s| s.downcast_ref::<CredentialsError>())
-            {
-                Some(cred_error) if cred_error.is_transient() => constants::RETRY_EXHAUSTED_ERROR,
-                _ => constants::TOKEN_FETCH_FAILED_ERROR,
-            };
-            CredentialsError::new(false, msg, e)
-        };
+        let is_transient = last_delay.is_some();
+        let mut cred_error = CredentialsError::new(is_transient, e.to_string(), e);
+
         if let Some(delay) = last_delay {
             cred_error = cred_error.with_retry_in(delay);
         }
@@ -311,7 +309,7 @@ mod tests {
         assert_eq!(token.token, "test_token");
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_success_after_retry() {
         let mut mock_provider = MockTokenProvider::new();
         let mut seq = Sequence::new();
@@ -338,11 +336,23 @@ mod tests {
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
 
+        // A small initial advance ensures the background task runs and hits the first error.
+        tokio::time::advance(std::time::Duration::from_millis(1)).await;
+
+        // First call will get the intermediate error.
+        let err = provider.token().await.unwrap_err();
+        assert!(err.is_transient());
+
+        // Get the suggested delay and advance the clock.
+        let delay = err.retry_in().expect("error should have a retry_in duration");
+        tokio::time::advance(delay).await;
+        tokio::time::sleep(Duration::from_secs(5)).await;
+
         let token = provider.token().await.unwrap();
         assert_eq!(token.token, "test_token");
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_retry_exhausted() {
         let mut mock_provider = MockTokenProvider::new();
         mock_provider
@@ -354,11 +364,24 @@ mod tests {
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
 
+        // A small initial advance ensures the background task runs and hits the first error.
+        tokio::time::advance(std::time::Duration::from_millis(1)).await;
+
+        // First call will get the intermediate error.
+        let err = provider.token().await.unwrap_err();
+        assert!(err.is_transient());
+
+        // Get the suggested delay and advance the clock.
+        let delay = err.retry_in().expect("error should have a retry_in duration");
+        tokio::time::advance(delay + Duration::from_millis(1)).await;
+        tokio::time::sleep(Duration::from_secs(5)).await;
+
+
+        // Second call will get the final error.
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
         assert!(original_error.is_transient());
-        assert!(error.to_string().contains(constants::RETRY_EXHAUSTED_ERROR));
     }
 
     #[tokio::test]
@@ -380,7 +403,7 @@ mod tests {
         assert!(
             error
                 .to_string()
-                .contains(constants::TOKEN_FETCH_FAILED_ERROR)
+                .contains("non transient error")
         );
     }
 
@@ -442,7 +465,7 @@ mod tests {
         assert!(!original_error.is_transient());
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_full_retry_mechanism() {
         // 1. Setup Mocks
         let mut mock_provider = MockTokenProvider::new();
@@ -500,6 +523,18 @@ mod tests {
             .with_retry_throttler(retry_throttler.into())
             .build(mock_provider);
 
+        // A small initial advance ensures the background task runs and hits the first error.
+        tokio::time::advance(std::time::Duration::from_millis(1)).await;
+
+        // First call will get the intermediate error.
+        let err = provider.token().await.unwrap_err();
+        assert!(err.is_transient());
+
+        // Get the suggested delay and advance the clock.
+        let delay = err.retry_in().expect("error should have a retry_in duration");
+        tokio::time::advance(delay).await;
+        tokio::time::sleep(Duration::from_millis(1)).await;
+
         // 5. Assert
         let token = provider.token().await.unwrap();
         assert_eq!(token.token, "final_token");
@@ -517,7 +552,7 @@ mod tests {
 
         // 2. Call the function under test.
         let credentials_error =
-            TokenRefresher::<MockTokenProvider>::map_retry_error(original_error);
+            TokenRefresher::<MockTokenProvider>::map_retry_error(original_error, None);
 
         // 3. Assert that the resulting error is not transient and wraps the original error.
         assert!(!credentials_error.is_transient());
