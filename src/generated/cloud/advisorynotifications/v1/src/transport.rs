@@ -136,9 +136,8 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_notification(
@@ -239,9 +238,8 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_settings(
@@ -336,9 +334,8 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_settings(
@@ -445,8 +442,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.settings), options)
-            .await
+        let body = gaxi::http::handle_empty(req.settings, &method);
+        self.inner.execute(builder, body, options).await
     }
 }

@@ -85,9 +85,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.assessment), options)
-            .await
+        let body = gaxi::http::handle_empty(req.assessment, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn annotate_assessment(
@@ -145,7 +144,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_key(
@@ -193,7 +193,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.key), options).await
+        let body = gaxi::http::handle_empty(req.key, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_keys(
@@ -243,9 +244,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn retrieve_legacy_secret_key(
@@ -303,9 +303,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_key(
@@ -363,9 +362,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_key(
@@ -441,7 +439,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.key), options).await
+        let body = gaxi::http::handle_empty(req.key, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_key(
@@ -499,13 +498,13 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn migrate_key(
@@ -563,7 +562,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn add_ip_override(
@@ -621,7 +621,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn remove_ip_override(
@@ -679,7 +680,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_ip_overrides(
@@ -739,9 +741,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_metrics(
@@ -801,9 +802,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_firewall_policy(
@@ -851,9 +851,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.firewall_policy), options)
-            .await
+        let body = gaxi::http::handle_empty(req.firewall_policy, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_firewall_policies(
@@ -903,9 +902,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_firewall_policy(
@@ -963,9 +961,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_firewall_policy(
@@ -1041,9 +1038,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.firewall_policy), options)
-            .await
+        let body = gaxi::http::handle_empty(req.firewall_policy, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_firewall_policy(
@@ -1101,13 +1097,13 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn reorder_firewall_policies(
@@ -1155,7 +1151,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_related_account_groups(
@@ -1205,9 +1202,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_related_account_group_memberships(
@@ -1268,9 +1264,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn search_related_account_group_memberships(
@@ -1319,6 +1314,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 }

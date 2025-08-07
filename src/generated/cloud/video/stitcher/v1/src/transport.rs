@@ -96,9 +96,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.cdn_key), options)
-            .await
+        let body = gaxi::http::handle_empty(req.cdn_key, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_cdn_keys(
@@ -160,9 +159,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_cdn_key(
@@ -224,9 +222,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_cdn_key(
@@ -288,9 +285,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_cdn_key(
@@ -370,9 +366,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.cdn_key), options)
-            .await
+        let body = gaxi::http::handle_empty(req.cdn_key, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_vod_session(
@@ -430,9 +425,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.vod_session), options)
-            .await
+        let body = gaxi::http::handle_empty(req.vod_session, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_vod_session(
@@ -494,9 +488,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_vod_stitch_details(
@@ -560,9 +553,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_vod_stitch_detail(
@@ -628,9 +620,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_vod_ad_tag_details(
@@ -694,9 +685,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_vod_ad_tag_detail(
@@ -762,9 +752,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_live_ad_tag_details(
@@ -828,9 +817,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_live_ad_tag_detail(
@@ -896,9 +884,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_slate(
@@ -958,7 +945,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.slate), options).await
+        let body = gaxi::http::handle_empty(req.slate, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_slates(
@@ -1020,9 +1008,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_slate(
@@ -1084,9 +1071,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_slate(
@@ -1166,7 +1152,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.slate), options).await
+        let body = gaxi::http::handle_empty(req.slate, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_slate(
@@ -1228,9 +1215,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_live_session(
@@ -1288,9 +1274,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.live_session), options)
-            .await
+        let body = gaxi::http::handle_empty(req.live_session, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_live_session(
@@ -1352,9 +1337,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_live_config(
@@ -1414,9 +1398,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.live_config), options)
-            .await
+        let body = gaxi::http::handle_empty(req.live_config, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_live_configs(
@@ -1478,9 +1461,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_live_config(
@@ -1542,9 +1524,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_live_config(
@@ -1606,9 +1587,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_live_config(
@@ -1688,9 +1668,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.live_config), options)
-            .await
+        let body = gaxi::http::handle_empty(req.live_config, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_vod_config(
@@ -1750,9 +1729,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.vod_config), options)
-            .await
+        let body = gaxi::http::handle_empty(req.vod_config, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_vod_configs(
@@ -1814,9 +1792,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_vod_config(
@@ -1878,9 +1855,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_vod_config(
@@ -1942,9 +1918,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_vod_config(
@@ -2024,9 +1999,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.vod_config), options)
-            .await
+        let body = gaxi::http::handle_empty(req.vod_config, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_operations(
@@ -2087,9 +2061,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -2151,9 +2124,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_operation(
@@ -2215,13 +2187,13 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn cancel_operation(
@@ -2283,7 +2255,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await.map(
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())

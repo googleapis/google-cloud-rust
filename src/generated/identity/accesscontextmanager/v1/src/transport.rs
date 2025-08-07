@@ -74,9 +74,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_access_policy(
@@ -124,9 +123,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_access_policy(
@@ -160,7 +158,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_access_policy(
@@ -226,7 +225,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.policy), options).await
+        let body = gaxi::http::handle_empty(req.policy, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_access_policy(
@@ -274,9 +274,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_access_levels(
@@ -327,9 +326,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_access_level(
@@ -388,9 +386,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_access_level(
@@ -438,9 +435,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.access_level), options)
-            .await
+        let body = gaxi::http::handle_empty(req.access_level, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_access_level(
@@ -516,9 +512,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.access_level), options)
-            .await
+        let body = gaxi::http::handle_empty(req.access_level, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_access_level(
@@ -576,9 +571,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn replace_access_levels(
@@ -626,7 +620,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_service_perimeters(
@@ -676,9 +671,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_service_perimeter(
@@ -736,9 +730,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_service_perimeter(
@@ -786,9 +779,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.service_perimeter), options)
-            .await
+        let body = gaxi::http::handle_empty(req.service_perimeter, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_service_perimeter(
@@ -864,9 +856,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.service_perimeter), options)
-            .await
+        let body = gaxi::http::handle_empty(req.service_perimeter, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_service_perimeter(
@@ -924,9 +915,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn replace_service_perimeters(
@@ -974,7 +964,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn commit_service_perimeters(
@@ -1022,7 +1013,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_gcp_user_access_bindings(
@@ -1072,9 +1064,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_gcp_user_access_binding(
@@ -1132,9 +1123,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_gcp_user_access_binding(
@@ -1182,9 +1172,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.gcp_user_access_binding), options)
-            .await
+        let body = gaxi::http::handle_empty(req.gcp_user_access_binding, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_gcp_user_access_binding(
@@ -1260,9 +1249,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.gcp_user_access_binding), options)
-            .await
+        let body = gaxi::http::handle_empty(req.gcp_user_access_binding, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_gcp_user_access_binding(
@@ -1320,9 +1308,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn set_iam_policy(
@@ -1370,7 +1357,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_iam_policy(
@@ -1418,7 +1406,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn test_iam_permissions(
@@ -1532,7 +1521,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -1586,9 +1576,8 @@ impl super::stub::AccessContextManager for AccessContextManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     fn get_polling_error_policy(
