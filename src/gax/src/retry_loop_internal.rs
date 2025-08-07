@@ -39,6 +39,45 @@ impl RetryLoopAttempt {
     }
 }
 
+/// Information about a retry attempt provided to the `on_retry` callback.
+///
+/// An `on_retry` callback can be passed to
+/// [`retry_loop_with_on_retry`][super::retry_loop_with_on_retry]. It is invoked
+/// when a retryable error occurs and the retry policy decides to continue. This
+/// struct contains details about the attempt that just failed, and the upcoming
+/// retry attempt.
+pub struct OnRetryInfo<'a> {
+    attempt: u32,
+    error: &'a Error,
+    delay: Duration,
+}
+
+impl<'a> OnRetryInfo<'a> {
+    /// Creates a new `OnRetryInfo`.
+    pub(crate) fn new(attempt: u32, error: &'a Error, delay: Duration) -> Self {
+        Self {
+            attempt,
+            error,
+            delay,
+        }
+    }
+
+    /// The number of attempts completed so far. The first attempt is 1.
+    pub fn attempt(&self) -> u32 {
+        self.attempt
+    }
+
+    /// The error that caused this retry cycle.
+    pub fn error(&self) -> &Error {
+        self.error
+    }
+
+    /// The calculated delay before the next attempt is made.
+    pub fn delay(&self) -> Duration {
+        self.delay
+    }
+}
+
 /// Runs the retry loop for a given function.
 ///
 /// This functions calls an inner function as long as (1) the retry policy has
@@ -66,7 +105,7 @@ where
         retry_throttler,
         retry_policy,
         backoff_policy,
-        |_, _, _| {},
+        |_: &OnRetryInfo| {},
     )
     .await
 }
@@ -94,7 +133,7 @@ pub async fn retry_loop_with_on_retry<F, S, OnRetry, Response>(
 where
     F: AsyncFnMut(Option<Duration>) -> Result<Response> + Send,
     S: AsyncFn(Duration) -> () + Send,
-    OnRetry: FnMut(u32, &Error, Duration) + Send,
+    OnRetry: FnMut(&OnRetryInfo) + Send,
 {
     let loop_start = tokio::time::Instant::now().into_std();
     let mut attempt_state = RetryLoopAttempt::Initial;
@@ -106,7 +145,7 @@ where
             if remaining_time.is_some_and(|remaining| remaining < delay) {
                 return Err(Error::exhausted(prev_error));
             }
-            on_retry(attempt_count, &prev_error, delay);
+            on_retry(&OnRetryInfo::new(attempt_count, &prev_error, delay));
             sleep(delay).await;
 
             if retry_throttler
@@ -1012,9 +1051,13 @@ mod tests {
         let callback_log = Arc::new(Mutex::new(Vec::new()));
         let on_retry = {
             let log = callback_log.clone();
-            move |attempt: u32, error: &Error, delay: Duration| {
+            move |info: &OnRetryInfo| {
                 let mut log = log.lock().unwrap();
-                log.push((attempt, error.status().cloned().unwrap(), delay));
+                log.push((
+                    info.attempt(),
+                    info.error().status().cloned().unwrap(),
+                    info.delay(),
+                ));
             }
         };
         let response = retry_loop_with_on_retry(
@@ -1129,9 +1172,13 @@ mod tests {
         let callback_log = Arc::new(Mutex::new(Vec::new()));
         let on_retry = {
             let log = callback_log.clone();
-            move |attempt: u32, error: &Error, delay: Duration| {
+            move |info: &OnRetryInfo| {
                 let mut log = log.lock().unwrap();
-                log.push((attempt, error.status().cloned().unwrap(), delay));
+                log.push((
+                    info.attempt(),
+                    info.error().status().cloned().unwrap(),
+                    info.delay(),
+                ));
             }
         };
 
