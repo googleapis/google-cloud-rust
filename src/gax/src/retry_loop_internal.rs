@@ -758,14 +758,13 @@ mod tests {
 
         let inner = async move |d| call.call(d);
         let backoff = async move |d| sleep.sleep(d).await;
-        let response = retry_loop_with_callback(
+        let response = retry_loop(
             inner,
             backoff,
             true,
             to_retry_throttler(throttler),
             to_retry_policy(retry_policy),
             to_backoff_policy(backoff_policy),
-            |_, _, _| (),
         )
         .await;
         let err = response.expect_err("retry loop should terminate");
@@ -879,14 +878,13 @@ mod tests {
 
         let inner = async move |d| call.call(d);
         let backoff = async move |d| sleep.sleep(d).await;
-        let response = retry_loop_with_callback(
+        let response = retry_loop(
             inner,
             backoff,
             true,
             to_retry_throttler(throttler),
             to_retry_policy(retry_policy),
             to_backoff_policy(backoff_policy),
-            |_, _, _| (),
         )
         .await;
         let err = response.expect_err("retry loop should terminate");
