@@ -16,7 +16,10 @@ use super::client::*;
 use super::*;
 use crate::download_resume_policy::DownloadResumePolicy;
 use crate::model::ObjectChecksums;
-use crate::storage::checksum::{ChecksumEngine, Crc32c, validate};
+use crate::storage::checksum::{
+    ChecksumEngine,
+    details::{Crc32c, validate},
+};
 use base64::Engine;
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;

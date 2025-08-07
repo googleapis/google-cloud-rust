@@ -17,7 +17,7 @@ use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::UploadObject;
 use crate::download_resume_policy::DownloadResumePolicy;
-use crate::storage::checksum::Crc32c;
+use crate::storage::checksum::details::Crc32c;
 use crate::upload_source::Payload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
