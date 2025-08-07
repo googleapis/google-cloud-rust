@@ -12,6 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Define types to compute and compare Cloud Storage object checksums.
+//!
+//! The [ChecksumEngine] trait is sealed, and cannot be used to create new
+//! implementations. However, it may be useful when working with
+//! [UploadObject][crate::builder::storage::UploadObject].
+//!
+//! # Example
+//! ```
+//! use google_cloud_storage::builder::storage::UploadObject;
+//! use google_cloud_storage::model::Object;
+//! use google_cloud_storage::{upload_source::StreamingSource, checksum::ChecksumEngine};
+//!
+//! async fn example<S, C>(builder: UploadObject<S, C>) -> anyhow::Result<Object>
+//! where
+//!     S: StreamingSource + Send + Sync + 'static,
+//!     C: ChecksumEngine + Send + Sync + 'static
+//! {
+//!     // Finish configuring `builder` and complete the upload
+//!     let object = builder
+//!         .with_if_generation_match(0)
+//!         .with_resumable_upload_threshold(0_usize)
+//!         .send()
+//!         .await?;
+//!     Ok(object)
+//! }
+//! ```
+
 use crate::model::ObjectChecksums;
 use crate::storage::ChecksumMismatch;
 
