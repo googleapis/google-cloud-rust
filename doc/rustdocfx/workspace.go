@@ -69,13 +69,9 @@ func (c *crate) getKind(id string) kind {
 	if c.Index[id].Inner.Function != nil {
 		return functionKind
 	}
-	// NOWNOW, do get kind for implementation, traitimplementation, autotraitimplementation, blanketimplementation
-	// implementation will probably need to nest the items.
-	// NOWNOW: Need to add inner.implementations
-
-	// What kind do we have:
-	// for Traits, providedmethod
-	// for structs, implementation, traitimplementation, autotraitimplementation, blanketimplementation
+	if c.Index[id].Inner.Impl != nil {
+		return implKind
+	}
 	return undefinedKind
 }
 
@@ -98,6 +94,7 @@ const (
 	crateKind
 	moduleKind
 	functionKind
+	implKind
 )
 
 var kindName = map[kind]string{
@@ -105,10 +102,11 @@ var kindName = map[kind]string{
 	structKind:    "struct",
 	enumKind:      "enum",
 	traitKind:     "trait",
-	typeAliasKind: "type_alias",
+	typeAliasKind: "typealias",
 	crateKind:     "crate",
 	moduleKind:    "module",
 	functionKind:  "function",
+	implKind:      "implementation",
 }
 
 func (k kind) String() string {
@@ -135,6 +133,7 @@ type itemEnum struct {
 	Struct    *structInner
 	Enum      *enum
 	TypeAlias *typeAlias `json:"type_alias"`
+	Impl      *impl
 }
 
 type module struct {
@@ -151,16 +150,49 @@ type function struct {
 }
 
 type structInner struct {
+	Impls []uint32
 }
 
 type enum struct {
 }
 
 type typeAlias struct {
+	Type *typeEnum
+}
+
+type impl struct {
+	Items       []uint32
+	IsSyntheic  bool `json:"is_synthetic"`
+	IsNegative  bool `json:"is_negative"`
+	Trait       *path
+	BlanketImpl *typeEnum `json:"blanket_impl"`
+}
+
+type path struct {
+	Path string
+	Id   uint32
+	Args genericArgs
+}
+
+type typeEnum struct {
+	ResolvedPath path `json:"resolved_path"`
+	Generic      string
 }
 
 type functionSignature struct {
 	Inputs [][]interface{}
+}
+
+type genericArgs struct {
+	AngleBracketed angleBracketed `json:"angle_bracketed"`
+}
+
+type angleBracketed struct {
+	Args []genericArg
+}
+
+type genericArg struct {
+	Type typeEnum
 }
 
 func getWorkspaceCrates(jsonBytes []byte) ([]crate, error) {

@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/cbroglie/mustache"
 )
@@ -106,7 +107,6 @@ func newDocfxItem(c crate, id string) (*docfxItem, error) {
 		errs = append(errs, err)
 	}
 	r.Uid = uid
-	// TODO: This may not map to a correct type in doc fx pipeline type.
 	r.Type = c.getKind(id).String()
 	r.Summary = c.getDocString(id)
 
@@ -114,6 +114,129 @@ func newDocfxItem(c crate, id string) (*docfxItem, error) {
 		return nil, fmt.Errorf("errors creating new DocfxItem docfx yml files for id %s: %w", id, errors.Join(errs...))
 	}
 	return r, nil
+}
+
+func processTrait(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+	for i := 0; i < len(c.Index[id].Inner.Trait.Items); i++ {
+		// This assumes the inner trait items are all functions. Validation and error checking is needed.
+		referenceId := idToString(c.Index[id].Inner.Trait.Items[i])
+		if c.getKind(referenceId) == functionKind {
+			function, _ := newDocfxItemFromFunction(c, parent, referenceId)
+			function.Type = "providedmethod"
+			page.appendItem(function)
+
+			reference, _ := newDocfxReferenceFromDocfxItem(function, parent)
+			parent.appendChildren(reference.Uid)
+			page.appendReference(reference)
+		} else {
+			return fmt.Errorf("error expected trait item with id %s to be a function instead of %s", referenceId, c.getKind(referenceId))
+		}
+	}
+	return nil
+}
+
+func processModule(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+	for i := 0; i < len(c.Index[id].Inner.Module.Items); i++ {
+		referenceId := idToString(c.Index[id].Inner.Module.Items[i])
+		kind := c.getKind(referenceId)
+		if kind == undefinedKind {
+			// TODO: Remove this check after we can generate gax/external crate references.
+			continue
+		}
+		reference := new(docfxReference)
+		uid, err := c.getDocfxUid(referenceId)
+		if err != nil {
+			return err
+		}
+		reference.Uid = uid
+		reference.Name = c.getName(referenceId)
+		reference.IsExternal = false
+		reference.Parent = parent.Uid
+
+		parent.appendChildren(reference.Uid)
+		page.appendReference(reference)
+	}
+	return nil
+}
+
+func processStruct(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+	if c.Index[id].Inner.Struct != nil {
+		for i := 0; i < len(c.Index[id].Inner.Struct.Impls); i++ {
+			referenceId := idToString(c.Index[id].Inner.Struct.Impls[i])
+			// This assumes the inner struct impls are all impls. Validation and error checking is needed.
+
+			if c.Index[referenceId].Inner.Impl.BlanketImpl != nil {
+				// TODO: Add blanket implementations
+				// Example: Struct:1890->1897
+				continue
+			}
+
+			if c.Index[referenceId].Inner.Impl.IsSyntheic {
+				impl, _ := newDocfxItemFromImpl(c, parent, referenceId)
+				impl.Type = "autotraitimplementation"
+				page.appendItem(impl)
+
+				reference, _ := newDocfxReferenceFromDocfxItem(impl, parent)
+				parent.appendChildren(reference.Uid)
+				page.appendReference(reference)
+				continue
+			}
+
+			if c.Index[referenceId].Inner.Impl.Trait != nil {
+				traitImpl, _ := newDocfxItemFromImpl(c, parent, referenceId)
+				traitImpl.Type = "traitimplementation"
+				page.appendItem(traitImpl)
+
+				reference, _ := newDocfxReferenceFromDocfxItem(traitImpl, parent)
+				parent.appendChildren(reference.Uid)
+				page.appendReference(reference)
+				continue
+			}
+
+			for j := 0; j < len(c.Index[referenceId].Inner.Impl.Items); j++ {
+				innerImplItemId := idToString(c.Index[referenceId].Inner.Impl.Items[j])
+				if c.getKind(innerImplItemId) == functionKind {
+					function, _ := newDocfxItemFromFunction(c, parent, innerImplItemId)
+					function.Type = "implementation"
+					page.appendItem(function)
+
+					reference, _ := newDocfxReferenceFromDocfxItem(function, parent)
+					parent.appendChildren(reference.Uid)
+					page.appendReference(reference)
+					continue
+				} else {
+					return fmt.Errorf("error expected struct item with id %s to be a function instead of %s", innerImplItemId, c.getKind(innerImplItemId))
+				}
+			}
+		}
+	}
+	return nil
+}
+
+func processTypeAlias(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+	if c.Index[id].Inner.TypeAlias != nil {
+		// Generates a type alias doc string in the following format:
+		// pub type LhsIdentifier = RhsIdentifier<Args>
+		LhsIdentifier := c.Index[id].Name
+		RhsIdentifier := c.Index[id].Inner.TypeAlias.Type.ResolvedPath.Path
+		argString := ""
+		args := []string{}
+		for i := 0; i < len(c.Index[id].Inner.TypeAlias.Type.ResolvedPath.Args.AngleBracketed.Args); i++ {
+			args = append(args, c.Index[id].Inner.TypeAlias.Type.ResolvedPath.Args.AngleBracketed.Args[i].Type.ResolvedPath.Path)
+		}
+		if len(args) > 0 {
+			argString = fmt.Sprintf("<%s>", strings.Join(args, ", "))
+		}
+		typeAliasString := fmt.Sprintf("pub type %s = %s%s;", LhsIdentifier, RhsIdentifier, argString)
+		// TODO: Create code block in the item Summary for the type alias string.
+		parent.Summary = typeAliasString + "\n" + parent.Summary
+	}
+	return nil
+}
+
+func processEnum(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+	// fmt.Printf("CHUONGPH: Enum:%s\n", id)
+	return nil
 }
 
 func newDocfxItemFromFunction(c crate, parent *docfxItem, id string) (*docfxItem, error) {
@@ -132,13 +255,38 @@ func newDocfxItemFromFunction(c crate, parent *docfxItem, id string) (*docfxItem
 		}
 		syntax.appendParameter(parameter)
 	}
-	// TODO: Use return value from c.
+	// TODO: return value.
 	docfxReturn := new(docfxParameter)
 	docfxReturn.Id = "TODO:Return Id"
 	docfxReturn.Description = "TODO:Return Description"
 	syntax.appendReturn(docfxReturn)
 	r.Syntax = *syntax
 	return r, nil
+}
+
+func newDocfxItemFromImpl(c crate, parent *docfxItem, id string) (*docfxItem, error) {
+	r := new(docfxItem)
+	name := c.Index[id].Inner.Impl.Trait.Path
+
+	r.Name = name
+	r.Summary = fmt.Sprintf("impl %s for %s", name, parent.Name)
+	r.Uid = parent.Uid + "." + name
+	if c.Index[id].Inner.Impl.IsNegative {
+		// TODO: Update the name when the implementation is negative as r.Name cannot start with '!'
+		r.Summary = fmt.Sprintf("impl !%s for %s", name, parent.Name)
+	}
+	return r, nil
+}
+
+func newDocfxReferenceFromDocfxItem(item, parent *docfxItem) (*docfxReference, error) {
+	reference := new(docfxReference)
+	reference.Uid = item.Uid
+	reference.Name = item.Name
+	reference.IsExternal = false
+	if parent != nil {
+		reference.Parent = parent.Uid
+	}
+	return reference, nil
 }
 
 func (item *docfxItem) appendChildren(uid string) error {
@@ -175,65 +323,52 @@ func newDocfxManagedReference(c crate, id string) (*docfxManagedReference, error
 
 	parent, _ := newDocfxItem(c, id)
 
-	reference := new(docfxReference)
-	reference.Uid = parent.Uid
-	reference.Name = parent.Name
-	reference.IsExternal = false
+	reference, _ := newDocfxReferenceFromDocfxItem(parent, nil)
 	r.appendReference(reference)
 
-	if c.Index[id].Inner.Module != nil {
-		for i := 0; i < len(c.Index[id].Inner.Module.Items); i++ {
-			referenceId := idToString(c.Index[id].Inner.Module.Items[i])
-			kind := c.getKind(referenceId)
-			if kind == undefinedKind {
-				// TODO: Remove this check after we can generate gax/external crate references.
-				break
-			}
-			reference := new(docfxReference)
-			uid, err := c.getDocfxUid(referenceId)
-			if err != nil {
-				errs = append(errs, err)
-			}
-			reference.Uid = uid
-			reference.Name = c.getName(referenceId)
-			reference.IsExternal = false
-			reference.Parent = parent.Uid
-
-			parent.appendChildren(reference.Uid)
-			r.appendReference(reference)
+	switch c.getKind(id) {
+	case traitKind:
+		err := processTrait(c, id, r, parent)
+		if err != nil {
+			errs = append(errs, err)
 		}
+	case crateKind:
+		fallthrough
+	case moduleKind:
+		err := processModule(c, id, r, parent)
+		if err != nil {
+			errs = append(errs, err)
+		}
+	case structKind:
+		err := processStruct(c, id, r, parent)
+		if err != nil {
+			errs = append(errs, err)
+		}
+	case typeAliasKind:
+		err := processTypeAlias(c, id, r, parent)
+		if err != nil {
+			errs = append(errs, err)
+		}
+	case enumKind:
+		err := processEnum(c, id, r, parent)
+		if err != nil {
+			errs = append(errs, err)
+		}
+	default:
+		// TODO(NOW): Add errors
 	}
 
-	if c.Index[id].Inner.Trait != nil {
-		for i := 0; i < len(c.Index[id].Inner.Trait.Items); i++ {
-			// This assumes the inner trait items are all functions. Validation and error checking is needed.
-			referenceId := idToString(c.Index[id].Inner.Trait.Items[i])
-			function, _ := newDocfxItemFromFunction(c, parent, referenceId)
-			if c.getKind(referenceId) == functionKind {
-				function.Type = "providedmethod"
-			} else {
-				errs = append(errs, fmt.Errorf("error expected trait item with id %s to be a function instead of %s", referenceId, c.getKind(referenceId)))
-				break
-			}
-			r.appendItem(function)
+	// TODO(NOW): type alias
+	// "1550": has Implementations and Trait Implementations
+	// Has Aliased Type
+	// For implementation, just list "impl ClientBuilder"
+	// Ideally: "impl<F, Cr> ClientBuilder<F, Cr>"
 
-			reference := new(docfxReference)
-			reference.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, referenceId)
-			reference.Name = c.getName(referenceId)
-			reference.IsExternal = false
-			reference.Parent = parent.Uid
-
-			parent.appendChildren(reference.Uid)
-			r.appendReference(reference)
-		}
-	}
-
-	// TODO(NOW): structs
-	// "1560" struct/impls/ -> "1890"  implementation/for/resolved_path/id "1560"
-	// items: "1886" (with_request) (function)
-	// Got to do functions
-
-	// TODOP(NOW): enums
+	// TODO(NOW): enums
+	// "9"
+	// Has Variants (Non-exhaustive) and Trait Implementations
+	// Implemetnations can be handled similar to trait kind
+	/// Variants must be processed seperately.
 
 	// The parent item needs to be the first element of items.
 	r.prependItem(parent)
@@ -264,8 +399,7 @@ func generate(c crate, outDir string) error {
 	toc := docfxTableOfContent{Name: c.getRootName(), Uid: rootUid}
 
 	for id, _ := range c.Index {
-		kind := c.getKind(id)
-		switch kind {
+		switch c.getKind(id) {
 		case crateKind:
 			fallthrough
 		case traitKind:
