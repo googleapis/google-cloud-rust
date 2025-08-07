@@ -59,7 +59,7 @@ where
     F: AsyncFnMut(Option<Duration>) -> Result<Response> + Send,
     S: AsyncFn(Duration) -> () + Send,
 {
-    retry_loop_with_callback(
+    retry_loop_with_on_retry(
         inner,
         sleep,
         idempotent,
@@ -82,7 +82,7 @@ where
 ///
 /// The `on_retry` callback is called before sleeping, with the attempt count,
 /// the error, and the delay.
-pub async fn retry_loop_with_callback<F, S, OnRetry, Response>(
+pub async fn retry_loop_with_on_retry<F, S, OnRetry, Response>(
     mut inner: F,
     sleep: S,
     idempotent: bool,
@@ -1017,7 +1017,7 @@ mod tests {
                 log.push((attempt, error.status().cloned().unwrap(), delay));
             }
         };
-        let response = retry_loop_with_callback(
+        let response = retry_loop_with_on_retry(
             inner,
             backoff,
             true,
@@ -1135,7 +1135,7 @@ mod tests {
             }
         };
 
-        let response = retry_loop_with_callback(
+        let response = retry_loop_with_on_retry(
             inner,
             backoff,
             true, // idempotency
