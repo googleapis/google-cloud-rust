@@ -212,11 +212,11 @@ impl TokenProvider for TokenProviderWithRetry {
     async fn token(&self) -> Result<Token> {
         let mut rx = self.token_watch.clone();
 
-        // The caller is requesting a new token, so we trigger a refresh.
-        // A send can fail if the channel is full or if the receiver has been
-        // dropped. If the channel is full, it means a refresh is already in
-        // progress. If the receiver has been dropped, it means the background
-        // task has terminated.
+        // Mark the current value as seen.
+        rx.borrow_and_update();
+
+        // Trigger a refresh. If the channel is full, a refresh is already in
+        // progress, which is fine.
         if self.refresh_trigger.try_send(()).is_err() {
             if self.refresh_trigger.is_closed() {
                 return Err(CredentialsError::from_msg(
@@ -226,12 +226,8 @@ impl TokenProvider for TokenProviderWithRetry {
             }
         }
 
-        // Wait for the next value to be published.
+        // Wait for a new value to be published.
         if rx.changed().await.is_err() {
-            // The sender was dropped. This means the background task terminated,
-            // which is a permanent failure. We should not return the last value
-            // if it was a transient error, as the caller might try to retry
-            // fruitlessly.
             return Err(CredentialsError::from_msg(
                 false, // Not transient
                 "token provider background task has been terminated",
