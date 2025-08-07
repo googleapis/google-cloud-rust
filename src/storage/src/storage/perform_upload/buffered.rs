@@ -17,6 +17,7 @@ use super::{
     PerformUpload, Result, ResumableUploadStatus, StreamingSource, X_GOOG_API_CLIENT_HEADER,
     apply_customer_supplied_encryption_headers,
 };
+use crate::storage::UploadError;
 use crate::storage::checksum::details::{update as checksum_update, validate as checksum_validate};
 use progress::InProgressUpload;
 use std::sync::Arc;
@@ -166,10 +167,12 @@ where
             .as_ref()
             .and_then(|r| r.checksums.as_ref())
         {
-            self::checksum_validate(pre, &object.checksums).map_err(Error::ser)?;
+            self::checksum_validate(pre, &object.checksums)
+                .map_err(|e| Error::ser(UploadError::ChecksumMismatch(e)))?;
         }
         let computed = self.payload.lock().await.final_checksum();
-        self::checksum_validate(&computed, &object.checksums).map_err(Error::ser)?;
+        self::checksum_validate(&computed, &object.checksums)
+            .map_err(|e| Error::ser(UploadError::ChecksumMismatch(e)))?;
         Ok(object)
     }
 }

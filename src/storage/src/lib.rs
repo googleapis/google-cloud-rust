@@ -68,7 +68,6 @@ pub mod builder {
 pub use crate::control::model;
 pub use crate::control::stub;
 
-pub use storage::ChecksumMismatch;
 pub use storage::ReadError;
 pub use storage::UploadError;
 
