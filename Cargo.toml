@@ -258,6 +258,7 @@ members = [
   "src/root",
   "src/spanner",
   "src/storage",
+  "src/w1r3",
   "src/wkt",
   "tools/check-copyright",
 ]
@@ -314,6 +315,10 @@ tracing            = { default-features = false, version = "0.1", features = ["a
 tracing-subscriber = { default-features = false, version = "0.3" }
 url                = { default-features = false, version = "2" }
 uuid               = { default-features = false, version = "1", features = ["v4"] }
+clap               = { default-features = false, version = "4" }
+parse-size         = { default-features = false, version = "1" }
+humantime          = { default-features = false, version = "2" }
+
 # Test packages
 anyhow         = { default-features = false, version = "1" }
 axum           = { default-features = false, version = "0.8" }
