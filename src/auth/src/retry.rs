@@ -212,36 +212,34 @@ impl TokenProvider for TokenProviderWithRetry {
     async fn token(&self) -> Result<Token> {
         let mut rx = self.token_watch.clone();
 
-        // Check if there is a cached token and if it is still valid.
-        if let Some(result) = &*rx.borrow() {
-            if result.is_ok() {
-                return result.clone();
-            }
-        }
-
-        // Trigger a refresh.
-        if self.refresh_trigger.send(()).await.is_err() {
-            return Err(CredentialsError::from_msg(
-                false,
-                "token provider background task has been terminated",
-            ));
-        }
-
-        // Wait for the result.
-        loop {
-            if rx.changed().await.is_err() {
+        // The caller is requesting a new token, so we trigger a refresh.
+        // A send can fail if the channel is full or if the receiver has been
+        // dropped. If the channel is full, it means a refresh is already in
+        // progress. If the receiver has been dropped, it means the background
+        // task has terminated.
+        if self.refresh_trigger.try_send(()).is_err() {
+            if self.refresh_trigger.is_closed() {
                 return Err(CredentialsError::from_msg(
                     false,
                     "token provider background task has been terminated",
                 ));
             }
-
-            let result = rx.borrow().as_ref().unwrap().clone();
-            // Only return the final result, not intermediate transient errors.
-            if result.is_ok() || !result.as_ref().unwrap_err().is_transient() {
-                return result;
-            }
         }
+
+        // Wait for the next value to be published.
+        if rx.changed().await.is_err() {
+            // The sender was dropped. This means the background task terminated,
+            // which is a permanent failure. We should not return the last value
+            // if it was a transient error, as the caller might try to retry
+            // fruitlessly.
+            return Err(CredentialsError::from_msg(
+                false, // Not transient
+                "token provider background task has been terminated",
+            ));
+        }
+
+        let result = rx.borrow().clone();
+        result.expect("channel should have a value after `changed()` returns")
     }
 }
 
@@ -377,6 +375,14 @@ mod tests {
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
 
+        // The first call will trigger the retry loop and return the first
+        // transient error.
+        let err = provider.token().await.unwrap_err();
+        assert!(err.is_transient());
+
+        // We need to wait for the background task to complete the retry loop.
+        tokio::time::sleep(Duration::from_secs(5)).await;
+
         let token = provider.token().await.unwrap();
         assert_eq!(token.token, "test_token");
     }
@@ -392,6 +398,14 @@ mod tests {
         let provider = Builder::default()
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
+
+        // The first call will trigger the retry loop and return the first
+        // transient error.
+        let err = provider.token().await.unwrap_err();
+        assert!(err.is_transient());
+
+        // We need to wait for the background task to complete the retry loop.
+        tokio::time::sleep(Duration::from_secs(5)).await;
 
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
