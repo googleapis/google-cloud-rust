@@ -42,7 +42,7 @@ impl RetryLoopAttempt {
 /// Information about a retry attempt provided to the `on_retry` callback.
 ///
 /// An `on_retry` callback can be passed to
-/// [`retry_loop_with_on_retry`][super::retry_loop_with_on_retry]. It is invoked
+/// [`retry_loop_with_on_retry`]. It is invoked
 /// when a retryable error occurs and the retry policy decides to continue. This
 /// struct contains details about the attempt that just failed, and the upcoming
 /// retry attempt.
