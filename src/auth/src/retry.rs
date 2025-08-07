@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Result;
 use crate::errors::CredentialsError;
 use crate::token::{Token, TokenProvider};
-use crate::Result;
 use gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_loop_internal::retry_loop_with_callback;
@@ -24,9 +24,18 @@ use std::error::Error;
 use std::fmt::Debug;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
-use tokio::sync::watch;
+use tokio::sync::{mpsc, watch};
 
+/// A token provider that wraps another token provider with retry logic.
+///
+/// This provider spawns a background task that is responsible for fetching the
+/// token. When the `token()` method is called, it signals the background task
+/// to fetch a new token. The background task will retry fetching the token
+/// according to the configured retry policy.
 pub(crate) struct TokenProviderWithRetry {
+    /// Sends a signal to the background task to fetch a new token.
+    refresh_trigger: mpsc::Sender<()>,
+    /// Receives the result of the token fetch from the background task.
     token_watch: watch::Receiver<Option<Result<Token>>>,
 }
 
@@ -79,38 +88,56 @@ impl Builder {
         }
         .into();
 
-        let (tx, rx) = watch::channel(None);
+        let (tx_watch, rx_watch) = watch::channel(None);
+        let (tx_mpsc, rx_mpsc) = mpsc::channel(1);
 
         let refresher = TokenRefresher {
             inner: Arc::new(token_provider),
             retry_policy,
             backoff_policy,
             retry_throttler,
-            token_watch_tx: tx,
+            token_watch_tx: tx_watch,
+            refresh_trigger_rx: rx_mpsc,
             last_delay: Arc::new(Mutex::new(None)),
         };
 
         tokio::spawn(refresher.run());
 
-        TokenProviderWithRetry { token_watch: rx }
+        TokenProviderWithRetry {
+            refresh_trigger: tx_mpsc,
+            token_watch: rx_watch,
+        }
     }
 }
 
+/// The background task that is responsible for fetching the token.
 struct TokenRefresher<T: TokenProvider> {
     inner: Arc<T>,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
+    /// Sends the result of the token fetch to the `TokenProviderWithRetry`.
     token_watch_tx: watch::Sender<Option<Result<Token>>>,
+    /// Receives a signal from the `TokenProviderWithRetry` to fetch a new token.
+    refresh_trigger_rx: mpsc::Receiver<()>,
     last_delay: Arc<Mutex<Option<Duration>>>,
 }
 
 impl<T: TokenProvider + 'static> TokenRefresher<T> {
-    async fn run(self) {
-        self.execute_retry_loop().await;
+    /// Runs the background task.
+    ///
+    /// This task waits for a signal to fetch a new token. When a signal is
+    /// received, it executes the retry loop to fetch the token. The result
+    /// of the fetch is sent back to the `TokenProviderWithRetry` via the
+    /// `token_watch_tx` channel.
+    async fn run(mut self) {
+        while self.refresh_trigger_rx.recv().await.is_some() {
+            self.execute_retry_loop().await;
+        }
     }
 
-    async fn execute_retry_loop(self) {
+    /// Executes the retry loop to fetch the token.
+    async fn execute_retry_loop(&self) {
         let inn = self.inner.clone();
         let sleep = async |d| tokio::time::sleep(d).await;
 
@@ -185,22 +212,36 @@ impl TokenProvider for TokenProviderWithRetry {
     async fn token(&self) -> Result<Token> {
         let mut rx = self.token_watch.clone();
 
-        // If a value is already available, return it.
+        // Check if there is a cached token and if it is still valid.
         if let Some(result) = &*rx.borrow() {
-            return result.clone();
+            if result.is_ok() {
+                return result.clone();
+            }
         }
 
-        // Otherwise, wait for the first value to be computed.
-        if rx.changed().await.is_err() {
-            // The channel is closed, which means the refresher task has panicked or exited.
+        // Trigger a refresh.
+        if self.refresh_trigger.send(()).await.is_err() {
             return Err(CredentialsError::from_msg(
                 false,
                 "token provider background task has been terminated",
             ));
         }
 
-        let result = rx.borrow().as_ref().unwrap().clone();
-        result
+        // Wait for the result.
+        loop {
+            if rx.changed().await.is_err() {
+                return Err(CredentialsError::from_msg(
+                    false,
+                    "token provider background task has been terminated",
+                ));
+            }
+
+            let result = rx.borrow().as_ref().unwrap().clone();
+            // Only return the final result, not intermediate transient errors.
+            if result.is_ok() || !result.as_ref().unwrap_err().is_transient() {
+                return result;
+            }
+        }
     }
 }
 
@@ -336,18 +377,6 @@ mod tests {
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
 
-        // A small initial advance ensures the background task runs and hits the first error.
-        tokio::time::advance(std::time::Duration::from_millis(1)).await;
-
-        // First call will get the intermediate error.
-        let err = provider.token().await.unwrap_err();
-        assert!(err.is_transient());
-
-        // Get the suggested delay and advance the clock.
-        let delay = err.retry_in().expect("error should have a retry_in duration");
-        tokio::time::advance(delay).await;
-        tokio::time::sleep(Duration::from_secs(5)).await;
-
         let token = provider.token().await.unwrap();
         assert_eq!(token.token, "test_token");
     }
@@ -364,20 +393,6 @@ mod tests {
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
 
-        // A small initial advance ensures the background task runs and hits the first error.
-        tokio::time::advance(std::time::Duration::from_millis(1)).await;
-
-        // First call will get the intermediate error.
-        let err = provider.token().await.unwrap_err();
-        assert!(err.is_transient());
-
-        // Get the suggested delay and advance the clock.
-        let delay = err.retry_in().expect("error should have a retry_in duration");
-        tokio::time::advance(delay + Duration::from_millis(1)).await;
-        tokio::time::sleep(Duration::from_secs(5)).await;
-
-
-        // Second call will get the final error.
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
@@ -400,11 +415,7 @@ mod tests {
         assert!(!error.is_transient());
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
         assert!(!original_error.is_transient());
-        assert!(
-            error
-                .to_string()
-                .contains("non transient error")
-        );
+        assert!(error.to_string().contains("non transient error"));
     }
 
     #[tokio::test]
@@ -522,18 +533,6 @@ mod tests {
             .with_backoff_policy(backoff_policy.into())
             .with_retry_throttler(retry_throttler.into())
             .build(mock_provider);
-
-        // A small initial advance ensures the background task runs and hits the first error.
-        tokio::time::advance(std::time::Duration::from_millis(1)).await;
-
-        // First call will get the intermediate error.
-        let err = provider.token().await.unwrap_err();
-        assert!(err.is_transient());
-
-        // Get the suggested delay and advance the clock.
-        let delay = err.retry_in().expect("error should have a retry_in duration");
-        tokio::time::advance(delay).await;
-        tokio::time::sleep(Duration::from_millis(1)).await;
 
         // 5. Assert
         let token = provider.token().await.unwrap();

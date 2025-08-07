@@ -1864,14 +1864,18 @@ mod tests {
         let err = creds.headers(Extensions::new()).await.unwrap_err();
         assert!(err.is_transient());
 
-        let delay = err.retry_in().expect("error should have a retry_in duration");
+        let delay = err
+            .retry_in()
+            .expect("error should have a retry_in duration");
         tokio::time::advance(delay).await;
         tokio::time::sleep(std::time::Duration::from_millis(5)).await;
 
         let err = creds.headers(Extensions::new()).await.unwrap_err();
         assert!(err.is_transient());
 
-        let delay = err.retry_in().expect("error should have a retry_in duration");
+        let delay = err
+            .retry_in()
+            .expect("error should have a retry_in duration");
         tokio::time::advance(delay).await;
         tokio::time::sleep(std::time::Duration::from_millis(5)).await;
 
@@ -1971,7 +1975,9 @@ mod tests {
         let err = creds.headers(Extensions::new()).await.unwrap_err();
         assert!(err.is_transient());
 
-        let delay = err.retry_in().expect("error should have a retry_in duration");
+        let delay = err
+            .retry_in()
+            .expect("error should have a retry_in duration");
         tokio::time::advance(delay).await;
         tokio::time::sleep(Duration::from_secs(5)).await;
 
@@ -2012,14 +2018,18 @@ mod tests {
         let err = creds.headers(Extensions::new()).await.unwrap_err();
         assert!(err.is_transient());
 
-        let delay = err.retry_in().expect("error should have a retry_in duration");
+        let delay = err
+            .retry_in()
+            .expect("error should have a retry_in duration");
         tokio::time::advance(delay).await;
         tokio::task::yield_now().await;
 
         let err = creds.headers(Extensions::new()).await.unwrap_err();
         assert!(err.is_transient());
 
-        let delay = err.retry_in().expect("error should have a retry_in duration");
+        let delay = err
+            .retry_in()
+            .expect("error should have a retry_in duration");
         tokio::time::advance(delay).await;
         tokio::task::yield_now().await;
 
