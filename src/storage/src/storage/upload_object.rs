@@ -20,7 +20,10 @@ use super::client::*;
 use super::perform_upload::PerformUpload;
 use super::upload_source::{Seek, StreamingSource};
 use super::*;
-use crate::storage::checksum::{ChecksumEngine, Crc32c, Known, KnownCrc32c, KnownMd5, Md5};
+use crate::storage::checksum::{
+    ChecksumEngine,
+    details::{Crc32c, Known, KnownCrc32c, KnownMd5, Md5, update as checksum_update},
+};
 
 /// A request builder for object uploads.
 ///
@@ -1066,7 +1069,7 @@ where
         self.payload.seek(0_u64).await.map_err(Error::ser)?;
         let computed = self.checksum.finalize();
         let current = self.mut_resource().checksums.get_or_insert_default();
-        crate::storage::checksum::update(current, computed);
+        checksum_update(current, computed);
         Ok(self.switch_checksum(|_| Known))
     }
 }
