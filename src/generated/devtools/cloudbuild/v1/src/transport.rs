@@ -120,7 +120,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.build), options).await
+        let body = gaxi::http::handle_empty(req.build, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_build(
@@ -218,9 +219,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_builds(
@@ -309,9 +309,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn cancel_build(
@@ -406,7 +405,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn retry_build(
@@ -501,7 +501,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn approve_build(
@@ -596,7 +597,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_build_trigger(
@@ -679,9 +681,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.trigger), options)
-            .await
+        let body = gaxi::http::handle_empty(req.trigger, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_build_trigger(
@@ -779,9 +780,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_build_triggers(
@@ -868,9 +868,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_build_trigger(
@@ -968,13 +967,13 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn update_build_trigger(
@@ -1101,9 +1100,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.trigger), options)
-            .await
+        let body = gaxi::http::handle_empty(req.trigger, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn run_build_trigger(
@@ -1199,7 +1197,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.source), options).await
+        let body = gaxi::http::handle_empty(req.source, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn receive_trigger_webhook(
@@ -1299,7 +1298,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.body), options).await
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_worker_pool(
@@ -1359,9 +1359,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.worker_pool), options)
-            .await
+        let body = gaxi::http::handle_empty(req.worker_pool, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_worker_pool(
@@ -1423,9 +1422,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_worker_pool(
@@ -1490,9 +1488,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_worker_pool(
@@ -1573,9 +1570,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.worker_pool), options)
-            .await
+        let body = gaxi::http::handle_empty(req.worker_pool, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_worker_pools(
@@ -1635,9 +1631,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -1728,9 +1723,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn cancel_operation(
@@ -1821,7 +1815,8 @@ impl super::stub::CloudBuild for CloudBuild {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await.map(
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())

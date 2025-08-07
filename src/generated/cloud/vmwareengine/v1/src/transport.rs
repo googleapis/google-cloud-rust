@@ -99,9 +99,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_private_cloud(
@@ -163,9 +162,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_private_cloud(
@@ -226,9 +224,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.private_cloud), options)
-            .await
+        let body = gaxi::http::handle_empty(req.private_cloud, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_private_cloud(
@@ -309,9 +306,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.private_cloud), options)
-            .await
+        let body = gaxi::http::handle_empty(req.private_cloud, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_private_cloud(
@@ -379,9 +375,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn undelete_private_cloud(
@@ -443,7 +438,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_clusters(
@@ -509,9 +505,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_cluster(
@@ -577,9 +572,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_cluster(
@@ -644,9 +638,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.cluster), options)
-            .await
+        let body = gaxi::http::handle_empty(req.cluster, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_cluster(
@@ -732,9 +725,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.cluster), options)
-            .await
+        let body = gaxi::http::handle_empty(req.cluster, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_cluster(
@@ -801,9 +793,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_nodes(
@@ -871,9 +862,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_node(
@@ -943,9 +933,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_external_addresses(
@@ -1011,9 +1000,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn fetch_network_policy_external_addresses(
@@ -1078,9 +1066,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_external_address(
@@ -1146,9 +1133,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_external_address(
@@ -1212,9 +1198,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.external_address), options)
-            .await
+        let body = gaxi::http::handle_empty(req.external_address, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_external_address(
@@ -1299,9 +1284,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.external_address), options)
-            .await
+        let body = gaxi::http::handle_empty(req.external_address, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_external_address(
@@ -1368,9 +1352,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_subnets(
@@ -1434,9 +1417,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_subnet(
@@ -1502,9 +1484,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_subnet(
@@ -1588,7 +1569,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.subnet), options).await
+        let body = gaxi::http::handle_empty(req.subnet, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_external_access_rules(
@@ -1654,9 +1636,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_external_access_rule(
@@ -1722,9 +1703,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_external_access_rule(
@@ -1789,9 +1769,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.external_access_rule), options)
-            .await
+        let body = gaxi::http::handle_empty(req.external_access_rule, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_external_access_rule(
@@ -1876,9 +1855,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.external_access_rule), options)
-            .await
+        let body = gaxi::http::handle_empty(req.external_access_rule, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_external_access_rule(
@@ -1945,9 +1923,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_logging_servers(
@@ -2013,9 +1990,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_logging_server(
@@ -2081,9 +2057,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_logging_server(
@@ -2147,9 +2122,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.logging_server), options)
-            .await
+        let body = gaxi::http::handle_empty(req.logging_server, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_logging_server(
@@ -2234,9 +2208,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.logging_server), options)
-            .await
+        let body = gaxi::http::handle_empty(req.logging_server, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_logging_server(
@@ -2303,9 +2276,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_node_types(
@@ -2366,9 +2338,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_node_type(
@@ -2430,9 +2401,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn show_nsx_credentials(
@@ -2494,9 +2464,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn show_vcenter_credentials(
@@ -2559,9 +2528,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn reset_nsx_credentials(
@@ -2623,7 +2591,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn reset_vcenter_credentials(
@@ -2685,7 +2654,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_dns_forwarding(
@@ -2749,9 +2719,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_dns_forwarding(
@@ -2834,9 +2803,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.dns_forwarding), options)
-            .await
+        let body = gaxi::http::handle_empty(req.dns_forwarding, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_network_peering(
@@ -2898,9 +2866,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_network_peerings(
@@ -2962,9 +2929,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_network_peering(
@@ -3024,9 +2990,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.network_peering), options)
-            .await
+        let body = gaxi::http::handle_empty(req.network_peering, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_network_peering(
@@ -3089,9 +3054,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_network_peering(
@@ -3172,9 +3136,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.network_peering), options)
-            .await
+        let body = gaxi::http::handle_empty(req.network_peering, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_peering_routes(
@@ -3239,9 +3202,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_hcx_activation_key(
@@ -3305,9 +3267,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.hcx_activation_key), options)
-            .await
+        let body = gaxi::http::handle_empty(req.hcx_activation_key, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_hcx_activation_keys(
@@ -3371,9 +3332,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_hcx_activation_key(
@@ -3439,9 +3399,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_network_policy(
@@ -3503,9 +3462,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_network_policies(
@@ -3567,9 +3525,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_network_policy(
@@ -3629,9 +3586,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.network_policy), options)
-            .await
+        let body = gaxi::http::handle_empty(req.network_policy, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_network_policy(
@@ -3712,9 +3668,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.network_policy), options)
-            .await
+        let body = gaxi::http::handle_empty(req.network_policy, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_network_policy(
@@ -3777,9 +3732,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_management_dns_zone_bindings(
@@ -3845,9 +3799,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_management_dns_zone_binding(
@@ -3913,9 +3866,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_management_dns_zone_binding(
@@ -3982,9 +3934,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.management_dns_zone_binding), options)
-            .await
+        let body = gaxi::http::handle_empty(req.management_dns_zone_binding, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_management_dns_zone_binding(
@@ -4069,9 +4020,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.management_dns_zone_binding), options)
-            .await
+        let body = gaxi::http::handle_empty(req.management_dns_zone_binding, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_management_dns_zone_binding(
@@ -4138,9 +4088,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn repair_management_dns_zone_binding(
@@ -4206,7 +4155,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_vmware_engine_network(
@@ -4267,9 +4217,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.vmware_engine_network), options)
-            .await
+        let body = gaxi::http::handle_empty(req.vmware_engine_network, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_vmware_engine_network(
@@ -4350,9 +4299,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.vmware_engine_network), options)
-            .await
+        let body = gaxi::http::handle_empty(req.vmware_engine_network, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_vmware_engine_network(
@@ -4416,9 +4364,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_vmware_engine_network(
@@ -4480,9 +4427,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_vmware_engine_networks(
@@ -4544,9 +4490,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_private_connection(
@@ -4606,9 +4551,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.private_connection), options)
-            .await
+        let body = gaxi::http::handle_empty(req.private_connection, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_private_connection(
@@ -4670,9 +4614,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_private_connections(
@@ -4734,9 +4677,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_private_connection(
@@ -4817,9 +4759,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.private_connection), options)
-            .await
+        let body = gaxi::http::handle_empty(req.private_connection, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_private_connection(
@@ -4882,9 +4823,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_private_connection_peering_routes(
@@ -4949,9 +4889,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn grant_dns_bind_permission(
@@ -5011,7 +4950,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_dns_bind_permission(
@@ -5071,9 +5011,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn revoke_dns_bind_permission(
@@ -5133,7 +5072,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_locations(
@@ -5184,9 +5124,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_location(
@@ -5244,9 +5183,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn set_iam_policy(
@@ -5390,7 +5328,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_iam_policy(
@@ -5570,9 +5509,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn test_iam_permissions(
@@ -5716,7 +5654,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_operations(
@@ -5777,9 +5716,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -5841,9 +5779,8 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_operation(
@@ -5905,13 +5842,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     fn get_polling_error_policy(

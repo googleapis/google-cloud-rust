@@ -99,9 +99,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_instance(
@@ -163,9 +162,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_instance(
@@ -225,9 +223,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.instance), options)
-            .await
+        let body = gaxi::http::handle_empty(req.instance, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_instance(
@@ -290,9 +287,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_repositories(
@@ -354,9 +350,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_repository(
@@ -418,9 +413,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_repository(
@@ -479,9 +473,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.repository), options)
-            .await
+        let body = gaxi::http::handle_empty(req.repository, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_repository(
@@ -562,9 +555,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.repository), options)
-            .await
+        let body = gaxi::http::handle_empty(req.repository, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_repository(
@@ -627,9 +619,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_hooks(
@@ -693,9 +684,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_hook(
@@ -761,9 +751,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_hook(
@@ -826,7 +815,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.hook), options).await
+        let body = gaxi::http::handle_empty(req.hook, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_hook(
@@ -910,7 +900,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.hook), options).await
+        let body = gaxi::http::handle_empty(req.hook, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_hook(
@@ -976,9 +967,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_iam_policy_repo(
@@ -1052,9 +1042,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn set_iam_policy_repo(
@@ -1116,7 +1105,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn test_iam_permissions_repo(
@@ -1178,7 +1168,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_branch_rule(
@@ -1241,9 +1232,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.branch_rule), options)
-            .await
+        let body = gaxi::http::handle_empty(req.branch_rule, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_branch_rules(
@@ -1307,9 +1297,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_branch_rule(
@@ -1375,9 +1364,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_branch_rule(
@@ -1462,9 +1450,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.branch_rule), options)
-            .await
+        let body = gaxi::http::handle_empty(req.branch_rule, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_branch_rule(
@@ -1531,9 +1518,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_pull_request(
@@ -1595,9 +1581,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.pull_request), options)
-            .await
+        let body = gaxi::http::handle_empty(req.pull_request, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_pull_request(
@@ -1663,9 +1648,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_pull_requests(
@@ -1729,9 +1713,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_pull_request(
@@ -1815,9 +1798,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.pull_request), options)
-            .await
+        let body = gaxi::http::handle_empty(req.pull_request, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn merge_pull_request(
@@ -1883,7 +1865,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn open_pull_request(
@@ -1949,7 +1932,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn close_pull_request(
@@ -2015,7 +1999,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_pull_request_file_diffs(
@@ -2083,9 +2068,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn fetch_tree(
@@ -2151,9 +2135,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn fetch_blob(
@@ -2216,9 +2199,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_issue(
@@ -2280,7 +2262,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.issue), options).await
+        let body = gaxi::http::handle_empty(req.issue, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_issue(
@@ -2346,9 +2329,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_issues(
@@ -2413,9 +2395,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_issue(
@@ -2499,7 +2480,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.issue), options).await
+        let body = gaxi::http::handle_empty(req.issue, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_issue(
@@ -2566,9 +2548,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn open_issue(
@@ -2634,7 +2615,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn close_issue(
@@ -2700,7 +2682,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_pull_request_comment(
@@ -2746,9 +2729,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_pull_request_comments(
@@ -2816,9 +2798,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_pull_request_comment(
@@ -2884,9 +2865,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.pull_request_comment), options)
-            .await
+        let body = gaxi::http::handle_empty(req.pull_request_comment, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_pull_request_comment(
@@ -2935,9 +2915,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.pull_request_comment), options)
-            .await
+        let body = gaxi::http::handle_empty(req.pull_request_comment, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_pull_request_comment(
@@ -2983,9 +2962,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn batch_create_pull_request_comments(
@@ -3051,7 +3029,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn resolve_pull_request_comments(
@@ -3117,7 +3096,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn unresolve_pull_request_comments(
@@ -3183,7 +3163,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_issue_comment(
@@ -3249,9 +3230,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.issue_comment), options)
-            .await
+        let body = gaxi::http::handle_empty(req.issue_comment, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_issue_comment(
@@ -3321,9 +3301,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_issue_comments(
@@ -3391,9 +3370,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_issue_comment(
@@ -3481,9 +3459,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.issue_comment), options)
-            .await
+        let body = gaxi::http::handle_empty(req.issue_comment, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_issue_comment(
@@ -3553,9 +3530,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_locations(
@@ -3606,9 +3582,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_location(
@@ -3666,9 +3641,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn set_iam_policy(
@@ -3730,7 +3704,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_iam_policy(
@@ -3804,9 +3779,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn test_iam_permissions(
@@ -3868,7 +3842,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_operations(
@@ -3929,9 +3904,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -3993,9 +3967,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_operation(
@@ -4057,13 +4030,13 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn cancel_operation(
@@ -4125,7 +4098,8 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await.map(
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())

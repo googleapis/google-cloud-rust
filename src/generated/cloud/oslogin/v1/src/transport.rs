@@ -85,9 +85,8 @@ impl super::stub::OsLoginService for OsLoginService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.ssh_public_key), options)
-            .await
+        let body = gaxi::http::handle_empty(req.ssh_public_key, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_posix_account(
@@ -145,13 +144,13 @@ impl super::stub::OsLoginService for OsLoginService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn delete_ssh_public_key(
@@ -209,13 +208,13 @@ impl super::stub::OsLoginService for OsLoginService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn get_login_profile(
@@ -265,9 +264,8 @@ impl super::stub::OsLoginService for OsLoginService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_ssh_public_key(
@@ -325,9 +323,8 @@ impl super::stub::OsLoginService for OsLoginService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn import_ssh_public_key(
@@ -380,9 +377,8 @@ impl super::stub::OsLoginService for OsLoginService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.ssh_public_key), options)
-            .await
+        let body = gaxi::http::handle_empty(req.ssh_public_key, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_ssh_public_key(
@@ -452,8 +448,7 @@ impl super::stub::OsLoginService for OsLoginService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.ssh_public_key), options)
-            .await
+        let body = gaxi::http::handle_empty(req.ssh_public_key, &method);
+        self.inner.execute(builder, body, options).await
     }
 }

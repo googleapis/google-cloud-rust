@@ -85,7 +85,8 @@ impl super::stub::ProfilerService for ProfilerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_offline_profile(
@@ -133,9 +134,8 @@ impl super::stub::ProfilerService for ProfilerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.profile), options)
-            .await
+        let body = gaxi::http::handle_empty(req.profile, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_profile(
@@ -211,9 +211,8 @@ impl super::stub::ProfilerService for ProfilerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.profile), options)
-            .await
+        let body = gaxi::http::handle_empty(req.profile, &method);
+        self.inner.execute(builder, body, options).await
     }
 }
 
@@ -286,8 +285,7 @@ impl super::stub::ExportService for ExportService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 }

@@ -95,8 +95,7 @@ impl super::stub::PublicCertificateAuthorityService for PublicCertificateAuthori
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.external_account_key), options)
-            .await
+        let body = gaxi::http::handle_empty(req.external_account_key, &method);
+        self.inner.execute(builder, body, options).await
     }
 }

@@ -222,17 +222,17 @@ impl ReqwestClient {
     }
 }
 
-#[derive(serde::Serialize)]
+#[derive(Default, serde::Serialize)]
 pub struct NoBody;
 
-impl NoBody {
-    // PUT and POST requests require a payload
-    pub fn new(m: &Method) -> Option<NoBody> {
-        if m == Method::PUT || m == Method::POST {
-            return Some(NoBody);
+pub fn handle_empty<T: Default>(body: Option<T>, method: &Method) -> Option<T> {
+    body.or_else(|| {
+        if method == Method::PUT || method == Method::POST {
+            Some(T::default())
+        } else {
+            None
         }
-        None
-    }
+    })
 }
 
 // Returns `true` if the method is idempotent by default, and `false`, if not.
@@ -397,8 +397,11 @@ mod tests {
     #[test_case(Method::PUT, true)]
     #[test_case(Method::DELETE, false)]
     #[test_case(Method::PATCH, false)]
-    fn no_body(input: Method, expected: bool) {
-        assert!(super::NoBody::new(&input).is_some() == expected);
+    fn handle_empty(input: Method, expected: bool) {
+        assert!(super::handle_empty(None::<super::NoBody>, &input).is_some() == expected);
+
+        let s = Some(wkt::Empty {});
+        assert_eq!(s, super::handle_empty(s.clone(), &input));
     }
 
     #[test_case(Method::GET, true)]
