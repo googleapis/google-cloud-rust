@@ -40,6 +40,7 @@ pub use gax::error::Error;
 pub mod backoff_policy;
 pub mod download_resume_policy;
 pub mod retry_policy;
+pub use crate::storage::checksum;
 pub use crate::storage::upload_source;
 
 mod control;
