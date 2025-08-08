@@ -2873,6 +2873,169 @@ pub mod firestore_admin {
         }
     }
 
+    /// The request builder for [FirestoreAdmin::clone_database][crate::client::FirestoreAdmin::clone_database] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::CloneDatabase;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CloneDatabase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CloneDatabase(RequestBuilder<crate::model::CloneDatabaseRequest>);
+
+    impl CloneDatabase {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CloneDatabaseRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [clone_database][crate::client::FirestoreAdmin::clone_database].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .clone_database(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `clone_database`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Database, crate::model::CloneDatabaseMetadata> {
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::CloneDatabaseMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CloneDatabaseRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [database_id][crate::model::CloneDatabaseRequest::database_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_database_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.database_id = v.into();
+            self
+        }
+
+        /// Sets the value of [pitr_snapshot][crate::model::CloneDatabaseRequest::pitr_snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pitr_snapshot<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PitrSnapshot>,
+        {
+            self.0.request.pitr_snapshot = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pitr_snapshot][crate::model::CloneDatabaseRequest::pitr_snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pitr_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PitrSnapshot>,
+        {
+            self.0.request.pitr_snapshot = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [encryption_config][crate::model::CloneDatabaseRequest::encryption_config].
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::database::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::CloneDatabaseRequest::encryption_config].
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::database::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [tags][crate::model::CloneDatabaseRequest::tags].
+        pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CloneDatabase {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [FirestoreAdmin::list_operations][crate::client::FirestoreAdmin::list_operations] calls.
     ///
     /// # Example

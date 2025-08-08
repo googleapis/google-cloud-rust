@@ -1254,6 +1254,7 @@ impl super::stub::Datastream for Datastream {
                 let builder = builder.query(&[("privateConnectionId", &req.private_connection_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("force", &req.force)]);
+                let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })

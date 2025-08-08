@@ -20624,6 +20624,18 @@ pub struct Instance {
     /// Output only. Reserved for future use.
     pub satisfies_pzi: std::option::Option<bool>,
 
+    /// Optional. Input only. Immutable. Tag keys/values directly bound to this
+    /// resource. For example:
+    ///
+    /// - "123/environment": "production",
+    /// - "123/costCenter": "marketing"
+    ///
+    /// Tags and Labels (above) are both used to bind metadata to resources, with
+    /// different use-cases. See
+    /// <https://cloud.google.com/resource-manager/docs/tags/tags-overview> for an
+    /// in-depth overview on the difference between tags and labels.
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -20721,6 +20733,18 @@ impl Instance {
         self.satisfies_pzi = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [tags][crate::model::Instance::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Instance {
@@ -20747,6 +20771,7 @@ impl<'de> serde::de::Deserialize<'de> for Instance {
             __create_time,
             __satisfies_pzs,
             __satisfies_pzi,
+            __tags,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -20779,6 +20804,7 @@ impl<'de> serde::de::Deserialize<'de> for Instance {
                             "satisfies_pzs" => Ok(__FieldTag::__satisfies_pzs),
                             "satisfiesPzi" => Ok(__FieldTag::__satisfies_pzi),
                             "satisfies_pzi" => Ok(__FieldTag::__satisfies_pzi),
+                            "tags" => Ok(__FieldTag::__tags),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -20884,6 +20910,21 @@ impl<'de> serde::de::Deserialize<'de> for Instance {
                             }
                             result.satisfies_pzi = map.next_value::<std::option::Option<bool>>()?;
                         }
+                        __FieldTag::__tags => {
+                            if !fields.insert(__FieldTag::__tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tags",
+                                ));
+                            }
+                            result.tags = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -20931,6 +20972,9 @@ impl serde::ser::Serialize for Instance {
         if self.satisfies_pzi.is_some() {
             state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
         }
+        if !self.tags.is_empty() {
+            state.serialize_entry("tags", &self.tags)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -20951,6 +20995,7 @@ impl std::fmt::Debug for Instance {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

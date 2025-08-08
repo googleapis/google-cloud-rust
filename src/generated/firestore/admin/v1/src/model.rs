@@ -11740,6 +11740,308 @@ impl std::fmt::Debug for RestoreDatabaseRequest {
     }
 }
 
+/// The request message for
+/// [FirestoreAdmin.CloneDatabase][google.firestore.admin.v1.FirestoreAdmin.CloneDatabase].
+///
+/// [google.firestore.admin.v1.FirestoreAdmin.CloneDatabase]: crate::client::FirestoreAdmin::clone_database
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloneDatabaseRequest {
+    /// Required. The project to clone the database in. Format is
+    /// `projects/{project_id}`.
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the database, which will become the final
+    /// component of the database's resource name. This database ID must not be
+    /// associated with an existing database.
+    ///
+    /// This value should be 4-63 characters. Valid characters are /[a-z][0-9]-/
+    /// with first character a letter and the last a letter or a number. Must not
+    /// be UUID-like /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/.
+    ///
+    /// "(default)" database ID is also valid.
+    pub database_id: std::string::String,
+
+    /// Required. Specification of the PITR data to clone from. The source database
+    /// must exist.
+    ///
+    /// The cloned database will be created in the same location as the source
+    /// database.
+    pub pitr_snapshot: std::option::Option<crate::model::PitrSnapshot>,
+
+    /// Optional. Encryption configuration for the cloned database.
+    ///
+    /// If this field is not specified, the cloned database will use
+    /// the same encryption configuration as the source database, namely
+    /// [use_source_encryption][google.firestore.admin.v1.Database.EncryptionConfig.use_source_encryption].
+    ///
+    /// [google.firestore.admin.v1.Database.EncryptionConfig.use_source_encryption]: crate::model::database::EncryptionConfig::encryption_type
+    pub encryption_config: std::option::Option<crate::model::database::EncryptionConfig>,
+
+    /// Optional. Immutable. Tags to be bound to the cloned database.
+    ///
+    /// The tags should be provided in the format of
+    /// `tagKeys/{tag_key_id} -> tagValues/{tag_value_id}`.
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloneDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CloneDatabaseRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [database_id][crate::model::CloneDatabaseRequest::database_id].
+    pub fn set_database_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database_id = v.into();
+        self
+    }
+
+    /// Sets the value of [pitr_snapshot][crate::model::CloneDatabaseRequest::pitr_snapshot].
+    pub fn set_pitr_snapshot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PitrSnapshot>,
+    {
+        self.pitr_snapshot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pitr_snapshot][crate::model::CloneDatabaseRequest::pitr_snapshot].
+    pub fn set_or_clear_pitr_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PitrSnapshot>,
+    {
+        self.pitr_snapshot = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [encryption_config][crate::model::CloneDatabaseRequest::encryption_config].
+    pub fn set_encryption_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::database::EncryptionConfig>,
+    {
+        self.encryption_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_config][crate::model::CloneDatabaseRequest::encryption_config].
+    pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::database::EncryptionConfig>,
+    {
+        self.encryption_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::CloneDatabaseRequest::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for CloneDatabaseRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.CloneDatabaseRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CloneDatabaseRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __database_id,
+            __pitr_snapshot,
+            __encryption_config,
+            __tags,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CloneDatabaseRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "databaseId" => Ok(__FieldTag::__database_id),
+                            "database_id" => Ok(__FieldTag::__database_id),
+                            "pitrSnapshot" => Ok(__FieldTag::__pitr_snapshot),
+                            "pitr_snapshot" => Ok(__FieldTag::__pitr_snapshot),
+                            "encryptionConfig" => Ok(__FieldTag::__encryption_config),
+                            "encryption_config" => Ok(__FieldTag::__encryption_config),
+                            "tags" => Ok(__FieldTag::__tags),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CloneDatabaseRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CloneDatabaseRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__database_id => {
+                            if !fields.insert(__FieldTag::__database_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database_id",
+                                ));
+                            }
+                            result.database_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__pitr_snapshot => {
+                            if !fields.insert(__FieldTag::__pitr_snapshot) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pitr_snapshot",
+                                ));
+                            }
+                            result.pitr_snapshot = map
+                                .next_value::<std::option::Option<crate::model::PitrSnapshot>>()?;
+                        }
+                        __FieldTag::__encryption_config => {
+                            if !fields.insert(__FieldTag::__encryption_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encryption_config",
+                                ));
+                            }
+                            result.encryption_config = map.next_value::<std::option::Option<crate::model::database::EncryptionConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__tags => {
+                            if !fields.insert(__FieldTag::__tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tags",
+                                ));
+                            }
+                            result.tags = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CloneDatabaseRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.database_id.is_empty() {
+            state.serialize_entry("databaseId", &self.database_id)?;
+        }
+        if self.pitr_snapshot.is_some() {
+            state.serialize_entry("pitrSnapshot", &self.pitr_snapshot)?;
+        }
+        if self.encryption_config.is_some() {
+            state.serialize_entry("encryptionConfig", &self.encryption_config)?;
+        }
+        if !self.tags.is_empty() {
+            state.serialize_entry("tags", &self.tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CloneDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloneDatabaseRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("database_id", &self.database_id);
+        debug_struct.field("pitr_snapshot", &self.pitr_snapshot);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        debug_struct.field("tags", &self.tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cloud Firestore indexes enable simple and complex queries against
 /// documents in a database.
 #[derive(Clone, Default, PartialEq)]
@@ -16854,6 +17156,327 @@ impl std::fmt::Debug for RestoreDatabaseMetadata {
     }
 }
 
+/// Metadata for the [long-running operation][google.longrunning.Operation] from
+/// the [CloneDatabase][google.firestore.admin.v1.CloneDatabase] request.
+///
+/// [google.longrunning.Operation]: longrunning::model::Operation
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloneDatabaseMetadata {
+    /// The time the clone was started.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// The time the clone finished, unset for ongoing clones.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// The operation state of the clone.
+    pub operation_state: crate::model::OperationState,
+
+    /// The name of the database being cloned to.
+    pub database: std::string::String,
+
+    /// The snapshot from which this database was cloned.
+    pub pitr_snapshot: std::option::Option<crate::model::PitrSnapshot>,
+
+    /// How far along the clone is as an estimated percentage of remaining time.
+    pub progress_percentage: std::option::Option<crate::model::Progress>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloneDatabaseMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_time][crate::model::CloneDatabaseMetadata::start_time].
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::CloneDatabaseMetadata::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::CloneDatabaseMetadata::end_time].
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::CloneDatabaseMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [operation_state][crate::model::CloneDatabaseMetadata::operation_state].
+    pub fn set_operation_state<T: std::convert::Into<crate::model::OperationState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.operation_state = v.into();
+        self
+    }
+
+    /// Sets the value of [database][crate::model::CloneDatabaseMetadata::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [pitr_snapshot][crate::model::CloneDatabaseMetadata::pitr_snapshot].
+    pub fn set_pitr_snapshot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PitrSnapshot>,
+    {
+        self.pitr_snapshot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pitr_snapshot][crate::model::CloneDatabaseMetadata::pitr_snapshot].
+    pub fn set_or_clear_pitr_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PitrSnapshot>,
+    {
+        self.pitr_snapshot = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [progress_percentage][crate::model::CloneDatabaseMetadata::progress_percentage].
+    pub fn set_progress_percentage<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_percentage = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [progress_percentage][crate::model::CloneDatabaseMetadata::progress_percentage].
+    pub fn set_or_clear_progress_percentage<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Progress>,
+    {
+        self.progress_percentage = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CloneDatabaseMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.CloneDatabaseMetadata"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CloneDatabaseMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __start_time,
+            __end_time,
+            __operation_state,
+            __database,
+            __pitr_snapshot,
+            __progress_percentage,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CloneDatabaseMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "startTime" => Ok(__FieldTag::__start_time),
+                            "start_time" => Ok(__FieldTag::__start_time),
+                            "endTime" => Ok(__FieldTag::__end_time),
+                            "end_time" => Ok(__FieldTag::__end_time),
+                            "operationState" => Ok(__FieldTag::__operation_state),
+                            "operation_state" => Ok(__FieldTag::__operation_state),
+                            "database" => Ok(__FieldTag::__database),
+                            "pitrSnapshot" => Ok(__FieldTag::__pitr_snapshot),
+                            "pitr_snapshot" => Ok(__FieldTag::__pitr_snapshot),
+                            "progressPercentage" => Ok(__FieldTag::__progress_percentage),
+                            "progress_percentage" => Ok(__FieldTag::__progress_percentage),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CloneDatabaseMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CloneDatabaseMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__start_time => {
+                            if !fields.insert(__FieldTag::__start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time",
+                                ));
+                            }
+                            result.start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__end_time => {
+                            if !fields.insert(__FieldTag::__end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_time",
+                                ));
+                            }
+                            result.end_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__operation_state => {
+                            if !fields.insert(__FieldTag::__operation_state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for operation_state",
+                                ));
+                            }
+                            result.operation_state = map
+                                .next_value::<std::option::Option<crate::model::OperationState>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__database => {
+                            if !fields.insert(__FieldTag::__database) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database",
+                                ));
+                            }
+                            result.database = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__pitr_snapshot => {
+                            if !fields.insert(__FieldTag::__pitr_snapshot) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pitr_snapshot",
+                                ));
+                            }
+                            result.pitr_snapshot = map
+                                .next_value::<std::option::Option<crate::model::PitrSnapshot>>()?;
+                        }
+                        __FieldTag::__progress_percentage => {
+                            if !fields.insert(__FieldTag::__progress_percentage) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for progress_percentage",
+                                ));
+                            }
+                            result.progress_percentage =
+                                map.next_value::<std::option::Option<crate::model::Progress>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CloneDatabaseMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if !wkt::internal::is_default(&self.operation_state) {
+            state.serialize_entry("operationState", &self.operation_state)?;
+        }
+        if !self.database.is_empty() {
+            state.serialize_entry("database", &self.database)?;
+        }
+        if self.pitr_snapshot.is_some() {
+            state.serialize_entry("pitrSnapshot", &self.pitr_snapshot)?;
+        }
+        if self.progress_percentage.is_some() {
+            state.serialize_entry("progressPercentage", &self.progress_percentage)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CloneDatabaseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloneDatabaseMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("operation_state", &self.operation_state);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("pitr_snapshot", &self.pitr_snapshot);
+        debug_struct.field("progress_percentage", &self.progress_percentage);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the progress of the operation.
 /// Unit of work is generic and must be interpreted based on where
 /// [Progress][google.firestore.admin.v1.Progress] is used.
@@ -17735,6 +18358,233 @@ impl std::fmt::Debug for WeeklyRecurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WeeklyRecurrence");
         debug_struct.field("day", &self.day);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// A consistent snapshot of a database at a specific point in time.
+/// A PITR (Point-in-time recovery) snapshot with previous versions of a
+/// database's data is available for every minute up to the associated database's
+/// data retention period. If the PITR feature is enabled, the retention period
+/// is 7 days; otherwise, it is one hour.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PitrSnapshot {
+    /// Required. The name of the database that this was a snapshot of. Format:
+    /// `projects/{project}/databases/{database}`.
+    pub database: std::string::String,
+
+    /// Output only. Public UUID of the database the snapshot was associated with.
+    pub database_uid: ::bytes::Bytes,
+
+    /// Required. Snapshot time of the database.
+    pub snapshot_time: std::option::Option<wkt::Timestamp>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PitrSnapshot {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [database][crate::model::PitrSnapshot::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [database_uid][crate::model::PitrSnapshot::database_uid].
+    pub fn set_database_uid<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.database_uid = v.into();
+        self
+    }
+
+    /// Sets the value of [snapshot_time][crate::model::PitrSnapshot::snapshot_time].
+    pub fn set_snapshot_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.snapshot_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [snapshot_time][crate::model::PitrSnapshot::snapshot_time].
+    pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.snapshot_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for PitrSnapshot {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.admin.v1.PitrSnapshot"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for PitrSnapshot {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __database,
+            __database_uid,
+            __snapshot_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PitrSnapshot")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "database" => Ok(__FieldTag::__database),
+                            "databaseUid" => Ok(__FieldTag::__database_uid),
+                            "database_uid" => Ok(__FieldTag::__database_uid),
+                            "snapshotTime" => Ok(__FieldTag::__snapshot_time),
+                            "snapshot_time" => Ok(__FieldTag::__snapshot_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = PitrSnapshot;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PitrSnapshot")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__database => {
+                            if !fields.insert(__FieldTag::__database) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database",
+                                ));
+                            }
+                            result.database = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__database_uid => {
+                            if !fields.insert(__FieldTag::__database_uid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database_uid",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.database_uid = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__snapshot_time => {
+                            if !fields.insert(__FieldTag::__snapshot_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for snapshot_time",
+                                ));
+                            }
+                            result.snapshot_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for PitrSnapshot {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.database.is_empty() {
+            state.serialize_entry("database", &self.database)?;
+        }
+        if !self.database_uid.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("databaseUid", &__With(&self.database_uid))?;
+        }
+        if self.snapshot_time.is_some() {
+            state.serialize_entry("snapshotTime", &self.snapshot_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for PitrSnapshot {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PitrSnapshot");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("database_uid", &self.database_uid);
+        debug_struct.field("snapshot_time", &self.snapshot_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
