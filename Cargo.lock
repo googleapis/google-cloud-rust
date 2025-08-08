@@ -6585,6 +6585,8 @@ dependencies = [
  "parse-size",
  "rand 0.9.2",
  "tokio",
+ "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]
