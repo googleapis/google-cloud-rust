@@ -33,7 +33,7 @@
 //!     let object = builder
 //!         .with_if_generation_match(0)
 //!         .with_resumable_upload_threshold(0_usize)
-//!         .send()
+//!         .send_buffered()
 //!         .await?;
 //!     Ok(object)
 //! }

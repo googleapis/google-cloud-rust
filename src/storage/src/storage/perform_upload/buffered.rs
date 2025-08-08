@@ -233,7 +233,7 @@ mod tests {
             .await?;
         let response = client
             .upload_object("projects/_/buckets/test-bucket", "test-object", "")
-            .send()
+            .send_buffered()
             .await?;
         assert_eq!(response.name, "test-object");
         assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
@@ -267,7 +267,7 @@ mod tests {
             .returning(|| Ok((1024_u64, Some(1024_u64))));
         let err = client
             .upload_object("projects/_/buckets/test-bucket", "test-object", source)
-            .send()
+            .send_buffered()
             .await
             .expect_err("expected a serialization error");
         assert!(err.is_serialization(), "{err:?}");

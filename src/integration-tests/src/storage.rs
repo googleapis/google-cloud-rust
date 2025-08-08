@@ -365,7 +365,7 @@ pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) 
     let insert = client
         .upload_object(&bucket.name, "empty.txt", "")
         .with_if_generation_match(0)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 0_i64);
@@ -375,7 +375,7 @@ pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) 
     let insert = client
         .upload_object(&bucket.name, "128K.txt", payload)
         .with_if_generation_match(0)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 128 * 1024_i64);
@@ -385,7 +385,7 @@ pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) 
     let insert = client
         .upload_object(&bucket.name, "512K.txt", payload)
         .with_if_generation_match(0)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 512 * 1024_i64);
@@ -422,7 +422,7 @@ pub async fn upload_buffered_resumable_known_size(
         .upload_object(&bucket.name, "empty.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 0_i64);
@@ -433,7 +433,7 @@ pub async fn upload_buffered_resumable_known_size(
         .upload_object(&bucket.name, "128K.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 128 * 1024_i64);
@@ -444,7 +444,7 @@ pub async fn upload_buffered_resumable_known_size(
         .upload_object(&bucket.name, "512K.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 512 * 1024_i64);
@@ -481,7 +481,7 @@ pub async fn upload_buffered_resumable_unknown_size(
         .upload_object(&bucket.name, "empty.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 0_i64);
@@ -492,7 +492,7 @@ pub async fn upload_buffered_resumable_unknown_size(
         .upload_object(&bucket.name, "128K.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 128 * 1024_i64);
@@ -503,7 +503,7 @@ pub async fn upload_buffered_resumable_unknown_size(
         .upload_object(&bucket.name, "512K.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 512 * 1024_i64);
@@ -514,7 +514,7 @@ pub async fn upload_buffered_resumable_unknown_size(
         .upload_object(&bucket.name, "500K.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 500 * 1024_i64);
@@ -757,7 +757,7 @@ async fn abort_upload_buffered(client: storage::client::Storage, bucket_name: &s
     for (number, AbortUploadTestCase { name, upload }) in test_cases.into_iter().enumerate() {
         tracing::info!("[{number}] {name}");
         let err = upload
-            .send()
+            .send_buffered()
             .await
             .expect_err(&format!("[{number}] {name} - expected error"));
         tracing::info!("[{number}] {name} - got error {err:?}");
@@ -807,7 +807,7 @@ pub async fn checksums(
                 client
                     .upload_object(bucket_name, "verify/default", VEXING)
                     .with_if_generation_match(0)
-                    .send(),
+                    .send_buffered(),
             ),
         ),
         (
@@ -817,7 +817,7 @@ pub async fn checksums(
                     .upload_object(bucket_name, "verify/md5", VEXING)
                     .with_if_generation_match(0)
                     .compute_md5()
-                    .send(),
+                    .send_buffered(),
             ),
         ),
         (
@@ -828,7 +828,7 @@ pub async fn checksums(
                     .with_if_generation_match(0)
                     .precompute_checksums()
                     .await?
-                    .send(),
+                    .send_buffered(),
             ),
         ),
         (
@@ -840,7 +840,7 @@ pub async fn checksums(
                     .compute_md5()
                     .precompute_checksums()
                     .await?
-                    .send(),
+                    .send_buffered(),
             ),
         ),
     ];

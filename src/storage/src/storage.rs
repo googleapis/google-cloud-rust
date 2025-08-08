@@ -36,7 +36,7 @@ use crate::{Error, Result};
 /// let upload = client
 ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
 ///     .with_if_generation_not_match(0);
-/// match upload.send().await {
+/// match upload.send_buffered().await {
 ///     Ok(object) => println!("Successfully uploaded the object"),
 ///     Err(error) if error.is_serialization() => {
 ///         println!("Some problem {error:?} sending the data to the service");

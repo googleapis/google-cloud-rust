@@ -179,7 +179,7 @@ async fn empty_success() -> Result {
     let response = client
         .upload_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
-        .send()
+        .send_buffered()
         .await?;
     assert_eq!(response.name, "test-object");
     assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
@@ -243,7 +243,7 @@ async fn resumable_empty_unknown() -> Result {
             UnknownSize::new(BytesSource::new(bytes::Bytes::from_static(b""))),
         )
         .with_if_generation_match(0_i64)
-        .send()
+        .send_buffered()
         .await?;
     assert_eq!(response.name, "test-object");
     assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
@@ -318,7 +318,7 @@ async fn empty_csek() -> Result {
         .upload_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
         .with_key(KeyAes256::new(&key)?)
-        .send()
+        .send_buffered()
         .await?;
     assert_eq!(response.name, "test-object");
     assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
@@ -367,7 +367,7 @@ async fn source_next_error() -> Result {
         .upload_object("projects/_/buckets/test-bucket", "test-object", source)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await
         .expect_err("expected a serialization error");
     assert!(err.is_serialization(), "{err:?}");
@@ -400,7 +400,7 @@ async fn start_permanent_error() -> Result {
     let response = client
         .upload_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
-        .send()
+        .send_buffered()
         .await
         .expect_err("request should fail");
     assert_eq!(response.http_status_code(), Some(403), "{response:?}");
@@ -431,7 +431,7 @@ async fn start_too_many_transients() -> Result {
         .upload_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
-        .send()
+        .send_buffered()
         .await
         .expect_err("request should fail");
     assert_eq!(response.http_status_code(), Some(429), "{response:?}");
@@ -481,7 +481,7 @@ async fn put_permanent_error() -> Result {
     let response = client
         .upload_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
-        .send()
+        .send_buffered()
         .await
         .expect_err("request should fail");
     assert_eq!(response.http_status_code(), Some(412), "{response:?}");
@@ -528,7 +528,7 @@ async fn put_too_many_transients() -> Result {
         .upload_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
-        .send()
+        .send_buffered()
         .await
         .expect_err("request should fail");
     assert_eq!(response.http_status_code(), Some(429), "{response:?}");
@@ -608,7 +608,7 @@ async fn put_partial_and_recover() -> Result {
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
         .with_resumable_upload_buffer_size(TARGET);
-    let response = upload.send().await;
+    let response = upload.send_buffered().await;
     assert!(response.is_ok(), "{response:?}");
     let response = response?;
     assert_eq!(response.name, "test-object");
@@ -660,7 +660,7 @@ async fn put_error_and_finalized() -> Result {
         .upload_object("projects/_/buckets/test-bucket", "test-object", payload)
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
-        .send()
+        .send_buffered()
         .await?;
     assert_eq!(response.name, "test-object");
     assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
@@ -784,7 +784,7 @@ async fn start_resumable_upload_client_retry_options() -> Result {
         .await?;
     let err = client
         .upload_object("projects/_/buckets/bucket", "object", "hello")
-        .send()
+        .send_buffered()
         .await
         .expect_err("request should fail after 3 retry attempts");
     assert_eq!(err.http_status_code(), Some(503), "{err:?}");

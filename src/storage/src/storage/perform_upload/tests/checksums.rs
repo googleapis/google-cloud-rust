@@ -36,7 +36,7 @@ mod buffered_single_shot {
         let server = prepare_server(bad_checksums_body());
         let err = start_upload(&server)
             .await?
-            .send()
+            .send_buffered()
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
@@ -46,7 +46,7 @@ mod buffered_single_shot {
     #[tokio::test]
     async fn computed_match() -> Result {
         let server = prepare_server(good_checksums_body());
-        let object = start_upload(&server).await?.send().await?;
+        let object = start_upload(&server).await?.send_buffered().await?;
         assert_eq!(object.name, "test-object");
         Ok(())
     }
@@ -58,7 +58,7 @@ mod buffered_single_shot {
             .await?
             .with_known_crc32c(vexing_crc32c())
             .with_known_md5_hash(vexing_md5())
-            .send()
+            .send_buffered()
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
@@ -72,7 +72,7 @@ mod buffered_single_shot {
             .await?
             .with_known_crc32c(vexing_crc32c())
             .with_known_md5_hash(vexing_md5())
-            .send()
+            .send_buffered()
             .await?;
         assert_eq!(object.name, "test-object");
         Ok(())
@@ -94,7 +94,7 @@ mod buffered_resumable {
         let server = prepare_server(bad_checksums_body());
         let err = start_upload(&server)
             .await?
-            .send()
+            .send_buffered()
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
@@ -104,7 +104,7 @@ mod buffered_resumable {
     #[tokio::test]
     async fn computed_match() -> Result {
         let server = prepare_server(good_checksums_body());
-        let object = start_upload(&server).await?.send().await?;
+        let object = start_upload(&server).await?.send_buffered().await?;
         assert_eq!(object.name, "test-object");
         Ok(())
     }
@@ -116,7 +116,7 @@ mod buffered_resumable {
             .await?
             .with_known_crc32c(vexing_crc32c())
             .with_known_md5_hash(vexing_md5())
-            .send()
+            .send_buffered()
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
@@ -130,7 +130,7 @@ mod buffered_resumable {
             .await?
             .with_known_crc32c(vexing_crc32c())
             .with_known_md5_hash(vexing_md5())
-            .send()
+            .send_buffered()
             .await?;
         assert_eq!(object.name, "test-object");
         Ok(())
@@ -152,7 +152,7 @@ mod unbuffered_single_shot {
         let server = prepare_server(bad_checksums_body());
         let err = start_upload(&server)
             .await?
-            .send()
+            .send_buffered()
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
@@ -162,7 +162,7 @@ mod unbuffered_single_shot {
     #[tokio::test]
     async fn computed_match() -> Result {
         let server = prepare_server(good_checksums_body());
-        let object = start_upload(&server).await?.send().await?;
+        let object = start_upload(&server).await?.send_buffered().await?;
         assert_eq!(object.name, "test-object");
         Ok(())
     }
@@ -210,7 +210,7 @@ mod unbuffered_resumable {
         let server = prepare_server(bad_checksums_body());
         let err = start_upload(&server)
             .await?
-            .send()
+            .send_buffered()
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
