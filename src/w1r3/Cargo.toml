@@ -33,3 +33,5 @@ clap                           = { workspace = true, features = ["derive", "std"
 parse-size.workspace           = true
 humantime.workspace            = true
 tokio                          = { workspace = true, features = ["macros"] }
+tracing.workspace              = true
+tracing-subscriber             = { workspace = true, features = ["fmt", "std"] }

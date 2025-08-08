@@ -30,8 +30,10 @@ use tokio::sync::mpsc::Sender;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    let _guard = enable_tracing();
+
     let args = Args::parse();
-    eprintln!("# args = {args:?}");
+    tracing::info!("{args:?}");
 
     let client = Storage::builder().build().await?;
     let control = StorageControl::builder().build().await?;
@@ -58,7 +60,7 @@ async fn main() -> anyhow::Result<()> {
         println!("{}", sample.to_row());
         sample_count += 1;
     }
-    eprintln!("# Benchmark collected {sample_count} samples");
+    tracing::info!("Benchmark collected {sample_count} samples");
 
     for t in tasks {
         t.await??;
@@ -74,6 +76,7 @@ async fn runner(
     id: i32,
     tx: Sender<Sample>,
 ) -> anyhow::Result<()> {
+    let _guard = enable_tracing();
     let buffer = bytes::Bytes::from_owner(
         rand::rng()
             .sample_iter(Uniform::new_inclusive(u8::MIN, u8::MAX)?)
@@ -98,7 +101,7 @@ async fn runner(
         let upload = match upload {
             Ok(u) => u,
             Err(e) => {
-                println!("# Error in upload {e}");
+                tracing::error!("# Error in upload {e}");
                 continue;
             }
         };
@@ -194,6 +197,18 @@ impl Operation {
             Self::Read2 => "READ[2]",
         }
     }
+}
+
+fn enable_tracing() -> tracing::dispatcher::DefaultGuard {
+    use tracing_subscriber::fmt::format::FmtSpan;
+    let subscriber = tracing_subscriber::fmt()
+        .with_level(true)
+        .with_thread_ids(true)
+        .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+        .with_writer(std::io::stderr)
+        .finish();
+
+    tracing::subscriber::set_default(subscriber)
 }
 
 #[derive(Clone, Debug, Parser)]
