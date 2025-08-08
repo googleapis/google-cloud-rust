@@ -235,7 +235,12 @@ func processTypeAlias(c crate, id string, page *docfxManagedReference, parent *d
 }
 
 func processEnum(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
-	// fmt.Printf("CHUONGPH: Enum:%s\n", id)
+	fmt.Printf("CHUONGPH: Enum:%s\n", id)
+	// NOWNOW: Need to do Variants
+	// What is has_stripped_variants?
+	// Trait
+	// Auto trait
+	// Blanket
 	return nil
 }
 

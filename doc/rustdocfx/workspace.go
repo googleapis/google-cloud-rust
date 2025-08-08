@@ -21,11 +21,13 @@ import (
 	"strings"
 )
 
+type Id = uint32
+
 type crate struct {
 	Name     string
 	Version  string
 	Location string
-	Root     uint32
+	Root     Id
 	Index    map[string]item
 	Paths    map[string]itemSummary
 }
@@ -114,14 +116,14 @@ func (k kind) String() string {
 }
 
 type item struct {
-	Id    uint32
+	Id    Id
 	Name  string
 	Docs  string
 	Inner itemEnum
 }
 
 type itemSummary struct {
-	CrateId uint32
+	CrateId Id
 	Kind    string
 	Path    []string
 }
@@ -138,11 +140,11 @@ type itemEnum struct {
 
 type module struct {
 	IsCrate bool
-	Items   []uint32
+	Items   []Id
 }
 
 type trait struct {
-	Items []uint32
+	Items []Id
 }
 
 type function struct {
@@ -150,7 +152,7 @@ type function struct {
 }
 
 type structInner struct {
-	Impls []uint32
+	Impls []Id
 }
 
 type enum struct {
@@ -170,7 +172,7 @@ type impl struct {
 
 type path struct {
 	Path string
-	Id   uint32
+	Id   Id
 	Args genericArgs
 }
 
@@ -208,6 +210,6 @@ func unmarshalRustdoc(crate *crate, jsonBytes []byte) {
 	json.Unmarshal(jsonBytes, &crate)
 }
 
-func idToString(id uint32) string {
+func idToString(id Id) string {
 	return strconv.FormatUint(uint64(id), 10)
 }
