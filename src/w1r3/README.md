@@ -27,7 +27,7 @@ these instructions may help:
   gcloud storage buckets create \
     --enable-hierarchical-namespace --uniform-bucket-level-access \
     --soft-delete-duration=0s --lifecycle-file=lf.json \
-    --location=${REGION}  gs://${BUCKET_NAME}$
+    --location=${REGION}  gs://${BUCKET_NAME}
   ```
 
 ## Running
