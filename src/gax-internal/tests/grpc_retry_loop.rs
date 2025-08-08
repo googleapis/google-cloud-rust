@@ -54,7 +54,6 @@ mod tests {
 
         let client = builder(endpoint)
             .with_credentials(test_credentials())
-            .with_retry_policy(Aip194Strict)
             .with_backoff_policy(test_backoff())
             .build()
             .await?;
@@ -70,7 +69,6 @@ mod tests {
 
         let client = builder(endpoint)
             .with_credentials(test_credentials())
-            .with_retry_policy(Aip194Strict)
             .with_backoff_policy(test_backoff())
             .build()
             .await?;

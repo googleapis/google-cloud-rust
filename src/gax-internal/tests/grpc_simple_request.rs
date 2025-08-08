@@ -69,7 +69,7 @@ mod tests {
         let (endpoint, _server) = start_echo_server().await?;
 
         let client = builder(endpoint)
-            .with_credentials(auth::credentials::testing::error_credentials(true))
+            .with_credentials(auth::credentials::testing::error_credentials(false))
             .build()
             .await?;
         let response = send_request(client, "credentials error", "").await;

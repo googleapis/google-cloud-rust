@@ -24,7 +24,7 @@ use gax::backoff_policy::BackoffPolicy;
 use gax::client_builder::Error as BuilderError;
 use gax::error::Error;
 use gax::exponential_backoff::ExponentialBackoff;
-use gax::retry_policy::RetryPolicy;
+use gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
 use http::HeaderMap;
 use std::sync::Arc;
@@ -73,26 +73,13 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         let headers = Self::make_headers(api_client_header, request_params, &options).await?;
-        match self.get_retry_policy(&options) {
-            None => {
-                self.request_attempt::<Request, Response>(
-                    extensions, path, request, &options, None, headers,
-                )
-                .await
-            }
-            Some(policy) => {
-                self.retry_loop::<Request, Response>(
-                    policy, extensions, path, request, options, headers,
-                )
-                .await
-            }
-        }
+        self.retry_loop::<Request, Response>(extensions, path, request, options, headers)
+            .await
     }
 
     /// Runs the retry loop.
     async fn retry_loop<Request, Response>(
         &self,
-        retry_policy: Arc<dyn RetryPolicy>,
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: Request,
@@ -105,6 +92,7 @@ impl Client {
     {
         let idempotent = options.idempotent().unwrap_or(false);
         let retry_throttler = self.get_retry_throttler(&options);
+        let retry_policy = self.get_retry_policy(&options);
         let backoff_policy = self.get_backoff_policy(&options);
         let this = self.clone();
         let inner = async move |remaining_time: Option<Duration>| {
@@ -232,14 +220,18 @@ impl Client {
         Ok(headers)
     }
 
-    fn get_retry_policy(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> Option<Arc<dyn RetryPolicy>> {
+    fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
         options
             .retry_policy()
             .clone()
             .or_else(|| self.retry_policy.clone())
+            .unwrap_or_else(|| {
+                Arc::new(
+                    Aip194Strict
+                        .with_attempt_limit(10)
+                        .with_time_limit(Duration::from_secs(5 * 60)),
+                )
+            })
     }
 
     pub(crate) fn get_backoff_policy(
