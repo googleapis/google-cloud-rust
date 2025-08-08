@@ -57,6 +57,7 @@ _internal-grpc-client = [
   "dep:serde_json",
   "dep:tokio",
   "dep:tonic",
+  "dep:tonic-prost",
   "dep:wkt",
 ]
 _internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
@@ -74,6 +75,7 @@ serde_json       = { workspace = true, optional = true }
 thiserror        = { workspace = true, optional = true }
 tokio            = { workspace = true, optional = true, features = ["macros", "rt-multi-thread"] }
 tonic            = { workspace = true, optional = true }
+tonic-prost      = { workspace = true, optional = true }
 # Local crates
 auth = { workspace = true, optional = true }
 gax  = { workspace = true, optional = true }
