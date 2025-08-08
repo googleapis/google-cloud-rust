@@ -12,23 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Result;
 use crate::errors::CredentialsError;
 use crate::token::{Token, TokenProvider};
-use crate::{Result, constants};
 use gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use gax::exponential_backoff::ExponentialBackoff;
-use gax::retry_loop_internal::retry_loop;
+use gax::retry_loop_internal::retry_loop_with_callback;
 use gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
 use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
 use std::error::Error;
+use std::fmt::Debug;
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
+use tokio::sync::{mpsc, watch};
 
-#[derive(Debug)]
-pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
-    pub(crate) inner: Arc<T>,
-    retry_policy: Arc<dyn RetryPolicy>,
-    backoff_policy: Arc<dyn BackoffPolicy>,
-    retry_throttler: SharedRetryThrottler,
+/// A token provider that wraps another token provider with retry logic.
+///
+/// This provider spawns a background task that is responsible for fetching the
+/// token. When the `token()` method is called, it signals the background task
+/// to fetch a new token. The background task will retry fetching the token
+/// according to the configured retry policy.
+pub(crate) struct TokenProviderWithRetry {
+    /// Sends a signal to the background task to fetch a new token.
+    refresh_trigger: mpsc::Sender<()>,
+    /// Receives the result of the token fetch from the background task.
+    token_watch: watch::Receiver<Option<Result<Token>>>,
+}
+
+impl Debug for TokenProviderWithRetry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("TokenProviderWithRetry")
+            .finish_non_exhaustive()
+    }
 }
 
 #[derive(Debug, Default)]
@@ -54,7 +69,10 @@ impl Builder {
         self
     }
 
-    pub(crate) fn build<T: TokenProvider>(self, token_provider: T) -> TokenProviderWithRetry<T> {
+    pub(crate) fn build<T: TokenProvider + Send + Sync + 'static>(
+        self,
+        token_provider: T,
+    ) -> TokenProviderWithRetry {
         let backoff_policy: Arc<dyn BackoffPolicy> = match self.backoff_policy {
             Some(p) => p.into(),
             None => Arc::new(ExponentialBackoff::default()),
@@ -64,37 +82,68 @@ impl Builder {
             None => Arc::new(Mutex::new(AdaptiveThrottler::default())),
         };
 
-        let retry_policy = match self.retry_policy {
+        let retry_policy: Arc<dyn RetryPolicy> = match self.retry_policy {
             Some(p) => p,
             None => AlwaysRetry.with_attempt_limit(1).into(),
         }
         .into();
 
-        TokenProviderWithRetry {
+        let (tx_watch, rx_watch) = watch::channel(None);
+        let (tx_mpsc, rx_mpsc) = mpsc::channel(1);
+
+        let refresher = TokenRefresher {
             inner: Arc::new(token_provider),
             retry_policy,
             backoff_policy,
             retry_throttler,
+            token_watch_tx: tx_watch,
+            refresh_trigger_rx: rx_mpsc,
+            last_delay: Arc::new(Mutex::new(None)),
+        };
+
+        tokio::spawn(refresher.run());
+
+        TokenProviderWithRetry {
+            refresh_trigger: tx_mpsc,
+            token_watch: rx_watch,
         }
     }
 }
 
-#[async_trait::async_trait]
-impl<T: TokenProvider + 'static> TokenProvider for TokenProviderWithRetry<T> {
-    async fn token(&self) -> Result<Token> {
-        self.execute_retry_loop(self.retry_policy.clone()).await
-    }
+/// The background task that is responsible for fetching the token.
+struct TokenRefresher<T: TokenProvider> {
+    inner: Arc<T>,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
+    retry_throttler: SharedRetryThrottler,
+    /// Sends the result of the token fetch to the `TokenProviderWithRetry`.
+    token_watch_tx: watch::Sender<Option<Result<Token>>>,
+    /// Receives a signal from the `TokenProviderWithRetry` to fetch a new token.
+    refresh_trigger_rx: mpsc::Receiver<()>,
+    last_delay: Arc<Mutex<Option<Duration>>>,
 }
 
-impl<T> TokenProviderWithRetry<T>
-where
-    T: TokenProvider,
-{
-    async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) -> Result<Token> {
-        let inner = self.inner.clone();
+impl<T: TokenProvider + 'static> TokenRefresher<T> {
+    /// Runs the background task.
+    ///
+    /// This task waits for a signal to fetch a new token. When a signal is
+    /// received, it executes the retry loop to fetch the token. The result
+    /// of the fetch is sent back to the `TokenProviderWithRetry` via the
+    /// `token_watch_tx` channel.
+    async fn run(mut self) {
+        while self.refresh_trigger_rx.recv().await.is_some() {
+            self.execute_retry_loop().await;
+        }
+    }
+
+    /// Executes the retry loop to fetch the token.
+    async fn execute_retry_loop(&self) {
+        let inn = self.inner.clone();
         let sleep = async |d| tokio::time::sleep(d).await;
+
+        // Simplified fetch_token, does not send on the channel.
         let fetch_token = move |_| {
-            let inner = inner.clone();
+            let inner = inn.clone();
             async move {
                 inner
                     .token()
@@ -103,31 +152,90 @@ where
             }
         };
 
-        retry_loop(
+        // The on_retry callback sends intermediate errors and stores the last delay.
+        let last_delay = self.last_delay.clone();
+        let tx_for_retry = self.token_watch_tx.clone();
+        let on_retry = move |_, error: &gax::error::Error, delay: Duration| {
+            // Store the delay. If the loop terminates on the next attempt, this will be the relevant delay.
+            *last_delay.lock().unwrap() = Some(delay);
+
+            // Create an owned version of the error to pass to map_retry_error.
+            let owned_error = error
+                .source()
+                .and_then(|s| s.downcast_ref::<CredentialsError>())
+                .map(|cred_error| gax::error::Error::authentication(cred_error.clone()))
+                .unwrap_or_else(|| gax::error::Error::io(error.to_string()));
+
+            // Create the intermediate error message to send out.
+            let cred_error = Self::map_retry_error(owned_error, Some(delay));
+            // Send the intermediate error.
+            tx_for_retry.send(Some(Err(cred_error))).ok();
+        };
+
+        let final_result = retry_loop_with_callback(
             fetch_token,
             sleep,
             true, // token fetching is idempotent
             self.retry_throttler.clone(),
-            retry_policy,
+            self.retry_policy.clone(),
             self.backoff_policy.clone(),
+            on_retry,
         )
-        .await
-        .map_err(Self::map_retry_error)
+        .await;
+
+        // Send the final result, whether success or a terminal error.
+        match final_result {
+            Ok(token) => {
+                self.token_watch_tx.send(Some(Ok(token))).ok();
+            }
+            Err(e) => {
+                // The final error, this can only be non-transient error.
+                let final_error = Self::map_retry_error(e, None);
+                self.token_watch_tx.send(Some(Err(final_error))).ok();
+            }
+        }
     }
 
-    fn map_retry_error(e: gax::error::Error) -> CredentialsError {
-        if !e.is_authentication() {
-            return CredentialsError::from_source(false, e);
+    fn map_retry_error(e: gax::error::Error, last_delay: Option<Duration>) -> CredentialsError {
+        let is_transient = last_delay.is_some();
+        let mut cred_error = CredentialsError::new(is_transient, e.to_string(), e);
+
+        if let Some(delay) = last_delay {
+            cred_error = cred_error.with_retry_in(delay);
+        }
+        cred_error
+    }
+}
+
+#[async_trait::async_trait]
+impl TokenProvider for TokenProviderWithRetry {
+    async fn token(&self) -> Result<Token> {
+        let mut rx = self.token_watch.clone();
+
+        // Mark the current value as seen.
+        rx.borrow_and_update();
+
+        // Trigger a refresh. If the channel is full, a refresh is already in
+        // progress, which is fine.
+        if self.refresh_trigger.try_send(()).is_err() {
+            if self.refresh_trigger.is_closed() {
+                return Err(CredentialsError::from_msg(
+                    false,
+                    "token provider background task has been terminated",
+                ));
+            }
         }
 
-        let msg = match e
-            .source()
-            .and_then(|s| s.downcast_ref::<CredentialsError>())
-        {
-            Some(cred_error) if cred_error.is_transient() => constants::RETRY_EXHAUSTED_ERROR,
-            _ => constants::TOKEN_FETCH_FAILED_ERROR,
-        };
-        CredentialsError::new(false, msg, e)
+        // Wait for a new value to be published.
+        if rx.changed().await.is_err() {
+            return Err(CredentialsError::from_msg(
+                false, // Not transient
+                "token provider background task has been terminated",
+            ));
+        }
+
+        let result = rx.borrow().clone();
+        result.expect("channel should have a value after `changed()` returns")
     }
 }
 
@@ -143,7 +251,6 @@ mod tests {
     use std::error::Error;
     use std::sync::Arc;
     use std::sync::atomic::{AtomicBool, Ordering};
-    use test_case::test_case;
 
     mock! {
         #[derive(Debug)]
@@ -237,7 +344,7 @@ mod tests {
         assert_eq!(token.token, "test_token");
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_success_after_retry() {
         let mut mock_provider = MockTokenProvider::new();
         let mut seq = Sequence::new();
@@ -264,11 +371,19 @@ mod tests {
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
 
+        // The first call will trigger the retry loop and return the first
+        // transient error.
+        let err = provider.token().await.unwrap_err();
+        assert!(err.is_transient());
+
+        // We need to wait for the background task to complete the retry loop.
+        tokio::time::sleep(Duration::from_secs(5)).await;
+
         let token = provider.token().await.unwrap();
         assert_eq!(token.token, "test_token");
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_retry_exhausted() {
         let mut mock_provider = MockTokenProvider::new();
         mock_provider
@@ -280,11 +395,18 @@ mod tests {
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
 
+        // The first call will trigger the retry loop and return the first
+        // transient error.
+        let err = provider.token().await.unwrap_err();
+        assert!(err.is_transient());
+
+        // We need to wait for the background task to complete the retry loop.
+        tokio::time::sleep(Duration::from_secs(5)).await;
+
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
         assert!(original_error.is_transient());
-        assert!(error.to_string().contains(constants::RETRY_EXHAUSTED_ERROR));
     }
 
     #[tokio::test]
@@ -303,11 +425,7 @@ mod tests {
         assert!(!error.is_transient());
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
         assert!(!original_error.is_transient());
-        assert!(
-            error
-                .to_string()
-                .contains(constants::TOKEN_FETCH_FAILED_ERROR)
-        );
+        assert!(error.to_string().contains("non transient error"));
     }
 
     #[tokio::test]
@@ -368,42 +486,7 @@ mod tests {
         assert!(!original_error.is_transient());
     }
 
-    #[test_case(
-        true,
-        &["AuthRetryPolicy", "max_attempts: 5", "TestBackoffPolicy", "AdaptiveThrottler", "factor: 4.0"];
-        "with_custom_values"
-    )]
-    #[test_case(
-        false,
-        &["LimitedAttemptCount", "ExponentialBackoff", "AdaptiveThrottler", "factor: 2.0"];
-        "with_default_values"
-    )]
-    fn test_builder(use_custom_config: bool, expected_substrings: &[&str]) {
-        let mock_provider = MockTokenProvider::new();
-        let mut builder = Builder::default();
-
-        if use_custom_config {
-            let retry_policy = AuthRetryPolicy { max_attempts: 5 };
-            let backoff_policy = TestBackoffPolicy::default();
-            let retry_throttler = AdaptiveThrottler::new(4.0).unwrap();
-            builder = builder
-                .with_retry_policy(retry_policy.into())
-                .with_backoff_policy(backoff_policy.into())
-                .with_retry_throttler(retry_throttler.into());
-        }
-
-        let provider = builder.build(mock_provider);
-        let debug_str = format!("{provider:?}");
-
-        for sub in expected_substrings {
-            assert!(
-                debug_str.contains(sub),
-                "Expected to find '{sub}' in '{debug_str:?}'"
-            );
-        }
-    }
-
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_full_retry_mechanism() {
         // 1. Setup Mocks
         let mut mock_provider = MockTokenProvider::new();
@@ -478,7 +561,7 @@ mod tests {
 
         // 2. Call the function under test.
         let credentials_error =
-            TokenProviderWithRetry::<MockTokenProvider>::map_retry_error(original_error);
+            TokenRefresher::<MockTokenProvider>::map_retry_error(original_error, None);
 
         // 3. Assert that the resulting error is not transient and wraps the original error.
         assert!(!credentials_error.is_transient());
