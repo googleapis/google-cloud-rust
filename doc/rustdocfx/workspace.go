@@ -120,6 +120,7 @@ type item struct {
 	Name  string
 	Docs  string
 	Inner itemEnum
+	Attrs []string
 }
 
 type itemSummary struct {
@@ -156,6 +157,9 @@ type structInner struct {
 }
 
 type enum struct {
+	HasStrippedVariants bool `json:"has_stripped_variants"`
+	Variants            []Id
+	Impls               []Id
 }
 
 type typeAlias struct {

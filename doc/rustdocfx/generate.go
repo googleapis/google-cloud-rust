@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/cbroglie/mustache"
@@ -163,50 +164,10 @@ func processStruct(c crate, id string, page *docfxManagedReference, parent *docf
 	if c.Index[id].Inner.Struct != nil {
 		for i := 0; i < len(c.Index[id].Inner.Struct.Impls); i++ {
 			referenceId := idToString(c.Index[id].Inner.Struct.Impls[i])
-			// This assumes the inner struct impls are all impls. Validation and error checking is needed.
-
-			if c.Index[referenceId].Inner.Impl.BlanketImpl != nil {
-				// TODO: Add blanket implementations
-				// Example: Struct:1890->1897
-				continue
-			}
-
-			if c.Index[referenceId].Inner.Impl.IsSyntheic {
-				impl, _ := newDocfxItemFromImpl(c, parent, referenceId)
-				impl.Type = "autotraitimplementation"
-				page.appendItem(impl)
-
-				reference, _ := newDocfxReferenceFromDocfxItem(impl, parent)
-				parent.appendChildren(reference.Uid)
-				page.appendReference(reference)
-				continue
-			}
-
-			if c.Index[referenceId].Inner.Impl.Trait != nil {
-				traitImpl, _ := newDocfxItemFromImpl(c, parent, referenceId)
-				traitImpl.Type = "traitimplementation"
-				page.appendItem(traitImpl)
-
-				reference, _ := newDocfxReferenceFromDocfxItem(traitImpl, parent)
-				parent.appendChildren(reference.Uid)
-				page.appendReference(reference)
-				continue
-			}
-
-			for j := 0; j < len(c.Index[referenceId].Inner.Impl.Items); j++ {
-				innerImplItemId := idToString(c.Index[referenceId].Inner.Impl.Items[j])
-				if c.getKind(innerImplItemId) == functionKind {
-					function, _ := newDocfxItemFromFunction(c, parent, innerImplItemId)
-					function.Type = "implementation"
-					page.appendItem(function)
-
-					reference, _ := newDocfxReferenceFromDocfxItem(function, parent)
-					parent.appendChildren(reference.Uid)
-					page.appendReference(reference)
-					continue
-				} else {
-					return fmt.Errorf("error expected struct item with id %s to be a function instead of %s", innerImplItemId, c.getKind(innerImplItemId))
-				}
+			// TODO: This assumes the inner struct impls are all impls. Validation and error checking is needed.
+			err := processImplementation(c, referenceId, page, parent)
+			if err != nil {
+				return fmt.Errorf("error processing struct item with id %s:%w", id, err)
 			}
 		}
 	}
@@ -235,12 +196,82 @@ func processTypeAlias(c crate, id string, page *docfxManagedReference, parent *d
 }
 
 func processEnum(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
-	fmt.Printf("CHUONGPH: Enum:%s\n", id)
-	// NOWNOW: Need to do Variants
-	// What is has_stripped_variants?
-	// Trait
-	// Auto trait
-	// Blanket
+	// Verify that enum is non-exhaustive and does not have stripped variants.
+	isNonExhaustive := slices.IndexFunc(c.Index[id].Attrs, func(attr string) bool { return attr == "#[non_exhaustive]" }) >= 0
+	if !isNonExhaustive {
+		return fmt.Errorf("error processing enum, expecting %s to be non-exhaustive", id)
+	}
+	if c.Index[id].Inner.Enum.HasStrippedVariants {
+		return fmt.Errorf("error processing enum, expecting %s to have no stripped variants", id)
+	}
+
+	// Adds the variants
+	for i := 0; i < len(c.Index[id].Inner.Enum.Variants); i++ {
+		variantId := idToString(c.Index[id].Inner.Enum.Variants[i])
+
+		enumVariant, _ := newDocfxItemFromEnumVariant(c, parent, variantId)
+		page.appendItem(enumVariant)
+
+		reference, _ := newDocfxReferenceFromDocfxItem(enumVariant, parent)
+		parent.appendChildren(reference.Uid)
+		page.appendReference(reference)
+	}
+
+	for i := 0; i < len(c.Index[id].Inner.Enum.Impls); i++ {
+		// TODO: This assumes the inner enum impls are all impls. Validation and error checking is needed.
+		referenceId := idToString(c.Index[id].Inner.Enum.Impls[i])
+		err := processImplementation(c, referenceId, page, parent)
+		if err != nil {
+			return fmt.Errorf("error processing enum item with id %s:%w", id, err)
+		}
+	}
+	return nil
+}
+
+func processImplementation(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+	if c.Index[id].Inner.Impl.BlanketImpl != nil {
+		// TODO: Add blanket implementations
+		// Example: Struct:1890->1897
+		return nil
+	}
+
+	if c.Index[id].Inner.Impl.IsSyntheic {
+		impl, _ := newDocfxItemFromImpl(c, parent, id)
+		impl.Type = "autotraitimplementation"
+		page.appendItem(impl)
+
+		reference, _ := newDocfxReferenceFromDocfxItem(impl, parent)
+		parent.appendChildren(reference.Uid)
+		page.appendReference(reference)
+		return nil
+	}
+
+	if c.Index[id].Inner.Impl.Trait != nil {
+		traitImpl, _ := newDocfxItemFromImpl(c, parent, id)
+		traitImpl.Type = "traitimplementation"
+		page.appendItem(traitImpl)
+
+		reference, _ := newDocfxReferenceFromDocfxItem(traitImpl, parent)
+		parent.appendChildren(reference.Uid)
+		page.appendReference(reference)
+		return nil
+	}
+
+	for j := 0; j < len(c.Index[id].Inner.Impl.Items); j++ {
+		innerImplItemId := idToString(c.Index[id].Inner.Impl.Items[j])
+		if c.getKind(innerImplItemId) == functionKind {
+			function, _ := newDocfxItemFromFunction(c, parent, innerImplItemId)
+			function.Type = "implementation"
+			page.appendItem(function)
+
+			reference, _ := newDocfxReferenceFromDocfxItem(function, parent)
+			parent.appendChildren(reference.Uid)
+			page.appendReference(reference)
+			continue
+		} else {
+			return fmt.Errorf("error expected item with id %s to be a function instead of %s", innerImplItemId, c.getKind(innerImplItemId))
+		}
+	}
 	return nil
 }
 
@@ -280,6 +311,15 @@ func newDocfxItemFromImpl(c crate, parent *docfxItem, id string) (*docfxItem, er
 		// TODO: Update the name when the implementation is negative as r.Name cannot start with '!'
 		r.Summary = fmt.Sprintf("impl !%s for %s", name, parent.Name)
 	}
+	return r, nil
+}
+
+func newDocfxItemFromEnumVariant(c crate, parent *docfxItem, id string) (*docfxItem, error) {
+	r := new(docfxItem)
+	r.Name = c.getName(id)
+	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
+	r.Type = "enumvariant"
+	r.Summary = c.getDocString(id)
 	return r, nil
 }
 
@@ -363,21 +403,7 @@ func newDocfxManagedReference(c crate, id string) (*docfxManagedReference, error
 		// TODO(NOW): Add errors
 	}
 
-	// TODO(NOW): type alias
-	// "1550": has Implementations and Trait Implementations
-	// Has Aliased Type
-	// For implementation, just list "impl ClientBuilder"
-	// Ideally: "impl<F, Cr> ClientBuilder<F, Cr>"
-
-	// TODO(NOW): enums
-	// "9"
-	// Has Variants (Non-exhaustive) and Trait Implementations
-	// Implemetnations can be handled similar to trait kind
-	/// Variants must be processed seperately.
-
-	// The parent item needs to be the first element of items.
 	r.prependItem(parent)
-
 	if len(errs) > 0 {
 		return nil, fmt.Errorf("errors constructing page for %s: %w", id, errors.Join(errs...))
 	}
