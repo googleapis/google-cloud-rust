@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-gkehub-configmanagement-v1"
-version                = "0.4.3"
+version                = "0.4.4"
 description            = "Google Cloud Client Libraries for Rust - GKE Hub Types"
 edition.workspace      = true
 authors.workspace      = true

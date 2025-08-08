@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-monitoring-v3"
-version                = "0.4.3"
+version                = "0.4.4"
 description            = "Google Cloud Client Libraries for Rust - Cloud Monitoring API"
 edition.workspace      = true
 authors.workspace      = true

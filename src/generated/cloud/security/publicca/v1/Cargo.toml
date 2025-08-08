@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-security-publicca-v1"
-version                = "0.4.3"
+version                = "0.4.4"
 description            = "Google Cloud Client Libraries for Rust - Public Certificate Authority API"
 edition.workspace      = true
 authors.workspace      = true
