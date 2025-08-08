@@ -133,7 +133,7 @@ impl Storage {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -172,12 +172,7 @@ impl Storage {
         UploadObject::new(self.inner.clone(), bucket, object, payload)
     }
 
-    /// A simple download into a buffer.
-    ///
-    /// # Parameters
-    /// * `bucket` - the bucket name containing the object. In
-    ///   `projects/_/buckets/{bucket_id}` format.
-    /// * `object` - the object name.
+    /// Downloads the contents of an object.
     ///
     /// # Example
     /// ```
@@ -194,6 +189,11 @@ impl Storage {
     /// println!("object contents={:?}", bytes::Bytes::from_owner(contents));
     /// # Ok(()) }
     /// ```
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
     pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject
     where
         B: Into<String>,
@@ -446,7 +446,7 @@ impl ClientBuilder {
     ///     .await?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -486,7 +486,7 @@ impl ClientBuilder {
     ///     .await?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }

@@ -44,7 +44,7 @@ pub async fn queue(bucket_name: &str, object_name: &str) -> anyhow::Result<()> {
     // ANCHOR: create-upload
     let upload = client
         .upload_object(bucket_name, object_name, QueueSource(receiver))
-        .send();
+        .send_buffered();
     // ANCHOR_END: create-upload
     // ANCHOR: create-task
     let task = tokio::spawn(upload);

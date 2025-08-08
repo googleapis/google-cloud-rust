@@ -53,7 +53,7 @@ pub async fn quickstart(project_id: &str, bucket_id: &str) -> anyhow::Result<()>
     // ANCHOR: upload
     let object = client
         .upload_object(&bucket.name, "hello.txt", "Hello World!")
-        .send()
+        .send_buffered()
         .await?;
     println!("object successfully uploaded {object:?}");
     // ANCHOR_END: upload

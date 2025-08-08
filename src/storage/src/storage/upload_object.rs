@@ -68,7 +68,7 @@ use crate::storage::checksum::{
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
 ///     let response = client
 ///         .upload_object("projects/_/buckets/my-bucket", "my-object", DataSource)
-///         .send()
+///         .send_buffered()
 ///         .await?;
 ///     println!("response details={response:?}");
 ///     Ok(())
@@ -97,7 +97,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_generation_match(0)
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -124,7 +124,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_generation_not_match(0)
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -152,7 +152,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_metageneration_match(1234)
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -181,7 +181,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_metageneration_not_match(1234)
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -206,7 +206,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_acl([ObjectAccessControl::new().set_entity("allAuthenticatedUsers").set_role("READER")])
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -231,7 +231,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_cache_control("public; max-age=7200")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -257,7 +257,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_disposition("inline")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -285,7 +285,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", bytes::Bytes::from_owner(e.finish()?))
     ///     .with_content_encoding("gzip")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -311,7 +311,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_language("en")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -336,7 +336,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_type("text/plain")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -361,7 +361,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_custom_time(time)
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -386,7 +386,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_event_based_hold(true)
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -411,7 +411,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_metadata([("test-only", "true"), ("environment", "qa")])
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -441,7 +441,7 @@ impl<T, C> UploadObject<T, C> {
     ///         Retention::new()
     ///             .set_mode(retention::Mode::Locked)
     ///             .set_retain_until_time(wkt::Timestamp::try_from("2035-01-01T00:00:00Z")?))
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -465,7 +465,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_storage_class("ARCHIVE")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -493,7 +493,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_temporary_hold(true)
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -521,7 +521,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_kms_key("projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -545,7 +545,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_predefined_acl("private")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -572,7 +572,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_key(KeyAes256::new(key)?)
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -609,7 +609,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_idempotency(true)
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -637,7 +637,7 @@ impl<T, C> UploadObject<T, C> {
     ///         .with_attempt_limit(5)
     ///         .with_time_limit(Duration::from_secs(10)),
     ///     )
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -658,7 +658,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_backoff_policy(ExponentialBackoff::default())
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -685,7 +685,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_retry_throttler(adhoc_throttler())
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// fn adhoc_throttler() -> gax::retry_throttler::SharedRetryThrottler {
@@ -710,7 +710,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_resumable_upload_threshold(0_usize) // Forces a resumable upload.
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -747,7 +747,7 @@ impl<T, C> UploadObject<T, C> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_resumable_upload_buffer_size(32 * 1024 * 1024_usize)
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -833,7 +833,7 @@ impl<T> UploadObject<T, Crc32c> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_known_crc32c(crc32c(b"hello world"))
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -867,7 +867,7 @@ impl<T> UploadObject<T, Crc32c> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_known_md5_hash(bytes::Bytes::from_owner(hash.0))
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -904,7 +904,7 @@ impl<T> UploadObject<T, Crc32c> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
     ///     .compute_md5()
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -1088,12 +1088,12 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub async fn send(self) -> crate::Result<Object> {
+    pub async fn send_buffered(self) -> crate::Result<Object> {
         self.build().send().await
     }
 }
@@ -1195,7 +1195,7 @@ mod tests {
 
         let upload = client
             .upload_object("projects/_/buckets/test-bucket", "test-object", "")
-            .send();
+            .send_buffered();
         need_send(&upload);
         need_static(&upload);
 

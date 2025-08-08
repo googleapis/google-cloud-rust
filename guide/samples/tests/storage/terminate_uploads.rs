@@ -71,7 +71,7 @@ pub async fn attempt_upload(bucket_name: &str) -> anyhow::Result<()> {
     // ANCHOR: attempt-upload-upload
     let upload = client
         .upload_object(bucket_name, "expect-error", MySource::default())
-        .send()
+        .send_buffered()
         .await;
     // ANCHOR_END: attempt-upload-upload
     // ANCHOR: attempt-upload-inspect-err
