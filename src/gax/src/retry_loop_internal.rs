@@ -39,6 +39,45 @@ impl RetryLoopAttempt {
     }
 }
 
+/// Information about a retry attempt provided to the `on_retry` callback.
+///
+/// An `on_retry` callback can be passed to
+/// [`retry_loop_with_on_retry`]. It is invoked
+/// when a retryable error occurs and the retry policy decides to continue. This
+/// struct contains details about the attempt that just failed, and the upcoming
+/// retry attempt.
+pub struct OnRetryInfo<'a> {
+    attempt: u32,
+    error: &'a Error,
+    delay: Duration,
+}
+
+impl<'a> OnRetryInfo<'a> {
+    /// Creates a new `OnRetryInfo`.
+    pub(crate) fn new(attempt: u32, error: &'a Error, delay: Duration) -> Self {
+        Self {
+            attempt,
+            error,
+            delay,
+        }
+    }
+
+    /// The number of attempts completed so far. The first attempt is 1.
+    pub fn attempt(&self) -> u32 {
+        self.attempt
+    }
+
+    /// The error that caused this retry cycle.
+    pub fn error(&self) -> &Error {
+        self.error
+    }
+
+    /// The calculated delay before the next attempt is made.
+    pub fn delay(&self) -> Duration {
+        self.delay
+    }
+}
+
 /// Runs the retry loop for a given function.
 ///
 /// This functions calls an inner function as long as (1) the retry policy has
@@ -48,7 +87,7 @@ impl RetryLoopAttempt {
 /// In between calls the function waits the amount of time prescribed by the
 /// backoff policy, using `sleep` to implement any sleep.
 pub async fn retry_loop<F, S, Response>(
-    mut inner: F,
+    inner: F,
     sleep: S,
     idempotent: bool,
     retry_throttler: Arc<Mutex<dyn RetryThrottler>>,
@@ -59,16 +98,54 @@ where
     F: AsyncFnMut(Option<Duration>) -> Result<Response> + Send,
     S: AsyncFn(Duration) -> () + Send,
 {
+    retry_loop_with_on_retry(
+        inner,
+        sleep,
+        idempotent,
+        retry_throttler,
+        retry_policy,
+        backoff_policy,
+        |_: &OnRetryInfo| {},
+    )
+    .await
+}
+
+/// Runs the retry loop for a given function with a callback for retries.
+///
+/// This functions calls an inner function as long as (1) the retry policy has
+/// not expired, (2) the inner function has not returned a successful request,
+/// and (3) the retry throttler allows more calls.
+///
+/// In between calls the function waits the amount of time prescribed by the
+/// backoff policy, using `sleep` to implement any sleep.
+///
+/// The `on_retry` callback is called before sleeping, with the attempt count,
+/// the error, and the delay.
+pub async fn retry_loop_with_on_retry<F, S, OnRetry, Response>(
+    mut inner: F,
+    sleep: S,
+    idempotent: bool,
+    retry_throttler: Arc<Mutex<dyn RetryThrottler>>,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
+    mut on_retry: OnRetry,
+) -> Result<Response>
+where
+    F: AsyncFnMut(Option<Duration>) -> Result<Response> + Send,
+    S: AsyncFn(Duration) -> () + Send,
+    OnRetry: FnMut(&OnRetryInfo) + Send,
+{
     let loop_start = tokio::time::Instant::now().into_std();
-    let mut attempt = RetryLoopAttempt::Initial;
+    let mut attempt_state = RetryLoopAttempt::Initial;
     loop {
-        let mut attempt_count = attempt.count();
+        let mut attempt_count = attempt_state.count();
         let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);
 
-        if let RetryLoopAttempt::Retry(attempt_count, delay, prev_error) = attempt {
+        if let RetryLoopAttempt::Retry(attempt_count, delay, prev_error) = attempt_state {
             if remaining_time.is_some_and(|remaining| remaining < delay) {
                 return Err(Error::exhausted(prev_error));
             }
+            on_retry(&OnRetryInfo::new(attempt_count, &prev_error, delay));
             sleep(delay).await;
 
             if retry_throttler
@@ -84,7 +161,7 @@ where
                     ThrottleResult::Continue(e) => e,
                 };
                 let delay = backoff_policy.on_failure(loop_start, attempt_count);
-                attempt = RetryLoopAttempt::Retry(attempt_count, delay, error);
+                attempt_state = RetryLoopAttempt::Retry(attempt_count, delay, error);
                 continue;
             }
         }
@@ -107,7 +184,7 @@ where
                 match flow {
                     RetryResult::Permanent(e) | RetryResult::Exhausted(e) => return Err(e),
                     RetryResult::Continue(e) => {
-                        attempt = RetryLoopAttempt::Retry(attempt_count, delay, e);
+                        attempt_state = RetryLoopAttempt::Retry(attempt_count, delay, e);
                         continue;
                     }
                 }
@@ -950,5 +1027,182 @@ mod tests {
             fn on_retry_failure(&mut self, error: &RetryResult);
             fn on_success(&mut self);
         }
+    }
+
+    #[tokio::test]
+    async fn immediate_success_with_callback() -> anyhow::Result<()> {
+        // This test simulates a server immediate returning a successful
+        // response.
+        let mut call = MockCall::new();
+        call.expect_call().once().returning(|_| success());
+        let inner = async move |d| call.call(d);
+
+        let mut throttler = MockRetryThrottler::new();
+        throttler.expect_on_success().once().return_const(());
+        let mut retry_policy = MockRetryPolicy::new();
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .return_const(None);
+        let backoff_policy = MockBackoffPolicy::new();
+        let sleep = MockSleep::new();
+
+        let backoff = async move |d| sleep.sleep(d).await;
+        let callback_log = Arc::new(Mutex::new(Vec::new()));
+        let on_retry = {
+            let log = callback_log.clone();
+            move |info: &OnRetryInfo| {
+                let mut log = log.lock().unwrap();
+                log.push((
+                    info.attempt(),
+                    info.error().status().cloned().unwrap(),
+                    info.delay(),
+                ));
+            }
+        };
+        let response = retry_loop_with_on_retry(
+            inner,
+            backoff,
+            true,
+            to_retry_throttler(throttler),
+            to_retry_policy(retry_policy),
+            to_backoff_policy(backoff_policy),
+            on_retry,
+        )
+        .await?;
+        assert_eq!(response, "success");
+        assert!(callback_log.lock().unwrap().is_empty());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn retry_with_callback_success() -> anyhow::Result<()> {
+        // This test simulates a server responding with two transient errors and
+        // then with a successful response. It verifies that the on_retry
+        // callback is invoked with the correct parameters.
+        let mut call_seq = mockall::Sequence::new();
+        let mut call = MockCall::new();
+        call.expect_call()
+            .once()
+            .in_sequence(&mut call_seq)
+            .withf(|got| got == &Some(Duration::from_secs(3)))
+            .returning(|_| transient());
+        call.expect_call()
+            .once()
+            .in_sequence(&mut call_seq)
+            .withf(|got| got == &Some(Duration::from_secs(2)))
+            .returning(|_| transient());
+        call.expect_call()
+            .once()
+            .in_sequence(&mut call_seq)
+            .withf(|got| got == &Some(Duration::from_secs(1)))
+            .returning(|_| success());
+        let inner = async move |d| call.call(d);
+
+        let mut throttler_seq = mockall::Sequence::new();
+        let mut throttler = MockRetryThrottler::new();
+        throttler
+            .expect_on_retry_failure()
+            .once()
+            .in_sequence(&mut throttler_seq)
+            .return_const(());
+        throttler
+            .expect_throttle_retry_attempt()
+            .once()
+            .in_sequence(&mut throttler_seq)
+            .return_const(false);
+        throttler
+            .expect_on_retry_failure()
+            .once()
+            .in_sequence(&mut throttler_seq)
+            .return_const(());
+        throttler
+            .expect_throttle_retry_attempt()
+            .once()
+            .in_sequence(&mut throttler_seq)
+            .return_const(false);
+        throttler
+            .expect_on_success()
+            .once()
+            .in_sequence(&mut throttler_seq)
+            .return_const(());
+
+        let mut retry_seq = mockall::Sequence::new();
+        let mut retry_policy = MockRetryPolicy::new();
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut retry_seq)
+            .return_const(Some(Duration::from_secs(3)));
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut retry_seq)
+            .return_const(Some(Duration::from_secs(2)));
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut retry_seq)
+            .return_const(Some(Duration::from_secs(1)));
+        retry_policy
+            .expect_on_error()
+            .times(2)
+            .returning(|_, _, _, e| RetryResult::Continue(e));
+
+        let mut backoff_seq = mockall::Sequence::new();
+        let mut backoff_policy = MockBackoffPolicy::new();
+        let mut sleep_seq = mockall::Sequence::new();
+        let mut sleep = MockSleep::new();
+
+        for d in 1..=2 {
+            backoff_policy
+                .expect_on_failure()
+                .once()
+                .in_sequence(&mut backoff_seq)
+                .return_const(Duration::from_millis(d));
+            sleep
+                .expect_sleep()
+                .once()
+                .in_sequence(&mut sleep_seq)
+                .withf(move |got| got == &Duration::from_millis(d))
+                .returning(|_| Box::pin(async {}));
+        }
+
+        let backoff = async move |d| sleep.sleep(d).await;
+        let callback_log = Arc::new(Mutex::new(Vec::new()));
+        let on_retry = {
+            let log = callback_log.clone();
+            move |info: &OnRetryInfo| {
+                let mut log = log.lock().unwrap();
+                log.push((
+                    info.attempt(),
+                    info.error().status().cloned().unwrap(),
+                    info.delay(),
+                ));
+            }
+        };
+
+        let response = retry_loop_with_on_retry(
+            inner,
+            backoff,
+            true, // idempotency
+            to_retry_throttler(throttler),
+            to_retry_policy(retry_policy),
+            to_backoff_policy(backoff_policy),
+            on_retry,
+        )
+        .await;
+        assert!(matches!(&response, Ok(s) if s == "success"), "{response:?}");
+
+        let log = callback_log.lock().unwrap();
+        assert_eq!(log.len(), 2);
+        assert_eq!(log[0].0, 1); // attempt count
+        assert_eq!(log[0].1, transient_status()); // error
+        assert_eq!(log[0].2, Duration::from_millis(1)); // delay
+        assert_eq!(log[1].0, 2); // attempt count
+        assert_eq!(log[1].1, transient_status()); // error
+        assert_eq!(log[1].2, Duration::from_millis(2)); // delay
+
+        Ok(())
     }
 }
