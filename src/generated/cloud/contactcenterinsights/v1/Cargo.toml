@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-contactcenterinsights-v1"
-version                = "0.4.3"
+version                = "0.4.4"
 description            = "Google Cloud Client Libraries for Rust - Contact Center AI Insights API"
 edition.workspace      = true
 authors.workspace      = true

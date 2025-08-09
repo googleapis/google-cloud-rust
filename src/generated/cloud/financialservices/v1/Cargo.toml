@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-financialservices-v1"
-version                = "0.4.3"
+version                = "0.4.4"
 description            = "Google Cloud Client Libraries for Rust - Financial Services API"
 edition.workspace      = true
 authors.workspace      = true
