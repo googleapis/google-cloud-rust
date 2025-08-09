@@ -41,13 +41,13 @@ async fn main() -> anyhow::Result<()> {
     let (tx, mut rx) = tokio::sync::mpsc::channel(128);
     let test_start = Instant::now();
     let tasks = (0..args.task_count)
-        .map(|i| {
+        .map(|task| {
             tokio::spawn(runner(
+                task,
                 client.clone(),
                 control.clone(),
                 test_start,
                 args.clone(),
-                i,
                 tx.clone(),
             ))
         })
@@ -69,11 +69,11 @@ async fn main() -> anyhow::Result<()> {
 }
 
 async fn runner(
+    task: usize,
     client: Storage,
     control: StorageControl,
-    _test_start: Instant,
+    test_start: Instant,
     args: Args,
-    id: i32,
     tx: Sender<Sample>,
 ) -> anyhow::Result<()> {
     let _guard = enable_tracing();
@@ -88,6 +88,11 @@ async fn runner(
     for iteration in 0..args.min_sample_count {
         let size = rand::rng().sample(size) as usize;
         let name = random_object_name();
+        let (write_op, threshold) = if rand::rng().random_bool(0.5) {
+            (Operation::Resumable, 0_usize)
+        } else {
+            (Operation::SingleShot, size)
+        };
 
         let write_start = Instant::now();
         let upload = client
@@ -96,6 +101,7 @@ async fn runner(
                 &name,
                 buffer.slice(0..size),
             )
+            .with_resumable_upload_threshold(threshold)
             .send_unbuffered()
             .await;
         let upload = match upload {
@@ -106,12 +112,16 @@ async fn runner(
             }
         };
         tx.send(Sample {
-            id,
+            task,
             iteration,
             size,
             transfer_size: size,
-            op: Operation::Write,
+            op: write_op,
+            op_start: write_start - test_start,
             elapsed: Instant::now() - write_start,
+            object: upload.name.clone(),
+            result: ExperimentResult::Success,
+            details: "".to_string(),
         })
         .await?;
         for op in [Operation::Read0, Operation::Read1, Operation::Read2] {
@@ -128,12 +138,20 @@ async fn runner(
                 }
             }
             tx.send(Sample {
-                id,
+                task,
                 iteration,
                 size,
                 transfer_size,
                 op,
+                op_start: read_start - test_start,
                 elapsed: Instant::now() - read_start,
+                object: upload.name.clone(),
+                result: if transfer_size == size {
+                    ExperimentResult::Success
+                } else {
+                    ExperimentResult::Error
+                },
+                details: "".to_string(),
             })
             .await?;
         }
@@ -156,33 +174,47 @@ fn random_object_name() -> String {
         .collect()
 }
 
+#[derive(Clone, Debug)]
 struct Sample {
-    id: i32,
+    task: usize,
     iteration: u64,
+    op_start: Duration,
     op: Operation,
     size: usize,
     transfer_size: usize,
     elapsed: Duration,
+    object: String,
+    result: ExperimentResult,
+    details: String,
 }
 
 impl Sample {
-    const HEADER: &str = "Task,Iteration,Operation,Size,TransferSize,ElapsedMicroseconds";
-
+    const HEADER: &str = concat!(
+        "Task,Iteration,IterationStart,Operation",
+        ",Size,TransferSize,ElapsedMicroseconds,Object",
+        ",Result,Details"
+    );
     fn to_row(&self) -> String {
         format!(
-            "{},{},{},{},{},{}",
-            self.id,
+            "{},{},{},{},{},{},{},{},{},{}",
+            self.task,
             self.iteration,
+            self.op_start.as_micros(),
             self.op.name(),
             self.size,
             self.transfer_size,
-            self.elapsed.as_micros()
+            self.elapsed.as_micros(),
+            self.object,
+            self.result.name(),
+            self.details,
         )
     }
 }
 
+#[derive(Clone, Debug)]
 enum Operation {
-    Write,
+    Resumable,
+    SingleShot,
     Read0,
     Read1,
     Read2,
@@ -191,10 +223,26 @@ enum Operation {
 impl Operation {
     fn name(&self) -> &str {
         match self {
-            Self::Write => "WRITE",
+            Self::Resumable => "RESUMABLE",
+            Self::SingleShot => "SINGLE_SHOT",
             Self::Read0 => "READ[0]",
             Self::Read1 => "READ[1]",
             Self::Read2 => "READ[2]",
+        }
+    }
+}
+
+#[derive(Clone, Debug)]
+enum ExperimentResult {
+    Success,
+    Error,
+}
+
+impl ExperimentResult {
+    fn name(&self) -> &str {
+        match self {
+            Self::Success => "OK",
+            Self::Error => "ERR",
         }
     }
 }
@@ -223,7 +271,7 @@ struct Args {
     max_object_size: u64,
 
     #[arg(long, default_value_t = 1)]
-    task_count: i32,
+    task_count: usize,
 
     #[arg(long, default_value_t = 1)]
     min_sample_count: u64,
