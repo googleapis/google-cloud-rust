@@ -75,7 +75,7 @@ impl std::fmt::Display for ChecksumMismatch {
 ///
 /// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
 /// ```
-/// 
+///
 /// [KeyAes256]: crate::builder::storage::KeyAes256
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
