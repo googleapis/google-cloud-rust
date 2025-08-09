@@ -203,6 +203,12 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
+    async fn clone_database(
+        &self,
+        req: crate::model::CloneDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
@@ -518,6 +524,15 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_backup_schedule(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn clone_database(
+        &self,
+        req: crate::model::CloneDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::clone_database(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

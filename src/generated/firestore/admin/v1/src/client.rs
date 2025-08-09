@@ -474,6 +474,44 @@ impl FirestoreAdmin {
         super::builder::firestore_admin::DeleteBackupSchedule::new(self.inner.clone())
     }
 
+    /// Creates a new database by cloning an existing one.
+    ///
+    /// The new database must be in the same cloud region or multi-region location
+    /// as the existing database. This behaves similar to
+    /// [FirestoreAdmin.CreateDatabase][google.firestore.admin.v1.FirestoreAdmin.CreateDatabase]
+    /// except instead of creating a new empty database, a new database is created
+    /// with the database type, index configuration, and documents from an existing
+    /// database.
+    ///
+    /// The [long-running operation][google.longrunning.Operation] can be used to
+    /// track the progress of the clone, with the Operation's
+    /// [metadata][google.longrunning.Operation.metadata] field type being the
+    /// [CloneDatabaseMetadata][google.firestore.admin.v1.CloneDatabaseMetadata].
+    /// The [response][google.longrunning.Operation.response] type is the
+    /// [Database][google.firestore.admin.v1.Database] if the clone was
+    /// successful. The new database is not readable or writeable until the LRO has
+    /// completed.
+    ///
+    /// [google.firestore.admin.v1.CloneDatabaseMetadata]: crate::model::CloneDatabaseMetadata
+    /// [google.firestore.admin.v1.Database]: crate::model::Database
+    /// [google.firestore.admin.v1.FirestoreAdmin.CreateDatabase]: crate::client::FirestoreAdmin::create_database
+    /// [google.longrunning.Operation]: longrunning::model::Operation
+    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
+    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn clone_database(&self) -> super::builder::firestore_admin::CloneDatabase {
+        super::builder::firestore_admin::CloneDatabase::new(self.inner.clone())
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations

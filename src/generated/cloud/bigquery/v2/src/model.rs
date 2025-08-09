@@ -685,6 +685,11 @@ pub struct DataFormatOptions {
     /// Optional. Output timestamp as usec int64. Default is false.
     pub use_int64_timestamp: bool,
 
+    /// Optional. The API output format for a timestamp.
+    /// This offers more explicit control over the timestamp output format
+    /// as compared to the existing `use_int64_timestamp` option.
+    pub timestamp_output_format: crate::model::data_format_options::TimestampOutputFormat,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -696,6 +701,17 @@ impl DataFormatOptions {
     /// Sets the value of [use_int64_timestamp][crate::model::DataFormatOptions::use_int64_timestamp].
     pub fn set_use_int64_timestamp<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_int64_timestamp = v.into();
+        self
+    }
+
+    /// Sets the value of [timestamp_output_format][crate::model::DataFormatOptions::timestamp_output_format].
+    pub fn set_timestamp_output_format<
+        T: std::convert::Into<crate::model::data_format_options::TimestampOutputFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.timestamp_output_format = v.into();
         self
     }
 }
@@ -717,6 +733,7 @@ impl<'de> serde::de::Deserialize<'de> for DataFormatOptions {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __use_int64_timestamp,
+            __timestamp_output_format,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -739,6 +756,8 @@ impl<'de> serde::de::Deserialize<'de> for DataFormatOptions {
                         match value {
                             "useInt64Timestamp" => Ok(__FieldTag::__use_int64_timestamp),
                             "use_int64_timestamp" => Ok(__FieldTag::__use_int64_timestamp),
+                            "timestampOutputFormat" => Ok(__FieldTag::__timestamp_output_format),
+                            "timestamp_output_format" => Ok(__FieldTag::__timestamp_output_format),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -774,6 +793,18 @@ impl<'de> serde::de::Deserialize<'de> for DataFormatOptions {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__timestamp_output_format => {
+                            if !fields.insert(__FieldTag::__timestamp_output_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for timestamp_output_format",
+                                ));
+                            }
+                            result.timestamp_output_format = map
+                                .next_value::<std::option::Option<
+                                    crate::model::data_format_options::TimestampOutputFormat,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -800,6 +831,9 @@ impl serde::ser::Serialize for DataFormatOptions {
         if !wkt::internal::is_default(&self.use_int64_timestamp) {
             state.serialize_entry("useInt64Timestamp", &self.use_int64_timestamp)?;
         }
+        if !wkt::internal::is_default(&self.timestamp_output_format) {
+            state.serialize_entry("timestampOutputFormat", &self.timestamp_output_format)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -813,10 +847,159 @@ impl std::fmt::Debug for DataFormatOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataFormatOptions");
         debug_struct.field("use_int64_timestamp", &self.use_int64_timestamp);
+        debug_struct.field("timestamp_output_format", &self.timestamp_output_format);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [DataFormatOptions].
+pub mod data_format_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The API output format for a timestamp.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TimestampOutputFormat {
+        /// Corresponds to default API output behavior, which is FLOAT64.
+        Unspecified,
+        /// Timestamp is output as float64 seconds since Unix epoch.
+        Float64,
+        /// Timestamp is output as int64 microseconds since Unix epoch.
+        Int64,
+        /// Timestamp is output as ISO 8601 String
+        /// ("YYYY-MM-DDTHH:MM:SS.FFFFFFFFFFFFZ").
+        Iso8601String,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TimestampOutputFormat::value] or
+        /// [TimestampOutputFormat::name].
+        UnknownValue(timestamp_output_format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod timestamp_output_format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl TimestampOutputFormat {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Float64 => std::option::Option::Some(1),
+                Self::Int64 => std::option::Option::Some(2),
+                Self::Iso8601String => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED")
+                }
+                Self::Float64 => std::option::Option::Some("FLOAT64"),
+                Self::Int64 => std::option::Option::Some("INT64"),
+                Self::Iso8601String => std::option::Option::Some("ISO8601_STRING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for TimestampOutputFormat {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TimestampOutputFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TimestampOutputFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Float64,
+                2 => Self::Int64,
+                3 => Self::Iso8601String,
+                _ => Self::UnknownValue(timestamp_output_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TimestampOutputFormat {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "FLOAT64" => Self::Float64,
+                "INT64" => Self::Int64,
+                "ISO8601_STRING" => Self::Iso8601String,
+                _ => Self::UnknownValue(timestamp_output_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TimestampOutputFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Float64 => serializer.serialize_i32(1),
+                Self::Int64 => serializer.serialize_i32(2),
+                Self::Iso8601String => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TimestampOutputFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TimestampOutputFormat>::new(
+                ".google.cloud.bigquery.v2.DataFormatOptions.TimestampOutputFormat",
+            ))
+        }
     }
 }
 
@@ -15731,6 +15914,14 @@ pub struct QueryRequest {
     /// if a job does not need to be created.
     pub job_timeout_ms: std::option::Option<i64>,
 
+    /// Optional. INTERNAL: DO NOT USE. The maximum rate of slot consumption to
+    /// allow for this job.
+    ///
+    /// If set, the number of slots used to execute the job will be throttled
+    /// to try and keep its slot consumption below the requested rate. This limit
+    /// is best effort.
+    pub max_slots: std::option::Option<i32>,
+
     /// Optional. Custom encryption configuration (e.g., Cloud KMS keys)
     pub destination_encryption_configuration:
         std::option::Option<crate::model::EncryptionConfiguration>,
@@ -15932,6 +16123,24 @@ impl QueryRequest {
         T: std::convert::Into<i64>,
     {
         self.job_timeout_ms = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [max_slots][crate::model::QueryRequest::max_slots].
+    pub fn set_max_slots<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.max_slots = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_slots][crate::model::QueryRequest::max_slots].
+    pub fn set_or_clear_max_slots<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.max_slots = v.map(|x| x.into());
         self
     }
 
@@ -16162,6 +16371,7 @@ impl<'de> serde::de::Deserialize<'de> for QueryRequest {
             __default_dataset,
             __timeout_ms,
             __job_timeout_ms,
+            __max_slots,
             __destination_encryption_configuration,
             __dry_run,
             __use_query_cache,
@@ -16208,6 +16418,8 @@ impl<'de> serde::de::Deserialize<'de> for QueryRequest {
                             "timeout_ms" => Ok(__FieldTag::__timeout_ms),
                             "jobTimeoutMs" => Ok(__FieldTag::__job_timeout_ms),
                             "job_timeout_ms" => Ok(__FieldTag::__job_timeout_ms),
+                            "maxSlots" => Ok(__FieldTag::__max_slots),
+                            "max_slots" => Ok(__FieldTag::__max_slots),
                             "destinationEncryptionConfiguration" => {
                                 Ok(__FieldTag::__destination_encryption_configuration)
                             }
@@ -16356,6 +16568,25 @@ impl<'de> serde::de::Deserialize<'de> for QueryRequest {
                                 }
                             }
                             result.job_timeout_ms = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__max_slots => {
+                            if !fields.insert(__FieldTag::__max_slots) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_slots",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_slots = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__destination_encryption_configuration => {
                             if !fields.insert(__FieldTag::__destination_encryption_configuration) {
@@ -16606,6 +16837,20 @@ impl serde::ser::Serialize for QueryRequest {
             }
             state.serialize_entry("jobTimeoutMs", &__With(&self.job_timeout_ms))?;
         }
+        if self.max_slots.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("maxSlots", &__With(&self.max_slots))?;
+        }
         if self.destination_encryption_configuration.is_some() {
             state.serialize_entry(
                 "destinationEncryptionConfiguration",
@@ -16686,6 +16931,7 @@ impl std::fmt::Debug for QueryRequest {
         debug_struct.field("default_dataset", &self.default_dataset);
         debug_struct.field("timeout_ms", &self.timeout_ms);
         debug_struct.field("job_timeout_ms", &self.job_timeout_ms);
+        debug_struct.field("max_slots", &self.max_slots);
         debug_struct.field(
             "destination_encryption_configuration",
             &self.destination_encryption_configuration,
@@ -23325,6 +23571,13 @@ pub struct JobConfiguration {
     /// that takes 10 seconds to complete.
     pub job_timeout_ms: std::option::Option<wkt::Int64Value>,
 
+    /// Optional. INTERNAL: DO NOT USE. The maximum rate of slot consumption to
+    /// allow for this job.
+    ///
+    /// If set, the number of slots used to execute the job will be throttled
+    /// to try and keep its slot consumption below the requested rate.
+    pub max_slots: std::option::Option<i32>,
+
     /// The labels associated with this job. You can use these to organize and
     /// group your jobs.
     /// Label keys and values can be no longer than 63 characters, can only contain
@@ -23463,6 +23716,24 @@ impl JobConfiguration {
         self
     }
 
+    /// Sets the value of [max_slots][crate::model::JobConfiguration::max_slots].
+    pub fn set_max_slots<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.max_slots = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_slots][crate::model::JobConfiguration::max_slots].
+    pub fn set_or_clear_max_slots<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.max_slots = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [labels][crate::model::JobConfiguration::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -23517,6 +23788,7 @@ impl<'de> serde::de::Deserialize<'de> for JobConfiguration {
             __extract,
             __dry_run,
             __job_timeout_ms,
+            __max_slots,
             __labels,
             __reservation,
             Unknown(std::string::String),
@@ -23549,6 +23821,8 @@ impl<'de> serde::de::Deserialize<'de> for JobConfiguration {
                             "dry_run" => Ok(__FieldTag::__dry_run),
                             "jobTimeoutMs" => Ok(__FieldTag::__job_timeout_ms),
                             "job_timeout_ms" => Ok(__FieldTag::__job_timeout_ms),
+                            "maxSlots" => Ok(__FieldTag::__max_slots),
+                            "max_slots" => Ok(__FieldTag::__max_slots),
                             "labels" => Ok(__FieldTag::__labels),
                             "reservation" => Ok(__FieldTag::__reservation),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -23650,6 +23924,25 @@ impl<'de> serde::de::Deserialize<'de> for JobConfiguration {
                             }
                             result.job_timeout_ms = map.next_value::<__With>()?.0;
                         }
+                        __FieldTag::__max_slots => {
+                            if !fields.insert(__FieldTag::__max_slots) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_slots",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_slots = map.next_value::<__With>()?.0;
+                        }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -23729,6 +24022,20 @@ impl serde::ser::Serialize for JobConfiguration {
             }
             state.serialize_entry("jobTimeoutMs", &__With(&self.job_timeout_ms))?;
         }
+        if self.max_slots.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("maxSlots", &__With(&self.max_slots))?;
+        }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
         }
@@ -23754,6 +24061,7 @@ impl std::fmt::Debug for JobConfiguration {
         debug_struct.field("extract", &self.extract);
         debug_struct.field("dry_run", &self.dry_run);
         debug_struct.field("job_timeout_ms", &self.job_timeout_ms);
+        debug_struct.field("max_slots", &self.max_slots);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("reservation", &self.reservation);
         if !self._unknown_fields.is_empty() {
@@ -26933,6 +27241,11 @@ pub struct ExternalServiceCost {
     /// converted to BigQuery slot with equivalent mount of price.
     pub reserved_slot_count: i64,
 
+    /// The billing method used for the external job.
+    /// This field is only used when billed on the services sku, set to
+    /// "SERVICES_SKU". Otherwise, it is unspecified for backward compatibility.
+    pub billing_method: std::string::String,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -27009,6 +27322,12 @@ impl ExternalServiceCost {
         self.reserved_slot_count = v.into();
         self
     }
+
+    /// Sets the value of [billing_method][crate::model::ExternalServiceCost::billing_method].
+    pub fn set_billing_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.billing_method = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ExternalServiceCost {
@@ -27032,6 +27351,7 @@ impl<'de> serde::de::Deserialize<'de> for ExternalServiceCost {
             __bytes_billed,
             __slot_ms,
             __reserved_slot_count,
+            __billing_method,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -27062,6 +27382,8 @@ impl<'de> serde::de::Deserialize<'de> for ExternalServiceCost {
                             "slot_ms" => Ok(__FieldTag::__slot_ms),
                             "reservedSlotCount" => Ok(__FieldTag::__reserved_slot_count),
                             "reserved_slot_count" => Ok(__FieldTag::__reserved_slot_count),
+                            "billingMethod" => Ok(__FieldTag::__billing_method),
+                            "billing_method" => Ok(__FieldTag::__billing_method),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -27174,6 +27496,16 @@ impl<'de> serde::de::Deserialize<'de> for ExternalServiceCost {
                             result.reserved_slot_count =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
                         }
+                        __FieldTag::__billing_method => {
+                            if !fields.insert(__FieldTag::__billing_method) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for billing_method",
+                                ));
+                            }
+                            result.billing_method = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -27254,6 +27586,9 @@ impl serde::ser::Serialize for ExternalServiceCost {
             }
             state.serialize_entry("reservedSlotCount", &__With(&self.reserved_slot_count))?;
         }
+        if !self.billing_method.is_empty() {
+            state.serialize_entry("billingMethod", &self.billing_method)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -27271,6 +27606,7 @@ impl std::fmt::Debug for ExternalServiceCost {
         debug_struct.field("bytes_billed", &self.bytes_billed);
         debug_struct.field("slot_ms", &self.slot_ms);
         debug_struct.field("reserved_slot_count", &self.reserved_slot_count);
+        debug_struct.field("billing_method", &self.billing_method);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -30911,6 +31247,12 @@ pub struct JobStatistics2 {
     /// Output only. Slot-milliseconds for the job.
     pub total_slot_ms: std::option::Option<wkt::Int64Value>,
 
+    /// Output only. Total slot-milliseconds for the job that run on external
+    /// services and billed on the service SKU. This field is only populated for
+    /// jobs that have external service costs, and is the total of the usage for
+    /// costs whose billing method is "SERVICES_SKU".
+    pub total_services_sku_slot_ms: std::option::Option<i64>,
+
     /// Output only. Whether the query result was fetched from the query cache.
     pub cache_hit: std::option::Option<wkt::BoolValue>,
 
@@ -31286,6 +31628,24 @@ impl JobStatistics2 {
         T: std::convert::Into<wkt::Int64Value>,
     {
         self.total_slot_ms = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [total_services_sku_slot_ms][crate::model::JobStatistics2::total_services_sku_slot_ms].
+    pub fn set_total_services_sku_slot_ms<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.total_services_sku_slot_ms = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [total_services_sku_slot_ms][crate::model::JobStatistics2::total_services_sku_slot_ms].
+    pub fn set_or_clear_total_services_sku_slot_ms<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.total_services_sku_slot_ms = v.map(|x| x.into());
         self
     }
 
@@ -31827,6 +32187,7 @@ impl<'de> serde::de::Deserialize<'de> for JobStatistics2 {
             __total_bytes_billed,
             __billing_tier,
             __total_slot_ms,
+            __total_services_sku_slot_ms,
             __cache_hit,
             __referenced_tables,
             __referenced_routines,
@@ -31907,6 +32268,12 @@ impl<'de> serde::de::Deserialize<'de> for JobStatistics2 {
                             "billing_tier" => Ok(__FieldTag::__billing_tier),
                             "totalSlotMs" => Ok(__FieldTag::__total_slot_ms),
                             "total_slot_ms" => Ok(__FieldTag::__total_slot_ms),
+                            "totalServicesSkuSlotMs" => {
+                                Ok(__FieldTag::__total_services_sku_slot_ms)
+                            }
+                            "total_services_sku_slot_ms" => {
+                                Ok(__FieldTag::__total_services_sku_slot_ms)
+                            }
                             "cacheHit" => Ok(__FieldTag::__cache_hit),
                             "cache_hit" => Ok(__FieldTag::__cache_hit),
                             "referencedTables" => Ok(__FieldTag::__referenced_tables),
@@ -32162,6 +32529,25 @@ impl<'de> serde::de::Deserialize<'de> for JobStatistics2 {
                                 }
                             }
                             result.total_slot_ms = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__total_services_sku_slot_ms => {
+                            if !fields.insert(__FieldTag::__total_services_sku_slot_ms) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for total_services_sku_slot_ms",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.total_services_sku_slot_ms = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__cache_hit => {
                             if !fields.insert(__FieldTag::__cache_hit) {
@@ -32621,6 +33007,23 @@ impl serde::ser::Serialize for JobStatistics2 {
             }
             state.serialize_entry("totalSlotMs", &__With(&self.total_slot_ms))?;
         }
+        if self.total_services_sku_slot_ms.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "totalServicesSkuSlotMs",
+                &__With(&self.total_services_sku_slot_ms),
+            )?;
+        }
         if self.cache_hit.is_some() {
             state.serialize_entry("cacheHit", &self.cache_hit)?;
         }
@@ -32786,6 +33189,10 @@ impl std::fmt::Debug for JobStatistics2 {
         debug_struct.field("total_bytes_billed", &self.total_bytes_billed);
         debug_struct.field("billing_tier", &self.billing_tier);
         debug_struct.field("total_slot_ms", &self.total_slot_ms);
+        debug_struct.field(
+            "total_services_sku_slot_ms",
+            &self.total_services_sku_slot_ms,
+        );
         debug_struct.field("cache_hit", &self.cache_hit);
         debug_struct.field("referenced_tables", &self.referenced_tables);
         debug_struct.field("referenced_routines", &self.referenced_routines);
@@ -67877,6 +68284,15 @@ pub struct QueryParameterType {
     /// Required. The top level type of this field.
     pub r#type: std::string::String,
 
+    /// Optional. Precision (maximum number of total digits in base 10) for seconds
+    /// of TIMESTAMP type.
+    ///
+    /// Possible values include:
+    ///
+    /// * 6 (Default, for TIMESTAMP type with microsecond precision)
+    /// * 12 (For TIMESTAMP type with picosecond precision)
+    pub timestamp_precision: std::option::Option<i64>,
+
     /// Optional. The type of the array's elements, if this is an array.
     pub array_type: std::option::Option<std::boxed::Box<crate::model::QueryParameterType>>,
 
@@ -67898,6 +68314,24 @@ impl QueryParameterType {
     /// Sets the value of [r#type][crate::model::QueryParameterType::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [timestamp_precision][crate::model::QueryParameterType::timestamp_precision].
+    pub fn set_timestamp_precision<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.timestamp_precision = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [timestamp_precision][crate::model::QueryParameterType::timestamp_precision].
+    pub fn set_or_clear_timestamp_precision<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.timestamp_precision = v.map(|x| x.into());
         self
     }
 
@@ -67966,6 +68400,7 @@ impl<'de> serde::de::Deserialize<'de> for QueryParameterType {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __type,
+            __timestamp_precision,
             __array_type,
             __struct_types,
             __range_element_type,
@@ -67990,6 +68425,8 @@ impl<'de> serde::de::Deserialize<'de> for QueryParameterType {
                         use std::string::ToString;
                         match value {
                             "type" => Ok(__FieldTag::__type),
+                            "timestampPrecision" => Ok(__FieldTag::__timestamp_precision),
+                            "timestamp_precision" => Ok(__FieldTag::__timestamp_precision),
                             "arrayType" => Ok(__FieldTag::__array_type),
                             "array_type" => Ok(__FieldTag::__array_type),
                             "structTypes" => Ok(__FieldTag::__struct_types),
@@ -68030,6 +68467,25 @@ impl<'de> serde::de::Deserialize<'de> for QueryParameterType {
                             result.r#type = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__timestamp_precision => {
+                            if !fields.insert(__FieldTag::__timestamp_precision) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for timestamp_precision",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.timestamp_precision = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__array_type => {
                             if !fields.insert(__FieldTag::__array_type) {
@@ -68089,6 +68545,20 @@ impl serde::ser::Serialize for QueryParameterType {
         if !self.r#type.is_empty() {
             state.serialize_entry("type", &self.r#type)?;
         }
+        if self.timestamp_precision.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("timestampPrecision", &__With(&self.timestamp_precision))?;
+        }
         if self.array_type.is_some() {
             state.serialize_entry("arrayType", &self.array_type)?;
         }
@@ -68111,6 +68581,7 @@ impl std::fmt::Debug for QueryParameterType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryParameterType");
         debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("timestamp_precision", &self.timestamp_precision);
         debug_struct.field("array_type", &self.array_type);
         debug_struct.field("struct_types", &self.struct_types);
         debug_struct.field("range_element_type", &self.range_element_type);
@@ -69548,7 +70019,7 @@ pub struct Routine {
     ///
     /// For functions, this is the expression in the AS clause.
     ///
-    /// If language=SQL, it is the substring inside (but excluding) the
+    /// If `language = "SQL"`, it is the substring inside (but excluding) the
     /// parentheses. For example, for the function created with the following
     /// statement:
     ///
@@ -69557,7 +70028,7 @@ pub struct Routine {
     /// The definition_body is `concat(x, "\n", y)` (\n is not replaced with
     /// linebreak).
     ///
-    /// If language=JAVASCRIPT, it is the evaluated string in the AS clause.
+    /// If `language="JAVASCRIPT"`, it is the evaluated string in the AS clause.
     /// For example, for the function created with the following statement:
     ///
     /// `CREATE FUNCTION f() RETURNS STRING LANGUAGE js AS 'return "\n";\n'`
@@ -69567,6 +70038,9 @@ pub struct Routine {
     /// `return "\n";\n`
     ///
     /// Note that both \n are replaced with linebreaks.
+    ///
+    /// If `definition_body` references another routine, then that routine must
+    /// be fully qualified with its project ID.
     pub definition_body: std::string::String,
 
     /// Optional. The description of the routine, if defined.
@@ -69606,7 +70080,7 @@ pub struct Routine {
     /// routines](https://cloud.google.com/bigquery/docs/user-defined-functions#custom-mask).
     pub data_governance_type: crate::model::routine::DataGovernanceType,
 
-    /// Optional. Options for Python UDF.
+    /// Optional. Options for the Python UDF.
     /// [Preview](https://cloud.google.com/products/#product-launch-stages)
     pub python_options: std::option::Option<crate::model::PythonOptions>,
 
@@ -71875,12 +72349,14 @@ pub mod routine {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PythonOptions {
-    /// Required. The entry point function in the user's Python code.
+    /// Required. The name of the function defined in Python code as the entry
+    /// point when the Python UDF is invoked.
     pub entry_point: std::string::String,
 
-    /// Optional. A list of package names along with versions to be installed.
-    /// Follows requirements.txt syntax (e.g. numpy==2.0, permutation,
-    /// urllib3<2.2.1)
+    /// Optional. A list of Python package names along with versions to be
+    /// installed. Example: ["pandas>=2.1", "google-cloud-translate==3.11"]. For
+    /// more information, see [Use third-party
+    /// packages](https://cloud.google.com/bigquery/docs/user-defined-functions-python#third-party-packages).
     pub packages: std::vec::Vec<std::string::String>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -72047,13 +72523,16 @@ impl std::fmt::Debug for PythonOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalRuntimeOptions {
-    /// Optional. Amount of memory provisioned for the container instance. Format:
-    /// {number}{unit} where unit is one of "M", "G", "Mi" and "Gi" (e.g. 1G,
-    /// 512Mi). If not specified, the default value is 512Mi.
+    /// Optional. Amount of memory provisioned for a Python UDF container instance.
+    /// Format: {number}{unit} where unit is one of "M", "G", "Mi" and "Gi" (e.g.
+    /// 1G, 512Mi). If not specified, the default value is 512Mi. For more
+    /// information, see [Configure container limits for Python
+    /// UDFs](https://cloud.google.com/bigquery/docs/user-defined-functions-python#configure-container-limits)
     pub container_memory: std::string::String,
 
-    /// Optional. Amount of CPU provisioned for the container instance. If not
-    /// specified, the default value is 0.33 vCPUs.
+    /// Optional. Amount of CPU provisioned for a Python UDF container instance.
+    /// For more information, see [Configure container limits for Python
+    /// UDFs](https://cloud.google.com/bigquery/docs/user-defined-functions-python#configure-container-limits)
     pub container_cpu: f64,
 
     /// Optional. Fully qualified name of the connection whose service account will
@@ -72066,7 +72545,7 @@ pub struct ExternalRuntimeOptions {
     /// in a batch.
     pub max_batching_rows: i64,
 
-    /// Optional. Language runtime version (e.g. python-3.11).
+    /// Optional. Language runtime version. Example: `python-3.11`.
     pub runtime_version: std::string::String,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

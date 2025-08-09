@@ -317,6 +317,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn clone_database(
+        &self,
+        req: crate::model::CloneDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.clone_database(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,

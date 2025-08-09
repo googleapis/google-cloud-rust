@@ -25,6 +25,7 @@ The main types to work with this crate are the clients:
 - [Revisions]
 - [Services]
 - [Tasks]
+- [WorkerPools]
 
 ## More Information
 
@@ -36,3 +37,4 @@ The main types to work with this crate are the clients:
 [Revisions]: https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.Revisions.html
 [Services]: https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.Services.html
 [Tasks]: https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.Tasks.html
+[WorkerPools]: https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.WorkerPools.html

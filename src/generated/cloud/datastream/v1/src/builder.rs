@@ -899,6 +899,36 @@ pub mod datastream {
             self.0.request = self.0.request.set_sql_server_rdbms(v);
             self
         }
+
+        /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+        /// to hold a `SalesforceOrg`.
+        ///
+        /// Note that all the setters affecting `data_object` are
+        /// mutually exclusive.
+        pub fn set_salesforce_org<
+            T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_salesforce_org(v);
+            self
+        }
+
+        /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+        /// to hold a `MongodbCluster`.
+        ///
+        /// Note that all the setters affecting `data_object` are
+        /// mutually exclusive.
+        pub fn set_mongodb_cluster<
+            T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_mongodb_cluster(v);
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2226,6 +2256,12 @@ pub mod datastream {
         /// Sets the value of [force][crate::model::CreatePrivateConnectionRequest::force].
         pub fn set_force<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.force = v.into();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::CreatePrivateConnectionRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
             self
         }
     }
