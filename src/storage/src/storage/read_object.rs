@@ -15,6 +15,7 @@
 use super::client::*;
 use super::*;
 use crate::download_resume_policy::DownloadResumePolicy;
+use crate::error::{RangeError, ReadError};
 use crate::model::ObjectChecksums;
 use crate::storage::checksum::{
     ChecksumEngine,
@@ -236,7 +237,7 @@ impl ReadObject {
     ///
     /// Example:
     /// ```
-    /// # use google_cloud_storage::client::{KeyAes256, Storage};
+    /// # use google_cloud_storage::{builder::storage::KeyAes256, client::Storage};
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let key: &[u8] = &[97; 32];
     /// let response = client
@@ -850,6 +851,7 @@ mod resume_tests;
 mod tests {
     use super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
+    use crate::error::ChecksumMismatch;
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
@@ -1310,21 +1312,41 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(0, -100, RangeError::NegativeLimit; "negative limit")]
-    #[test_case(-100, 100, RangeError::NegativeOffsetWithLimit; "negative offset with positive limit")]
     #[tokio::test]
-    async fn test_range_header_error(offset: i64, limit: i64, want_err: RangeError) -> Result {
+    async fn range_header_negative_limit() -> Result {
         let inner = test_inner_client(test_builder());
         let err = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_read_offset(offset)
-            .with_read_limit(limit)
+            .with_read_limit(-100)
             .http_request_builder()
             .await
             .unwrap_err();
 
-        assert_eq!(
-            err.source().unwrap().downcast_ref::<RangeError>().unwrap(),
-            &want_err
+        assert!(
+            matches!(
+                err.source().unwrap().downcast_ref::<RangeError>().unwrap(),
+                RangeError::NegativeLimit
+            ),
+            "{err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn range_header_negative_offset_with_limit() -> Result {
+        let inner = test_inner_client(test_builder());
+        let err = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
+            .with_read_offset(-100)
+            .with_read_limit(100)
+            .http_request_builder()
+            .await
+            .unwrap_err();
+
+        assert!(
+            matches!(
+                err.source().unwrap().downcast_ref::<RangeError>().unwrap(),
+                RangeError::NegativeOffsetWithLimit
+            ),
+            "{err:?}"
         );
         Ok(())
     }

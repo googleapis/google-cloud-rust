@@ -49,13 +49,14 @@ mod storage;
 pub mod client {
     //! Clients to interact with Google Cloud Storage.
     pub use crate::control::client::StorageControl;
-    pub use crate::storage::client::{KeyAes256, KeyAes256Error, Storage};
+    pub use crate::storage::client::Storage;
 }
 pub mod builder {
     //! Request builders.
     pub mod storage {
         //! Request builders for [Storage][crate::client::Storage].
         pub use crate::storage::client::ClientBuilder;
+        pub use crate::storage::client::KeyAes256;
         pub use crate::storage::read_object::ReadObject;
         pub use crate::storage::upload_object::UploadObject;
     }
@@ -65,14 +66,10 @@ pub mod builder {
         pub use crate::control::client::ClientBuilder;
     }
 }
+pub mod error;
 /// The messages and enums that are part of this client library.
 pub use crate::control::model;
 pub use crate::control::stub;
-
-pub mod error {
-    pub use super::storage::ReadError;
-    pub use super::storage::UploadError;
-}
 
 pub use storage::read_object::ObjectHighlights;
 pub use storage::read_object::ReadObjectResponse;
