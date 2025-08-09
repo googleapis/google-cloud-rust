@@ -567,7 +567,7 @@ impl<T, C> UploadObject<T, C> {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// # use google_cloud_storage::client::KeyAes256;
+    /// # use google_cloud_storage::builder::storage::KeyAes256;
     /// let key: &[u8] = &[97; 32];
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")

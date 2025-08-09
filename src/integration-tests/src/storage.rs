@@ -19,6 +19,7 @@ use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::RetryPolicyExt;
 use lro::Poller;
 use std::time::Duration;
+use storage::builder::storage::KeyAes256;
 use storage::client::StorageControl;
 use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
@@ -215,7 +216,7 @@ pub async fn objects_customer_supplied_encryption(
     let key = vec![b'a'; 32];
     let insert = client
         .upload_object(&bucket.name, "quick.text", CONTENTS)
-        .with_key(storage::client::KeyAes256::new(&key)?)
+        .with_key(KeyAes256::new(&key)?)
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -223,7 +224,7 @@ pub async fn objects_customer_supplied_encryption(
     tracing::info!("testing read_object() with key");
     let mut resp = client
         .read_object(&bucket.name, &insert.name)
-        .with_key(storage::client::KeyAes256::new(&key)?)
+        .with_key(KeyAes256::new(&key)?)
         .send()
         .await?;
     let mut contents = Vec::new();

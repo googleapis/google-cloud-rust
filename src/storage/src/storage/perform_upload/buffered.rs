@@ -17,7 +17,7 @@ use super::{
     PerformUpload, Result, ResumableUploadStatus, StreamingSource, X_GOOG_API_CLIENT_HEADER,
     apply_customer_supplied_encryption_headers,
 };
-use crate::storage::UploadError;
+use crate::error::UploadError;
 use crate::storage::checksum::details::{update as checksum_update, validate as checksum_validate};
 use progress::InProgressUpload;
 use std::sync::Arc;

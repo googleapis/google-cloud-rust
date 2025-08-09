@@ -16,7 +16,7 @@ use super::RESUMABLE_UPLOAD_QUANTUM;
 use super::StreamingSource;
 use crate::Error;
 use crate::Result;
-use crate::storage::UploadError;
+use crate::error::UploadError;
 use futures::stream::unfold;
 use std::collections::VecDeque;
 
