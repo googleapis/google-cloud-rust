@@ -69,8 +69,10 @@ pub mod builder {
 pub use crate::control::model;
 pub use crate::control::stub;
 
-pub use storage::ReadError;
-pub use storage::UploadError;
+pub mod error {
+    pub use super::storage::ReadError;
+    pub use super::storage::UploadError;
+}
 
 pub use storage::read_object::ObjectHighlights;
 pub use storage::read_object::ReadObjectResponse;
