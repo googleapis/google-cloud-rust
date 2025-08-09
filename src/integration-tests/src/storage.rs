@@ -23,6 +23,7 @@ use storage::client::StorageControl;
 use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
+use storage::builder::storage::KeyAes256;
 
 /// An upload data source used in tests.
 #[derive(Clone, Debug)]
@@ -215,7 +216,7 @@ pub async fn objects_customer_supplied_encryption(
     let key = vec![b'a'; 32];
     let insert = client
         .upload_object(&bucket.name, "quick.text", CONTENTS)
-        .with_key(storage::client::KeyAes256::new(&key)?)
+        .with_key(KeyAes256::new(&key)?)
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -223,7 +224,7 @@ pub async fn objects_customer_supplied_encryption(
     tracing::info!("testing read_object() with key");
     let mut resp = client
         .read_object(&bucket.name, &insert.name)
-        .with_key(storage::client::KeyAes256::new(&key)?)
+        .with_key(KeyAes256::new(&key)?)
         .send()
         .await?;
     let mut contents = Vec::new();
