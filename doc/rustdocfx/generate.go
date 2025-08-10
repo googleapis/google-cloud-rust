@@ -21,19 +21,25 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
+	"time"
 
 	"github.com/cbroglie/mustache"
 )
 
 type docfxMetadata struct {
-	Name    string
-	Version string
+	Name              string
+	Version           string
+	UpdateTimeSeconds int64
+	UpdateTimeNano    int
 }
 
 func newDocfxMetadata(c crate) (*docfxMetadata, error) {
 	d := new(docfxMetadata)
 	d.Name = c.getRootName()
 	d.Version = c.Version
+	now := time.Now().UTC()
+	d.UpdateTimeSeconds = now.Unix()
+	d.UpdateTimeNano = now.Nanosecond()
 	return d, nil
 }
 
@@ -414,11 +420,11 @@ func generate(c crate, outDir string) error {
 	var errs []error
 
 	m, _ := newDocfxMetadata(c)
-	s, err := mustache.RenderFile("/usr/local/google/home/chuongph/Desktop/google-cloud-rust/doc/rustdocfx/templates/docs.metadata.json.mustache", m)
+	s, err := mustache.RenderFile("/usr/local/google/home/chuongph/Desktop/google-cloud-rust/doc/rustdocfx/templates/docs.metadata.mustache", m)
 	if err != nil {
 		fmt.Printf("err: %v", err)
 	}
-	if err := os.WriteFile(filepath.Join(outDir, "docs.metadata.json"), []byte(s), 0666); err != nil {
+	if err := os.WriteFile(filepath.Join(outDir, "docs.metadata"), []byte(s), 0666); err != nil {
 		errs = append(errs, err)
 	}
 
