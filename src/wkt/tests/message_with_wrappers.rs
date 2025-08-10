@@ -47,10 +47,10 @@ mod tests {
     #[test_case(json!({"singular": null}), MessageWithBoolValue::new(), json!({}))]
     #[test_case(json!({"singular": true}), MessageWithBoolValue::new().set_singular(true), json!({"singular": true}))]
     #[test_case(json!({"repeated": []}), MessageWithBoolValue::new(), json!({}))]
-    // TODO(#2376) - #[test_case(json!({"repeated": null}), MessageWithBoolValue::new(), json!({}))]
+    #[test_case(json!({"repeated": null}), MessageWithBoolValue::new(), json!({}))]
     #[test_case(json!({"repeated": [false]}), MessageWithBoolValue::new().set_repeated([false]), json!({"repeated": [false]}))]
     #[test_case(json!({"map": {}}), MessageWithBoolValue::new(), json!({}))]
-    // TODO(#2376) - #[test_case(json!({"map": null}), MessageWithBoolValue::new(), json!({}))]
+    #[test_case(json!({"map": null}), MessageWithBoolValue::new(), json!({}))]
     #[test_case(json!({"map": {"key": true}}), MessageWithBoolValue::new().set_map([("key", true)]), json!({"map": {"key": true}}))]
     fn generated_bool_value_fields(
         input: Value,
@@ -207,10 +207,10 @@ mod tests {
     #[test_case(json!({"singular": null}), MessageWithStringValue::new(), json!({}))]
     #[test_case(json!({"singular": LAZY}), MessageWithStringValue::new().set_singular(LAZY), json!({"singular": LAZY}))]
     #[test_case(json!({"repeated": []}), MessageWithStringValue::new(), json!({}))]
-    // TODO(#2376) - #[test_case(json!({"repeated": null}), MessageWithStringValue::new(), json!({}))]
+    #[test_case(json!({"repeated": null}), MessageWithStringValue::new(), json!({}))]
     #[test_case(json!({"repeated": [LAZY]}), MessageWithStringValue::new().set_repeated([LAZY]), json!({"repeated": [LAZY]}))]
     #[test_case(json!({"map": {}}), MessageWithStringValue::new(), json!({}))]
-    // TODO(#2376) - #[test_case(json!({"map": null}), MessageWithStringValue::new(), json!({}))]
+    #[test_case(json!({"map": null}), MessageWithStringValue::new(), json!({}))]
     #[test_case(json!({"map": {"key": LAZY}}), MessageWithStringValue::new().set_map([("key", LAZY)]), json!({"map": {"key": LAZY}}))]
     fn generated_string_value_fields(
         input: Value,
