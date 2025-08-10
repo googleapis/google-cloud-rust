@@ -196,20 +196,21 @@ func processTypeAlias(c crate, id string, page *docfxManagedReference, parent *d
 }
 
 func processEnum(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
-	// Verify that enum is non-exhaustive and does not have stripped variants.
-	isNonExhaustive := slices.IndexFunc(c.Index[id].Attrs, func(attr string) bool { return attr == "#[non_exhaustive]" }) >= 0
-	if !isNonExhaustive {
-		return fmt.Errorf("error processing enum, expecting %s to be non-exhaustive", id)
-	}
 	if c.Index[id].Inner.Enum.HasStrippedVariants {
 		return fmt.Errorf("error processing enum, expecting %s to have no stripped variants", id)
 	}
 
+	isNonExhaustive := slices.IndexFunc(c.Index[id].Attrs, func(attr string) bool { return attr == "#[non_exhaustive]" }) >= 0
 	// Adds the variants
 	for i := 0; i < len(c.Index[id].Inner.Enum.Variants); i++ {
 		variantId := idToString(c.Index[id].Inner.Enum.Variants[i])
 
 		enumVariant, _ := newDocfxItemFromEnumVariant(c, parent, variantId)
+		if isNonExhaustive {
+			enumVariant.Type = "enumvariantnonexhaustive"
+		} else {
+			enumVariant.Type = "enumvariant"
+		}
 		page.appendItem(enumVariant)
 
 		reference, _ := newDocfxReferenceFromDocfxItem(enumVariant, parent)
@@ -318,7 +319,6 @@ func newDocfxItemFromEnumVariant(c crate, parent *docfxItem, id string) (*docfxI
 	r := new(docfxItem)
 	r.Name = c.getName(id)
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
-	r.Type = "enumvariant"
 	r.Summary = c.getDocString(id)
 	return r, nil
 }

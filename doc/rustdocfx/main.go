@@ -43,20 +43,10 @@ import (
 )
 
 func main() {
-	// TODO(NOW): Clean up a little bit
-	// TODO(NOW): Update code to generate all the packages (forloop?)
-	// TODO(NOW): Docstring + links
-	// TODO(NOW): Update template include inners
-	// TODO(NOW): Update to iterate through all root level crates
-	// TODO(NOW): Update to correctly link to external google-sdk crates
-	// TODO(NOW): Update to correctly include external crates
-
 	out := flag.String("out", "docfx", "Output directory within project-root (default docfx)")
 	projectRoot := flag.String("project-root", "", "Top level directory of googleapis/google-cloud-rust")
 	flag.Parse()
 
-	// TODO(NOW): REMOVE context if not needed.
-	// ctx := context.Background()
 	crates := flag.Args()
 
 	// TODO: Preflight checks for:
@@ -67,7 +57,8 @@ func main() {
 	// Create a temporary file to store `cargo workspace plan` output.
 	tempFile, err := os.CreateTemp("", "cargo-plan-")
 	if err != nil {
-		slog.Error("Unable to create temp file for cargo workspace plan")
+		fmt.Printf("Unable to create temp file for cargo workspace plan: %v\n", err)
+		return
 	}
 	defer os.Remove(tempFile.Name())
 	fmt.Printf("Created tmp file %s for cargo workspace plan\n", tempFile.Name())
@@ -77,20 +68,23 @@ func main() {
 
 	jsonFile, err := os.Open(tempFile.Name())
 	if err != nil {
-		// TODO(NOW): Failfast.
 		fmt.Println(err)
+		return
 	}
 	defer jsonFile.Close()
 
 	byteValue, _ := io.ReadAll(jsonFile)
 	workspaceCrates, err := getWorkspaceCrates(byteValue)
+	if err != nil {
+		fmt.Printf("Error getting workspace crates: %v\n", err)
+		return
+	}
 
 	for i := 0; i < len(workspaceCrates); i++ {
-		// TODO(NOW): Run cargo rustdoc
+		// TODO: Ignore the "gcp-sdk" crate.
 		// TODO(NOW): Filter, right now, we only work on the first arguemnt.
 		if workspaceCrates[i].Name == crates[0] {
 			runCmd(nil, *projectRoot, "cargo", "+nightly", "-Z", "unstable-options", "rustdoc", "--output-format=json", fmt.Sprintf("--manifest-path=%s/Cargo.toml", workspaceCrates[i].Location))
-			// TODO(NOW): This seem error prone with the directory being set by the flag
 			// cargo names are snake case while cargo rustdoc output files are kebob case.
 			fileName := fmt.Sprintf("%s.json", strings.ReplaceAll(workspaceCrates[i].Name, "-", "_"))
 			file := filepath.Join(*projectRoot, "/target/doc", fileName)
@@ -115,8 +109,6 @@ func main() {
 				// TODO: Better log message for the failure with crate name.
 				log.Fatalf("failed to generate for crate %s: %v", workspaceCrates[i].Name, err)
 			}
-
-			// TODO: Generate all the crates.
 		}
 	}
 }
