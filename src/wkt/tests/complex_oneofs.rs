@@ -42,14 +42,14 @@ mod tests {
     #[test_case(MessageWithComplexOneOf::new().set_double_value(1.5), json!({"doubleValue": 1.5}))]
     #[test_case(MessageWithComplexOneOf::new().set_double_value(2.5), json!({"doubleValue": 2.5}))]
     #[test_case(MessageWithComplexOneOf::new().set_double_value(3.0), json!({"doubleValue": 3.0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_int(0), json!({"int": 0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_int(1), json!({"int": 1}))]
-    #[test_case(MessageWithComplexOneOf::new().set_int(2), json!({"int": 2}))]
-    #[test_case(MessageWithComplexOneOf::new().set_int(3), json!({"int": 3}))]
-    #[test_case(MessageWithComplexOneOf::new().set_long(0), json!({"long": "0"}))]
-    #[test_case(MessageWithComplexOneOf::new().set_long(1), json!({"long": "1"}))]
-    #[test_case(MessageWithComplexOneOf::new().set_long(2), json!({"long": "2"}))]
-    #[test_case(MessageWithComplexOneOf::new().set_long(3), json!({"long": "3"}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int32(0), json!({"int32": 0}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int32(1), json!({"int32": 1}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int32(2), json!({"int32": 2}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int32(3), json!({"int32": 3}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int64(0), json!({"int64": "0"}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int64(1), json!({"int64": "1"}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int64(2), json!({"int64": "2"}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int64(3), json!({"int64": "3"}))]
     #[test_case(MessageWithComplexOneOf::new().set_enum(TestEnum::default()), json!({"enum": 0}))]
     #[test_case(MessageWithComplexOneOf::new().set_inner(Inner::default().set_strings(["a", "b"])), json!({"inner": {"strings": ["a", "b"]}}))]
     #[test_case(MessageWithComplexOneOf::new().set_duration(Duration::clamp(-1, -750_000_000)), json!({"duration": "-1.75s"}))]
@@ -76,14 +76,14 @@ mod tests {
     #[test_case(MessageWithComplexOneOf::new().set_double_value(1.5), json!({"doubleValue": "1.5"}))]
     #[test_case(MessageWithComplexOneOf::new().set_double_value(2.5), json!({"doubleValue": 2.5}))]
     #[test_case(MessageWithComplexOneOf::new().set_double_value(3.0), json!({"doubleValue": 3}))]
-    #[test_case(MessageWithComplexOneOf::new().set_int(0), json!({"int": 0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_int(1), json!({"int": "1"}))]
-    #[test_case(MessageWithComplexOneOf::new().set_int(2), json!({"int": 2.0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_int(3), json!({"int": 3e0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_long(0), json!({"long": 0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_long(1), json!({"long": "1"}))]
-    #[test_case(MessageWithComplexOneOf::new().set_long(2), json!({"long": 2.0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_long(3), json!({"long": 3e0}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int32(0), json!({"int32": 0}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int32(1), json!({"int32": "1"}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int32(2), json!({"int32": 2.0}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int32(3), json!({"int32": 3e0}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int64(0), json!({"int64": 0}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int64(1), json!({"int64": "1"}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int64(2), json!({"int64": 2.0}))]
+    #[test_case(MessageWithComplexOneOf::new().set_int64(3), json!({"int64": 3e0}))]
     #[test_case(MessageWithComplexOneOf::new().set_enum(TestEnum::default()), json!({"enum": 0}))]
     #[test_case(MessageWithComplexOneOf::new().set_inner(Inner::default().set_strings(["a", "b"])), json!({"inner": {"strings": ["a", "b"]}}))]
     #[test_case(MessageWithComplexOneOf::new().set_duration(Duration::clamp(-1, -750_000_000)), json!({"duration": "-1.75s"}))]
@@ -107,8 +107,8 @@ mod tests {
     #[test_case(r#"{"string_value": null}"#, MessageWithComplexOneOf::new().set_string_value(""))]
     #[test_case(r#"{"float_value":  null}"#, MessageWithComplexOneOf::new().set_float_value(0_f32))]
     #[test_case(r#"{"double_value": null}"#, MessageWithComplexOneOf::new().set_double_value(0_f64))]
-    #[test_case(r#"{"int":          null}"#, MessageWithComplexOneOf::new().set_int(0))]
-    #[test_case(r#"{"long":         null}"#, MessageWithComplexOneOf::new().set_long(0_i64))]
+    #[test_case(r#"{"int32":        null}"#, MessageWithComplexOneOf::new().set_int32(0))]
+    #[test_case(r#"{"int64":        null}"#, MessageWithComplexOneOf::new().set_int64(0_i64))]
     #[test_case(r#"{"enum":         null}"#, MessageWithComplexOneOf::new().set_enum(TestEnum::default()))]
     #[test_case(r#"{"inner":        null}"#, MessageWithComplexOneOf::new().set_inner(Inner::default()))]
     #[test_case(r#"{"duration":     null}"#, MessageWithComplexOneOf::new().set_duration(Duration::default()))]
@@ -131,10 +131,10 @@ mod tests {
     #[test_case(r#"{"floatValue":     0,         "floatValue":     0}"#)]
     #[test_case(r#"{"null":           null,      "doubleValue":    0}"#)]
     #[test_case(r#"{"doubleValue":    0,         "doubleValue":    0}"#)]
-    #[test_case(r#"{"null":           null,      "int":            0}"#)]
-    #[test_case(r#"{"int":            0,         "int":            0}"#)]
-    #[test_case(r#"{"null":           null,      "long":           0}"#)]
-    #[test_case(r#"{"long":           0,         "long":           0}"#)]
+    #[test_case(r#"{"null":           null,      "int32":          0}"#)]
+    #[test_case(r#"{"int32":          0,         "int32":          0}"#)]
+    #[test_case(r#"{"null":           null,      "int64":          0}"#)]
+    #[test_case(r#"{"int64":          0,         "int64":          0}"#)]
     #[test_case(r#"{"null":           null,      "enum":           "BLACK"}"#)]
     #[test_case(r#"{"enum":           "BLACK",   "enum":           "BLACK"}"#)]
     #[test_case(r#"{"null":           null,      "inner":          {}}"#)]
@@ -226,25 +226,25 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(json!({"int": 0}), 0)]
-    #[test_case(json!({"int": "0"}), 0; "0 as str")]
-    #[test_case(json!({"int": 1}), 1)]
-    #[test_case(json!({"int": "1"}), 1; "1 as str")]
+    #[test_case(json!({"int32": 0}), 0)]
+    #[test_case(json!({"int32": "0"}), 0; "0 as str")]
+    #[test_case(json!({"int32": 1}), 1)]
+    #[test_case(json!({"int32": "1"}), 1; "1 as str")]
     fn test_int(input: Value, want: i32) -> Result {
         let got = serde_json::from_value::<MessageWithComplexOneOf>(input)?;
-        assert_eq!(got.int(), Some(&want), "{got:?}");
+        assert_eq!(got.int32(), Some(&want), "{got:?}");
         let roundtrip = serde_json::from_value(serde_json::to_value(&got)?)?;
         assert_eq!(got, roundtrip);
         Ok(())
     }
 
-    #[test_case(json!({"long": 0}), 0)]
-    #[test_case(json!({"long": "0"}), 0; "0 as str")]
-    #[test_case(json!({"long": 1}), 1)]
-    #[test_case(json!({"long": "1"}), 1; "1 as str")]
+    #[test_case(json!({"int64": 0}), 0)]
+    #[test_case(json!({"int64": "0"}), 0; "0 as str")]
+    #[test_case(json!({"int64": 1}), 1)]
+    #[test_case(json!({"int64": "1"}), 1; "1 as str")]
     fn test_long(input: Value, want: i64) -> Result {
         let got = serde_json::from_value::<MessageWithComplexOneOf>(input)?;
-        assert_eq!(got.long(), Some(&want), "{got:?}");
+        assert_eq!(got.int64(), Some(&want), "{got:?}");
         let roundtrip = serde_json::from_value(serde_json::to_value(&got)?)?;
         assert_eq!(got, roundtrip);
         Ok(())
