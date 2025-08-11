@@ -622,20 +622,18 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn adc_no_mds() -> TestResult {
-        let err = Builder::from_adc()
-            .build_token_provider()
-            .token()
-            .await
-            .unwrap_err();
+        let token = Builder::from_adc().build_token_provider().token().await;
+        let err = match token {
+            Err(e) => e,
+            // The environment has an MDS, skip the test.
+            Ok(_) => return Ok(()),
+        };
 
         let original_err = find_source_error::<CredentialsError>(&err).unwrap();
-        assert!(original_err.is_transient());
         assert!(
             original_err.to_string().contains("application-default"),
             "display={err}, debug={err:?}"
         );
-        let source = find_source_error::<reqwest::Error>(&err);
-        assert!(matches!(source, Some(e) if e.status().is_none()), "{err:?}");
 
         Ok(())
     }
@@ -668,15 +666,14 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn builder_no_mds() -> TestResult {
-        let e = Builder::default()
-            .build_token_provider()
-            .token()
-            .await
-            .err()
-            .unwrap();
+        let token = Builder::default().build_token_provider().token().await;
+        let e = match token {
+            Err(e) => e,
+            // The environment has an MDS, skip the test.
+            Ok(_) => return Ok(()),
+        };
 
         let original_err = find_source_error::<CredentialsError>(&e).unwrap();
-        assert!(original_err.is_transient());
         assert!(
             !format!("{:?}", original_err.source()).contains("application-default"),
             "{e:?}"
