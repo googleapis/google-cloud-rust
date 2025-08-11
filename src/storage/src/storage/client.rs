@@ -17,6 +17,7 @@ use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::UploadObject;
 use crate::download_resume_policy::DownloadResumePolicy;
+use crate::error::KeyAes256Error;
 use crate::storage::checksum::details::Crc32c;
 use crate::upload_source::Payload;
 use auth::credentials::CacheableResource;
@@ -593,18 +594,6 @@ pub(crate) fn enc(value: &str) -> String {
     percent_encoding::utf8_percent_encode(value, &ENCODED_CHARS).to_string()
 }
 
-/// Represents an error that can occur when invalid range is specified.
-#[derive(thiserror::Error, Debug, PartialEq)]
-#[non_exhaustive]
-pub(crate) enum RangeError {
-    /// The provided read limit was negative.
-    #[error("read limit was negative, expected non-negative value.")]
-    NegativeLimit,
-    /// A negative offset was provided with a read limit.
-    #[error("negative read offsets cannot be used with read limits.")]
-    NegativeOffsetWithLimit,
-}
-
 #[derive(Debug)]
 /// KeyAes256 represents an AES-256 encryption key used with the
 /// Customer-Supplied Encryption Keys (CSEK) feature.
@@ -616,7 +605,7 @@ pub(crate) enum RangeError {
 ///
 /// Creating a `KeyAes256` instance from a valid byte slice:
 /// ```
-/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// # use google_cloud_storage::{builder::storage::KeyAes256, error::KeyAes256Error};
 /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
 /// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
 /// # Ok::<(), KeyAes256Error>(())
@@ -624,7 +613,7 @@ pub(crate) enum RangeError {
 ///
 /// Handling an error for an invalid key length:
 /// ```
-/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// # use google_cloud_storage::{builder::storage::KeyAes256, error::KeyAes256Error};
 /// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
 /// let result = KeyAes256::new(invalid_key_bytes);
 ///
@@ -634,24 +623,6 @@ pub struct KeyAes256 {
     key: [u8; 32],
 }
 
-/// Represents errors that can occur when converting to [`KeyAes256`] instances.
-///
-/// # Example:
-/// ```
-/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
-/// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
-/// let result = KeyAes256::new(invalid_key_bytes);
-///
-/// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
-/// ```
-#[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-pub enum KeyAes256Error {
-    /// The provided key's length was not exactly 32 bytes.
-    #[error("Key has an invalid length: expected 32 bytes.")]
-    InvalidLength,
-}
-
 impl KeyAes256 {
     /// Attempts to create a new [KeyAes256].
     ///
@@ -659,7 +630,7 @@ impl KeyAes256 {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+    /// # use google_cloud_storage::{builder::storage::KeyAes256, error::KeyAes256Error};
     /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
     /// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
     /// # Ok::<(), KeyAes256Error>(())

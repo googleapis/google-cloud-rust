@@ -39,8 +39,8 @@
 //! }
 //! ```
 
+use crate::error::ChecksumMismatch;
 use crate::model::ObjectChecksums;
-use crate::storage::ChecksumMismatch;
 
 /// Computes a checksum or hash for [Cloud Storage] transfers.
 ///
