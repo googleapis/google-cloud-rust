@@ -806,17 +806,18 @@ pub struct ObjectHighlights {
 
 /// Returns the object checksums to validate against.
 ///
-/// For some responses, the checksums are not expected to match the data. The function returns an
-/// empty `ObjectChecksums` in such a case.
+/// For some responses, the checksums are not expected to match the data.
+/// The function returns an empty `ObjectChecksums` in such a case.
 ///
 /// Checksum validation is supported iff:
-/// 1. We requested the full content (request.read_limit = 0, request.read_offset = 0).
+/// 1. We requested the full content.
 /// 2. We got all the content (status != PartialContent).
 /// 3. The server sent a CRC header.
 /// 4. The http stack did not uncompress the file.
 /// 5. We were not served compressed data that was uncompressed on download.
 ///
-/// For 4, we turn off automatic decompression in reqwest::Client when we create it,
+/// For 4, we turn off automatic decompression in reqwest::Client when we
+/// create it,
 fn checksums_from_response(
     full_content_requested: bool,
     status: http::StatusCode,
