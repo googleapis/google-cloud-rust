@@ -35,9 +35,6 @@ mod unbuffered;
 /// `send()` or `send_buffered()` to initiate the upload. At that point the
 /// client library creates an instance of this class. Notably, the `payload`
 /// becomes `Arc<Mutex<T>>` because it needs to be reused in the retry loop.
-///
-/// TODO(#2050) - payload will become `ChecksummedSource<C, S>` to automatically
-///   compute the checksum.
 pub struct PerformUpload<C, S> {
     // We need `Arc<Mutex<>>` because this is re-used in retryable uploads.
     payload: Arc<Mutex<ChecksummedSource<C, S>>>,
