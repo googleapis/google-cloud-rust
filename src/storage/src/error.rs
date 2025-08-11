@@ -15,7 +15,7 @@
 //! Custom errors for the Cloud Storage client.
 //!
 //! The storage client defines additional error types. These are often returned
-//! as the `source()` of a [Error][crate::Error].
+//! as the `source()` of an [Error][crate::Error].
 
 use crate::model::ObjectChecksums;
 
