@@ -229,7 +229,7 @@ impl Client {
                 Arc::new(
                     Aip194Strict
                         .with_attempt_limit(10)
-                        .with_time_limit(Duration::from_secs(5 * 60)),
+                        .with_time_limit(Duration::from_secs(60)),
                 )
             })
     }
