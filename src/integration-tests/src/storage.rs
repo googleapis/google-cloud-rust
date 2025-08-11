@@ -24,12 +24,13 @@ use storage::client::StorageControl;
 use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
+use storage::upload_source::{Seek, SizeHint, StreamingSource};
 
 /// An upload data source used in tests.
 #[derive(Clone, Debug)]
 struct TestDataSource {
     size: u64,
-    hint: (u64, Option<u64>),
+    hint: SizeHint,
     offset: u64,
     abort: u64,
 }
@@ -40,14 +41,16 @@ impl TestDataSource {
     fn new(size: u64) -> Self {
         Self {
             size,
-            hint: (size, Some(size)),
+            hint: SizeHint::with_exact(size),
             offset: 0,
             abort: u64::MAX,
         }
     }
 
     fn without_size_hint(mut self) -> Self {
-        self.hint = (0, None);
+        let mut hint = SizeHint::new();
+        hint.set_lower(self.hint.lower());
+        self.hint = hint;
         self
     }
 
@@ -57,7 +60,7 @@ impl TestDataSource {
     }
 }
 
-impl storage::upload_source::StreamingSource for TestDataSource {
+impl StreamingSource for TestDataSource {
     type Error = std::io::Error;
     async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
         match self.offset {
@@ -85,12 +88,12 @@ impl storage::upload_source::StreamingSource for TestDataSource {
             }
         }
     }
-    async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), Self::Error> {
-        Ok(self.hint)
+    async fn size_hint(&self) -> std::result::Result<SizeHint, Self::Error> {
+        Ok(self.hint.clone())
     }
 }
 
-impl storage::upload_source::Seek for TestDataSource {
+impl Seek for TestDataSource {
     type Error = std::io::Error;
     async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
         if offset % Self::LINE_SIZE != 0 {

@@ -14,8 +14,8 @@
 
 use super::{
     ChecksumEngine, ChecksummedSource, ContinueOn308, Error, IterSource, Known, Object,
-    PerformUpload, Result, ResumableUploadStatus, StreamingSource, X_GOOG_API_CLIENT_HEADER,
-    apply_customer_supplied_encryption_headers,
+    PerformUpload, Result, ResumableUploadStatus, SizeHint, StreamingSource,
+    X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
 };
 use crate::error::UploadError;
 use crate::storage::checksum::details::{update as checksum_update, validate as checksum_validate};
@@ -40,14 +40,14 @@ where
             .await
             .map_err(Error::ser)?;
         let threshold = self.options.resumable_upload_threshold as u64;
-        if hint.1.is_none_or(|max| max >= threshold) {
+        if hint.upper().is_none_or(|max| max >= threshold) {
             self.send_buffered_resumable(hint).await
         } else {
             self.send_buffered_single_shot().await
         }
     }
 
-    async fn send_buffered_resumable(self, hint: (u64, Option<u64>)) -> Result<Object> {
+    async fn send_buffered_resumable(self, hint: SizeHint) -> Result<Object> {
         let mut progress = InProgressUpload::new(self.options.resumable_upload_buffer_size, hint);
         let mut url = None;
         let throttler = self.options.retry_throttler.clone();
@@ -264,7 +264,7 @@ mod tests {
         source
             .expect_size_hint()
             .once()
-            .returning(|| Ok((1024_u64, Some(1024_u64))));
+            .returning(|| Ok(SizeHint::with_exact(1024)));
         let err = client
             .upload_object("projects/_/buckets/test-bucket", "test-object", source)
             .send_buffered()

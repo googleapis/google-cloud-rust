@@ -80,7 +80,7 @@ use crate::storage::client::{
     KeyAes256, Storage,
     tests::{create_key_helper, test_builder},
 };
-use crate::upload_source::{BytesSource, tests::UnknownSize};
+use crate::upload_source::{BytesSource, SizeHint, tests::UnknownSize};
 use gax::retry_policy::RetryPolicyExt;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
@@ -329,7 +329,7 @@ async fn source_seek_error() -> Result {
     source
         .expect_size_hint()
         .once()
-        .returning(|| Ok((1024_u64, Some(1024_u64))));
+        .returning(|| Ok(SizeHint::with_exact(1024)));
     let err = client
         .upload_object("projects/_/buckets/test-bucket", "test-object", source)
         .with_if_generation_match(0)
@@ -375,7 +375,7 @@ async fn source_next_error() -> Result {
     source
         .expect_size_hint()
         .once()
-        .returning(|| Ok((1024_u64, Some(1024_u64))));
+        .returning(|| Ok(SizeHint::with_exact(1024)));
     let err = client
         .upload_object("projects/_/buckets/test-bucket", "test-object", source)
         .with_if_generation_match(0)

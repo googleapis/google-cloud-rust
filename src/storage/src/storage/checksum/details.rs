@@ -234,7 +234,7 @@ pub(crate) struct ChecksummedSource<C, S> {
     source: S,
 }
 
-use crate::upload_source::{Seek, StreamingSource};
+use crate::upload_source::{Seek, SizeHint, StreamingSource};
 
 impl<C, S> ChecksummedSource<C, S> {
     pub fn new(checksum: C, source: S) -> Self {
@@ -272,7 +272,7 @@ where
             Some(Err(e)) => Some(Err(e)),
         }
     }
-    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
+    async fn size_hint(&self) -> Result<SizeHint, Self::Error> {
         self.source.size_hint().await
     }
 }
@@ -501,7 +501,9 @@ mod tests {
         );
         let want_hint = source.size_hint().await?;
         let mut source = ChecksummedSource::new(Crc32c::default(), source);
-        assert_eq!(source.size_hint().await?, want_hint);
+        let got_hint = source.size_hint().await?;
+        assert_eq!(got_hint.lower(), want_hint.lower());
+        assert_eq!(got_hint.upper(), want_hint.upper());
 
         for expected in input.iter().take(3) {
             let got = source.next().await.transpose()?;
