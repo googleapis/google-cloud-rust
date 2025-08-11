@@ -1048,3 +1048,208 @@ impl Tasks {
         super::builder::tasks::WaitOperation::new(self.inner.clone())
     }
 }
+
+/// Implements a client for the Cloud Run Admin API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_run_v2::client::WorkerPools;
+/// let client = WorkerPools::builder().build().await?;
+/// // use `client` to make requests to the Cloud Run Admin API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Cloud Run WorkerPool Control Plane API.
+///
+/// # Configuration
+///
+/// To configure `WorkerPools` use the `with_*` methods in the type returned
+/// by [builder()][WorkerPools::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://run.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::worker_pools::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::worker_pools::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `WorkerPools` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `WorkerPools` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct WorkerPools {
+    inner: std::sync::Arc<dyn super::stub::dynamic::WorkerPools>,
+}
+
+impl WorkerPools {
+    /// Returns a builder for [WorkerPools].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// let client = WorkerPools::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::worker_pools::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::worker_pools::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::WorkerPools + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::WorkerPools>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::WorkerPools> {
+        super::transport::WorkerPools::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::WorkerPools> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::WorkerPools::new)
+    }
+
+    /// Creates a new WorkerPool in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_worker_pool(&self) -> super::builder::worker_pools::CreateWorkerPool {
+        super::builder::worker_pools::CreateWorkerPool::new(self.inner.clone())
+    }
+
+    /// Gets information about a WorkerPool.
+    pub fn get_worker_pool(&self) -> super::builder::worker_pools::GetWorkerPool {
+        super::builder::worker_pools::GetWorkerPool::new(self.inner.clone())
+    }
+
+    /// Lists WorkerPools. Results are sorted by creation time, descending.
+    pub fn list_worker_pools(&self) -> super::builder::worker_pools::ListWorkerPools {
+        super::builder::worker_pools::ListWorkerPools::new(self.inner.clone())
+    }
+
+    /// Updates a WorkerPool.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_worker_pool(&self) -> super::builder::worker_pools::UpdateWorkerPool {
+        super::builder::worker_pools::UpdateWorkerPool::new(self.inner.clone())
+    }
+
+    /// Deletes a WorkerPool.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_worker_pool(&self) -> super::builder::worker_pools::DeleteWorkerPool {
+        super::builder::worker_pools::DeleteWorkerPool::new(self.inner.clone())
+    }
+
+    /// Gets the IAM Access Control policy currently in effect for the given
+    /// Cloud Run WorkerPool. This result does not include any inherited policies.
+    pub fn get_iam_policy(&self) -> super::builder::worker_pools::GetIamPolicy {
+        super::builder::worker_pools::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the IAM Access control policy for the specified WorkerPool. Overwrites
+    /// any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::worker_pools::SetIamPolicy {
+        super::builder::worker_pools::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified Project.
+    ///
+    /// There are no permissions required for making this API call.
+    pub fn test_iam_permissions(&self) -> super::builder::worker_pools::TestIamPermissions {
+        super::builder::worker_pools::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::worker_pools::ListOperations {
+        super::builder::worker_pools::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::worker_pools::GetOperation {
+        super::builder::worker_pools::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(&self) -> super::builder::worker_pools::DeleteOperation {
+        super::builder::worker_pools::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn wait_operation(&self) -> super::builder::worker_pools::WaitOperation {
+        super::builder::worker_pools::WaitOperation::new(self.inner.clone())
+    }
+}

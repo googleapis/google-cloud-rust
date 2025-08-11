@@ -347,6 +347,70 @@ impl DiscoverConnectionProfileRequest {
         );
         self
     }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// if it holds a `SalesforceOrg`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_org(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::DataObject::SalesforceOrg(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// to hold a `SalesforceOrg`.
+    ///
+    /// Note that all the setters affecting `data_object` are
+    /// mutually exclusive.
+    pub fn set_salesforce_org<
+        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_object = std::option::Option::Some(
+            crate::model::discover_connection_profile_request::DataObject::SalesforceOrg(v.into()),
+        );
+        self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// if it holds a `MongodbCluster`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mongodb_cluster(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MongodbCluster>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::DataObject::MongodbCluster(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// to hold a `MongodbCluster`.
+    ///
+    /// Note that all the setters affecting `data_object` are
+    /// mutually exclusive.
+    pub fn set_mongodb_cluster<
+        T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_object = std::option::Option::Some(
+            crate::model::discover_connection_profile_request::DataObject::MongodbCluster(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for DiscoverConnectionProfileRequest {
@@ -374,6 +438,8 @@ impl<'de> serde::de::Deserialize<'de> for DiscoverConnectionProfileRequest {
             __mysql_rdbms,
             __postgresql_rdbms,
             __sql_server_rdbms,
+            __salesforce_org,
+            __mongodb_cluster,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -411,6 +477,10 @@ impl<'de> serde::de::Deserialize<'de> for DiscoverConnectionProfileRequest {
                             "postgresql_rdbms" => Ok(__FieldTag::__postgresql_rdbms),
                             "sqlServerRdbms" => Ok(__FieldTag::__sql_server_rdbms),
                             "sql_server_rdbms" => Ok(__FieldTag::__sql_server_rdbms),
+                            "salesforceOrg" => Ok(__FieldTag::__salesforce_org),
+                            "salesforce_org" => Ok(__FieldTag::__salesforce_org),
+                            "mongodbCluster" => Ok(__FieldTag::__mongodb_cluster),
+                            "mongodb_cluster" => Ok(__FieldTag::__mongodb_cluster),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -593,6 +663,40 @@ impl<'de> serde::de::Deserialize<'de> for DiscoverConnectionProfileRequest {
                                 ),
                             );
                         }
+                        __FieldTag::__salesforce_org => {
+                            if !fields.insert(__FieldTag::__salesforce_org) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for salesforce_org",
+                                ));
+                            }
+                            if result.data_object.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `data_object`, a oneof with full ID .google.cloud.datastream.v1.DiscoverConnectionProfileRequest.salesforce_org, latest field was salesforceOrg",
+                                ));
+                            }
+                            result.data_object = std::option::Option::Some(
+                                crate::model::discover_connection_profile_request::DataObject::SalesforceOrg(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::SalesforceOrg>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__mongodb_cluster => {
+                            if !fields.insert(__FieldTag::__mongodb_cluster) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mongodb_cluster",
+                                ));
+                            }
+                            if result.data_object.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `data_object`, a oneof with full ID .google.cloud.datastream.v1.DiscoverConnectionProfileRequest.mongodb_cluster, latest field was mongodbCluster",
+                                ));
+                            }
+                            result.data_object = std::option::Option::Some(
+                                crate::model::discover_connection_profile_request::DataObject::MongodbCluster(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::MongodbCluster>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -651,6 +755,12 @@ impl serde::ser::Serialize for DiscoverConnectionProfileRequest {
         }
         if let Some(value) = self.sql_server_rdbms() {
             state.serialize_entry("sqlServerRdbms", value)?;
+        }
+        if let Some(value) = self.salesforce_org() {
+            state.serialize_entry("salesforceOrg", value)?;
+        }
+        if let Some(value) = self.mongodb_cluster() {
+            state.serialize_entry("mongodbCluster", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -713,6 +823,10 @@ pub mod discover_connection_profile_request {
         PostgresqlRdbms(std::boxed::Box<crate::model::PostgresqlRdbms>),
         /// SQLServer RDBMS to enrich with child data objects and metadata.
         SqlServerRdbms(std::boxed::Box<crate::model::SqlServerRdbms>),
+        /// Salesforce organization to enrich with child data objects and metadata.
+        SalesforceOrg(std::boxed::Box<crate::model::SalesforceOrg>),
+        /// MongoDB cluster to enrich with child data objects and metadata.
+        MongodbCluster(std::boxed::Box<crate::model::MongodbCluster>),
     }
 }
 
@@ -871,6 +985,72 @@ impl DiscoverConnectionProfileResponse {
         );
         self
     }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// if it holds a `SalesforceOrg`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_org(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_response::DataObject::SalesforceOrg(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// to hold a `SalesforceOrg`.
+    ///
+    /// Note that all the setters affecting `data_object` are
+    /// mutually exclusive.
+    pub fn set_salesforce_org<
+        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_object = std::option::Option::Some(
+            crate::model::discover_connection_profile_response::DataObject::SalesforceOrg(v.into()),
+        );
+        self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// if it holds a `MongodbCluster`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mongodb_cluster(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MongodbCluster>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_response::DataObject::MongodbCluster(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// to hold a `MongodbCluster`.
+    ///
+    /// Note that all the setters affecting `data_object` are
+    /// mutually exclusive.
+    pub fn set_mongodb_cluster<
+        T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_object = std::option::Option::Some(
+            crate::model::discover_connection_profile_response::DataObject::MongodbCluster(
+                v.into(),
+            ),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for DiscoverConnectionProfileResponse {
@@ -893,6 +1073,8 @@ impl<'de> serde::de::Deserialize<'de> for DiscoverConnectionProfileResponse {
             __mysql_rdbms,
             __postgresql_rdbms,
             __sql_server_rdbms,
+            __salesforce_org,
+            __mongodb_cluster,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -921,6 +1103,10 @@ impl<'de> serde::de::Deserialize<'de> for DiscoverConnectionProfileResponse {
                             "postgresql_rdbms" => Ok(__FieldTag::__postgresql_rdbms),
                             "sqlServerRdbms" => Ok(__FieldTag::__sql_server_rdbms),
                             "sql_server_rdbms" => Ok(__FieldTag::__sql_server_rdbms),
+                            "salesforceOrg" => Ok(__FieldTag::__salesforce_org),
+                            "salesforce_org" => Ok(__FieldTag::__salesforce_org),
+                            "mongodbCluster" => Ok(__FieldTag::__mongodb_cluster),
+                            "mongodb_cluster" => Ok(__FieldTag::__mongodb_cluster),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1014,6 +1200,40 @@ impl<'de> serde::de::Deserialize<'de> for DiscoverConnectionProfileResponse {
                                 ),
                             );
                         }
+                        __FieldTag::__salesforce_org => {
+                            if !fields.insert(__FieldTag::__salesforce_org) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for salesforce_org",
+                                ));
+                            }
+                            if result.data_object.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `data_object`, a oneof with full ID .google.cloud.datastream.v1.DiscoverConnectionProfileResponse.salesforce_org, latest field was salesforceOrg",
+                                ));
+                            }
+                            result.data_object = std::option::Option::Some(
+                                crate::model::discover_connection_profile_response::DataObject::SalesforceOrg(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::SalesforceOrg>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__mongodb_cluster => {
+                            if !fields.insert(__FieldTag::__mongodb_cluster) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mongodb_cluster",
+                                ));
+                            }
+                            if result.data_object.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `data_object`, a oneof with full ID .google.cloud.datastream.v1.DiscoverConnectionProfileResponse.mongodb_cluster, latest field was mongodbCluster",
+                                ));
+                            }
+                            result.data_object = std::option::Option::Some(
+                                crate::model::discover_connection_profile_response::DataObject::MongodbCluster(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::MongodbCluster>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1048,6 +1268,12 @@ impl serde::ser::Serialize for DiscoverConnectionProfileResponse {
         }
         if let Some(value) = self.sql_server_rdbms() {
             state.serialize_entry("sqlServerRdbms", value)?;
+        }
+        if let Some(value) = self.salesforce_org() {
+            state.serialize_entry("salesforceOrg", value)?;
+        }
+        if let Some(value) = self.mongodb_cluster() {
+            state.serialize_entry("mongodbCluster", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1086,6 +1312,10 @@ pub mod discover_connection_profile_response {
         PostgresqlRdbms(std::boxed::Box<crate::model::PostgresqlRdbms>),
         /// Enriched SQLServer RDBMS object.
         SqlServerRdbms(std::boxed::Box<crate::model::SqlServerRdbms>),
+        /// Enriched Salesforce organization.
+        SalesforceOrg(std::boxed::Box<crate::model::SalesforceOrg>),
+        /// Enriched MongoDB cluster.
+        MongodbCluster(std::boxed::Box<crate::model::MongodbCluster>),
     }
 }
 
@@ -6153,6 +6383,11 @@ pub struct CreatePrivateConnectionRequest {
     /// Optional. If set to true, will skip validations.
     pub force: bool,
 
+    /// Optional. When supplied with PSC Interface config, will get/create the
+    /// tenant project required for the customer to allow list and won't actually
+    /// create the private connection.
+    pub validate_only: bool,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6205,6 +6440,12 @@ impl CreatePrivateConnectionRequest {
         self.force = v.into();
         self
     }
+
+    /// Sets the value of [validate_only][crate::model::CreatePrivateConnectionRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for CreatePrivateConnectionRequest {
@@ -6228,6 +6469,7 @@ impl<'de> serde::de::Deserialize<'de> for CreatePrivateConnectionRequest {
             __private_connection,
             __request_id,
             __force,
+            __validate_only,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6256,6 +6498,8 @@ impl<'de> serde::de::Deserialize<'de> for CreatePrivateConnectionRequest {
                             "requestId" => Ok(__FieldTag::__request_id),
                             "request_id" => Ok(__FieldTag::__request_id),
                             "force" => Ok(__FieldTag::__force),
+                            "validateOnly" => Ok(__FieldTag::__validate_only),
+                            "validate_only" => Ok(__FieldTag::__validate_only),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6331,6 +6575,16 @@ impl<'de> serde::de::Deserialize<'de> for CreatePrivateConnectionRequest {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__validate_only => {
+                            if !fields.insert(__FieldTag::__validate_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validate_only",
+                                ));
+                            }
+                            result.validate_only = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6369,6 +6623,9 @@ impl serde::ser::Serialize for CreatePrivateConnectionRequest {
         if !wkt::internal::is_default(&self.force) {
             state.serialize_entry("force", &self.force)?;
         }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -6386,6 +6643,7 @@ impl std::fmt::Debug for CreatePrivateConnectionRequest {
         debug_struct.field("private_connection", &self.private_connection);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("force", &self.force);
+        debug_struct.field("validate_only", &self.validate_only);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10826,6 +11084,908 @@ pub mod salesforce_profile {
     }
 }
 
+/// MongoDB profile.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MongodbProfile {
+    /// Required. List of host addresses for a MongoDB cluster.
+    /// For SRV connection format, this list must contain exactly one DNS host
+    /// without a port. For Standard connection format, this list must contain all
+    /// the required hosts in the cluster with their respective ports.
+    pub host_addresses: std::vec::Vec<crate::model::HostAddress>,
+
+    /// Optional. Name of the replica set. Only needed for self hosted replica set
+    /// type MongoDB cluster. For SRV connection format, this field must be empty.
+    /// For Standard connection format, this field must be specified.
+    pub replica_set: std::string::String,
+
+    /// Required. Username for the MongoDB connection.
+    pub username: std::string::String,
+
+    /// Optional. Password for the MongoDB connection. Mutually exclusive with the
+    /// `secret_manager_stored_password` field.
+    pub password: std::string::String,
+
+    /// Optional. A reference to a Secret Manager resource name storing the
+    /// SQLServer connection password. Mutually exclusive with the `password`
+    /// field.
+    pub secret_manager_stored_password: std::string::String,
+
+    /// Optional. SSL configuration for the MongoDB connection.
+    pub ssl_config: std::option::Option<crate::model::MongodbSslConfig>,
+
+    /// MongoDB connection format.
+    /// Must specify either srv_connection_format or standard_connection_format.
+    pub mongodb_connection_format:
+        std::option::Option<crate::model::mongodb_profile::MongodbConnectionFormat>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MongodbProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [host_addresses][crate::model::MongodbProfile::host_addresses].
+    pub fn set_host_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::HostAddress>,
+    {
+        use std::iter::Iterator;
+        self.host_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [replica_set][crate::model::MongodbProfile::replica_set].
+    pub fn set_replica_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.replica_set = v.into();
+        self
+    }
+
+    /// Sets the value of [username][crate::model::MongodbProfile::username].
+    pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.username = v.into();
+        self
+    }
+
+    /// Sets the value of [password][crate::model::MongodbProfile::password].
+    pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.password = v.into();
+        self
+    }
+
+    /// Sets the value of [secret_manager_stored_password][crate::model::MongodbProfile::secret_manager_stored_password].
+    pub fn set_secret_manager_stored_password<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.secret_manager_stored_password = v.into();
+        self
+    }
+
+    /// Sets the value of [ssl_config][crate::model::MongodbProfile::ssl_config].
+    pub fn set_ssl_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MongodbSslConfig>,
+    {
+        self.ssl_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ssl_config][crate::model::MongodbProfile::ssl_config].
+    pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MongodbSslConfig>,
+    {
+        self.ssl_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [mongodb_connection_format][crate::model::MongodbProfile::mongodb_connection_format].
+    ///
+    /// Note that all the setters affecting `mongodb_connection_format` are mutually
+    /// exclusive.
+    pub fn set_mongodb_connection_format<
+        T: std::convert::Into<
+                std::option::Option<crate::model::mongodb_profile::MongodbConnectionFormat>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mongodb_connection_format = v.into();
+        self
+    }
+
+    /// The value of [mongodb_connection_format][crate::model::MongodbProfile::mongodb_connection_format]
+    /// if it holds a `SrvConnectionFormat`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn srv_connection_format(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SrvConnectionFormat>> {
+        #[allow(unreachable_patterns)]
+        self.mongodb_connection_format
+            .as_ref()
+            .and_then(|v| match v {
+                crate::model::mongodb_profile::MongodbConnectionFormat::SrvConnectionFormat(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+    }
+
+    /// Sets the value of [mongodb_connection_format][crate::model::MongodbProfile::mongodb_connection_format]
+    /// to hold a `SrvConnectionFormat`.
+    ///
+    /// Note that all the setters affecting `mongodb_connection_format` are
+    /// mutually exclusive.
+    pub fn set_srv_connection_format<
+        T: std::convert::Into<std::boxed::Box<crate::model::SrvConnectionFormat>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mongodb_connection_format = std::option::Option::Some(
+            crate::model::mongodb_profile::MongodbConnectionFormat::SrvConnectionFormat(v.into()),
+        );
+        self
+    }
+
+    /// The value of [mongodb_connection_format][crate::model::MongodbProfile::mongodb_connection_format]
+    /// if it holds a `StandardConnectionFormat`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn standard_connection_format(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StandardConnectionFormat>> {
+        #[allow(unreachable_patterns)]
+        self.mongodb_connection_format.as_ref().and_then(|v| match v {
+            crate::model::mongodb_profile::MongodbConnectionFormat::StandardConnectionFormat(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [mongodb_connection_format][crate::model::MongodbProfile::mongodb_connection_format]
+    /// to hold a `StandardConnectionFormat`.
+    ///
+    /// Note that all the setters affecting `mongodb_connection_format` are
+    /// mutually exclusive.
+    pub fn set_standard_connection_format<
+        T: std::convert::Into<std::boxed::Box<crate::model::StandardConnectionFormat>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mongodb_connection_format = std::option::Option::Some(
+            crate::model::mongodb_profile::MongodbConnectionFormat::StandardConnectionFormat(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for MongodbProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.MongodbProfile"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MongodbProfile {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __host_addresses,
+            __replica_set,
+            __username,
+            __password,
+            __secret_manager_stored_password,
+            __ssl_config,
+            __srv_connection_format,
+            __standard_connection_format,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MongodbProfile")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "hostAddresses" => Ok(__FieldTag::__host_addresses),
+                            "host_addresses" => Ok(__FieldTag::__host_addresses),
+                            "replicaSet" => Ok(__FieldTag::__replica_set),
+                            "replica_set" => Ok(__FieldTag::__replica_set),
+                            "username" => Ok(__FieldTag::__username),
+                            "password" => Ok(__FieldTag::__password),
+                            "secretManagerStoredPassword" => {
+                                Ok(__FieldTag::__secret_manager_stored_password)
+                            }
+                            "secret_manager_stored_password" => {
+                                Ok(__FieldTag::__secret_manager_stored_password)
+                            }
+                            "sslConfig" => Ok(__FieldTag::__ssl_config),
+                            "ssl_config" => Ok(__FieldTag::__ssl_config),
+                            "srvConnectionFormat" => Ok(__FieldTag::__srv_connection_format),
+                            "srv_connection_format" => Ok(__FieldTag::__srv_connection_format),
+                            "standardConnectionFormat" => {
+                                Ok(__FieldTag::__standard_connection_format)
+                            }
+                            "standard_connection_format" => {
+                                Ok(__FieldTag::__standard_connection_format)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MongodbProfile;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MongodbProfile")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__host_addresses => {
+                            if !fields.insert(__FieldTag::__host_addresses) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for host_addresses",
+                                ));
+                            }
+                            result.host_addresses = map.next_value::<std::option::Option<std::vec::Vec<crate::model::HostAddress>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__replica_set => {
+                            if !fields.insert(__FieldTag::__replica_set) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for replica_set",
+                                ));
+                            }
+                            result.replica_set = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            result.password = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__secret_manager_stored_password => {
+                            if !fields.insert(__FieldTag::__secret_manager_stored_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for secret_manager_stored_password",
+                                ));
+                            }
+                            result.secret_manager_stored_password = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_config => {
+                            if !fields.insert(__FieldTag::__ssl_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_config",
+                                ));
+                            }
+                            result.ssl_config = map
+                                .next_value::<std::option::Option<crate::model::MongodbSslConfig>>(
+                                )?;
+                        }
+                        __FieldTag::__srv_connection_format => {
+                            if !fields.insert(__FieldTag::__srv_connection_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for srv_connection_format",
+                                ));
+                            }
+                            if result.mongodb_connection_format.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `mongodb_connection_format`, a oneof with full ID .google.cloud.datastream.v1.MongodbProfile.srv_connection_format, latest field was srvConnectionFormat",
+                                ));
+                            }
+                            result.mongodb_connection_format = std::option::Option::Some(
+                                crate::model::mongodb_profile::MongodbConnectionFormat::SrvConnectionFormat(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::SrvConnectionFormat>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__standard_connection_format => {
+                            if !fields.insert(__FieldTag::__standard_connection_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for standard_connection_format",
+                                ));
+                            }
+                            if result.mongodb_connection_format.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `mongodb_connection_format`, a oneof with full ID .google.cloud.datastream.v1.MongodbProfile.standard_connection_format, latest field was standardConnectionFormat",
+                                ));
+                            }
+                            result.mongodb_connection_format = std::option::Option::Some(
+                                crate::model::mongodb_profile::MongodbConnectionFormat::StandardConnectionFormat(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::StandardConnectionFormat>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MongodbProfile {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.host_addresses.is_empty() {
+            state.serialize_entry("hostAddresses", &self.host_addresses)?;
+        }
+        if !self.replica_set.is_empty() {
+            state.serialize_entry("replicaSet", &self.replica_set)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self.password.is_empty() {
+            state.serialize_entry("password", &self.password)?;
+        }
+        if !self.secret_manager_stored_password.is_empty() {
+            state.serialize_entry(
+                "secretManagerStoredPassword",
+                &self.secret_manager_stored_password,
+            )?;
+        }
+        if self.ssl_config.is_some() {
+            state.serialize_entry("sslConfig", &self.ssl_config)?;
+        }
+        if let Some(value) = self.srv_connection_format() {
+            state.serialize_entry("srvConnectionFormat", value)?;
+        }
+        if let Some(value) = self.standard_connection_format() {
+            state.serialize_entry("standardConnectionFormat", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for MongodbProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MongodbProfile");
+        debug_struct.field("host_addresses", &self.host_addresses);
+        debug_struct.field("replica_set", &self.replica_set);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("password", &self.password);
+        debug_struct.field(
+            "secret_manager_stored_password",
+            &self.secret_manager_stored_password,
+        );
+        debug_struct.field("ssl_config", &self.ssl_config);
+        debug_struct.field("mongodb_connection_format", &self.mongodb_connection_format);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [MongodbProfile].
+pub mod mongodb_profile {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// MongoDB connection format.
+    /// Must specify either srv_connection_format or standard_connection_format.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MongodbConnectionFormat {
+        /// Srv connection format.
+        SrvConnectionFormat(std::boxed::Box<crate::model::SrvConnectionFormat>),
+        /// Standard connection format.
+        StandardConnectionFormat(std::boxed::Box<crate::model::StandardConnectionFormat>),
+    }
+}
+
+/// A HostAddress represents a transport end point, which is the combination
+/// of an IP address or hostname and a port number.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct HostAddress {
+    /// Required. Hostname for the connection.
+    pub hostname: std::string::String,
+
+    /// Optional. Port for the connection.
+    pub port: i32,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl HostAddress {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [hostname][crate::model::HostAddress::hostname].
+    pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.hostname = v.into();
+        self
+    }
+
+    /// Sets the value of [port][crate::model::HostAddress::port].
+    pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.port = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for HostAddress {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.HostAddress"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for HostAddress {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __hostname,
+            __port,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for HostAddress")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "hostname" => Ok(__FieldTag::__hostname),
+                            "port" => Ok(__FieldTag::__port),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = HostAddress;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct HostAddress")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__hostname => {
+                            if !fields.insert(__FieldTag::__hostname) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for hostname",
+                                ));
+                            }
+                            result.hostname = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__port => {
+                            if !fields.insert(__FieldTag::__port) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for port",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.port = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for HostAddress {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.hostname.is_empty() {
+            state.serialize_entry("hostname", &self.hostname)?;
+        }
+        if !wkt::internal::is_default(&self.port) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("port", &__With(&self.port))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for HostAddress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HostAddress");
+        debug_struct.field("hostname", &self.hostname);
+        debug_struct.field("port", &self.port);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Srv connection format.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SrvConnectionFormat {
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SrvConnectionFormat {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for SrvConnectionFormat {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.SrvConnectionFormat"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SrvConnectionFormat {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SrvConnectionFormat")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        Ok(__FieldTag::Unknown(value.to_string()))
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SrvConnectionFormat;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SrvConnectionFormat")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SrvConnectionFormat {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for SrvConnectionFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SrvConnectionFormat");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Standard connection format.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StandardConnectionFormat {
+    /// Optional. Specifies whether the client connects directly to the host[:port]
+    /// in the connection URI.
+    pub direct_connection: bool,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StandardConnectionFormat {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [direct_connection][crate::model::StandardConnectionFormat::direct_connection].
+    pub fn set_direct_connection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.direct_connection = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StandardConnectionFormat {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.StandardConnectionFormat"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for StandardConnectionFormat {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __direct_connection,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StandardConnectionFormat")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "directConnection" => Ok(__FieldTag::__direct_connection),
+                            "direct_connection" => Ok(__FieldTag::__direct_connection),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = StandardConnectionFormat;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StandardConnectionFormat")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__direct_connection => {
+                            if !fields.insert(__FieldTag::__direct_connection) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for direct_connection",
+                                ));
+                            }
+                            result.direct_connection = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for StandardConnectionFormat {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.direct_connection) {
+            state.serialize_entry("directConnection", &self.direct_connection)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for StandardConnectionFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StandardConnectionFormat");
+        debug_struct.field("direct_connection", &self.direct_connection);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cloud Storage bucket profile.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -11732,6 +12892,154 @@ impl std::fmt::Debug for VpcPeeringConfig {
     }
 }
 
+/// The PSC Interface configuration is used to create PSC Interface between
+/// Datastream and the consumer's PSC.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PscInterfaceConfig {
+    /// Required. Fully qualified name of the Network Attachment that Datastream
+    /// will connect to. Format:
+    /// `projects/{project}/regions/{region}/networkAttachments/{name}`
+    pub network_attachment: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PscInterfaceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [network_attachment][crate::model::PscInterfaceConfig::network_attachment].
+    pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.network_attachment = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PscInterfaceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.PscInterfaceConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for PscInterfaceConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __network_attachment,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PscInterfaceConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "networkAttachment" => Ok(__FieldTag::__network_attachment),
+                            "network_attachment" => Ok(__FieldTag::__network_attachment),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = PscInterfaceConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PscInterfaceConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__network_attachment => {
+                            if !fields.insert(__FieldTag::__network_attachment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for network_attachment",
+                                ));
+                            }
+                            result.network_attachment = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for PscInterfaceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.network_attachment.is_empty() {
+            state.serialize_entry("networkAttachment", &self.network_attachment)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for PscInterfaceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PscInterfaceConfig");
+        debug_struct.field("network_attachment", &self.network_attachment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The PrivateConnection resource is used to establish private connectivity
 /// between Datastream and a customer's network.
 #[derive(Clone, Default, PartialEq)]
@@ -11767,6 +13075,9 @@ pub struct PrivateConnection {
 
     /// VPC Peering Config.
     pub vpc_peering_config: std::option::Option<crate::model::VpcPeeringConfig>,
+
+    /// PSC Interface Config.
+    pub psc_interface_config: std::option::Option<crate::model::PscInterfaceConfig>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -11916,6 +13227,24 @@ impl PrivateConnection {
         self.vpc_peering_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [psc_interface_config][crate::model::PrivateConnection::psc_interface_config].
+    pub fn set_psc_interface_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PscInterfaceConfig>,
+    {
+        self.psc_interface_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [psc_interface_config][crate::model::PrivateConnection::psc_interface_config].
+    pub fn set_or_clear_psc_interface_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PscInterfaceConfig>,
+    {
+        self.psc_interface_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for PrivateConnection {
@@ -11944,6 +13273,7 @@ impl<'de> serde::de::Deserialize<'de> for PrivateConnection {
             __satisfies_pzs,
             __satisfies_pzi,
             __vpc_peering_config,
+            __psc_interface_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -11980,6 +13310,8 @@ impl<'de> serde::de::Deserialize<'de> for PrivateConnection {
                             "satisfies_pzi" => Ok(__FieldTag::__satisfies_pzi),
                             "vpcPeeringConfig" => Ok(__FieldTag::__vpc_peering_config),
                             "vpc_peering_config" => Ok(__FieldTag::__vpc_peering_config),
+                            "pscInterfaceConfig" => Ok(__FieldTag::__psc_interface_config),
+                            "psc_interface_config" => Ok(__FieldTag::__psc_interface_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -12101,6 +13433,15 @@ impl<'de> serde::de::Deserialize<'de> for PrivateConnection {
                                 .next_value::<std::option::Option<crate::model::VpcPeeringConfig>>(
                                 )?;
                         }
+                        __FieldTag::__psc_interface_config => {
+                            if !fields.insert(__FieldTag::__psc_interface_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for psc_interface_config",
+                                ));
+                            }
+                            result.psc_interface_config = map.next_value::<std::option::Option<crate::model::PscInterfaceConfig>>()?
+                                ;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -12154,6 +13495,9 @@ impl serde::ser::Serialize for PrivateConnection {
         if self.vpc_peering_config.is_some() {
             state.serialize_entry("vpcPeeringConfig", &self.vpc_peering_config)?;
         }
+        if self.psc_interface_config.is_some() {
+            state.serialize_entry("pscInterfaceConfig", &self.psc_interface_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -12176,6 +13520,7 @@ impl std::fmt::Debug for PrivateConnection {
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("vpc_peering_config", &self.vpc_peering_config);
+        debug_struct.field("psc_interface_config", &self.psc_interface_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12840,6 +14185,329 @@ impl std::fmt::Debug for Route {
     }
 }
 
+/// MongoDB SSL configuration information.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MongodbSslConfig {
+    /// Optional. Input only. PEM-encoded private key associated with the Client
+    /// Certificate. If this field is used then the 'client_certificate' and the
+    /// 'ca_certificate' fields are mandatory.
+    pub client_key: std::string::String,
+
+    /// Output only. Indicates whether the client_key field is set.
+    pub client_key_set: bool,
+
+    /// Optional. Input only. PEM-encoded certificate that will be used by the
+    /// replica to authenticate against the source database server. If this field
+    /// is used then the 'client_key' and the 'ca_certificate' fields are
+    /// mandatory.
+    pub client_certificate: std::string::String,
+
+    /// Output only. Indicates whether the client_certificate field is set.
+    pub client_certificate_set: bool,
+
+    /// Optional. Input only. PEM-encoded certificate of the CA that signed the
+    /// source database server's certificate.
+    pub ca_certificate: std::string::String,
+
+    /// Output only. Indicates whether the ca_certificate field is set.
+    pub ca_certificate_set: bool,
+
+    /// Optional. Input only. A reference to a Secret Manager resource name storing
+    /// the PEM-encoded private key associated with the Client Certificate. If this
+    /// field is used then the 'client_certificate' and the 'ca_certificate' fields
+    /// are mandatory. Mutually exclusive with the `client_key` field.
+    pub secret_manager_stored_client_key: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MongodbSslConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [client_key][crate::model::MongodbSslConfig::client_key].
+    pub fn set_client_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_key = v.into();
+        self
+    }
+
+    /// Sets the value of [client_key_set][crate::model::MongodbSslConfig::client_key_set].
+    pub fn set_client_key_set<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.client_key_set = v.into();
+        self
+    }
+
+    /// Sets the value of [client_certificate][crate::model::MongodbSslConfig::client_certificate].
+    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.client_certificate = v.into();
+        self
+    }
+
+    /// Sets the value of [client_certificate_set][crate::model::MongodbSslConfig::client_certificate_set].
+    pub fn set_client_certificate_set<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.client_certificate_set = v.into();
+        self
+    }
+
+    /// Sets the value of [ca_certificate][crate::model::MongodbSslConfig::ca_certificate].
+    pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ca_certificate = v.into();
+        self
+    }
+
+    /// Sets the value of [ca_certificate_set][crate::model::MongodbSslConfig::ca_certificate_set].
+    pub fn set_ca_certificate_set<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.ca_certificate_set = v.into();
+        self
+    }
+
+    /// Sets the value of [secret_manager_stored_client_key][crate::model::MongodbSslConfig::secret_manager_stored_client_key].
+    pub fn set_secret_manager_stored_client_key<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.secret_manager_stored_client_key = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MongodbSslConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.MongodbSslConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MongodbSslConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __client_key,
+            __client_key_set,
+            __client_certificate,
+            __client_certificate_set,
+            __ca_certificate,
+            __ca_certificate_set,
+            __secret_manager_stored_client_key,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MongodbSslConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "clientKey" => Ok(__FieldTag::__client_key),
+                            "client_key" => Ok(__FieldTag::__client_key),
+                            "clientKeySet" => Ok(__FieldTag::__client_key_set),
+                            "client_key_set" => Ok(__FieldTag::__client_key_set),
+                            "clientCertificate" => Ok(__FieldTag::__client_certificate),
+                            "client_certificate" => Ok(__FieldTag::__client_certificate),
+                            "clientCertificateSet" => Ok(__FieldTag::__client_certificate_set),
+                            "client_certificate_set" => Ok(__FieldTag::__client_certificate_set),
+                            "caCertificate" => Ok(__FieldTag::__ca_certificate),
+                            "ca_certificate" => Ok(__FieldTag::__ca_certificate),
+                            "caCertificateSet" => Ok(__FieldTag::__ca_certificate_set),
+                            "ca_certificate_set" => Ok(__FieldTag::__ca_certificate_set),
+                            "secretManagerStoredClientKey" => {
+                                Ok(__FieldTag::__secret_manager_stored_client_key)
+                            }
+                            "secret_manager_stored_client_key" => {
+                                Ok(__FieldTag::__secret_manager_stored_client_key)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MongodbSslConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MongodbSslConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__client_key => {
+                            if !fields.insert(__FieldTag::__client_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_key",
+                                ));
+                            }
+                            result.client_key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_key_set => {
+                            if !fields.insert(__FieldTag::__client_key_set) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_key_set",
+                                ));
+                            }
+                            result.client_key_set = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_certificate => {
+                            if !fields.insert(__FieldTag::__client_certificate) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_certificate",
+                                ));
+                            }
+                            result.client_certificate = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_certificate_set => {
+                            if !fields.insert(__FieldTag::__client_certificate_set) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_certificate_set",
+                                ));
+                            }
+                            result.client_certificate_set = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ca_certificate => {
+                            if !fields.insert(__FieldTag::__ca_certificate) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ca_certificate",
+                                ));
+                            }
+                            result.ca_certificate = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ca_certificate_set => {
+                            if !fields.insert(__FieldTag::__ca_certificate_set) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ca_certificate_set",
+                                ));
+                            }
+                            result.ca_certificate_set = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__secret_manager_stored_client_key => {
+                            if !fields.insert(__FieldTag::__secret_manager_stored_client_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for secret_manager_stored_client_key",
+                                ));
+                            }
+                            result.secret_manager_stored_client_key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MongodbSslConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.client_key.is_empty() {
+            state.serialize_entry("clientKey", &self.client_key)?;
+        }
+        if !wkt::internal::is_default(&self.client_key_set) {
+            state.serialize_entry("clientKeySet", &self.client_key_set)?;
+        }
+        if !self.client_certificate.is_empty() {
+            state.serialize_entry("clientCertificate", &self.client_certificate)?;
+        }
+        if !wkt::internal::is_default(&self.client_certificate_set) {
+            state.serialize_entry("clientCertificateSet", &self.client_certificate_set)?;
+        }
+        if !self.ca_certificate.is_empty() {
+            state.serialize_entry("caCertificate", &self.ca_certificate)?;
+        }
+        if !wkt::internal::is_default(&self.ca_certificate_set) {
+            state.serialize_entry("caCertificateSet", &self.ca_certificate_set)?;
+        }
+        if !self.secret_manager_stored_client_key.is_empty() {
+            state.serialize_entry(
+                "secretManagerStoredClientKey",
+                &self.secret_manager_stored_client_key,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for MongodbSslConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MongodbSslConfig");
+        debug_struct.field("client_key", &self.client_key);
+        debug_struct.field("client_key_set", &self.client_key_set);
+        debug_struct.field("client_certificate", &self.client_certificate);
+        debug_struct.field("client_certificate_set", &self.client_certificate_set);
+        debug_struct.field("ca_certificate", &self.ca_certificate);
+        debug_struct.field("ca_certificate_set", &self.ca_certificate_set);
+        debug_struct.field(
+            "secret_manager_stored_client_key",
+            &self.secret_manager_stored_client_key,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// MySQL SSL configuration information.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -13133,6 +14801,13 @@ pub struct OracleSslConfig {
     /// this Connection-Profile.
     pub ca_certificate_set: bool,
 
+    /// Optional. The distinguished name (DN) mentioned in the server
+    /// certificate. This corresponds to SSL_SERVER_CERT_DN sqlnet parameter.
+    /// Refer
+    /// <https://docs.oracle.com/en/database/oracle/oracle-database/19/netrf/local-naming-parameters-in-tns-ora-file.html#GUID-70AB0695-A9AA-4A94-B141-4C605236EEB7>
+    /// If this field is not provided, the DN matching is not enforced.
+    pub server_certificate_distinguished_name: std::string::String,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -13150,6 +14825,15 @@ impl OracleSslConfig {
     /// Sets the value of [ca_certificate_set][crate::model::OracleSslConfig::ca_certificate_set].
     pub fn set_ca_certificate_set<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ca_certificate_set = v.into();
+        self
+    }
+
+    /// Sets the value of [server_certificate_distinguished_name][crate::model::OracleSslConfig::server_certificate_distinguished_name].
+    pub fn set_server_certificate_distinguished_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.server_certificate_distinguished_name = v.into();
         self
     }
 }
@@ -13172,6 +14856,7 @@ impl<'de> serde::de::Deserialize<'de> for OracleSslConfig {
         enum __FieldTag {
             __ca_certificate,
             __ca_certificate_set,
+            __server_certificate_distinguished_name,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13196,6 +14881,12 @@ impl<'de> serde::de::Deserialize<'de> for OracleSslConfig {
                             "ca_certificate" => Ok(__FieldTag::__ca_certificate),
                             "caCertificateSet" => Ok(__FieldTag::__ca_certificate_set),
                             "ca_certificate_set" => Ok(__FieldTag::__ca_certificate_set),
+                            "serverCertificateDistinguishedName" => {
+                                Ok(__FieldTag::__server_certificate_distinguished_name)
+                            }
+                            "server_certificate_distinguished_name" => {
+                                Ok(__FieldTag::__server_certificate_distinguished_name)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -13241,6 +14932,16 @@ impl<'de> serde::de::Deserialize<'de> for OracleSslConfig {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__server_certificate_distinguished_name => {
+                            if !fields.insert(__FieldTag::__server_certificate_distinguished_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for server_certificate_distinguished_name",
+                                ));
+                            }
+                            result.server_certificate_distinguished_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -13270,6 +14971,12 @@ impl serde::ser::Serialize for OracleSslConfig {
         if !wkt::internal::is_default(&self.ca_certificate_set) {
             state.serialize_entry("caCertificateSet", &self.ca_certificate_set)?;
         }
+        if !self.server_certificate_distinguished_name.is_empty() {
+            state.serialize_entry(
+                "serverCertificateDistinguishedName",
+                &self.server_certificate_distinguished_name,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -13284,6 +14991,10 @@ impl std::fmt::Debug for OracleSslConfig {
         let mut debug_struct = f.debug_struct("OracleSslConfig");
         debug_struct.field("ca_certificate", &self.ca_certificate);
         debug_struct.field("ca_certificate_set", &self.ca_certificate_set);
+        debug_struct.field(
+            "server_certificate_distinguished_name",
+            &self.server_certificate_distinguished_name,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13569,6 +15280,11 @@ pub mod postgresql_ssl_config {
         /// Required. Input only. PEM-encoded server root CA certificate.
         pub ca_certificate: std::string::String,
 
+        /// Optional. The hostname mentioned in the Subject or SAN extension of the
+        /// server certificate. If this field is not provided, the hostname in the
+        /// server certificate is not validated.
+        pub server_certificate_hostname: std::string::String,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -13583,6 +15299,15 @@ pub mod postgresql_ssl_config {
             v: T,
         ) -> Self {
             self.ca_certificate = v.into();
+            self
+        }
+
+        /// Sets the value of [server_certificate_hostname][crate::model::postgresql_ssl_config::ServerVerification::server_certificate_hostname].
+        pub fn set_server_certificate_hostname<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.server_certificate_hostname = v.into();
             self
         }
     }
@@ -13604,6 +15329,7 @@ pub mod postgresql_ssl_config {
             #[derive(PartialEq, Eq, Hash)]
             enum __FieldTag {
                 __ca_certificate,
+                __server_certificate_hostname,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13629,6 +15355,12 @@ pub mod postgresql_ssl_config {
                             match value {
                                 "caCertificate" => Ok(__FieldTag::__ca_certificate),
                                 "ca_certificate" => Ok(__FieldTag::__ca_certificate),
+                                "serverCertificateHostname" => {
+                                    Ok(__FieldTag::__server_certificate_hostname)
+                                }
+                                "server_certificate_hostname" => {
+                                    Ok(__FieldTag::__server_certificate_hostname)
+                                }
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -13664,6 +15396,16 @@ pub mod postgresql_ssl_config {
                                     .next_value::<std::option::Option<std::string::String>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__server_certificate_hostname => {
+                                if !fields.insert(__FieldTag::__server_certificate_hostname) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for server_certificate_hostname",
+                                    ));
+                                }
+                                result.server_certificate_hostname = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -13690,6 +15432,12 @@ pub mod postgresql_ssl_config {
             if !self.ca_certificate.is_empty() {
                 state.serialize_entry("caCertificate", &self.ca_certificate)?;
             }
+            if !self.server_certificate_hostname.is_empty() {
+                state.serialize_entry(
+                    "serverCertificateHostname",
+                    &self.server_certificate_hostname,
+                )?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -13703,6 +15451,10 @@ pub mod postgresql_ssl_config {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("ServerVerification");
             debug_struct.field("ca_certificate", &self.ca_certificate);
+            debug_struct.field(
+                "server_certificate_hostname",
+                &self.server_certificate_hostname,
+            );
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -13733,6 +15485,11 @@ pub mod postgresql_ssl_config {
 
         /// Required. Input only. PEM-encoded server root CA certificate.
         pub ca_certificate: std::string::String,
+
+        /// Optional. The hostname mentioned in the Subject or SAN extension of the
+        /// server certificate. If this field is not provided, the hostname in the
+        /// server certificate is not validated.
+        pub server_certificate_hostname: std::string::String,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -13765,6 +15522,15 @@ pub mod postgresql_ssl_config {
             self.ca_certificate = v.into();
             self
         }
+
+        /// Sets the value of [server_certificate_hostname][crate::model::postgresql_ssl_config::ServerAndClientVerification::server_certificate_hostname].
+        pub fn set_server_certificate_hostname<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.server_certificate_hostname = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for ServerAndClientVerification {
@@ -13786,6 +15552,7 @@ pub mod postgresql_ssl_config {
                 __client_certificate,
                 __client_key,
                 __ca_certificate,
+                __server_certificate_hostname,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13815,6 +15582,12 @@ pub mod postgresql_ssl_config {
                                 "client_key" => Ok(__FieldTag::__client_key),
                                 "caCertificate" => Ok(__FieldTag::__ca_certificate),
                                 "ca_certificate" => Ok(__FieldTag::__ca_certificate),
+                                "serverCertificateHostname" => {
+                                    Ok(__FieldTag::__server_certificate_hostname)
+                                }
+                                "server_certificate_hostname" => {
+                                    Ok(__FieldTag::__server_certificate_hostname)
+                                }
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -13870,6 +15643,16 @@ pub mod postgresql_ssl_config {
                                     .next_value::<std::option::Option<std::string::String>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__server_certificate_hostname => {
+                                if !fields.insert(__FieldTag::__server_certificate_hostname) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for server_certificate_hostname",
+                                    ));
+                                }
+                                result.server_certificate_hostname = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -13902,6 +15685,12 @@ pub mod postgresql_ssl_config {
             if !self.ca_certificate.is_empty() {
                 state.serialize_entry("caCertificate", &self.ca_certificate)?;
             }
+            if !self.server_certificate_hostname.is_empty() {
+                state.serialize_entry(
+                    "serverCertificateHostname",
+                    &self.server_certificate_hostname,
+                )?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -13917,6 +15706,10 @@ pub mod postgresql_ssl_config {
             debug_struct.field("client_certificate", &self.client_certificate);
             debug_struct.field("client_key", &self.client_key);
             debug_struct.field("ca_certificate", &self.ca_certificate);
+            debug_struct.field(
+                "server_certificate_hostname",
+                &self.server_certificate_hostname,
+            );
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -14313,6 +16106,38 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `MongodbProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mongodb_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MongodbProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::MongodbProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
+    /// to hold a `MongodbProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    pub fn set_mongodb_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::MongodbProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::connection_profile::Profile::MongodbProfile(v.into()),
+        );
+        self
+    }
+
     /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity].
     ///
     /// Note that all the setters affecting `connectivity` are mutually
@@ -14454,6 +16279,7 @@ impl<'de> serde::de::Deserialize<'de> for ConnectionProfile {
             __postgresql_profile,
             __sql_server_profile,
             __salesforce_profile,
+            __mongodb_profile,
             __static_service_ip_connectivity,
             __forward_ssh_connectivity,
             __private_connectivity,
@@ -14503,6 +16329,8 @@ impl<'de> serde::de::Deserialize<'de> for ConnectionProfile {
                             "sql_server_profile" => Ok(__FieldTag::__sql_server_profile),
                             "salesforceProfile" => Ok(__FieldTag::__salesforce_profile),
                             "salesforce_profile" => Ok(__FieldTag::__salesforce_profile),
+                            "mongodbProfile" => Ok(__FieldTag::__mongodb_profile),
+                            "mongodb_profile" => Ok(__FieldTag::__mongodb_profile),
                             "staticServiceIpConnectivity" => {
                                 Ok(__FieldTag::__static_service_ip_connectivity)
                             }
@@ -14749,6 +16577,26 @@ impl<'de> serde::de::Deserialize<'de> for ConnectionProfile {
                                 ),
                             );
                         }
+                        __FieldTag::__mongodb_profile => {
+                            if !fields.insert(__FieldTag::__mongodb_profile) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mongodb_profile",
+                                ));
+                            }
+                            if result.profile.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `profile`, a oneof with full ID .google.cloud.datastream.v1.ConnectionProfile.mongodb_profile, latest field was mongodbProfile",
+                                ));
+                            }
+                            result.profile = std::option::Option::Some(
+                                crate::model::connection_profile::Profile::MongodbProfile(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::MongodbProfile>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
                         __FieldTag::__static_service_ip_connectivity => {
                             if !fields.insert(__FieldTag::__static_service_ip_connectivity) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -14868,6 +16716,9 @@ impl serde::ser::Serialize for ConnectionProfile {
         if let Some(value) = self.salesforce_profile() {
             state.serialize_entry("salesforceProfile", value)?;
         }
+        if let Some(value) = self.mongodb_profile() {
+            state.serialize_entry("mongodbProfile", value)?;
+        }
         if let Some(value) = self.static_service_ip_connectivity() {
             state.serialize_entry("staticServiceIpConnectivity", value)?;
         }
@@ -14928,6 +16779,8 @@ pub mod connection_profile {
         SqlServerProfile(std::boxed::Box<crate::model::SqlServerProfile>),
         /// Salesforce Connection Profile configuration.
         SalesforceProfile(std::boxed::Box<crate::model::SalesforceProfile>),
+        /// MongoDB Connection Profile configuration.
+        MongodbProfile(std::boxed::Box<crate::model::MongodbProfile>),
     }
 
     /// Connectivity options used to establish a connection to the profile.
@@ -22474,6 +24327,886 @@ impl std::fmt::Debug for SalesforceField {
     }
 }
 
+/// MongoDB source configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MongodbSourceConfig {
+    /// MongoDB collections to include in the stream.
+    pub include_objects: std::option::Option<crate::model::MongodbCluster>,
+
+    /// MongoDB collections to exclude from the stream.
+    pub exclude_objects: std::option::Option<crate::model::MongodbCluster>,
+
+    /// Optional. Maximum number of concurrent backfill tasks. The number should be
+    /// non-negative and less than or equal to 50. If not set (or set to 0), the
+    /// system's default value is used
+    pub max_concurrent_backfill_tasks: i32,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MongodbSourceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [include_objects][crate::model::MongodbSourceConfig::include_objects].
+    pub fn set_include_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MongodbCluster>,
+    {
+        self.include_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [include_objects][crate::model::MongodbSourceConfig::include_objects].
+    pub fn set_or_clear_include_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MongodbCluster>,
+    {
+        self.include_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [exclude_objects][crate::model::MongodbSourceConfig::exclude_objects].
+    pub fn set_exclude_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MongodbCluster>,
+    {
+        self.exclude_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exclude_objects][crate::model::MongodbSourceConfig::exclude_objects].
+    pub fn set_or_clear_exclude_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MongodbCluster>,
+    {
+        self.exclude_objects = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [max_concurrent_backfill_tasks][crate::model::MongodbSourceConfig::max_concurrent_backfill_tasks].
+    pub fn set_max_concurrent_backfill_tasks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_concurrent_backfill_tasks = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MongodbSourceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.MongodbSourceConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MongodbSourceConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __include_objects,
+            __exclude_objects,
+            __max_concurrent_backfill_tasks,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MongodbSourceConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "includeObjects" => Ok(__FieldTag::__include_objects),
+                            "include_objects" => Ok(__FieldTag::__include_objects),
+                            "excludeObjects" => Ok(__FieldTag::__exclude_objects),
+                            "exclude_objects" => Ok(__FieldTag::__exclude_objects),
+                            "maxConcurrentBackfillTasks" => {
+                                Ok(__FieldTag::__max_concurrent_backfill_tasks)
+                            }
+                            "max_concurrent_backfill_tasks" => {
+                                Ok(__FieldTag::__max_concurrent_backfill_tasks)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MongodbSourceConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MongodbSourceConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__include_objects => {
+                            if !fields.insert(__FieldTag::__include_objects) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for include_objects",
+                                ));
+                            }
+                            result.include_objects = map
+                                .next_value::<std::option::Option<crate::model::MongodbCluster>>(
+                                )?;
+                        }
+                        __FieldTag::__exclude_objects => {
+                            if !fields.insert(__FieldTag::__exclude_objects) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for exclude_objects",
+                                ));
+                            }
+                            result.exclude_objects = map
+                                .next_value::<std::option::Option<crate::model::MongodbCluster>>(
+                                )?;
+                        }
+                        __FieldTag::__max_concurrent_backfill_tasks => {
+                            if !fields.insert(__FieldTag::__max_concurrent_backfill_tasks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_concurrent_backfill_tasks",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_concurrent_backfill_tasks =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MongodbSourceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.include_objects.is_some() {
+            state.serialize_entry("includeObjects", &self.include_objects)?;
+        }
+        if self.exclude_objects.is_some() {
+            state.serialize_entry("excludeObjects", &self.exclude_objects)?;
+        }
+        if !wkt::internal::is_default(&self.max_concurrent_backfill_tasks) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "maxConcurrentBackfillTasks",
+                &__With(&self.max_concurrent_backfill_tasks),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for MongodbSourceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MongodbSourceConfig");
+        debug_struct.field("include_objects", &self.include_objects);
+        debug_struct.field("exclude_objects", &self.exclude_objects);
+        debug_struct.field(
+            "max_concurrent_backfill_tasks",
+            &self.max_concurrent_backfill_tasks,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// MongoDB Cluster structure.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MongodbCluster {
+    /// MongoDB databases in the cluster.
+    pub databases: std::vec::Vec<crate::model::MongodbDatabase>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MongodbCluster {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [databases][crate::model::MongodbCluster::databases].
+    pub fn set_databases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MongodbDatabase>,
+    {
+        use std::iter::Iterator;
+        self.databases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MongodbCluster {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.MongodbCluster"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MongodbCluster {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __databases,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MongodbCluster")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "databases" => Ok(__FieldTag::__databases),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MongodbCluster;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MongodbCluster")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__databases => {
+                            if !fields.insert(__FieldTag::__databases) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for databases",
+                                ));
+                            }
+                            result.databases =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::MongodbDatabase>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MongodbCluster {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.databases.is_empty() {
+            state.serialize_entry("databases", &self.databases)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for MongodbCluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MongodbCluster");
+        debug_struct.field("databases", &self.databases);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// MongoDB Database.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MongodbDatabase {
+    /// Database name.
+    pub database: std::string::String,
+
+    /// Collections in the database.
+    pub collections: std::vec::Vec<crate::model::MongodbCollection>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MongodbDatabase {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [database][crate::model::MongodbDatabase::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [collections][crate::model::MongodbDatabase::collections].
+    pub fn set_collections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MongodbCollection>,
+    {
+        use std::iter::Iterator;
+        self.collections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MongodbDatabase {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.MongodbDatabase"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MongodbDatabase {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __database,
+            __collections,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MongodbDatabase")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "database" => Ok(__FieldTag::__database),
+                            "collections" => Ok(__FieldTag::__collections),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MongodbDatabase;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MongodbDatabase")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__database => {
+                            if !fields.insert(__FieldTag::__database) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database",
+                                ));
+                            }
+                            result.database = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__collections => {
+                            if !fields.insert(__FieldTag::__collections) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for collections",
+                                ));
+                            }
+                            result.collections =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::MongodbCollection>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MongodbDatabase {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.database.is_empty() {
+            state.serialize_entry("database", &self.database)?;
+        }
+        if !self.collections.is_empty() {
+            state.serialize_entry("collections", &self.collections)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for MongodbDatabase {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MongodbDatabase");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("collections", &self.collections);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// MongoDB Collection.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MongodbCollection {
+    /// Collection name.
+    pub collection: std::string::String,
+
+    /// Fields in the collection.
+    pub fields: std::vec::Vec<crate::model::MongodbField>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MongodbCollection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [collection][crate::model::MongodbCollection::collection].
+    pub fn set_collection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.collection = v.into();
+        self
+    }
+
+    /// Sets the value of [fields][crate::model::MongodbCollection::fields].
+    pub fn set_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MongodbField>,
+    {
+        use std::iter::Iterator;
+        self.fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MongodbCollection {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.MongodbCollection"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MongodbCollection {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __collection,
+            __fields,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MongodbCollection")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "collection" => Ok(__FieldTag::__collection),
+                            "fields" => Ok(__FieldTag::__fields),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MongodbCollection;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MongodbCollection")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__collection => {
+                            if !fields.insert(__FieldTag::__collection) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for collection",
+                                ));
+                            }
+                            result.collection = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__fields => {
+                            if !fields.insert(__FieldTag::__fields) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fields",
+                                ));
+                            }
+                            result.fields = map.next_value::<std::option::Option<std::vec::Vec<crate::model::MongodbField>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MongodbCollection {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.collection.is_empty() {
+            state.serialize_entry("collection", &self.collection)?;
+        }
+        if !self.fields.is_empty() {
+            state.serialize_entry("fields", &self.fields)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for MongodbCollection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MongodbCollection");
+        debug_struct.field("collection", &self.collection);
+        debug_struct.field("fields", &self.fields);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// MongoDB Field.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MongodbField {
+    /// Field name.
+    pub field: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MongodbField {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [field][crate::model::MongodbField::field].
+    pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.field = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MongodbField {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.datastream.v1.MongodbField"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MongodbField {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __field,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MongodbField")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "field" => Ok(__FieldTag::__field),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MongodbField;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MongodbField")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__field => {
+                            if !fields.insert(__FieldTag::__field) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field",
+                                ));
+                            }
+                            result.field = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MongodbField {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.field.is_empty() {
+            state.serialize_entry("field", &self.field)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for MongodbField {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MongodbField");
+        debug_struct.field("field", &self.field);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration of the stream source.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -22675,6 +25408,38 @@ impl SourceConfig {
         );
         self
     }
+
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `MongodbSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mongodb_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MongodbSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::MongodbSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// to hold a `MongodbSourceConfig`.
+    ///
+    /// Note that all the setters affecting `source_stream_config` are
+    /// mutually exclusive.
+    pub fn set_mongodb_source_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::MongodbSourceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_stream_config = std::option::Option::Some(
+            crate::model::source_config::SourceStreamConfig::MongodbSourceConfig(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for SourceConfig {
@@ -22699,6 +25464,7 @@ impl<'de> serde::de::Deserialize<'de> for SourceConfig {
             __postgresql_source_config,
             __sql_server_source_config,
             __salesforce_source_config,
+            __mongodb_source_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -22741,6 +25507,8 @@ impl<'de> serde::de::Deserialize<'de> for SourceConfig {
                             "salesforce_source_config" => {
                                 Ok(__FieldTag::__salesforce_source_config)
                             }
+                            "mongodbSourceConfig" => Ok(__FieldTag::__mongodb_source_config),
+                            "mongodb_source_config" => Ok(__FieldTag::__mongodb_source_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -22867,6 +25635,23 @@ impl<'de> serde::de::Deserialize<'de> for SourceConfig {
                                 ),
                             );
                         }
+                        __FieldTag::__mongodb_source_config => {
+                            if !fields.insert(__FieldTag::__mongodb_source_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mongodb_source_config",
+                                ));
+                            }
+                            if result.source_stream_config.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `source_stream_config`, a oneof with full ID .google.cloud.datastream.v1.SourceConfig.mongodb_source_config, latest field was mongodbSourceConfig",
+                                ));
+                            }
+                            result.source_stream_config = std::option::Option::Some(
+                                crate::model::source_config::SourceStreamConfig::MongodbSourceConfig(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::MongodbSourceConfig>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -22908,6 +25693,9 @@ impl serde::ser::Serialize for SourceConfig {
         if let Some(value) = self.salesforce_source_config() {
             state.serialize_entry("salesforceSourceConfig", value)?;
         }
+        if let Some(value) = self.mongodb_source_config() {
+            state.serialize_entry("mongodbSourceConfig", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -22948,6 +25736,8 @@ pub mod source_config {
         SqlServerSourceConfig(std::boxed::Box<crate::model::SqlServerSourceConfig>),
         /// Salesforce data source configuration.
         SalesforceSourceConfig(std::boxed::Box<crate::model::SalesforceSourceConfig>),
+        /// MongoDB data source configuration.
+        MongodbSourceConfig(std::boxed::Box<crate::model::MongodbSourceConfig>),
     }
 }
 
@@ -24535,6 +27325,10 @@ pub mod big_query_destination_config {
             crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate,
         >,
 
+        /// Optional. The project id of the BigQuery dataset. If not specified, the
+        /// project will be inferred from the stream resource.
+        pub project_id: std::option::Option<std::string::String>,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -24558,6 +27352,24 @@ pub mod big_query_destination_config {
             self.dataset_template = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [project_id][crate::model::big_query_destination_config::SourceHierarchyDatasets::project_id].
+        pub fn set_project_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.project_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [project_id][crate::model::big_query_destination_config::SourceHierarchyDatasets::project_id].
+        pub fn set_or_clear_project_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.project_id = v.map(|x| x.into());
+            self
+        }
     }
 
     impl wkt::message::Message for SourceHierarchyDatasets {
@@ -24577,6 +27389,7 @@ pub mod big_query_destination_config {
             #[derive(PartialEq, Eq, Hash)]
             enum __FieldTag {
                 __dataset_template,
+                __project_id,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -24602,6 +27415,8 @@ pub mod big_query_destination_config {
                             match value {
                                 "datasetTemplate" => Ok(__FieldTag::__dataset_template),
                                 "dataset_template" => Ok(__FieldTag::__dataset_template),
+                                "projectId" => Ok(__FieldTag::__project_id),
+                                "project_id" => Ok(__FieldTag::__project_id),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -24636,6 +27451,15 @@ pub mod big_query_destination_config {
                                 result.dataset_template = map.next_value::<std::option::Option<crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate>>()?
                                     ;
                             }
+                            __FieldTag::__project_id => {
+                                if !fields.insert(__FieldTag::__project_id) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for project_id",
+                                    ));
+                                }
+                                result.project_id =
+                                    map.next_value::<std::option::Option<std::string::String>>()?;
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -24662,6 +27486,9 @@ pub mod big_query_destination_config {
             if self.dataset_template.is_some() {
                 state.serialize_entry("datasetTemplate", &self.dataset_template)?;
             }
+            if self.project_id.is_some() {
+                state.serialize_entry("projectId", &self.project_id)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -24675,6 +27502,7 @@ pub mod big_query_destination_config {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("SourceHierarchyDatasets");
             debug_struct.field("dataset_template", &self.dataset_template);
+            debug_struct.field("project_id", &self.project_id);
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -26900,6 +29728,38 @@ pub mod stream {
             );
             self
         }
+
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `MongodbExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn mongodb_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MongodbCluster>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::MongodbExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// to hold a `MongodbExcludedObjects`.
+        ///
+        /// Note that all the setters affecting `excluded_objects` are
+        /// mutually exclusive.
+        pub fn set_mongodb_excluded_objects<
+            T: std::convert::Into<std::boxed::Box<crate::model::MongodbCluster>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.excluded_objects = std::option::Option::Some(
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::MongodbExcludedObjects(
+                    v.into()
+                )
+            );
+            self
+        }
     }
 
     impl wkt::message::Message for BackfillAllStrategy {
@@ -26923,6 +29783,7 @@ pub mod stream {
                 __postgresql_excluded_objects,
                 __sql_server_excluded_objects,
                 __salesforce_excluded_objects,
+                __mongodb_excluded_objects,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -26973,6 +29834,12 @@ pub mod stream {
                                 }
                                 "salesforce_excluded_objects" => {
                                     Ok(__FieldTag::__salesforce_excluded_objects)
+                                }
+                                "mongodbExcludedObjects" => {
+                                    Ok(__FieldTag::__mongodb_excluded_objects)
+                                }
+                                "mongodb_excluded_objects" => {
+                                    Ok(__FieldTag::__mongodb_excluded_objects)
                                 }
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
@@ -27084,6 +29951,23 @@ pub mod stream {
                                     ),
                                 );
                             }
+                            __FieldTag::__mongodb_excluded_objects => {
+                                if !fields.insert(__FieldTag::__mongodb_excluded_objects) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for mongodb_excluded_objects",
+                                    ));
+                                }
+                                if result.excluded_objects.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `excluded_objects`, a oneof with full ID .google.cloud.datastream.v1.Stream.BackfillAllStrategy.mongodb_excluded_objects, latest field was mongodbExcludedObjects",
+                                    ));
+                                }
+                                result.excluded_objects = std::option::Option::Some(
+                                    crate::model::stream::backfill_all_strategy::ExcludedObjects::MongodbExcludedObjects(
+                                        map.next_value::<std::option::Option<std::boxed::Box<crate::model::MongodbCluster>>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -27121,6 +30005,9 @@ pub mod stream {
             }
             if let Some(value) = self.salesforce_excluded_objects() {
                 state.serialize_entry("salesforceExcludedObjects", value)?;
+            }
+            if let Some(value) = self.mongodb_excluded_objects() {
+                state.serialize_entry("mongodbExcludedObjects", value)?;
             }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
@@ -27161,6 +30048,8 @@ pub mod stream {
             SqlServerExcludedObjects(std::boxed::Box<crate::model::SqlServerRdbms>),
             /// Salesforce data source objects to avoid backfilling
             SalesforceExcludedObjects(std::boxed::Box<crate::model::SalesforceOrg>),
+            /// MongoDB data source objects to avoid backfilling
+            MongodbExcludedObjects(std::boxed::Box<crate::model::MongodbCluster>),
         }
     }
 
@@ -28028,6 +30917,42 @@ impl SourceObjectIdentifier {
         );
         self
     }
+
+    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// if it holds a `MongodbIdentifier`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mongodb_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source_identifier.as_ref().and_then(|v| match v {
+            crate::model::source_object_identifier::SourceIdentifier::MongodbIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// to hold a `MongodbIdentifier`.
+    ///
+    /// Note that all the setters affecting `source_identifier` are
+    /// mutually exclusive.
+    pub fn set_mongodb_identifier<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_identifier = std::option::Option::Some(
+            crate::model::source_object_identifier::SourceIdentifier::MongodbIdentifier(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for SourceObjectIdentifier {
@@ -28051,6 +30976,7 @@ impl<'de> serde::de::Deserialize<'de> for SourceObjectIdentifier {
             __postgresql_identifier,
             __sql_server_identifier,
             __salesforce_identifier,
+            __mongodb_identifier,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -28081,6 +31007,8 @@ impl<'de> serde::de::Deserialize<'de> for SourceObjectIdentifier {
                             "sql_server_identifier" => Ok(__FieldTag::__sql_server_identifier),
                             "salesforceIdentifier" => Ok(__FieldTag::__salesforce_identifier),
                             "salesforce_identifier" => Ok(__FieldTag::__salesforce_identifier),
+                            "mongodbIdentifier" => Ok(__FieldTag::__mongodb_identifier),
+                            "mongodb_identifier" => Ok(__FieldTag::__mongodb_identifier),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -28191,6 +31119,23 @@ impl<'de> serde::de::Deserialize<'de> for SourceObjectIdentifier {
                                 ),
                             );
                         }
+                        __FieldTag::__mongodb_identifier => {
+                            if !fields.insert(__FieldTag::__mongodb_identifier) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mongodb_identifier",
+                                ));
+                            }
+                            if result.source_identifier.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `source_identifier`, a oneof with full ID .google.cloud.datastream.v1.SourceObjectIdentifier.mongodb_identifier, latest field was mongodbIdentifier",
+                                ));
+                            }
+                            result.source_identifier = std::option::Option::Some(
+                                crate::model::source_object_identifier::SourceIdentifier::MongodbIdentifier(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -28228,6 +31173,9 @@ impl serde::ser::Serialize for SourceObjectIdentifier {
         }
         if let Some(value) = self.salesforce_identifier() {
             state.serialize_entry("salesforceIdentifier", value)?;
+        }
+        if let Some(value) = self.mongodb_identifier() {
+            state.serialize_entry("mongodbIdentifier", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -29075,6 +32023,175 @@ pub mod source_object_identifier {
         }
     }
 
+    /// MongoDB data source object identifier.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct MongodbObjectIdentifier {
+        /// Required. The database name.
+        pub database: std::string::String,
+
+        /// Required. The collection name.
+        pub collection: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl MongodbObjectIdentifier {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [database][crate::model::source_object_identifier::MongodbObjectIdentifier::database].
+        pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.database = v.into();
+            self
+        }
+
+        /// Sets the value of [collection][crate::model::source_object_identifier::MongodbObjectIdentifier::collection].
+        pub fn set_collection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.collection = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for MongodbObjectIdentifier {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.datastream.v1.SourceObjectIdentifier.MongodbObjectIdentifier"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for MongodbObjectIdentifier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __database,
+                __collection,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for MongodbObjectIdentifier")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "database" => Ok(__FieldTag::__database),
+                                "collection" => Ok(__FieldTag::__collection),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = MongodbObjectIdentifier;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct MongodbObjectIdentifier")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__database => {
+                                if !fields.insert(__FieldTag::__database) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for database",
+                                    ));
+                                }
+                                result.database = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__collection => {
+                                if !fields.insert(__FieldTag::__collection) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for collection",
+                                    ));
+                                }
+                                result.collection = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for MongodbObjectIdentifier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.database.is_empty() {
+                state.serialize_entry("database", &self.database)?;
+            }
+            if !self.collection.is_empty() {
+                state.serialize_entry("collection", &self.collection)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for MongodbObjectIdentifier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MongodbObjectIdentifier");
+            debug_struct.field("database", &self.database);
+            debug_struct.field("collection", &self.collection);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The identifier for an object in the data source.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -29098,6 +32215,10 @@ pub mod source_object_identifier {
         /// Salesforce data source object identifier.
         SalesforceIdentifier(
             std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
+        ),
+        /// MongoDB data source object identifier.
+        MongodbIdentifier(
+            std::boxed::Box<crate::model::source_object_identifier::MongodbObjectIdentifier>,
         ),
     }
 }

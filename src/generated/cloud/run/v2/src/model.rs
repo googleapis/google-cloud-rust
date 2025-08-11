@@ -5202,6 +5202,429 @@ impl std::fmt::Debug for ExecutionTemplate {
     }
 }
 
+/// Holds a single instance split entry for the Worker. Allocations can be done
+/// to a specific Revision name, or pointing to the latest Ready Revision.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InstanceSplit {
+    /// The allocation type for this instance split.
+    pub r#type: crate::model::InstanceSplitAllocationType,
+
+    /// Revision to which to assign this portion of instances, if split allocation
+    /// is by revision.
+    pub revision: std::string::String,
+
+    /// Specifies percent of the instance split to this Revision.
+    /// This defaults to zero if unspecified.
+    pub percent: i32,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InstanceSplit {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::InstanceSplit::type].
+    pub fn set_type<T: std::convert::Into<crate::model::InstanceSplitAllocationType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [revision][crate::model::InstanceSplit::revision].
+    pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.revision = v.into();
+        self
+    }
+
+    /// Sets the value of [percent][crate::model::InstanceSplit::percent].
+    pub fn set_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.percent = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InstanceSplit {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.InstanceSplit"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for InstanceSplit {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __type,
+            __revision,
+            __percent,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for InstanceSplit")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "type" => Ok(__FieldTag::__type),
+                            "revision" => Ok(__FieldTag::__revision),
+                            "percent" => Ok(__FieldTag::__percent),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = InstanceSplit;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct InstanceSplit")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map.next_value::<std::option::Option<crate::model::InstanceSplitAllocationType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__revision => {
+                            if !fields.insert(__FieldTag::__revision) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for revision",
+                                ));
+                            }
+                            result.revision = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__percent => {
+                            if !fields.insert(__FieldTag::__percent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for percent",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.percent = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for InstanceSplit {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self.revision.is_empty() {
+            state.serialize_entry("revision", &self.revision)?;
+        }
+        if !wkt::internal::is_default(&self.percent) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("percent", &__With(&self.percent))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for InstanceSplit {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceSplit");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("revision", &self.revision);
+        debug_struct.field("percent", &self.percent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Represents the observed state of a single `InstanceSplit` entry.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InstanceSplitStatus {
+    /// The allocation type for this instance split.
+    pub r#type: crate::model::InstanceSplitAllocationType,
+
+    /// Revision to which this instance split is assigned.
+    pub revision: std::string::String,
+
+    /// Specifies percent of the instance split to this Revision.
+    pub percent: i32,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InstanceSplitStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::InstanceSplitStatus::type].
+    pub fn set_type<T: std::convert::Into<crate::model::InstanceSplitAllocationType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [revision][crate::model::InstanceSplitStatus::revision].
+    pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.revision = v.into();
+        self
+    }
+
+    /// Sets the value of [percent][crate::model::InstanceSplitStatus::percent].
+    pub fn set_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.percent = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InstanceSplitStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.InstanceSplitStatus"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for InstanceSplitStatus {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __type,
+            __revision,
+            __percent,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for InstanceSplitStatus")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "type" => Ok(__FieldTag::__type),
+                            "revision" => Ok(__FieldTag::__revision),
+                            "percent" => Ok(__FieldTag::__percent),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = InstanceSplitStatus;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct InstanceSplitStatus")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map.next_value::<std::option::Option<crate::model::InstanceSplitAllocationType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__revision => {
+                            if !fields.insert(__FieldTag::__revision) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for revision",
+                                ));
+                            }
+                            result.revision = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__percent => {
+                            if !fields.insert(__FieldTag::__percent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for percent",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.percent = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for InstanceSplitStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self.revision.is_empty() {
+            state.serialize_entry("revision", &self.revision)?;
+        }
+        if !wkt::internal::is_default(&self.percent) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("percent", &__With(&self.percent))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for InstanceSplitStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceSplitStatus");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("revision", &self.revision);
+        debug_struct.field("percent", &self.percent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for creating a Job.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -23787,6 +24210,180 @@ pub mod service_scaling {
     }
 }
 
+/// Worker pool scaling settings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkerPoolScaling {
+    /// Optional. The total number of instances in manual scaling mode.
+    pub manual_instance_count: std::option::Option<i32>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkerPoolScaling {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [manual_instance_count][crate::model::WorkerPoolScaling::manual_instance_count].
+    pub fn set_manual_instance_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.manual_instance_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [manual_instance_count][crate::model::WorkerPoolScaling::manual_instance_count].
+    pub fn set_or_clear_manual_instance_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.manual_instance_count = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for WorkerPoolScaling {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.WorkerPoolScaling"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for WorkerPoolScaling {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __manual_instance_count,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for WorkerPoolScaling")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "manualInstanceCount" => Ok(__FieldTag::__manual_instance_count),
+                            "manual_instance_count" => Ok(__FieldTag::__manual_instance_count),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = WorkerPoolScaling;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct WorkerPoolScaling")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__manual_instance_count => {
+                            if !fields.insert(__FieldTag::__manual_instance_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for manual_instance_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.manual_instance_count = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for WorkerPoolScaling {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.manual_instance_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("manualInstanceCount", &__With(&self.manual_instance_count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for WorkerPoolScaling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkerPoolScaling");
+        debug_struct.field("manual_instance_count", &self.manual_instance_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Hardware constraints configuration.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -24300,6 +24897,3099 @@ impl std::fmt::Debug for BuildConfig {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
+    }
+}
+
+/// Request message for creating a WorkerPool.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateWorkerPoolRequest {
+    /// Required. The location and project in which this worker pool should be
+    /// created. Format: `projects/{project}/locations/{location}`, where
+    /// `{project}` can be project id or number. Only lowercase characters, digits,
+    /// and hyphens.
+    pub parent: std::string::String,
+
+    /// Required. The WorkerPool instance to create.
+    pub worker_pool: std::option::Option<crate::model::WorkerPool>,
+
+    /// Required. The unique identifier for the WorkerPool. It must begin with
+    /// letter, and cannot end with hyphen; must contain fewer than 50 characters.
+    /// The name of the worker pool becomes
+    /// `{parent}/workerPools/{worker_pool_id}`.
+    pub worker_pool_id: std::string::String,
+
+    /// Optional. Indicates that the request should be validated and default values
+    /// populated, without persisting the request or creating any resources.
+    pub validate_only: bool,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateWorkerPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateWorkerPoolRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
+    pub fn set_worker_pool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkerPool>,
+    {
+        self.worker_pool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
+    pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkerPool>,
+    {
+        self.worker_pool = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [worker_pool_id][crate::model::CreateWorkerPoolRequest::worker_pool_id].
+    pub fn set_worker_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.worker_pool_id = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::CreateWorkerPoolRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateWorkerPoolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.CreateWorkerPoolRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateWorkerPoolRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __worker_pool,
+            __worker_pool_id,
+            __validate_only,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateWorkerPoolRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "workerPool" => Ok(__FieldTag::__worker_pool),
+                            "worker_pool" => Ok(__FieldTag::__worker_pool),
+                            "workerPoolId" => Ok(__FieldTag::__worker_pool_id),
+                            "worker_pool_id" => Ok(__FieldTag::__worker_pool_id),
+                            "validateOnly" => Ok(__FieldTag::__validate_only),
+                            "validate_only" => Ok(__FieldTag::__validate_only),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateWorkerPoolRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateWorkerPoolRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__worker_pool => {
+                            if !fields.insert(__FieldTag::__worker_pool) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for worker_pool",
+                                ));
+                            }
+                            result.worker_pool =
+                                map.next_value::<std::option::Option<crate::model::WorkerPool>>()?;
+                        }
+                        __FieldTag::__worker_pool_id => {
+                            if !fields.insert(__FieldTag::__worker_pool_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for worker_pool_id",
+                                ));
+                            }
+                            result.worker_pool_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__validate_only => {
+                            if !fields.insert(__FieldTag::__validate_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validate_only",
+                                ));
+                            }
+                            result.validate_only = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateWorkerPoolRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.worker_pool.is_some() {
+            state.serialize_entry("workerPool", &self.worker_pool)?;
+        }
+        if !self.worker_pool_id.is_empty() {
+            state.serialize_entry("workerPoolId", &self.worker_pool_id)?;
+        }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CreateWorkerPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkerPoolRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("worker_pool", &self.worker_pool);
+        debug_struct.field("worker_pool_id", &self.worker_pool_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Request message for updating a worker pool.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateWorkerPoolRequest {
+    /// Optional. The list of fields to be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The WorkerPool to be updated.
+    pub worker_pool: std::option::Option<crate::model::WorkerPool>,
+
+    /// Optional. Indicates that the request should be validated and default values
+    /// populated, without persisting the request or updating any resources.
+    pub validate_only: bool,
+
+    /// Optional. If set to true, and if the WorkerPool does not exist, it will
+    /// create a new one. The caller must have 'run.workerpools.create' permissions
+    /// if this is set to true and the WorkerPool does not exist.
+    pub allow_missing: bool,
+
+    /// Optional. If set to true, a new revision will be created from the template
+    /// even if the system doesn't detect any changes from the previously deployed
+    /// revision.
+    ///
+    /// This may be useful for cases where the underlying resources need to be
+    /// recreated or reinitialized. For example if the image is specified by label,
+    /// but the underlying image digest has changed) or if the container performs
+    /// deployment initialization work that needs to be performed again.
+    pub force_new_revision: bool,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateWorkerPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
+    pub fn set_worker_pool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkerPool>,
+    {
+        self.worker_pool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
+    pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkerPool>,
+    {
+        self.worker_pool = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::UpdateWorkerPoolRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+
+    /// Sets the value of [allow_missing][crate::model::UpdateWorkerPoolRequest::allow_missing].
+    pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.allow_missing = v.into();
+        self
+    }
+
+    /// Sets the value of [force_new_revision][crate::model::UpdateWorkerPoolRequest::force_new_revision].
+    pub fn set_force_new_revision<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force_new_revision = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateWorkerPoolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.UpdateWorkerPoolRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateWorkerPoolRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __update_mask,
+            __worker_pool,
+            __validate_only,
+            __allow_missing,
+            __force_new_revision,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateWorkerPoolRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            "workerPool" => Ok(__FieldTag::__worker_pool),
+                            "worker_pool" => Ok(__FieldTag::__worker_pool),
+                            "validateOnly" => Ok(__FieldTag::__validate_only),
+                            "validate_only" => Ok(__FieldTag::__validate_only),
+                            "allowMissing" => Ok(__FieldTag::__allow_missing),
+                            "allow_missing" => Ok(__FieldTag::__allow_missing),
+                            "forceNewRevision" => Ok(__FieldTag::__force_new_revision),
+                            "force_new_revision" => Ok(__FieldTag::__force_new_revision),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateWorkerPoolRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateWorkerPoolRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::__worker_pool => {
+                            if !fields.insert(__FieldTag::__worker_pool) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for worker_pool",
+                                ));
+                            }
+                            result.worker_pool =
+                                map.next_value::<std::option::Option<crate::model::WorkerPool>>()?;
+                        }
+                        __FieldTag::__validate_only => {
+                            if !fields.insert(__FieldTag::__validate_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validate_only",
+                                ));
+                            }
+                            result.validate_only = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__allow_missing => {
+                            if !fields.insert(__FieldTag::__allow_missing) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allow_missing",
+                                ));
+                            }
+                            result.allow_missing = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__force_new_revision => {
+                            if !fields.insert(__FieldTag::__force_new_revision) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for force_new_revision",
+                                ));
+                            }
+                            result.force_new_revision = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateWorkerPoolRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if self.worker_pool.is_some() {
+            state.serialize_entry("workerPool", &self.worker_pool)?;
+        }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
+        if !wkt::internal::is_default(&self.allow_missing) {
+            state.serialize_entry("allowMissing", &self.allow_missing)?;
+        }
+        if !wkt::internal::is_default(&self.force_new_revision) {
+            state.serialize_entry("forceNewRevision", &self.force_new_revision)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateWorkerPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateWorkerPoolRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("worker_pool", &self.worker_pool);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("force_new_revision", &self.force_new_revision);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Request message for retrieving a list of WorkerPools.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListWorkerPoolsRequest {
+    /// Required. The location and project to list resources on.
+    /// Location must be a valid Google Cloud region, and cannot be the "-"
+    /// wildcard. Format: `projects/{project}/locations/{location}`, where
+    /// `{project}` can be project id or number.
+    pub parent: std::string::String,
+
+    /// Maximum number of WorkerPools to return in this call.
+    pub page_size: i32,
+
+    /// A page token received from a previous call to ListWorkerPools.
+    /// All other parameters must match.
+    pub page_token: std::string::String,
+
+    /// If true, returns deleted (but unexpired) resources along with active ones.
+    pub show_deleted: bool,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListWorkerPoolsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListWorkerPoolsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListWorkerPoolsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListWorkerPoolsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [show_deleted][crate::model::ListWorkerPoolsRequest::show_deleted].
+    pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.show_deleted = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListWorkerPoolsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.ListWorkerPoolsRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListWorkerPoolsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __show_deleted,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListWorkerPoolsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "showDeleted" => Ok(__FieldTag::__show_deleted),
+                            "show_deleted" => Ok(__FieldTag::__show_deleted),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListWorkerPoolsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListWorkerPoolsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__show_deleted => {
+                            if !fields.insert(__FieldTag::__show_deleted) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for show_deleted",
+                                ));
+                            }
+                            result.show_deleted = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListWorkerPoolsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !wkt::internal::is_default(&self.show_deleted) {
+            state.serialize_entry("showDeleted", &self.show_deleted)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListWorkerPoolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkerPoolsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("show_deleted", &self.show_deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Response message containing a list of WorkerPools.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListWorkerPoolsResponse {
+    /// The resulting list of WorkerPools.
+    pub worker_pools: std::vec::Vec<crate::model::WorkerPool>,
+
+    /// A token indicating there are more items than page_size. Use it in the next
+    /// ListWorkerPools request to continue.
+    pub next_page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListWorkerPoolsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [worker_pools][crate::model::ListWorkerPoolsResponse::worker_pools].
+    pub fn set_worker_pools<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::WorkerPool>,
+    {
+        use std::iter::Iterator;
+        self.worker_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkerPoolsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListWorkerPoolsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.ListWorkerPoolsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListWorkerPoolsResponse {
+    type PageItem = crate::model::WorkerPool;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.worker_pools
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListWorkerPoolsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __worker_pools,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListWorkerPoolsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "workerPools" => Ok(__FieldTag::__worker_pools),
+                            "worker_pools" => Ok(__FieldTag::__worker_pools),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListWorkerPoolsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListWorkerPoolsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__worker_pools => {
+                            if !fields.insert(__FieldTag::__worker_pools) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for worker_pools",
+                                ));
+                            }
+                            result.worker_pools = map.next_value::<std::option::Option<std::vec::Vec<crate::model::WorkerPool>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListWorkerPoolsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.worker_pools.is_empty() {
+            state.serialize_entry("workerPools", &self.worker_pools)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListWorkerPoolsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkerPoolsResponse");
+        debug_struct.field("worker_pools", &self.worker_pools);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Request message for obtaining a WorkerPool by its full name.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetWorkerPoolRequest {
+    /// Required. The full name of the WorkerPool.
+    /// Format:
+    /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`, where
+    /// `{project}` can be project id or number.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetWorkerPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetWorkerPoolRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetWorkerPoolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.GetWorkerPoolRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetWorkerPoolRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetWorkerPoolRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetWorkerPoolRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetWorkerPoolRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetWorkerPoolRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for GetWorkerPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWorkerPoolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Request message to delete a WorkerPool by its full name.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteWorkerPoolRequest {
+    /// Required. The full name of the WorkerPool.
+    /// Format:
+    /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`, where
+    /// `{project}` can be project id or number.
+    pub name: std::string::String,
+
+    /// Optional. Indicates that the request should be validated without actually
+    /// deleting any resources.
+    pub validate_only: bool,
+
+    /// A system-generated fingerprint for this version of the
+    /// resource. May be used to detect modification conflict during updates.
+    pub etag: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteWorkerPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteWorkerPoolRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::DeleteWorkerPoolRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteWorkerPoolRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteWorkerPoolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.DeleteWorkerPoolRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteWorkerPoolRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __validate_only,
+            __etag,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteWorkerPoolRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "validateOnly" => Ok(__FieldTag::__validate_only),
+                            "validate_only" => Ok(__FieldTag::__validate_only),
+                            "etag" => Ok(__FieldTag::__etag),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteWorkerPoolRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteWorkerPoolRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__validate_only => {
+                            if !fields.insert(__FieldTag::__validate_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validate_only",
+                                ));
+                            }
+                            result.validate_only = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteWorkerPoolRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteWorkerPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWorkerPoolRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// WorkerPool acts as a top-level container that manages a set of
+/// configurations and revision templates which implement a pull-based workload.
+/// WorkerPool exists to provide a singular abstraction which can be access
+/// controlled, reasoned about, and which encapsulates software lifecycle
+/// decisions such as rollout policy and team resource ownership.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkerPool {
+    /// The fully qualified name of this WorkerPool. In CreateWorkerPoolRequest,
+    /// this field is ignored, and instead composed from
+    /// CreateWorkerPoolRequest.parent and CreateWorkerPoolRequest.worker_id.
+    ///
+    /// Format:
+    /// `projects/{project}/locations/{location}/workerPools/{worker_id}`
+    pub name: std::string::String,
+
+    /// User-provided description of the WorkerPool. This field currently has a
+    /// 512-character limit.
+    pub description: std::string::String,
+
+    /// Output only. Server assigned unique identifier for the trigger. The value
+    /// is a UUID4 string and guaranteed to remain unchanged until the resource is
+    /// deleted.
+    pub uid: std::string::String,
+
+    /// Output only. A number that monotonically increases every time the user
+    /// modifies the desired state.
+    /// Please note that unlike v1, this is an int64 value. As with most Google
+    /// APIs, its JSON representation will be a `string` instead of an `integer`.
+    pub generation: i64,
+
+    /// Optional. Unstructured key value map that can be used to organize and
+    /// categorize objects. User-provided labels are shared with Google's billing
+    /// system, so they can be used to filter, or break down billing charges by
+    /// team, component, environment, state, etc. For more information, visit
+    /// <https://cloud.google.com/resource-manager/docs/creating-managing-labels> or
+    /// <https://cloud.google.com/run/docs/configuring/labels>.
+    ///
+    /// Cloud Run API v2 does not support labels with  `run.googleapis.com`,
+    /// `cloud.googleapis.com`, `serving.knative.dev`, or `autoscaling.knative.dev`
+    /// namespaces, and they will be rejected. All system labels in v1 now have a
+    /// corresponding field in v2 WorkerPool.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Unstructured key value map that may be set by external tools to
+    /// store and arbitrary metadata. They are not queryable and should be
+    /// preserved when modifying objects.
+    ///
+    /// Cloud Run API v2 does not support annotations with `run.googleapis.com`,
+    /// `cloud.googleapis.com`, `serving.knative.dev`, or `autoscaling.knative.dev`
+    /// namespaces, and they will be rejected in new resources. All system
+    /// annotations in v1 now have a corresponding field in v2 WorkerPool.
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. The creation time.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The last-modified time.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The deletion time. It is only populated as a response to a
+    /// Delete request.
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. For a deleted resource, the time after which it will be
+    /// permamently deleted.
+    pub expire_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Email address of the authenticated creator.
+    pub creator: std::string::String,
+
+    /// Output only. Email address of the last authenticated modifier.
+    pub last_modifier: std::string::String,
+
+    /// Arbitrary identifier for the API client.
+    pub client: std::string::String,
+
+    /// Arbitrary version identifier for the API client.
+    pub client_version: std::string::String,
+
+    /// Optional. The launch stage as defined by [Google Cloud Platform
+    /// Launch Stages](https://cloud.google.com/terms/launch-stages).
+    /// Cloud Run supports `ALPHA`, `BETA`, and `GA`. If no value is specified, GA
+    /// is assumed.
+    /// Set the launch stage to a preview stage on input to allow use of preview
+    /// features in that stage. On read (or output), describes whether the
+    /// resource uses preview features.
+    ///
+    /// For example, if ALPHA is provided as input, but only BETA and GA-level
+    /// features are used, this field will be BETA on output.
+    pub launch_stage: api::model::LaunchStage,
+
+    /// Optional. Settings for the Binary Authorization feature.
+    pub binary_authorization: std::option::Option<crate::model::BinaryAuthorization>,
+
+    /// Required. The template used to create revisions for this WorkerPool.
+    pub template: std::option::Option<crate::model::WorkerPoolRevisionTemplate>,
+
+    /// Optional. Specifies how to distribute instances over a collection of
+    /// Revisions belonging to the WorkerPool. If instance split is empty or not
+    /// provided, defaults to 100% instances assigned to the latest `Ready`
+    /// Revision.
+    pub instance_splits: std::vec::Vec<crate::model::InstanceSplit>,
+
+    /// Optional. Specifies worker-pool-level scaling settings
+    pub scaling: std::option::Option<crate::model::WorkerPoolScaling>,
+
+    /// Output only. The generation of this WorkerPool currently serving traffic.
+    /// See comments in `reconciling` for additional information on reconciliation
+    /// process in Cloud Run. Please note that unlike v1, this is an int64 value.
+    /// As with most Google APIs, its JSON representation will be a `string`
+    /// instead of an `integer`.
+    pub observed_generation: i64,
+
+    /// Output only. The Condition of this WorkerPool, containing its readiness
+    /// status, and detailed error information in case it did not reach a serving
+    /// state. See comments in `reconciling` for additional information on
+    /// reconciliation process in Cloud Run.
+    pub terminal_condition: std::option::Option<crate::model::Condition>,
+
+    /// Output only. The Conditions of all other associated sub-resources. They
+    /// contain additional diagnostics information in case the WorkerPool does not
+    /// reach its Serving state. See comments in `reconciling` for additional
+    /// information on reconciliation process in Cloud Run.
+    pub conditions: std::vec::Vec<crate::model::Condition>,
+
+    /// Output only. Name of the latest revision that is serving traffic. See
+    /// comments in `reconciling` for additional information on reconciliation
+    /// process in Cloud Run.
+    pub latest_ready_revision: std::string::String,
+
+    /// Output only. Name of the last created revision. See comments in
+    /// `reconciling` for additional information on reconciliation process in Cloud
+    /// Run.
+    pub latest_created_revision: std::string::String,
+
+    /// Output only. Detailed status information for corresponding instance splits.
+    /// See comments in `reconciling` for additional information on reconciliation
+    /// process in Cloud Run.
+    pub instance_split_statuses: std::vec::Vec<crate::model::InstanceSplitStatus>,
+
+    /// One or more custom audiences that you want this worker pool to support.
+    /// Specify each custom audience as the full URL in a string. The custom
+    /// audiences are encoded in the token and used to authenticate requests. For
+    /// more information, see
+    /// <https://cloud.google.com/run/docs/configuring/custom-audiences>.
+    pub custom_audiences: std::vec::Vec<std::string::String>,
+
+    /// Output only. Reserved for future use.
+    pub satisfies_pzs: bool,
+
+    /// Output only. Returns true if the WorkerPool is currently being acted upon
+    /// by the system to bring it into the desired state.
+    ///
+    /// When a new WorkerPool is created, or an existing one is updated, Cloud Run
+    /// will asynchronously perform all necessary steps to bring the WorkerPool to
+    /// the desired serving state. This process is called reconciliation. While
+    /// reconciliation is in process, `observed_generation`,
+    /// `latest_ready_revison`, `traffic_statuses`, and `uri` will have transient
+    /// values that might mismatch the intended state: Once reconciliation is over
+    /// (and this field is false), there are two possible outcomes: reconciliation
+    /// succeeded and the serving state matches the WorkerPool, or there was an
+    /// error, and reconciliation failed. This state can be found in
+    /// `terminal_condition.state`.
+    ///
+    /// If reconciliation succeeded, the following fields will match: `traffic` and
+    /// `traffic_statuses`, `observed_generation` and `generation`,
+    /// `latest_ready_revision` and `latest_created_revision`.
+    ///
+    /// If reconciliation failed, `traffic_statuses`, `observed_generation`, and
+    /// `latest_ready_revision` will have the state of the last serving revision,
+    /// or empty for newly created WorkerPools. Additional information on the
+    /// failure can be found in `terminal_condition` and `conditions`.
+    pub reconciling: bool,
+
+    /// Output only. A system-generated fingerprint for this version of the
+    /// resource. May be used to detect modification conflict during updates.
+    pub etag: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkerPool {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::WorkerPool::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::WorkerPool::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::WorkerPool::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [generation][crate::model::WorkerPool::generation].
+    pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.generation = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::WorkerPool::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::WorkerPool::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::WorkerPool::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::WorkerPool::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::WorkerPool::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::WorkerPool::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::WorkerPool::delete_time].
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::WorkerPool::delete_time].
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [expire_time][crate::model::WorkerPool::expire_time].
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::WorkerPool::expire_time].
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [creator][crate::model::WorkerPool::creator].
+    pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.creator = v.into();
+        self
+    }
+
+    /// Sets the value of [last_modifier][crate::model::WorkerPool::last_modifier].
+    pub fn set_last_modifier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.last_modifier = v.into();
+        self
+    }
+
+    /// Sets the value of [client][crate::model::WorkerPool::client].
+    pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client = v.into();
+        self
+    }
+
+    /// Sets the value of [client_version][crate::model::WorkerPool::client_version].
+    pub fn set_client_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_version = v.into();
+        self
+    }
+
+    /// Sets the value of [launch_stage][crate::model::WorkerPool::launch_stage].
+    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.launch_stage = v.into();
+        self
+    }
+
+    /// Sets the value of [binary_authorization][crate::model::WorkerPool::binary_authorization].
+    pub fn set_binary_authorization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    {
+        self.binary_authorization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [binary_authorization][crate::model::WorkerPool::binary_authorization].
+    pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    {
+        self.binary_authorization = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [template][crate::model::WorkerPool::template].
+    pub fn set_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkerPoolRevisionTemplate>,
+    {
+        self.template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [template][crate::model::WorkerPool::template].
+    pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkerPoolRevisionTemplate>,
+    {
+        self.template = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [instance_splits][crate::model::WorkerPool::instance_splits].
+    pub fn set_instance_splits<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InstanceSplit>,
+    {
+        use std::iter::Iterator;
+        self.instance_splits = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [scaling][crate::model::WorkerPool::scaling].
+    pub fn set_scaling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkerPoolScaling>,
+    {
+        self.scaling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scaling][crate::model::WorkerPool::scaling].
+    pub fn set_or_clear_scaling<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkerPoolScaling>,
+    {
+        self.scaling = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [observed_generation][crate::model::WorkerPool::observed_generation].
+    pub fn set_observed_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.observed_generation = v.into();
+        self
+    }
+
+    /// Sets the value of [terminal_condition][crate::model::WorkerPool::terminal_condition].
+    pub fn set_terminal_condition<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Condition>,
+    {
+        self.terminal_condition = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [terminal_condition][crate::model::WorkerPool::terminal_condition].
+    pub fn set_or_clear_terminal_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Condition>,
+    {
+        self.terminal_condition = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [conditions][crate::model::WorkerPool::conditions].
+    pub fn set_conditions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Condition>,
+    {
+        use std::iter::Iterator;
+        self.conditions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [latest_ready_revision][crate::model::WorkerPool::latest_ready_revision].
+    pub fn set_latest_ready_revision<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.latest_ready_revision = v.into();
+        self
+    }
+
+    /// Sets the value of [latest_created_revision][crate::model::WorkerPool::latest_created_revision].
+    pub fn set_latest_created_revision<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.latest_created_revision = v.into();
+        self
+    }
+
+    /// Sets the value of [instance_split_statuses][crate::model::WorkerPool::instance_split_statuses].
+    pub fn set_instance_split_statuses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InstanceSplitStatus>,
+    {
+        use std::iter::Iterator;
+        self.instance_split_statuses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [custom_audiences][crate::model::WorkerPool::custom_audiences].
+    pub fn set_custom_audiences<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.custom_audiences = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::WorkerPool::satisfies_pzs].
+    pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::WorkerPool::reconciling].
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::WorkerPool::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for WorkerPool {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.WorkerPool"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for WorkerPool {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __description,
+            __uid,
+            __generation,
+            __labels,
+            __annotations,
+            __create_time,
+            __update_time,
+            __delete_time,
+            __expire_time,
+            __creator,
+            __last_modifier,
+            __client,
+            __client_version,
+            __launch_stage,
+            __binary_authorization,
+            __template,
+            __instance_splits,
+            __scaling,
+            __observed_generation,
+            __terminal_condition,
+            __conditions,
+            __latest_ready_revision,
+            __latest_created_revision,
+            __instance_split_statuses,
+            __custom_audiences,
+            __satisfies_pzs,
+            __reconciling,
+            __etag,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for WorkerPool")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "description" => Ok(__FieldTag::__description),
+                            "uid" => Ok(__FieldTag::__uid),
+                            "generation" => Ok(__FieldTag::__generation),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "annotations" => Ok(__FieldTag::__annotations),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "deleteTime" => Ok(__FieldTag::__delete_time),
+                            "delete_time" => Ok(__FieldTag::__delete_time),
+                            "expireTime" => Ok(__FieldTag::__expire_time),
+                            "expire_time" => Ok(__FieldTag::__expire_time),
+                            "creator" => Ok(__FieldTag::__creator),
+                            "lastModifier" => Ok(__FieldTag::__last_modifier),
+                            "last_modifier" => Ok(__FieldTag::__last_modifier),
+                            "client" => Ok(__FieldTag::__client),
+                            "clientVersion" => Ok(__FieldTag::__client_version),
+                            "client_version" => Ok(__FieldTag::__client_version),
+                            "launchStage" => Ok(__FieldTag::__launch_stage),
+                            "launch_stage" => Ok(__FieldTag::__launch_stage),
+                            "binaryAuthorization" => Ok(__FieldTag::__binary_authorization),
+                            "binary_authorization" => Ok(__FieldTag::__binary_authorization),
+                            "template" => Ok(__FieldTag::__template),
+                            "instanceSplits" => Ok(__FieldTag::__instance_splits),
+                            "instance_splits" => Ok(__FieldTag::__instance_splits),
+                            "scaling" => Ok(__FieldTag::__scaling),
+                            "observedGeneration" => Ok(__FieldTag::__observed_generation),
+                            "observed_generation" => Ok(__FieldTag::__observed_generation),
+                            "terminalCondition" => Ok(__FieldTag::__terminal_condition),
+                            "terminal_condition" => Ok(__FieldTag::__terminal_condition),
+                            "conditions" => Ok(__FieldTag::__conditions),
+                            "latestReadyRevision" => Ok(__FieldTag::__latest_ready_revision),
+                            "latest_ready_revision" => Ok(__FieldTag::__latest_ready_revision),
+                            "latestCreatedRevision" => Ok(__FieldTag::__latest_created_revision),
+                            "latest_created_revision" => Ok(__FieldTag::__latest_created_revision),
+                            "instanceSplitStatuses" => Ok(__FieldTag::__instance_split_statuses),
+                            "instance_split_statuses" => Ok(__FieldTag::__instance_split_statuses),
+                            "customAudiences" => Ok(__FieldTag::__custom_audiences),
+                            "custom_audiences" => Ok(__FieldTag::__custom_audiences),
+                            "satisfiesPzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfies_pzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "reconciling" => Ok(__FieldTag::__reconciling),
+                            "etag" => Ok(__FieldTag::__etag),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = WorkerPool;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct WorkerPool")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__uid => {
+                            if !fields.insert(__FieldTag::__uid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uid",
+                                ));
+                            }
+                            result.uid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__generation => {
+                            if !fields.insert(__FieldTag::__generation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for generation",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.generation = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__annotations => {
+                            if !fields.insert(__FieldTag::__annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for annotations",
+                                ));
+                            }
+                            result.annotations = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__delete_time => {
+                            if !fields.insert(__FieldTag::__delete_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for delete_time",
+                                ));
+                            }
+                            result.delete_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__expire_time => {
+                            if !fields.insert(__FieldTag::__expire_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for expire_time",
+                                ));
+                            }
+                            result.expire_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__creator => {
+                            if !fields.insert(__FieldTag::__creator) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for creator",
+                                ));
+                            }
+                            result.creator = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__last_modifier => {
+                            if !fields.insert(__FieldTag::__last_modifier) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for last_modifier",
+                                ));
+                            }
+                            result.last_modifier = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client => {
+                            if !fields.insert(__FieldTag::__client) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client",
+                                ));
+                            }
+                            result.client = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_version => {
+                            if !fields.insert(__FieldTag::__client_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_version",
+                                ));
+                            }
+                            result.client_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__launch_stage => {
+                            if !fields.insert(__FieldTag::__launch_stage) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for launch_stage",
+                                ));
+                            }
+                            result.launch_stage = map
+                                .next_value::<std::option::Option<api::model::LaunchStage>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__binary_authorization => {
+                            if !fields.insert(__FieldTag::__binary_authorization) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for binary_authorization",
+                                ));
+                            }
+                            result.binary_authorization = map.next_value::<std::option::Option<crate::model::BinaryAuthorization>>()?
+                                ;
+                        }
+                        __FieldTag::__template => {
+                            if !fields.insert(__FieldTag::__template) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for template",
+                                ));
+                            }
+                            result.template = map.next_value::<std::option::Option<crate::model::WorkerPoolRevisionTemplate>>()?
+                                ;
+                        }
+                        __FieldTag::__instance_splits => {
+                            if !fields.insert(__FieldTag::__instance_splits) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for instance_splits",
+                                ));
+                            }
+                            result.instance_splits = map.next_value::<std::option::Option<std::vec::Vec<crate::model::InstanceSplit>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__scaling => {
+                            if !fields.insert(__FieldTag::__scaling) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for scaling",
+                                ));
+                            }
+                            result.scaling = map
+                                .next_value::<std::option::Option<crate::model::WorkerPoolScaling>>(
+                                )?;
+                        }
+                        __FieldTag::__observed_generation => {
+                            if !fields.insert(__FieldTag::__observed_generation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for observed_generation",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.observed_generation =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__terminal_condition => {
+                            if !fields.insert(__FieldTag::__terminal_condition) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for terminal_condition",
+                                ));
+                            }
+                            result.terminal_condition =
+                                map.next_value::<std::option::Option<crate::model::Condition>>()?;
+                        }
+                        __FieldTag::__conditions => {
+                            if !fields.insert(__FieldTag::__conditions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for conditions",
+                                ));
+                            }
+                            result.conditions = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Condition>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__latest_ready_revision => {
+                            if !fields.insert(__FieldTag::__latest_ready_revision) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for latest_ready_revision",
+                                ));
+                            }
+                            result.latest_ready_revision = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__latest_created_revision => {
+                            if !fields.insert(__FieldTag::__latest_created_revision) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for latest_created_revision",
+                                ));
+                            }
+                            result.latest_created_revision = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__instance_split_statuses => {
+                            if !fields.insert(__FieldTag::__instance_split_statuses) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for instance_split_statuses",
+                                ));
+                            }
+                            result.instance_split_statuses = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::InstanceSplitStatus>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__custom_audiences => {
+                            if !fields.insert(__FieldTag::__custom_audiences) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_audiences",
+                                ));
+                            }
+                            result.custom_audiences = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__satisfies_pzs => {
+                            if !fields.insert(__FieldTag::__satisfies_pzs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzs",
+                                ));
+                            }
+                            result.satisfies_pzs = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__reconciling => {
+                            if !fields.insert(__FieldTag::__reconciling) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reconciling",
+                                ));
+                            }
+                            result.reconciling = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for WorkerPool {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.uid.is_empty() {
+            state.serialize_entry("uid", &self.uid)?;
+        }
+        if !wkt::internal::is_default(&self.generation) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("generation", &__With(&self.generation))?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.annotations.is_empty() {
+            state.serialize_entry("annotations", &self.annotations)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if self.delete_time.is_some() {
+            state.serialize_entry("deleteTime", &self.delete_time)?;
+        }
+        if self.expire_time.is_some() {
+            state.serialize_entry("expireTime", &self.expire_time)?;
+        }
+        if !self.creator.is_empty() {
+            state.serialize_entry("creator", &self.creator)?;
+        }
+        if !self.last_modifier.is_empty() {
+            state.serialize_entry("lastModifier", &self.last_modifier)?;
+        }
+        if !self.client.is_empty() {
+            state.serialize_entry("client", &self.client)?;
+        }
+        if !self.client_version.is_empty() {
+            state.serialize_entry("clientVersion", &self.client_version)?;
+        }
+        if !wkt::internal::is_default(&self.launch_stage) {
+            state.serialize_entry("launchStage", &self.launch_stage)?;
+        }
+        if self.binary_authorization.is_some() {
+            state.serialize_entry("binaryAuthorization", &self.binary_authorization)?;
+        }
+        if self.template.is_some() {
+            state.serialize_entry("template", &self.template)?;
+        }
+        if !self.instance_splits.is_empty() {
+            state.serialize_entry("instanceSplits", &self.instance_splits)?;
+        }
+        if self.scaling.is_some() {
+            state.serialize_entry("scaling", &self.scaling)?;
+        }
+        if !wkt::internal::is_default(&self.observed_generation) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("observedGeneration", &__With(&self.observed_generation))?;
+        }
+        if self.terminal_condition.is_some() {
+            state.serialize_entry("terminalCondition", &self.terminal_condition)?;
+        }
+        if !self.conditions.is_empty() {
+            state.serialize_entry("conditions", &self.conditions)?;
+        }
+        if !self.latest_ready_revision.is_empty() {
+            state.serialize_entry("latestReadyRevision", &self.latest_ready_revision)?;
+        }
+        if !self.latest_created_revision.is_empty() {
+            state.serialize_entry("latestCreatedRevision", &self.latest_created_revision)?;
+        }
+        if !self.instance_split_statuses.is_empty() {
+            state.serialize_entry("instanceSplitStatuses", &self.instance_split_statuses)?;
+        }
+        if !self.custom_audiences.is_empty() {
+            state.serialize_entry("customAudiences", &self.custom_audiences)?;
+        }
+        if !wkt::internal::is_default(&self.satisfies_pzs) {
+            state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
+        }
+        if !wkt::internal::is_default(&self.reconciling) {
+            state.serialize_entry("reconciling", &self.reconciling)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for WorkerPool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkerPool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("generation", &self.generation);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("creator", &self.creator);
+        debug_struct.field("last_modifier", &self.last_modifier);
+        debug_struct.field("client", &self.client);
+        debug_struct.field("client_version", &self.client_version);
+        debug_struct.field("launch_stage", &self.launch_stage);
+        debug_struct.field("binary_authorization", &self.binary_authorization);
+        debug_struct.field("template", &self.template);
+        debug_struct.field("instance_splits", &self.instance_splits);
+        debug_struct.field("scaling", &self.scaling);
+        debug_struct.field("observed_generation", &self.observed_generation);
+        debug_struct.field("terminal_condition", &self.terminal_condition);
+        debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("latest_ready_revision", &self.latest_ready_revision);
+        debug_struct.field("latest_created_revision", &self.latest_created_revision);
+        debug_struct.field("instance_split_statuses", &self.instance_split_statuses);
+        debug_struct.field("custom_audiences", &self.custom_audiences);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// WorkerPoolRevisionTemplate describes the data a worker pool revision should
+/// have when created from a template.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkerPoolRevisionTemplate {
+    /// Optional. The unique name for the revision. If this field is omitted, it
+    /// will be automatically generated based on the WorkerPool name.
+    pub revision: std::string::String,
+
+    /// Optional. Unstructured key value map that can be used to organize and
+    /// categorize objects. User-provided labels are shared with Google's billing
+    /// system, so they can be used to filter, or break down billing charges by
+    /// team, component, environment, state, etc. For more information, visit
+    /// <https://cloud.google.com/resource-manager/docs/creating-managing-labels> or
+    /// <https://cloud.google.com/run/docs/configuring/labels>.
+    ///
+    /// Cloud Run API v2 does not support labels with `run.googleapis.com`,
+    /// `cloud.googleapis.com`, `serving.knative.dev`, or `autoscaling.knative.dev`
+    /// namespaces, and they will be rejected. All system labels in v1 now have a
+    /// corresponding field in v2 WorkerPoolRevisionTemplate.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Unstructured key value map that may be set by external tools to
+    /// store and arbitrary metadata. They are not queryable and should be
+    /// preserved when modifying objects.
+    ///
+    /// Cloud Run API v2 does not support annotations with `run.googleapis.com`,
+    /// `cloud.googleapis.com`, `serving.knative.dev`, or `autoscaling.knative.dev`
+    /// namespaces, and they will be rejected. All system annotations in v1 now
+    /// have a corresponding field in v2 WorkerPoolRevisionTemplate.
+    ///
+    /// This field follows Kubernetes annotations' namespacing, limits, and
+    /// rules.
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. VPC Access configuration to use for this Revision. For more
+    /// information, visit
+    /// <https://cloud.google.com/run/docs/configuring/connecting-vpc>.
+    pub vpc_access: std::option::Option<crate::model::VpcAccess>,
+
+    /// Optional. Email address of the IAM service account associated with the
+    /// revision of the service. The service account represents the identity of the
+    /// running revision, and determines what permissions the revision has. If not
+    /// provided, the revision will use the project's default service account.
+    pub service_account: std::string::String,
+
+    /// Holds list of the containers that defines the unit of execution for this
+    /// Revision.
+    pub containers: std::vec::Vec<crate::model::Container>,
+
+    /// Optional. A list of Volumes to make available to containers.
+    pub volumes: std::vec::Vec<crate::model::Volume>,
+
+    /// A reference to a customer managed encryption key (CMEK) to use to encrypt
+    /// this container image. For more information, go to
+    /// <https://cloud.google.com/run/docs/securing/using-cmek>
+    pub encryption_key: std::string::String,
+
+    /// Optional. Enables service mesh connectivity.
+    pub service_mesh: std::option::Option<crate::model::ServiceMesh>,
+
+    /// Optional. The action to take if the encryption key is revoked.
+    pub encryption_key_revocation_action: crate::model::EncryptionKeyRevocationAction,
+
+    /// Optional. If encryption_key_revocation_action is SHUTDOWN, the duration
+    /// before shutting down all instances. The minimum increment is 1 hour.
+    pub encryption_key_shutdown_duration: std::option::Option<wkt::Duration>,
+
+    /// Optional. The node selector for the revision template.
+    pub node_selector: std::option::Option<crate::model::NodeSelector>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkerPoolRevisionTemplate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [revision][crate::model::WorkerPoolRevisionTemplate::revision].
+    pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.revision = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::WorkerPoolRevisionTemplate::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::WorkerPoolRevisionTemplate::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [vpc_access][crate::model::WorkerPoolRevisionTemplate::vpc_access].
+    pub fn set_vpc_access<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VpcAccess>,
+    {
+        self.vpc_access = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [vpc_access][crate::model::WorkerPoolRevisionTemplate::vpc_access].
+    pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VpcAccess>,
+    {
+        self.vpc_access = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [service_account][crate::model::WorkerPoolRevisionTemplate::service_account].
+    pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service_account = v.into();
+        self
+    }
+
+    /// Sets the value of [containers][crate::model::WorkerPoolRevisionTemplate::containers].
+    pub fn set_containers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Container>,
+    {
+        use std::iter::Iterator;
+        self.containers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [volumes][crate::model::WorkerPoolRevisionTemplate::volumes].
+    pub fn set_volumes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Volume>,
+    {
+        use std::iter::Iterator;
+        self.volumes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [encryption_key][crate::model::WorkerPoolRevisionTemplate::encryption_key].
+    pub fn set_encryption_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.encryption_key = v.into();
+        self
+    }
+
+    /// Sets the value of [service_mesh][crate::model::WorkerPoolRevisionTemplate::service_mesh].
+    pub fn set_service_mesh<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceMesh>,
+    {
+        self.service_mesh = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_mesh][crate::model::WorkerPoolRevisionTemplate::service_mesh].
+    pub fn set_or_clear_service_mesh<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceMesh>,
+    {
+        self.service_mesh = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [encryption_key_revocation_action][crate::model::WorkerPoolRevisionTemplate::encryption_key_revocation_action].
+    pub fn set_encryption_key_revocation_action<
+        T: std::convert::Into<crate::model::EncryptionKeyRevocationAction>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.encryption_key_revocation_action = v.into();
+        self
+    }
+
+    /// Sets the value of [encryption_key_shutdown_duration][crate::model::WorkerPoolRevisionTemplate::encryption_key_shutdown_duration].
+    pub fn set_encryption_key_shutdown_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.encryption_key_shutdown_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_key_shutdown_duration][crate::model::WorkerPoolRevisionTemplate::encryption_key_shutdown_duration].
+    pub fn set_or_clear_encryption_key_shutdown_duration<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.encryption_key_shutdown_duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [node_selector][crate::model::WorkerPoolRevisionTemplate::node_selector].
+    pub fn set_node_selector<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeSelector>,
+    {
+        self.node_selector = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_selector][crate::model::WorkerPoolRevisionTemplate::node_selector].
+    pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeSelector>,
+    {
+        self.node_selector = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for WorkerPoolRevisionTemplate {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.WorkerPoolRevisionTemplate"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for WorkerPoolRevisionTemplate {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __revision,
+            __labels,
+            __annotations,
+            __vpc_access,
+            __service_account,
+            __containers,
+            __volumes,
+            __encryption_key,
+            __service_mesh,
+            __encryption_key_revocation_action,
+            __encryption_key_shutdown_duration,
+            __node_selector,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for WorkerPoolRevisionTemplate")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "revision" => Ok(__FieldTag::__revision),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "annotations" => Ok(__FieldTag::__annotations),
+                            "vpcAccess" => Ok(__FieldTag::__vpc_access),
+                            "vpc_access" => Ok(__FieldTag::__vpc_access),
+                            "serviceAccount" => Ok(__FieldTag::__service_account),
+                            "service_account" => Ok(__FieldTag::__service_account),
+                            "containers" => Ok(__FieldTag::__containers),
+                            "volumes" => Ok(__FieldTag::__volumes),
+                            "encryptionKey" => Ok(__FieldTag::__encryption_key),
+                            "encryption_key" => Ok(__FieldTag::__encryption_key),
+                            "serviceMesh" => Ok(__FieldTag::__service_mesh),
+                            "service_mesh" => Ok(__FieldTag::__service_mesh),
+                            "encryptionKeyRevocationAction" => {
+                                Ok(__FieldTag::__encryption_key_revocation_action)
+                            }
+                            "encryption_key_revocation_action" => {
+                                Ok(__FieldTag::__encryption_key_revocation_action)
+                            }
+                            "encryptionKeyShutdownDuration" => {
+                                Ok(__FieldTag::__encryption_key_shutdown_duration)
+                            }
+                            "encryption_key_shutdown_duration" => {
+                                Ok(__FieldTag::__encryption_key_shutdown_duration)
+                            }
+                            "nodeSelector" => Ok(__FieldTag::__node_selector),
+                            "node_selector" => Ok(__FieldTag::__node_selector),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = WorkerPoolRevisionTemplate;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct WorkerPoolRevisionTemplate")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__revision => {
+                            if !fields.insert(__FieldTag::__revision) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for revision",
+                                ));
+                            }
+                            result.revision = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__annotations => {
+                            if !fields.insert(__FieldTag::__annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for annotations",
+                                ));
+                            }
+                            result.annotations = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__vpc_access => {
+                            if !fields.insert(__FieldTag::__vpc_access) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vpc_access",
+                                ));
+                            }
+                            result.vpc_access =
+                                map.next_value::<std::option::Option<crate::model::VpcAccess>>()?;
+                        }
+                        __FieldTag::__service_account => {
+                            if !fields.insert(__FieldTag::__service_account) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_account",
+                                ));
+                            }
+                            result.service_account = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__containers => {
+                            if !fields.insert(__FieldTag::__containers) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for containers",
+                                ));
+                            }
+                            result.containers = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Container>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__volumes => {
+                            if !fields.insert(__FieldTag::__volumes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for volumes",
+                                ));
+                            }
+                            result.volumes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Volume>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__encryption_key => {
+                            if !fields.insert(__FieldTag::__encryption_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encryption_key",
+                                ));
+                            }
+                            result.encryption_key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__service_mesh => {
+                            if !fields.insert(__FieldTag::__service_mesh) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_mesh",
+                                ));
+                            }
+                            result.service_mesh =
+                                map.next_value::<std::option::Option<crate::model::ServiceMesh>>()?;
+                        }
+                        __FieldTag::__encryption_key_revocation_action => {
+                            if !fields.insert(__FieldTag::__encryption_key_revocation_action) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encryption_key_revocation_action",
+                                ));
+                            }
+                            result.encryption_key_revocation_action =
+                                map.next_value::<std::option::Option<
+                                    crate::model::EncryptionKeyRevocationAction,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__encryption_key_shutdown_duration => {
+                            if !fields.insert(__FieldTag::__encryption_key_shutdown_duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encryption_key_shutdown_duration",
+                                ));
+                            }
+                            result.encryption_key_shutdown_duration =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__node_selector => {
+                            if !fields.insert(__FieldTag::__node_selector) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for node_selector",
+                                ));
+                            }
+                            result.node_selector = map
+                                .next_value::<std::option::Option<crate::model::NodeSelector>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for WorkerPoolRevisionTemplate {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.revision.is_empty() {
+            state.serialize_entry("revision", &self.revision)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.annotations.is_empty() {
+            state.serialize_entry("annotations", &self.annotations)?;
+        }
+        if self.vpc_access.is_some() {
+            state.serialize_entry("vpcAccess", &self.vpc_access)?;
+        }
+        if !self.service_account.is_empty() {
+            state.serialize_entry("serviceAccount", &self.service_account)?;
+        }
+        if !self.containers.is_empty() {
+            state.serialize_entry("containers", &self.containers)?;
+        }
+        if !self.volumes.is_empty() {
+            state.serialize_entry("volumes", &self.volumes)?;
+        }
+        if !self.encryption_key.is_empty() {
+            state.serialize_entry("encryptionKey", &self.encryption_key)?;
+        }
+        if self.service_mesh.is_some() {
+            state.serialize_entry("serviceMesh", &self.service_mesh)?;
+        }
+        if !wkt::internal::is_default(&self.encryption_key_revocation_action) {
+            state.serialize_entry(
+                "encryptionKeyRevocationAction",
+                &self.encryption_key_revocation_action,
+            )?;
+        }
+        if self.encryption_key_shutdown_duration.is_some() {
+            state.serialize_entry(
+                "encryptionKeyShutdownDuration",
+                &self.encryption_key_shutdown_duration,
+            )?;
+        }
+        if self.node_selector.is_some() {
+            state.serialize_entry("nodeSelector", &self.node_selector)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for WorkerPoolRevisionTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkerPoolRevisionTemplate");
+        debug_struct.field("revision", &self.revision);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("vpc_access", &self.vpc_access);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("containers", &self.containers);
+        debug_struct.field("volumes", &self.volumes);
+        debug_struct.field("encryption_key", &self.encryption_key);
+        debug_struct.field("service_mesh", &self.service_mesh);
+        debug_struct.field(
+            "encryption_key_revocation_action",
+            &self.encryption_key_revocation_action,
+        );
+        debug_struct.field(
+            "encryption_key_shutdown_duration",
+            &self.encryption_key_shutdown_duration,
+        );
+        debug_struct.field("node_selector", &self.node_selector);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// The type of instance split allocation.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum InstanceSplitAllocationType {
+    /// Unspecified instance allocation type.
+    Unspecified,
+    /// Allocates instances to the Service's latest ready Revision.
+    Latest,
+    /// Allocates instances to a Revision by name.
+    Revision,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [InstanceSplitAllocationType::value] or
+    /// [InstanceSplitAllocationType::name].
+    UnknownValue(instance_split_allocation_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod instance_split_allocation_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl InstanceSplitAllocationType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Latest => std::option::Option::Some(1),
+            Self::Revision => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => {
+                std::option::Option::Some("INSTANCE_SPLIT_ALLOCATION_TYPE_UNSPECIFIED")
+            }
+            Self::Latest => std::option::Option::Some("INSTANCE_SPLIT_ALLOCATION_TYPE_LATEST"),
+            Self::Revision => std::option::Option::Some("INSTANCE_SPLIT_ALLOCATION_TYPE_REVISION"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for InstanceSplitAllocationType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for InstanceSplitAllocationType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for InstanceSplitAllocationType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Latest,
+            2 => Self::Revision,
+            _ => Self::UnknownValue(instance_split_allocation_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for InstanceSplitAllocationType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "INSTANCE_SPLIT_ALLOCATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "INSTANCE_SPLIT_ALLOCATION_TYPE_LATEST" => Self::Latest,
+            "INSTANCE_SPLIT_ALLOCATION_TYPE_REVISION" => Self::Revision,
+            _ => Self::UnknownValue(instance_split_allocation_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for InstanceSplitAllocationType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Latest => serializer.serialize_i32(1),
+            Self::Revision => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for InstanceSplitAllocationType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(
+            wkt::internal::EnumVisitor::<InstanceSplitAllocationType>::new(
+                ".google.cloud.run.v2.InstanceSplitAllocationType",
+            ),
+        )
     }
 }
 

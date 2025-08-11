@@ -371,6 +371,17 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::FirestoreAdmin::clone_database].
+    fn clone_database(
+        &self,
+        _req: crate::model::CloneDatabaseRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::FirestoreAdmin::list_operations].
     fn list_operations(
         &self,
