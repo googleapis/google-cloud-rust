@@ -51,10 +51,8 @@ message MessageWithComplexOneOf {
         string string_value = 4;
         float float_value = 5;
         double double_value = 6;
-        // TODO(#2382) - the natural name does not work.
-        int32 int = 7;
-        // TODO(#2382) - the natural name does not work.
-        int64 long = 8;
+        int32 int32 = 7;
+        int64 int64 = 8;
         TestEnum enum = 9;
         Inner inner = 10;
         google.protobuf.Duration duration = 11;
