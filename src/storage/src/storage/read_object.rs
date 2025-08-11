@@ -804,8 +804,10 @@ pub struct ObjectHighlights {
     pub etag: String,
 }
 
-/// checksums_from_response returns the object checksums to validate against,
-/// if it is valid to check them.
+/// Returns the object checksums to validate against.
+///
+/// For some responses, the checksums are not expected to match the data. The function returns an
+/// empty `ObjectChecksums` in such a case.
 ///
 /// Checksum validation is supported iff:
 /// 1. We requested the full content (request.read_limit = 0, request.read_offset = 0).
