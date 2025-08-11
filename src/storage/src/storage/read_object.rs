@@ -19,7 +19,7 @@ use crate::error::{RangeError, ReadError};
 use crate::model::ObjectChecksums;
 use crate::storage::checksum::{
     ChecksumEngine,
-    details::{Crc32c, validate},
+    details::{Crc32c, Md5, validate},
 };
 use base64::Engine;
 #[cfg(feature = "unstable-stream")]
@@ -63,13 +63,14 @@ use serde_with::DeserializeAs;
 /// }
 /// ```
 #[derive(Clone, Debug)]
-pub struct ReadObject {
+pub struct ReadObject<C = Crc32c> {
     inner: std::sync::Arc<StorageInner>,
     request: crate::model::ReadObjectRequest,
     options: super::request_options::RequestOptions,
+    checksum: C,
 }
 
-impl ReadObject {
+impl ReadObject<Crc32c> {
     pub(crate) fn new<B, O>(inner: std::sync::Arc<StorageInner>, bucket: B, object: O) -> Self
     where
         B: Into<String>,
@@ -82,6 +83,56 @@ impl ReadObject {
                 .set_bucket(bucket)
                 .set_object(object),
             options,
+            checksum: Crc32c::default(),
+        }
+    }
+
+    /// Enables computation of MD5 hashes.
+    ///
+    /// Crc32c hashes are checked by default.
+    ///
+    /// Checksum validation is supported iff:
+    /// 1. The full content is requested.
+    /// 2. All of the content is returned (status != PartialContent).
+    /// 3. The server sent a checksum header.
+    /// 4. The http stack did not uncompress the file.
+    /// 5. The server did not uncompress data on download.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let builder =  client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .compute_md5();
+    /// let mut reader = builder
+    ///     .send()
+    ///     .await?;
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = reader.next().await.transpose()? {
+    ///     contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("object contents={:?}", contents);
+    /// # Ok(()) }
+    /// ```
+    pub fn compute_md5(self) -> ReadObject<Md5<Crc32c>> {
+        self.switch_checksum(Md5::from_inner)
+    }
+}
+
+impl<C> ReadObject<C>
+where
+    C: Clone + ChecksumEngine + Send,
+{
+    fn switch_checksum<F, U>(self, new: F) -> ReadObject<U>
+    where
+        F: FnOnce(C) -> U,
+    {
+        ReadObject {
+            inner: self.inner,
+            request: self.request,
+            options: self.options,
+            checksum: new(self.checksum),
         }
     }
 
@@ -360,7 +411,7 @@ impl ReadObject {
     }
 
     /// Sends the request.
-    pub async fn send(self) -> Result<ReadObjectResponse> {
+    pub async fn send(self) -> Result<ReadObjectResponse<C>> {
         let download = self.clone().download().await?;
         ReadObjectResponse::new(self, download)
     }
@@ -499,24 +550,25 @@ fn headers_to_md5_hash(headers: &http::HeaderMap) -> Vec<u8> {
 
 /// A response to a [Storage::read_object] request.
 #[derive(Debug)]
-pub struct ReadObjectResponse {
+pub struct ReadObjectResponse<C> {
     inner: Option<reqwest::Response>,
     highlights: ObjectHighlights,
     // Fields for tracking the crc checksum checks.
     response_checksums: ObjectChecksums,
-    checksums: Crc32c,
     // Fields for resuming download.
     range: ReadRange,
     generation: i64,
-    builder: ReadObject,
+    builder: ReadObject<C>,
     resume_count: u32,
 }
 
-impl ReadObjectResponse {
-    fn new(builder: ReadObject, inner: reqwest::Response) -> Result<Self> {
+impl<C> ReadObjectResponse<C>
+where
+    C: ChecksumEngine + Clone + Send,
+{
+    fn new(builder: ReadObject<C>, inner: reqwest::Response) -> Result<Self> {
         let full = builder.request.read_offset == 0 && builder.request.read_limit == 0;
-        let response_crc32c = crc32c_from_response(full, inner.status(), inner.headers());
-        let response_checksums = ObjectChecksums::new().set_or_clear_crc32c(response_crc32c);
+        let response_checksums = checksums_from_response(full, inner.status(), inner.headers());
         let range = response_range(&inner).map_err(Error::deser)?;
         let generation = response_generation(&inner).map_err(Error::deser)?;
 
@@ -557,7 +609,6 @@ impl ReadObjectResponse {
             highlights,
             // Fields for computing checksums.
             response_checksums,
-            checksums: Crc32c::default(),
             // Fields for resuming download.
             range,
             generation,
@@ -565,7 +616,12 @@ impl ReadObjectResponse {
             resume_count: 0,
         })
     }
+}
 
+impl<C> ReadObjectResponse<C>
+where
+    C: ChecksumEngine + Clone + Send,
+{
     /// Get the highlights of the object metadata included in the
     /// response.
     ///
@@ -625,9 +681,7 @@ impl ReadObjectResponse {
         let res = inner.chunk().await.map_err(Error::io);
         match res {
             Ok(Some(chunk)) => {
-                if self.response_checksums.crc32c.is_some() {
-                    self.checksums.update(self.range.start, &chunk);
-                }
+                self.builder.checksum.update(self.range.start, &chunk);
                 let len = chunk.len() as u64;
                 if self.range.limit < len {
                     return Some(Err(Error::deser(ReadError::LongRead {
@@ -643,7 +697,8 @@ impl ReadObjectResponse {
                 if self.range.limit != 0 {
                     return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
                 }
-                let res = validate(&self.response_checksums, &Some(self.checksums.finalize()));
+                let computed = self.builder.checksum.finalize();
+                let res = validate(&self.response_checksums, &Some(computed));
                 match res {
                     Err(e) => Some(Err(Error::deser(ReadError::ChecksumMismatch(e)))),
                     Ok(()) => None,
@@ -749,22 +804,25 @@ pub struct ObjectHighlights {
     pub etag: String,
 }
 
-fn crc32c_from_response(
+/// checksums_from_response returns the object checksums to validate against,
+/// if it is valid to check them.
+///
+/// Checksum validation is supported iff:
+/// 1. We requested the full content (request.read_limit = 0, request.read_offset = 0).
+/// 2. We got all the content (status != PartialContent).
+/// 3. The server sent a CRC header.
+/// 4. The http stack did not uncompress the file.
+/// 5. We were not served compressed data that was uncompressed on download.
+///
+/// For 4, we turn off automatic decompression in reqwest::Client when we create it,
+fn checksums_from_response(
     full_content_requested: bool,
     status: http::StatusCode,
     headers: &http::HeaderMap,
-) -> Option<u32> {
-    // Check the CRC iff all of the following hold:
-    // 1. We requested the full content (request.read_limit = 0, request.read_offset = 0).
-    // 2. We got all the content (status != PartialContent).
-    // 3. The server sent a CRC header.
-    // 4. The http stack did not uncompress the file.
-    // 5. We were not served compressed data that was uncompressed on download.
-    //
-    // For 4, we turn off automatic decompression in reqwest::Client when we create it,
-    // so it will not be turned on.
+) -> ObjectChecksums {
+    let checksums = ObjectChecksums::new();
     if !full_content_requested || status == http::StatusCode::PARTIAL_CONTENT {
-        return None;
+        return checksums;
     }
     let stored_encoding = headers
         .get("x-goog-stored-content-encoding")
@@ -775,9 +833,11 @@ fn crc32c_from_response(
         .and_then(|e| e.to_str().ok())
         .map_or("", |e| e);
     if stored_encoding == "gzip" && content_encoding != "gzip" {
-        return None;
+        return checksums;
     }
-    headers_to_crc32c(headers)
+    checksums
+        .set_or_clear_crc32c(headers_to_crc32c(headers))
+        .set_md5_hash(headers_to_md5_hash(headers))
 }
 
 fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange, ReadError> {
@@ -1180,6 +1240,59 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn read_object_incorrect_md5_check() -> Result {
+        // Calculate and serialize the md5 checksum
+        let digest = md5::compute("goodbye world".as_bytes());
+        let value = base64::prelude::BASE64_STANDARD.encode(digest.as_ref());
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .times(1)
+            .respond_with(
+                status_code(200)
+                    .body("hello world")
+                    .append_header("x-goog-hash", format!("md5={value}"))
+                    .append_header("x-goog-generation", 123456),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let mut response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .compute_md5()
+            .send()
+            .await?;
+        let mut partial = Vec::new();
+        let mut err = None;
+        while let Some(r) = response.next().await {
+            match r {
+                Ok(b) => partial.extend_from_slice(&b),
+                Err(e) => err = Some(e),
+            };
+        }
+        assert_eq!(bytes::Bytes::from_owner(partial), "hello world");
+        let err = err.expect("expect error on incorrect md5");
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(
+                source,
+                Some(&ReadError::ChecksumMismatch(ChecksumMismatch::Md5 { .. }))
+            ),
+            "err={err:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn read_object() -> Result {
         let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
@@ -1417,16 +1530,17 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(false, vec![("x-goog-hash", "crc32c=SZYC0g==")], http::StatusCode::OK, None; "full content not requested")]
-    #[test_case(true, vec![], http::StatusCode::PARTIAL_CONTENT, None; "No x-goog-hash")]
-    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "json")], http::StatusCode::OK, None; "server uncompressed")]
-    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "gzip")], http::StatusCode::OK, Some(1234567890_u32); "both gzip")]
-    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==")], http::StatusCode::OK, Some(1234567890_u32); "all ok")]
-    fn test_check_crc_enabled(
+    #[test_case(false, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ==")], http::StatusCode::OK, None, ""; "full content not requested")]
+    #[test_case(true, vec![], http::StatusCode::PARTIAL_CONTENT, None, ""; "No x-goog-hash")]
+    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "json")], http::StatusCode::OK, None, ""; "server uncompressed")]
+    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "gzip")], http::StatusCode::OK, Some(1234567890_u32), "d63R1fQSI9VYL8pzalyzNQ=="; "both gzip")]
+    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ==")], http::StatusCode::OK, Some(1234567890_u32), "d63R1fQSI9VYL8pzalyzNQ=="; "all ok")]
+    fn test_checksums_validation_enabled(
         full_content_requested: bool,
         headers: Vec<(&str, &str)>,
         status: http::StatusCode,
-        want: Option<u32>,
+        want_crc32c: Option<u32>,
+        want_md5: &str,
     ) -> Result {
         let mut header_map = http::HeaderMap::new();
         for (key, value) in headers {
@@ -1436,8 +1550,12 @@ mod tests {
             );
         }
 
-        let got = crc32c_from_response(full_content_requested, status, &header_map);
-        assert_eq!(got, want);
+        let got = checksums_from_response(full_content_requested, status, &header_map);
+        assert_eq!(got.crc32c, want_crc32c);
+        assert_eq!(
+            got.md5_hash,
+            base64::prelude::BASE64_STANDARD.decode(want_md5)?
+        );
         Ok(())
     }
 
