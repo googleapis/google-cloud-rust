@@ -125,23 +125,11 @@ impl ReqwestClient {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
-        let cached_auth_headers = self
-            .cred
-            .headers(Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
-
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
+        builder = match self.cred.headers(Extensions::new()).await {
+            Err(e) => return Err(Error::authentication(e)),
+            Ok(CacheableResource::New { data, .. }) => builder.headers(data),
+            Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
-
-        let auth_headers = auth_headers?;
-        for (key, value) in auth_headers.iter() {
-            builder = builder.header(key, value);
-        }
         let response = builder.send().await.map_err(Self::map_send_error)?;
         if !response.status().is_success() {
             return self::to_http_error(response).await;
