@@ -35,7 +35,7 @@ jobs:
             rust-version: 'rust:msrv'
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -66,7 +66,7 @@ jobs:
     env:
       RUSTDOCFLAGS: "-D warnings"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -160,7 +160,7 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -190,7 +190,7 @@ jobs:
         rust-version: ['rust:current']
         go-version: ['go:current']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -218,12 +218,12 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: 'protocolbuffers/protobuf'
           ref: '31.x'
           path: 'protobuf'
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           path: 'main'
       - uses: actions/cache@v4
@@ -260,7 +260,7 @@ jobs:
       matrix:
         rust-version: ['rust:current', 'rust:nightly']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -312,7 +312,7 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -345,7 +345,7 @@ jobs:
           path: |
             ~/.cache/sidekick
           key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
