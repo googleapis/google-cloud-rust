@@ -664,7 +664,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn builder_no_mds() -> TestResult {
-        let Err(e) = Builder::builder().build_token_provider().token().await else {
+        let Err(e) = Builder::build().build_token_provider().token().await else {
             // The environment has an MDS, skip the test.
             return Ok(());
         };
