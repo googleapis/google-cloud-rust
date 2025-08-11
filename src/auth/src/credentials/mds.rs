@@ -622,11 +622,9 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn adc_no_mds() -> TestResult {
-        let token = Builder::from_adc().build_token_provider().token().await;
-        let err = match token {
-            Err(e) => e,
+        let Err(err) = Builder::from_adc().build_token_provider().token().await else {
             // The environment has an MDS, skip the test.
-            Ok(_) => return Ok(()),
+            return Ok(());
         };
 
         let original_err = find_source_error::<CredentialsError>(&err).unwrap();
@@ -666,11 +664,9 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn builder_no_mds() -> TestResult {
-        let token = Builder::default().build_token_provider().token().await;
-        let e = match token {
-            Err(e) => e,
+        let Err(e) = Builder::from_adc().build_token_provider().token().await else {
             // The environment has an MDS, skip the test.
-            Ok(_) => return Ok(()),
+            return Ok(());
         };
 
         let original_err = find_source_error::<CredentialsError>(&e).unwrap();
