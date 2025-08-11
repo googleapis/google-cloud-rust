@@ -16,6 +16,9 @@
 
 use std::collections::VecDeque;
 
+/// The *total* number of bytes expected in a [StreamingSource].
+pub type SizeHint = http_body::SizeHint;
+
 /// The payload for object uploads via the [Storage][crate::client::Storage]
 /// client.
 ///
@@ -60,7 +63,7 @@ where
         self.payload.next().await
     }
 
-    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
+    async fn size_hint(&self) -> Result<SizeHint, Self::Error> {
         self.payload.size_hint().await
     }
 }
@@ -121,8 +124,8 @@ pub trait StreamingSource {
     ///
     /// If the maximum size is known and sufficiently small, the client library
     /// may be able to use a more efficient protocol for the upload.
-    fn size_hint(&self) -> impl Future<Output = Result<(u64, Option<u64>), Self::Error>> + Send {
-        std::future::ready(Ok((0_u64, None)))
+    fn size_hint(&self) -> impl Future<Output = Result<SizeHint, Self::Error>> + Send {
+        std::future::ready(Ok(SizeHint::new()))
     }
 }
 
@@ -195,9 +198,9 @@ impl StreamingSource for FileSource {
             }
         }
     }
-    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
+    async fn size_hint(&self) -> Result<SizeHint, Self::Error> {
         let m = self.inner.metadata().await?;
-        Ok((m.len(), Some(m.len())))
+        Ok(SizeHint::with_exact(m.len()))
     }
 }
 
@@ -244,9 +247,9 @@ impl StreamingSource for BytesSource {
         self.current.take().map(Result::Ok)
     }
 
-    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
+    async fn size_hint(&self) -> Result<SizeHint, Self::Error> {
         let s = self.contents.len() as u64;
-        Ok((s, Some(s)))
+        Ok(SizeHint::with_exact(s))
     }
 }
 
@@ -284,9 +287,9 @@ impl StreamingSource for IterSource {
         self.current.pop_front().map(Ok)
     }
 
-    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
+    async fn size_hint(&self) -> Result<SizeHint, Self::Error> {
         let s = self.contents.iter().fold(0_u64, |a, i| a + i.len() as u64);
-        Ok((s, Some(s)))
+        Ok(SizeHint::with_exact(s))
     }
 }
 
@@ -342,9 +345,11 @@ pub mod tests {
         async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
             self.inner.next().await
         }
-        async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), Self::Error> {
-            let hint = self.inner.size_hint().await?;
-            Ok((hint.0, None))
+        async fn size_hint(&self) -> std::result::Result<SizeHint, Self::Error> {
+            let inner = self.inner.size_hint().await?;
+            let mut hint = SizeHint::default();
+            hint.set_lower(inner.lower());
+            Ok(hint)
         }
     }
 
@@ -354,7 +359,7 @@ pub mod tests {
         impl StreamingSource for SimpleSource {
             type Error = std::io::Error;
             async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, std::io::Error>>;
-            async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), std::io::Error>;
+            async fn size_hint(&self) -> std::result::Result<SizeHint, std::io::Error>;
         }
     }
 
@@ -364,7 +369,7 @@ pub mod tests {
         impl StreamingSource for SeekSource {
             type Error = std::io::Error;
             async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, std::io::Error>>;
-            async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), std::io::Error>;
+            async fn size_hint(&self) -> std::result::Result<SizeHint, std::io::Error>;
         }
         impl Seek for SeekSource {
             type Error = std::io::Error;
@@ -396,7 +401,7 @@ pub mod tests {
     async fn empty_bytes() -> Result {
         let buffer = Payload::from(bytes::Bytes::default());
         let range = buffer.size_hint().await?;
-        assert_eq!(range, (0, Some(0)));
+        assert_eq!(range.exact(), Some(0));
         let got = collect(buffer).await?;
         assert!(got.is_empty(), "{got:?}");
 
@@ -407,7 +412,7 @@ pub mod tests {
     async fn simple_bytes() -> Result {
         let buffer = Payload::from(bytes::Bytes::from_static(CONTENTS));
         let range = buffer.size_hint().await?;
-        assert_eq!(range, (CONTENTS.len() as u64, Some(CONTENTS.len() as u64)));
+        assert_eq!(range.exact(), Some(CONTENTS.len() as u64));
         let got = collect(buffer).await?;
         assert_eq!(got[..], CONTENTS[..], "{got:?}");
         Ok(())
@@ -418,7 +423,7 @@ pub mod tests {
         const LAZY: &str = "the quick brown fox jumps over the lazy dog";
         let buffer = Payload::from(LAZY);
         let range = buffer.size_hint().await?;
-        assert_eq!(range, (LAZY.len() as u64, Some(LAZY.len() as u64)));
+        assert_eq!(range.exact(), Some(LAZY.len() as u64));
         let got = collect(buffer).await?;
         assert_eq!(&got, LAZY.as_bytes(), "{got:?}");
         Ok(())
@@ -438,7 +443,7 @@ pub mod tests {
         let source = IterSource::new(vec![]);
         let payload = Payload::from(source);
         let range = payload.size_hint().await?;
-        assert_eq!(range, (0, Some(0)));
+        assert_eq!(range.exact(), Some(0));
         let got = collect(payload).await?;
         assert!(got.is_empty(), "{got:?}");
 
@@ -464,7 +469,7 @@ pub mod tests {
         let read = tokio::fs::File::from(file.reopen()?);
         let payload = Payload::from(read);
         let hint = payload.size_hint().await?;
-        assert_eq!(hint, (0_u64, Some(0_u64)));
+        assert_eq!(hint.exact(), Some(0));
         let got = collect(payload).await?;
         assert!(got.is_empty(), "{got:?}");
         Ok(())
@@ -479,7 +484,7 @@ pub mod tests {
         let payload = Payload::from(read);
         let hint = payload.size_hint().await?;
         let s = CONTENTS.len() as u64;
-        assert_eq!(hint, (s, Some(s)));
+        assert_eq!(hint.exact(), Some(s));
         let got = collect(payload).await?;
         assert_eq!(got[..], CONTENTS[..], "{got:?}");
         Ok(())
@@ -530,10 +535,7 @@ pub mod tests {
 
         let mut stream =
             IterSource::new(vec![b.slice(0..N), b.slice(N..(2 * N)), b.slice((2 * N)..)]);
-        assert_eq!(
-            stream.size_hint().await?,
-            (3 * N as u64, Some(3 * N as u64))
-        );
+        assert_eq!(stream.size_hint().await?.exact(), Some(3 * N as u64));
 
         // test_case() is not appropriate here: we want to verify seek() works
         // multiple times over the *same* stream.

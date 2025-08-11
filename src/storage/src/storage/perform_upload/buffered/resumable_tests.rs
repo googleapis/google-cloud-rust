@@ -112,7 +112,7 @@ use crate::storage::client::{
         MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, create_key_helper, test_builder,
     },
 };
-use crate::upload_source::{BytesSource, tests::UnknownSize};
+use crate::upload_source::{BytesSource, SizeHint, tests::UnknownSize};
 use gax::retry_policy::RetryPolicyExt;
 use gax::retry_result::RetryResult;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -362,7 +362,7 @@ async fn source_next_error() -> Result {
     source
         .expect_size_hint()
         .once()
-        .returning(|| Ok((1024_u64, Some(1024_u64))));
+        .returning(|| Ok(SizeHint::with_exact(1024)));
     let err = client
         .upload_object("projects/_/buckets/test-bucket", "test-object", source)
         .with_if_generation_match(0)
@@ -724,7 +724,7 @@ async fn start_resumable_upload_request_retry_options() -> Result {
         .with_backoff_policy(backoff)
         .with_retry_throttler(throttler)
         .build()
-        .send_buffered_resumable((0, None))
+        .send_buffered_resumable(SizeHint::default())
         .await
         .expect_err("request should fail after 3 retry attempts");
     assert_eq!(err.http_status_code(), Some(503), "{err:?}");

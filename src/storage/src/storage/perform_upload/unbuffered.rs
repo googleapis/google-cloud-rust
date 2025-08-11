@@ -14,8 +14,8 @@
 
 use super::{
     ChecksumEngine, ContinueOn308, Error, Object, PerformUpload, Result, ResumableUploadStatus,
-    Seek, StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
-    handle_object_response, v1,
+    Seek, SizeHint, StreamingSource, X_GOOG_API_CLIENT_HEADER,
+    apply_customer_supplied_encryption_headers, handle_object_response, v1,
 };
 use futures::stream::unfold;
 use std::sync::Arc;
@@ -36,20 +36,20 @@ where
             .await
             .map_err(Error::deser)?;
         let threshold = self.options.resumable_upload_threshold as u64;
-        if hint.1.is_none_or(|max| max >= threshold) {
+        if hint.upper().is_none_or(|max| max >= threshold) {
             self.send_unbuffered_resumable(hint).await
         } else {
             self.send_unbuffered_single_shot().await
         }
     }
 
-    async fn send_unbuffered_resumable(self, hint: (u64, Option<u64>)) -> Result<Object> {
+    async fn send_unbuffered_resumable(self, hint: SizeHint) -> Result<Object> {
         let mut upload_url = None;
         let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
         let backoff = self.options.backoff_policy.clone();
         gax::retry_loop_internal::retry_loop(
-            async move |_| self.resumable_attempt(&mut upload_url, hint).await,
+            async move |_| self.resumable_attempt(&mut upload_url, hint.clone()).await,
             async |duration| tokio::time::sleep(duration).await,
             true,
             throttler,
@@ -59,11 +59,7 @@ where
         .await
     }
 
-    async fn resumable_attempt(
-        &self,
-        url: &mut Option<String>,
-        hint: (u64, Option<u64>),
-    ) -> Result<Object> {
+    async fn resumable_attempt(&self, url: &mut Option<String>, hint: SizeHint) -> Result<Object> {
         let (offset, url_ref) = if let Some(upload_url) = url.as_deref() {
             match self.query_resumable_upload_attempt(upload_url).await? {
                 ResumableUploadStatus::Finalized(object) => {
@@ -76,11 +72,10 @@ where
             (0_u64, url.insert(upload_url).as_str())
         };
 
-        let range = match (offset, hint.0, hint.1) {
-            (o, _, None) => format!("bytes {o}-*/*"),
-            (_, 0, Some(0)) => "bytes */0".to_string(),
-            (o, s, Some(u)) if s == u => format!("bytes {o}-{}/{s}", s - 1),
-            (o, _, Some(_)) => format!("bytes {o}-*/*"),
+        let range = match (offset, hint.exact()) {
+            (o, None) => format!("bytes {o}-*/*"),
+            (_, Some(0)) => "bytes */0".to_string(),
+            (o, Some(u)) => format!("bytes {o}-{}/{u}", u - 1),
         };
         let builder = self
             .inner
@@ -327,7 +322,7 @@ mod tests {
         source
             .expect_size_hint()
             .once()
-            .returning(|| Ok((1024_u64, Some(1024_u64))));
+            .returning(|| Ok(SizeHint::with_exact(1024)));
         let err = client
             .upload_object("projects/_/buckets/test-bucket", "test-object", source)
             .send_unbuffered()
@@ -367,7 +362,7 @@ mod tests {
         source
             .expect_size_hint()
             .once()
-            .returning(|| Ok((1024_u64, Some(1024_u64))));
+            .returning(|| Ok(SizeHint::with_exact(1024_u64)));
         let err = client
             .upload_object("projects/_/buckets/test-bucket", "test-object", source)
             .send_unbuffered()

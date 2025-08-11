@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::RESUMABLE_UPLOAD_QUANTUM;
-use super::StreamingSource;
+use super::{SizeHint, StreamingSource};
 use crate::Error;
 use crate::Result;
 use crate::storage::UploadError;
@@ -30,7 +30,7 @@ pub struct InProgressUpload {
     /// The expected size [minimum, maximum) for the full object.
     ///
     /// If the maximum is `None` the maximum size is not known.
-    hint: (u64, Option<u64>),
+    hint: SizeHint,
     /// The offset for the current `PUT` request.
     offset: u64,
     /// The data for the current `PUT` request.
@@ -82,7 +82,7 @@ impl std::fmt::Debug for InProgressUpload {
 }
 
 impl InProgressUpload {
-    pub fn new(target_size: usize, hint: (u64, Option<u64>)) -> Self {
+    pub fn new(target_size: usize, hint: SizeHint) -> Self {
         // The buffer size must be a multiple of the upload quantum. The
         // upload is finalized on the first PUT request with a size that is
         // not such.
@@ -102,7 +102,7 @@ impl InProgressUpload {
     fn fake(target_size: usize) -> Self {
         Self {
             target_size,
-            hint: (0, None),
+            hint: SizeHint::default(),
             persisted_size: Some(0_u64),
             ..Default::default()
         }
@@ -160,19 +160,14 @@ impl InProgressUpload {
     }
 
     pub fn range_header(&self) -> String {
-        match (
-            self.buffer_size as u64,
-            self.offset,
-            self.hint.0,
-            self.hint.1,
-        ) {
-            (0, 0, min, Some(max)) if min == max => format!("bytes */{min}"),
-            (0, 0, _, _) => "bytes */0".to_string(),
-            (n, o, min, Some(max)) if min == max => format!("bytes {o}-{}/{min}", o + n - 1),
-            (n, o, _, _) if n < self.target_size as u64 => {
+        match (self.buffer_size as u64, self.offset, self.hint.exact()) {
+            (0, 0, Some(len)) => format!("bytes */{len}"),
+            (0, 0, None) => "bytes */0".to_string(),
+            (n, o, Some(len)) => format!("bytes {o}-{}/{len}", o + n - 1),
+            (n, o, None) if n < self.target_size as u64 => {
                 format!("bytes {o}-{}/{}", o + n - 1, o + n)
             }
-            (n, o, _, _) => format!("bytes {o}-{}/*", o + n - 1),
+            (n, o, _) => format!("bytes {o}-{}/*", o + n - 1),
         }
     }
 
@@ -273,7 +268,7 @@ mod tests {
     #[test_case(RESUMABLE_UPLOAD_QUANTUM * 2, RESUMABLE_UPLOAD_QUANTUM * 2)]
     #[test_case(RESUMABLE_UPLOAD_QUANTUM * 2 + 1, RESUMABLE_UPLOAD_QUANTUM * 3)]
     fn rounding(input: usize, want: usize) {
-        let upload = InProgressUpload::new(input, (0, None));
+        let upload = InProgressUpload::new(input, SizeHint::default());
         assert_eq!(upload.target_size, want, "{upload:?}");
         assert!(!upload.needs_query(), "{upload:?}");
     }
@@ -431,7 +426,7 @@ mod tests {
         let stream = IterSource::new((0..1).map(|i| new_line(i, 1024)));
         let mut payload = Payload::from(stream);
 
-        let mut upload = InProgressUpload::new(0, (1024, Some(1024)));
+        let mut upload = InProgressUpload::new(0, SizeHint::with_exact(1024));
         assert_eq!(upload.range_header(), "bytes */1024");
 
         upload.next_buffer(&mut payload).await?;
@@ -443,7 +438,7 @@ mod tests {
     async fn range_header_empty() -> Result {
         let mut payload = Payload::from("");
 
-        let mut upload = InProgressUpload::new(0, (0, Some(0)));
+        let mut upload = InProgressUpload::new(0, SizeHint::with_exact(0));
         assert_eq!(upload.range_header(), "bytes */0");
 
         upload.next_buffer(&mut payload).await?;
@@ -454,7 +449,7 @@ mod tests {
     #[tokio::test]
     async fn range_header_unknown_empty() -> Result {
         let mut payload = Payload::from("");
-        let mut upload = InProgressUpload::new(0, (0, None));
+        let mut upload = InProgressUpload::new(0, SizeHint::default());
         upload.next_buffer(&mut payload).await?;
         assert_eq!(upload.range_header(), "bytes */0");
         Ok(())
@@ -467,7 +462,7 @@ mod tests {
         let stream = IterSource::new((0..LINES).map(|i| new_line(i, LEN)));
         let mut payload = Payload::from(stream);
 
-        let mut upload = InProgressUpload::new(0, (0, None));
+        let mut upload = InProgressUpload::new(0, SizeHint::default());
         upload.next_buffer(&mut payload).await?;
         assert_eq!(
             upload.range_header(),

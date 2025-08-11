@@ -4354,6 +4354,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "http",
+ "http-body",
  "http-body-util",
  "httptest",
  "lazy_static",
