@@ -36,8 +36,8 @@ pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
 pub struct Client {
     inner: InnerClient,
     credentials: Credentials,
-    retry_policy: Option<Arc<dyn RetryPolicy>>,
-    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
 }
 
@@ -52,8 +52,17 @@ impl Client {
         Ok(Self {
             inner,
             credentials,
-            retry_policy: config.retry_policy.clone(),
-            backoff_policy: config.backoff_policy.clone(),
+            retry_policy: config.retry_policy.clone().unwrap_or_else(|| {
+                Arc::new(
+                    Aip194Strict
+                        .with_attempt_limit(10)
+                        .with_time_limit(Duration::from_secs(60)),
+                )
+            }),
+            backoff_policy: config
+                .backoff_policy
+                .clone()
+                .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             retry_throttler: config.retry_throttler,
         })
     }
@@ -224,14 +233,7 @@ impl Client {
         options
             .retry_policy()
             .clone()
-            .or_else(|| self.retry_policy.clone())
-            .unwrap_or_else(|| {
-                Arc::new(
-                    Aip194Strict
-                        .with_attempt_limit(10)
-                        .with_time_limit(Duration::from_secs(60)),
-                )
-            })
+            .unwrap_or_else(|| self.retry_policy.clone())
     }
 
     pub(crate) fn get_backoff_policy(
@@ -241,8 +243,7 @@ impl Client {
         options
             .backoff_policy()
             .clone()
-            .or_else(|| self.backoff_policy.clone())
-            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
+            .unwrap_or_else(|| self.backoff_policy.clone())
     }
 
     pub(crate) fn get_retry_throttler(

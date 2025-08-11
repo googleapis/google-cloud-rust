@@ -32,11 +32,11 @@ pub struct ReqwestClient {
     inner: reqwest::Client,
     cred: Credentials,
     endpoint: String,
-    retry_policy: Option<Arc<dyn RetryPolicy>>,
-    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
-    polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
-    polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+    polling_error_policy: Arc<dyn PollingErrorPolicy>,
+    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
 }
 
 impl ReqwestClient {
@@ -53,11 +53,23 @@ impl ReqwestClient {
             inner,
             cred,
             endpoint,
-            retry_policy: config.retry_policy,
-            backoff_policy: config.backoff_policy,
+            retry_policy: config.retry_policy.unwrap_or_else(|| {
+                Arc::new(
+                    RetryAip194Strict
+                        .with_attempt_limit(10)
+                        .with_time_limit(Duration::from_secs(60)),
+                )
+            }),
+            backoff_policy: config
+                .backoff_policy
+                .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             retry_throttler: config.retry_throttler,
-            polling_error_policy: config.polling_error_policy,
-            polling_backoff_policy: config.polling_backoff_policy,
+            polling_error_policy: config
+                .polling_error_policy
+                .unwrap_or_else(|| Arc::new(PollingAip194Strict)),
+            polling_backoff_policy: config
+                .polling_backoff_policy
+                .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
         })
     }
 
@@ -149,14 +161,7 @@ impl ReqwestClient {
         options
             .retry_policy()
             .clone()
-            .or_else(|| self.retry_policy.clone())
-            .unwrap_or_else(|| {
-                Arc::new(
-                    RetryAip194Strict
-                        .with_attempt_limit(10)
-                        .with_time_limit(Duration::from_secs(60)),
-                )
-            })
+            .unwrap_or_else(|| self.retry_policy.clone())
     }
 
     pub(crate) fn get_backoff_policy(
@@ -166,8 +171,7 @@ impl ReqwestClient {
         options
             .backoff_policy()
             .clone()
-            .or_else(|| self.backoff_policy.clone())
-            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
+            .unwrap_or_else(|| self.backoff_policy.clone())
     }
 
     pub(crate) fn get_retry_throttler(
@@ -187,8 +191,7 @@ impl ReqwestClient {
         options
             .polling_error_policy()
             .clone()
-            .or_else(|| self.polling_error_policy.clone())
-            .unwrap_or_else(|| Arc::new(PollingAip194Strict))
+            .unwrap_or_else(|| self.polling_error_policy.clone())
     }
 
     pub fn get_polling_backoff_policy(
@@ -198,8 +201,7 @@ impl ReqwestClient {
         options
             .polling_backoff_policy()
             .clone()
-            .or_else(|| self.polling_backoff_policy.clone())
-            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
+            .unwrap_or_else(|| self.polling_backoff_policy.clone())
     }
 }
 
