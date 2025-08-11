@@ -26,7 +26,7 @@ jobs:
   generator-build:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install protoc
         run: |
           set -e
@@ -56,7 +56,7 @@ jobs:
   validate-packages:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: 3.7.2
