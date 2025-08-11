@@ -12,21 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use auth::credentials::CacheableResource;
-use auth::credentials::Credentials;
+use auth::credentials::{CacheableResource, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
 use gax::client_builder::Error as BuilderError;
 use gax::error::Error;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
-use gax::polling_error_policy::Aip194Strict;
-use gax::polling_error_policy::PollingErrorPolicy;
+use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErrorPolicy};
 use gax::response::{Parts, Response};
-use gax::retry_policy::RetryPolicy;
+use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
 use http::{Extensions, Method};
 use std::sync::Arc;
+use std::time::Duration;
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
@@ -82,10 +81,7 @@ impl ReqwestClient {
         if let Some(body) = body {
             builder = builder.json(&body);
         }
-        match self.get_retry_policy(&options) {
-            None => self.request_attempt::<O>(builder, &options, None).await,
-            Some(policy) => self.retry_loop::<O>(builder, options, policy).await,
-        }
+        self.retry_loop::<O>(builder, options).await
     }
 
     async fn make_credentials(
@@ -103,10 +99,10 @@ impl ReqwestClient {
         &self,
         builder: reqwest::RequestBuilder,
         options: gax::options::RequestOptions,
-        retry_policy: Arc<dyn RetryPolicy>,
     ) -> Result<Response<O>> {
         let idempotent = options.idempotent().unwrap_or(false);
         let throttler = self.get_retry_throttler(&options);
+        let retry = self.get_retry_policy(&options);
         let backoff = self.get_backoff_policy(&options);
         let this = self.clone();
         let inner = async move |d| {
@@ -116,15 +112,8 @@ impl ReqwestClient {
             this.request_attempt(builder, &options, d).await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
-        gax::retry_loop_internal::retry_loop(
-            inner,
-            sleep,
-            idempotent,
-            throttler,
-            retry_policy,
-            backoff,
-        )
-        .await
+        gax::retry_loop_internal::retry_loop(inner, sleep, idempotent, throttler, retry, backoff)
+            .await
     }
 
     async fn request_attempt<O: serde::de::DeserializeOwned + Default>(
@@ -168,14 +157,18 @@ impl ReqwestClient {
         }
     }
 
-    fn get_retry_policy(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> Option<Arc<dyn RetryPolicy>> {
+    fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
         options
             .retry_policy()
             .clone()
             .or_else(|| self.retry_policy.clone())
+            .unwrap_or_else(|| {
+                Arc::new(
+                    RetryAip194Strict
+                        .with_attempt_limit(10)
+                        .with_time_limit(Duration::from_secs(60)),
+                )
+            })
     }
 
     pub(crate) fn get_backoff_policy(
@@ -207,7 +200,7 @@ impl ReqwestClient {
             .polling_error_policy()
             .clone()
             .or_else(|| self.polling_error_policy.clone())
-            .unwrap_or_else(|| Arc::new(Aip194Strict))
+            .unwrap_or_else(|| Arc::new(PollingAip194Strict))
     }
 
     pub fn get_polling_backoff_policy(
