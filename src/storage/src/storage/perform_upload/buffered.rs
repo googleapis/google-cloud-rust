@@ -95,7 +95,7 @@ where
                 .next_buffer(&mut *self.payload.lock().await)
                 .await?;
             let builder = self.partial_upload_request(upload_url, progress).await?;
-            let response = builder.send().await.map_err(super::send_err)?;
+            let response = builder.send().await.map_err(Self::send_err)?;
             match super::query_resumable_upload_handle_response(response).await {
                 Err(e) => {
                     progress.handle_error();
@@ -182,6 +182,33 @@ where
             return err(mismatch, object);
         }
         Ok(object)
+    }
+
+    fn as_inner<E>(error: &reqwest::Error) -> Option<&E>
+    where
+        E: std::error::Error + 'static,
+    {
+        use std::error::Error as _;
+        let mut e = error.source()?;
+        // Prevent infinite loops due to cycles in the `source()` errors. This seems
+        // unlikely, and it would require effort to create, but it is easy to
+        // prevent.
+        for _ in 0..32 {
+            if let Some(value) = e.downcast_ref::<E>() {
+                return Some(value);
+            }
+            e = e.source()?;
+        }
+        None
+    }
+
+    pub(crate) fn send_err(error: reqwest::Error) -> Error {
+        if let Some(e) = Self::as_inner::<hyper::Error>(&error) {
+            if e.is_user() {
+                return Error::ser(error);
+            }
+        }
+        Error::io(error)
     }
 }
 

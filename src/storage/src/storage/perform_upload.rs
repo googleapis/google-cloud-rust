@@ -221,15 +221,6 @@ fn parse_range_end(headers: &reqwest::header::HeaderMap) -> Option<u64> {
     end.parse::<u64>().ok()
 }
 
-fn send_err(error: reqwest::Error) -> Error {
-    match error {
-        e if e.is_body() => Error::ser(e),
-        e if e.is_request() => Error::ser(e),
-        e if e.is_timeout() => Error::timeout(e),
-        e => Error::io(e),
-    }
-}
-
 const RESUME_INCOMPLETE: reqwest::StatusCode = reqwest::StatusCode::PERMANENT_REDIRECT;
 
 #[cfg(test)]
