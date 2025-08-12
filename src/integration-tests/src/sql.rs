@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{RandomChars, Result};
+use crate::Result;
 use futures::stream::StreamExt;
 use gax::paginator::ItemPaginator;
 use rand::Rng;
 use sql::model;
+use storage_samples::RandomChars;
 
 pub async fn run_sql_instances_service(
     builder: sql::builder::sql_instances_service::ClientBuilder,
@@ -103,7 +104,7 @@ pub const INSTANCE_NAME_LENGTH: usize = 98;
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
 
 fn random_sql_instance_name(project_id: &str) -> String {
-    let distr = RandomChars { chars: CHARSET };
+    let distr = RandomChars::new(CHARSET);
     let rand_suffix: String = rand::rng()
         .sample_iter(distr)
         .take(INSTANCE_NAME_LENGTH - project_id.len() - PREFIX.len() - 1) // project-ID:instance-ID <= 98

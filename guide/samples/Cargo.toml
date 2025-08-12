@@ -47,6 +47,7 @@ tokio                                   = { workspace = true, features = ["full"
 [dev-dependencies]
 anyhow.workspace            = true
 bytes.workspace             = true
+storage-samples.workspace   = true
 integration-tests.workspace = true
 mockall.workspace           = true
 rand.workspace              = true

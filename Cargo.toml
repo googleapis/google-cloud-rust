@@ -258,6 +258,7 @@ members = [
   "src/root",
   "src/spanner",
   "src/storage",
+  "src/storage/examples",
   "src/w1r3",
   "src/wkt",
   "tools/check-copyright",
@@ -390,3 +391,4 @@ google-cloud-storage          = { version = "0.25.0-preview6", path = "src/stora
 
 # Local test package
 integration-tests = { path = "src/integration-tests" }
+storage-samples   = { path = "src/storage/examples" }
