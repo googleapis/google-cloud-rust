@@ -15,9 +15,11 @@
 //! Verify the client library correctly detects mismatched checksums on uploads.
 
 use super::*;
+use crate::error::UploadError;
 use crate::storage::upload_source::BytesSource;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
+use std::error::Error as StdError;
 
 const VEXING: &str = "how vexingly quick daft zebras jump";
 
@@ -40,6 +42,11 @@ mod buffered_single_shot {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        assert!(
+            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            "{err:?}"
+        );
         Ok(())
     }
 
@@ -62,6 +69,11 @@ mod buffered_single_shot {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        assert!(
+            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            "{err:?}"
+        );
         Ok(())
     }
 
@@ -98,6 +110,11 @@ mod buffered_resumable {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        assert!(
+            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            "{err:?}"
+        );
         Ok(())
     }
 
@@ -120,6 +137,11 @@ mod buffered_resumable {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        assert!(
+            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            "{err:?}"
+        );
         Ok(())
     }
 
@@ -156,6 +178,11 @@ mod unbuffered_single_shot {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        assert!(
+            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            "{err:?}"
+        );
         Ok(())
     }
 
@@ -178,6 +205,11 @@ mod unbuffered_single_shot {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        assert!(
+            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            "{err:?}"
+        );
         Ok(())
     }
 
@@ -214,6 +246,11 @@ mod unbuffered_resumable {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        assert!(
+            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            "{err:?}"
+        );
         Ok(())
     }
 
@@ -236,6 +273,11 @@ mod unbuffered_resumable {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        assert!(
+            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            "{err:?}"
+        );
         Ok(())
     }
 
@@ -337,6 +379,11 @@ fn bad_checksums_body() -> Value {
         "md5Hash": "1B2M2Y8AsgTpgAmY7PhCfg==",
         "size": 0,
     })
+}
+
+fn bad_checksums_object() -> Object {
+    let v1 = serde_json::from_value::<v1::Object>(bad_checksums_body()).unwrap();
+    Object::from(v1)
 }
 
 fn good_checksums_body() -> Value {
