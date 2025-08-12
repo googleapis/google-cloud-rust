@@ -78,3 +78,22 @@ impl Distribution<u8> for RandomChars {
         self.chars[index]
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn random_chars() {
+        let chars = RandomChars::new("abcde".as_bytes());
+        let got: String = rand::rng()
+            .sample_iter(chars)
+            .take(64)
+            .map(char::from)
+            .collect();
+        assert!(
+            !got.contains(|c| !("abcde".contains(c))),
+            "{got:?} contains unexpected character"
+        );
+    }
+}
