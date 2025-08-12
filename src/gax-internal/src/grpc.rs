@@ -24,7 +24,9 @@ use gax::backoff_policy::BackoffPolicy;
 use gax::client_builder::Error as BuilderError;
 use gax::error::Error;
 use gax::exponential_backoff::ExponentialBackoff;
-use gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyExt as _};
+use gax::polling_backoff_policy::PollingBackoffPolicy;
+use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErrorPolicy};
+use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
 use http::HeaderMap;
 use std::sync::Arc;
@@ -39,6 +41,8 @@ pub struct Client {
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
+    polling_error_policy: Arc<dyn PollingErrorPolicy>,
+    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
 }
 
 impl Client {
@@ -54,7 +58,7 @@ impl Client {
             credentials,
             retry_policy: config.retry_policy.clone().unwrap_or_else(|| {
                 Arc::new(
-                    Aip194Strict
+                    RetryAip194Strict
                         .with_attempt_limit(10)
                         .with_time_limit(Duration::from_secs(60)),
                 )
@@ -64,6 +68,12 @@ impl Client {
                 .clone()
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             retry_throttler: config.retry_throttler,
+            polling_error_policy: config
+                .polling_error_policy
+                .unwrap_or_else(|| Arc::new(PollingAip194Strict)),
+            polling_backoff_policy: config
+                .polling_backoff_policy
+                .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
         })
     }
 
@@ -254,6 +264,26 @@ impl Client {
             .retry_throttler()
             .clone()
             .unwrap_or_else(|| self.retry_throttler.clone())
+    }
+
+    pub fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn PollingErrorPolicy> {
+        options
+            .polling_error_policy()
+            .clone()
+            .unwrap_or_else(|| self.polling_error_policy.clone())
+    }
+
+    pub fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn PollingBackoffPolicy> {
+        options
+            .polling_backoff_policy()
+            .clone()
+            .unwrap_or_else(|| self.polling_backoff_policy.clone())
     }
 }
 
