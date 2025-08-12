@@ -21,6 +21,7 @@ packages = [
   "google-cloud-lro",
   "google-cloud-storage",
   "google-cloud-wkt",
+  "storage-samples",
 ]
 exclude-files = [
   # Ignore generated code.
