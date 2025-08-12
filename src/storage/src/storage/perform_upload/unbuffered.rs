@@ -99,7 +99,7 @@ where
             .map_err(Error::ser)?;
         let payload = self.payload_to_body().await?;
         let builder = builder.body(payload);
-        let response = builder.send().await.map_err(super::send_err)?;
+        let response = builder.send().await.map_err(Self::send_err)?;
         let object = self::handle_object_response(response).await?;
         self.validate_response_object(object).await
     }
@@ -126,7 +126,7 @@ where
 
     async fn single_shot_attempt(&self) -> Result<Object> {
         let builder = self.single_shot_builder().await?;
-        let response = builder.send().await.map_err(super::send_err)?;
+        let response = builder.send().await.map_err(Self::send_err)?;
         let object = super::handle_object_response(response).await?;
         self.validate_response_object(object).await
     }

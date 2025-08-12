@@ -4357,6 +4357,7 @@ dependencies = [
  "http-body",
  "http-body-util",
  "httptest",
+ "hyper",
  "lazy_static",
  "md5",
  "mockall",
