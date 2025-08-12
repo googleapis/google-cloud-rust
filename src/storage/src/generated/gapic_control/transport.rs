@@ -1537,6 +1537,20 @@ impl super::stub::StorageControl for StorageControl {
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
     }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
 }
 
 use gaxi::prost::{ConvertError, FromProto, ToProto};
