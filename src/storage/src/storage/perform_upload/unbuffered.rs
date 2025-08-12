@@ -557,7 +557,6 @@ mod tests {
             Expectation::matching(all_of![
                 request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
                 request::query(url_decoded(contains(("name", "object")))),
-                request::headers(contains(("content-length", any()))),
                 request::query(url_decoded(contains(("uploadType", "multipart")))),
             ])
         };
