@@ -39,7 +39,7 @@ where
         if hint.upper().is_none_or(|max| max >= threshold) {
             self.send_unbuffered_resumable(hint).await
         } else {
-            self.send_unbuffered_single_shot().await
+            self.send_unbuffered_single_shot(hint).await
         }
     }
 
@@ -104,7 +104,7 @@ where
         self.validate_response_object(object).await
     }
 
-    pub(super) async fn send_unbuffered_single_shot(self) -> Result<Object> {
+    pub(super) async fn send_unbuffered_single_shot(self, hint: SizeHint) -> Result<Object> {
         // Single shot uploads are idempotent only if they have pre-conditions.
         let idempotent = self.options.idempotency.unwrap_or(
             self.spec.if_generation_match.is_some() || self.spec.if_metageneration_match.is_some(),
@@ -114,7 +114,7 @@ where
         let backoff = self.options.backoff_policy.clone();
         gax::retry_loop_internal::retry_loop(
             // TODO(#2044) - we need to apply any timeouts here.
-            async move |_| self.single_shot_attempt().await,
+            async move |_| self.single_shot_attempt(hint.clone()).await,
             async |duration| tokio::time::sleep(duration).await,
             idempotent,
             throttler,
@@ -124,14 +124,14 @@ where
         .await
     }
 
-    async fn single_shot_attempt(&self) -> Result<Object> {
-        let builder = self.single_shot_builder().await?;
+    async fn single_shot_attempt(&self, hint: SizeHint) -> Result<Object> {
+        let builder = self.single_shot_builder(hint).await?;
         let response = builder.send().await.map_err(Self::send_err)?;
         let object = super::handle_object_response(response).await?;
         self.validate_response_object(object).await
     }
 
-    async fn single_shot_builder(&self) -> Result<reqwest::RequestBuilder> {
+    async fn single_shot_builder(&self, hint: SizeHint) -> Result<reqwest::RequestBuilder> {
         let bucket = &self.resource().bucket;
         let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
             Error::binding(format!(
@@ -166,9 +166,16 @@ where
             .await
             .map_err(Error::ser)?;
         let payload = self.payload_to_body().await?;
-        let form = reqwest::multipart::Form::new()
-            .part("metadata", metadata)
-            .part("media", reqwest::multipart::Part::stream(payload));
+        let form = reqwest::multipart::Form::new().part("metadata", metadata);
+        let form = if let Some(exact) = hint.exact() {
+            form.part(
+                "media",
+                reqwest::multipart::Part::stream_with_length(payload, exact),
+            )
+        } else {
+            form.part("media", reqwest::multipart::Part::stream(payload))
+        };
+
         let builder = builder.header(
             "content-type",
             format!("multipart/related; boundary={}", form.boundary()),
@@ -419,10 +426,11 @@ mod tests {
 
     #[tokio::test]
     async fn upload_object_bytes() -> Result {
+        const PAYLOAD: &str = "hello";
         let inner = test_inner_client(test_builder());
-        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", PAYLOAD)
             .build()
-            .single_shot_builder()
+            .single_shot_builder(SizeHint::with_exact(PAYLOAD.len() as u64))
             .await?
             .build()?;
 
@@ -442,7 +450,7 @@ mod tests {
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_metadata([("k0", "v0"), ("k1", "v1")])
             .build()
-            .single_shot_builder()
+            .single_shot_builder(SizeHint::new())
             .await?
             .build()?;
 
@@ -469,7 +477,7 @@ mod tests {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream)
             .build()
-            .single_shot_builder()
+            .single_shot_builder(SizeHint::new())
             .await?
             .build()?;
 
@@ -490,7 +498,7 @@ mod tests {
         );
         let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .build()
-            .single_shot_builder()
+            .single_shot_builder(SizeHint::new())
             .await
             .inspect_err(|e| assert!(e.is_authentication()))
             .expect_err("invalid credentials should err");
@@ -502,7 +510,7 @@ mod tests {
         let inner = test_inner_client(test_builder());
         UploadObject::new(inner, "malformed", "object", "hello")
             .build()
-            .single_shot_builder()
+            .single_shot_builder(SizeHint::new())
             .await
             .expect_err("malformed bucket string should error");
         Ok(())
@@ -517,7 +525,7 @@ mod tests {
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_key(KeyAes256::new(&key)?)
             .build()
-            .single_shot_builder()
+            .single_shot_builder(SizeHint::new())
             .await?
             .build()?;
 
@@ -549,6 +557,7 @@ mod tests {
             Expectation::matching(all_of![
                 request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
                 request::query(url_decoded(contains(("name", "object")))),
+                request::headers(contains(("content-length", any()))),
                 request::query(url_decoded(contains(("uploadType", "multipart")))),
             ])
         };

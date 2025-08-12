@@ -136,7 +136,9 @@ where
     async fn send_buffered_single_shot(mut self) -> Result<Object> {
         let mut stream = self.payload.lock().await;
         let mut collected = Vec::new();
+        let mut exact = 0_u64;
         while let Some(b) = stream.next().await.transpose().map_err(Error::ser)? {
+            exact += b.len() as u64;
             collected.push(b);
         }
         let source = IterSource::new(collected);
@@ -157,7 +159,9 @@ where
             params: self.params,
             options: self.options,
         };
-        upload.send_unbuffered_single_shot().await
+        upload
+            .send_unbuffered_single_shot(SizeHint::with_exact(exact))
+            .await
     }
 
     pub(crate) async fn validate_response_object(&self, object: Object) -> Result<Object> {
