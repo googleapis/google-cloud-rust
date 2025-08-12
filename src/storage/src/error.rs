@@ -17,7 +17,7 @@
 //! The storage client defines additional error types. These are often returned
 //! as the `source()` of an [Error][crate::Error].
 
-use crate::model::ObjectChecksums;
+use crate::model::{Object, ObjectChecksums};
 
 #[derive(Clone, Debug)]
 #[non_exhaustive]
@@ -210,8 +210,11 @@ pub enum UploadError {
     /// hosting the service.
     ///
     /// If possible, resend the data from a different machine.
-    #[error("checksum mismatch {0}")]
-    ChecksumMismatch(ChecksumMismatch),
+    #[error("checksum mismatch {mismatch} when uploading {} to {}", object.name, object.bucket)]
+    ChecksumMismatch {
+        mismatch: ChecksumMismatch,
+        object: Box<Object>,
+    },
 }
 
 #[cfg(test)]

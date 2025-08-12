@@ -161,18 +161,26 @@ where
     }
 
     pub(crate) async fn validate_response_object(&self, object: Object) -> Result<Object> {
+        let err = |mismatch, o: Object| {
+            Err(Error::ser(UploadError::ChecksumMismatch {
+                mismatch,
+                object: o.into(),
+            }))
+        };
         if let Some(pre) = self
             .spec
             .resource
             .as_ref()
             .and_then(|r| r.checksums.as_ref())
         {
-            self::checksum_validate(pre, &object.checksums)
-                .map_err(|e| Error::ser(UploadError::ChecksumMismatch(e)))?;
+            if let Err(mismatch) = self::checksum_validate(pre, &object.checksums) {
+                return err(mismatch, object);
+            }
         }
         let computed = self.payload.lock().await.final_checksum();
-        self::checksum_validate(&computed, &object.checksums)
-            .map_err(|e| Error::ser(UploadError::ChecksumMismatch(e)))?;
+        if let Err(mismatch) = self::checksum_validate(&computed, &object.checksums) {
+            return err(mismatch, object);
+        }
         Ok(object)
     }
 }
