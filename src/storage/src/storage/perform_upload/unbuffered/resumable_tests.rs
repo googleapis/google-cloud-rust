@@ -374,7 +374,6 @@ async fn source_next_error() -> Result {
     source.expect_seek().times(1..).returning(|_| Ok(()));
     source
         .expect_size_hint()
-        .once()
         .returning(|| Ok(SizeHint::with_exact(1024)));
     let err = client
         .upload_object("projects/_/buckets/test-bucket", "test-object", source)
@@ -645,7 +644,7 @@ async fn resumable_put_too_many_transients() -> Result {
 }
 
 #[tokio::test]
-async fn resumable_put_partial_and_recover() -> Result {
+async fn resumable_put_partial_and_recover_unknown_size() -> Result {
     let server = Server::run();
     let session = server.url("/upload/session/test-only-001");
     server.expect(
@@ -660,21 +659,21 @@ async fn resumable_put_partial_and_recover() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", session.path().to_string()),
-            request::headers(contains(("content-range", "bytes 0-999999/1000000")))
+            request::headers(contains(("content-range", "bytes 0-*/*")))
         ])
         .respond_with(status_code(429).body("try-again")),
     );
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", session.path().to_string()),
-            request::headers(contains(("content-range", "bytes 262144-999999/1000000")))
+            request::headers(contains(("content-range", "bytes 256-*/*")))
         ])
         .respond_with(status_code(429).body("try-again")),
     );
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", session.path().to_string()),
-            request::headers(contains(("content-range", "bytes 524288-999999/1000000")))
+            request::headers(contains(("content-range", "bytes 512-*/*")))
         ])
         .respond_with(status_code(200).body(response_body().to_string())),
     );
@@ -685,12 +684,84 @@ async fn resumable_put_partial_and_recover() -> Result {
         ])
         .times(2)
         .respond_with(cycle![
-            status_code(308).append_header("range", "bytes=0-262143"),
-            status_code(308).append_header("range", "bytes=0-524287"),
+            status_code(308).append_header("range", "bytes=0-255"),
+            status_code(308).append_header("range", "bytes=0-511"),
         ]),
     );
 
-    let payload = bytes::Bytes::from_owner(vec![0_u8; 1_000_000]);
+    let payload = bytes::Bytes::from_owner(vec![0_u8; 1_000]);
+    let client = test_builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_resumable_upload_threshold(0_usize)
+        .build()
+        .await?;
+    let response = client
+        .upload_object(
+            "projects/_/buckets/test-bucket",
+            "test-object",
+            UnknownSize::new(BytesSource::new(payload)),
+        )
+        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_if_generation_match(0_i64)
+        .send_unbuffered()
+        .await?;
+    assert_eq!(response.name, "test-object");
+    assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
+    assert_eq!(
+        response.metadata.get("is-test-object").map(String::as_str),
+        Some("true")
+    );
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn resumable_put_partial_and_recover_known_size() -> Result {
+    let server = Server::run();
+    let session = server.url("/upload/session/test-only-001");
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+            request::query(url_decoded(contains(("name", "test-object")))),
+            request::query(url_decoded(contains(("ifGenerationMatch", "0")))),
+            request::query(url_decoded(contains(("uploadType", "resumable")))),
+        ])
+        .respond_with(status_code(200).append_header("location", session.to_string())),
+    );
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", session.path().to_string()),
+            request::headers(contains(("content-range", "bytes 0-999/1000")))
+        ])
+        .respond_with(status_code(429).body("try-again")),
+    );
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", session.path().to_string()),
+            request::headers(contains(("content-range", "bytes 256-999/1000")))
+        ])
+        .respond_with(status_code(429).body("try-again")),
+    );
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", session.path().to_string()),
+            request::headers(contains(("content-range", "bytes 512-999/1000")))
+        ])
+        .respond_with(status_code(200).body(response_body().to_string())),
+    );
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", session.path().to_string()),
+            request::headers(contains(("content-range", "bytes */*")))
+        ])
+        .times(2)
+        .respond_with(cycle![
+            status_code(308).append_header("range", "bytes=0-255"),
+            status_code(308).append_header("range", "bytes=0-511"),
+        ]),
+    );
+
+    let payload = bytes::Bytes::from_owner(vec![0_u8; 1_000]);
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
         .with_resumable_upload_threshold(0_usize)
