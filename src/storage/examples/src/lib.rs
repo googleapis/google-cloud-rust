@@ -12,14 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod change_default_storage_class;
-pub mod create_bucket;
-pub mod create_bucket_class_location;
-pub mod create_bucket_dual_region;
-pub mod create_bucket_hierarchical_namespace;
-pub mod delete_bucket;
-pub mod get_bucket_metadata;
-pub mod list_buckets;
+mod add_bucket_owner;
+mod change_default_storage_class;
+mod create_bucket;
+mod create_bucket_class_location;
+mod create_bucket_dual_region;
+mod create_bucket_hierarchical_namespace;
+mod delete_bucket;
+mod get_bucket_metadata;
+mod list_buckets;
+mod print_bucket_acl;
+mod print_bucket_acl_for_user;
+mod remove_bucket_owner;
 use google_cloud_storage::client::StorageControl;
 use rand::{Rng, distr::Distribution};
 
@@ -39,6 +43,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     let client = StorageControl::builder().build().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+    let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -48,6 +53,14 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     change_default_storage_class::change_default_storage_class(&client, &id).await?;
     tracing::info!("running get_bucket_metadata example");
     get_bucket_metadata::get_bucket_metadata(&client, &id).await?;
+    tracing::info!("running print_bucket_acl example");
+    print_bucket_acl::print_bucket_acl(&client, &id).await?;
+    tracing::info!("running add_bucket_owner example");
+    add_bucket_owner::add_bucket_owner(&client, &id, &service_account).await?;
+    tracing::info!("running add_bucket_owner example");
+    remove_bucket_owner::remove_bucket_owner(&client, &id, &service_account).await?;
+    tracing::info!("running print_bucket_acl_for_user example");
+    print_bucket_acl_for_user::print_bucket_acl_for_user(&client, &id).await?;
     tracing::info!("running delete_bucket example");
     delete_bucket::delete_bucket(&client, &id).await?;
 
