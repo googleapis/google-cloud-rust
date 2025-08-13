@@ -16,12 +16,12 @@
 use google_cloud_storage::client::StorageControl;
 
 pub async fn delete_bucket(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
-    let bucket = client
+    client
         .delete_bucket()
         .set_name(format!("projects/_/buckets/{bucket_id}"))
         .send()
         .await?;
-    println!("successfully deleted bucket {bucket:?}");
+    println!("successfully deleted bucket {bucket_id}");
     Ok(())
 }
 // [END storage_delete_bucket]
