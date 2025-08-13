@@ -28,9 +28,12 @@ anyhow.workspace               = true
 clap                           = { workspace = true, features = ["derive", "std"] }
 futures.workspace              = true
 google-cloud-gax.workspace     = true
+google-cloud-wkt.workspace     = true
 google-cloud-storage.workspace = true
 rand.workspace                 = true
 tokio                          = { workspace = true, features = ["macros"] }
+tracing.workspace              = true
+tracing-subscriber             = { workspace = true, features = ["fmt", "std"] }
 
 [features]
 run-integration-tests = []
