@@ -682,8 +682,8 @@ pub struct Endpoint {
     /// used for protocol forwarding, Private Service Connect and other network
     /// services to provide forwarding information in the control plane. Applicable
     /// only to destination endpoint. Format:
-    /// projects/{project}/global/forwardingRules/{id} or
-    /// projects/{project}/regions/{region}/forwardingRules/{id}
+    /// `projects/{project}/global/forwardingRules/{id}` or
+    /// `projects/{project}/regions/{region}/forwardingRules/{id}`
     pub forwarding_rule: std::string::String,
 
     /// Output only. Specifies the type of the target of the forwarding rule.
@@ -1672,8 +1672,13 @@ pub mod endpoint {
         /// A [Cloud Run](https://cloud.google.com/run)
         /// [revision](https://cloud.google.com/run/docs/reference/rest/v1/namespaces.revisions/get)
         /// URI. The format is:
-        /// projects/{project}/locations/{location}/revisions/{revision}
+        /// `projects/{project}/locations/{location}/revisions/{revision}`
         pub uri: std::string::String,
+
+        /// Output only. The URI of the Cloud Run service that the revision belongs
+        /// to. The format is:
+        /// `projects/{project}/locations/{location}/services/{service}`
+        pub service_uri: std::string::String,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1686,6 +1691,12 @@ pub mod endpoint {
         /// Sets the value of [uri][crate::model::endpoint::CloudRunRevisionEndpoint::uri].
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
+            self
+        }
+
+        /// Sets the value of [service_uri][crate::model::endpoint::CloudRunRevisionEndpoint::service_uri].
+        pub fn set_service_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.service_uri = v.into();
             self
         }
     }
@@ -1707,6 +1718,7 @@ pub mod endpoint {
             #[derive(PartialEq, Eq, Hash)]
             enum __FieldTag {
                 __uri,
+                __service_uri,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1731,6 +1743,8 @@ pub mod endpoint {
                             use std::string::ToString;
                             match value {
                                 "uri" => Ok(__FieldTag::__uri),
+                                "serviceUri" => Ok(__FieldTag::__service_uri),
+                                "service_uri" => Ok(__FieldTag::__service_uri),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -1766,6 +1780,16 @@ pub mod endpoint {
                                     .next_value::<std::option::Option<std::string::String>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__service_uri => {
+                                if !fields.insert(__FieldTag::__service_uri) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for service_uri",
+                                    ));
+                                }
+                                result.service_uri = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -1792,6 +1816,9 @@ pub mod endpoint {
             if !self.uri.is_empty() {
                 state.serialize_entry("uri", &self.uri)?;
             }
+            if !self.service_uri.is_empty() {
+                state.serialize_entry("serviceUri", &self.service_uri)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -1805,6 +1832,7 @@ pub mod endpoint {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("CloudRunRevisionEndpoint");
             debug_struct.field("uri", &self.uri);
+            debug_struct.field("service_uri", &self.service_uri);
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }

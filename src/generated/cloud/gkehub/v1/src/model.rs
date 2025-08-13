@@ -7113,8 +7113,8 @@ impl std::fmt::Debug for TypeMeta {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFeaturesRequest {
-    /// Required. The parent (project and location) where the Features will be listed.
-    /// Specified in the format `projects/*/locations/*`.
+    /// Required. The parent (project and location) where the Features will be
+    /// listed. Specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// When requesting a 'page' of resources, `page_size` specifies number of
@@ -7725,8 +7725,8 @@ impl std::fmt::Debug for GetFeatureRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFeatureRequest {
-    /// Required. The parent (project and location) where the Feature will be created.
-    /// Specified in the format `projects/*/locations/*`.
+    /// Required. The parent (project and location) where the Feature will be
+    /// created. Specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// The ID of the feature to create.
@@ -8451,8 +8451,9 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
-    /// corresponding to `Code.CANCELLED`.
+    /// have [Operation.error][] value with a
+    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
+    /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub cancel_requested: bool,

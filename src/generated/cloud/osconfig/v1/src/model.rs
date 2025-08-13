@@ -28434,9 +28434,14 @@ pub struct VulnerabilityReport {
     /// Output only. List of vulnerabilities affecting the VM.
     pub vulnerabilities: std::vec::Vec<crate::model::vulnerability_report::Vulnerability>,
 
-    /// Output only. The timestamp for when the last vulnerability report was generated for the
-    /// VM.
+    /// Output only. The timestamp for when the last vulnerability report was
+    /// generated for the VM.
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Highest level of severity among all the upgradable
+    /// vulnerabilities with CVEs attached.
+    pub highest_upgradable_cve_severity:
+        crate::model::vulnerability_report::VulnerabilitySeverityLevel,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -28480,6 +28485,17 @@ impl VulnerabilityReport {
         self.update_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [highest_upgradable_cve_severity][crate::model::VulnerabilityReport::highest_upgradable_cve_severity].
+    pub fn set_highest_upgradable_cve_severity<
+        T: std::convert::Into<crate::model::vulnerability_report::VulnerabilitySeverityLevel>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.highest_upgradable_cve_severity = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for VulnerabilityReport {
@@ -28501,6 +28517,7 @@ impl<'de> serde::de::Deserialize<'de> for VulnerabilityReport {
             __name,
             __vulnerabilities,
             __update_time,
+            __highest_upgradable_cve_severity,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -28525,6 +28542,12 @@ impl<'de> serde::de::Deserialize<'de> for VulnerabilityReport {
                             "vulnerabilities" => Ok(__FieldTag::__vulnerabilities),
                             "updateTime" => Ok(__FieldTag::__update_time),
                             "update_time" => Ok(__FieldTag::__update_time),
+                            "highestUpgradableCveSeverity" => {
+                                Ok(__FieldTag::__highest_upgradable_cve_severity)
+                            }
+                            "highest_upgradable_cve_severity" => {
+                                Ok(__FieldTag::__highest_upgradable_cve_severity)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -28583,6 +28606,18 @@ impl<'de> serde::de::Deserialize<'de> for VulnerabilityReport {
                             result.update_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                         }
+                        __FieldTag::__highest_upgradable_cve_severity => {
+                            if !fields.insert(__FieldTag::__highest_upgradable_cve_severity) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for highest_upgradable_cve_severity",
+                                ));
+                            }
+                            result.highest_upgradable_cve_severity = map
+                                .next_value::<std::option::Option<
+                                    crate::model::vulnerability_report::VulnerabilitySeverityLevel,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -28615,6 +28650,12 @@ impl serde::ser::Serialize for VulnerabilityReport {
         if self.update_time.is_some() {
             state.serialize_entry("updateTime", &self.update_time)?;
         }
+        if !wkt::internal::is_default(&self.highest_upgradable_cve_severity) {
+            state.serialize_entry(
+                "highestUpgradableCveSeverity",
+                &self.highest_upgradable_cve_severity,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -28630,6 +28671,10 @@ impl std::fmt::Debug for VulnerabilityReport {
         debug_struct.field("name", &self.name);
         debug_struct.field("vulnerabilities", &self.vulnerabilities);
         debug_struct.field("update_time", &self.update_time);
+        debug_struct.field(
+            "highest_upgradable_cve_severity",
+            &self.highest_upgradable_cve_severity,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29809,6 +29854,175 @@ pub mod vulnerability_report {
             }
         }
     }
+
+    /// Severity levels for vulnerabilities.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VulnerabilitySeverityLevel {
+        /// Default SeverityLevel. This value is unused.
+        Unspecified,
+        /// Vulnerability has no severity level.
+        None,
+        /// Vulnerability severity level is minimal. This is level below the low
+        /// severity level.
+        Minimal,
+        /// Vulnerability severity level is low. This is level below the medium
+        /// severity level.
+        Low,
+        /// Vulnerability severity level is medium. This is level below the high
+        /// severity level.
+        Medium,
+        /// Vulnerability severity level is high. This is level below the critical
+        /// severity level.
+        High,
+        /// Vulnerability severity level is critical. This is the highest severity
+        /// level.
+        Critical,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VulnerabilitySeverityLevel::value] or
+        /// [VulnerabilitySeverityLevel::name].
+        UnknownValue(vulnerability_severity_level::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod vulnerability_severity_level {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl VulnerabilitySeverityLevel {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::None => std::option::Option::Some(1),
+                Self::Minimal => std::option::Option::Some(2),
+                Self::Low => std::option::Option::Some(3),
+                Self::Medium => std::option::Option::Some(4),
+                Self::High => std::option::Option::Some(5),
+                Self::Critical => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("VULNERABILITY_SEVERITY_LEVEL_UNSPECIFIED")
+                }
+                Self::None => std::option::Option::Some("NONE"),
+                Self::Minimal => std::option::Option::Some("MINIMAL"),
+                Self::Low => std::option::Option::Some("LOW"),
+                Self::Medium => std::option::Option::Some("MEDIUM"),
+                Self::High => std::option::Option::Some("HIGH"),
+                Self::Critical => std::option::Option::Some("CRITICAL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for VulnerabilitySeverityLevel {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for VulnerabilitySeverityLevel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for VulnerabilitySeverityLevel {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::None,
+                2 => Self::Minimal,
+                3 => Self::Low,
+                4 => Self::Medium,
+                5 => Self::High,
+                6 => Self::Critical,
+                _ => Self::UnknownValue(vulnerability_severity_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for VulnerabilitySeverityLevel {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VULNERABILITY_SEVERITY_LEVEL_UNSPECIFIED" => Self::Unspecified,
+                "NONE" => Self::None,
+                "MINIMAL" => Self::Minimal,
+                "LOW" => Self::Low,
+                "MEDIUM" => Self::Medium,
+                "HIGH" => Self::High,
+                "CRITICAL" => Self::Critical,
+                _ => Self::UnknownValue(vulnerability_severity_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for VulnerabilitySeverityLevel {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::None => serializer.serialize_i32(1),
+                Self::Minimal => serializer.serialize_i32(2),
+                Self::Low => serializer.serialize_i32(3),
+                Self::Medium => serializer.serialize_i32(4),
+                Self::High => serializer.serialize_i32(5),
+                Self::Critical => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VulnerabilitySeverityLevel {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<VulnerabilitySeverityLevel>::new(
+                    ".google.cloud.osconfig.v1.VulnerabilityReport.VulnerabilitySeverityLevel",
+                ),
+            )
+        }
+    }
 }
 
 /// A request message for getting the vulnerability report for the specified VM.
@@ -29979,8 +30193,23 @@ pub struct ListVulnerabilityReportsRequest {
     /// should continue from.
     pub page_token: std::string::String,
 
-    /// If provided, this field specifies the criteria that must be met by a
-    /// `vulnerabilityReport` API resource to be included in the response.
+    /// This field supports filtering by the severity level for the vulnerability.
+    /// For a list of severity levels, see [Severity levels for
+    /// vulnerabilities](https://cloud.google.com/container-analysis/docs/container-scanning-overview#severity_levels_for_vulnerabilities).
+    ///
+    /// The filter field follows the rules described in the
+    /// [AIP-160](https://google.aip.dev/160) guidelines as follows:
+    ///
+    /// + **Filter for a specific severity type**:  you can list reports that
+    ///   contain
+    ///   vulnerabilities that are classified as medium by specifying
+    ///   `vulnerabilities.details.severity:MEDIUM`.
+    ///
+    /// + **Filter for a range of severities** : you can list reports that have
+    ///   vulnerabilities that are classified as critical or high by specifying
+    ///   `vulnerabilities.details.severity:HIGH OR
+    ///   vulnerabilities.details.severity:CRITICAL`
+    ///
     pub filter: std::string::String,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
