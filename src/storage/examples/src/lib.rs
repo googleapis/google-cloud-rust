@@ -12,16 +12,46 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod change_default_storage_class;
+pub mod create_bucket;
+pub mod create_bucket_class_location;
+pub mod create_bucket_dual_region;
+pub mod create_bucket_hierarchical_namespace;
+pub mod delete_bucket;
+pub mod get_bucket_metadata;
 pub mod list_buckets;
 use google_cloud_storage::client::StorageControl;
 use rand::{Rng, distr::Distribution};
 
 pub const BUCKET_ID_LENGTH: usize = 63;
 
-pub async fn run_bucket_examples(_bucket_id: &str) -> anyhow::Result<()> {
+pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
     let client = StorageControl::builder().build().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-    list_buckets::list_buckets(&client, &project_id).await
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket example");
+    create_bucket::create_bucket(&client, &project_id, &id).await?;
+    tracing::info!("running change_default_storage_class example");
+    change_default_storage_class::change_default_storage_class(&client, &id).await?;
+    tracing::info!("running delete_bucket example");
+    delete_bucket::delete_bucket(&client, &id).await?;
+
+    tracing::info!("running list_buckets example");
+    list_buckets::list_buckets(&client, &project_id).await?;
+    Ok(())
 }
 
 pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {

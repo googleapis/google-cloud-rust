@@ -15,16 +15,18 @@
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
     use google_cloud_storage::client::StorageControl;
-    use storage_samples::{cleanup_bucket, random_bucket_id, run_bucket_examples};
+    use storage_samples::{cleanup_bucket, run_bucket_examples};
 
     #[tokio::test]
     async fn run_all_examples() -> anyhow::Result<()> {
         let client = StorageControl::builder().build().await?;
 
-        let bucket_id = random_bucket_id();
-        let result = run_bucket_examples(&bucket_id).await;
+        let mut buckets = Vec::new();
+        let result = run_bucket_examples(&mut buckets).await;
         // Ignore cleanup errors.
-        let _ = cleanup_bucket(client, format!("projects/_/buckets/{bucket_id}")).await;
+        for id in buckets.into_iter() {
+            let _ = cleanup_bucket(client.clone(), format!("projects/_/buckets/{id}")).await;
+        }
         result
     }
 }
