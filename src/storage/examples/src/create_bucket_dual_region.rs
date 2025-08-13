@@ -11,3 +11,31 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+// [START storage_create_bucket_dual_region]
+use google_cloud_storage::{
+    client::StorageControl, model::Bucket, model::bucket::CustomPlacementConfig,
+};
+
+pub async fn create_bucket_dual_region(
+    client: &StorageControl,
+    project_id: &str,
+    bucket_id: &str,
+) -> anyhow::Result<()> {
+    let bucket = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_custom_placement_config(
+                    CustomPlacementConfig::new().set_data_locations(["US-EAST4", "US-CENTRAL1"]),
+                ),
+        )
+        .send()
+        .await?;
+    println!("successfully created bucket {bucket:?}");
+    Ok(())
+}
+// [END storage_create_bucket_dual_region]

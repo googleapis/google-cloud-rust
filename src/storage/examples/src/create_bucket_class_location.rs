@@ -11,3 +11,28 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+// [START storage_create_bucket_class_and_location]
+use google_cloud_storage::{client::StorageControl, model::Bucket};
+
+pub async fn create_bucket_class_and_location(
+    client: &StorageControl,
+    project_id: &str,
+    bucket_id: &str,
+) -> anyhow::Result<()> {
+    let bucket = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_storage_class("NEARLINE")
+                .set_location("US-CENTRAL1"),
+        )
+        .send()
+        .await?;
+    println!("successfully created bucket {bucket:?}");
+    Ok(())
+}
+// [END storage_create_bucket_class_and_location]

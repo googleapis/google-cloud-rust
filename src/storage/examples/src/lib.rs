@@ -46,8 +46,31 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     create_bucket::create_bucket(&client, &project_id, &id).await?;
     tracing::info!("running change_default_storage_class example");
     change_default_storage_class::change_default_storage_class(&client, &id).await?;
+    tracing::info!("running get_bucket_metadata example");
+    get_bucket_metadata::get_bucket_metadata(&client, &id).await?;
     tracing::info!("running delete_bucket example");
     delete_bucket::delete_bucket(&client, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket_class_and_location example");
+    create_bucket_class_location::create_bucket_class_and_location(&client, &project_id, &id)
+        .await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket_dual_region example");
+    create_bucket_dual_region::create_bucket_dual_region(&client, &project_id, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket_hierarchical_namespace example");
+    create_bucket_hierarchical_namespace::create_bucket_hierarchical_namespace(
+        &client,
+        &project_id,
+        &id,
+    )
+    .await?;
 
     tracing::info!("running list_buckets example");
     list_buckets::list_buckets(&client, &project_id).await?;

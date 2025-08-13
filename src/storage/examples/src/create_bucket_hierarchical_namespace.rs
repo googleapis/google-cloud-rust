@@ -11,3 +11,35 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+// [START storage_create_bucket_hierarchical_namespace]
+use google_cloud_storage::{
+    client::StorageControl,
+    model::Bucket,
+    model::bucket::iam_config::UniformBucketLevelAccess,
+    model::bucket::{HierarchicalNamespace, IamConfig},
+};
+
+pub async fn create_bucket_hierarchical_namespace(
+    client: &StorageControl,
+    project_id: &str,
+    bucket_id: &str,
+) -> anyhow::Result<()> {
+    let bucket = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
+        )
+        .send()
+        .await?;
+    println!("successfully created bucket {bucket:?}");
+    Ok(())
+}
+// [END storage_create_bucket_hierarchical_namespace]
