@@ -386,7 +386,7 @@ accesscontextmanager_type     = { version = "0.4.4", path = "src/generated/ident
 google-cloud-language-v2      = { version = "0.4.4", path = "src/generated/cloud/language/v2" }
 google-cloud-speech-v2        = { version = "0.4.4", path = "src/generated/cloud/speech/v2" }
 google-cloud-secretmanager-v1 = { version = "0.4.4", path = "src/generated/cloud/secretmanager/v1" }
-google-cloud-aiplatform-v1    = { version = "0.4.4", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
+google-cloud-aiplatform-v1    = { version = "0.5.0", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
 google-cloud-storage          = { version = "0.25.0-preview6", path = "src/storage" }
 
 # Local test package
