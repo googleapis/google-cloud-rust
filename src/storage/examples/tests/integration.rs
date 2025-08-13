@@ -15,7 +15,7 @@
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
     use google_cloud_storage::client::StorageControl;
-    use storage_samples::{random_bucket_id, run_bucket_examples};
+    use storage_samples::{cleanup_bucket, random_bucket_id, run_bucket_examples};
 
     #[tokio::test]
     async fn run_all_examples() -> anyhow::Result<()> {
