@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use anyhow::Error;
-use rand::{Rng, distr::Alphanumeric, distr::Distribution};
+use rand::{Rng, distr::Alphanumeric};
 
 pub type Result<T> = anyhow::Result<T>;
 pub mod bigquery;
@@ -26,11 +26,11 @@ pub mod storage;
 pub mod workflows;
 pub mod workflows_executions;
 
+use storage_samples::random_bucket_id;
+
 pub const SECRET_ID_LENGTH: usize = 64;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
-
-pub const BUCKET_ID_LENGTH: usize = 63;
 
 /// Returns the project id used for the integration tests.
 pub fn project_id() -> Result<String> {
@@ -73,28 +73,4 @@ pub(crate) fn random_workflow_id() -> String {
         .map(char::from)
         .collect();
     format!("{PREFIX}{workflow_id}")
-}
-
-pub fn random_bucket_id() -> String {
-    const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
-
-    let distr = RandomChars { chars: CHARSET };
-    const PREFIX: &str = "rust-sdk-testing-";
-    let bucket_id: String = rand::rng()
-        .sample_iter(distr)
-        .take(BUCKET_ID_LENGTH - PREFIX.len())
-        .map(char::from)
-        .collect();
-    format!("{PREFIX}{bucket_id}")
-}
-
-pub(crate) struct RandomChars {
-    chars: &'static [u8],
-}
-
-impl Distribution<u8> for RandomChars {
-    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> u8 {
-        let index = rng.random_range(0..self.chars.len());
-        self.chars[index]
-    }
 }

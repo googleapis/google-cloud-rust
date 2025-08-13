@@ -193,7 +193,7 @@ mod driver {
         let result = integration_tests::storage::abort_upload(builder, &bucket.name)
             .await
             .map_err(integration_tests::report_error);
-        let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+        let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
         result
     }
 
@@ -206,7 +206,7 @@ mod driver {
         let result = integration_tests::storage::checksums(builder, &bucket.name)
             .await
             .map_err(integration_tests::report_error);
-        let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+        let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
         result
     }
 
@@ -220,7 +220,7 @@ mod driver {
             integration_tests::storage::object_names(builder, control.clone(), &bucket.name)
                 .await
                 .map_err(integration_tests::report_error);
-        let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+        let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
         result
     }
 

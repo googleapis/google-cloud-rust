@@ -5339,6 +5339,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "storage-samples",
  "test-case",
  "tokio",
  "tracing",
@@ -6575,6 +6576,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
 
 [[package]]
+name = "storage-samples"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "futures",
+ "google-cloud-gax",
+ "google-cloud-storage",
+ "rand 0.9.2",
+ "tokio",
+]
+
+[[package]]
 name = "storage-w1r3"
 version = "0.0.0"
 dependencies = [
@@ -7073,6 +7087,7 @@ dependencies = [
  "mockall",
  "rand 0.9.2",
  "serde_json",
+ "storage-samples",
  "tempfile",
  "test-case",
  "tokio",

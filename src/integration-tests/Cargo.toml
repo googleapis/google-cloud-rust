@@ -81,6 +81,9 @@ package  = "google-cloud-storage"
 path     = "../../src/storage"
 features = ["unstable-stream"]
 
+[dependencies.storage-samples]
+path = "../../src/storage/examples"
+
 [dependencies.ta]
 package = "google-cloud-telcoautomation-v1"
 path    = "../../src/generated/cloud/telcoautomation/v1"

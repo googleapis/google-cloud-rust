@@ -25,6 +25,7 @@ use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 use storage::upload_source::{Seek, SizeHint, StreamingSource};
+use storage_samples::cleanup_bucket;
 
 /// An upload data source used in tests.
 #[derive(Clone, Debug)]
@@ -1207,29 +1208,6 @@ async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Res
         .zip(names)
         .for_each(|(r, name)| println!("deleting bucket {name} resulted in {r:?}"));
 
-    Ok(())
-}
-
-pub async fn cleanup_bucket(client: StorageControl, name: String) -> Result<()> {
-    let mut objects = client
-        .list_objects()
-        .set_parent(&name)
-        .set_versions(true)
-        .by_item();
-    let mut pending = Vec::new();
-    while let Some(object) = objects.next().await {
-        let object = object?;
-        pending.push(
-            client
-                .delete_object()
-                .set_bucket(object.bucket)
-                .set_object(object.name)
-                .set_generation(object.generation)
-                .send(),
-        );
-    }
-    let _ = futures::future::join_all(pending).await;
-    client.delete_bucket().set_name(&name).send().await?;
     Ok(())
 }
 
