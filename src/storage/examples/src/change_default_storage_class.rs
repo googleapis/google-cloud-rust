@@ -13,7 +13,6 @@
 // limitations under the License.
 
 // [START storage_change_default_storage_class]
-use google_cloud_gax::error::rpc::Code;
 use google_cloud_storage::client::StorageControl;
 use google_cloud_wkt::FieldMask;
 
@@ -21,37 +20,20 @@ pub async fn change_default_storage_class(
     client: &StorageControl,
     bucket_id: &str,
 ) -> anyhow::Result<()> {
-    loop {
-        let mut bucket = client
-            .get_bucket()
-            .set_name(format!("projects/_/buckets/{bucket_id}"))
-            .send()
-            .await?;
-        bucket.storage_class = "NEARLINE".into();
-        let metageneration = bucket.metageneration;
-        match client
-            .update_bucket()
-            .set_bucket(bucket)
-            .set_if_metageneration_match(metageneration)
-            .set_update_mask(FieldMask::default().set_paths(["storage_class"]))
-            .send()
-            .await
-        {
-            Ok(b) => {
-                println!("successfully updated bucket {b:?}");
-                break;
-            }
-            Err(e) => {
-                if e.status()
-                    .map(|s| s.code)
-                    .is_some_and(|code| code == Code::FailedPrecondition)
-                {
-                    continue;
-                }
-                return Err(e.into());
-            }
-        };
-    }
+    let bucket = client
+        .get_bucket()
+        .set_name(format!("projects/_/buckets/{bucket_id}"))
+        .send()
+        .await?;
+    let metageneration = bucket.metageneration;
+    let bucket = client
+        .update_bucket()
+        .set_bucket(bucket.set_storage_class("NEARLINE"))
+        .set_if_metageneration_match(metageneration)
+        .set_update_mask(FieldMask::default().set_paths(["storage_class"]))
+        .send()
+        .await?;
+    println!("successfully updated bucket {bucket:?}");
     Ok(())
 }
 // [END storage_change_default_storage_class]
