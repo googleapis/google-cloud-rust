@@ -119,9 +119,9 @@ request failed with error Error {
 Sometimes you may need to examine the error details programmatically. The rest
 of the example traverses the data structure and prints the most relevant fields.
 
-Only errors returned by the service contain detailed information, so first
-query the error to see if it contains the correct error type. If it does, you
-can break down some top-level information about the error:
+Only errors returned by the service contain detailed information, so first query
+the error to see if it contains the correct error type. If it does, you can
+break down some top-level information about the error:
 
 ```rust,ignore
 {{#include ../samples/src/examine_error_details.rs:examine-error-details-service-error}}
