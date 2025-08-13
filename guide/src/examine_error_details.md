@@ -148,8 +148,8 @@ and print the details for each:
 ```
 
 Such information can be useful during development. Other branches of
-`StatusDetails` such as [`QuotaFailure`] may be useful at runtime to throttle
-an application.
+`StatusDetails` such as [`QuotaFailure`] may be useful at runtime to throttle an
+application.
 
 ### Expected output
 
@@ -163,7 +163,7 @@ Typically the output from the error details will look like so:
 ## What's next
 
 - Learn how to [handle binding errors] that occur when a client library can't
-find a URI to match an HTTP request.
+  find a URI to match an HTTP request.
 - Learn how to [work with List operations].
 
 ______________________________________________________________________
