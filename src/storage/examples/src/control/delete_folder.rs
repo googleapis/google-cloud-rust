@@ -16,7 +16,7 @@
 use google_cloud_storage::client::StorageControl;
 
 pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
-    const ID: &str = "renamed-folder-id";
+    const ID: &str = "deleted-folder-id";
     client
         .delete_folder()
         .set_name(format!("projects/_/buckets/{bucket_id}/folders/{ID}"))
