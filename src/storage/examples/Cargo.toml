@@ -28,6 +28,7 @@ anyhow.workspace               = true
 clap                           = { workspace = true, features = ["derive", "std"] }
 futures.workspace              = true
 google-cloud-gax.workspace     = true
+google-cloud-lro.workspace     = true
 google-cloud-wkt.workspace     = true
 google-cloud-storage.workspace = true
 rand.workspace                 = true
