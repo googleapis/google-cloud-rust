@@ -67,8 +67,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_class_and_location example");
-    create_bucket_class_location::create_bucket_class_and_location(&client, &project_id, &id)
-        .await?;
+    create_bucket_class_location::create_bucket_class_location(&client, &project_id, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
