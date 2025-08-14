@@ -22,10 +22,7 @@ pub async fn print_bucket_acl(client: &StorageControl, bucket_id: &str) -> anyho
         .send()
         .await?;
     let acl = bucket.acl;
-    println!(
-        "successfully obtained ACL for bucket: {} {acl:?}",
-        bucket_id
-    );
+    println!("successfully obtained ACL for bucket: {bucket_id} {acl:?}");
     Ok(())
 }
 // [END storage_print_bucket_acl]
