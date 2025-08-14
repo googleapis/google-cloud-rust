@@ -14,6 +14,7 @@
 
 mod add_bucket_owner;
 mod change_default_storage_class;
+mod control;
 mod create_bucket;
 mod create_bucket_class_location;
 mod create_bucket_dual_region;
@@ -24,6 +25,7 @@ mod list_buckets;
 mod print_bucket_acl;
 mod print_bucket_acl_for_user;
 mod remove_bucket_owner;
+
 use google_cloud_storage::client::StorageControl;
 use rand::{Rng, distr::Distribution};
 
@@ -89,6 +91,62 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     Ok(())
 }
 
+pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let client = StorageControl::builder().build().await?;
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    create_bucket_hierarchical_namespace::create_bucket_hierarchical_namespace(
+        &client,
+        &project_id,
+        &id,
+    )
+    .await?;
+
+    tracing::info!("running control::managed_folder_create example");
+    control::managed_folder_create::sample(&client, &id).await?;
+    tracing::info!("running control::managed_folder_get example");
+    control::managed_folder_get::sample(&client, &id).await?;
+    tracing::info!("running control::managed_folder_list example");
+    control::managed_folder_list::sample(&client, &id).await?;
+    tracing::info!("running control::managed_folder_delete example");
+    control::managed_folder_delete::sample(&client, &id).await?;
+
+    tracing::info!("running control::create_folder example");
+    control::create_folder::sample(&client, &id).await?;
+    tracing::info!("running control::get_folder example");
+    control::get_folder::sample(&client, &id).await?;
+    tracing::info!("running control::rename_folder example");
+    control::rename_folder::sample(&client, &id).await?;
+    tracing::info!("running control::list_folders example");
+    control::list_folders::sample(&client, &id).await?;
+
+    // Create a folder for the delete_folder example.
+    let _ = client
+        .create_folder()
+        .set_parent(format!("projects/_/buckets/{id}"))
+        .set_folder_id("deleted-folder-id")
+        .send()
+        .await?;
+
+    tracing::info!("running control::delete_folder example");
+    control::delete_folder::sample(&client, &id).await?;
+
+    Ok(())
+}
+
 pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
     use google_cloud_gax::paginator::ItemPaginator;
 
@@ -98,8 +156,10 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
         .set_versions(true)
         .by_item();
     let mut pending = Vec::new();
-    while let Some(object) = objects.next().await {
-        let object = object?;
+    while let Some(item) = objects.next().await {
+        let Ok(object) = item else {
+            continue;
+        };
         pending.push(
             client
                 .delete_object()
@@ -110,6 +170,37 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
         );
     }
     let _ = futures::future::join_all(pending).await;
+
+    let mut pending = Vec::new();
+    let mut folders = client.list_managed_folders().set_parent(&name).by_item();
+    while let Some(item) = folders.next().await {
+        let Ok(folder) = item else {
+            continue;
+        };
+        pending.push(client.delete_managed_folder().set_name(folder.name).send());
+    }
+    let _ = futures::future::join_all(pending).await;
+
+    let mut pending = Vec::new();
+    let mut folders = client.list_folders().set_parent(&name).by_item();
+    while let Some(item) = folders.next().await {
+        let Ok(folder) = item else {
+            continue;
+        };
+        pending.push(client.delete_folder().set_name(folder.name).send());
+    }
+    let _ = futures::future::join_all(pending).await;
+
+    let mut pending = Vec::new();
+    let mut caches = client.list_anywhere_caches().set_parent(&name).by_item();
+    while let Some(item) = caches.next().await {
+        let Ok(cache) = item else {
+            continue;
+        };
+        pending.push(client.disable_anywhere_cache().set_name(cache.name).send());
+    }
+    let _ = futures::future::join_all(pending).await;
+
     client.delete_bucket().set_name(&name).send().await?;
     Ok(())
 }
