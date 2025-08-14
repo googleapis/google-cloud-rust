@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_create_bucket_class_and_location]
+// [START storage_create_bucket_class_location]
 use google_cloud_storage::{client::StorageControl, model::Bucket};
 
-pub async fn create_bucket_class_and_location(
+pub async fn create_bucket_class_location(
     client: &StorageControl,
     project_id: &str,
     bucket_id: &str,
@@ -35,4 +35,4 @@ pub async fn create_bucket_class_and_location(
     println!("successfully created bucket {bucket:?}");
     Ok(())
 }
-// [END storage_create_bucket_class_and_location]
+// [END storage_create_bucket_class_location]
