@@ -171,8 +171,8 @@ impl<T, C> UploadObject<T, C> {
     ///
     /// With this precondition the request fails if the current object metadata
     /// generation matches the provided value. This is rarely useful in uploads,
-    /// it is more commonly used on downloads to prevent downloads if the value
-    /// is already cached.
+    /// it is more commonly used on reads to prevent a large response if the
+    /// data is already cached.
     ///
     /// # Example
     /// ```
@@ -272,7 +272,7 @@ impl<T, C> UploadObject<T, C> {
     /// Sets the [content encoding] for the object data.
     ///
     /// This can be used to upload compressed data and enable [transcoding] of
-    /// the data during downloads.
+    /// the data during reads.
     ///
     /// # Example
     /// ```
@@ -840,8 +840,8 @@ impl<T> UploadObject<T, Crc32c> {
     /// ```
     ///
     /// In some applications, the payload's CRC32C checksum is already known.
-    /// For example, the application may be downloading the data from another
-    /// blob storage system.
+    /// For example, the application may be reading the data from another blob
+    /// storage system.
     ///
     /// In such cases, it is safer to pass the known CRC32C of the payload to
     /// [Cloud Storage], and more efficient to skip the computation in the
@@ -874,7 +874,7 @@ impl<T> UploadObject<T, Crc32c> {
     /// ```
     ///
     /// In some applications, the payload's MD5 hash is already known. For
-    /// example, the application may be downloading the data from another blob
+    /// example, the application may be reading the data from another blob
     /// storage system.
     ///
     /// In such cases, it is safer to pass the known MD5 of the payload to

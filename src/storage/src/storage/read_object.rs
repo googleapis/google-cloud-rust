@@ -14,9 +14,9 @@
 
 use super::client::*;
 use super::*;
-use crate::download_resume_policy::DownloadResumePolicy;
 use crate::error::{RangeError, ReadError};
 use crate::model::ObjectChecksums;
+use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::{
     ChecksumEngine,
     details::{Crc32c, Md5, validate},
@@ -96,7 +96,7 @@ impl ReadObject<Crc32c> {
     /// 2. All of the content is returned (status != PartialContent).
     /// 3. The server sent a checksum header.
     /// 4. The http stack did not uncompress the file.
-    /// 5. The server did not uncompress data on download.
+    /// 5. The server did not uncompress data on read.
     ///
     /// # Example
     /// ```
@@ -383,46 +383,46 @@ where
         self
     }
 
-    /// Configure the resume policy for downloads.
+    /// Configure the resume policy for read requests.
     ///
-    /// The Cloud Storage client library can automatically resume a download
-    /// that is interrupted by a transient error. Applications may want to
-    /// limit the number of download attempts, or may wish to expand the type
-    /// of errors treated as retryable.
+    /// The Cloud Storage client library can automatically resume a read that is
+    /// interrupted by a transient error. Applications may want to limit the
+    /// number of read attempts, or may wish to expand the type of errors
+    /// treated as retryable.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::download_resume_policy::{AlwaysResume, DownloadResumePolicyExt};
+    /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_download_resume_policy(AlwaysResume.with_attempt_limit(3))
+    ///     .with_read_resume_policy(AlwaysResume.with_attempt_limit(3))
     ///     .send()
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn with_download_resume_policy<V>(mut self, v: V) -> Self
+    pub fn with_read_resume_policy<V>(mut self, v: V) -> Self
     where
-        V: DownloadResumePolicy + 'static,
+        V: ReadResumePolicy + 'static,
     {
-        self.options.download_resume_policy = std::sync::Arc::new(v);
+        self.options.read_resume_policy = std::sync::Arc::new(v);
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse<C>> {
-        let download = self.clone().download().await?;
-        ReadObjectResponse::new(self, download)
+        let read = self.clone().read().await?;
+        ReadObjectResponse::new(self, read)
     }
 
-    async fn download(self) -> Result<reqwest::Response> {
+    async fn read(self) -> Result<reqwest::Response> {
         let throttler = self.options.retry_throttler.clone();
         let retry = self.options.retry_policy.clone();
         let backoff = self.options.backoff_policy.clone();
 
         gax::retry_loop_internal::retry_loop(
-            async move |_| self.download_attempt().await,
+            async move |_| self.read_attempt().await,
             async |duration| tokio::time::sleep(duration).await,
             true,
             throttler,
@@ -432,7 +432,7 @@ where
         .await
     }
 
-    async fn download_attempt(&self) -> Result<reqwest::Response> {
+    async fn read_attempt(&self) -> Result<reqwest::Response> {
         let builder = self.http_request_builder().await?;
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
@@ -555,7 +555,7 @@ pub struct ReadObjectResponse<C> {
     highlights: ObjectHighlights,
     // Fields for tracking the crc checksum checks.
     response_checksums: ObjectChecksums,
-    // Fields for resuming download.
+    // Fields for resuming a read request.
     range: ReadRange,
     generation: i64,
     builder: ReadObject<C>,
@@ -609,7 +609,7 @@ where
             highlights,
             // Fields for computing checksums.
             response_checksums,
-            // Fields for resuming download.
+            // Fields for resuming a read request.
             range,
             generation,
             builder,
@@ -709,16 +709,16 @@ where
     }
 
     async fn resume(&mut self, error: Error) -> Option<Result<bytes::Bytes>> {
-        use crate::download_resume_policy::{ResumeQuery, ResumeResult};
+        use crate::read_resume_policy::{ResumeQuery, ResumeResult};
 
-        // The existing download is no longer valid.
+        // The existing read is no longer valid.
         self.inner = None;
         self.resume_count += 1;
         let query = ResumeQuery::new(self.resume_count);
         match self
             .builder
             .options
-            .download_resume_policy
+            .read_resume_policy
             .on_error(&query, error)
         {
             ResumeResult::Continue(_) => {}
@@ -728,7 +728,7 @@ where
         self.builder.request.read_offset = self.range.start as i64;
         self.builder.request.read_limit = self.range.limit as i64;
         self.builder.request.generation = self.generation;
-        self.inner = match self.builder.clone().download().await {
+        self.inner = match self.builder.clone().read().await {
             Ok(r) => Some(r),
             Err(e) => return Some(Err(e)),
         };
@@ -775,9 +775,9 @@ pub struct ObjectHighlights {
     pub content_encoding: String,
 
     /// Hashes for the data part of this object. The checksums of the complete
-    /// object regardless of data range. If the object is downloaded in full,
-    /// the client should compute one of these checksums over the downloaded
-    /// object and compare it against the value provided here.
+    /// object regardless of data range. If the object is read in full, the
+    /// client should compute one of these checksums over the read object and
+    /// compare it against the value provided here.
     pub checksums: std::option::Option<crate::model::ObjectChecksums>,
 
     /// Storage class of the object.
@@ -814,7 +814,7 @@ pub struct ObjectHighlights {
 /// 2. We got all the content (status != PartialContent).
 /// 3. The server sent a CRC header.
 /// 4. The http stack did not uncompress the file.
-/// 5. We were not served compressed data that was uncompressed on download.
+/// 5. We were not served compressed data that was uncompressed on read.
 ///
 /// For 4, we turn off automatic decompression in reqwest::Client when we
 /// create it,
@@ -1068,7 +1068,7 @@ mod tests {
 
     #[tokio::test]
     async fn read_object_next_then_consume_response() -> Result {
-        // Create a large enough file that will require multiple chunks to download.
+        // Create a large enough file that will require multiple chunks to read.
         const BLOCK_SIZE: usize = 500;
         let mut contents = Vec::new();
         for i in 0..50 {
