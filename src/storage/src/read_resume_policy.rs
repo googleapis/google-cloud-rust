@@ -12,19 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Defines the download resume policies for Google Cloud Storage.
+//! Defines the read resume policies for Google Cloud Storage.
 //!
-//! Even if a download request starts successfully, it may be fail after it
-//! starts. For example, the download may be interrupted or become too slow and
-//! "stall". The client library can automatically recover from such errors. The
-//! application may want to control what errors are treated as recoverable, and
-//! how many failures are tolerated before abandoning the download.
+//! Even if a read request starts successfully, it may be fail after it starts.
+//! For example, the read may be interrupted or become too slow and "stall". The
+//! client library can automatically recover from such errors. The application
+//! may want to control what errors are treated as recoverable, and how many
+//! failures are tolerated before abandoning the read request.
 //!
 //! The traits and types defined in this module allow for such customization.
 //!
 //! # Example
 //! ```
-//! # use google_cloud_storage::download_resume_policy::*;
+//! # use google_cloud_storage::read_resume_policy::*;
 //! let policy = Recommended.with_attempt_limit(3);
 //! assert!(matches!(policy.on_error(&ResumeQuery::new(0), io_error()), ResumeResult::Continue(_)));
 //! assert!(matches!(policy.on_error(&ResumeQuery::new(1), io_error()), ResumeResult::Continue(_)));
@@ -34,7 +34,7 @@
 //! use gax::error::{Error, rpc::Code, rpc::Status};
 //! fn io_error() -> Error {
 //!    // ... details omitted ...
-//!    # Error::io("something failed in the download")
+//!    # Error::io("something failed in the read request")
 //! }
 //! ```
 
@@ -43,14 +43,14 @@ use crate::Error;
 pub use gax::retry_result::RetryResult as ResumeResult;
 
 /// Defines the interface to resume policies.
-pub trait DownloadResumePolicy: Send + Sync + std::fmt::Debug {
-    /// Determines if the download should continue after an error.
+pub trait ReadResumePolicy: Send + Sync + std::fmt::Debug {
+    /// Determines if the read should continue after an error.
     fn on_error(&self, status: &ResumeQuery, error: Error) -> ResumeResult;
 }
 
-/// Extension trait for [DownloadResumePolicy].
-pub trait DownloadResumePolicyExt: Sized {
-    /// Decorates a [DownloadResumePolicy] to limit the number of resume attempts.
+/// Extension trait for [ReadResumePolicy].
+pub trait ReadResumePolicyExt: Sized {
+    /// Decorates a [ReadResumePolicy] to limit the number of resume attempts.
     ///
     /// This policy decorates an inner policy and limits the total number of
     /// attempts. Note that `on_error()` is not called before the initial
@@ -64,7 +64,7 @@ pub trait DownloadResumePolicyExt: Sized {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::download_resume_policy::*;
+    /// # use google_cloud_storage::read_resume_policy::*;
     /// let policy = Recommended.with_attempt_limit(3);
     /// assert!(matches!(policy.on_error(&ResumeQuery::new(0), transient_error()), ResumeResult::Continue(_)));
     /// assert!(matches!(policy.on_error(&ResumeQuery::new(1), transient_error()), ResumeResult::Continue(_)));
@@ -74,27 +74,27 @@ pub trait DownloadResumePolicyExt: Sized {
     /// use gax::error::{Error, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error {
     ///    // ... details omitted ...
-    ///    # Error::io("something failed in the download")
+    ///    # Error::io("something failed in the read request")
     /// }
     /// ```
     fn with_attempt_limit(self, maximum_attempts: u32) -> LimitedAttemptCount<Self> {
         LimitedAttemptCount::new(self, maximum_attempts)
     }
 }
-impl<T: DownloadResumePolicy> DownloadResumePolicyExt for T {}
+impl<T: ReadResumePolicy> ReadResumePolicyExt for T {}
 
 /// The inputs into a resume policy query.
 ///
 /// On an error, the client library queries the resume policy as to whether it
-/// should attempt a new download or not. The client library provides
-/// an instance of this type to the resume policy.
+/// should attempt a new read request or not. The client library provides an
+/// instance of this type to the resume policy.
 ///
 /// We use a struct so we can grow the amount of information without breaking
 /// existing resume policies.
 #[derive(Debug)]
 #[non_exhaustive]
 pub struct ResumeQuery {
-    /// The number of times the download has been interrupted already.
+    /// The number of times the read request has been interrupted already.
     pub attempt_count: u32,
 }
 
@@ -105,14 +105,14 @@ impl ResumeQuery {
     }
 }
 
-/// The recommended policy for storage downloads.
+/// The recommended policy when reading objects from Cloud Storage.
 ///
-/// This policy resumes any download that fails due to I/O errors, and stops on
-/// any other error kind.
+/// This policy resumes any read that fails due to I/O errors, and stops on any
+/// other error kind.
 ///
 /// # Example
 /// ```
-/// # use google_cloud_storage::download_resume_policy::*;
+/// # use google_cloud_storage::read_resume_policy::*;
 /// let policy = Recommended;
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(0), io_error()), ResumeResult::Continue(_)));
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(0), other_error()), ResumeResult::Permanent(_)));
@@ -120,17 +120,17 @@ impl ResumeQuery {
 /// use gax::error::{Error, rpc::Code, rpc::Status};
 /// fn io_error() -> Error {
 ///    // ... details omitted ...
-///    # Error::io("something failed in the download")
+///    # Error::io("something failed in the read request")
 /// }
 /// fn other_error() -> Error {
 ///    // ... details omitted ...
-///    # Error::deser("something failed in the download")
+///    # Error::deser("something failed in the read request")
 /// }
 /// ```
 #[derive(Debug)]
 pub struct Recommended;
 
-impl DownloadResumePolicy for Recommended {
+impl ReadResumePolicy for Recommended {
     fn on_error(&self, _status: &ResumeQuery, error: Error) -> ResumeResult {
         if error.is_io() {
             ResumeResult::Continue(error)
@@ -147,7 +147,7 @@ impl DownloadResumePolicy for Recommended {
 ///
 /// # Example
 /// ```
-/// # use google_cloud_storage::download_resume_policy::*;
+/// # use google_cloud_storage::read_resume_policy::*;
 /// let policy = AlwaysResume.with_attempt_limit(3);
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(0), scary_error()), ResumeResult::Continue(_)));
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(1), scary_error()), ResumeResult::Continue(_)));
@@ -157,13 +157,13 @@ impl DownloadResumePolicy for Recommended {
 /// use gax::error::{Error, rpc::Code, rpc::Status};
 /// fn scary_error() -> Error {
 ///    // ... details omitted ...
-///    # Error::deser("something failed in the download")
+///    # Error::deser("something failed in the read request")
 /// }
 /// ```
 #[derive(Debug)]
 pub struct AlwaysResume;
 
-impl DownloadResumePolicy for AlwaysResume {
+impl ReadResumePolicy for AlwaysResume {
     fn on_error(&self, _status: &ResumeQuery, error: Error) -> ResumeResult {
         ResumeResult::Continue(error)
     }
@@ -175,7 +175,7 @@ impl DownloadResumePolicy for AlwaysResume {
 ///
 /// # Example
 /// ```
-/// # use google_cloud_storage::download_resume_policy::*;
+/// # use google_cloud_storage::read_resume_policy::*;
 /// let policy = NeverResume.with_attempt_limit(3);
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(0), io_error()), ResumeResult::Permanent(_)));
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(1), io_error()), ResumeResult::Permanent(_)));
@@ -185,12 +185,12 @@ impl DownloadResumePolicy for AlwaysResume {
 /// use gax::error::{Error, rpc::Code, rpc::Status};
 /// fn io_error() -> Error {
 ///    // ... details omitted ...
-///    # Error::io("something failed in the download")
+///    # Error::io("something failed in the read request")
 /// }
 /// ```
 #[derive(Debug)]
 pub struct NeverResume;
-impl DownloadResumePolicy for NeverResume {
+impl ReadResumePolicy for NeverResume {
     fn on_error(&self, _status: &ResumeQuery, error: Error) -> ResumeResult {
         ResumeResult::Permanent(error)
     }
@@ -200,7 +200,7 @@ impl DownloadResumePolicy for NeverResume {
 ///
 /// # Example
 /// ```
-/// # use google_cloud_storage::download_resume_policy::*;
+/// # use google_cloud_storage::read_resume_policy::*;
 /// let policy = LimitedAttemptCount::new(AlwaysResume, 3);
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(0), scary_error()), ResumeResult::Continue(_)));
 /// assert!(matches!(policy.on_error(&ResumeQuery::new(1), scary_error()), ResumeResult::Continue(_)));
@@ -210,7 +210,7 @@ impl DownloadResumePolicy for NeverResume {
 /// use gax::error::{Error, rpc::Code, rpc::Status};
 /// fn scary_error() -> Error {
 ///    // ... details omitted ...
-///    # Error::deser("something failed in the download")
+///    # Error::deser("something failed in the read request")
 /// }
 /// ```
 #[derive(Debug)]
@@ -229,9 +229,9 @@ impl<P> LimitedAttemptCount<P> {
     }
 }
 
-impl<P> DownloadResumePolicy for LimitedAttemptCount<P>
+impl<P> ReadResumePolicy for LimitedAttemptCount<P>
 where
-    P: DownloadResumePolicy,
+    P: ReadResumePolicy,
 {
     fn on_error(&self, status: &ResumeQuery, error: Error) -> ResumeResult {
         match self.inner.on_error(status, error) {

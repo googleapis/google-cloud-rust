@@ -45,7 +45,7 @@ use crate::model::ObjectChecksums;
 /// Computes a checksum or hash for [Cloud Storage] transfers.
 ///
 /// We want to minimize code complexity in our implementation of data integrity
-/// checks for uploads and downloads. This trait defines a composable interface
+/// checks for writes and reads. This trait defines a composable interface
 /// to support:
 /// - No checksums (`Null`): the client library does not compute any checksums,
 ///   and therefore does not validate checksums either.

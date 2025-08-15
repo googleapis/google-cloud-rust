@@ -110,7 +110,7 @@ pub enum ReadError {
     ShortRead(u64),
 
     /// The read received more bytes than expected.
-    #[error("too many bytes received: expected {expected}, stopped download at {got}")]
+    #[error("too many bytes received: expected {expected}, stopped read at {got}")]
     LongRead { got: u64, expected: u64 },
 
     /// Only 200 and 206 status codes are expected in successful responses.

@@ -16,8 +16,8 @@ use super::request_options::RequestOptions;
 use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::UploadObject;
-use crate::download_resume_policy::DownloadResumePolicy;
 use crate::error::KeyAes256Error;
+use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::Crc32c;
 use crate::upload_source::Payload;
 use auth::credentials::CacheableResource;
@@ -173,7 +173,7 @@ impl Storage {
         UploadObject::new(self.inner.clone(), bucket, object, payload)
     }
 
-    /// Downloads the contents of an object.
+    /// Reads the contents of an object.
     ///
     /// # Example
     /// ```
@@ -513,29 +513,29 @@ impl ClientBuilder {
         self
     }
 
-    /// Configure the resume policy for downloads.
+    /// Configure the resume policy for object reads.
     ///
-    /// The Cloud Storage client library can automatically resume a download
+    /// The Cloud Storage client library can automatically resume a read request
     /// that is interrupted by a transient error. Applications may want to
-    /// limit the number of download attempts, or may wish to expand the type
+    /// limit the number of read attempts, or may wish to expand the type
     /// of errors treated as retryable.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use google_cloud_storage::download_resume_policy::{AlwaysResume, DownloadResumePolicyExt};
+    /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     /// let client = Storage::builder()
-    ///     .with_download_resume_policy(AlwaysResume.with_attempt_limit(3))
+    ///     .with_read_resume_policy(AlwaysResume.with_attempt_limit(3))
     ///     .build()
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn with_download_resume_policy<V>(mut self, v: V) -> Self
+    pub fn with_read_resume_policy<V>(mut self, v: V) -> Self
     where
-        V: DownloadResumePolicy + 'static,
+        V: ReadResumePolicy + 'static,
     {
-        self.default_options.download_resume_policy = Arc::new(v);
+        self.default_options.read_resume_policy = Arc::new(v);
         self
     }
 }
@@ -781,10 +781,10 @@ pub(crate) mod tests {
 
     mockall::mock! {
         #[derive(Debug)]
-        pub DownloadResumePolicy {}
+        pub ReadResumePolicy {}
 
-        impl crate::download_resume_policy::DownloadResumePolicy for DownloadResumePolicy {
-            fn on_error(&self, query: &crate::download_resume_policy::ResumeQuery, error: gax::error::Error) -> crate::download_resume_policy::ResumeResult;
+        impl crate::read_resume_policy::ReadResumePolicy for ReadResumePolicy {
+            fn on_error(&self, query: &crate::read_resume_policy::ResumeQuery, error: gax::error::Error) -> crate::read_resume_policy::ResumeResult;
         }
     }
 }
