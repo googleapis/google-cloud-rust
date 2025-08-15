@@ -85,7 +85,8 @@ impl super::stub::TraceService for TraceService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await.map(
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
@@ -152,6 +153,7 @@ impl super::stub::TraceService for TraceService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 }

@@ -24,7 +24,9 @@ use gax::backoff_policy::BackoffPolicy;
 use gax::client_builder::Error as BuilderError;
 use gax::error::Error;
 use gax::exponential_backoff::ExponentialBackoff;
-use gax::retry_policy::RetryPolicy;
+use gax::polling_backoff_policy::PollingBackoffPolicy;
+use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErrorPolicy};
+use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
 use http::HeaderMap;
 use std::sync::Arc;
@@ -36,9 +38,11 @@ pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
 pub struct Client {
     inner: InnerClient,
     credentials: Credentials,
-    retry_policy: Option<Arc<dyn RetryPolicy>>,
-    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
+    polling_error_policy: Arc<dyn PollingErrorPolicy>,
+    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
 }
 
 impl Client {
@@ -52,9 +56,24 @@ impl Client {
         Ok(Self {
             inner,
             credentials,
-            retry_policy: config.retry_policy.clone(),
-            backoff_policy: config.backoff_policy.clone(),
+            retry_policy: config.retry_policy.clone().unwrap_or_else(|| {
+                Arc::new(
+                    RetryAip194Strict
+                        .with_attempt_limit(10)
+                        .with_time_limit(Duration::from_secs(60)),
+                )
+            }),
+            backoff_policy: config
+                .backoff_policy
+                .clone()
+                .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             retry_throttler: config.retry_throttler,
+            polling_error_policy: config
+                .polling_error_policy
+                .unwrap_or_else(|| Arc::new(PollingAip194Strict)),
+            polling_backoff_policy: config
+                .polling_backoff_policy
+                .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
         })
     }
 
@@ -72,27 +91,14 @@ impl Client {
         Request: prost::Message + 'static + Clone,
         Response: prost::Message + Default + 'static,
     {
-        let headers = Self::make_headers(api_client_header, request_params).await?;
-        match self.get_retry_policy(&options) {
-            None => {
-                self.request_attempt::<Request, Response>(
-                    extensions, path, request, &options, None, headers,
-                )
-                .await
-            }
-            Some(policy) => {
-                self.retry_loop::<Request, Response>(
-                    policy, extensions, path, request, options, headers,
-                )
-                .await
-            }
-        }
+        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        self.retry_loop::<Request, Response>(extensions, path, request, options, headers)
+            .await
     }
 
     /// Runs the retry loop.
     async fn retry_loop<Request, Response>(
         &self,
-        retry_policy: Arc<dyn RetryPolicy>,
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: Request,
@@ -105,6 +111,7 @@ impl Client {
     {
         let idempotent = options.idempotent().unwrap_or(false);
         let retry_throttler = self.get_retry_throttler(&options);
+        let retry_policy = self.get_retry_policy(&options);
         let backoff_policy = self.get_backoff_policy(&options);
         let this = self.clone();
         let inner = async move |remaining_time: Option<Duration>| {
@@ -167,7 +174,7 @@ impl Client {
         {
             request.set_timeout(timeout);
         }
-        let codec = tonic::codec::ProstCodec::<Request, Response>::default();
+        let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
         inner
@@ -204,8 +211,15 @@ impl Client {
     async fn make_headers(
         api_client_header: &'static str,
         request_params: &str,
+        options: &gax::options::RequestOptions,
     ) -> Result<http::header::HeaderMap> {
         let mut headers = HeaderMap::new();
+        if let Some(user_agent) = options.user_agent() {
+            headers.append(
+                http::header::USER_AGENT,
+                http::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
+            );
+        }
         headers.append(
             http::header::HeaderName::from_static("x-goog-api-client"),
             http::header::HeaderValue::from_static(api_client_header),
@@ -225,14 +239,11 @@ impl Client {
         Ok(headers)
     }
 
-    fn get_retry_policy(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> Option<Arc<dyn RetryPolicy>> {
+    fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
         options
             .retry_policy()
             .clone()
-            .or_else(|| self.retry_policy.clone())
+            .unwrap_or_else(|| self.retry_policy.clone())
     }
 
     pub(crate) fn get_backoff_policy(
@@ -242,8 +253,7 @@ impl Client {
         options
             .backoff_policy()
             .clone()
-            .or_else(|| self.backoff_policy.clone())
-            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
+            .unwrap_or_else(|| self.backoff_policy.clone())
     }
 
     pub(crate) fn get_retry_throttler(
@@ -254,6 +264,26 @@ impl Client {
             .retry_throttler()
             .clone()
             .unwrap_or_else(|| self.retry_throttler.clone())
+    }
+
+    pub fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn PollingErrorPolicy> {
+        options
+            .polling_error_policy()
+            .clone()
+            .unwrap_or_else(|| self.polling_error_policy.clone())
+    }
+
+    pub fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn PollingBackoffPolicy> {
+        options
+            .polling_backoff_policy()
+            .clone()
+            .unwrap_or_else(|| self.polling_backoff_policy.clone())
     }
 }
 

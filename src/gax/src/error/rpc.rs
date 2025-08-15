@@ -615,8 +615,6 @@ mod tests {
                     ),
                 ],
             };
-        // TODO(#505) - change this test so it does not require updates as new
-        //     fields appear.
         let got = serde_json::to_value(&status).unwrap();
         let want = json!({
             "code": Code::Unimplemented,

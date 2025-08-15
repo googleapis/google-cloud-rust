@@ -100,9 +100,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_asset(
@@ -165,9 +164,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_asset(
@@ -248,7 +246,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.asset), options).await
+        let body = gaxi::http::handle_empty(req.asset, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn batch_update_assets(
@@ -306,7 +305,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_asset(
@@ -369,13 +369,13 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn batch_delete_assets(
@@ -433,7 +433,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await.map(
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
@@ -497,7 +498,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.frames), options).await
+        let body = gaxi::http::handle_empty(req.frames, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn aggregate_assets_values(
@@ -555,7 +557,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_import_job(
@@ -615,9 +618,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.import_job), options)
-            .await
+        let body = gaxi::http::handle_empty(req.import_job, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_import_jobs(
@@ -680,9 +682,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_import_job(
@@ -745,9 +746,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_import_job(
@@ -811,9 +811,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_import_job(
@@ -894,9 +893,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.import_job), options)
-            .await
+        let body = gaxi::http::handle_empty(req.import_job, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn validate_import_job(
@@ -958,7 +956,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn run_import_job(
@@ -1020,7 +1019,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_import_data_file(
@@ -1086,9 +1086,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_import_data_files(
@@ -1154,9 +1153,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_import_data_file(
@@ -1220,9 +1218,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.import_data_file), options)
-            .await
+        let body = gaxi::http::handle_empty(req.import_data_file, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_import_data_file(
@@ -1289,9 +1286,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_groups(
@@ -1353,9 +1349,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_group(
@@ -1417,9 +1412,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_group(
@@ -1479,7 +1473,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.group), options).await
+        let body = gaxi::http::handle_empty(req.group, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_group(
@@ -1560,7 +1555,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.group), options).await
+        let body = gaxi::http::handle_empty(req.group, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_group(
@@ -1623,9 +1619,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn add_assets_to_group(
@@ -1687,7 +1682,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn remove_assets_from_group(
@@ -1749,7 +1745,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_error_frames(
@@ -1814,9 +1811,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_error_frame(
@@ -1883,9 +1879,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_sources(
@@ -1947,9 +1942,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_source(
@@ -2011,9 +2005,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_source(
@@ -2073,7 +2066,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.source), options).await
+        let body = gaxi::http::handle_empty(req.source, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_source(
@@ -2154,7 +2148,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.source), options).await
+        let body = gaxi::http::handle_empty(req.source, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_source(
@@ -2217,9 +2212,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_preference_sets(
@@ -2280,9 +2274,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_preference_set(
@@ -2344,9 +2337,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_preference_set(
@@ -2406,9 +2398,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.preference_set), options)
-            .await
+        let body = gaxi::http::handle_empty(req.preference_set, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_preference_set(
@@ -2489,9 +2480,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.preference_set), options)
-            .await
+        let body = gaxi::http::handle_empty(req.preference_set, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_preference_set(
@@ -2554,9 +2544,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_settings(
@@ -2616,9 +2605,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_settings(
@@ -2697,9 +2685,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.settings), options)
-            .await
+        let body = gaxi::http::handle_empty(req.settings, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_report_config(
@@ -2759,9 +2746,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.report_config), options)
-            .await
+        let body = gaxi::http::handle_empty(req.report_config, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_report_config(
@@ -2823,9 +2809,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_report_configs(
@@ -2887,9 +2872,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_report_config(
@@ -2953,9 +2937,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_report(
@@ -3019,7 +3002,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.report), options).await
+        let body = gaxi::http::handle_empty(req.report, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_report(
@@ -3086,9 +3070,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_reports(
@@ -3155,9 +3138,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_report(
@@ -3224,9 +3206,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_locations(
@@ -3277,9 +3258,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_location(
@@ -3337,9 +3317,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_operations(
@@ -3400,9 +3379,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -3464,9 +3442,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_operation(
@@ -3528,13 +3505,13 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn cancel_operation(
@@ -3596,7 +3573,8 @@ impl super::stub::MigrationCenter for MigrationCenter {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await.map(
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())

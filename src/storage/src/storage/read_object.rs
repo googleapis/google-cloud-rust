@@ -15,33 +15,62 @@
 use super::client::*;
 use super::*;
 use crate::download_resume_policy::DownloadResumePolicy;
+use crate::error::{RangeError, ReadError};
+use crate::model::ObjectChecksums;
+use crate::storage::checksum::{
+    ChecksumEngine,
+    details::{Crc32c, Md5, validate},
+};
+use base64::Engine;
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
 use serde_with::DeserializeAs;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
-/// # Example
+/// # Example: accumulate the contents of an object into a vector
 /// ```
-/// # tokio_test::block_on(async {
-/// # use google_cloud_storage::client::Storage;
-/// use google_cloud_storage::builder::storage::ReadObject;
-/// # let client = Storage::builder()
-/// #   .with_endpoint("https://storage.googleapis.com")
-/// #    .build().await?;
-/// let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
-/// let contents = builder.send().await?.all_bytes().await?;
-/// println!("object contents={contents:?}");
-/// # Ok::<(), anyhow::Error>(()) });
+/// use google_cloud_storage::{client::Storage, builder::storage::ReadObject};
+/// async fn sample(client: &Storage) -> anyhow::Result<()> {
+///     let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
+///     let mut reader = builder.send().await?;
+///     let mut contents = Vec::new();
+///     while let Some(chunk) = reader.next().await.transpose()? {
+///         contents.extend_from_slice(&chunk);
+///     }
+///     println!("object contents={:?}", contents);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Example: read part of an object
+/// ```
+/// use google_cloud_storage::{client::Storage, builder::storage::ReadObject};
+/// async fn sample(client: &Storage) -> anyhow::Result<()> {
+///     const MIB: i64 = 1024 * 1024;
+///     let mut contents = Vec::new();
+///     let mut reader = client
+///         .read_object("projects/_/buckets/my-bucket", "my-object")
+///         .with_read_offset(4 * MIB)
+///         .with_read_limit(2 * MIB)
+///         .send()
+///         .await?;
+///     while let Some(chunk) = reader.next().await.transpose()? {
+///         contents.extend_from_slice(&chunk);
+///     }
+///     println!("range contents={:?}", contents);
+///     Ok(())
+/// }
 /// ```
 #[derive(Clone, Debug)]
-pub struct ReadObject {
+pub struct ReadObject<C = Crc32c> {
     inner: std::sync::Arc<StorageInner>,
     request: crate::model::ReadObjectRequest,
     options: super::request_options::RequestOptions,
+    checksum: C,
 }
 
-impl ReadObject {
+impl ReadObject<Crc32c> {
     pub(crate) fn new<B, O>(inner: std::sync::Arc<StorageInner>, bucket: B, object: O) -> Self
     where
         B: Into<String>,
@@ -54,6 +83,56 @@ impl ReadObject {
                 .set_bucket(bucket)
                 .set_object(object),
             options,
+            checksum: Crc32c::default(),
+        }
+    }
+
+    /// Enables computation of MD5 hashes.
+    ///
+    /// Crc32c hashes are checked by default.
+    ///
+    /// Checksum validation is supported iff:
+    /// 1. The full content is requested.
+    /// 2. All of the content is returned (status != PartialContent).
+    /// 3. The server sent a checksum header.
+    /// 4. The http stack did not uncompress the file.
+    /// 5. The server did not uncompress data on download.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let builder =  client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .compute_md5();
+    /// let mut reader = builder
+    ///     .send()
+    ///     .await?;
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = reader.next().await.transpose()? {
+    ///     contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("object contents={:?}", contents);
+    /// # Ok(()) }
+    /// ```
+    pub fn compute_md5(self) -> ReadObject<Md5<Crc32c>> {
+        self.switch_checksum(Md5::from_inner)
+    }
+}
+
+impl<C> ReadObject<C>
+where
+    C: Clone + ChecksumEngine + Send,
+{
+    fn switch_checksum<F, U>(self, new: F) -> ReadObject<U>
+    where
+        F: FnOnce(C) -> U,
+    {
+        ReadObject {
+            inner: self.inner,
+            request: self.request,
+            options: self.options,
+            checksum: new(self.checksum),
         }
     }
 
@@ -117,37 +196,34 @@ impl ReadObject {
     ///
     /// Read starting at 100 bytes to end of file.
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_read_offset(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// Read last 100 bytes of file:
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_read_offset(-100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// Read bytes 1000 to 1099.
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_read_offset(1000)
@@ -155,7 +231,7 @@ impl ReadObject {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_read_offset<T>(mut self, v: T) -> Self
     where
@@ -175,23 +251,21 @@ impl ReadObject {
     ///
     /// Read first 100 bytes.
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_read_limit(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// Read bytes 1000 to 1099.
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_read_offset(1000)
@@ -199,7 +273,7 @@ impl ReadObject {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_read_limit<T>(mut self, v: T) -> Self
     where
@@ -214,10 +288,8 @@ impl ReadObject {
     ///
     /// Example:
     /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
-    /// # let client = Storage::builder().build().await?;
+    /// # use google_cloud_storage::{builder::storage::KeyAes256, client::Storage};
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let key: &[u8] = &[97; 32];
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
@@ -225,7 +297,7 @@ impl ReadObject {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_key(mut self, v: KeyAes256) -> Self {
         self.request.common_object_request_params = Some(v.into());
@@ -237,8 +309,8 @@ impl ReadObject {
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::retry_policy::RecommendedPolicy;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::retry_policy::RecommendedPolicy;
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
     /// let response = client
@@ -339,7 +411,7 @@ impl ReadObject {
     }
 
     /// Sends the request.
-    pub async fn send(self) -> Result<ReadObjectResponse> {
+    pub async fn send(self) -> Result<ReadObjectResponse<C>> {
         let download = self.clone().download().await?;
         ReadObjectResponse::new(self, download)
     }
@@ -464,59 +536,115 @@ fn headers_to_crc32c(headers: &http::HeaderMap) -> Option<u32> {
         })
 }
 
+fn headers_to_md5_hash(headers: &http::HeaderMap) -> Vec<u8> {
+    headers
+        .get("x-goog-hash")
+        .and_then(|hash| hash.to_str().ok())
+        .and_then(|hash| hash.split(",").find(|v| v.starts_with("md5")))
+        .and_then(|hash| {
+            let hash = hash.trim_start_matches("md5=");
+            base64::prelude::BASE64_STANDARD.decode(hash).ok()
+        })
+        .unwrap_or_default()
+}
+
 /// A response to a [Storage::read_object] request.
 #[derive(Debug)]
-pub struct ReadObjectResponse {
+pub struct ReadObjectResponse<C> {
     inner: Option<reqwest::Response>,
+    highlights: ObjectHighlights,
     // Fields for tracking the crc checksum checks.
-    response_crc32c: Option<u32>,
-    crc32c: u32,
+    response_checksums: ObjectChecksums,
+    // Fields for resuming download.
     range: ReadRange,
     generation: i64,
-    builder: ReadObject,
+    builder: ReadObject<C>,
     resume_count: u32,
 }
 
-impl ReadObjectResponse {
-    fn new(builder: ReadObject, inner: reqwest::Response) -> Result<Self> {
+impl<C> ReadObjectResponse<C>
+where
+    C: ChecksumEngine + Clone + Send,
+{
+    fn new(builder: ReadObject<C>, inner: reqwest::Response) -> Result<Self> {
         let full = builder.request.read_offset == 0 && builder.request.read_limit == 0;
-        let response_crc32c = crc32c_from_response(full, inner.status(), inner.headers());
+        let response_checksums = checksums_from_response(full, inner.status(), inner.headers());
         let range = response_range(&inner).map_err(Error::deser)?;
         let generation = response_generation(&inner).map_err(Error::deser)?;
 
+        let headers = inner.headers();
+        let get_as_i64 = |header_name: &str| -> i64 {
+            headers
+                .get(header_name)
+                .and_then(|s| s.to_str().ok())
+                .and_then(|s| s.parse::<i64>().ok())
+                .unwrap_or_default()
+        };
+        let get_as_string = |header_name: &str| -> String {
+            headers
+                .get(header_name)
+                .and_then(|sc| sc.to_str().ok())
+                .map(|sc| sc.to_string())
+                .unwrap_or_default()
+        };
+        let highlights = ObjectHighlights {
+            generation,
+            metageneration: get_as_i64("x-goog-metageneration"),
+            size: get_as_i64("x-goog-stored-content-length"),
+            content_encoding: get_as_string("x-goog-stored-content-encoding"),
+            storage_class: get_as_string("x-goog-storage-class"),
+            content_type: get_as_string("content-type"),
+            content_language: get_as_string("content-language"),
+            content_disposition: get_as_string("content-disposition"),
+            etag: get_as_string("etag"),
+            checksums: headers.get("x-goog-hash").map(|_| {
+                crate::model::ObjectChecksums::new()
+                    .set_or_clear_crc32c(headers_to_crc32c(headers))
+                    .set_md5_hash(headers_to_md5_hash(headers))
+            }),
+        };
+
         Ok(Self {
             inner: Some(inner),
-            response_crc32c,
-            crc32c: 0, // no bytes read yet.
+            highlights,
+            // Fields for computing checksums.
+            response_checksums,
+            // Fields for resuming download.
             range,
             generation,
             builder,
             resume_count: 0,
         })
     }
+}
 
-    // Get the full object as bytes.
-    //
+impl<C> ReadObjectResponse<C>
+where
+    C: ChecksumEngine + Clone + Send,
+{
+    /// Get the highlights of the object metadata included in the
+    /// response.
+    ///
+    /// To get full metadata about this object, use [crate::client::StorageControl::get_object].
+    ///
     /// # Example
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
-    /// let contents = client
+    /// let object = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
     ///     .await?
-    ///     .all_bytes()
-    ///     .await?;
-    /// println!("object contents={contents:?}");
+    ///     .object();
+    /// println!("object generation={}", object.generation);
+    /// println!("object metageneration={}", object.metageneration);
+    /// println!("object size={}", object.size);
+    /// println!("object content encoding={}", object.content_encoding);
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-    pub async fn all_bytes(mut self) -> Result<bytes::Bytes> {
-        let mut contents = Vec::with_capacity(self.range.limit as usize);
-        while let Some(b) = self.next().await.transpose()? {
-            contents.extend_from_slice(&b);
-        }
-        Ok(bytes::Bytes::from_owner(contents))
+    pub fn object(&self) -> ObjectHighlights {
+        self.highlights.clone()
     }
 
     /// Stream the next bytes of the object.
@@ -553,9 +681,7 @@ impl ReadObjectResponse {
         let res = inner.chunk().await.map_err(Error::io);
         match res {
             Ok(Some(chunk)) => {
-                if self.response_crc32c.is_some() {
-                    self.crc32c = crc32c::crc32c_append(self.crc32c, &chunk);
-                }
+                self.builder.checksum.update(self.range.start, &chunk);
                 let len = chunk.len() as u64;
                 if self.range.limit < len {
                     return Some(Err(Error::deser(ReadError::LongRead {
@@ -571,9 +697,10 @@ impl ReadObjectResponse {
                 if self.range.limit != 0 {
                     return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
                 }
-                let res = check_crc32c_match(self.crc32c, self.response_crc32c);
+                let computed = self.builder.checksum.finalize();
+                let res = validate(&self.response_checksums, &Some(computed));
                 match res {
-                    Err(e) => Some(Err(e)),
+                    Err(e) => Some(Err(Error::deser(ReadError::ChecksumMismatch(e)))),
                     Ok(()) => None,
                 }
             }
@@ -624,52 +751,81 @@ impl ReadObjectResponse {
     }
 }
 
-/// Represents an error that can occur when reading response data.
-#[derive(thiserror::Error, Debug)]
+/// ObjectHighlights contains select metadata from a [crate::model::Object].
+#[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
-enum ReadError {
-    /// The calculated crc32c did not match server provided crc32c.
-    #[error("bad CRC on read: got {got}, want {want}")]
-    BadCrc { got: u32, want: u32 },
+pub struct ObjectHighlights {
+    /// The content generation of this object. Used for object versioning.
+    pub generation: i64,
 
-    #[error("missing {0} bytes at the end of the stream")]
-    ShortRead(u64),
+    /// The version of the metadata for this generation of this
+    /// object. Used for preconditions and for detecting changes in metadata. A
+    /// metageneration number is only meaningful in the context of a particular
+    /// generation of a particular object.
+    pub metageneration: i64,
 
-    #[error("too many bytes received: expected {expected}, stopped download at {got}")]
-    LongRead { got: u64, expected: u64 },
+    /// Content-Length of the object data in bytes, matching [RFC 7230 §3.3.2].
+    ///
+    /// [rfc 7230 §3.3.2]: https://tools.ietf.org/html/rfc7230#section-3.3.2
+    pub size: i64,
 
-    /// Only 200 and 206 status codes are expected in successful responses.
-    #[error("unexpected success code {0} in read request, only 200 and 206 are expected")]
-    UnexpectedSuccessCode(u16),
+    /// Content-Encoding of the object data, matching [RFC 7231 §3.1.2.2].
+    ///
+    /// [rfc 7231 §3.1.2.2]: https://tools.ietf.org/html/rfc7231#section-3.1.2.2
+    pub content_encoding: String,
 
-    /// Successful HTTP response must include some headers.
-    #[error("the response is missing '{0}', a required header")]
-    MissingHeader(&'static str),
+    /// Hashes for the data part of this object. The checksums of the complete
+    /// object regardless of data range. If the object is downloaded in full,
+    /// the client should compute one of these checksums over the downloaded
+    /// object and compare it against the value provided here.
+    pub checksums: std::option::Option<crate::model::ObjectChecksums>,
 
-    /// The received header format is invalid.
-    #[error("the format for header '{0}' is incorrect")]
-    BadHeaderFormat(
-        &'static str,
-        #[source] Box<dyn std::error::Error + Send + Sync + 'static>,
-    ),
+    /// Storage class of the object.
+    pub storage_class: String,
+
+    /// Content-Language of the object data, matching [RFC 7231 §3.1.3.2].
+    ///
+    /// [rfc 7231 §3.1.3.2]: https://tools.ietf.org/html/rfc7231#section-3.1.3.2
+    pub content_language: String,
+
+    /// Content-Type of the object data, matching [RFC 7231 §3.1.1.5]. If an
+    /// object is stored without a Content-Type, it is served as
+    /// `application/octet-stream`.
+    ///
+    /// [rfc 7231 §3.1.1.5]: https://tools.ietf.org/html/rfc7231#section-3.1.1.5
+    pub content_type: String,
+
+    /// Content-Disposition of the object data, matching [RFC 6266].
+    ///
+    /// [rfc 6266]: https://tools.ietf.org/html/rfc6266
+    pub content_disposition: String,
+
+    /// The etag of the object.
+    pub etag: String,
 }
 
-fn crc32c_from_response(
+/// Returns the object checksums to validate against.
+///
+/// For some responses, the checksums are not expected to match the data.
+/// The function returns an empty `ObjectChecksums` in such a case.
+///
+/// Checksum validation is supported iff:
+/// 1. We requested the full content.
+/// 2. We got all the content (status != PartialContent).
+/// 3. The server sent a CRC header.
+/// 4. The http stack did not uncompress the file.
+/// 5. We were not served compressed data that was uncompressed on download.
+///
+/// For 4, we turn off automatic decompression in reqwest::Client when we
+/// create it,
+fn checksums_from_response(
     full_content_requested: bool,
     status: http::StatusCode,
     headers: &http::HeaderMap,
-) -> Option<u32> {
-    // Check the CRC iff all of the following hold:
-    // 1. We requested the full content (request.read_limit = 0, request.read_offset = 0).
-    // 2. We got all the content (status != PartialContent).
-    // 3. The server sent a CRC header.
-    // 4. The http stack did not uncompress the file.
-    // 5. We were not served compressed data that was uncompressed on download.
-    //
-    // For 4, we turn off automatic decompression in reqwest::Client when we create it,
-    // so it will not be turned on.
+) -> ObjectChecksums {
+    let checksums = ObjectChecksums::new();
     if !full_content_requested || status == http::StatusCode::PARTIAL_CONTENT {
-        return None;
+        return checksums;
     }
     let stored_encoding = headers
         .get("x-goog-stored-content-encoding")
@@ -680,21 +836,11 @@ fn crc32c_from_response(
         .and_then(|e| e.to_str().ok())
         .map_or("", |e| e);
     if stored_encoding == "gzip" && content_encoding != "gzip" {
-        return None;
+        return checksums;
     }
-    headers_to_crc32c(headers)
-}
-
-fn check_crc32c_match(crc32c: u32, response: Option<u32>) -> Result<()> {
-    if let Some(response) = response {
-        if crc32c != response {
-            return Err(Error::deser(ReadError::BadCrc {
-                got: crc32c,
-                want: response,
-            }));
-        }
-    }
-    Ok(())
+    checksums
+        .set_or_clear_crc32c(headers_to_crc32c(headers))
+        .set_md5_hash(headers_to_md5_hash(headers))
 }
 
 fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange, ReadError> {
@@ -768,7 +914,7 @@ mod resume_tests;
 mod tests {
     use super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
-    use base64::Engine as _;
+    use crate::error::ChecksumMismatch;
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
@@ -822,12 +968,70 @@ mod tests {
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
+        let mut reader = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        let mut got = Vec::new();
+        while let Some(b) = reader.next().await.transpose()? {
+            got.extend_from_slice(&b);
+        }
+        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_metadata() -> Result {
+        const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .body(CONTENTS)
+                    .append_header(
+                        "x-goog-hash",
+                        "crc32c=PBj01g==,md5=d63R1fQSI9VYL8pzalyzNQ==",
+                    )
+                    .append_header("x-goog-generation", 500)
+                    .append_header("x-goog-metageneration", "1")
+                    .append_header("x-goog-stored-content-length", 30)
+                    .append_header("x-goog-stored-content-encoding", "identity")
+                    .append_header("x-goog-storage-class", "STANDARD")
+                    .append_header("content-language", "en")
+                    .append_header("content-type", "text/plain")
+                    .append_header("content-disposition", "inline")
+                    .append_header("etag", "etagval"),
+            ),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
         let reader = client
             .read_object("projects/_/buckets/test-bucket", "test-object")
             .send()
             .await?;
-        let got = reader.all_bytes().await?;
-        assert_eq!(got, "hello world");
+        let object = reader.object();
+        assert_eq!(object.generation, 500);
+        assert_eq!(object.metageneration, 1);
+        assert_eq!(object.size, 30);
+        assert_eq!(object.content_encoding, "identity");
+        assert_eq!(
+            object.checksums.as_ref().unwrap().crc32c.unwrap(),
+            crc32c::crc32c(CONTENTS.as_bytes())
+        );
+        assert_eq!(
+            object.checksums.as_ref().unwrap().md5_hash,
+            base64::prelude::BASE64_STANDARD.decode("d63R1fQSI9VYL8pzalyzNQ==")?
+        );
 
         Ok(())
     }
@@ -881,7 +1085,7 @@ mod tests {
                 request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
-            .times(2)
+            .times(1)
             .respond_with(
                 status_code(200)
                     .body(contents.clone())
@@ -895,21 +1099,6 @@ mod tests {
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
-
-        // Read some bytes, then get all.
-        let mut response = client
-            .read_object("projects/_/buckets/test-bucket", "test-object")
-            .send()
-            .await?;
-
-        let mut all_bytes = bytes::BytesMut::new();
-        let chunk = response.next().await.transpose()?.unwrap();
-        assert!(!chunk.is_empty());
-        all_bytes.extend(chunk);
-        let remainder = response.all_bytes().await?;
-        assert!(!remainder.is_empty());
-        all_bytes.extend(remainder);
-        assert_eq!(all_bytes, contents);
 
         // Read some bytes, then remainder with stream.
         let mut response = client
@@ -978,26 +1167,34 @@ mod tests {
             ),
         );
 
-        let expected_got = crc32c::crc32c("hello world".as_bytes()); // calculated from data.
-        let expected_want = crc32c::crc32c("goodbye world".as_bytes()); // returned from server.
-
         let client = Storage::builder()
             .with_endpoint(format!("http://{}", server.addr()))
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
-        let response = client
+        let mut response = client
             .read_object("projects/_/buckets/test-bucket", "test-object")
             .send()
             .await?;
-        let err = response
-            .all_bytes()
-            .await
-            .expect_err("expect error on incorrect crc32c");
+        let mut partial = Vec::new();
+        let mut err = None;
+        while let Some(r) = response.next().await {
+            match r {
+                Ok(b) => partial.extend_from_slice(&b),
+                Err(e) => err = Some(e),
+            };
+        }
+        assert_eq!(bytes::Bytes::from_owner(partial), "hello world");
+        let err = err.expect("expect error on incorrect crc32c");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
-            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == expected_got && want == expected_want),
-            "err={err:?}, expected_got={expected_got}, expected_want={expected_want}"
+            matches!(
+                source,
+                Some(&ReadError::ChecksumMismatch(
+                    ChecksumMismatch::Crc32c { .. }
+                ))
+            ),
+            "err={err:?}"
         );
 
         let mut response = client
@@ -1014,8 +1211,13 @@ mod tests {
         .expect_err("expect error on incorrect crc32c");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
-            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == expected_got && want == expected_want),
-            "err={err:?}, expected_got={expected_got}, expected_want={expected_want}"
+            matches!(
+                source,
+                Some(&ReadError::ChecksumMismatch(
+                    ChecksumMismatch::Crc32c { .. }
+                ))
+            ),
+            "err={err:?}"
         );
 
         use futures::TryStreamExt;
@@ -1029,9 +1231,67 @@ mod tests {
             .expect_err("expect error on incorrect crc32c");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
-            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == expected_got && want == expected_want),
-            "err={err:?}, expected_got={expected_got}, expected_want={expected_want}"
+            matches!(
+                source,
+                Some(&ReadError::ChecksumMismatch(
+                    ChecksumMismatch::Crc32c { .. }
+                ))
+            ),
+            "err={err:?}"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_incorrect_md5_check() -> Result {
+        // Calculate and serialize the md5 checksum
+        let digest = md5::compute("goodbye world".as_bytes());
+        let value = base64::prelude::BASE64_STANDARD.encode(digest.as_ref());
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .times(1)
+            .respond_with(
+                status_code(200)
+                    .body("hello world")
+                    .append_header("x-goog-hash", format!("md5={value}"))
+                    .append_header("x-goog-generation", 123456),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let mut response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .compute_md5()
+            .send()
+            .await?;
+        let mut partial = Vec::new();
+        let mut err = None;
+        while let Some(r) = response.next().await {
+            match r {
+                Ok(b) => partial.extend_from_slice(&b),
+                Err(e) => err = Some(e),
+            };
+        }
+        assert_eq!(bytes::Bytes::from_owner(partial), "hello world");
+        let err = err.expect("expect error on incorrect md5");
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(
+                source,
+                Some(&ReadError::ChecksumMismatch(ChecksumMismatch::Md5 { .. }))
+            ),
+            "err={err:?}"
+        );
+
         Ok(())
     }
 
@@ -1168,21 +1428,41 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(0, -100, RangeError::NegativeLimit; "negative limit")]
-    #[test_case(-100, 100, RangeError::NegativeOffsetWithLimit; "negative offset with positive limit")]
     #[tokio::test]
-    async fn test_range_header_error(offset: i64, limit: i64, want_err: RangeError) -> Result {
+    async fn range_header_negative_limit() -> Result {
         let inner = test_inner_client(test_builder());
         let err = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_read_offset(offset)
-            .with_read_limit(limit)
+            .with_read_limit(-100)
             .http_request_builder()
             .await
             .unwrap_err();
 
-        assert_eq!(
-            err.source().unwrap().downcast_ref::<RangeError>().unwrap(),
-            &want_err
+        assert!(
+            matches!(
+                err.source().unwrap().downcast_ref::<RangeError>().unwrap(),
+                RangeError::NegativeLimit
+            ),
+            "{err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn range_header_negative_offset_with_limit() -> Result {
+        let inner = test_inner_client(test_builder());
+        let err = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
+            .with_read_offset(-100)
+            .with_read_limit(100)
+            .http_request_builder()
+            .await
+            .unwrap_err();
+
+        assert!(
+            matches!(
+                err.source().unwrap().downcast_ref::<RangeError>().unwrap(),
+                RangeError::NegativeOffsetWithLimit
+            ),
+            "{err:?}"
         );
         Ok(())
     }
@@ -1211,25 +1491,6 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(10, Some(10); "Match values")]
-    #[test_case(10, None; "None response")]
-    fn check_crc_success(crc: u32, resp_crc: Option<u32>) {
-        let res = check_crc32c_match(crc, resp_crc);
-        assert!(res.is_ok(), "{res:?}");
-    }
-
-    #[test_case(10, 20)]
-    fn check_crc_error(crc: u32, response: u32) {
-        let err = check_crc32c_match(crc, Some(response))
-            .expect_err("mismatched CRC values should result in error");
-        assert!(err.is_deserialization());
-        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
-        assert!(
-            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == crc && want == response),
-            "{err:?}"
-        );
-    }
-
     #[test]
     fn document_crc32c_values() {
         let bytes = (1234567890_u32).to_be_bytes();
@@ -1253,16 +1514,36 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(false, vec![("x-goog-hash", "crc32c=SZYC0g==")], http::StatusCode::OK, None; "full content not requested")]
-    #[test_case(true, vec![], http::StatusCode::PARTIAL_CONTENT, None; "No x-goog-hash")]
-    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "json")], http::StatusCode::OK, None; "server uncompressed")]
-    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "gzip")], http::StatusCode::OK, Some(1234567890_u32); "both gzip")]
-    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==")], http::StatusCode::OK, Some(1234567890_u32); "all ok")]
-    fn test_check_crc_enabled(
+    #[test_case("", None; "no header")]
+    #[test_case("md5=invalid", None; "invalid value")]
+    #[test_case("md5=AAAAAAAAAAAAAAAAAA==",Some("AAAAAAAAAAAAAAAAAA=="); "zero value")]
+    #[test_case("md5=d63R1fQSI9VYL8pzalyzNQ==", Some("d63R1fQSI9VYL8pzalyzNQ=="); "value")]
+    #[test_case("crc32c=something,md5=d63R1fQSI9VYL8pzalyzNQ==", Some("d63R1fQSI9VYL8pzalyzNQ=="); "md5 after crc32c")]
+    #[test_case("md5=d63R1fQSI9VYL8pzalyzNQ==,crc32c=something", Some("d63R1fQSI9VYL8pzalyzNQ=="); "md5 before crc32c")]
+    fn test_headers_to_md5(val: &str, want: Option<&str>) -> Result {
+        let mut headers = http::HeaderMap::new();
+        if !val.is_empty() {
+            headers.insert("x-goog-hash", http::HeaderValue::from_str(val)?);
+        }
+        let got = headers_to_md5_hash(&headers);
+        match want {
+            Some(w) => assert_eq!(got, base64::prelude::BASE64_STANDARD.decode(w)?),
+            None => assert!(got.is_empty()),
+        }
+        Ok(())
+    }
+
+    #[test_case(false, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ==")], http::StatusCode::OK, None, ""; "full content not requested")]
+    #[test_case(true, vec![], http::StatusCode::PARTIAL_CONTENT, None, ""; "No x-goog-hash")]
+    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "json")], http::StatusCode::OK, None, ""; "server uncompressed")]
+    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "gzip")], http::StatusCode::OK, Some(1234567890_u32), "d63R1fQSI9VYL8pzalyzNQ=="; "both gzip")]
+    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ==")], http::StatusCode::OK, Some(1234567890_u32), "d63R1fQSI9VYL8pzalyzNQ=="; "all ok")]
+    fn test_checksums_validation_enabled(
         full_content_requested: bool,
         headers: Vec<(&str, &str)>,
         status: http::StatusCode,
-        want: Option<u32>,
+        want_crc32c: Option<u32>,
+        want_md5: &str,
     ) -> Result {
         let mut header_map = http::HeaderMap::new();
         for (key, value) in headers {
@@ -1272,8 +1553,12 @@ mod tests {
             );
         }
 
-        let got = crc32c_from_response(full_content_requested, status, &header_map);
-        assert_eq!(got, want);
+        let got = checksums_from_response(full_content_requested, status, &header_map);
+        assert_eq!(got.crc32c, want_crc32c);
+        assert_eq!(
+            got.md5_hash,
+            base64::prelude::BASE64_STANDARD.decode(want_md5)?
+        );
         Ok(())
     }
 

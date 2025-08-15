@@ -161,9 +161,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_entitlements(
@@ -299,9 +298,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn search_entitlements(
@@ -437,9 +435,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_entitlement(
@@ -575,9 +572,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_entitlement(
@@ -707,9 +703,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.entitlement), options)
-            .await
+        let body = gaxi::http::handle_empty(req.entitlement, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_entitlement(
@@ -851,9 +846,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_entitlement(
@@ -1043,9 +1037,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.entitlement), options)
-            .await
+        let body = gaxi::http::handle_empty(req.entitlement, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_grants(
@@ -1193,9 +1186,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn search_grants(
@@ -1343,9 +1335,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_grant(
@@ -1493,9 +1484,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_grant(
@@ -1634,7 +1624,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.grant), options).await
+        let body = gaxi::http::handle_empty(req.grant, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn approve_grant(
@@ -1782,7 +1773,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn deny_grant(
@@ -1930,7 +1922,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn revoke_grant(
@@ -2078,7 +2071,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_locations(
@@ -2181,9 +2175,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_location(
@@ -2307,9 +2300,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_operations(
@@ -2442,9 +2434,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -2580,9 +2571,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_operation(
@@ -2718,13 +2708,13 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     fn get_polling_error_policy(

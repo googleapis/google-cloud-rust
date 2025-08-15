@@ -118,7 +118,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn redact_image(
@@ -199,7 +200,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn deidentify_content(
@@ -280,7 +282,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn reidentify_content(
@@ -361,7 +364,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_info_types(
@@ -499,9 +503,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_inspect_template(
@@ -638,7 +641,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_inspect_template(
@@ -803,7 +807,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_inspect_template(
@@ -968,9 +973,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_inspect_templates(
@@ -1123,9 +1127,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_inspect_template(
@@ -1290,13 +1293,13 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn create_deidentify_template(
@@ -1433,7 +1436,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_deidentify_template(
@@ -1598,7 +1602,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_deidentify_template(
@@ -1763,9 +1768,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_deidentify_templates(
@@ -1918,9 +1922,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_deidentify_template(
@@ -2085,13 +2088,13 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn create_job_trigger(
@@ -2205,7 +2208,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_job_trigger(
@@ -2337,7 +2341,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn hybrid_inspect_job_trigger(
@@ -2399,7 +2404,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_job_trigger(
@@ -2531,9 +2537,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_job_triggers(
@@ -2665,9 +2670,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_job_trigger(
@@ -2799,13 +2803,13 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn activate_job_trigger(
@@ -2900,7 +2904,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_discovery_config(
@@ -2991,7 +2996,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_discovery_config(
@@ -3090,7 +3096,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_discovery_config(
@@ -3189,9 +3196,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_discovery_configs(
@@ -3288,9 +3294,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_discovery_config(
@@ -3389,13 +3394,13 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn create_dlp_job(
@@ -3476,7 +3481,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_dlp_jobs(
@@ -3608,9 +3614,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_dlp_job(
@@ -3705,9 +3710,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_dlp_job(
@@ -3802,13 +3806,13 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn cancel_dlp_job(
@@ -3903,7 +3907,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await.map(
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
@@ -4045,7 +4050,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_stored_info_type(
@@ -4210,7 +4216,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_stored_info_type(
@@ -4375,9 +4382,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_stored_info_types(
@@ -4530,9 +4536,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_stored_info_type(
@@ -4697,13 +4702,13 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn list_project_data_profiles(
@@ -4802,9 +4807,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_table_data_profiles(
@@ -4903,9 +4907,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_column_data_profiles(
@@ -5004,9 +5007,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_project_data_profile(
@@ -5105,9 +5107,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_file_store_data_profiles(
@@ -5206,9 +5207,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_file_store_data_profile(
@@ -5307,9 +5307,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_file_store_data_profile(
@@ -5408,13 +5407,13 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn get_table_data_profile(
@@ -5513,9 +5512,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_column_data_profile(
@@ -5614,9 +5612,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_table_data_profile(
@@ -5715,13 +5712,13 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn hybrid_inspect_dlp_job(
@@ -5783,7 +5780,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn finish_dlp_job(
@@ -5845,7 +5843,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await.map(
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
@@ -5941,7 +5940,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_connection(
@@ -6040,9 +6040,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_connections(
@@ -6139,9 +6138,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn search_connections(
@@ -6238,9 +6236,8 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_connection(
@@ -6339,13 +6336,13 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn update_connection(
@@ -6444,6 +6441,7 @@ impl super::stub::DlpService for DlpService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 }

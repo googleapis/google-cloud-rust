@@ -86,9 +86,8 @@ impl super::stub::DashboardsService for DashboardsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.dashboard), options)
-            .await
+        let body = gaxi::http::handle_empty(req.dashboard, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_dashboards(
@@ -138,9 +137,8 @@ impl super::stub::DashboardsService for DashboardsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_dashboard(
@@ -198,9 +196,8 @@ impl super::stub::DashboardsService for DashboardsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_dashboard(
@@ -258,13 +255,13 @@ impl super::stub::DashboardsService for DashboardsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn update_dashboard(
@@ -329,8 +326,7 @@ impl super::stub::DashboardsService for DashboardsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.dashboard), options)
-            .await
+        let body = gaxi::http::handle_empty(req.dashboard, &method);
+        self.inner.execute(builder, body, options).await
     }
 }

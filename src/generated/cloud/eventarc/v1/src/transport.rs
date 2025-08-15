@@ -99,9 +99,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_triggers(
@@ -163,9 +162,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_trigger(
@@ -225,9 +223,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.trigger), options)
-            .await
+        let body = gaxi::http::handle_empty(req.trigger, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_trigger(
@@ -309,9 +306,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.trigger), options)
-            .await
+        let body = gaxi::http::handle_empty(req.trigger, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_trigger(
@@ -376,9 +372,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_channel(
@@ -440,9 +435,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_channels(
@@ -503,9 +497,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_channel(
@@ -565,9 +558,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.channel), options)
-            .await
+        let body = gaxi::http::handle_empty(req.channel, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_channel(
@@ -648,9 +640,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.channel), options)
-            .await
+        let body = gaxi::http::handle_empty(req.channel, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_channel(
@@ -713,9 +704,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_provider(
@@ -777,9 +767,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_providers(
@@ -841,9 +830,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_channel_connection(
@@ -905,9 +893,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_channel_connections(
@@ -967,9 +954,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_channel_connection(
@@ -1028,9 +1014,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.channel_connection), options)
-            .await
+        let body = gaxi::http::handle_empty(req.channel_connection, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_channel_connection(
@@ -1092,9 +1077,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_google_channel_config(
@@ -1154,9 +1138,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_google_channel_config(
@@ -1234,9 +1217,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.google_channel_config), options)
-            .await
+        let body = gaxi::http::handle_empty(req.google_channel_config, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_message_bus(
@@ -1298,9 +1280,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_message_buses(
@@ -1362,9 +1343,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_message_bus_enrollments(
@@ -1428,9 +1408,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_message_bus(
@@ -1490,9 +1469,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.message_bus), options)
-            .await
+        let body = gaxi::http::handle_empty(req.message_bus, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_message_bus(
@@ -1574,9 +1552,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.message_bus), options)
-            .await
+        let body = gaxi::http::handle_empty(req.message_bus, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_message_bus(
@@ -1641,9 +1618,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_enrollment(
@@ -1705,9 +1681,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_enrollments(
@@ -1769,9 +1744,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_enrollment(
@@ -1831,9 +1805,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.enrollment), options)
-            .await
+        let body = gaxi::http::handle_empty(req.enrollment, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_enrollment(
@@ -1915,9 +1888,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.enrollment), options)
-            .await
+        let body = gaxi::http::handle_empty(req.enrollment, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_enrollment(
@@ -1982,9 +1954,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_pipeline(
@@ -2046,9 +2017,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_pipelines(
@@ -2110,9 +2080,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_pipeline(
@@ -2172,9 +2141,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.pipeline), options)
-            .await
+        let body = gaxi::http::handle_empty(req.pipeline, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_pipeline(
@@ -2256,9 +2224,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.pipeline), options)
-            .await
+        let body = gaxi::http::handle_empty(req.pipeline, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_pipeline(
@@ -2323,9 +2290,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_google_api_source(
@@ -2387,9 +2353,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_google_api_sources(
@@ -2451,9 +2416,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_google_api_source(
@@ -2513,9 +2477,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.google_api_source), options)
-            .await
+        let body = gaxi::http::handle_empty(req.google_api_source, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_google_api_source(
@@ -2597,9 +2560,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.google_api_source), options)
-            .await
+        let body = gaxi::http::handle_empty(req.google_api_source, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_google_api_source(
@@ -2664,9 +2626,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_locations(
@@ -2717,9 +2678,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_location(
@@ -2777,9 +2737,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn set_iam_policy(
@@ -3063,7 +3022,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_iam_policy(
@@ -3431,9 +3391,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn test_iam_permissions(
@@ -3717,7 +3676,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_operations(
@@ -3778,9 +3738,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -3842,9 +3801,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_operation(
@@ -3906,13 +3864,13 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn cancel_operation(
@@ -3974,7 +3932,8 @@ impl super::stub::Eventarc for Eventarc {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await.map(
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())

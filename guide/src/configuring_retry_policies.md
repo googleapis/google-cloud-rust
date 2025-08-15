@@ -17,11 +17,9 @@ limitations under the License.
 # Configuring Retry Policies
 
 The Google Cloud client libraries for Rust can automatically retry operations
-that fail due to transient errors. However, the clients do not automatically
-enable the retry loop. The application must set the retry policy to enable this
-feature.
+that fail due to transient errors.
 
-This guide shows you how to enable the retry loop. First you'll learn how to
+This guide shows you how to customize the retry loop. First you'll learn how to
 enable a common retry policy for all requests in a client, and then how to
 override this default for a specific request.
 
@@ -39,8 +37,8 @@ and that your account has the necessary permissions.
 
 As usual with Rust, you must declare dependencies in your `Cargo.toml` file:
 
-```toml
-{{#include ../samples/Cargo.toml:secretmanager}}
+```shell
+cargo add google-cloud-secretmanager-v1
 ```
 
 ## Configuring the default retry policy

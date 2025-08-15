@@ -96,9 +96,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.conversation), options)
-            .await
+        let body = gaxi::http::handle_empty(req.conversation, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn upload_conversation(
@@ -156,7 +155,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_conversation(
@@ -236,9 +236,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.conversation), options)
-            .await
+        let body = gaxi::http::handle_empty(req.conversation, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_conversation(
@@ -301,9 +300,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_conversations(
@@ -366,9 +364,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_conversation(
@@ -431,13 +428,13 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn create_analysis(
@@ -499,9 +496,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.analysis), options)
-            .await
+        let body = gaxi::http::handle_empty(req.analysis, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_analysis(
@@ -567,9 +563,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_analyses(
@@ -634,9 +629,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_analysis(
@@ -702,13 +696,13 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn bulk_analyze_conversations(
@@ -766,7 +760,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn bulk_delete_conversations(
@@ -824,7 +819,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn ingest_conversations(
@@ -882,7 +878,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn export_insights_data(
@@ -940,7 +937,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_issue_model(
@@ -998,9 +996,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.issue_model), options)
-            .await
+        let body = gaxi::http::handle_empty(req.issue_model, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_issue_model(
@@ -1080,9 +1077,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.issue_model), options)
-            .await
+        let body = gaxi::http::handle_empty(req.issue_model, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_issue_model(
@@ -1144,9 +1140,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_issue_models(
@@ -1204,9 +1199,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_issue_model(
@@ -1268,9 +1262,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn deploy_issue_model(
@@ -1332,7 +1325,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn undeploy_issue_model(
@@ -1394,7 +1388,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn export_issue_model(
@@ -1456,7 +1451,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn import_issue_model(
@@ -1514,7 +1510,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_issue(
@@ -1580,9 +1577,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_issues(
@@ -1644,9 +1640,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_issue(
@@ -1730,7 +1725,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.issue), options).await
+        let body = gaxi::http::handle_empty(req.issue, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_issue(
@@ -1796,13 +1792,13 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn calculate_issue_model_stats(
@@ -1864,9 +1860,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_phrase_matcher(
@@ -1924,9 +1919,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.phrase_matcher), options)
-            .await
+        let body = gaxi::http::handle_empty(req.phrase_matcher, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_phrase_matcher(
@@ -1988,9 +1982,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_phrase_matchers(
@@ -2051,9 +2044,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_phrase_matcher(
@@ -2115,13 +2107,13 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn update_phrase_matcher(
@@ -2201,9 +2193,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.phrase_matcher), options)
-            .await
+        let body = gaxi::http::handle_empty(req.phrase_matcher, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn calculate_stats(
@@ -2304,9 +2295,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_settings(
@@ -2366,9 +2356,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_settings(
@@ -2446,9 +2435,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.settings), options)
-            .await
+        let body = gaxi::http::handle_empty(req.settings, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_analysis_rule(
@@ -2506,9 +2494,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.analysis_rule), options)
-            .await
+        let body = gaxi::http::handle_empty(req.analysis_rule, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_analysis_rule(
@@ -2570,9 +2557,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_analysis_rules(
@@ -2632,9 +2618,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_analysis_rule(
@@ -2714,9 +2699,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.analysis_rule), options)
-            .await
+        let body = gaxi::http::handle_empty(req.analysis_rule, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_analysis_rule(
@@ -2778,13 +2762,13 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn get_encryption_spec(
@@ -2844,9 +2828,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn initialize_encryption_spec(
@@ -2912,7 +2895,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_view(
@@ -2970,7 +2954,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.view), options).await
+        let body = gaxi::http::handle_empty(req.view, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_view(
@@ -3032,9 +3017,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_views(
@@ -3094,9 +3078,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_view(
@@ -3176,7 +3159,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req.view), options).await
+        let body = gaxi::http::handle_empty(req.view, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_view(
@@ -3238,13 +3222,13 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn query_metrics(
@@ -3343,7 +3327,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_qa_question(
@@ -3410,9 +3395,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.qa_question), options)
-            .await
+        let body = gaxi::http::handle_empty(req.qa_question, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_qa_question(
@@ -3482,9 +3466,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_qa_question(
@@ -3572,9 +3555,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.qa_question), options)
-            .await
+        let body = gaxi::http::handle_empty(req.qa_question, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_qa_question(
@@ -3644,13 +3626,13 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn list_qa_questions(
@@ -3718,9 +3700,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_qa_scorecard(
@@ -3779,9 +3760,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.qa_scorecard), options)
-            .await
+        let body = gaxi::http::handle_empty(req.qa_scorecard, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_qa_scorecard(
@@ -3843,9 +3823,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_qa_scorecard(
@@ -3925,9 +3904,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.qa_scorecard), options)
-            .await
+        let body = gaxi::http::handle_empty(req.qa_scorecard, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_qa_scorecard(
@@ -3990,13 +3968,13 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn list_qa_scorecards(
@@ -4056,9 +4034,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_qa_scorecard_revision(
@@ -4122,9 +4099,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.qa_scorecard_revision), options)
-            .await
+        let body = gaxi::http::handle_empty(req.qa_scorecard_revision, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_qa_scorecard_revision(
@@ -4190,9 +4166,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn tune_qa_scorecard_revision(
@@ -4258,7 +4233,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn deploy_qa_scorecard_revision(
@@ -4324,7 +4300,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn undeploy_qa_scorecard_revision(
@@ -4390,7 +4367,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_qa_scorecard_revision(
@@ -4457,13 +4435,13 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn list_qa_scorecard_revisions(
@@ -4528,9 +4506,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_feedback_label(
@@ -4593,9 +4570,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.feedback_label), options)
-            .await
+        let body = gaxi::http::handle_empty(req.feedback_label, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_feedback_labels(
@@ -4660,9 +4636,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_feedback_label(
@@ -4728,9 +4703,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_feedback_label(
@@ -4814,9 +4788,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.feedback_label), options)
-            .await
+        let body = gaxi::http::handle_empty(req.feedback_label, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_feedback_label(
@@ -4882,13 +4855,13 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn list_all_feedback_labels(
@@ -4949,9 +4922,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn bulk_upload_feedback_labels(
@@ -5009,7 +4981,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn bulk_download_feedback_labels(
@@ -5067,7 +5040,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_operations(
@@ -5128,9 +5102,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -5192,9 +5165,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn cancel_operation(
@@ -5256,13 +5228,13 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     fn get_polling_error_policy(

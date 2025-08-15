@@ -101,12 +101,66 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn update_repository(
+        &self,
+        req: crate::model::UpdateRepositoryRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_repository(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn delete_repository(
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_repository(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_hooks(
+        &self,
+        req: crate::model::ListHooksRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListHooksResponse>> {
+        self.inner.list_hooks(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_hook(
+        &self,
+        req: crate::model::GetHookRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Hook>> {
+        self.inner.get_hook(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_hook(
+        &self,
+        req: crate::model::CreateHookRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_hook(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_hook(
+        &self,
+        req: crate::model::UpdateHookRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_hook(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_hook(
+        &self,
+        req: crate::model::DeleteHookRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_hook(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -179,6 +233,280 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_branch_rule(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_pull_request(
+        &self,
+        req: crate::model::CreatePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_pull_request(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_pull_request(
+        &self,
+        req: crate::model::GetPullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::PullRequest>> {
+        self.inner.get_pull_request(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_pull_requests(
+        &self,
+        req: crate::model::ListPullRequestsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListPullRequestsResponse>> {
+        self.inner.list_pull_requests(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_pull_request(
+        &self,
+        req: crate::model::UpdatePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_pull_request(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn merge_pull_request(
+        &self,
+        req: crate::model::MergePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.merge_pull_request(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn open_pull_request(
+        &self,
+        req: crate::model::OpenPullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.open_pull_request(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn close_pull_request(
+        &self,
+        req: crate::model::ClosePullRequestRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.close_pull_request(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_pull_request_file_diffs(
+        &self,
+        req: crate::model::ListPullRequestFileDiffsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListPullRequestFileDiffsResponse>> {
+        self.inner.list_pull_request_file_diffs(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn fetch_tree(
+        &self,
+        req: crate::model::FetchTreeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchTreeResponse>> {
+        self.inner.fetch_tree(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn fetch_blob(
+        &self,
+        req: crate::model::FetchBlobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchBlobResponse>> {
+        self.inner.fetch_blob(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_issue(
+        &self,
+        req: crate::model::CreateIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_issue(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_issue(
+        &self,
+        req: crate::model::GetIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Issue>> {
+        self.inner.get_issue(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_issues(
+        &self,
+        req: crate::model::ListIssuesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListIssuesResponse>> {
+        self.inner.list_issues(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_issue(
+        &self,
+        req: crate::model::UpdateIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_issue(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_issue(
+        &self,
+        req: crate::model::DeleteIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_issue(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn open_issue(
+        &self,
+        req: crate::model::OpenIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.open_issue(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn close_issue(
+        &self,
+        req: crate::model::CloseIssueRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.close_issue(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_pull_request_comment(
+        &self,
+        req: crate::model::GetPullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::PullRequestComment>> {
+        self.inner.get_pull_request_comment(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_pull_request_comments(
+        &self,
+        req: crate::model::ListPullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListPullRequestCommentsResponse>> {
+        self.inner.list_pull_request_comments(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_pull_request_comment(
+        &self,
+        req: crate::model::CreatePullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_pull_request_comment(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_pull_request_comment(
+        &self,
+        req: crate::model::UpdatePullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_pull_request_comment(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_pull_request_comment(
+        &self,
+        req: crate::model::DeletePullRequestCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_pull_request_comment(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn batch_create_pull_request_comments(
+        &self,
+        req: crate::model::BatchCreatePullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner
+            .batch_create_pull_request_comments(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn resolve_pull_request_comments(
+        &self,
+        req: crate::model::ResolvePullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.resolve_pull_request_comments(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn unresolve_pull_request_comments(
+        &self,
+        req: crate::model::UnresolvePullRequestCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner
+            .unresolve_pull_request_comments(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_issue_comment(
+        &self,
+        req: crate::model::CreateIssueCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_issue_comment(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_issue_comment(
+        &self,
+        req: crate::model::GetIssueCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IssueComment>> {
+        self.inner.get_issue_comment(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_issue_comments(
+        &self,
+        req: crate::model::ListIssueCommentsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListIssueCommentsResponse>> {
+        self.inner.list_issue_comments(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_issue_comment(
+        &self,
+        req: crate::model::UpdateIssueCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_issue_comment(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_issue_comment(
+        &self,
+        req: crate::model::DeleteIssueCommentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_issue_comment(req, options).await
     }
 
     #[tracing::instrument(ret)]

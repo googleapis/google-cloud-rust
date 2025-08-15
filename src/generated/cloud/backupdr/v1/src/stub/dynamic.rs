@@ -131,6 +131,12 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
+    async fn update_backup_plan(
+        &self,
+        req: crate::model::UpdateBackupPlanRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn get_backup_plan(
         &self,
         req: crate::model::GetBackupPlanRequest,
@@ -149,9 +155,27 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
+    async fn get_backup_plan_revision(
+        &self,
+        req: crate::model::GetBackupPlanRevisionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::BackupPlanRevision>>;
+
+    async fn list_backup_plan_revisions(
+        &self,
+        req: crate::model::ListBackupPlanRevisionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlanRevisionsResponse>>;
+
     async fn create_backup_plan_association(
         &self,
         req: crate::model::CreateBackupPlanAssociationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_backup_plan_association(
+        &self,
+        req: crate::model::UpdateBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
@@ -167,6 +191,14 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlanAssociationsResponse>>;
 
+    async fn fetch_backup_plan_associations_for_resource_type(
+        &self,
+        req: crate::model::FetchBackupPlanAssociationsForResourceTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchBackupPlanAssociationsForResourceTypeResponse>,
+    >;
+
     async fn delete_backup_plan_association(
         &self,
         req: crate::model::DeleteBackupPlanAssociationRequest,
@@ -178,6 +210,20 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         req: crate::model::TriggerBackupRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn get_data_source_reference(
+        &self,
+        req: crate::model::GetDataSourceReferenceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DataSourceReference>>;
+
+    async fn fetch_data_source_references_for_resource_type(
+        &self,
+        req: crate::model::FetchDataSourceReferencesForResourceTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchDataSourceReferencesForResourceTypeResponse>,
+    >;
 
     async fn initialize_service(
         &self,
@@ -425,6 +471,15 @@ impl<T: super::BackupDR> BackupDR for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_backup_plan(
+        &self,
+        req: crate::model::UpdateBackupPlanRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_backup_plan(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn get_backup_plan(
         &self,
         req: crate::model::GetBackupPlanRequest,
@@ -452,12 +507,39 @@ impl<T: super::BackupDR> BackupDR for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn get_backup_plan_revision(
+        &self,
+        req: crate::model::GetBackupPlanRevisionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::BackupPlanRevision>> {
+        T::get_backup_plan_revision(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_backup_plan_revisions(
+        &self,
+        req: crate::model::ListBackupPlanRevisionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlanRevisionsResponse>> {
+        T::list_backup_plan_revisions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn create_backup_plan_association(
         &self,
         req: crate::model::CreateBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_backup_plan_association(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_backup_plan_association(
+        &self,
+        req: crate::model::UpdateBackupPlanAssociationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_backup_plan_association(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -480,6 +562,17 @@ impl<T: super::BackupDR> BackupDR for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn fetch_backup_plan_associations_for_resource_type(
+        &self,
+        req: crate::model::FetchBackupPlanAssociationsForResourceTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchBackupPlanAssociationsForResourceTypeResponse>,
+    > {
+        T::fetch_backup_plan_associations_for_resource_type(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_backup_plan_association(
         &self,
         req: crate::model::DeleteBackupPlanAssociationRequest,
@@ -495,6 +588,26 @@ impl<T: super::BackupDR> BackupDR for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::trigger_backup(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_data_source_reference(
+        &self,
+        req: crate::model::GetDataSourceReferenceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DataSourceReference>> {
+        T::get_data_source_reference(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn fetch_data_source_references_for_resource_type(
+        &self,
+        req: crate::model::FetchDataSourceReferencesForResourceTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchDataSourceReferencesForResourceTypeResponse>,
+    > {
+        T::fetch_data_source_references_for_resource_type(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

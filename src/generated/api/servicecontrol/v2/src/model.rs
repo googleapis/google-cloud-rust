@@ -315,19 +315,18 @@ pub struct ResourceInfo {
 
     /// Optional. The identifier of the container of this resource. For Google
     /// Cloud APIs, the resource container must be one of the following formats:
-    ///
     /// - `projects/<project-id or project-number>`
-    /// - `folders/<folder-id>`
-    /// - `organizations/<organization-id>`
     ///
-    /// For the policy enforcement on the container level (VPCSC and Location
-    /// Policy check), this field takes precedence on the container extracted from
-    /// name when presents.
+    /// - `folders/<folder-number>`
+    /// - `organizations/<organization-number>`
+    ///
+    /// Required for the policy enforcement on the container level (e.g. VPCSC,
+    /// Location Policy check, Org Policy check).
     pub container: std::string::String,
 
-    /// Optional. The location of the resource. The value must be a valid zone,
-    /// region or multiregion. For example: "europe-west4" or
-    /// "northamerica-northeast1-a"
+    /// Optional. The location of the resource, it must be a valid zone, region or
+    /// multiregion, for example: "europe-west4", "northamerica-northeast1-a".
+    /// Required for location policy check.
     pub location: std::string::String,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

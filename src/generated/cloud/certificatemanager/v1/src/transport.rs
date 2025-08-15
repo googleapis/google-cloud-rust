@@ -99,9 +99,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_certificate(
@@ -163,9 +162,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_certificate(
@@ -224,9 +222,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.certificate), options)
-            .await
+        let body = gaxi::http::handle_empty(req.certificate, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_certificate(
@@ -306,9 +303,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.certificate), options)
-            .await
+        let body = gaxi::http::handle_empty(req.certificate, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_certificate(
@@ -370,9 +366,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_certificate_maps(
@@ -434,9 +429,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_certificate_map(
@@ -498,9 +492,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_certificate_map(
@@ -559,9 +552,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.certificate_map), options)
-            .await
+        let body = gaxi::http::handle_empty(req.certificate_map, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_certificate_map(
@@ -641,9 +633,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.certificate_map), options)
-            .await
+        let body = gaxi::http::handle_empty(req.certificate_map, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_certificate_map(
@@ -705,9 +696,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_certificate_map_entries(
@@ -773,9 +763,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_certificate_map_entry(
@@ -841,9 +830,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_certificate_map_entry(
@@ -907,9 +895,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.certificate_map_entry), options)
-            .await
+        let body = gaxi::http::handle_empty(req.certificate_map_entry, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_certificate_map_entry(
@@ -993,9 +980,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.certificate_map_entry), options)
-            .await
+        let body = gaxi::http::handle_empty(req.certificate_map_entry, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_certificate_map_entry(
@@ -1061,9 +1047,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_dns_authorizations(
@@ -1125,9 +1110,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_dns_authorization(
@@ -1189,9 +1173,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_dns_authorization(
@@ -1250,9 +1233,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.dns_authorization), options)
-            .await
+        let body = gaxi::http::handle_empty(req.dns_authorization, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_dns_authorization(
@@ -1332,9 +1314,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.dns_authorization), options)
-            .await
+        let body = gaxi::http::handle_empty(req.dns_authorization, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_dns_authorization(
@@ -1396,9 +1377,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_certificate_issuance_configs(
@@ -1460,9 +1440,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_certificate_issuance_config(
@@ -1524,9 +1503,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_certificate_issuance_config(
@@ -1588,9 +1566,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.certificate_issuance_config), options)
-            .await
+        let body = gaxi::http::handle_empty(req.certificate_issuance_config, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_certificate_issuance_config(
@@ -1652,9 +1629,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_trust_configs(
@@ -1716,9 +1692,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_trust_config(
@@ -1780,9 +1755,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_trust_config(
@@ -1841,9 +1815,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.trust_config), options)
-            .await
+        let body = gaxi::http::handle_empty(req.trust_config, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_trust_config(
@@ -1923,9 +1896,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.trust_config), options)
-            .await
+        let body = gaxi::http::handle_empty(req.trust_config, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_trust_config(
@@ -1988,9 +1960,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_locations(
@@ -2041,9 +2012,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_location(
@@ -2101,9 +2071,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_operations(
@@ -2164,9 +2133,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -2228,9 +2196,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_operation(
@@ -2292,13 +2259,13 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
-            .map(|r: gax::response::Response<wkt::Empty>| {
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())
-            })
+            },
+        )
     }
 
     async fn cancel_operation(
@@ -2360,7 +2327,8 @@ impl super::stub::CertificateManager for CertificateManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner.execute(builder, Some(req), options).await.map(
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
                 gax::response::Response::from_parts(parts, ())

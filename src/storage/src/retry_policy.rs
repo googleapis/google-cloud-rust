@@ -24,10 +24,11 @@
 //! - [503 - Service Unavailable][503]
 //! - [504 - Gateway Timeout][504]
 //!
-//! In addition, resumable uploads return [308 - Resume Incomplete]. This is
-//! not handled by the retry policy.
+//! In addition, resumable uploads return [308 - Resume Incomplete][308]. This
+//! is not handled by the [recommended][RecommendedPolicy] retry policy.
 //!
 //! [recommends]: https://cloud.google.com/storage/docs/retry-strategy
+//! [308]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#308_Resume_Incomplete
 //! [408]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#408_Request_Timeout
 //! [429]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#429_Too_Many_Requests
 //! [500]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#500_Internal_Server_Error
@@ -98,6 +99,15 @@ impl RetryPolicy for RecommendedPolicy {
                 _ => RetryResult::Permanent(error),
             };
         }
+        if let Some(code) = error.status().map(|s| s.code) {
+            use gax::error::rpc::Code;
+            return match code {
+                Code::Internal | Code::ResourceExhausted | Code::Unavailable => {
+                    RetryResult::Continue(error)
+                }
+                _ => RetryResult::Permanent(error),
+            };
+        }
         RetryResult::Permanent(error)
     }
 }
@@ -132,6 +142,7 @@ impl RetryPolicy for ContinueOn308<Arc<dyn RetryPolicy + 'static>> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use gax::error::rpc::Code;
     use gax::throttle_result::ThrottleResult;
     use http::HeaderMap;
     use test_case::test_case;
@@ -164,6 +175,31 @@ mod tests {
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
     }
 
+    #[test_case(Code::Unavailable)]
+    #[test_case(Code::Internal)]
+    #[test_case(Code::ResourceExhausted)]
+    fn retryable_grpc(code: Code) {
+        let p = RecommendedPolicy;
+        let now = std::time::Instant::now();
+        assert!(p.on_error(now, 0, true, grpc_error(code)).is_continue());
+        assert!(p.on_error(now, 0, false, grpc_error(code)).is_permanent());
+
+        let t = p.on_throttle(now, 0, grpc_error(code));
+        assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
+    }
+
+    #[test_case(Code::Unauthenticated)]
+    #[test_case(Code::PermissionDenied)]
+    fn not_recommended_grpc(code: Code) {
+        let p = RecommendedPolicy;
+        let now = std::time::Instant::now();
+        assert!(p.on_error(now, 0, true, grpc_error(code)).is_permanent());
+        assert!(p.on_error(now, 0, false, grpc_error(code)).is_permanent());
+
+        let t = p.on_throttle(now, 0, grpc_error(code));
+        assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
+    }
+
     #[test]
     fn continue_on_308() {
         let inner: Arc<dyn RetryPolicy + 'static> = Arc::new(RecommendedPolicy);
@@ -184,5 +220,10 @@ mod tests {
 
     fn http_error(code: u16) -> Error {
         Error::http(code, HeaderMap::new(), bytes::Bytes::new())
+    }
+
+    fn grpc_error(code: Code) -> Error {
+        let status = gax::error::rpc::Status::default().set_code(code);
+        Error::service(status)
     }
 }

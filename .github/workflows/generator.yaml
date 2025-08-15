@@ -22,41 +22,10 @@ on:
 env:
   GHA_GO_VERSIONS: '{ "go:current": "1.23.8" }'
 jobs:
-  generator-build:
-    runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        go-version: ['go:current']
-    defaults:
-      run:
-        working-directory: generator
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install protoc
-        run: |
-          set -e
-          curl -fSSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protoc-28.3-linux-x86_64.zip
-          cd /usr/local
-          sudo unzip -x /tmp/protoc.zip
-          protoc --version
-      - name: Install goimports
-        run: go install golang.org/x/tools/cmd/goimports@latest
-      - name: Setup Go ${{ matrix.go-version }}
-        uses: actions/setup-go@v5
-        with:
-          go-version: ${{ fromJson(env.GHA_GO_VERSIONS)[matrix.go-version] }}
-          cache-dependency-path: |
-            generator/go.sum
-      - name: Display Go version
-        run: go version
-      - run: go fmt ./...
-      - run: go test ./...
-      - name: Detect Changes
-        run: git diff --exit-code
   format-protos:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Fix Proto files Formatting
         run: |
           git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' | \

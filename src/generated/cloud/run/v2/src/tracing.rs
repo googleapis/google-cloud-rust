@@ -667,3 +667,148 @@ where
         self.inner.wait_operation(req, options).await
     }
 }
+
+/// Implements a [WorkerPools](super::stub::WorkerPools) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct WorkerPools<T>
+where
+    T: super::stub::WorkerPools + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> WorkerPools<T>
+where
+    T: super::stub::WorkerPools + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::WorkerPools for WorkerPools<T>
+where
+    T: super::stub::WorkerPools + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn create_worker_pool(
+        &self,
+        req: crate::model::CreateWorkerPoolRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_worker_pool(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_worker_pool(
+        &self,
+        req: crate::model::GetWorkerPoolRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::WorkerPool>> {
+        self.inner.get_worker_pool(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_worker_pools(
+        &self,
+        req: crate::model::ListWorkerPoolsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListWorkerPoolsResponse>> {
+        self.inner.list_worker_pools(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_worker_pool(
+        &self,
+        req: crate::model::UpdateWorkerPoolRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_worker_pool(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_worker_pool(
+        &self,
+        req: crate::model::DeleteWorkerPoolRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_worker_pool(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        self.inner.get_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        self.inner.set_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        self.inner.list_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn wait_operation(
+        &self,
+        req: longrunning::model::WaitOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.wait_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}

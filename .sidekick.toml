@@ -13,8 +13,14 @@
 # limitations under the License.
 
 [general]
-language             = 'rust'
+language = 'rust'
 specification-format = 'protobuf'
+ignored-directories = [
+  # This is where Rust puts all the binaries.
+  "target",
+  # We are incubating a Dart SDK in google-cloud-rust, we want to ignore it.
+  "dart",
+]
 
 [source]
 # By default only search in the `googleapis-root` directory.
@@ -22,8 +28,8 @@ roots                       = 'googleapis'
 showcase-extracted-name     = 'gapic-showcase-0.36.2'
 showcase-root               = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.36.2.tar.gz'
 showcase-sha256             = '0914bdbb088713aa087a53b355ff6631ad95e4769afd8bbd97d5d9e78d4cdf09'
-googleapis-root             = 'https://github.com/googleapis/googleapis/archive/229bd754c4c15219cfc7df53246a83c50ead7bf2.tar.gz'
-googleapis-sha256           = '57e442963bd61f9a7d72979087e299d2467aa09d9ef4d78735eea39142bba44a'
+googleapis-root             = 'https://github.com/googleapis/googleapis/archive/8fe8f9f460fe5dd1df95057659d2520ceca3c9c6.tar.gz'
+googleapis-sha256           = '29f6dd8839afc98e2e5ea6c34c6d2442f9f967dc8a517dbbd9433db819f84060'
 protobuf-src-extracted-name = 'protobuf-29.3'
 protobuf-src-root           = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
 protobuf-src-sha256         = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
@@ -35,7 +41,7 @@ conformance-sha256          = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2
 [codec]
 # The default version for all crates. This can be overridden in the crate's
 # `.sidekick.toml` file.
-version = "0.4.2"
+version = "0.4.4"
 # The default release level for all crates.
 release-level = "preview"
 # Disable a number of warnings.

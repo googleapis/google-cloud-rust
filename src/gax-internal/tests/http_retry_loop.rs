@@ -26,7 +26,7 @@ mod tests {
     use gax::backoff_policy::BackoffPolicy;
     use gax::exponential_backoff::ExponentialBackoffBuilder;
     use gax::options::*;
-    use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
     use http::StatusCode;
@@ -41,16 +41,18 @@ mod tests {
         let server = start(vec![success()]);
         let endpoint = format!("http://{}", server.addr());
 
+        let options = {
+            let mut options = RequestOptions::default();
+            options.set_backoff_policy(test_backoff());
+            options.set_idempotency(true);
+            options
+        };
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
         let body = json!({});
 
         let response = client
-            .execute::<serde_json::Value, serde_json::Value>(
-                builder,
-                Some(body),
-                RequestOptions::default(),
-            )
+            .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
         let response = response?.into_body();
         assert_eq!(response, json!({"status": "done"}));
@@ -66,12 +68,14 @@ mod tests {
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
         let body = json!({});
 
+        let options = {
+            let mut options = RequestOptions::default();
+            options.set_backoff_policy(test_backoff());
+            options.set_idempotency(true);
+            options
+        };
         let response = client
-            .execute::<serde_json::Value, serde_json::Value>(
-                builder,
-                Some(body),
-                RequestOptions::default(),
-            )
+            .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
         let err = response.unwrap_err();
         assert_eq!(err.http_status_code(), Some(permanent().0.as_u16()));
@@ -90,8 +94,8 @@ mod tests {
 
         let options = {
             let mut options = RequestOptions::default();
-            options.set_retry_policy(AlwaysRetry.with_attempt_limit(3));
             options.set_backoff_policy(test_backoff());
+            options.set_idempotency(true);
             options
         };
         let response = client
@@ -104,7 +108,7 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn retry_loop_too_many_transients() -> Result<()> {
-        // We create a server that will return two transient errors and then succeed.
+        // We create a server that will return N transient errors.
         let server = start(vec![transient(), transient(), transient()]);
         let endpoint = format!("http://{}", server.addr());
 
@@ -114,8 +118,9 @@ mod tests {
 
         let options = {
             let mut options = RequestOptions::default();
-            options.set_retry_policy(AlwaysRetry.with_attempt_limit(3));
+            options.set_retry_policy(Aip194Strict.with_attempt_limit(3));
             options.set_backoff_policy(test_backoff());
+            options.set_idempotency(true);
             options
         };
         let response = client

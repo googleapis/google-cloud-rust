@@ -315,6 +315,21 @@ impl BackupDR {
         super::builder::backup_dr::CreateBackupPlan::new(self.inner.clone())
     }
 
+    /// Update a BackupPlan.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_backup_plan(&self) -> super::builder::backup_dr::UpdateBackupPlan {
+        super::builder::backup_dr::UpdateBackupPlan::new(self.inner.clone())
+    }
+
     /// Gets details of a single BackupPlan.
     pub fn get_backup_plan(&self) -> super::builder::backup_dr::GetBackupPlan {
         super::builder::backup_dr::GetBackupPlan::new(self.inner.clone())
@@ -340,6 +355,16 @@ impl BackupDR {
         super::builder::backup_dr::DeleteBackupPlan::new(self.inner.clone())
     }
 
+    /// Gets details of a single BackupPlanRevision.
+    pub fn get_backup_plan_revision(&self) -> super::builder::backup_dr::GetBackupPlanRevision {
+        super::builder::backup_dr::GetBackupPlanRevision::new(self.inner.clone())
+    }
+
+    /// Lists BackupPlanRevisions in a given project and location.
+    pub fn list_backup_plan_revisions(&self) -> super::builder::backup_dr::ListBackupPlanRevisions {
+        super::builder::backup_dr::ListBackupPlanRevisions::new(self.inner.clone())
+    }
+
     /// Create a BackupPlanAssociation
     ///
     /// # Long running operations
@@ -357,6 +382,23 @@ impl BackupDR {
         super::builder::backup_dr::CreateBackupPlanAssociation::new(self.inner.clone())
     }
 
+    /// Update a BackupPlanAssociation.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_backup_plan_association(
+        &self,
+    ) -> super::builder::backup_dr::UpdateBackupPlanAssociation {
+        super::builder::backup_dr::UpdateBackupPlanAssociation::new(self.inner.clone())
+    }
+
     /// Gets details of a single BackupPlanAssociation.
     pub fn get_backup_plan_association(
         &self,
@@ -369,6 +411,15 @@ impl BackupDR {
         &self,
     ) -> super::builder::backup_dr::ListBackupPlanAssociations {
         super::builder::backup_dr::ListBackupPlanAssociations::new(self.inner.clone())
+    }
+
+    /// List BackupPlanAssociations for a given resource type.
+    pub fn fetch_backup_plan_associations_for_resource_type(
+        &self,
+    ) -> super::builder::backup_dr::FetchBackupPlanAssociationsForResourceType {
+        super::builder::backup_dr::FetchBackupPlanAssociationsForResourceType::new(
+            self.inner.clone(),
+        )
     }
 
     /// Deletes a single BackupPlanAssociation.
@@ -401,6 +452,18 @@ impl BackupDR {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn trigger_backup(&self) -> super::builder::backup_dr::TriggerBackup {
         super::builder::backup_dr::TriggerBackup::new(self.inner.clone())
+    }
+
+    /// Gets details of a single DataSourceReference.
+    pub fn get_data_source_reference(&self) -> super::builder::backup_dr::GetDataSourceReference {
+        super::builder::backup_dr::GetDataSourceReference::new(self.inner.clone())
+    }
+
+    /// Fetch DataSourceReferences for a given project, location and resource type.
+    pub fn fetch_data_source_references_for_resource_type(
+        &self,
+    ) -> super::builder::backup_dr::FetchDataSourceReferencesForResourceType {
+        super::builder::backup_dr::FetchDataSourceReferencesForResourceType::new(self.inner.clone())
     }
 
     /// Initializes the service related config for a project.

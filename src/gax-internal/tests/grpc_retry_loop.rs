@@ -54,7 +54,6 @@ mod tests {
 
         let client = builder(endpoint)
             .with_credentials(test_credentials())
-            .with_retry_policy(Aip194Strict)
             .with_backoff_policy(test_backoff())
             .build()
             .await?;
@@ -70,7 +69,6 @@ mod tests {
 
         let client = builder(endpoint)
             .with_credentials(test_credentials())
-            .with_retry_policy(Aip194Strict)
             .with_backoff_policy(test_backoff())
             .build()
             .await?;
@@ -94,8 +92,6 @@ mod tests {
         Ok(())
     }
 
-    // TODO(#2253) - restore warning after that is fixed
-    #[allow(clippy::result_large_err)]
     fn success() -> tonic::Result<tonic::Response<EchoResponse>> {
         Ok(tonic::Response::new(EchoResponse {
             message: "success!".into(),
@@ -103,14 +99,10 @@ mod tests {
         }))
     }
 
-    // TODO(#2253) - restore warning after that is fixed
-    #[allow(clippy::result_large_err)]
     fn transient() -> tonic::Result<tonic::Response<EchoResponse>> {
         Err(tonic::Status::unavailable("try-again"))
     }
 
-    // TODO(#2253) - restore warning after that is fixed
-    #[allow(clippy::result_large_err)]
     fn permanent() -> tonic::Result<tonic::Response<EchoResponse>> {
         Err(tonic::Status::permission_denied("uh-oh"))
     }

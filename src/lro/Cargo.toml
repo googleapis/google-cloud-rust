@@ -15,7 +15,7 @@
 [package]
 description = "Google Cloud Client Libraries for Rust - LRO Helpers"
 name        = "google-cloud-lro"
-version     = "0.3.2"
+version     = "0.3.4"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true

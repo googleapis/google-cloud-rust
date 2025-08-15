@@ -37,6 +37,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
+//! * [AssistantService](client/struct.AssistantService.html)
 //! * [CmekConfigService](client/struct.CmekConfigService.html)
 //! * [CompletionService](client/struct.CompletionService.html)
 //! * [ControlService](client/struct.ControlService.html)
@@ -53,6 +54,7 @@
 //! * [SearchService](client/struct.SearchService.html)
 //! * [SearchTuningService](client/struct.SearchTuningService.html)
 //! * [ServingConfigService](client/struct.ServingConfigService.html)
+//! * [SessionService](client/struct.SessionService.html)
 //! * [SiteSearchEngineService](client/struct.SiteSearchEngineService.html)
 //! * [UserEventService](client/struct.UserEventService.html)
 //! * [UserLicenseService](client/struct.UserLicenseService.html)
@@ -85,6 +87,7 @@ pub(crate) mod transport;
 
 /// The default host used by the service.
 #[cfg(any(
+    feature = "assistant-service",
     feature = "cmek-config-service",
     feature = "completion-service",
     feature = "control-service",
@@ -101,6 +104,7 @@ pub(crate) mod transport;
     feature = "search-service",
     feature = "search-tuning-service",
     feature = "serving-config-service",
+    feature = "session-service",
     feature = "site-search-engine-service",
     feature = "user-event-service",
     feature = "user-license-service",
@@ -108,6 +112,7 @@ pub(crate) mod transport;
 const DEFAULT_HOST: &str = "https://discoveryengine.googleapis.com/";
 
 #[cfg(any(
+    feature = "assistant-service",
     feature = "cmek-config-service",
     feature = "completion-service",
     feature = "control-service",
@@ -124,6 +129,7 @@ const DEFAULT_HOST: &str = "https://discoveryengine.googleapis.com/";
     feature = "search-service",
     feature = "search-tuning-service",
     feature = "serving-config-service",
+    feature = "session-service",
     feature = "site-search-engine-service",
     feature = "user-event-service",
     feature = "user-license-service",

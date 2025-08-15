@@ -19,16 +19,19 @@ use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::RetryPolicyExt;
 use lro::Poller;
 use std::time::Duration;
+use storage::builder::storage::KeyAes256;
 use storage::client::StorageControl;
 use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
+use storage::upload_source::{Seek, SizeHint, StreamingSource};
+use storage_samples::cleanup_bucket;
 
 /// An upload data source used in tests.
 #[derive(Clone, Debug)]
 struct TestDataSource {
     size: u64,
-    hint: (u64, Option<u64>),
+    hint: SizeHint,
     offset: u64,
     abort: u64,
 }
@@ -39,14 +42,16 @@ impl TestDataSource {
     fn new(size: u64) -> Self {
         Self {
             size,
-            hint: (size, Some(size)),
+            hint: SizeHint::with_exact(size),
             offset: 0,
             abort: u64::MAX,
         }
     }
 
     fn without_size_hint(mut self) -> Self {
-        self.hint = (0, None);
+        let mut hint = SizeHint::new();
+        hint.set_lower(self.hint.lower());
+        self.hint = hint;
         self
     }
 
@@ -56,7 +61,7 @@ impl TestDataSource {
     }
 }
 
-impl storage::upload_source::StreamingSource for TestDataSource {
+impl StreamingSource for TestDataSource {
     type Error = std::io::Error;
     async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
         match self.offset {
@@ -84,12 +89,12 @@ impl storage::upload_source::StreamingSource for TestDataSource {
             }
         }
     }
-    async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), Self::Error> {
-        Ok(self.hint)
+    async fn size_hint(&self) -> std::result::Result<SizeHint, Self::Error> {
+        Ok(self.hint.clone())
     }
 }
 
-impl storage::upload_source::Seek for TestDataSource {
+impl Seek for TestDataSource {
     type Error = std::io::Error;
     async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
         if offset % Self::LINE_SIZE != 0 {
@@ -128,6 +133,9 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     let insert = client
         .upload_object(&bucket.name, "quick.text", CONTENTS)
         .with_metadata([("verify-metadata-works", "yes")])
+        .with_content_type("text/plain")
+        .with_content_language("en")
+        .with_storage_class("STANDARD")
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -140,12 +148,32 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     );
 
     tracing::info!("testing read_object()");
-    let contents = client
+    let mut response = client
         .read_object(&bucket.name, &insert.name)
         .send()
-        .await?
-        .all_bytes()
         .await?;
+
+    // Retrieve the metadata before reading the data.
+    let object = response.object();
+    assert!(object.generation > 0);
+    assert!(object.metageneration > 0);
+    assert_eq!(object.size, CONTENTS.len() as i64);
+    assert_eq!(object.content_encoding, "identity");
+    assert_eq!(
+        object.checksums.unwrap().crc32c,
+        Some(crc32c::crc32c(CONTENTS.as_bytes()))
+    );
+    assert_eq!(object.storage_class, "STANDARD");
+    assert_eq!(object.content_language, "en");
+    assert_eq!(object.content_type, "text/plain");
+    assert!(!object.content_disposition.is_empty());
+    assert!(!object.etag.is_empty());
+
+    let mut contents = Vec::new();
+    while let Some(b) = response.next().await.transpose()? {
+        contents.extend_from_slice(&b);
+    }
+    let contents = bytes::Bytes::from_owner(contents);
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
@@ -192,19 +220,22 @@ pub async fn objects_customer_supplied_encryption(
     let key = vec![b'a'; 32];
     let insert = client
         .upload_object(&bucket.name, "quick.text", CONTENTS)
-        .with_key(storage::client::KeyAes256::new(&key)?)
+        .with_key(KeyAes256::new(&key)?)
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
 
     tracing::info!("testing read_object() with key");
-    let contents = client
+    let mut resp = client
         .read_object(&bucket.name, &insert.name)
-        .with_key(storage::client::KeyAes256::new(&key)?)
+        .with_key(KeyAes256::new(&key)?)
         .send()
-        .await?
-        .all_bytes()
         .await?;
+    let mut contents = Vec::new();
+    while let Some(chunk) = resp.next().await.transpose()? {
+        contents.extend_from_slice(&chunk);
+    }
+    let contents = bytes::Bytes::from(contents);
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
@@ -339,7 +370,7 @@ pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) 
     let insert = client
         .upload_object(&bucket.name, "empty.txt", "")
         .with_if_generation_match(0)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 0_i64);
@@ -349,7 +380,7 @@ pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) 
     let insert = client
         .upload_object(&bucket.name, "128K.txt", payload)
         .with_if_generation_match(0)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 128 * 1024_i64);
@@ -359,7 +390,7 @@ pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) 
     let insert = client
         .upload_object(&bucket.name, "512K.txt", payload)
         .with_if_generation_match(0)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 512 * 1024_i64);
@@ -396,7 +427,7 @@ pub async fn upload_buffered_resumable_known_size(
         .upload_object(&bucket.name, "empty.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 0_i64);
@@ -407,7 +438,7 @@ pub async fn upload_buffered_resumable_known_size(
         .upload_object(&bucket.name, "128K.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 128 * 1024_i64);
@@ -418,7 +449,7 @@ pub async fn upload_buffered_resumable_known_size(
         .upload_object(&bucket.name, "512K.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 512 * 1024_i64);
@@ -455,7 +486,7 @@ pub async fn upload_buffered_resumable_unknown_size(
         .upload_object(&bucket.name, "empty.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 0_i64);
@@ -466,7 +497,7 @@ pub async fn upload_buffered_resumable_unknown_size(
         .upload_object(&bucket.name, "128K.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 128 * 1024_i64);
@@ -477,7 +508,7 @@ pub async fn upload_buffered_resumable_unknown_size(
         .upload_object(&bucket.name, "512K.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 512 * 1024_i64);
@@ -488,7 +519,7 @@ pub async fn upload_buffered_resumable_unknown_size(
         .upload_object(&bucket.name, "500K.txt", payload)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
-        .send()
+        .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 500 * 1024_i64);
@@ -731,7 +762,7 @@ async fn abort_upload_buffered(client: storage::client::Storage, bucket_name: &s
     for (number, AbortUploadTestCase { name, upload }) in test_cases.into_iter().enumerate() {
         tracing::info!("[{number}] {name}");
         let err = upload
-            .send()
+            .send_buffered()
             .await
             .expect_err(&format!("[{number}] {name} - expected error"));
         tracing::info!("[{number}] {name} - got error {err:?}");
@@ -744,6 +775,192 @@ async fn abort_upload_buffered(client: storage::client::Storage, bucket_name: &s
                 "[{number}] {name} - expected error on read_object()"
             ));
         assert_eq!(err.http_status_code(), Some(404), "{err:?}");
+    }
+
+    Ok(())
+}
+
+pub async fn checksums(
+    builder: storage::builder::storage::ClientBuilder,
+    bucket_name: &str,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    tracing::info!("checksums test, using bucket {bucket_name}");
+
+    let client = builder.build().await?;
+    const VEXING: &str = "how vexingly quick daft zebras jump";
+
+    type ObjectResult = storage::Result<storage::model::Object>;
+    type Boxed = futures::future::BoxFuture<'static, ObjectResult>;
+    let uploads: Vec<(&str, Boxed)> = vec![
+        (
+            "verify/default",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/default", VEXING)
+                    .with_if_generation_match(0)
+                    .send_buffered(),
+            ),
+        ),
+        (
+            "verify/md5",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/md5", VEXING)
+                    .with_if_generation_match(0)
+                    .compute_md5()
+                    .send_buffered(),
+            ),
+        ),
+        (
+            "computed/default",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/default", VEXING)
+                    .with_if_generation_match(0)
+                    .precompute_checksums()
+                    .await?
+                    .send_buffered(),
+            ),
+        ),
+        (
+            "computed/md5",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/md5", VEXING)
+                    .with_if_generation_match(0)
+                    .compute_md5()
+                    .precompute_checksums()
+                    .await?
+                    .send_buffered(),
+            ),
+        ),
+    ];
+
+    for (name, upload) in uploads.into_iter() {
+        tracing::info!("waiting for {name}");
+        match upload.await {
+            Ok(_) => {}
+            Err(e) => {
+                println!("error running in {name}: {e:?}");
+                return Err(e.into());
+            }
+        }
+    }
+
+    Ok(())
+}
+
+pub async fn object_names(
+    builder: storage::builder::storage::ClientBuilder,
+    control: storage::client::StorageControl,
+    bucket_name: &str,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    tracing::info!("object names test, using bucket {bucket_name}");
+
+    let client = builder.build().await?;
+
+    let names = ["a/1", "a/2", "b/c/d/e", "b/c/d/e#1", "b/c/d/f", "b/c/d/g"];
+
+    for name in names {
+        let upload = client
+            .upload_object(bucket_name, name, "")
+            .with_if_generation_match(0)
+            .send_unbuffered()
+            .await?;
+        assert_eq!(upload.bucket, bucket_name);
+        assert_eq!(upload.name, name);
+        assert_eq!(upload.size, 0_i64);
+
+        let reader = client
+            .read_object(&upload.bucket, &upload.name)
+            .with_generation(upload.generation)
+            .send()
+            .await?;
+        let highlights = reader.object();
+        assert_eq!(highlights.storage_class, "STANDARD");
+        assert_eq!(highlights.generation, upload.generation);
+        assert_eq!(highlights.metageneration, upload.metageneration);
+        assert_eq!(highlights.etag, upload.etag);
+        assert_eq!(highlights.size, upload.size);
+
+        let get = control
+            .get_object()
+            .set_bucket(&upload.bucket)
+            .set_object(&upload.name)
+            .set_generation(upload.generation)
+            .send()
+            .await?;
+        // Not all fields match (the service returns different values with
+        // equivalent semantics).
+        assert_eq!(get.bucket, upload.bucket);
+        assert_eq!(get.name, upload.name);
+        assert_eq!(get.etag, upload.etag);
+        assert_eq!(get.generation, upload.generation);
+        assert_eq!(get.metageneration, upload.metageneration);
+        assert_eq!(get.storage_class, upload.storage_class);
+        assert_eq!(get.size, upload.size);
+        assert_eq!(get.create_time, upload.create_time);
+        assert_eq!(get.checksums, upload.checksums);
+    }
+
+    use gax::paginator::ItemPaginator;
+    let mut list = control
+        .list_objects()
+        .set_parent(bucket_name)
+        .set_prefix("b/c")
+        .by_item();
+    let mut from_list = Vec::new();
+    while let Some(o) = list.next().await.transpose()? {
+        from_list.push(o.name);
+    }
+    use std::collections::BTreeSet;
+    let got = from_list
+        .iter()
+        .map(String::as_str)
+        .collect::<BTreeSet<_>>();
+    let want = names
+        .iter()
+        .filter_map(|n| n.strip_prefix("b/c").map(|_| *n))
+        .collect::<BTreeSet<_>>();
+
+    assert_eq!(got, want);
+
+    for name in names {
+        control
+            .delete_object()
+            .set_bucket(bucket_name)
+            .set_object(name)
+            .with_idempotency(true)
+            .send()
+            .await?;
     }
 
     Ok(())
@@ -991,29 +1208,6 @@ async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Res
         .zip(names)
         .for_each(|(r, name)| println!("deleting bucket {name} resulted in {r:?}"));
 
-    Ok(())
-}
-
-pub async fn cleanup_bucket(client: StorageControl, name: String) -> Result<()> {
-    let mut objects = client
-        .list_objects()
-        .set_parent(&name)
-        .set_versions(true)
-        .by_item();
-    let mut pending = Vec::new();
-    while let Some(object) = objects.next().await {
-        let object = object?;
-        pending.push(
-            client
-                .delete_object()
-                .set_bucket(object.bucket)
-                .set_object(object.name)
-                .set_generation(object.generation)
-                .send(),
-        );
-    }
-    let _ = futures::future::join_all(pending).await;
-    client.delete_bucket().set_name(&name).send().await?;
     Ok(())
 }
 

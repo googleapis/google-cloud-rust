@@ -19,7 +19,7 @@ pub mod storage {
     pub mod striped;
     pub mod terminate_uploads;
 
-    pub use integration_tests::random_bucket_id;
+    pub use storage_samples::random_bucket_id;
 
     #[cfg(all(test, feature = "run-integration-tests"))]
     mod driver {
@@ -40,7 +40,7 @@ pub mod storage {
             let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
             let response = super::queue::queue(&bucket.name, "test-only").await;
             // Ignore cleanup errors.
-            let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+            let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
             response
         }
 
@@ -49,7 +49,7 @@ pub mod storage {
             let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
             let response = super::rewrite_object::rewrite_object(&bucket.name).await;
             // Ignore cleanup errors.
-            let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+            let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
             response
         }
 
@@ -63,7 +63,7 @@ pub mod storage {
             let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
             let response = super::striped::test(&bucket.name, path).await;
             // Ignore cleanup errors.
-            let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+            let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
             response
         }
 
@@ -72,7 +72,7 @@ pub mod storage {
             let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
             let response = super::terminate_uploads::attempt_upload(&bucket.name).await;
             // Ignore cleanup errors.
-            let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+            let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
             response
         }
     }
@@ -81,6 +81,6 @@ pub mod storage {
         let control = google_cloud_storage::client::StorageControl::builder()
             .build()
             .await?;
-        integration_tests::storage::cleanup_bucket(control, format!("projects/_/{bucket_id}")).await
+        storage_samples::cleanup_bucket(control, format!("projects/_/{bucket_id}")).await
     }
 }

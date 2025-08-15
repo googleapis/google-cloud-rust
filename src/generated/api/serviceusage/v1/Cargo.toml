@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-api-serviceusage-v1"
-version                = "0.4.2"
+version                = "0.4.4"
 description            = "Google Cloud Client Libraries for Rust - Service Usage API"
 edition.workspace      = true
 authors.workspace      = true

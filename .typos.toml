@@ -16,10 +16,9 @@
 extend-exclude = [
   # The test data have typos, or at least uncommon spelling. We do not care
   # about them as they are not customer visible.
-  "generator/**/testdata/**",
   "testdata/**",
   # Generated libraries often contain typos coming from upstream protos.
-  "generator/dart/generated/**",
+  "dart/generated/**",
   "src/*/src/generated/**",
   "src/generated/**",
 ]

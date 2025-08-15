@@ -12,32 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use auth::credentials::CacheableResource;
-use auth::credentials::Credentials;
+use auth::credentials::{CacheableResource, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
 use gax::client_builder::Error as BuilderError;
 use gax::error::Error;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
-use gax::polling_error_policy::Aip194Strict;
-use gax::polling_error_policy::PollingErrorPolicy;
+use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErrorPolicy};
 use gax::response::{Parts, Response};
-use gax::retry_policy::RetryPolicy;
+use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
 use http::{Extensions, Method};
 use std::sync::Arc;
+use std::time::Duration;
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
     inner: reqwest::Client,
     cred: Credentials,
     endpoint: String,
-    retry_policy: Option<Arc<dyn RetryPolicy>>,
-    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
-    polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
-    polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+    polling_error_policy: Arc<dyn PollingErrorPolicy>,
+    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
 }
 
 impl ReqwestClient {
@@ -54,11 +53,23 @@ impl ReqwestClient {
             inner,
             cred,
             endpoint,
-            retry_policy: config.retry_policy,
-            backoff_policy: config.backoff_policy,
+            retry_policy: config.retry_policy.unwrap_or_else(|| {
+                Arc::new(
+                    RetryAip194Strict
+                        .with_attempt_limit(10)
+                        .with_time_limit(Duration::from_secs(60)),
+                )
+            }),
+            backoff_policy: config
+                .backoff_policy
+                .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             retry_throttler: config.retry_throttler,
-            polling_error_policy: config.polling_error_policy,
-            polling_backoff_policy: config.polling_backoff_policy,
+            polling_error_policy: config
+                .polling_error_policy
+                .unwrap_or_else(|| Arc::new(PollingAip194Strict)),
+            polling_backoff_policy: config
+                .polling_backoff_policy
+                .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
         })
     }
 
@@ -82,10 +93,7 @@ impl ReqwestClient {
         if let Some(body) = body {
             builder = builder.json(&body);
         }
-        match self.get_retry_policy(&options) {
-            None => self.request_attempt::<O>(builder, &options, None).await,
-            Some(policy) => self.retry_loop::<O>(builder, options, policy).await,
-        }
+        self.retry_loop::<O>(builder, options).await
     }
 
     async fn make_credentials(
@@ -103,10 +111,10 @@ impl ReqwestClient {
         &self,
         builder: reqwest::RequestBuilder,
         options: gax::options::RequestOptions,
-        retry_policy: Arc<dyn RetryPolicy>,
     ) -> Result<Response<O>> {
         let idempotent = options.idempotent().unwrap_or(false);
         let throttler = self.get_retry_throttler(&options);
+        let retry = self.get_retry_policy(&options);
         let backoff = self.get_backoff_policy(&options);
         let this = self.clone();
         let inner = async move |d| {
@@ -116,15 +124,8 @@ impl ReqwestClient {
             this.request_attempt(builder, &options, d).await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
-        gax::retry_loop_internal::retry_loop(
-            inner,
-            sleep,
-            idempotent,
-            throttler,
-            retry_policy,
-            backoff,
-        )
-        .await
+        gax::retry_loop_internal::retry_loop(inner, sleep, idempotent, throttler, retry, backoff)
+            .await
     }
 
     async fn request_attempt<O: serde::de::DeserializeOwned + Default>(
@@ -136,23 +137,11 @@ impl ReqwestClient {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
-        let cached_auth_headers = self
-            .cred
-            .headers(Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
-
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
+        builder = match self.cred.headers(Extensions::new()).await {
+            Err(e) => return Err(Error::authentication(e)),
+            Ok(CacheableResource::New { data, .. }) => builder.headers(data),
+            Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
-
-        let auth_headers = auth_headers?;
-        for (key, value) in auth_headers.iter() {
-            builder = builder.header(key, value);
-        }
         let response = builder.send().await.map_err(Self::map_send_error)?;
         if !response.status().is_success() {
             return self::to_http_error(response).await;
@@ -168,14 +157,11 @@ impl ReqwestClient {
         }
     }
 
-    fn get_retry_policy(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> Option<Arc<dyn RetryPolicy>> {
+    fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
         options
             .retry_policy()
             .clone()
-            .or_else(|| self.retry_policy.clone())
+            .unwrap_or_else(|| self.retry_policy.clone())
     }
 
     pub(crate) fn get_backoff_policy(
@@ -185,8 +171,7 @@ impl ReqwestClient {
         options
             .backoff_policy()
             .clone()
-            .or_else(|| self.backoff_policy.clone())
-            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
+            .unwrap_or_else(|| self.backoff_policy.clone())
     }
 
     pub(crate) fn get_retry_throttler(
@@ -206,8 +191,7 @@ impl ReqwestClient {
         options
             .polling_error_policy()
             .clone()
-            .or_else(|| self.polling_error_policy.clone())
-            .unwrap_or_else(|| Arc::new(Aip194Strict))
+            .unwrap_or_else(|| self.polling_error_policy.clone())
     }
 
     pub fn get_polling_backoff_policy(
@@ -217,22 +201,21 @@ impl ReqwestClient {
         options
             .polling_backoff_policy()
             .clone()
-            .or_else(|| self.polling_backoff_policy.clone())
-            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
+            .unwrap_or_else(|| self.polling_backoff_policy.clone())
     }
 }
 
-#[derive(serde::Serialize)]
+#[derive(Default, serde::Serialize)]
 pub struct NoBody;
 
-impl NoBody {
-    // PUT and POST requests require a payload
-    pub fn new(m: &Method) -> Option<NoBody> {
-        if m == Method::PUT || m == Method::POST {
-            return Some(NoBody);
+pub fn handle_empty<T: Default>(body: Option<T>, method: &Method) -> Option<T> {
+    body.or_else(|| {
+        if method == Method::PUT || method == Method::POST {
+            Some(T::default())
+        } else {
+            None
         }
-        None
-    }
+    })
 }
 
 // Returns `true` if the method is idempotent by default, and `false`, if not.
@@ -397,8 +380,11 @@ mod tests {
     #[test_case(Method::PUT, true)]
     #[test_case(Method::DELETE, false)]
     #[test_case(Method::PATCH, false)]
-    fn no_body(input: Method, expected: bool) {
-        assert!(super::NoBody::new(&input).is_some() == expected);
+    fn handle_empty(input: Method, expected: bool) {
+        assert!(super::handle_empty(None::<super::NoBody>, &input).is_some() == expected);
+
+        let s = Some(wkt::Empty {});
+        assert_eq!(s, super::handle_empty(s.clone(), &input));
     }
 
     #[test_case(Method::GET, true)]

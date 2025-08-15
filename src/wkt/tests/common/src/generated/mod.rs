@@ -1322,12 +1322,12 @@ impl MessageWithComplexOneOf {
     }
 
     /// The value of [complex][crate::generated::MessageWithComplexOneOf::complex]
-    /// if it holds a `Int`, `None` if the field is not set or
+    /// if it holds a `Int32`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn int(&self) -> std::option::Option<&i32> {
+    pub fn int32(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.complex.as_ref().and_then(|v| match v {
-            crate::generated::message_with_complex_one_of::Complex::Int(v) => {
+            crate::generated::message_with_complex_one_of::Complex::Int32(v) => {
                 std::option::Option::Some(v)
             }
             _ => std::option::Option::None,
@@ -1335,24 +1335,24 @@ impl MessageWithComplexOneOf {
     }
 
     /// Sets the value of [complex][crate::generated::MessageWithComplexOneOf::complex]
-    /// to hold a `Int`.
+    /// to hold a `Int32`.
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
-    pub fn set_int<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_int32<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.complex = std::option::Option::Some(
-            crate::generated::message_with_complex_one_of::Complex::Int(v.into()),
+            crate::generated::message_with_complex_one_of::Complex::Int32(v.into()),
         );
         self
     }
 
     /// The value of [complex][crate::generated::MessageWithComplexOneOf::complex]
-    /// if it holds a `Long`, `None` if the field is not set or
+    /// if it holds a `Int64`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn long(&self) -> std::option::Option<&i64> {
+    pub fn int64(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.complex.as_ref().and_then(|v| match v {
-            crate::generated::message_with_complex_one_of::Complex::Long(v) => {
+            crate::generated::message_with_complex_one_of::Complex::Int64(v) => {
                 std::option::Option::Some(v)
             }
             _ => std::option::Option::None,
@@ -1360,13 +1360,13 @@ impl MessageWithComplexOneOf {
     }
 
     /// Sets the value of [complex][crate::generated::MessageWithComplexOneOf::complex]
-    /// to hold a `Long`.
+    /// to hold a `Int64`.
     ///
     /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
-    pub fn set_long<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+    pub fn set_int64<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.complex = std::option::Option::Some(
-            crate::generated::message_with_complex_one_of::Complex::Long(v.into()),
+            crate::generated::message_with_complex_one_of::Complex::Int64(v.into()),
         );
         self
     }
@@ -1540,8 +1540,8 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
             __string_value,
             __float_value,
             __double_value,
-            __int,
-            __long,
+            __int32,
+            __int64,
             __enum,
             __inner,
             __duration,
@@ -1578,8 +1578,8 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                             "float_value" => Ok(__FieldTag::__float_value),
                             "doubleValue" => Ok(__FieldTag::__double_value),
                             "double_value" => Ok(__FieldTag::__double_value),
-                            "int" => Ok(__FieldTag::__int),
-                            "long" => Ok(__FieldTag::__long),
+                            "int32" => Ok(__FieldTag::__int32),
+                            "int64" => Ok(__FieldTag::__int64),
                             "enum" => Ok(__FieldTag::__enum),
                             "inner" => Ok(__FieldTag::__inner),
                             "duration" => Ok(__FieldTag::__duration),
@@ -1749,10 +1749,10 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 ),
                             );
                         }
-                        __FieldTag::__int => {
-                            if !fields.insert(__FieldTag::__int) {
+                        __FieldTag::__int32 => {
+                            if !fields.insert(__FieldTag::__int32) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for int",
+                                    "multiple values for int32",
                                 ));
                             }
                             struct __With(std::option::Option<i32>);
@@ -1768,19 +1768,19 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                             }
                             if result.complex.is_some() {
                                 return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.int, latest field was int",
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.int32, latest field was int32",
                                 ));
                             }
                             result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::Int(
+                                crate::generated::message_with_complex_one_of::Complex::Int32(
                                     map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
                         }
-                        __FieldTag::__long => {
-                            if !fields.insert(__FieldTag::__long) {
+                        __FieldTag::__int64 => {
+                            if !fields.insert(__FieldTag::__int64) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for long",
+                                    "multiple values for int64",
                                 ));
                             }
                             struct __With(std::option::Option<i64>);
@@ -1796,11 +1796,11 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                             }
                             if result.complex.is_some() {
                                 return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.long, latest field was long",
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.int64, latest field was int64",
                                 ));
                             }
                             result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::Long(
+                                crate::generated::message_with_complex_one_of::Complex::Int64(
                                     map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
@@ -1980,7 +1980,7 @@ impl serde::ser::Serialize for MessageWithComplexOneOf {
             }
             state.serialize_entry("doubleValue", &__With(value))?;
         }
-        if let Some(value) = self.int() {
+        if let Some(value) = self.int32() {
             struct __With<'a>(&'a i32);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1990,9 +1990,9 @@ impl serde::ser::Serialize for MessageWithComplexOneOf {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("int", &__With(value))?;
+            state.serialize_entry("int32", &__With(value))?;
         }
-        if let Some(value) = self.long() {
+        if let Some(value) = self.int64() {
             struct __With<'a>(&'a i64);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2002,7 +2002,7 @@ impl serde::ser::Serialize for MessageWithComplexOneOf {
                     serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("long", &__With(value))?;
+            state.serialize_entry("int64", &__With(value))?;
         }
         if let Some(value) = self.r#enum() {
             state.serialize_entry("enum", value)?;
@@ -2329,10 +2329,8 @@ pub mod message_with_complex_one_of {
         StringValue(std::string::String),
         FloatValue(f32),
         DoubleValue(f64),
-        /// TODO(#2382) - the natural name does not work.
-        Int(i32),
-        /// TODO(#2382) - the natural name does not work.
-        Long(i64),
+        Int32(i32),
+        Int64(i64),
         Enum(crate::generated::message_with_complex_one_of::TestEnum),
         Inner(std::boxed::Box<crate::generated::message_with_complex_one_of::Inner>),
         Duration(std::boxed::Box<wkt::Duration>),

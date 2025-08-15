@@ -84,13 +84,15 @@ async fn start_retry_normal() -> Result {
         .with_credentials(auth::credentials::testing::test_credentials())
         .build()
         .await?;
-    let reader = client
+    let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
         .send()
         .await?;
-    let got = reader.all_bytes().await?;
-    assert_eq!(got, "hello world");
-
+    let mut contents = Vec::new();
+    while let Some(chunk) = reader.next().await.transpose()? {
+        contents.extend_from_slice(&chunk);
+    }
+    assert_eq!(bytes::Bytes::from_owner(contents), "hello world");
     Ok(())
 }
 
@@ -338,14 +340,18 @@ async fn long_read_error() -> Result {
         .with_credentials(auth::credentials::testing::test_credentials())
         .build()
         .await?;
-    let reader = client
+    let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
         .send()
         .await?;
-    let err = reader
-        .all_bytes()
-        .await
-        .expect_err("too many bytes returned should result in error");
+    let mut err = None;
+    while let Some(r) = reader.next().await {
+        if let Err(e) = r {
+            err = Some(e);
+            break;
+        }
+    }
+    let err = err.expect("too many bytes returned should result in error");
     assert!(err.is_deserialization(), "{err:?}");
 
     Ok(())
@@ -401,12 +407,15 @@ async fn resume_after_start() -> Result {
         .with_credentials(auth::credentials::testing::test_credentials())
         .build()
         .await?;
-    let reader = client
+    let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
         .send()
         .await?;
-    let got = reader.all_bytes().await?;
-    assert_eq!(got, test_body(0..10));
+    let mut got = Vec::new();
+    while let Some(chunk) = reader.next().await.transpose()? {
+        got.extend_from_slice(&chunk);
+    }
+    assert_eq!(bytes::Bytes::from_owner(got), test_body(0..10));
 
     Ok(())
 }
@@ -469,13 +478,16 @@ async fn resume_after_start_range() -> Result {
         .with_credentials(auth::credentials::testing::test_credentials())
         .build()
         .await?;
-    let reader = client
+    let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
         .with_read_offset(OFFSET as i64)
         .send()
         .await?;
-    let got = reader.all_bytes().await?;
-    assert_eq!(got, test_body(0..10));
+    let mut got = Vec::new();
+    while let Some(chunk) = reader.next().await.transpose()? {
+        got.extend_from_slice(&chunk);
+    }
+    assert_eq!(bytes::Bytes::from_owner(got), test_body(0..10));
 
     Ok(())
 }
@@ -624,7 +636,7 @@ async fn resume_uses_request_retry_options() -> Result {
         .with_resumable_upload_threshold(0_usize)
         .build()
         .await?;
-    let read = client
+    let mut read = client
         .read_object("projects/_/buckets/bucket", "object")
         .with_retry_policy(retry.with_attempt_limit(3))
         .with_backoff_policy(backoff)
@@ -632,10 +644,16 @@ async fn resume_uses_request_retry_options() -> Result {
         .send()
         .await?;
 
-    let err = read
-        .all_bytes()
-        .await
-        .expect_err("download should fail after 3 retry attempts");
+    let mut partial = Vec::new();
+    let mut err = None;
+    while let Some(r) = read.next().await {
+        match r {
+            Ok(b) => partial.extend_from_slice(&b),
+            Err(e) => err = Some(e),
+        };
+    }
+    assert_eq!(bytes::Bytes::from_owner(partial), test_body(0..8));
+    let err = err.expect("download should fail after 3 retry attempts");
     assert_eq!(err.http_status_code(), Some(503), "{err:?}");
 
     Ok(())
@@ -702,15 +720,21 @@ async fn resume_uses_client_retry_options() -> Result {
         .build()
         .await?;
 
-    let read = client
+    let mut read = client
         .read_object("projects/_/buckets/bucket", "object")
         .send()
         .await?;
 
-    let err = read
-        .all_bytes()
-        .await
-        .expect_err("download should fail after 3 retry attempts");
+    let mut partial = Vec::new();
+    let mut err = None;
+    while let Some(r) = read.next().await {
+        match r {
+            Ok(b) => partial.extend_from_slice(&b),
+            Err(e) => err = Some(e),
+        };
+    }
+    assert_eq!(bytes::Bytes::from_owner(partial), test_body(0..8));
+    let err = err.expect("the download should have failed");
     assert_eq!(err.http_status_code(), Some(503), "{err:?}");
 
     Ok(())
@@ -737,14 +761,16 @@ async fn request_resume_options() -> Result {
         .with_credentials(auth::credentials::testing::test_credentials())
         .build()
         .await?;
-    let got = client
+    let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
         .with_download_resume_policy(resume)
         .send()
-        .await?
-        .all_bytes()
         .await?;
-    assert_eq!(got, test_body(0..10));
+    let mut got = Vec::new();
+    while let Some(chunk) = reader.next().await.transpose()? {
+        got.extend_from_slice(&chunk);
+    }
+    assert_eq!(bytes::Bytes::from(got), test_body(0..10));
     Ok(())
 }
 
@@ -770,12 +796,14 @@ async fn client_resume_options() -> Result {
         .with_download_resume_policy(resume)
         .build()
         .await?;
-    let got = client
+    let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
         .send()
-        .await?
-        .all_bytes()
         .await?;
-    assert_eq!(got, test_body(0..10));
+    let mut got = Vec::new();
+    while let Some(chunk) = reader.next().await.transpose()? {
+        got.extend_from_slice(&chunk);
+    }
+    assert_eq!(bytes::Bytes::from_owner(got), test_body(0..10));
     Ok(())
 }

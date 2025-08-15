@@ -22,33 +22,32 @@ always include these details when errors are formatted using
 `std::fmt::Display`. Some applications may want to examine these details and
 change their behavior based on their contents.
 
-This guide will show you how to examine the error details returned by Google
-Cloud services.
+This guide shows you how to examine the error details returned by Google Cloud
+services.
 
 ## Prerequisites
 
-The guide uses the [Cloud Natural Language API], that makes the examples more
-concrete and therefore easier to follow. With that said, the same ideas work for
-any other service.
+This guide uses the [Cloud Natural Language API] to show error details, but the
+concepts apply to other services as well.
 
-You may want to follow the service [quickstart]. This guide will walk you
-through the steps necessary to enable the service, ensure you have logged in,
-and that your account has the necessary permissions.
+You may want to follow the service [quickstart], which shows you how to enable
+the service and set up authentication.
+
+For complete setup instructions for the Rust libraries, see
+[Setting up your development environment].
 
 ### Dependencies
 
-As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
-file:
+As usual with Rust, you must declare the dependency in your `Cargo.toml` file:
 
-```toml
-[dependencies]
-{{#include ../samples/Cargo.toml:language}}
+```shell
+cargo add google-cloud-language-v2
 ```
 
 ## Examining error details
 
-We will create a request that intentionally results in an error, and then
-examine the error contents. First, create a client:
+You'll create a request that intentionally results in an error, and then examine
+the error contents. First, create a client:
 
 ```rust,ignore
 {{#include ../samples/src/examine_error_details.rs:examine-error-details-client}}
@@ -61,7 +60,7 @@ Then send a request. In this case, a key field is missing:
 ```
 
 Extract the error from the result, using standard Rust functions. The error type
-prints all the error details in human readable form:
+prints all the error details in human-readable form:
 
 ```rust,ignore
 {{#include ../samples/src/examine_error_details.rs:examine-error-details-print}}
@@ -117,12 +116,11 @@ request failed with error Error {
 
 ### Programmatically examining the error details
 
-Sometimes you may need to examine the error details programmatically. In the
-rest of the example we will traverse the data structure and print the most
-relevant fields.
+Sometimes you may need to examine the error details programmatically. The rest
+of the example traverses the data structure and prints the most relevant fields.
 
-Only errors returned by the service contain detailed information, so we first
-query the error to see if it contains the correct error type. If it does, we can
+Only errors returned by the service contain detailed information, so first query
+the error to see if it contains the correct error type. If it does, you can
 break down some top-level information about the error:
 
 ```rust,ignore
@@ -136,13 +134,13 @@ And then iterate over all the details:
 ```
 
 The client libraries return a [`StatusDetails`] enum with the different types of
-error details. In this example we will only examine `BadRequest` errors:
+error details. This example only examines `BadRequest` errors:
 
 ```rust,ignore
 {{#include ../samples/src/examine_error_details.rs:examine-error-details-bad-request}}
 ```
 
-A `BadRequest` contains a list of fields that are in violation, we can iterate
+A `BadRequest` contains a list of fields that are in violation. You can iterate
 and print the details for each:
 
 ```rust,ignore
@@ -150,8 +148,8 @@ and print the details for each:
 ```
 
 Such information can be useful during development. Other branches of
-`StatusDetails`, such as [`QuotaFailure`] may be useful at runtime to throttle
-an application.
+`StatusDetails` such as [`QuotaFailure`] may be useful at runtime to throttle an
+application.
 
 ### Expected output
 
@@ -162,6 +160,12 @@ Typically the output from the error details will look like so:
   the request field document.content has a problem: "Must have some text content to annotate."
 ```
 
+## What's next
+
+- Learn how to [handle binding errors] that occur when a client library can't
+  find a URI to match an HTTP request.
+- Learn how to [work with List operations].
+
 ______________________________________________________________________
 
 ## Examining error details: complete code
@@ -171,6 +175,9 @@ ______________________________________________________________________
 ```
 
 [cloud natural language api]: https://cloud.google.com/natural-language
-[quickstart]: https://cloud.google.com/natural-language/docs/quickstarts
+[handle binding errors]: binding_errors.md
+[quickstart]: https://cloud.google.com/natural-language/docs/setup
+[setting up your development environment]: setting_up_your_development_environment.md
+[work with list operations]: pagination.md
 [`quotafailure`]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/error/rpc/enum.StatusDetails.html#variant.QuotaFailure
 [`statusdetails`]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/error/rpc/enum.StatusDetails.html

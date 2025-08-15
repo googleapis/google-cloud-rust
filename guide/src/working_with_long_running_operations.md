@@ -42,16 +42,14 @@ diagnose.
 As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
 file. We use:
 
-```toml
-{{#include ../samples/Cargo.toml:speech}}
-
-{{#include ../samples/Cargo.toml:lro}}
+```shell
+cargo add google-cloud-speech-v1 google-cloud-lro
 ```
 
 And:
 
 ```toml
-{{#include ../samples/Cargo.toml:tokio}}
+cargo add tokio --features full,macro
 ```
 
 ## Starting a long-running operation

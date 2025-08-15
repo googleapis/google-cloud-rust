@@ -35,7 +35,7 @@ jobs:
             rust-version: 'rust:msrv'
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -66,7 +66,7 @@ jobs:
     env:
       RUSTDOCFLAGS: "-D warnings"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -160,7 +160,7 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -190,7 +190,7 @@ jobs:
         rust-version: ['rust:current']
         go-version: ['go:current']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -209,8 +209,6 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ fromJson(env.GHA_GO_VERSIONS)[matrix.go-version] }}
-          cache-dependency-path: |
-            generator/go.sum
       - run: |
           cargo test --features run-showcase-tests -p integration-tests
 
@@ -220,12 +218,12 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: 'protocolbuffers/protobuf'
           ref: '31.x'
           path: 'protobuf'
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           path: 'main'
       - uses: actions/cache@v4
@@ -262,7 +260,7 @@ jobs:
       matrix:
         rust-version: ['rust:current', 'rust:nightly']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -314,7 +312,7 @@ jobs:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
@@ -347,7 +345,7 @@ jobs:
           path: |
             ~/.cache/sidekick
           key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
@@ -362,8 +360,6 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ fromJson(env.GHA_GO_VERSIONS)[matrix.go-version] }}
-          cache-dependency-path: |
-            generator/go.sum
       - name: Install protoc
         run: |
           set -e
@@ -372,8 +368,7 @@ jobs:
           sudo unzip -x /tmp/protoc.zip
           protoc --version
       - name: Regenerate all the code
-        working-directory: generator
-        run: go run ./cmd/sidekick refreshall -project-root ..
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.2-0.20250812135937-eb593463c88c refreshall -project-root .
       - run: cargo fmt
         # If there is any difference between the generated code and the
         # committed code that is an error. All the inputs should be pinned,

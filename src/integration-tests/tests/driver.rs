@@ -193,7 +193,34 @@ mod driver {
         let result = integration_tests::storage::abort_upload(builder, &bucket.name)
             .await
             .map_err(integration_tests::report_error);
-        let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+        let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
+        result
+    }
+
+    #[test_case(Storage::builder(); "default")]
+    #[tokio::test]
+    async fn run_storage_checksums(
+        builder: storage::builder::storage::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
+        let result = integration_tests::storage::checksums(builder, &bucket.name)
+            .await
+            .map_err(integration_tests::report_error);
+        let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
+        result
+    }
+
+    #[test_case(Storage::builder(); "default")]
+    #[tokio::test]
+    async fn run_storage_object_names(
+        builder: storage::builder::storage::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
+        let result =
+            integration_tests::storage::object_names(builder, control.clone(), &bucket.name)
+                .await
+                .map_err(integration_tests::report_error);
+        let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
         result
     }
 

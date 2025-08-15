@@ -167,9 +167,8 @@ impl super::stub::PolicyBindings for PolicyBindings {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.policy_binding), options)
-            .await
+        let body = gaxi::http::handle_empty(req.policy_binding, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_policy_binding(
@@ -305,9 +304,8 @@ impl super::stub::PolicyBindings for PolicyBindings {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_policy_binding(
@@ -500,9 +498,8 @@ impl super::stub::PolicyBindings for PolicyBindings {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.policy_binding), options)
-            .await
+        let body = gaxi::http::handle_empty(req.policy_binding, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_policy_binding(
@@ -644,9 +641,8 @@ impl super::stub::PolicyBindings for PolicyBindings {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_policy_bindings(
@@ -779,9 +775,8 @@ impl super::stub::PolicyBindings for PolicyBindings {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn search_target_policy_bindings(
@@ -914,9 +909,8 @@ impl super::stub::PolicyBindings for PolicyBindings {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -1052,9 +1046,8 @@ impl super::stub::PolicyBindings for PolicyBindings {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     fn get_polling_error_policy(
@@ -1154,9 +1147,8 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.principal_access_boundary_policy), options)
-            .await
+        let body = gaxi::http::handle_empty(req.principal_access_boundary_policy, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_principal_access_boundary_policy(
@@ -1218,9 +1210,8 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_principal_access_boundary_policy(
@@ -1301,9 +1292,8 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, Some(req.principal_access_boundary_policy), options)
-            .await
+        let body = gaxi::http::handle_empty(req.principal_access_boundary_policy, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_principal_access_boundary_policy(
@@ -1368,9 +1358,8 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_principal_access_boundary_policies(
@@ -1431,9 +1420,8 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn search_principal_access_boundary_policy_bindings(
@@ -1499,9 +1487,8 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -1637,9 +1624,8 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        self.inner
-            .execute(builder, gaxi::http::NoBody::new(&method), options)
-            .await
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     fn get_polling_error_policy(

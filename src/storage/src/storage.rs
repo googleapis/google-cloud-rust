@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[allow(dead_code)]
-pub(crate) mod checksum;
+pub mod checksum;
 pub(crate) mod client;
+pub(crate) mod perform_upload;
 pub(crate) mod read_object;
 pub(crate) mod request_options;
 pub(crate) mod upload_object;
@@ -22,24 +22,5 @@ pub mod upload_source;
 pub(crate) mod v1;
 
 use crate::model::Object;
-use crate::upload_source::{InsertPayload, StreamingSource};
+use crate::upload_source::Payload;
 use crate::{Error, Result};
-
-/// An unrecoverable problem in the upload protocol.
-///
-/// These errors indicate a bug in the resumable upload protocol implementation,
-/// either in the service or the client library. Neither are expected to be
-/// common, but neither are impossible. It seems safer to return an error rather
-/// than panic, as the invariants involve different machines and the write
-/// protocol.
-#[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-enum UploadError {
-    #[error(
-        "the service previously persisted {offset} bytes, but now reports only {persisted} as persisted"
-    )]
-    UnexpectedRewind { offset: u64, persisted: u64 },
-
-    #[error("the service reports {persisted} bytes as persisted, but we only sent {sent} bytes")]
-    TooMuchProgress { sent: u64, persisted: u64 },
-}

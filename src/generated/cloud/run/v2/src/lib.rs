@@ -35,6 +35,7 @@
 //! * [Revisions](client/struct.Revisions.html)
 //! * [Services](client/struct.Services.html)
 //! * [Tasks](client/struct.Tasks.html)
+//! * [WorkerPools](client/struct.WorkerPools.html)
 
 #![allow(deprecated)]
 

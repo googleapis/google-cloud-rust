@@ -37,7 +37,7 @@ The guide assumes you have an existing [Google Cloud project] with
 ### Add the client library as a dependency
 
 ```toml
-{{#include ../samples/Cargo.toml:storage}}
+cargo add google-cloud-storage
 ```
 
 ### Create a storage bucket

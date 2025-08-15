@@ -17,7 +17,9 @@ use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::UploadObject;
 use crate::download_resume_policy::DownloadResumePolicy;
-use crate::upload_source::InsertPayload;
+use crate::error::KeyAes256Error;
+use crate::storage::checksum::details::Crc32c;
+use crate::upload_source::Payload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
@@ -132,7 +134,7 @@ impl Storage {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -157,35 +159,42 @@ impl Storage {
     /// * `payload` - the object data.
     ///
     /// [Seek]: crate::upload_source::Seek
-    pub fn upload_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> UploadObject<P>
+    pub fn upload_object<B, O, T, P>(
+        &self,
+        bucket: B,
+        object: O,
+        payload: T,
+    ) -> UploadObject<P, Crc32c>
     where
         B: Into<String>,
         O: Into<String>,
-        T: Into<InsertPayload<P>>,
+        T: Into<Payload<P>>,
     {
         UploadObject::new(self.inner.clone(), bucket, object, payload)
     }
 
-    /// A simple download into a buffer.
-    ///
-    /// # Parameters
-    /// * `bucket` - the bucket name containing the object. In
-    ///   `projects/_/buckets/{bucket_id}` format.
-    /// * `object` - the object name.
+    /// Downloads the contents of an object.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// let contents = client
+    /// let mut resp = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
-    ///     .await?
-    ///     .all_bytes()
     ///     .await?;
-    /// println!("object contents={contents:?}");
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = resp.next().await.transpose()? {
+    ///   contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("object contents={:?}", bytes::Bytes::from_owner(contents));
     /// # Ok(()) }
     /// ```
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
     pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject
     where
         B: Into<String>,
@@ -438,7 +447,7 @@ impl ClientBuilder {
     ///     .await?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -478,7 +487,7 @@ impl ClientBuilder {
     ///     .await?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send()
+    ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
@@ -585,18 +594,6 @@ pub(crate) fn enc(value: &str) -> String {
     percent_encoding::utf8_percent_encode(value, &ENCODED_CHARS).to_string()
 }
 
-/// Represents an error that can occur when invalid range is specified.
-#[derive(thiserror::Error, Debug, PartialEq)]
-#[non_exhaustive]
-pub(crate) enum RangeError {
-    /// The provided read limit was negative.
-    #[error("read limit was negative, expected non-negative value.")]
-    NegativeLimit,
-    /// A negative offset was provided with a read limit.
-    #[error("negative read offsets cannot be used with read limits.")]
-    NegativeOffsetWithLimit,
-}
-
 #[derive(Debug)]
 /// KeyAes256 represents an AES-256 encryption key used with the
 /// Customer-Supplied Encryption Keys (CSEK) feature.
@@ -608,7 +605,7 @@ pub(crate) enum RangeError {
 ///
 /// Creating a `KeyAes256` instance from a valid byte slice:
 /// ```
-/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// # use google_cloud_storage::{builder::storage::KeyAes256, error::KeyAes256Error};
 /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
 /// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
 /// # Ok::<(), KeyAes256Error>(())
@@ -616,7 +613,7 @@ pub(crate) enum RangeError {
 ///
 /// Handling an error for an invalid key length:
 /// ```
-/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// # use google_cloud_storage::{builder::storage::KeyAes256, error::KeyAes256Error};
 /// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
 /// let result = KeyAes256::new(invalid_key_bytes);
 ///
@@ -626,24 +623,6 @@ pub struct KeyAes256 {
     key: [u8; 32],
 }
 
-/// Represents errors that can occur when converting to [`KeyAes256`] instances.
-///
-/// # Example:
-/// ```
-/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
-/// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
-/// let result = KeyAes256::new(invalid_key_bytes);
-///
-/// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
-/// ```
-#[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-pub enum KeyAes256Error {
-    /// The provided key's length was not exactly 32 bytes.
-    #[error("Key has an invalid length: expected 32 bytes.")]
-    InvalidLength,
-}
-
 impl KeyAes256 {
     /// Attempts to create a new [KeyAes256].
     ///
@@ -651,7 +630,7 @@ impl KeyAes256 {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+    /// # use google_cloud_storage::{builder::storage::KeyAes256, error::KeyAes256Error};
     /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
     /// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
     /// # Ok::<(), KeyAes256Error>(())
