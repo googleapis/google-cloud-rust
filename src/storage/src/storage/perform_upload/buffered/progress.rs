@@ -227,7 +227,7 @@ impl InProgressUpload {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::storage::upload_source::{IterSource, Payload};
+    use crate::storage::streaming_source::{IterSource, Payload};
     use http_body_util::BodyExt;
     use std::error::Error as _;
     use test_case::test_case;

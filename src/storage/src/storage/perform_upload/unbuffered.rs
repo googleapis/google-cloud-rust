@@ -211,7 +211,7 @@ mod tests {
         tests::{test_builder, test_inner_client},
     };
     use crate::storage::upload_object::UploadObject;
-    use crate::upload_source::IterSource;
+    use crate::streaming_source::IterSource;
     use gax::retry_policy::RetryPolicyExt;
     use http_body_util::BodyExt;
     use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -319,7 +319,7 @@ mod tests {
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
-        use crate::upload_source::tests::MockSeekSource;
+        use crate::streaming_source::tests::MockSeekSource;
         use std::io::{Error as IoError, ErrorKind};
         let mut source = MockSeekSource::new();
         source
@@ -359,7 +359,7 @@ mod tests {
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
-        use crate::upload_source::tests::MockSeekSource;
+        use crate::streaming_source::tests::MockSeekSource;
         use std::io::{Error as IoError, ErrorKind};
         let mut source = MockSeekSource::new();
         source.expect_next().never();

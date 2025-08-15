@@ -18,7 +18,7 @@
 
 use super::client::*;
 use super::perform_upload::PerformUpload;
-use super::upload_source::{Seek, StreamingSource};
+use super::streaming_source::{Seek, StreamingSource};
 use super::*;
 use crate::model::request_helpers::KeyAes256;
 use crate::storage::checksum::{
@@ -57,7 +57,7 @@ use crate::storage::checksum::{
 ///
 /// # Example: upload a custom data source
 /// ```
-/// use google_cloud_storage::{client::Storage, upload_source::StreamingSource};
+/// use google_cloud_storage::{client::Storage, streaming_source::StreamingSource};
 /// struct DataSource;
 /// impl StreamingSource for DataSource {
 ///     type Error = std::io::Error;
@@ -768,7 +768,7 @@ impl<T, C> UploadObject<T, C> {
     /// Keep in mind that there are diminishing returns on using larger buffers.
     ///
     /// [resumable uploads]: https://cloud.google.com/storage/docs/resumable-uploads
-    /// [Seek]: crate::upload_source::Seek
+    /// [Seek]: crate::streaming_source::Seek
     pub fn with_resumable_upload_buffer_size<V: Into<usize>>(mut self, v: V) -> Self {
         self.options.resumable_upload_buffer_size = v.into();
         self
@@ -1121,7 +1121,7 @@ mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
     use crate::model::{ObjectChecksums, WriteObjectSpec};
-    use crate::upload_source::tests::MockSeekSource;
+    use crate::streaming_source::tests::MockSeekSource;
     use std::error::Error as _;
     use std::io::{Error as IoError, ErrorKind};
 
@@ -1131,13 +1131,13 @@ mod tests {
     #[tokio::test]
     async fn test_upload_streaming_source_and_seek() -> Result {
         struct Source;
-        impl crate::upload_source::StreamingSource for Source {
+        impl crate::streaming_source::StreamingSource for Source {
             type Error = std::io::Error;
             async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
                 None
             }
         }
-        impl crate::upload_source::Seek for Source {
+        impl crate::streaming_source::Seek for Source {
             type Error = std::io::Error;
             async fn seek(&mut self, _offset: u64) -> std::result::Result<(), Self::Error> {
                 Ok(())
@@ -1156,7 +1156,7 @@ mod tests {
     #[tokio::test]
     async fn test_upload_only_streaming_source() -> Result {
         struct Source;
-        impl crate::upload_source::StreamingSource for Source {
+        impl crate::streaming_source::StreamingSource for Source {
             type Error = std::io::Error;
             async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
                 None

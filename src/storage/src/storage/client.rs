@@ -18,7 +18,7 @@ use crate::builder::storage::ReadObject;
 use crate::builder::storage::UploadObject;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::Crc32c;
-use crate::upload_source::Payload;
+use crate::streaming_source::Payload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
@@ -156,7 +156,7 @@ impl Storage {
     /// * `object` - the object name.
     /// * `payload` - the object data.
     ///
-    /// [Seek]: crate::upload_source::Seek
+    /// [Seek]: crate::streaming_source::Seek
     pub fn upload_object<B, O, T, P>(
         &self,
         bucket: B,
@@ -505,7 +505,7 @@ impl ClientBuilder {
     /// Keep in mind that there are diminishing returns on using larger buffers.
     ///
     /// [resumable uploads]: https://cloud.google.com/storage/docs/resumable-uploads
-    /// [Seek]: crate::upload_source::Seek
+    /// [Seek]: crate::streaming_source::Seek
     pub fn with_resumable_upload_buffer_size<V: Into<usize>>(mut self, v: V) -> Self {
         self.default_options.resumable_upload_buffer_size = v.into();
         self

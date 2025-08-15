@@ -22,7 +22,7 @@
 //! ```
 //! use google_cloud_storage::builder::storage::UploadObject;
 //! use google_cloud_storage::model::Object;
-//! use google_cloud_storage::{upload_source::StreamingSource, checksum::ChecksumEngine};
+//! use google_cloud_storage::{streaming_source::StreamingSource, checksum::ChecksumEngine};
 //!
 //! async fn example<S, C>(builder: UploadObject<S, C>) -> anyhow::Result<Object>
 //! where

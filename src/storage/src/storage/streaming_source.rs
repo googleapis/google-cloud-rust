@@ -29,8 +29,8 @@ pub type SizeHint = http_body::SizeHint;
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_storage::upload_source::Payload;
-/// use google_cloud_storage::upload_source::StreamingSource;
+/// # use google_cloud_storage::streaming_source::Payload;
+/// use google_cloud_storage::streaming_source::StreamingSource;
 /// let buffer : &[u8] = b"the quick brown fox jumps over the lazy dog";
 /// let mut size = 0_usize;
 /// let mut payload = Payload::from(bytes::Bytes::from_static(buffer));

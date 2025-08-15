@@ -21,7 +21,7 @@ use crate::storage::checksum::{
 };
 use crate::storage::client::info::X_GOOG_API_CLIENT_HEADER;
 use crate::storage::v1;
-use crate::upload_source::{IterSource, Seek, SizeHint, StreamingSource};
+use crate::streaming_source::{IterSource, Seek, SizeHint, StreamingSource};
 use crate::{Error, Result};
 use std::sync::Arc;
 use tokio::sync::Mutex;

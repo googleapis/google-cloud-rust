@@ -103,14 +103,14 @@
 //!   service but the PUT request fails to read the response or otherwise fails.
 //!   The next query returns a finalized upload status.
 //!
-//! [Seek]: crate::upload_source::Seek
+//! [Seek]: crate::streaming_source::Seek
 
 use super::RESUMABLE_UPLOAD_QUANTUM;
 use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::tests::{
     MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
 };
-use crate::upload_source::{BytesSource, SizeHint, tests::UnknownSize};
+use crate::streaming_source::{BytesSource, SizeHint, tests::UnknownSize};
 use gax::retry_policy::RetryPolicyExt;
 use gax::retry_result::RetryResult;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -350,7 +350,7 @@ async fn source_next_error() -> Result {
         .with_credentials(auth::credentials::testing::test_credentials())
         .build()
         .await?;
-    use crate::upload_source::tests::MockSimpleSource;
+    use crate::streaming_source::tests::MockSimpleSource;
     use std::io::{Error as IoError, ErrorKind};
     let mut source = MockSimpleSource::new();
     source

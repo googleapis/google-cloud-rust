@@ -43,7 +43,7 @@ struct MySource(u32);
 
 // ANCHOR: my-source-impl-all
 // ANCHOR: my-source-impl
-impl google_cloud_storage::upload_source::StreamingSource for MySource {
+impl google_cloud_storage::streaming_source::StreamingSource for MySource {
     // ANCHOR_END: my-source-impl
     // ANCHOR: my-source-impl-error
     type Error = MyError;
