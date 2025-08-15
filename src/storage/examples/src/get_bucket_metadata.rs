@@ -20,7 +20,7 @@
 // [START storage_get_uniform_bucket_level_access]
 use google_cloud_storage::client::StorageControl;
 
-pub async fn get_bucket_metadata(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
+pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
     let bucket = client
         .get_bucket()
         .set_name(format!("projects/_/buckets/{bucket_id}"))
