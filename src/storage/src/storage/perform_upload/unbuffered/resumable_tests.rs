@@ -76,10 +76,8 @@
 //!
 //! [Seek]: crate::upload_source::Seek
 
-use crate::storage::client::{
-    KeyAes256, Storage,
-    tests::{create_key_helper, test_builder},
-};
+use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
+use crate::storage::client::{Storage, tests::test_builder};
 use crate::upload_source::{BytesSource, SizeHint, tests::UnknownSize};
 use gax::retry_policy::RetryPolicyExt;
 use httptest::{Expectation, Server, matchers::*, responders::*};

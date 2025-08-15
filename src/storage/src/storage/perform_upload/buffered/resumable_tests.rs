@@ -106,11 +106,9 @@
 //! [Seek]: crate::upload_source::Seek
 
 use super::RESUMABLE_UPLOAD_QUANTUM;
-use crate::storage::client::{
-    KeyAes256,
-    tests::{
-        MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, create_key_helper, test_builder,
-    },
+use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
+use crate::storage::client::tests::{
+    MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
 };
 use crate::upload_source::{BytesSource, SizeHint, tests::UnknownSize};
 use gax::retry_policy::RetryPolicyExt;
