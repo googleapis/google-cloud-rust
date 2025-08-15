@@ -24,7 +24,7 @@ pub async fn sample(client: &Storage, bucket_id: &str) -> anyhow::Result<()> {
     println!("counting newlines {NAME} in bucket {bucket_id}");
     let mut count = 0;
     while let Some(buffer) = reader.next().await.transpose()? {
-        count += buffer.into_iter().filter(|c| *c == '\n' as u8).count();
+        count += buffer.into_iter().filter(|c| *c == b'\n').count();
     }
     println!("object {NAME} in bucket {bucket_id} contains {count} newlines");
     Ok(())

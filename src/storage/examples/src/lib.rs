@@ -198,7 +198,6 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let _ = futures::future::join_all(uploads)
         .await
         .into_iter()
-        .map(|r| r.map_err(anyhow::Error::from))
         .collect::<anyhow::Result<Vec<_>>>()?;
 
     tracing::info!("running stream_file_upload example");
