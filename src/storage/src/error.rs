@@ -21,14 +21,14 @@ use crate::model::{Object, ObjectChecksums};
 
 /// Indicates that a checksum mismatch was detected while reading or writing
 /// Cloud Storage object.
-/// 
+///
 /// When performing a full read of an object, the client library automatically
 /// computes the CRC32C checksum (and optionally the MD5 hash) of the received
 /// data. At the end of the read The client library automatically computes this
 /// checksum to the values reported by the service. If the values do not match,
 /// the read operation completes with an error and the error includes this type
 /// showing which checksums did not match.
-/// 
+///
 /// Likewise, when performing an object write, the client library automatically
 /// compares the CRC32C checksum (and optionally the MD5 hash) of the data sent
 /// to the service against the values reported by the service when the object is
