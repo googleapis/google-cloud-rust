@@ -20,7 +20,7 @@ pub async fn sample(client: &Storage, bucket_id: &str) -> anyhow::Result<()> {
     const NAME: &str = "object-to-upload.txt";
     let payload = Payload(100);
     let object = client
-        .upload_object(format!("projects/_/buckets/{bucket_id}"), NAME, payload)
+        .write_object(format!("projects/_/buckets/{bucket_id}"), NAME, payload)
         .with_if_generation_match(0)
         .send_buffered()
         .await?;

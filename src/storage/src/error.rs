@@ -148,17 +148,17 @@ pub enum ReadError {
 ///
 /// # Example
 /// ```
-/// # use google_cloud_storage::{client::Storage, error::UploadError};
+/// # use google_cloud_storage::{client::Storage, error::WriteError};
 /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
 /// use std::error::Error as _;
-/// let upload = client
-///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+/// let writer = client
+///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
 ///     .with_if_generation_not_match(0);
-/// match upload.send_buffered().await {
-///     Ok(object) => println!("Successfully uploaded the object"),
+/// match writer.send_buffered().await {
+///     Ok(object) => println!("Successfully created the object {object:?}"),
 ///     Err(error) if error.is_serialization() => {
 ///         println!("Some problem {error:?} sending the data to the service");
-///         if let Some(m) = error.source().and_then(|e| e.downcast_ref::<UploadError>()) {
+///         if let Some(m) = error.source().and_then(|e| e.downcast_ref::<WriteError>()) {
 ///             println!("{m}");
 ///         }
 ///     },
@@ -169,7 +169,7 @@ pub enum ReadError {
 ///
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
-pub enum UploadError {
+pub enum WriteError {
     /// The service has "uncommitted" previously persisted bytes.
     ///
     /// # Troubleshoot
