@@ -205,9 +205,10 @@ mod resumable_tests;
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
     use crate::storage::client::{
-        KeyAes256, Storage,
-        tests::{create_key_helper, test_builder, test_inner_client},
+        Storage,
+        tests::{test_builder, test_inner_client},
     };
     use crate::storage::upload_object::UploadObject;
     use crate::upload_source::IterSource;

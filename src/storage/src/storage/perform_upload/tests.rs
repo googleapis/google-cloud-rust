@@ -13,10 +13,8 @@
 // limitations under the License.
 
 use super::*;
-use crate::storage::client::{
-    KeyAes256,
-    tests::{create_key_helper, test_builder, test_inner_client},
-};
+use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
+use crate::storage::client::tests::{test_builder, test_inner_client};
 use crate::storage::upload_object::UploadObject;
 use serde_json::{Value, json};
 use std::collections::BTreeMap;

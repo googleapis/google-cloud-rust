@@ -84,14 +84,14 @@ impl std::fmt::Display for ChecksumMismatch {
 ///
 /// # Example:
 /// ```
-/// # use google_cloud_storage::{builder::storage::KeyAes256, error::KeyAes256Error};
+/// # use google_cloud_storage::{model::request_helpers::KeyAes256, error::KeyAes256Error};
 /// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
 /// let result = KeyAes256::new(invalid_key_bytes);
 ///
 /// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
 /// ```
 ///
-/// [KeyAes256]: crate::builder::storage::KeyAes256
+/// [KeyAes256]: crate::model::request_helpers::KeyAes256
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum KeyAes256Error {

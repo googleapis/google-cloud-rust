@@ -166,12 +166,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     let id = random_bucket_id();
     buckets.push(id.clone());
-    create_bucket_hierarchical_namespace::create_bucket_hierarchical_namespace(
-        &control,
-        &project_id,
-        &id,
-    )
-    .await?;
+    create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
 
     tracing::info!("create test objects for the examples");
     let uploads = [

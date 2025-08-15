@@ -19,11 +19,11 @@ use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::RetryPolicyExt;
 use lro::Poller;
 use std::time::Duration;
-use storage::builder::storage::KeyAes256;
 use storage::client::StorageControl;
 use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
+use storage::model::request_helpers::KeyAes256;
 use storage::upload_source::{Seek, SizeHint, StreamingSource};
 use storage_samples::cleanup_bucket;
 

@@ -56,7 +56,6 @@ pub mod builder {
     pub mod storage {
         //! Request builders for [Storage][crate::client::Storage].
         pub use crate::storage::client::ClientBuilder;
-        pub use crate::storage::client::KeyAes256;
         pub use crate::storage::read_object::ReadObject;
         pub use crate::storage::upload_object::UploadObject;
     }
@@ -67,8 +66,7 @@ pub mod builder {
     }
 }
 pub mod error;
-/// The messages and enums that are part of this client library.
-pub use crate::control::model;
+pub mod model;
 pub use crate::control::stub;
 
 pub use storage::read_object::ObjectHighlights;
