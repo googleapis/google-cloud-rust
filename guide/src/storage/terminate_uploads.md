@@ -134,4 +134,4 @@ As expected, this upload fails. You can inspect the error details:
 [error]: https://doc.rust-lang.org/std/error/trait.Error.html
 [google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
 [quickstart guide]: /storage.md#quickstart
-[streamingsource]: https://docs.rs/google-cloud-storage/latest/google_cloud_storage/upload_source/trait.StreamingSource.html
+[streamingsource]: https://docs.rs/google-cloud-storage/latest/google_cloud_storage/streaming_source/trait.StreamingSource.html

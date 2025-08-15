@@ -41,7 +41,7 @@ pub mod backoff_policy;
 pub mod read_resume_policy;
 pub mod retry_policy;
 pub use crate::storage::checksum;
-pub use crate::storage::upload_source;
+pub use crate::storage::streaming_source;
 
 mod control;
 mod storage;

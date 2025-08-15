@@ -14,7 +14,7 @@
 
 // [START storage_stream_file_upload]
 use bytes::Bytes;
-use google_cloud_storage::{client::Storage, upload_source::StreamingSource};
+use google_cloud_storage::{client::Storage, streaming_source::StreamingSource};
 
 pub async fn sample(client: &Storage, bucket_id: &str) -> anyhow::Result<()> {
     const NAME: &str = "object-to-upload.txt";

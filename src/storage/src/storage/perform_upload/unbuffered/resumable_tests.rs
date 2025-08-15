@@ -74,11 +74,11 @@
 //!   service but the PUT request fails to read the response or otherwise fails.
 //!   The next query returns a finalized upload status.
 //!
-//! [Seek]: crate::upload_source::Seek
+//! [Seek]: crate::streaming_source::Seek
 
 use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::{Storage, tests::test_builder};
-use crate::upload_source::{BytesSource, SizeHint, tests::UnknownSize};
+use crate::streaming_source::{BytesSource, SizeHint, tests::UnknownSize};
 use gax::retry_policy::RetryPolicyExt;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
@@ -316,7 +316,7 @@ async fn source_seek_error() -> Result {
         .with_credentials(auth::credentials::testing::test_credentials())
         .build()
         .await?;
-    use crate::upload_source::tests::MockSeekSource;
+    use crate::streaming_source::tests::MockSeekSource;
     use std::io::{Error as IoError, ErrorKind};
     let mut source = MockSeekSource::new();
     source.expect_next().never();
@@ -362,7 +362,7 @@ async fn source_next_error() -> Result {
         .with_credentials(auth::credentials::testing::test_credentials())
         .build()
         .await?;
-    use crate::upload_source::tests::MockSeekSource;
+    use crate::streaming_source::tests::MockSeekSource;
     use std::io::{Error as IoError, ErrorKind};
     let mut source = MockSeekSource::new();
     source

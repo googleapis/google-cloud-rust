@@ -16,7 +16,7 @@
 
 use super::*;
 use crate::error::UploadError;
-use crate::storage::upload_source::BytesSource;
+use crate::storage::streaming_source::BytesSource;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
 use std::error::Error as StdError;

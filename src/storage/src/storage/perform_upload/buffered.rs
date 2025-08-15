@@ -293,7 +293,7 @@ mod tests {
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
-        use crate::upload_source::tests::MockSimpleSource;
+        use crate::streaming_source::tests::MockSimpleSource;
         use std::io::{Error as IoError, ErrorKind};
         let mut source = MockSimpleSource::new();
         source

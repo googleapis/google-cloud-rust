@@ -14,7 +14,7 @@
 
 // ANCHOR: all
 // ANCHOR: impl-streaming-source
-use google_cloud_storage::upload_source::StreamingSource;
+use google_cloud_storage::streaming_source::StreamingSource;
 // ANCHOR_END: impl-streaming-source
 // ANCHOR: wrapper-struct
 use tokio::sync::mpsc::{self, Receiver};
