@@ -12,13 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod create_folder;
-pub mod delete_folder;
-pub mod get_folder;
-pub mod list_folders;
-pub mod managed_folder_create;
-pub mod managed_folder_delete;
-pub mod managed_folder_get;
-pub mod managed_folder_list;
-pub mod quickstart;
-pub mod rename_folder;
+// [START storage_control_quickstart_sample]
+use google_cloud_storage::client::StorageControl;
+
+pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
+    let layout = client
+        .get_storage_layout()
+        .set_name(format!("projects/_/buckets/{bucket_id}/storageLayout"))
+        .send()
+        .await?;
+    println!("successfully retrieved storage layout: {layout:?}");
+    Ok(())
+}
+// [END storage_control_quickstart_sample]
