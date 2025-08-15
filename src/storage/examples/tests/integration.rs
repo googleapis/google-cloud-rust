@@ -42,4 +42,17 @@ mod tests {
         }
         result
     }
+
+    #[tokio::test]
+    async fn object_examples() -> anyhow::Result<()> {
+        let client = StorageControl::builder().build().await?;
+
+        let mut buckets = Vec::new();
+        let result = run_object_examples(&mut buckets).await;
+        // Ignore cleanup errors.
+        for id in buckets.into_iter() {
+            let _ = cleanup_bucket(client.clone(), format!("projects/_/buckets/{id}")).await;
+        }
+        result
+    }
 }

@@ -25,6 +25,7 @@ categories.workspace = true
 
 [dependencies]
 anyhow.workspace               = true
+bytes.workspace                = true
 clap                           = { workspace = true, features = ["derive", "std"] }
 futures.workspace              = true
 google-cloud-gax.workspace     = true
