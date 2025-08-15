@@ -20,7 +20,7 @@ use crate::model::request_helpers::KeyAes256;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::{
     ChecksumEngine,
-    details::{Crc32c, Md5, validate},
+    details::{ChecksumEnum, validate},
 };
 use base64::Engine;
 #[cfg(feature = "unstable-stream")]
@@ -64,14 +64,14 @@ use serde_with::DeserializeAs;
 /// }
 /// ```
 #[derive(Clone, Debug)]
-pub struct ReadObject<C = Crc32c> {
+pub struct ReadObject {
     inner: std::sync::Arc<StorageInner>,
     request: crate::model::ReadObjectRequest,
     options: super::request_options::RequestOptions,
-    checksum: C,
+    checksum: ChecksumEnum,
 }
 
-impl ReadObject<Crc32c> {
+impl ReadObject {
     pub(crate) fn new<B, O>(inner: std::sync::Arc<StorageInner>, bucket: B, object: O) -> Self
     where
         B: Into<String>,
@@ -84,7 +84,7 @@ impl ReadObject<Crc32c> {
                 .set_bucket(bucket)
                 .set_object(object),
             options,
-            checksum: Crc32c::default(),
+            checksum: ChecksumEnum::default(),
         }
     }
 
@@ -116,25 +116,9 @@ impl ReadObject<Crc32c> {
     /// println!("object contents={:?}", contents);
     /// # Ok(()) }
     /// ```
-    pub fn compute_md5(self) -> ReadObject<Md5<Crc32c>> {
-        self.switch_checksum(Md5::from_inner)
-    }
-}
-
-impl<C> ReadObject<C>
-where
-    C: Clone + ChecksumEngine + Send,
-{
-    fn switch_checksum<F, U>(self, new: F) -> ReadObject<U>
-    where
-        F: FnOnce(C) -> U,
-    {
-        ReadObject {
-            inner: self.inner,
-            request: self.request,
-            options: self.options,
-            checksum: new(self.checksum),
-        }
+    pub fn compute_md5(mut self) -> Self {
+        self.checksum = self.checksum.compute_md5();
+        self
     }
 
     /// If present, selects a specific revision of this object (as
@@ -412,7 +396,7 @@ where
     }
 
     /// Sends the request.
-    pub async fn send(self) -> Result<ReadObjectResponse<C>> {
+    pub async fn send(self) -> Result<ReadObjectResponse> {
         let read = self.clone().read().await?;
         ReadObjectResponse::new(self, read)
     }
@@ -551,7 +535,7 @@ fn headers_to_md5_hash(headers: &http::HeaderMap) -> Vec<u8> {
 
 /// A response to a [Storage::read_object] request.
 #[derive(Debug)]
-pub struct ReadObjectResponse<C> {
+pub struct ReadObjectResponse {
     inner: Option<reqwest::Response>,
     highlights: ObjectHighlights,
     // Fields for tracking the crc checksum checks.
@@ -559,15 +543,12 @@ pub struct ReadObjectResponse<C> {
     // Fields for resuming a read request.
     range: ReadRange,
     generation: i64,
-    builder: ReadObject<C>,
+    builder: ReadObject,
     resume_count: u32,
 }
 
-impl<C> ReadObjectResponse<C>
-where
-    C: ChecksumEngine + Clone + Send,
-{
-    fn new(builder: ReadObject<C>, inner: reqwest::Response) -> Result<Self> {
+impl ReadObjectResponse {
+    fn new(builder: ReadObject, inner: reqwest::Response) -> Result<Self> {
         let full = builder.request.read_offset == 0 && builder.request.read_limit == 0;
         let response_checksums = checksums_from_response(full, inner.status(), inner.headers());
         let range = response_range(&inner).map_err(Error::deser)?;
@@ -617,12 +598,6 @@ where
             resume_count: 0,
         })
     }
-}
-
-impl<C> ReadObjectResponse<C>
-where
-    C: ChecksumEngine + Clone + Send,
-{
     /// Get the highlights of the object metadata included in the
     /// response.
     ///
