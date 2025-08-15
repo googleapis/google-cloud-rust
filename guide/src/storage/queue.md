@@ -14,14 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Push data on object uploads
+# Push data on object writes
 
-The client API to upload [Cloud Storage] objects pulls the upload data from a
-type provided by the application. Some applications generate the upload data in
-a thread and would rather "push" the object payload to the service.
+The client API to write [Cloud Storage] objects pulls the payload from a type
+provided by the application. Some applications generate the payload in a thread
+and would rather "push" the object payload to the service.
 
-This guide will show you how to upload an object to [Cloud Storage] using a push
-data source.
+This guide shows you how to write an object to [Cloud Storage] using a push data
+source.
 
 ## Prerequisites
 
@@ -34,11 +34,11 @@ The guide assumes you have an existing [Google Cloud project] with
 cargo add google-cloud-storage
 ```
 
-## Convert a queue to an upload source
+## Convert a queue to a `StreamingSource`
 
 The key idea is to use a queue to separate the task pushing new data from the
-task pulling the upload data. This tutorial uses a Tokio [mpsc queue], but you
-can use any queue that integrates with Tokio's async runtime.
+task pulling the payload. This tutorial uses a Tokio [mpsc queue], but you can
+use any queue that integrates with Tokio's async runtime.
 
 First wrap the receiver in our own type:
 
@@ -61,7 +61,7 @@ bucket and object name as parameters:
 {{#rustdoc_include ../../samples/tests/storage/queue.rs:end-sample-function}}
 ```
 
-As usual you initialize a client for the upload:
+Initialize a client:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/queue.rs:client}}
@@ -73,20 +73,20 @@ Create a queue, obtaining the receiver and sender:
 {{#rustdoc_include ../../samples/tests/storage/queue.rs:create-queue}}
 ```
 
-Use the client to upload the data received from this queue. Note that we do not
-`await` the future created in the `upload_object()` method.
+Use the client to write an object with the data received from this queue. Note
+that we do not `await` the future created in the `write_object()` method.
 
 ```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/queue.rs:create-upload}}
+{{#rustdoc_include ../../samples/tests/storage/queue.rs:create-writer}}
 ```
 
-Create a task to process the queue and upload the data in the background:
+Create a task to process the queue and write the data in the background:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/queue.rs:create-task}}
 ```
 
-In the main task, send some data to upload:
+In the main task, send some data to write:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/queue.rs:send-data}}

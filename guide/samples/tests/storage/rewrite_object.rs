@@ -102,7 +102,7 @@ async fn upload(bucket_name: &str) -> anyhow::Result<Object> {
     // We need the size to exceed 1MiB to exercise the rewrite token logic.
     let payload = bytes::Bytes::from(vec![65_u8; 3 * 1024 * 1024]);
     let object = storage
-        .upload_object(bucket_name, "rewrite-object-source", payload)
+        .write_object(bucket_name, "rewrite-object-source", payload)
         .send_unbuffered()
         .await?;
     Ok(object)

@@ -57,7 +57,7 @@ pub mod builder {
         //! Request builders for [Storage][crate::client::Storage].
         pub use crate::storage::client::ClientBuilder;
         pub use crate::storage::read_object::ReadObject;
-        pub use crate::storage::upload_object::UploadObject;
+        pub use crate::storage::write_object::WriteObject;
     }
     pub mod storage_control {
         //! Request builders for [StorageControl][crate::client::StorageControl].

@@ -96,7 +96,7 @@ async fn runner(
 
         let write_start = Instant::now();
         let upload = client
-            .upload_object(
+            .write_object(
                 format!("projects/_/buckets/{}", &args.bucket_name),
                 &name,
                 buffer.slice(0..size),

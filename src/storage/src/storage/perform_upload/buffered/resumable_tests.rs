@@ -175,7 +175,7 @@ async fn empty_success() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
         .send_buffered()
         .await?;
@@ -235,7 +235,7 @@ async fn resumable_empty_unknown() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object(
+        .write_object(
             "projects/_/buckets/test-bucket",
             "test-object",
             UnknownSize::new(BytesSource::new(bytes::Bytes::from_static(b""))),
@@ -313,7 +313,7 @@ async fn empty_csek() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
         .with_key(KeyAes256::new(&key)?)
         .send_buffered()
@@ -362,7 +362,7 @@ async fn source_next_error() -> Result {
         .once()
         .returning(|| Ok(SizeHint::with_exact(1024)));
     let err = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+        .write_object("projects/_/buckets/test-bucket", "test-object", source)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
@@ -396,7 +396,7 @@ async fn start_permanent_error() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
         .send_buffered()
         .await
@@ -426,7 +426,7 @@ async fn start_too_many_transients() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
         .send_buffered()
@@ -477,7 +477,7 @@ async fn put_permanent_error() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
         .send_buffered()
         .await
@@ -523,7 +523,7 @@ async fn put_too_many_transients() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
         .send_buffered()
@@ -602,7 +602,7 @@ async fn put_partial_and_recover() -> Result {
         .build()
         .await?;
     let upload = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", payload)
+        .write_object("projects/_/buckets/test-bucket", "test-object", payload)
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
         .with_resumable_upload_buffer_size(TARGET);
@@ -655,7 +655,7 @@ async fn put_error_and_finalized() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", payload)
+        .write_object("projects/_/buckets/test-bucket", "test-object", payload)
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
         .send_buffered()
@@ -717,7 +717,7 @@ async fn start_resumable_upload_request_retry_options() -> Result {
         .build()
         .await?;
     let err = client
-        .upload_object("projects/_/buckets/bucket", "object", "hello")
+        .write_object("projects/_/buckets/bucket", "object", "hello")
         .with_retry_policy(retry.with_attempt_limit(3))
         .with_backoff_policy(backoff)
         .with_retry_throttler(throttler)
@@ -781,7 +781,7 @@ async fn start_resumable_upload_client_retry_options() -> Result {
         .build()
         .await?;
     let err = client
-        .upload_object("projects/_/buckets/bucket", "object", "hello")
+        .write_object("projects/_/buckets/bucket", "object", "hello")
         .send_buffered()
         .await
         .expect_err("request should fail after 3 retry attempts");

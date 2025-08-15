@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Types used in the request builders ([ReadObject] and/or [UploadObject])
+//! Types used in the request builders ([ReadObject] and/or [WriteObject])
 //! to improve type safety or ergonomics.
 //!
 //! [ReadObject]: crate::builder::storage::ReadObject
-//! [UploadObject]: crate::builder::storage::UploadObject
+//! [WriteObject]: crate::builder::storage::WriteObject
 
 use crate::error::KeyAes256Error;
 use sha2::{Digest, Sha256};
