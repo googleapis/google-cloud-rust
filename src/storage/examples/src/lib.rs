@@ -24,6 +24,7 @@ mod get_bucket_metadata;
 mod list_buckets;
 mod print_bucket_acl;
 mod print_bucket_acl_for_user;
+mod quickstart;
 mod remove_bucket_owner;
 
 use google_cloud_storage::client::StorageControl;
@@ -65,6 +66,11 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     print_bucket_acl_for_user::print_bucket_acl_for_user(&client, &id).await?;
     tracing::info!("running delete_bucket example");
     delete_bucket::delete_bucket(&client, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running quickstart example");
+    quickstart::sample(&client, &project_id, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -114,6 +120,9 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
         &id,
     )
     .await?;
+
+    tracing::info!("running control::quickstart example");
+    control::quickstart::sample(&client, &id).await?;
 
     tracing::info!("running control::managed_folder_create example");
     control::managed_folder_create::sample(&client, &id).await?;
