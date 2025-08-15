@@ -22,12 +22,14 @@ mod create_bucket_hierarchical_namespace;
 mod delete_bucket;
 mod get_bucket_metadata;
 mod list_buckets;
+mod objects;
 mod print_bucket_acl;
 mod print_bucket_acl_for_user;
 mod quickstart;
 mod remove_bucket_owner;
 
-use google_cloud_storage::client::StorageControl;
+use google_cloud_storage::client::{Storage, StorageControl};
+use google_cloud_storage::model::Object;
 use rand::{Rng, distr::Distribution};
 
 pub const BUCKET_ID_LENGTH: usize = 63;
@@ -144,6 +146,86 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
     control::delete_folder::sample(&client, &id).await?;
 
     Ok(())
+}
+
+pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let control = StorageControl::builder().build().await?;
+    let client = Storage::builder().build().await?;
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    create_bucket_hierarchical_namespace::create_bucket_hierarchical_namespace(
+        &control,
+        &project_id,
+        &id,
+    )
+    .await?;
+
+    tracing::info!("create test objects for the examples");
+    let uploads = [
+        "object-to-download.txt",
+        "prefixes/are-not-always/folders-001",
+        "prefixes/are-not-always/folders-002",
+        "prefixes/are-not-always/folders-003",
+        "prefixes/are-not-always/folders-004/abc",
+        "prefixes/are-not-always/folders-004/def",
+        "object-to-update",
+        "deleted-object-name",
+    ]
+    .map(|name| make_object(&client, &id, name));
+    let _ = futures::future::join_all(uploads)
+        .await
+        .into_iter()
+        .collect::<anyhow::Result<Vec<_>>>()?;
+
+    tracing::info!("running stream_file_upload example");
+    objects::stream_file_upload::sample(&client, &id).await?;
+    tracing::info!("running stream_file_download example");
+    objects::stream_file_download::sample(&client, &id).await?;
+
+    tracing::info!("running list_files example");
+    objects::list_files::sample(&control, &id).await?;
+    tracing::info!("running list_files_with_prefix example");
+    objects::list_files_with_prefix::sample(&control, &id).await?;
+    tracing::info!("running set_metadata example");
+    objects::set_metadata::sample(&control, &id).await?;
+    tracing::info!("running delete_file example");
+    objects::delete_file::sample(&control, &id).await?;
+
+    // Create a folder for the delete_folder example.
+    let _ = control
+        .create_folder()
+        .set_parent(format!("projects/_/buckets/{id}"))
+        .set_folder_id("deleted-folder-id")
+        .send()
+        .await?;
+
+    tracing::info!("running control::delete_folder example");
+    control::delete_folder::sample(&control, &id).await?;
+
+    Ok(())
+}
+
+async fn make_object(client: &Storage, bucket_id: &str, name: &str) -> anyhow::Result<Object> {
+    const VEXING: &str = "how vexingly quick daft zebras jump\n";
+    let object = client
+        .upload_object(format!("projects/_/buckets/{bucket_id}"), name, VEXING)
+        .with_if_generation_match(0)
+        .send_buffered()
+        .await?;
+    Ok(object)
 }
 
 pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {

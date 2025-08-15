@@ -6580,6 +6580,7 @@ name = "storage-samples"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "bytes",
  "clap",
  "futures",
  "google-cloud-gax",
