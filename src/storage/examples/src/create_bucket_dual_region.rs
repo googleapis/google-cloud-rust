@@ -17,7 +17,7 @@ use google_cloud_storage::{
     client::StorageControl, model::Bucket, model::bucket::CustomPlacementConfig,
 };
 
-pub async fn create_bucket_dual_region(
+pub async fn sample(
     client: &StorageControl,
     project_id: &str,
     bucket_id: &str,

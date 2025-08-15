@@ -20,7 +20,7 @@ use google_cloud_storage::{
     model::bucket::{HierarchicalNamespace, IamConfig},
 };
 
-pub async fn create_bucket_hierarchical_namespace(
+pub async fn sample(
     client: &StorageControl,
     project_id: &str,
     bucket_id: &str,

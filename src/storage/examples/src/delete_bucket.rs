@@ -15,7 +15,7 @@
 // [START storage_delete_bucket]
 use google_cloud_storage::client::StorageControl;
 
-pub async fn delete_bucket(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
+pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
     client
         .delete_bucket()
         .set_name(format!("projects/_/buckets/{bucket_id}"))

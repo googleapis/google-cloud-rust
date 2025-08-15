@@ -15,7 +15,7 @@
 // [START storage_list_buckets]
 use google_cloud_storage::client::StorageControl;
 
-pub async fn list_buckets(client: &StorageControl, project_id: &str) -> anyhow::Result<()> {
+pub async fn sample(client: &StorageControl, project_id: &str) -> anyhow::Result<()> {
     use google_cloud_gax::paginator::ItemPaginator;
 
     let mut items = client
