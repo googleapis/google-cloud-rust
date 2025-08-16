@@ -1473,6 +1473,32 @@ dependencies = [
 [[package]]
 name = "google-cloud-bigquery"
 version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "base64",
+ "bytes",
+ "chrono",
+ "google-cloud-auth",
+ "google-cloud-bigquery-v2",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-rpc",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "http",
+ "lazy_static",
+ "prost",
+ "prost-types",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "thiserror",
+ "tokio",
+ "tokio-test",
+ "tonic",
+ "tracing",
+]
 
 [[package]]
 name = "google-cloud-bigquery-analyticshub-v1"
@@ -5312,10 +5338,12 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "bytes",
+ "chrono",
  "crc32c",
  "futures",
  "google-cloud-aiplatform-v1",
  "google-cloud-auth",
+ "google-cloud-bigquery",
  "google-cloud-bigquery-v2",
  "google-cloud-firestore",
  "google-cloud-gax",
