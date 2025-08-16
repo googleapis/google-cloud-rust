@@ -115,6 +115,7 @@ impl<C, S> PerformUpload<C, S> {
             .request(reqwest::Method::PUT, upload_url)
             .header("content-type", "application/octet-stream")
             .header("Content-Range", "bytes */*")
+            .header("content-length", 0)
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
