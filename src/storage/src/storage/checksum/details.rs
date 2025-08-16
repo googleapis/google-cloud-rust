@@ -61,6 +61,113 @@ pub fn validate(
     }
 }
 
+#[derive(Clone, Debug)]
+pub enum ChecksumEnum {
+    Null(Null),
+    Md5(Md5),
+
+    KnownCrc32c(KnownCrc32c),
+    KnownMd5(KnownMd5),
+
+    Crc32cKnownMd5(Crc32c<KnownMd5>),
+    Md5KnownCrc32c(Md5<KnownCrc32c>),
+    Known(Known),
+
+    Crc32c(Crc32c),
+    Both(Crc32c<Md5>),
+}
+
+impl sealed::ChecksumEngine for ChecksumEnum {}
+
+impl std::default::Default for ChecksumEnum {
+    fn default() -> Self {
+        ChecksumEnum::Crc32c(Crc32c::default())
+    }
+}
+
+impl ChecksumEnum {
+    pub(crate) fn compute_md5(self) -> Self {
+        match self {
+            // If CRC32C is known, we want to keep it known and compute MD5.
+            ChecksumEnum::KnownCrc32c(_)
+            | ChecksumEnum::Known(_)
+            | ChecksumEnum::Md5KnownCrc32c(_) => {
+                ChecksumEnum::Md5KnownCrc32c(Md5::from_inner(KnownCrc32c))
+            }
+
+            // If we are not computing CRC32C, just compute MD5.
+            ChecksumEnum::Null(_) | ChecksumEnum::KnownMd5(_) | ChecksumEnum::Md5(_) => {
+                ChecksumEnum::Md5(Md5::default())
+            }
+
+            // If we are already computing CRC32C, compute both.
+            ChecksumEnum::Crc32c(_) | ChecksumEnum::Crc32cKnownMd5(_) | ChecksumEnum::Both(_) => {
+                ChecksumEnum::Both(Crc32c::from_inner(Md5::default()))
+            }
+        }
+    }
+
+    pub(crate) fn with_known_crc32c(self) -> Self {
+        match self {
+            // If we are not computing MD5, use the KnownCrc32c state.
+            ChecksumEnum::Crc32c(_) | ChecksumEnum::KnownCrc32c(_) | ChecksumEnum::Null(_) => {
+                ChecksumEnum::KnownCrc32c(KnownCrc32c)
+            }
+            // If we are computing MD5, we need to keep computing it.
+            ChecksumEnum::Both(_) | ChecksumEnum::Md5KnownCrc32c(_) | ChecksumEnum::Md5(_) => {
+                ChecksumEnum::Md5KnownCrc32c(Md5::from_inner(KnownCrc32c))
+            }
+            // If MD5 is previously known, now both are known.
+            ChecksumEnum::Crc32cKnownMd5(_)
+            | ChecksumEnum::KnownMd5(_)
+            | ChecksumEnum::Known(_) => ChecksumEnum::Known(Known),
+        }
+    }
+
+    pub(crate) fn with_known_md5_hash(self) -> Self {
+        match self {
+            // If we are not computing CRC32C, we can use the simpler KnownMd5 state.
+            ChecksumEnum::Null(_) | ChecksumEnum::KnownMd5(_) | ChecksumEnum::Md5(_) => {
+                ChecksumEnum::KnownMd5(KnownMd5)
+            }
+            // If we are computing CRC32C, we need to keep computing it.
+            ChecksumEnum::Both(_) | ChecksumEnum::Crc32c(_) | ChecksumEnum::Crc32cKnownMd5(_) => {
+                ChecksumEnum::Crc32cKnownMd5(Crc32c::from_inner(KnownMd5))
+            }
+            // If CRC32C is previously known, now both are known.
+            ChecksumEnum::Known(_)
+            | ChecksumEnum::KnownCrc32c(_)
+            | ChecksumEnum::Md5KnownCrc32c(_) => ChecksumEnum::Known(Known),
+        }
+    }
+}
+
+macro_rules! forward_checksum_engine {
+    ($s:expr, $name:ident, $($args:tt),*) => {
+        match $s {
+            ChecksumEnum::Crc32c(c) => c.$name($($args),*),
+            ChecksumEnum::Both(c) => c.$name($($args),*),
+            ChecksumEnum::KnownCrc32c(c) => c.$name($($args),*),
+            ChecksumEnum::Crc32cKnownMd5(c) => c.$name($($args),*),
+            ChecksumEnum::Md5KnownCrc32c(c) => c.$name($($args),*),
+            ChecksumEnum::Known(c) => c.$name($($args),*),
+            ChecksumEnum::Null(c) => c.$name($($args),*),
+            ChecksumEnum::Md5(c) => c.$name($($args),*),
+            ChecksumEnum::KnownMd5(c) => c.$name($($args),*),
+        }
+    };
+}
+
+impl ChecksumEngine for ChecksumEnum {
+    fn update(&mut self, offset: u64, data: &bytes::Bytes) {
+        forward_checksum_engine!(self, update, offset, data)
+    }
+
+    fn finalize(&self) -> ObjectChecksums {
+        forward_checksum_engine!(self, finalize,)
+    }
+}
+
 /// YOLO checksum engine.
 #[derive(Clone, Debug)]
 pub struct Null;
@@ -228,36 +335,30 @@ where
     }
 }
 
-pub(crate) struct ChecksummedSource<C, S> {
+pub(crate) struct ChecksummedSource<S> {
     offset: u64,
-    checksum: C,
+    checksum: ChecksumEnum,
     source: S,
 }
 
 use crate::streaming_source::{Seek, SizeHint, StreamingSource};
 
-impl<C, S> ChecksummedSource<C, S> {
-    pub fn new(checksum: C, source: S) -> Self {
+impl<S> ChecksummedSource<S> {
+    pub fn new(checksum: ChecksumEnum, source: S) -> Self {
         Self {
             offset: 0,
             checksum,
             source,
         }
     }
-}
 
-impl<C, S> ChecksummedSource<C, S>
-where
-    C: ChecksumEngine,
-{
     pub fn final_checksum(&self) -> ObjectChecksums {
         self.checksum.finalize()
     }
 }
 
-impl<C, S> StreamingSource for ChecksummedSource<C, S>
+impl<S> StreamingSource for ChecksummedSource<S>
 where
-    C: ChecksumEngine + Send + Sync,
     S: StreamingSource + Send + Sync,
 {
     type Error = S::Error;
@@ -277,9 +378,8 @@ where
     }
 }
 
-impl<C, S> Seek for ChecksummedSource<C, S>
+impl<S> Seek for ChecksummedSource<S>
 where
-    C: ChecksumEngine + Send + Sync,
     S: Seek + Send + Sync,
 {
     type Error = S::Error;
@@ -500,7 +600,7 @@ mod tests {
             input.map(|s| bytes::Bytes::from_static(s.as_bytes())),
         );
         let want_hint = source.size_hint().await?;
-        let mut source = ChecksummedSource::new(Crc32c::default(), source);
+        let mut source = ChecksummedSource::new(ChecksumEnum::Crc32c(Crc32c::default()), source);
         let got_hint = source.size_hint().await?;
         assert_eq!(got_hint.lower(), want_hint.lower());
         assert_eq!(got_hint.upper(), want_hint.upper());
@@ -539,7 +639,7 @@ mod tests {
             .once()
             .returning(|_| Err(Error::new(ErrorKind::FileTooLarge, "test-only")));
 
-        let mut ck = ChecksummedSource::new(Null, source);
+        let mut ck = ChecksummedSource::new(ChecksumEnum::Null(Null), source);
         let err = ck.next().await.transpose().unwrap_err();
         assert_eq!(err.kind(), ErrorKind::BrokenPipe, "{err:?}");
 

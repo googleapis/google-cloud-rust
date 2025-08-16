@@ -13,16 +13,15 @@
 // limitations under the License.
 
 use super::{
-    ChecksumEngine, ContinueOn308, Error, Object, PerformUpload, Result, ResumableUploadStatus,
-    Seek, SizeHint, StreamingSource, X_GOOG_API_CLIENT_HEADER,
-    apply_customer_supplied_encryption_headers, handle_object_response, v1,
+    ContinueOn308, Error, Object, PerformUpload, Result, ResumableUploadStatus, Seek, SizeHint,
+    StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
+    handle_object_response, v1,
 };
 use futures::stream::unfold;
 use std::sync::Arc;
 
-impl<C, S> PerformUpload<C, S>
+impl<S> PerformUpload<S>
 where
-    C: ChecksumEngine + Send + Sync + 'static,
     S: StreamingSource + Seek + Send + Sync + 'static,
     <S as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <S as Seek>::Error: std::error::Error + Send + Sync + 'static,

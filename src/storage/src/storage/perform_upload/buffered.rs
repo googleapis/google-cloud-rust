@@ -13,11 +13,12 @@
 // limitations under the License.
 
 use super::{
-    ChecksumEngine, ChecksummedSource, ContinueOn308, Error, IterSource, Known, Object,
-    PerformUpload, Result, ResumableUploadStatus, SizeHint, StreamingSource,
-    X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
+    ChecksummedSource, ContinueOn308, Error, IterSource, Known, Object, PerformUpload, Result,
+    ResumableUploadStatus, SizeHint, StreamingSource, X_GOOG_API_CLIENT_HEADER,
+    apply_customer_supplied_encryption_headers,
 };
 use crate::error::UploadError;
+use crate::storage::checksum::details::ChecksumEnum;
 use crate::storage::checksum::details::{update as checksum_update, validate as checksum_validate};
 use progress::InProgressUpload;
 use std::sync::Arc;
@@ -25,9 +26,8 @@ use tokio::sync::Mutex;
 
 mod progress;
 
-impl<C, S> PerformUpload<C, S>
+impl<S> PerformUpload<S>
 where
-    C: ChecksumEngine + Send + Sync + 'static,
     S: StreamingSource + Send + Sync + 'static,
     S::Error: std::error::Error + Send + Sync + 'static,
 {
@@ -153,7 +153,10 @@ where
             .get_or_insert_default();
         checksum_update(current, computed);
         let upload = PerformUpload {
-            payload: Arc::new(Mutex::new(ChecksummedSource::new(Known, source))),
+            payload: Arc::new(Mutex::new(ChecksummedSource::new(
+                ChecksumEnum::Known(Known),
+                source,
+            ))),
             inner: self.inner,
             spec: self.spec,
             params: self.params,

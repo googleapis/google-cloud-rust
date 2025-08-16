@@ -23,7 +23,7 @@ use super::*;
 use crate::model::request_helpers::KeyAes256;
 use crate::storage::checksum::{
     ChecksumEngine,
-    details::{Crc32c, Known, KnownCrc32c, KnownMd5, Md5, update as checksum_update},
+    details::{ChecksumEnum, Crc32c, Known, Md5, Null, update as checksum_update},
 };
 
 /// A request builder for object uploads.
@@ -75,16 +75,16 @@ use crate::storage::checksum::{
 ///     Ok(())
 /// }
 /// ```
-pub struct UploadObject<T, C = Crc32c> {
+pub struct UploadObject<T> {
     inner: std::sync::Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
     payload: Payload<T>,
     options: super::request_options::RequestOptions,
-    checksum: C,
+    checksum: ChecksumEnum,
 }
 
-impl<T, C> UploadObject<T, C> {
+impl<T> UploadObject<T> {
     /// Set a [request precondition] on the object generation to match.
     ///
     /// With this precondition the request fails if the current object
@@ -781,7 +781,7 @@ impl<T, C> UploadObject<T, C> {
             .expect("resource field initialized in `new()`")
     }
 
-    pub(crate) fn build(self) -> PerformUpload<C, Payload<T>> {
+    pub(crate) fn build(self) -> PerformUpload<Payload<T>> {
         PerformUpload::new(
             self.checksum,
             self.payload,
@@ -790,20 +790,6 @@ impl<T, C> UploadObject<T, C> {
             self.params,
             self.options,
         )
-    }
-
-    fn switch_checksum<F, U>(self, new: F) -> UploadObject<T, U>
-    where
-        F: FnOnce(C) -> U,
-    {
-        UploadObject {
-            payload: self.payload,
-            inner: self.inner,
-            spec: self.spec,
-            params: self.params,
-            options: self.options,
-            checksum: new(self.checksum),
-        }
     }
 
     fn set_crc32c<V: Into<u32>>(mut self, v: V) -> Self {
@@ -821,9 +807,7 @@ impl<T, C> UploadObject<T, C> {
         checksum.md5_hash = i.into_iter().map(|v| v.into()).collect();
         self
     }
-}
 
-impl<T> UploadObject<T, Crc32c> {
     /// Provide a precomputed value for the CRC32C checksum.
     ///
     /// # Example
@@ -852,9 +836,9 @@ impl<T> UploadObject<T, Crc32c> {
     /// use [compute_md5()] to also have the library compute the checksums.
     ///
     /// [compute_md5()]: UploadObject::compute_md5
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> UploadObject<T, KnownCrc32c> {
-        let this = self.switch_checksum(|_| KnownCrc32c);
-        this.set_crc32c(v)
+    pub fn with_known_crc32c<V: Into<u32>>(mut self, v: V) -> Self {
+        self.checksum = self.checksum.with_known_crc32c();
+        self.set_crc32c(v)
     }
 
     /// Provide a precomputed value for the MD5 hash.
@@ -886,13 +870,13 @@ impl<T> UploadObject<T, Crc32c> {
     /// use [compute_md5()] to also have the library compute the checksums.
     ///
     /// [compute_md5()]: UploadObject::compute_md5
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Crc32c<KnownMd5>>
+    pub fn with_known_md5_hash<I, V>(mut self, i: I) -> Self
     where
         I: IntoIterator<Item = V>,
         V: Into<u8>,
     {
-        let this = self.switch_checksum(|_| Crc32c::from_inner(KnownMd5));
-        this.set_md5_hash(i)
+        self.checksum = self.checksum.with_known_md5_hash();
+        self.set_md5_hash(i)
     }
 
     /// Enables computation of MD5 hashes.
@@ -914,63 +898,9 @@ impl<T> UploadObject<T, Crc32c> {
     /// See [precompute_checksums][UploadObject::precompute_checksums] for more
     /// details on how checksums are used by the client library and their
     /// limitations.
-    pub fn compute_md5(self) -> UploadObject<T, Md5<Crc32c>> {
-        self.switch_checksum(Md5::from_inner)
-    }
-}
-
-impl<T> UploadObject<T, Crc32c<KnownMd5>> {
-    /// See [UploadObject<T, Crc32c>::with_known_crc32c].
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> UploadObject<T, Known> {
-        let this = self.switch_checksum(|_| Known);
-        this.set_crc32c(v)
-    }
-}
-
-impl<T> UploadObject<T, Md5<Crc32c>> {
-    /// See [UploadObject<T, Crc32c>::with_known_crc32c].
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> UploadObject<T, Md5<KnownCrc32c>> {
-        let this = self.switch_checksum(|_| Md5::from_inner(KnownCrc32c));
-        this.set_crc32c(v)
-    }
-
-    /// See [UploadObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Crc32c<KnownMd5>>
-    where
-        I: IntoIterator<Item = V>,
-        V: Into<u8>,
-    {
-        let this = self.switch_checksum(|_| Crc32c::from_inner(KnownMd5));
-        this.set_md5_hash(i)
-    }
-}
-
-impl<T> UploadObject<T, Md5<KnownCrc32c>> {
-    /// See [UploadObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Known>
-    where
-        I: IntoIterator<Item = V>,
-        V: Into<u8>,
-    {
-        let this = self.switch_checksum(|_| Known);
-        this.set_md5_hash(i)
-    }
-}
-
-impl<T> UploadObject<T, KnownCrc32c> {
-    /// See [UploadObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Known>
-    where
-        I: IntoIterator<Item = V>,
-        V: Into<u8>,
-    {
-        let this = self.switch_checksum(|_| Known);
-        this.set_md5_hash(i)
-    }
-
-    /// See [UploadObject<T, Crc32c>::compute_md5()].
-    pub fn compute_md5(self) -> UploadObject<T, Md5<KnownCrc32c>> {
-        self.switch_checksum(Md5::from_inner)
+    pub fn compute_md5(mut self) -> Self {
+        self.checksum = self.checksum.compute_md5();
+        self
     }
 }
 
@@ -996,14 +926,13 @@ impl<T> UploadObject<T> {
             params: None,
             payload: payload.into(),
             options,
-            checksum: Crc32c::default(),
+            checksum: ChecksumEnum::default(),
         }
     }
 }
 
-impl<T, C> UploadObject<T, C>
+impl<T> UploadObject<T>
 where
-    C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Seek + Send + Sync + 'static,
     <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
@@ -1057,10 +986,7 @@ where
     /// send the checksums at the end of the upload with this API.
     ///
     /// [JSON API]: https://cloud.google.com/storage/docs/json_api
-    pub async fn precompute_checksums(mut self) -> Result<UploadObject<T, Known>>
-    where
-        C: ChecksumEngine + Send + Sync + 'static,
-    {
+    pub async fn precompute_checksums(mut self) -> Result<Self> {
         let mut offset = 0_u64;
         self.payload.seek(offset).await.map_err(Error::ser)?;
         while let Some(n) = self.payload.next().await.transpose().map_err(Error::ser)? {
@@ -1071,13 +997,13 @@ where
         let computed = self.checksum.finalize();
         let current = self.mut_resource().checksums.get_or_insert_default();
         checksum_update(current, computed);
-        Ok(self.switch_checksum(|_| Known))
+        self.checksum = ChecksumEnum::Known(Known);
+        Ok(self)
     }
 }
 
-impl<T, C> UploadObject<T, C>
+impl<T> UploadObject<T>
 where
-    C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Send + Sync + 'static,
     T::Error: std::error::Error + Send + Sync + 'static,
 {
@@ -1100,10 +1026,7 @@ where
 }
 
 // We need `Debug` to use `expect_err()` in `Result<UploadObject, ...>`.
-impl<T, C> std::fmt::Debug for UploadObject<T, C>
-where
-    C: std::fmt::Debug,
-{
+impl<T> std::fmt::Debug for UploadObject<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("UploadObject")
             .field("inner", &self.inner)
@@ -1121,6 +1044,7 @@ mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
     use crate::model::{ObjectChecksums, WriteObjectSpec};
+    use crate::storage::checksum::details::{Crc32c, Md5};
     use crate::streaming_source::tests::MockSeekSource;
     use std::error::Error as _;
     use std::io::{Error as IoError, ErrorKind};
