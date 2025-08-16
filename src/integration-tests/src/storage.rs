@@ -1187,15 +1187,18 @@ async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Res
     let mut names = Vec::new();
     while let Some(bucket) = buckets.next().await {
         let bucket = bucket?;
-        if let Some("true") = bucket.labels.get("integration-test").map(String::as_str) {
-            if let Some(true) = bucket.create_time.map(|v| v < stale_deadline) {
-                let client = client.clone();
-                let name = bucket.name.clone();
-                pending.push(tokio::spawn(
-                    async move { cleanup_bucket(client, name).await },
-                ));
-                names.push(bucket.name);
-            }
+        if bucket
+            .labels
+            .get("integration-test")
+            .is_some_and(|v| v == "true")
+            && bucket.create_time.is_some_and(|v| v < stale_deadline)
+        {
+            let client = client.clone();
+            let name = bucket.name.clone();
+            pending.push(tokio::spawn(
+                async move { cleanup_bucket(client, name).await },
+            ));
+            names.push(bucket.name);
         }
     }
 
