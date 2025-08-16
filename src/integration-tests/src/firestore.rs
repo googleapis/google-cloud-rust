@@ -140,10 +140,13 @@ async fn cleanup_stale_documents() -> Result<()> {
         if let Some(true) = doc.create_time.map(|v| v >= stale_deadline) {
             continue;
         }
-        if let Some(integration) = doc.fields.get("integration-test") {
-            if let Some(&true) = integration.boolean_value() {
-                stale_documents.push(doc.name);
-            }
+        if doc
+            .fields
+            .get("integration-test")
+            .and_then(|v| v.boolean_value())
+            .is_some_and(|v| *v)
+        {
+            stale_documents.push(doc.name);
         }
     }
     let stale_documents = stale_documents;

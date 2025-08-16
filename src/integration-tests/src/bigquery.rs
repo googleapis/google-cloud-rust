@@ -114,10 +114,13 @@ async fn cleanup_stale_datasets(
         .into_iter()
         .filter_map(|r| {
             let dataset = r.unwrap();
-            if let Some("true") = dataset.labels.get("integration-test").map(String::as_str) {
-                if dataset.creation_time < stale_deadline {
-                    return Some(dataset);
-                }
+            if dataset
+                .labels
+                .get("integration-test")
+                .is_some_and(|v| v == "true")
+                && dataset.creation_time < stale_deadline
+            {
+                return Some(dataset);
             }
             None
         })
