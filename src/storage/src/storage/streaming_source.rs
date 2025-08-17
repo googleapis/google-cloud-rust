@@ -12,19 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Defines upload data sources.
+//! Defines data sources for object writes.
 
 use std::collections::VecDeque;
 
 /// The *total* number of bytes expected in a [StreamingSource].
 pub type SizeHint = http_body::SizeHint;
 
-/// The payload for object uploads via the [Storage][crate::client::Storage]
+/// The payload for object writers via the [Storage][crate::client::Storage]
 /// client.
 ///
-/// The storage client functions to upload new objects consume any type that can
-/// be converted to this type. That includes simple buffers, and any type
-/// implementing [StreamingSource].
+/// The storage client functions to create new objects consume types convertible
+/// to this type. That includes simple buffers, and any type implementing
+/// [StreamingSource].
 ///
 /// # Example
 /// ```
@@ -109,18 +109,18 @@ where
     }
 }
 
-/// Provides bytes for an upload from single-pass sources.
+/// Provides bytes from single-pass sources.
 pub trait StreamingSource {
     /// The error type.
     type Error: std::error::Error + Send + Sync + 'static;
 
-    /// Gets the next set of data to upload.
+    /// Gets the next set of data.
     fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes, Self::Error>>> + Send;
 
-    /// An estimate of the upload size.
+    /// An estimate of the payload size.
     ///
-    /// Returns the expected size as a [min, max) range. Where `None` represents
-    /// an unknown limit for the upload.
+    /// Returns the expected size as a `[min, max)` range. The maximum may be
+    /// unknown. If the minimum is unknown use `0`.
     ///
     /// If the maximum size is known and sufficiently small, the client library
     /// may be able to use a more efficient protocol for the upload.
@@ -129,21 +129,20 @@ pub trait StreamingSource {
     }
 }
 
-/// Provides bytes for an upload from sources that support seek.
+/// Provides bytes from sources that support seek.
 ///
-/// Implementations of this trait provide data for Google Cloud Storage uploads.
 /// The data may be received asynchronously, such as reads from Google Cloud
-/// Storage, other remote storage systems, or the result of repeatable
-/// computations.
+/// Storage, reads from other remote storage systems, or the result of
+/// repeatable computations.
 pub trait Seek {
     /// The error type.
     type Error: std::error::Error + Send + Sync + 'static;
 
     /// Resets the stream to start from `offset`.
     ///
-    /// The client library automatically restarts uploads when the connection
-    /// is reset or there is some kind of partial failure. Resuming an upload
-    /// may require resetting the stream to an arbitrary point.
+    /// The client library automatically restarts writes when the connection
+    /// is reset or there is some kind of partial failure. Resuming a write may
+    /// require resetting the stream to an arbitrary point.
     ///
     /// The client library assumes that `seek(N)` followed by `next()` always
     /// returns the same data.
@@ -168,7 +167,7 @@ impl From<tokio::fs::File> for Payload<FileSource> {
 /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
 /// let payload = tokio::fs::File::open("my-data").await?;
 /// let response = client
-///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+///     .write_object("projects/_/buckets/my-bucket", "my-object", payload)
 ///     .send_unbuffered()
 ///     .await?;
 /// println!("response details={response:?}");
@@ -222,7 +221,7 @@ impl Seek for FileSource {
 /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
 /// let payload = bytes::Bytes::from_static(b"Hello World!");
 /// let response = client
-///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+///     .write_object("projects/_/buckets/my-bucket", "my-object", payload)
 ///     .send_unbuffered()
 ///     .await?;
 /// println!("response details={response:?}");

@@ -17,7 +17,7 @@ use super::{
     PerformUpload, Result, ResumableUploadStatus, SizeHint, StreamingSource,
     X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
 };
-use crate::error::UploadError;
+use crate::error::WriteError;
 use crate::storage::checksum::details::{update as checksum_update, validate as checksum_validate};
 use progress::InProgressUpload;
 use std::sync::Arc;
@@ -166,7 +166,7 @@ where
 
     pub(crate) async fn validate_response_object(&self, object: Object) -> Result<Object> {
         let err = |mismatch, o: Object| {
-            Err(Error::ser(UploadError::ChecksumMismatch {
+            Err(Error::ser(WriteError::ChecksumMismatch {
                 mismatch,
                 object: o.into(),
             }))
@@ -226,11 +226,11 @@ mod resumable_tests;
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::builder::storage::WriteObject;
     use crate::storage::client::{
         Storage,
         tests::{test_builder, test_inner_client},
     };
-    use crate::storage::upload_object::UploadObject;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use test_case::test_case;
 
@@ -271,7 +271,7 @@ mod tests {
             .build()
             .await?;
         let response = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .write_object("projects/_/buckets/test-bucket", "test-object", "")
             .send_buffered()
             .await?;
         assert_eq!(response.name, "test-object");
@@ -305,7 +305,7 @@ mod tests {
             .once()
             .returning(|| Ok(SizeHint::with_exact(1024)));
         let err = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .write_object("projects/_/buckets/test-bucket", "test-object", source)
             .send_buffered()
             .await
             .expect_err("expected a serialization error");
@@ -328,7 +328,7 @@ mod tests {
     #[tokio::test]
     async fn test_percent_encoding_object_name(want: &str) -> Result {
         let inner = test_inner_client(test_builder());
-        let request = UploadObject::new(inner, "projects/_/buckets/bucket", want, "hello")
+        let request = WriteObject::new(inner, "projects/_/buckets/bucket", want, "hello")
             .build()
             .start_resumable_upload_request()
             .await?
