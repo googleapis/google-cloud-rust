@@ -25,6 +25,8 @@ use rand::{
     Rng,
     distr::{Alphanumeric, Uniform},
 };
+use std::collections::BTreeMap;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{Duration, Instant};
 use tokio::sync::mpsc::Sender;
 
@@ -34,6 +36,17 @@ async fn main() -> anyhow::Result<()> {
 
     let args = Args::parse();
     tracing::info!("{args:?}");
+
+    let handle = tokio::runtime::Handle::current();
+    let runtime_monitor = tokio_metrics::RuntimeMonitor::new(&handle);
+    let frequency = std::time::Duration::from_millis(5000);
+    tokio::spawn(async move {
+        for metrics in runtime_monitor.intervals() {
+            let counters = BTreeMap::from_iter(counters());
+            tracing::info!("Counters = {:?} Metrics = {:?}", counters, metrics);
+            tokio::time::sleep(frequency).await;
+        }
+    });
 
     let client = Storage::builder().build().await?;
     let control = StorageControl::builder().build().await?;
@@ -55,12 +68,13 @@ async fn main() -> anyhow::Result<()> {
     drop(tx);
 
     println!("{}", Sample::HEADER);
-    let mut sample_count = 0_usize;
     while let Some(sample) = rx.recv().await {
         println!("{}", sample.to_row());
-        sample_count += 1;
+        sample_done();
     }
-    tracing::info!("Benchmark collected {sample_count} samples");
+    let counters = BTreeMap::from_iter(counters());
+    tracing::info!("Counters = {counters:?}");
+    tracing::info!("DONE");
 
     for t in tasks {
         t.await??;
@@ -104,9 +118,11 @@ async fn runner(
             .with_resumable_upload_threshold(threshold)
             .send_unbuffered()
             .await;
+        write_done();
         let upload = match upload {
             Ok(u) => u,
             Err(e) => {
+                write_error();
                 tracing::error!("# Error in upload {e}");
                 continue;
             }
@@ -126,17 +142,23 @@ async fn runner(
         .await?;
         for op in [Operation::Read0, Operation::Read1, Operation::Read2] {
             let read_start = Instant::now();
-            let mut read = client
+            let Ok(mut read) = client
                 .read_object(&upload.bucket, &upload.name)
                 .with_generation(upload.generation)
                 .send()
-                .await?;
+                .await
+            else {
+                read_done();
+                read_error();
+                continue;
+            };
             let mut transfer_size = 0;
             while let Some(b) = read.next().await {
                 if let Ok(b) = b {
                     transfer_size += b.len();
                 }
             }
+            read_done();
             tx.send(Sample {
                 task,
                 iteration,
@@ -245,6 +267,48 @@ impl ExperimentResult {
             Self::Error => "ERR",
         }
     }
+}
+
+static READ_COUNT: AtomicU64 = AtomicU64::new(0);
+static SAMPLE_COUNT: AtomicU64 = AtomicU64::new(0);
+static WRITE_COUNT: AtomicU64 = AtomicU64::new(0);
+static READ_ERROR: AtomicU64 = AtomicU64::new(0);
+static WRITE_ERROR: AtomicU64 = AtomicU64::new(0);
+
+#[inline]
+fn read_done() {
+    READ_COUNT.fetch_add(1, Ordering::SeqCst);
+}
+
+#[inline]
+fn sample_done() {
+    SAMPLE_COUNT.fetch_add(1, Ordering::SeqCst);
+}
+
+#[inline]
+fn write_done() {
+    WRITE_COUNT.fetch_add(1, Ordering::SeqCst);
+}
+
+#[inline]
+fn read_error() {
+    READ_ERROR.fetch_add(1, Ordering::SeqCst);
+}
+
+#[inline]
+fn write_error() {
+    WRITE_ERROR.fetch_add(1, Ordering::SeqCst);
+}
+
+fn counters() -> impl Iterator<Item = (&'static str, u64)> {
+    [
+        ("READ_COUNT", READ_COUNT.load(Ordering::SeqCst)),
+        ("SAMPLE_COUNT", SAMPLE_COUNT.load(Ordering::SeqCst)),
+        ("WRITE_COUNT", WRITE_COUNT.load(Ordering::SeqCst)),
+        ("READ_ERROR", READ_ERROR.load(Ordering::Relaxed)),
+        ("WRITE_ERROR", WRITE_ERROR.load(Ordering::Relaxed)),
+    ]
+    .into_iter()
 }
 
 fn enable_tracing() -> tracing::dispatcher::DefaultGuard {
