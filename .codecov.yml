@@ -25,6 +25,7 @@ ignore:
   - "src/gax-internal/echo-server"
   - "src/gax-internal/grpc-server"
   - "tools/check-copyright"
+  - "src/w1r3"
   # Ignore libraries which go unused in the coverage build.
   - "guide/samples"
   - "src/integration-tests"
