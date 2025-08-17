@@ -163,7 +163,8 @@ async fn empty_success() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", path.clone()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(1)
         .respond_with(status_code(308)),
@@ -223,7 +224,8 @@ async fn resumable_empty_unknown() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", path.clone()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(1)
         .respond_with(status_code(308)),
@@ -301,7 +303,8 @@ async fn empty_csek() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", path.clone()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(1)
         .respond_with(status_code(308)),
@@ -465,7 +468,8 @@ async fn put_permanent_error() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", path.clone()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(1)
         .respond_with(status_code(308)),
@@ -511,7 +515,8 @@ async fn put_too_many_transients() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", session.path().to_string()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(2)
         .respond_with(status_code(308)),
@@ -588,7 +593,8 @@ async fn put_partial_and_recover() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", session.path().to_string()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .respond_with(status_code(308).append_header("range", format!("bytes=0-{}", QUANTUM - 1))),
     );
@@ -642,7 +648,8 @@ async fn put_error_and_finalized() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", session.path().to_string()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(1)
         .respond_with(cycle![status_code(200).body(response_body().to_string()),]),
