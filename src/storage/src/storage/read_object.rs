@@ -16,8 +16,8 @@ use super::client::*;
 use super::*;
 use crate::error::{RangeError, ReadError};
 use crate::model::ObjectChecksums;
-use crate::model::v1::ObjectHighlights;
 use crate::model_ext::KeyAes256;
+use crate::model_ext::ObjectHighlights;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::{
     ChecksumEngine,
