@@ -14,7 +14,7 @@
 
 use super::*;
 use crate::builder::storage::WriteObject;
-use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
+use crate::request_helpers::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::tests::{test_builder, test_inner_client};
 use serde_json::{Value, json};
 use std::collections::BTreeMap;

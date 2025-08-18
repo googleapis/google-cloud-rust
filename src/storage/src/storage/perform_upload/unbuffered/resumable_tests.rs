@@ -76,7 +76,7 @@
 //!
 //! [Seek]: crate::streaming_source::Seek
 
-use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
+use crate::request_helpers::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::{Storage, tests::test_builder};
 use crate::streaming_source::{BytesSource, SizeHint, tests::UnknownSize};
 use gax::retry_policy::RetryPolicyExt;

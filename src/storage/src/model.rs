@@ -17,12 +17,6 @@
 // Re-export all generated types
 pub use crate::control::model::*;
 
-// Custom types used in the hand-crafted code. We do not expect this name to
-// conflict with generated types, that would require a `RequestHelpers` message
-// with nested enums or messages. If we ever get a conflict, we would configure
-// sidekick to rename the generated types.
-pub mod request_helpers;
-
 /// Define types related to the `v1` JSON protocol.
 ///
 /// The client library uses the JSON protocol in its implementation. For the

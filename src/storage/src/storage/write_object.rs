@@ -20,7 +20,7 @@ use super::client::*;
 use super::perform_upload::PerformUpload;
 use super::streaming_source::{Seek, StreamingSource};
 use super::*;
-use crate::model::request_helpers::KeyAes256;
+use crate::request_helpers::KeyAes256;
 use crate::storage::checksum::{
     ChecksumEngine,
     details::{Crc32c, Known, KnownCrc32c, KnownMd5, Md5, update as checksum_update},

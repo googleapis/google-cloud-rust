@@ -67,6 +67,7 @@ pub mod builder {
 }
 pub mod error;
 pub mod model;
+pub mod request_helpers;
 pub use crate::control::stub;
 
 pub use storage::read_object::ReadObjectResponse;

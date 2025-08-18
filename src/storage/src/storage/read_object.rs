@@ -16,9 +16,9 @@ use super::client::*;
 use super::*;
 use crate::error::{RangeError, ReadError};
 use crate::model::ObjectChecksums;
-use crate::model::request_helpers::KeyAes256;
 use crate::model::v1::ObjectHighlights;
 use crate::read_resume_policy::ReadResumePolicy;
+use crate::request_helpers::KeyAes256;
 use crate::storage::checksum::{
     ChecksumEngine,
     details::{Crc32c, Md5, validate},
@@ -864,7 +864,7 @@ mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
     use crate::error::ChecksumMismatch;
-    use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
+    use crate::request_helpers::{KeyAes256, tests::create_key_helper};
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
