@@ -603,7 +603,6 @@ impl<T, C> WriteObject<T, C> {
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::retry_policy::RecommendedPolicy;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
@@ -628,15 +627,16 @@ impl<T, C> WriteObject<T, C> {
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::retry_policy::RecommendedPolicy;
+    /// # use google_cloud_storage::retry_policy::RetryableErrors;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_retry_policy(RecommendedPolicy
-    ///         .with_attempt_limit(5)
-    ///         .with_time_limit(Duration::from_secs(10)),
+    ///     .with_retry_policy(
+    ///         RetryableErrors
+    ///             .with_attempt_limit(5)
+    ///             .with_time_limit(Duration::from_secs(90)),
     ///     )
     ///     .send_buffered()
     ///     .await?;

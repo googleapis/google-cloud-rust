@@ -697,7 +697,7 @@ mod tests {
             "hello",
         )
         .set_if_generation_match(0)
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .send_unbuffered()
         .await
         .expect_err("expected permanent error");

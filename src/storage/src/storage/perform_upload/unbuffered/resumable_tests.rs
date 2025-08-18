@@ -442,7 +442,7 @@ async fn resumable_start_too_many_transients() -> Result {
         .await?;
     let response = client
         .write_object("projects/_/buckets/test-bucket", "test-object", "")
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .set_if_generation_match(0_i64)
         .send_unbuffered()
         .await
@@ -539,7 +539,7 @@ async fn resumable_query_too_many_transients() -> Result {
         .await?;
     let response = client
         .write_object("projects/_/buckets/test-bucket", "test-object", "")
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .set_if_generation_match(0_i64)
         .send_unbuffered()
         .await
@@ -638,7 +638,7 @@ async fn resumable_put_too_many_transients() -> Result {
         .await?;
     let response = client
         .write_object("projects/_/buckets/test-bucket", "test-object", "")
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .set_if_generation_match(0_i64)
         .send_unbuffered()
         .await
@@ -707,7 +707,7 @@ async fn resumable_put_partial_and_recover_unknown_size() -> Result {
             "test-object",
             UnknownSize::new(BytesSource::new(payload)),
         )
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .set_if_generation_match(0_i64)
         .send_unbuffered()
         .await?;
@@ -776,7 +776,7 @@ async fn resumable_put_partial_and_recover_known_size() -> Result {
         .await?;
     let response = client
         .write_object("projects/_/buckets/test-bucket", "test-object", payload)
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .set_if_generation_match(0_i64)
         .send_unbuffered()
         .await?;
@@ -828,7 +828,7 @@ async fn resumable_put_error_and_finalized() -> Result {
         .await?;
     let response = client
         .write_object("projects/_/buckets/test-bucket", "test-object", payload)
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .set_if_generation_match(0_i64)
         .send_unbuffered()
         .await?;
