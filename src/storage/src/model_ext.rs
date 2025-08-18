@@ -131,9 +131,165 @@ impl std::convert::From<KeyAes256> for crate::model::CommonObjectRequestParams {
     }
 }
 
+/// Define read ranges for use with [ReadObject].
+///
+/// # Example: read the first 100 bytes of an object
+/// ```
+/// # use google_cloud_storage::client::Storage;
+/// # use google_cloud_storage::model_ext::ReadRange;
+/// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+/// let response = client
+///     .read_object("projects/_/buckets/my-bucket", "my-object")
+///     .set_read_range(ReadRange::head(100))
+///     .send()
+///     .await?;
+/// println!("response details={response:?}");
+/// # Ok(()) }
+/// ```
+///
+/// Cloud Storage supports reading a portion of an object. These portions can
+/// be specified as offsets from the beginning of the object, offsets from the
+/// end of the object, or as ranges with a starting and ending bytes. This type
+/// defines a type-safe interface to represent only valid ranges.
+///
+/// [ReadObject]: crate::builder::storage::ReadObject
+#[derive(Clone, Debug)]
+pub struct ReadRange(Range);
+
+impl ReadRange {
+    /// Returns a range representing all the bytes in the object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::model_ext::ReadRange;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_read_range(ReadRange::all())
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    pub fn all() -> Self {
+        Self(Range::All)
+    }
+
+    /// Returns a range representing the bytes starting at `offset`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::model_ext::ReadRange;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_read_range(ReadRange::offset(1_000_000))
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    pub fn offset(offset: u64) -> Self {
+        Self(Range::Offset(offset))
+    }
+
+    /// Returns a range representing the last `count` bytes of the object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::model_ext::ReadRange;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_read_range(ReadRange::tail(100))
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    pub fn tail(count: u64) -> Self {
+        Self(Range::Tail(count))
+    }
+
+    /// Returns a range representing the first `count` bytes of the object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::model_ext::ReadRange;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_read_range(ReadRange::head(100))
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    pub fn head(count: u64) -> Self {
+        Self::segment(0, count)
+    }
+
+    /// Returns a range representing the `count` bytes starting at `offset`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::model_ext::ReadRange;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_read_range(ReadRange::segment(1_000_000, 1_000))
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    pub fn segment(offset: u64, count: u64) -> Self {
+        Self(Range::Segment {
+            offset,
+            limit: count,
+        })
+    }
+}
+
+impl crate::model::ReadObjectRequest {
+    pub(crate) fn with_range(&mut self, range: ReadRange) {
+        // The limit for GCS objects is (currently) 5TiB, and the gRPC protocol
+        // uses i64 for the offset and limit. Clamping the values to the
+        // `[0, i64::MAX]`` range is safe, in that it does not loose any
+        // functionality.
+        match range.0 {
+            Range::All => {
+                self.read_offset = 0;
+                self.read_limit = 0;
+            }
+            Range::Offset(o) => {
+                self.read_offset = o.clamp(0, i64::MAX as u64) as i64;
+            }
+            Range::Tail(t) => {
+                // Yes, -i64::MAX is different from i64::MIN, but both are
+                // safe in this context.
+                self.read_offset = -(t.clamp(0, i64::MAX as u64) as i64);
+            }
+            Range::Segment { offset, limit } => {
+                self.read_offset = offset.clamp(0, i64::MAX as u64) as i64;
+                self.read_limit = limit.clamp(0, i64::MAX as u64) as i64;
+            }
+        }
+    }
+}
+
+#[derive(Clone, Debug)]
+enum Range {
+    All,
+    Offset(u64),
+    Tail(u64),
+    Segment { offset: u64, limit: u64 },
+}
+
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use crate::model::ReadObjectRequest;
     use base64::{Engine, prelude::BASE64_STANDARD};
     use test_case::test_case;
 
@@ -185,5 +341,49 @@ pub(crate) mod tests {
         assert_eq!(params.encryption_key_bytes, key);
         assert_eq!(params.encryption_key_sha256_bytes, key_sha256);
         Ok(())
+    }
+
+    #[test_case(100, 100)]
+    #[test_case(u64::MAX, i64::MAX)]
+    #[test_case(0, 0)]
+    fn apply_offset(input: u64, want: i64) {
+        let range = ReadRange::offset(input);
+        let mut request = ReadObjectRequest::new();
+        request.with_range(range);
+        assert_eq!(request.read_offset, want);
+        assert_eq!(request.read_limit, 0);
+    }
+
+    #[test_case(100, -100)]
+    #[test_case(u64::MAX, -i64::MAX)]
+    #[test_case(0, 0)]
+    fn apply_tail(input: u64, want: i64) {
+        let range = ReadRange::tail(input);
+        let mut request = ReadObjectRequest::new();
+        request.with_range(range);
+        assert_eq!(request.read_offset, want);
+        assert_eq!(request.read_limit, 0);
+    }
+
+    #[test_case(100, 100)]
+    #[test_case(u64::MAX, i64::MAX)]
+    #[test_case(0, 0)]
+    fn apply_segment_offset(input: u64, want: i64) {
+        let range = ReadRange::segment(input, 2000);
+        let mut request = ReadObjectRequest::new();
+        request.with_range(range);
+        assert_eq!(request.read_offset, want);
+        assert_eq!(request.read_limit, 2000);
+    }
+
+    #[test_case(100, 100)]
+    #[test_case(u64::MAX, i64::MAX)]
+    #[test_case(0, 0)]
+    fn apply_segment_limit(input: u64, want: i64) {
+        let range = ReadRange::segment(1000, input);
+        let mut request = ReadObjectRequest::new();
+        request.with_range(range);
+        assert_eq!(request.read_offset, 1000);
+        assert_eq!(request.read_limit, want);
     }
 }
