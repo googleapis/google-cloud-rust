@@ -479,7 +479,7 @@ async fn resume_after_start_range() -> Result {
         .await?;
     let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
-        .with_read_offset(OFFSET as i64)
+        .set_read_offset(OFFSET as i64)
         .send()
         .await?;
     let mut got = Vec::new();

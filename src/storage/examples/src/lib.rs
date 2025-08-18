@@ -217,7 +217,7 @@ async fn make_object(client: &Storage, bucket_id: &str, name: &str) -> anyhow::R
     const VEXING: &str = "how vexingly quick daft zebras jump\n";
     let object = client
         .write_object(format!("projects/_/buckets/{bucket_id}"), name, VEXING)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .send_buffered()
         .await?;
     Ok(object)

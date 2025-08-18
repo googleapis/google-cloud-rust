@@ -179,11 +179,11 @@ async fn write_stripe(
         .read_object(&metadata.bucket, &metadata.name)
         // ANCHOR_END: write-stripe-reader
         // ANCHOR: write-stripe-reader-generation
-        .with_generation(metadata.generation)
+        .set_generation(metadata.generation)
         // ANCHOR_END: write-stripe-reader-generation
         // ANCHOR: write-stripe-reader-range
-        .with_read_offset(offset)
-        .with_read_limit(limit)
+        .set_read_offset(offset)
+        .set_read_limit(limit)
         // ANCHOR_END: write-stripe-reader-range
         // ANCHOR: write-stripe-reader
         .send()

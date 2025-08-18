@@ -97,7 +97,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_if_generation_match(0)
+    ///     .set_if_generation_match(0)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -105,7 +105,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
-    pub fn with_if_generation_match<V>(mut self, v: V) -> Self
+    pub fn set_if_generation_match<V>(mut self, v: V) -> Self
     where
         V: Into<i64>,
     {
@@ -124,7 +124,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_if_generation_not_match(0)
+    ///     .set_if_generation_not_match(0)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -132,7 +132,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
-    pub fn with_if_generation_not_match<V>(mut self, v: V) -> Self
+    pub fn set_if_generation_not_match<V>(mut self, v: V) -> Self
     where
         V: Into<i64>,
     {
@@ -152,7 +152,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_if_metageneration_match(1234)
+    ///     .set_if_metageneration_match(1234)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -160,7 +160,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
-    pub fn with_if_metageneration_match<V>(mut self, v: V) -> Self
+    pub fn set_if_metageneration_match<V>(mut self, v: V) -> Self
     where
         V: Into<i64>,
     {
@@ -181,7 +181,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_if_metageneration_not_match(1234)
+    ///     .set_if_metageneration_not_match(1234)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -189,7 +189,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
-    pub fn with_if_metageneration_not_match<V>(mut self, v: V) -> Self
+    pub fn set_if_metageneration_not_match<V>(mut self, v: V) -> Self
     where
         V: Into<i64>,
     {
@@ -206,13 +206,13 @@ impl<T, C> WriteObject<T, C> {
     /// # use google_cloud_storage::model::ObjectAccessControl;
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_acl([ObjectAccessControl::new().set_entity("allAuthenticatedUsers").set_role("READER")])
+    ///     .set_acl([ObjectAccessControl::new().set_entity("allAuthenticatedUsers").set_role("READER")])
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_acl<I, V>(mut self, v: I) -> Self
+    pub fn set_acl<I, V>(mut self, v: I) -> Self
     where
         I: IntoIterator<Item = V>,
         V: Into<crate::model::ObjectAccessControl>,
@@ -231,7 +231,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_cache_control("public; max-age=7200")
+    ///     .set_cache_control("public; max-age=7200")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -240,7 +240,7 @@ impl<T, C> WriteObject<T, C> {
     ///
     /// [public objects]: https://cloud.google.com/storage/docs/access-control/making-data-public
     /// [cache control]: https://datatracker.ietf.org/doc/html/rfc7234#section-5.2
-    pub fn with_cache_control<V: Into<String>>(mut self, v: V) -> Self {
+    pub fn set_cache_control<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().cache_control = v.into();
         self
     }
@@ -257,7 +257,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_content_disposition("inline")
+    ///     .set_content_disposition("inline")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -265,7 +265,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [content disposition]: https://datatracker.ietf.org/doc/html/rfc6266
-    pub fn with_content_disposition<V: Into<String>>(mut self, v: V) -> Self {
+    pub fn set_content_disposition<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().content_disposition = v.into();
         self
     }
@@ -285,7 +285,7 @@ impl<T, C> WriteObject<T, C> {
     /// e.write_all(b"hello world");
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", bytes::Bytes::from_owner(e.finish()?))
-    ///     .with_content_encoding("gzip")
+    ///     .set_content_encoding("gzip")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -294,7 +294,7 @@ impl<T, C> WriteObject<T, C> {
     ///
     /// [transcoding]: https://cloud.google.com/storage/docs/transcoding
     /// [content encoding]: https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.2.2
-    pub fn with_content_encoding<V: Into<String>>(mut self, v: V) -> Self {
+    pub fn set_content_encoding<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().content_encoding = v.into();
         self
     }
@@ -311,7 +311,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_content_language("en")
+    ///     .set_content_language("en")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -319,7 +319,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [content language]: https://cloud.google.com/storage/docs/metadata#content-language
-    pub fn with_content_language<V: Into<String>>(mut self, v: V) -> Self {
+    pub fn set_content_language<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().content_language = v.into();
         self
     }
@@ -336,7 +336,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_content_type("text/plain")
+    ///     .set_content_type("text/plain")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -344,7 +344,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [content type]: https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5
-    pub fn with_content_type<V: Into<String>>(mut self, v: V) -> Self {
+    pub fn set_content_type<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().content_type = v.into();
         self
     }
@@ -361,7 +361,7 @@ impl<T, C> WriteObject<T, C> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_custom_time(time)
+    ///     .set_custom_time(time)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -370,7 +370,7 @@ impl<T, C> WriteObject<T, C> {
     ///
     /// [DaysSinceCustomTime]: https://cloud.google.com/storage/docs/lifecycle#dayssincecustomtime
     /// [custom time]: https://cloud.google.com/storage/docs/metadata#custom-time
-    pub fn with_custom_time<V: Into<wkt::Timestamp>>(mut self, v: V) -> Self {
+    pub fn set_custom_time<V: Into<wkt::Timestamp>>(mut self, v: V) -> Self {
         self.mut_resource().custom_time = Some(v.into());
         self
     }
@@ -386,7 +386,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_event_based_hold(true)
+    ///     .set_event_based_hold(true)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -394,7 +394,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [event based hold]: https://cloud.google.com/storage/docs/object-holds
-    pub fn with_event_based_hold<V: Into<bool>>(mut self, v: V) -> Self {
+    pub fn set_event_based_hold<V: Into<bool>>(mut self, v: V) -> Self {
         self.mut_resource().event_based_hold = Some(v.into());
         self
     }
@@ -411,7 +411,7 @@ impl<T, C> WriteObject<T, C> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_metadata([("test-only", "true"), ("environment", "qa")])
+    ///     .set_metadata([("test-only", "true"), ("environment", "qa")])
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -419,7 +419,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [custom metadata]: https://cloud.google.com/storage/docs/metadata#custom-metadata
-    pub fn with_metadata<I, K, V>(mut self, i: I) -> Self
+    pub fn set_metadata<I, K, V>(mut self, i: I) -> Self
     where
         I: IntoIterator<Item = (K, V)>,
         K: Into<String>,
@@ -438,7 +438,7 @@ impl<T, C> WriteObject<T, C> {
     /// # use google_cloud_storage::model::object::{Retention, retention};
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_retention(
+    ///     .set_retention(
     ///         Retention::new()
     ///             .set_mode(retention::Mode::Locked)
     ///             .set_retain_until_time(wkt::Timestamp::try_from("2035-01-01T00:00:00Z")?))
@@ -449,7 +449,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [retention configuration]: https://cloud.google.com/storage/docs/metadata#retention-config
-    pub fn with_retention<V>(mut self, v: V) -> Self
+    pub fn set_retention<V>(mut self, v: V) -> Self
     where
         V: Into<crate::model::object::Retention>,
     {
@@ -465,7 +465,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_storage_class("ARCHIVE")
+    ///     .set_storage_class("ARCHIVE")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -473,7 +473,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [storage class]: https://cloud.google.com/storage/docs/storage-classes
-    pub fn with_storage_class<V>(mut self, v: V) -> Self
+    pub fn set_storage_class<V>(mut self, v: V) -> Self
     where
         V: Into<String>,
     {
@@ -493,7 +493,7 @@ impl<T, C> WriteObject<T, C> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_temporary_hold(true)
+    ///     .set_temporary_hold(true)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -501,7 +501,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [temporary hold]: https://cloud.google.com/storage/docs/object-holds
-    pub fn with_temporary_hold<V: Into<bool>>(mut self, v: V) -> Self {
+    pub fn set_temporary_hold<V: Into<bool>>(mut self, v: V) -> Self {
         self.mut_resource().temporary_hold = v.into();
         self
     }
@@ -521,7 +521,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_kms_key("projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key")
+    ///     .set_kms_key("projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -529,7 +529,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [Customer-managed encryption key]: https://cloud.google.com/storage/docs/encryption/customer-managed-keys
-    pub fn with_kms_key<V>(mut self, v: V) -> Self
+    pub fn set_kms_key<V>(mut self, v: V) -> Self
     where
         V: Into<String>,
     {
@@ -545,7 +545,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_predefined_acl("private")
+    ///     .set_predefined_acl("private")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -553,7 +553,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [predefined ACLs]: https://cloud.google.com/storage/docs/access-control/lists#predefined-acl
-    pub fn with_predefined_acl<V>(mut self, v: V) -> Self
+    pub fn set_predefined_acl<V>(mut self, v: V) -> Self
     where
         V: Into<String>,
     {
@@ -572,13 +572,13 @@ impl<T, C> WriteObject<T, C> {
     /// let key: &[u8] = &[97; 32];
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_key(KeyAes256::new(key)?)
+    ///     .set_key(KeyAes256::new(key)?)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_key(mut self, v: KeyAes256) -> Self {
+    pub fn set_key(mut self, v: KeyAes256) -> Self {
         self.params = Some(v.into());
         self
     }
@@ -1210,32 +1210,32 @@ mod tests {
         use crate::model::ObjectAccessControl;
         let inner = test_inner_client(test_builder());
         let mut request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
-            .with_if_generation_match(10)
-            .with_if_generation_not_match(20)
-            .with_if_metageneration_match(30)
-            .with_if_metageneration_not_match(40)
-            .with_predefined_acl("private")
-            .with_acl([ObjectAccessControl::new()
+            .set_if_generation_match(10)
+            .set_if_generation_not_match(20)
+            .set_if_metageneration_match(30)
+            .set_if_metageneration_not_match(40)
+            .set_predefined_acl("private")
+            .set_acl([ObjectAccessControl::new()
                 .set_entity("allAuthenticatedUsers")
                 .set_role("READER")])
-            .with_cache_control("public; max-age=7200")
-            .with_content_disposition("inline")
-            .with_content_encoding("gzip")
-            .with_content_language("en")
-            .with_content_type("text/plain")
-            .with_known_crc32c(crc32c::crc32c(b""))
-            .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
-            .with_event_based_hold(true)
-            .with_known_md5_hash(md5::compute(b"").0)
-            .with_metadata([("k0", "v0"), ("k1", "v1")])
-            .with_retention(
+            .set_cache_control("public; max-age=7200")
+            .set_content_disposition("inline")
+            .set_content_encoding("gzip")
+            .set_content_language("en")
+            .set_content_type("text/plain")
+            .set_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
+            .set_event_based_hold(true)
+            .set_metadata([("k0", "v0"), ("k1", "v1")])
+            .set_retention(
                 crate::model::object::Retention::new()
                     .set_mode(crate::model::object::retention::Mode::Locked)
                     .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
             )
-            .with_storage_class("ARCHIVE")
-            .with_temporary_hold(true)
-            .with_kms_key("test-key");
+            .set_storage_class("ARCHIVE")
+            .set_temporary_hold(true)
+            .set_kms_key("test-key")
+            .with_known_crc32c(crc32c::crc32c(b""))
+            .with_known_md5_hash(md5::compute(b"").0);
 
         let resource = request.spec.resource.take().unwrap();
         let request = request;

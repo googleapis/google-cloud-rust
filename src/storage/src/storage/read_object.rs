@@ -52,8 +52,8 @@ use serde_with::DeserializeAs;
 ///     let mut contents = Vec::new();
 ///     let mut reader = client
 ///         .read_object("projects/_/buckets/my-bucket", "my-object")
-///         .with_read_offset(4 * MIB)
-///         .with_read_limit(2 * MIB)
+///         .set_read_offset(4 * MIB)
+///         .set_read_limit(2 * MIB)
 ///         .send()
 ///         .await?;
 ///     while let Some(chunk) = reader.next().await.transpose()? {
@@ -139,7 +139,7 @@ where
 
     /// If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
-    pub fn with_generation<T: Into<i64>>(mut self, v: T) -> Self {
+    pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
         self.request.generation = v.into();
         self
     }
@@ -147,7 +147,7 @@ where
     /// Makes the operation conditional on whether the object's current generation
     /// matches the given value. Setting to 0 makes the operation succeed only if
     /// there are no live versions of the object.
-    pub fn with_if_generation_match<T>(mut self, v: T) -> Self
+    pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -159,7 +159,7 @@ where
     /// does not match the given value. If no live object exists, the precondition
     /// fails. Setting to 0 makes the operation succeed only if there is a live
     /// version of the object.
-    pub fn with_if_generation_not_match<T>(mut self, v: T) -> Self
+    pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -169,7 +169,7 @@ where
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration matches the given value.
-    pub fn with_if_metageneration_match<T>(mut self, v: T) -> Self
+    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -179,7 +179,7 @@ where
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration does not match the given value.
-    pub fn with_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -201,7 +201,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_read_offset(100)
+    ///     .set_read_offset(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -214,7 +214,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_read_offset(-100)
+    ///     .set_read_offset(-100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -227,14 +227,14 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_read_offset(1000)
-    ///     .with_read_limit(100)
+    ///     .set_read_offset(1000)
+    ///     .set_read_limit(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_read_offset<T>(mut self, v: T) -> Self
+    pub fn set_read_offset<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -256,7 +256,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_read_limit(100)
+    ///     .set_read_limit(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -269,14 +269,14 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_read_offset(1000)
-    ///     .with_read_limit(100)
+    ///     .set_read_offset(1000)
+    ///     .set_read_limit(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_read_limit<T>(mut self, v: T) -> Self
+    pub fn set_read_limit<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -294,13 +294,13 @@ where
     /// let key: &[u8] = &[97; 32];
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_key(KeyAes256::new(key)?)
+    ///     .set_key(KeyAes256::new(key)?)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_key(mut self, v: KeyAes256) -> Self {
+    pub fn set_key(mut self, v: KeyAes256) -> Self {
         self.request.common_object_request_params = Some(v.into());
         self
     }
@@ -1340,11 +1340,11 @@ mod tests {
     async fn read_object_query_params() -> Result {
         let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_generation(5)
-            .with_if_generation_match(10)
-            .with_if_generation_not_match(20)
-            .with_if_metageneration_match(30)
-            .with_if_metageneration_not_match(40)
+            .set_generation(5)
+            .set_if_generation_match(10)
+            .set_if_generation_not_match(20)
+            .set_if_metageneration_match(30)
+            .set_if_metageneration_not_match(40)
             .http_request_builder()
             .await?
             .build()?;
@@ -1379,7 +1379,7 @@ mod tests {
         // The API takes the unencoded byte array.
         let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_key(KeyAes256::new(&key)?)
+            .set_key(KeyAes256::new(&key)?)
             .http_request_builder()
             .await?
             .build()?;
@@ -1414,8 +1414,8 @@ mod tests {
     async fn range_header(offset: i64, limit: i64, want: Option<&http::HeaderValue>) -> Result {
         let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_read_offset(offset)
-            .with_read_limit(limit)
+            .set_read_offset(offset)
+            .set_read_limit(limit)
             .http_request_builder()
             .await?
             .build()?;
@@ -1434,7 +1434,7 @@ mod tests {
     async fn range_header_negative_limit() -> Result {
         let inner = test_inner_client(test_builder());
         let err = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_read_limit(-100)
+            .set_read_limit(-100)
             .http_request_builder()
             .await
             .unwrap_err();
@@ -1453,8 +1453,8 @@ mod tests {
     async fn range_header_negative_offset_with_limit() -> Result {
         let inner = test_inner_client(test_builder());
         let err = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_read_offset(-100)
-            .with_read_limit(100)
+            .set_read_offset(-100)
+            .set_read_limit(100)
             .http_request_builder()
             .await
             .unwrap_err();
