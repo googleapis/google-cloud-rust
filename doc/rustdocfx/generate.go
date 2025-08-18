@@ -33,7 +33,7 @@ type docfxMetadata struct {
 	UpdateTimeNano    int
 }
 
-func newDocfxMetadata(c crate) (*docfxMetadata, error) {
+func newDocfxMetadata(c *crate) (*docfxMetadata, error) {
 	d := new(docfxMetadata)
 	d.Name = c.getRootName()
 	d.Version = c.Version
@@ -104,7 +104,7 @@ type docfxParameter struct {
 	VarType     string
 }
 
-func newDocfxItem(c crate, id string) (*docfxItem, error) {
+func newDocfxItem(c *crate, id string) (*docfxItem, error) {
 	var errs []error
 
 	r := new(docfxItem)
@@ -123,7 +123,7 @@ func newDocfxItem(c crate, id string) (*docfxItem, error) {
 	return r, nil
 }
 
-func processTrait(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+func processTrait(c *crate, id string, page *docfxManagedReference, parent *docfxItem) error {
 	for i := 0; i < len(c.Index[id].Inner.Trait.Items); i++ {
 		// This assumes the inner trait items are all functions. Validation and error checking is needed.
 		referenceId := idToString(c.Index[id].Inner.Trait.Items[i])
@@ -142,7 +142,7 @@ func processTrait(c crate, id string, page *docfxManagedReference, parent *docfx
 	return nil
 }
 
-func processModule(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+func processModule(c *crate, id string, page *docfxManagedReference, parent *docfxItem) error {
 	for i := 0; i < len(c.Index[id].Inner.Module.Items); i++ {
 		referenceId := idToString(c.Index[id].Inner.Module.Items[i])
 		kind := c.getKind(referenceId)
@@ -166,7 +166,7 @@ func processModule(c crate, id string, page *docfxManagedReference, parent *docf
 	return nil
 }
 
-func processStruct(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+func processStruct(c *crate, id string, page *docfxManagedReference, parent *docfxItem) error {
 	if c.Index[id].Inner.Struct != nil {
 		for i := 0; i < len(c.Index[id].Inner.Struct.Impls); i++ {
 			referenceId := idToString(c.Index[id].Inner.Struct.Impls[i])
@@ -180,7 +180,7 @@ func processStruct(c crate, id string, page *docfxManagedReference, parent *docf
 	return nil
 }
 
-func processTypeAlias(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+func processTypeAlias(c *crate, id string, page *docfxManagedReference, parent *docfxItem) error {
 	if c.Index[id].Inner.TypeAlias != nil {
 		// Generates a type alias doc string in the following format:
 		// pub type LhsIdentifier = RhsIdentifier<Args>
@@ -201,7 +201,7 @@ func processTypeAlias(c crate, id string, page *docfxManagedReference, parent *d
 	return nil
 }
 
-func processEnum(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+func processEnum(c *crate, id string, page *docfxManagedReference, parent *docfxItem) error {
 	if c.Index[id].Inner.Enum.HasStrippedVariants {
 		return fmt.Errorf("error processing enum, expecting %s to have no stripped variants", id)
 	}
@@ -235,7 +235,7 @@ func processEnum(c crate, id string, page *docfxManagedReference, parent *docfxI
 	return nil
 }
 
-func processImplementation(c crate, id string, page *docfxManagedReference, parent *docfxItem) error {
+func processImplementation(c *crate, id string, page *docfxManagedReference, parent *docfxItem) error {
 	if c.Index[id].Inner.Impl.BlanketImpl != nil {
 		// TODO: Add blanket implementations
 		// Example: Struct:1890->1897
@@ -282,7 +282,7 @@ func processImplementation(c crate, id string, page *docfxManagedReference, pare
 	return nil
 }
 
-func newDocfxItemFromFunction(c crate, parent *docfxItem, id string) (*docfxItem, error) {
+func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
 	r := new(docfxItem)
 	r.Name = c.getName(id)
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
@@ -307,7 +307,7 @@ func newDocfxItemFromFunction(c crate, parent *docfxItem, id string) (*docfxItem
 	return r, nil
 }
 
-func newDocfxItemFromImpl(c crate, parent *docfxItem, id string) (*docfxItem, error) {
+func newDocfxItemFromImpl(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
 	r := new(docfxItem)
 	name := c.Index[id].Inner.Impl.Trait.Path
 
@@ -321,7 +321,7 @@ func newDocfxItemFromImpl(c crate, parent *docfxItem, id string) (*docfxItem, er
 	return r, nil
 }
 
-func newDocfxItemFromEnumVariant(c crate, parent *docfxItem, id string) (*docfxItem, error) {
+func newDocfxItemFromEnumVariant(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
 	r := new(docfxItem)
 	r.Name = c.getName(id)
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
@@ -367,7 +367,7 @@ func (toc *docfxTableOfContent) appendItem(item docfxTableOfContent) error {
 	return nil
 }
 
-func newDocfxManagedReference(c crate, id string) (*docfxManagedReference, error) {
+func newDocfxManagedReference(c *crate, id string) (*docfxManagedReference, error) {
 	var errs []error
 
 	r := new(docfxManagedReference)
@@ -416,7 +416,7 @@ func newDocfxManagedReference(c crate, id string) (*docfxManagedReference, error
 	return r, nil
 }
 
-func generate(c crate, projectRoot string, outDir string) error {
+func generate(c *crate, projectRoot string, outDir string) error {
 	var errs []error
 
 	m, _ := newDocfxMetadata(c)
