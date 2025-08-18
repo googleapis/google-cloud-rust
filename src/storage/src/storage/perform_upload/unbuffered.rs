@@ -206,7 +206,7 @@ mod resumable_tests;
 mod tests {
     use super::*;
     use crate::builder::storage::WriteObject;
-    use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
+    use crate::model_ext::{KeyAes256, tests::create_key_helper};
     use crate::storage::client::{
         Storage,
         tests::{test_builder, test_inner_client},

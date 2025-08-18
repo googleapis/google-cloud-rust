@@ -66,10 +66,11 @@ pub mod builder {
     }
 }
 pub mod error;
-pub mod model;
+/// The messages and enums that are part of this client library.
+pub use crate::control::model;
+pub mod model_ext;
 pub use crate::control::stub;
 
-pub use storage::read_object::ObjectHighlights;
 pub use storage::read_object::ReadObjectResponse;
 
 #[allow(dead_code)]
