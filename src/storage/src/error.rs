@@ -153,7 +153,7 @@ pub enum ReadError {
 /// use std::error::Error as _;
 /// let writer = client
 ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-///     .with_if_generation_not_match(0);
+///     .set_if_generation_not_match(0);
 /// match writer.send_buffered().await {
 ///     Ok(object) => println!("Successfully created the object {object:?}"),
 ///     Err(error) if error.is_serialization() => {

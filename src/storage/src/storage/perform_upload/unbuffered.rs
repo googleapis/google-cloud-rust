@@ -449,7 +449,7 @@ mod tests {
     async fn upload_object_metadata() -> Result {
         let inner = test_inner_client(test_builder());
         let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .with_metadata([("k0", "v0"), ("k1", "v1")])
+            .set_metadata([("k0", "v0"), ("k1", "v1")])
             .build()
             .single_shot_builder(SizeHint::new())
             .await?
@@ -524,7 +524,7 @@ mod tests {
 
         let inner = test_inner_client(test_builder());
         let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .with_key(KeyAes256::new(&key)?)
+            .set_key(KeyAes256::new(&key)?)
             .build()
             .single_shot_builder(SizeHint::new())
             .await?
@@ -630,7 +630,7 @@ mod tests {
             "test-object",
             "hello",
         )
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .send_unbuffered()
         .await?;
         let want = Object::from(serde_json::from_value::<v1::Object>(response_body())?);
@@ -663,7 +663,7 @@ mod tests {
             "test-object",
             "hello",
         )
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .send_unbuffered()
         .await
         .expect_err("expected permanent error");
@@ -696,7 +696,7 @@ mod tests {
             "test-object",
             "hello",
         )
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .send_unbuffered()
         .await

@@ -128,7 +128,7 @@ async fn runner(
             let read_start = Instant::now();
             let mut read = client
                 .read_object(&upload.bucket, &upload.name)
-                .with_generation(upload.generation)
+                .set_generation(upload.generation)
                 .send()
                 .await?;
             let mut transfer_size = 0;

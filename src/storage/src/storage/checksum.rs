@@ -31,7 +31,7 @@
 //! {
 //!     // Finish configuring `builder` and complete the upload.
 //!     let object = builder
-//!         .with_if_generation_match(0)
+//!         .set_if_generation_match(0)
 //!         .with_resumable_upload_threshold(0_usize)
 //!         .send_buffered()
 //!         .await?;
