@@ -430,7 +430,7 @@ async fn start_too_many_transients() -> Result {
         .await?;
     let response = client
         .write_object("projects/_/buckets/test-bucket", "test-object", "")
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .set_if_generation_match(0_i64)
         .send_buffered()
         .await
@@ -529,7 +529,7 @@ async fn put_too_many_transients() -> Result {
         .await?;
     let response = client
         .write_object("projects/_/buckets/test-bucket", "test-object", "")
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .set_if_generation_match(0_i64)
         .send_buffered()
         .await
@@ -609,7 +609,7 @@ async fn put_partial_and_recover() -> Result {
         .await?;
     let upload = client
         .write_object("projects/_/buckets/test-bucket", "test-object", payload)
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .set_if_generation_match(0_i64)
         .with_resumable_upload_buffer_size(TARGET);
     let response = upload.send_buffered().await;
@@ -663,7 +663,7 @@ async fn put_error_and_finalized() -> Result {
         .await?;
     let response = client
         .write_object("projects/_/buckets/test-bucket", "test-object", payload)
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .set_if_generation_match(0_i64)
         .send_buffered()
         .await?;

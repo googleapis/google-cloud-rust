@@ -311,14 +311,15 @@ where
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::retry_policy::RecommendedPolicy;
+    /// use google_cloud_storage::retry_policy::RetryableErrors;
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_retry_policy(RecommendedPolicy
-    ///         .with_attempt_limit(5)
-    ///         .with_time_limit(Duration::from_secs(10)),
+    ///     .with_retry_policy(
+    ///         RetryableErrors
+    ///             .with_attempt_limit(5)
+    ///             .with_time_limit(Duration::from_secs(10)),
     ///     )
     ///     .send()
     ///     .await?;

@@ -143,7 +143,7 @@ async fn start_too_many_transients() -> Result {
         .await?;
     let err = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .send()
         .await
         .expect_err("test generates permanent error");
