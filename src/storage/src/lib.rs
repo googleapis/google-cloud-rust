@@ -66,7 +66,8 @@ pub mod builder {
     }
 }
 pub mod error;
-pub mod model;
+/// The messages and enums that are part of this client library.
+pub use crate::control::model;
 pub mod model_ext;
 pub use crate::control::stub;
 
