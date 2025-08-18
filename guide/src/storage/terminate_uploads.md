@@ -14,12 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Use errors to terminate uploads
+# Use errors to terminate object writes
 
 In this guide you will learn how to use errors and custom data sources to
-terminate an upload before it is finalized. This is useful when applications
-want to upload data but may want to stop the client library from finalizing the
-upload if there is some error condition.
+terminate an object write before it is finalized. This is useful when
+applications want to stop the client library from finalizing the object creation
+if there is some error condition.
 
 ## Prerequisites
 
@@ -37,18 +37,18 @@ cargo add google-cloud-storage
 
 ## Overview
 
-The client library uploads data from any type implementing the `StreamingSource`
-trait. The client library pulls data from implementations of the trait. The
-library terminates the upload on the first error.
+The client library creates objects from any type implementing the
+`StreamingSource` trait. The client library pulls data from implementations of
+the trait. The library terminates the object write on the first error.
 
 In this guide you will build a custom implementation of `StreamingSource` that
-returns some data and then stops on an error. You will verify that an upload
-using this custom data source returns an error.
+returns some data and then stops on an error. You will verify that an object
+write using this custom data source returns an error.
 
 ## Create a custom error type
 
-To terminate an upload without finalizing it, your [StreamingSource] must return
-an error. In this example you will create a simple error type, in your
+To terminate an object write without finalizing it, your [StreamingSource] must
+return an error. In this example you will create a simple error type, in your
 application code you can use any existing error type:
 
 ```rust,ignore,noplayground
@@ -70,8 +70,8 @@ As you may recall, that requires implementing [Display] too:
 
 ## Create a custom `StreamingSource`
 
-Create a type that generates the data to upload. In this example you will use
-synthetic data using a counter:
+Create a type that generates the data for your object. In this example you will
+use synthetic data using a counter:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/terminate_uploads.rs:my-source}}
@@ -98,21 +98,21 @@ And implement the main function in this trait. Note how this function will
 {{#rustdoc_include ../../samples/tests/storage/terminate_uploads.rs:my-source-impl-next}}
 ```
 
-## Perform an upload
+## Create the object
 
-As usual, you will need a client to interact with [Cloud Storage]:
+You will need a client to interact with [Cloud Storage]:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/terminate_uploads.rs:attempt-upload-client}}
 ```
 
-Use the custom type to perform an upload:
+Use the custom type to create the object:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/terminate_uploads.rs:attempt-upload-upload}}
 ```
 
-As expected, this upload fails. You can inspect the error details:
+As expected, this object write fails. You can inspect the error details:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/terminate_uploads.rs:attempt-upload-inspect-error}}
@@ -120,7 +120,7 @@ As expected, this upload fails. You can inspect the error details:
 
 ## Next Steps
 
-- [Push data on object uploads](queue.md)
+- [Push data on object writes](queue.md)
 
 ## Full Program
 
@@ -134,4 +134,4 @@ As expected, this upload fails. You can inspect the error details:
 [error]: https://doc.rust-lang.org/std/error/trait.Error.html
 [google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
 [quickstart guide]: /storage.md#quickstart
-[streamingsource]: https://docs.rs/google-cloud-storage/latest/google_cloud_storage/upload_source/trait.StreamingSource.html
+[streamingsource]: https://docs.rs/google-cloud-storage/latest/google_cloud_storage/streaming_source/trait.StreamingSource.html

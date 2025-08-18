@@ -103,16 +103,14 @@
 //!   service but the PUT request fails to read the response or otherwise fails.
 //!   The next query returns a finalized upload status.
 //!
-//! [Seek]: crate::upload_source::Seek
+//! [Seek]: crate::streaming_source::Seek
 
 use super::RESUMABLE_UPLOAD_QUANTUM;
-use crate::storage::client::{
-    KeyAes256,
-    tests::{
-        MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, create_key_helper, test_builder,
-    },
+use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
+use crate::storage::client::tests::{
+    MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
 };
-use crate::upload_source::{BytesSource, SizeHint, tests::UnknownSize};
+use crate::streaming_source::{BytesSource, SizeHint, tests::UnknownSize};
 use gax::retry_policy::RetryPolicyExt;
 use gax::retry_result::RetryResult;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -165,7 +163,8 @@ async fn empty_success() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", path.clone()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(1)
         .respond_with(status_code(308)),
@@ -177,7 +176,7 @@ async fn empty_success() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
         .send_buffered()
         .await?;
@@ -225,7 +224,8 @@ async fn resumable_empty_unknown() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", path.clone()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(1)
         .respond_with(status_code(308)),
@@ -237,7 +237,7 @@ async fn resumable_empty_unknown() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object(
+        .write_object(
             "projects/_/buckets/test-bucket",
             "test-object",
             UnknownSize::new(BytesSource::new(bytes::Bytes::from_static(b""))),
@@ -303,7 +303,8 @@ async fn empty_csek() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", path.clone()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(1)
         .respond_with(status_code(308)),
@@ -315,7 +316,7 @@ async fn empty_csek() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
         .with_key(KeyAes256::new(&key)?)
         .send_buffered()
@@ -352,7 +353,7 @@ async fn source_next_error() -> Result {
         .with_credentials(auth::credentials::testing::test_credentials())
         .build()
         .await?;
-    use crate::upload_source::tests::MockSimpleSource;
+    use crate::streaming_source::tests::MockSimpleSource;
     use std::io::{Error as IoError, ErrorKind};
     let mut source = MockSimpleSource::new();
     source
@@ -364,7 +365,7 @@ async fn source_next_error() -> Result {
         .once()
         .returning(|| Ok(SizeHint::with_exact(1024)));
     let err = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+        .write_object("projects/_/buckets/test-bucket", "test-object", source)
         .with_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
@@ -398,7 +399,7 @@ async fn start_permanent_error() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
         .send_buffered()
         .await
@@ -428,7 +429,7 @@ async fn start_too_many_transients() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
         .send_buffered()
@@ -467,7 +468,8 @@ async fn put_permanent_error() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", path.clone()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(1)
         .respond_with(status_code(308)),
@@ -479,7 +481,7 @@ async fn put_permanent_error() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_if_generation_match(0_i64)
         .send_buffered()
         .await
@@ -513,7 +515,8 @@ async fn put_too_many_transients() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", session.path().to_string()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(2)
         .respond_with(status_code(308)),
@@ -525,7 +528,7 @@ async fn put_too_many_transients() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
         .send_buffered()
@@ -590,7 +593,8 @@ async fn put_partial_and_recover() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", session.path().to_string()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .respond_with(status_code(308).append_header("range", format!("bytes=0-{}", QUANTUM - 1))),
     );
@@ -604,7 +608,7 @@ async fn put_partial_and_recover() -> Result {
         .build()
         .await?;
     let upload = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", payload)
+        .write_object("projects/_/buckets/test-bucket", "test-object", payload)
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
         .with_resumable_upload_buffer_size(TARGET);
@@ -644,7 +648,8 @@ async fn put_error_and_finalized() -> Result {
     server.expect(
         Expectation::matching(all_of![
             request::method_path("PUT", session.path().to_string()),
-            request::headers(contains(("content-range", "bytes */*")))
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
         ])
         .times(1)
         .respond_with(cycle![status_code(200).body(response_body().to_string()),]),
@@ -657,7 +662,7 @@ async fn put_error_and_finalized() -> Result {
         .build()
         .await?;
     let response = client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", payload)
+        .write_object("projects/_/buckets/test-bucket", "test-object", payload)
         .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .with_if_generation_match(0_i64)
         .send_buffered()
@@ -719,7 +724,7 @@ async fn start_resumable_upload_request_retry_options() -> Result {
         .build()
         .await?;
     let err = client
-        .upload_object("projects/_/buckets/bucket", "object", "hello")
+        .write_object("projects/_/buckets/bucket", "object", "hello")
         .with_retry_policy(retry.with_attempt_limit(3))
         .with_backoff_policy(backoff)
         .with_retry_throttler(throttler)
@@ -783,7 +788,7 @@ async fn start_resumable_upload_client_retry_options() -> Result {
         .build()
         .await?;
     let err = client
-        .upload_object("projects/_/buckets/bucket", "object", "hello")
+        .write_object("projects/_/buckets/bucket", "object", "hello")
         .send_buffered()
         .await
         .expect_err("request should fail after 3 retry attempts");

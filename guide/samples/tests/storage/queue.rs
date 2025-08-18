@@ -14,7 +14,7 @@
 
 // ANCHOR: all
 // ANCHOR: impl-streaming-source
-use google_cloud_storage::upload_source::StreamingSource;
+use google_cloud_storage::streaming_source::StreamingSource;
 // ANCHOR_END: impl-streaming-source
 // ANCHOR: wrapper-struct
 use tokio::sync::mpsc::{self, Receiver};
@@ -41,11 +41,11 @@ pub async fn queue(bucket_name: &str, object_name: &str) -> anyhow::Result<()> {
     // ANCHOR: create-queue
     let (sender, receiver) = mpsc::channel::<bytes::Bytes>(32);
     // ANCHOR_END: create-queue
-    // ANCHOR: create-upload
+    // ANCHOR: create-writer
     let upload = client
-        .upload_object(bucket_name, object_name, QueueSource(receiver))
+        .write_object(bucket_name, object_name, QueueSource(receiver))
         .send_buffered();
-    // ANCHOR_END: create-upload
+    // ANCHOR_END: create-writer
     // ANCHOR: create-task
     let task = tokio::spawn(upload);
     // ANCHOR_END: create-task

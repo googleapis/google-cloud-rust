@@ -15,7 +15,7 @@
 // [START storage_print_bucket_acl]
 use google_cloud_storage::client::StorageControl;
 
-pub async fn print_bucket_acl(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
+pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
     let bucket = client
         .get_bucket()
         .set_name(format!("projects/_/buckets/{bucket_id}"))

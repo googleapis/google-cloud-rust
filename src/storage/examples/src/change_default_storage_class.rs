@@ -16,10 +16,7 @@
 use google_cloud_storage::client::StorageControl;
 use google_cloud_wkt::FieldMask;
 
-pub async fn change_default_storage_class(
-    client: &StorageControl,
-    bucket_id: &str,
-) -> anyhow::Result<()> {
+pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
     let bucket = client
         .get_bucket()
         .set_name(format!("projects/_/buckets/{bucket_id}"))

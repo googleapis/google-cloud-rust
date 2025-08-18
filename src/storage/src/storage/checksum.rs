@@ -16,20 +16,20 @@
 //!
 //! The [ChecksumEngine] trait is sealed, and cannot be used to create new
 //! implementations. However, it may be useful when working with
-//! [UploadObject][crate::builder::storage::UploadObject].
+//! [WriteObject][crate::builder::storage::WriteObject].
 //!
 //! # Example
 //! ```
-//! use google_cloud_storage::builder::storage::UploadObject;
+//! use google_cloud_storage::builder::storage::WriteObject;
 //! use google_cloud_storage::model::Object;
-//! use google_cloud_storage::{upload_source::StreamingSource, checksum::ChecksumEngine};
+//! use google_cloud_storage::{streaming_source::StreamingSource, checksum::ChecksumEngine};
 //!
-//! async fn example<S, C>(builder: UploadObject<S, C>) -> anyhow::Result<Object>
+//! async fn example<S, C>(builder: WriteObject<S, C>) -> anyhow::Result<Object>
 //! where
 //!     S: StreamingSource + Send + Sync + 'static,
 //!     C: ChecksumEngine + Send + Sync + 'static
 //! {
-//!     // Finish configuring `builder` and complete the upload
+//!     // Finish configuring `builder` and complete the upload.
 //!     let object = builder
 //!         .with_if_generation_match(0)
 //!         .with_resumable_upload_threshold(0_usize)
@@ -45,7 +45,7 @@ use crate::model::ObjectChecksums;
 /// Computes a checksum or hash for [Cloud Storage] transfers.
 ///
 /// We want to minimize code complexity in our implementation of data integrity
-/// checks for uploads and downloads. This trait defines a composable interface
+/// checks for writes and reads. This trait defines a composable interface
 /// to support:
 /// - No checksums (`Null`): the client library does not compute any checksums,
 ///   and therefore does not validate checksums either.

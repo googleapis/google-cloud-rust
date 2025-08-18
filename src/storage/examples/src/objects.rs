@@ -12,15 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod checksum;
-pub(crate) mod client;
-pub(crate) mod perform_upload;
-pub(crate) mod read_object;
-pub(crate) mod request_options;
-pub mod streaming_source;
-pub(crate) mod v1;
-pub(crate) mod write_object;
-
-use crate::model::Object;
-use crate::streaming_source::Payload;
-use crate::{Error, Result};
+pub mod delete_file;
+pub mod list_files;
+pub mod list_files_with_prefix;
+pub mod set_metadata;
+pub mod stream_file_download;
+pub mod stream_file_upload;

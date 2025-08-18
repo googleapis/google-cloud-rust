@@ -16,7 +16,7 @@ use super::RESUMABLE_UPLOAD_QUANTUM;
 use super::{SizeHint, StreamingSource};
 use crate::Error;
 use crate::Result;
-use crate::error::UploadError;
+use crate::error::WriteError;
 use futures::stream::unfold;
 use std::collections::VecDeque;
 
@@ -185,12 +185,12 @@ impl InProgressUpload {
 
     pub fn handle_partial(&mut self, persisted_size: u64) -> Result<()> {
         let consumed = match (self.offset, self.buffer_size as u64, persisted_size) {
-            (o, _, p) if p < o => Err(UploadError::UnexpectedRewind {
+            (o, _, p) if p < o => Err(WriteError::UnexpectedRewind {
                 offset: o,
                 persisted: p,
             }),
             (o, n, p) if p <= o + n => Ok((p - o) as usize),
-            (o, n, p) => Err(UploadError::TooMuchProgress {
+            (o, n, p) => Err(WriteError::TooMuchProgress {
                 sent: o + n,
                 persisted: p,
             }),
@@ -227,7 +227,7 @@ impl InProgressUpload {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::storage::upload_source::{IterSource, Payload};
+    use crate::storage::streaming_source::{IterSource, Payload};
     use http_body_util::BodyExt;
     use std::error::Error as _;
     use test_case::test_case;
@@ -597,10 +597,10 @@ mod tests {
         assert!(err.is_serialization(), "{err:?}");
         let source = err
             .source()
-            .and_then(|e| e.downcast_ref::<UploadError>())
+            .and_then(|e| e.downcast_ref::<WriteError>())
             .expect("source should be a ProgressError");
         assert!(
-            matches!(source, UploadError::TooMuchProgress { sent, persisted } if *sent == 2 * LEN as u64 && *persisted == 4 * LEN as u64 ),
+            matches!(source, WriteError::TooMuchProgress { sent, persisted } if *sent == 2 * LEN as u64 && *persisted == 4 * LEN as u64 ),
             "{source:?}"
         );
         Ok(())
@@ -623,10 +623,10 @@ mod tests {
         assert!(err.is_serialization(), "{err:?}");
         let source = err
             .source()
-            .and_then(|e| e.downcast_ref::<UploadError>())
+            .and_then(|e| e.downcast_ref::<WriteError>())
             .expect("source should be a ProgressError");
         assert!(
-            matches!(source, UploadError::UnexpectedRewind { offset, persisted } if *offset == 2 * LEN as u64 && *persisted == LEN as u64 ),
+            matches!(source, WriteError::UnexpectedRewind { offset, persisted } if *offset == 2 * LEN as u64 && *persisted == LEN as u64 ),
             "{source:?}"
         );
         Ok(())

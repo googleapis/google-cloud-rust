@@ -12,33 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Verify read_object() retries downloads.
+//! Verify read_object() retries reads.
 //!
-//! Download requests may be rejected by the service. Even after they start
+//! Read requests may be rejected by the service. Even after they start
 //! successfully, they may be interrupted. The client library should
-//! automatically retry downloads that fail to start, and automatically resume
-//! downloads that are interrupted.
+//! automatically retry reads that fail to start, and automatically resume
+//! reads that are interrupted.
 //!
 //! This module contains tests to verify the library performs these functions.
 //!
-//! To simulate transient download errors we use 206 - PARTIAL_CONTENT
-//! responses that return less data than promised.
+//! To simulate transient reads errors we use `206 - PARTIAL_CONTENT` responses
+//! that return less data than promised.
 //!
 //! We have not found a way to create HTTP transfer errors with `httptest`, and
 //! it is impossible to create a mismatched content length value for 200 - OK
 //! responses.
 //!
 //! In addition to the common retry tests [^1] we need to test scenarios
-//! specific to resuming interrupted downloads. Specifically:
+//! specific to resuming interrupted reads. Specifically:
 //!
-//! - An interrupted download of the full object is resumed starting with the
-//!   last received byte and the received generation.
-//! - An interrupted download of a range is resumed starting with the last
+//! - An interrupted read of the full object is resumed starting with the last
 //!   received byte and the received generation.
+//! - An interrupted read of a range is resumed starting with the last received
+//!   byte and the received generation.
 //! - Permanent errors (such as NOT_FOUND) detected while resuming cause the
-//!   download to stop.
-//! - Resuming a download uses the retry policies configured in the request.
-//! - If there are no retry policies in the request, resuming a download uses
+//!   read to stop.
+//! - Resuming a read uses the retry policies configured in the request.
+//! - If there are no retry policies in the request, resuming a read uses
 //!   the retry policies configured in the client.
 //!
 //! [^1]: verify that (1) a transient error followed by a successful request
@@ -49,10 +49,9 @@
 //! retry loop.
 
 use crate::{
-    download_resume_policy::{DownloadResumePolicyExt, Recommended},
+    read_resume_policy::{ReadResumePolicyExt, Recommended},
     storage::client::tests::{
-        MockBackoffPolicy, MockDownloadResumePolicy, MockRetryPolicy, MockRetryThrottler,
-        test_builder,
+        MockBackoffPolicy, MockReadResumePolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
     },
 };
 use gax::retry_policy::RetryPolicyExt;
@@ -546,7 +545,7 @@ async fn resume_after_start_permanent() -> Result {
         };
     }
     assert_eq!(bytes::Bytes::from_owner(partial), test_body(0..8));
-    let err = err.expect("the download should have failed");
+    let err = err.expect("the read should have failed");
     assert_eq!(err.http_status_code(), Some(404), "{err:?}");
 
     Ok(())
@@ -563,7 +562,7 @@ async fn request_after_start_too_many_transients() -> Result {
         .await?;
     let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
-        .with_download_resume_policy(Recommended.with_attempt_limit(5))
+        .with_read_resume_policy(Recommended.with_attempt_limit(5))
         .send()
         .await?;
     let mut partial = Vec::new();
@@ -575,7 +574,7 @@ async fn request_after_start_too_many_transients() -> Result {
         };
     }
     assert_eq!(bytes::Bytes::from_owner(partial), test_body(0..5));
-    let err = err.expect("the download should have failed");
+    let err = err.expect("the read should have failed");
     assert!(err.is_io(), "{err:?}");
     Ok(())
 }
@@ -653,7 +652,7 @@ async fn resume_uses_request_retry_options() -> Result {
         };
     }
     assert_eq!(bytes::Bytes::from_owner(partial), test_body(0..8));
-    let err = err.expect("download should fail after 3 retry attempts");
+    let err = err.expect("read should fail after 3 retry attempts");
     assert_eq!(err.http_status_code(), Some(503), "{err:?}");
 
     Ok(())
@@ -734,7 +733,7 @@ async fn resume_uses_client_retry_options() -> Result {
         };
     }
     assert_eq!(bytes::Bytes::from_owner(partial), test_body(0..8));
-    let err = err.expect("the download should have failed");
+    let err = err.expect("the read should have failed");
     assert_eq!(err.http_status_code(), Some(503), "{err:?}");
 
     Ok(())
@@ -744,7 +743,7 @@ async fn resume_uses_client_retry_options() -> Result {
 async fn request_resume_options() -> Result {
     let mut sequence = mockall::Sequence::new();
 
-    let mut resume = MockDownloadResumePolicy::new();
+    let mut resume = MockReadResumePolicy::new();
     for i in 1..10 {
         resume
             .expect_on_error()
@@ -763,7 +762,7 @@ async fn request_resume_options() -> Result {
         .await?;
     let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
-        .with_download_resume_policy(resume)
+        .with_read_resume_policy(resume)
         .send()
         .await?;
     let mut got = Vec::new();
@@ -778,7 +777,7 @@ async fn request_resume_options() -> Result {
 async fn client_resume_options() -> Result {
     let mut sequence = mockall::Sequence::new();
 
-    let mut resume = MockDownloadResumePolicy::new();
+    let mut resume = MockReadResumePolicy::new();
     for i in 1..10 {
         resume
             .expect_on_error()
@@ -793,7 +792,7 @@ async fn client_resume_options() -> Result {
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
         .with_credentials(auth::credentials::testing::test_credentials())
-        .with_download_resume_policy(resume)
+        .with_read_resume_policy(resume)
         .build()
         .await?;
     let mut reader = client

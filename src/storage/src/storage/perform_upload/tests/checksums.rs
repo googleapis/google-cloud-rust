@@ -15,8 +15,8 @@
 //! Verify the client library correctly detects mismatched checksums on uploads.
 
 use super::*;
-use crate::error::UploadError;
-use crate::storage::upload_source::BytesSource;
+use crate::error::WriteError;
+use crate::storage::streaming_source::BytesSource;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
 use std::error::Error as StdError;
@@ -29,7 +29,7 @@ mod buffered_single_shot {
     fn prepare_server(body: Value) -> Server {
         super::single_shot_server(body)
     }
-    async fn start_upload(server: &Server) -> anyhow::Result<UploadObject<BytesSource>> {
+    async fn start_upload(server: &Server) -> anyhow::Result<WriteObject<BytesSource>> {
         super::start_single_shot(server).await
     }
 
@@ -42,9 +42,9 @@ mod buffered_single_shot {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
-        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        let source = err.source().and_then(|e| e.downcast_ref::<WriteError>());
         assert!(
-            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            matches!(source, Some(WriteError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
             "{err:?}"
         );
         Ok(())
@@ -69,9 +69,9 @@ mod buffered_single_shot {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
-        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        let source = err.source().and_then(|e| e.downcast_ref::<WriteError>());
         assert!(
-            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            matches!(source, Some(WriteError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
             "{err:?}"
         );
         Ok(())
@@ -97,7 +97,7 @@ mod buffered_resumable {
     fn prepare_server(body: Value) -> Server {
         super::resumable_server(body)
     }
-    async fn start_upload(server: &Server) -> anyhow::Result<UploadObject<BytesSource>> {
+    async fn start_upload(server: &Server) -> anyhow::Result<WriteObject<BytesSource>> {
         super::start_resumable(server).await
     }
 
@@ -110,9 +110,9 @@ mod buffered_resumable {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
-        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        let source = err.source().and_then(|e| e.downcast_ref::<WriteError>());
         assert!(
-            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            matches!(source, Some(WriteError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
             "{err:?}"
         );
         Ok(())
@@ -137,9 +137,9 @@ mod buffered_resumable {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
-        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        let source = err.source().and_then(|e| e.downcast_ref::<WriteError>());
         assert!(
-            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            matches!(source, Some(WriteError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
             "{err:?}"
         );
         Ok(())
@@ -165,7 +165,7 @@ mod unbuffered_single_shot {
     fn prepare_server(body: Value) -> Server {
         super::single_shot_server(body)
     }
-    async fn start_upload(server: &Server) -> anyhow::Result<UploadObject<BytesSource>> {
+    async fn start_upload(server: &Server) -> anyhow::Result<WriteObject<BytesSource>> {
         super::start_single_shot(server).await
     }
 
@@ -178,9 +178,9 @@ mod unbuffered_single_shot {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
-        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        let source = err.source().and_then(|e| e.downcast_ref::<WriteError>());
         assert!(
-            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            matches!(source, Some(WriteError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
             "{err:?}"
         );
         Ok(())
@@ -205,9 +205,9 @@ mod unbuffered_single_shot {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
-        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        let source = err.source().and_then(|e| e.downcast_ref::<WriteError>());
         assert!(
-            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            matches!(source, Some(WriteError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
             "{err:?}"
         );
         Ok(())
@@ -233,7 +233,7 @@ mod unbuffered_resumable {
     fn prepare_server(body: Value) -> Server {
         super::resumable_server(body)
     }
-    async fn start_upload(server: &Server) -> anyhow::Result<UploadObject<BytesSource>> {
+    async fn start_upload(server: &Server) -> anyhow::Result<WriteObject<BytesSource>> {
         super::start_resumable(server).await
     }
 
@@ -246,9 +246,9 @@ mod unbuffered_resumable {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
-        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        let source = err.source().and_then(|e| e.downcast_ref::<WriteError>());
         assert!(
-            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            matches!(source, Some(WriteError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
             "{err:?}"
         );
         Ok(())
@@ -273,9 +273,9 @@ mod unbuffered_resumable {
             .await
             .expect_err("expected a checksum error");
         assert!(err.is_serialization(), "{err:?}");
-        let source = err.source().and_then(|e| e.downcast_ref::<UploadError>());
+        let source = err.source().and_then(|e| e.downcast_ref::<WriteError>());
         assert!(
-            matches!(source, Some(UploadError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
+            matches!(source, Some(WriteError::ChecksumMismatch { object, .. }) if object.as_ref() == &bad_checksums_object()),
             "{err:?}"
         );
         Ok(())
@@ -295,23 +295,23 @@ mod unbuffered_resumable {
     }
 }
 
-async fn start_resumable(server: &Server) -> anyhow::Result<UploadObject<BytesSource>> {
+async fn start_resumable(server: &Server) -> anyhow::Result<WriteObject<BytesSource>> {
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
         .build()
         .await?;
     Ok(client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", VEXING)
+        .write_object("projects/_/buckets/test-bucket", "test-object", VEXING)
         .with_resumable_upload_threshold(0_usize))
 }
 
-async fn start_single_shot(server: &Server) -> anyhow::Result<UploadObject<BytesSource>> {
+async fn start_single_shot(server: &Server) -> anyhow::Result<WriteObject<BytesSource>> {
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
         .build()
         .await?;
     Ok(client
-        .upload_object("projects/_/buckets/test-bucket", "test-object", VEXING)
+        .write_object("projects/_/buckets/test-bucket", "test-object", VEXING)
         .with_resumable_upload_threshold(1024 * 1024_usize))
 }
 

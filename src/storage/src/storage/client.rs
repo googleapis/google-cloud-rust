@@ -15,16 +15,14 @@
 use super::request_options::RequestOptions;
 use crate::Error;
 use crate::builder::storage::ReadObject;
-use crate::builder::storage::UploadObject;
-use crate::download_resume_policy::DownloadResumePolicy;
-use crate::error::KeyAes256Error;
+use crate::builder::storage::WriteObject;
+use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::Crc32c;
-use crate::upload_source::Payload;
+use crate::streaming_source::Payload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use http::Extensions;
-use sha2::{Digest, Sha256};
 use std::sync::Arc;
 
 /// Implements a client for the Cloud Storage API.
@@ -115,12 +113,13 @@ impl Storage {
         ClientBuilder::new()
     }
 
-    /// Upload an object using a local buffer.
+    /// Write an object using a local buffer.
     ///
     /// If the data source does **not** implement [Seek] the client library must
-    /// buffer uploaded data until this data is persisted in the service. This
-    /// requires more memory in the client, and when the buffer grows too large,
-    /// may require stalling the upload until the service can persist the data.
+    /// buffer data sent to the service until the service confirms it has
+    /// persisted the data. This requires more memory in the client, and when
+    /// the buffer grows too large, may require stalling the writer until the
+    /// service can persist the data.
     ///
     /// Use this function for data sources representing computations where
     /// it is expensive or impossible to restart said computation. This function
@@ -133,7 +132,7 @@ impl Storage {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -145,7 +144,7 @@ impl Storage {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send_unbuffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -158,22 +157,22 @@ impl Storage {
     /// * `object` - the object name.
     /// * `payload` - the object data.
     ///
-    /// [Seek]: crate::upload_source::Seek
-    pub fn upload_object<B, O, T, P>(
+    /// [Seek]: crate::streaming_source::Seek
+    pub fn write_object<B, O, T, P>(
         &self,
         bucket: B,
         object: O,
         payload: T,
-    ) -> UploadObject<P, Crc32c>
+    ) -> WriteObject<P, Crc32c>
     where
         B: Into<String>,
         O: Into<String>,
         T: Into<Payload<P>>,
     {
-        UploadObject::new(self.inner.clone(), bucket, object, payload)
+        WriteObject::new(self.inner.clone(), bucket, object, payload)
     }
 
-    /// Downloads the contents of an object.
+    /// Reads the contents of an object.
     ///
     /// # Example
     /// ```
@@ -446,21 +445,21 @@ impl ClientBuilder {
     ///     .build()
     ///     .await?;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
     ///
-    /// The client library can perform uploads using [single-shot] or
-    /// [resumable] uploads. For small objects, single-shot uploads offer better
+    /// The client library can write objects using [single-shot] or [resumable]
+    /// uploads. For small objects, single-shot uploads offer better
     /// performance, as they require a single HTTP transfer. For larger objects,
     /// the additional request latency is not significant, and resumable uploads
     /// offer better recovery on errors.
     ///
     /// The library automatically selects resumable uploads when the payload is
-    /// equal to or larger than this option. For smaller uploads the client
+    /// equal to or larger than this option. For smaller writes the client
     /// library uses single-shot uploads.
     ///
     /// The exact threshold depends on where the application is deployed and
@@ -486,7 +485,7 @@ impl ClientBuilder {
     ///     .build()
     ///     .await?;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -495,47 +494,47 @@ impl ClientBuilder {
     ///
     /// When performing [resumable uploads] from sources without [Seek] the
     /// client library needs to buffer data in memory until it is persisted by
-    /// the service. Otherwise the data would be lost if the upload fails.
-    /// Applications may want to tune this buffer size:
+    /// the service. Otherwise the data would be lost if the upload is
+    /// interrupted. Applications may want to tune this buffer size:
     ///
-    /// - Use smaller buffer sizes to support more concurrent uploads in the
+    /// - Use smaller buffer sizes to support more concurrent writes in the
     ///   same application.
     /// - Use larger buffer sizes for better throughput. Sending many small
-    ///   buffers stalls the upload until the client receives a successful
+    ///   buffers stalls the writer until the client receives a successful
     ///   response from the service.
     ///
     /// Keep in mind that there are diminishing returns on using larger buffers.
     ///
     /// [resumable uploads]: https://cloud.google.com/storage/docs/resumable-uploads
-    /// [Seek]: crate::upload_source::Seek
+    /// [Seek]: crate::streaming_source::Seek
     pub fn with_resumable_upload_buffer_size<V: Into<usize>>(mut self, v: V) -> Self {
         self.default_options.resumable_upload_buffer_size = v.into();
         self
     }
 
-    /// Configure the resume policy for downloads.
+    /// Configure the resume policy for object reads.
     ///
-    /// The Cloud Storage client library can automatically resume a download
+    /// The Cloud Storage client library can automatically resume a read request
     /// that is interrupted by a transient error. Applications may want to
-    /// limit the number of download attempts, or may wish to expand the type
+    /// limit the number of read attempts, or may wish to expand the type
     /// of errors treated as retryable.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use google_cloud_storage::download_resume_policy::{AlwaysResume, DownloadResumePolicyExt};
+    /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     /// let client = Storage::builder()
-    ///     .with_download_resume_policy(AlwaysResume.with_attempt_limit(3))
+    ///     .with_read_resume_policy(AlwaysResume.with_attempt_limit(3))
     ///     .build()
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn with_download_resume_policy<V>(mut self, v: V) -> Self
+    pub fn with_read_resume_policy<V>(mut self, v: V) -> Self
     where
-        V: DownloadResumePolicy + 'static,
+        V: ReadResumePolicy + 'static,
     {
-        self.default_options.download_resume_policy = Arc::new(v);
+        self.default_options.read_resume_policy = Arc::new(v);
         self
     }
 }
@@ -594,66 +593,6 @@ pub(crate) fn enc(value: &str) -> String {
     percent_encoding::utf8_percent_encode(value, &ENCODED_CHARS).to_string()
 }
 
-#[derive(Debug)]
-/// KeyAes256 represents an AES-256 encryption key used with the
-/// Customer-Supplied Encryption Keys (CSEK) feature.
-///
-/// This key must be exactly 32 bytes in length and should be provided in its
-/// raw (unencoded) byte format.
-///
-/// # Examples
-///
-/// Creating a `KeyAes256` instance from a valid byte slice:
-/// ```
-/// # use google_cloud_storage::{builder::storage::KeyAes256, error::KeyAes256Error};
-/// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
-/// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
-/// # Ok::<(), KeyAes256Error>(())
-/// ```
-///
-/// Handling an error for an invalid key length:
-/// ```
-/// # use google_cloud_storage::{builder::storage::KeyAes256, error::KeyAes256Error};
-/// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
-/// let result = KeyAes256::new(invalid_key_bytes);
-///
-/// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
-/// ```
-pub struct KeyAes256 {
-    key: [u8; 32],
-}
-
-impl KeyAes256 {
-    /// Attempts to create a new [KeyAes256].
-    ///
-    /// This conversion will succeed only if the input slice is exactly 32 bytes long.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage::{builder::storage::KeyAes256, error::KeyAes256Error};
-    /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
-    /// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
-    /// # Ok::<(), KeyAes256Error>(())
-    /// ```
-    pub fn new(key: &[u8]) -> std::result::Result<Self, KeyAes256Error> {
-        match key.len() {
-            32 => Ok(Self {
-                key: key[..32].try_into().unwrap(),
-            }),
-            _ => Err(KeyAes256Error::InvalidLength),
-        }
-    }
-}
-
-impl std::convert::From<KeyAes256> for crate::model::CommonObjectRequestParams {
-    fn from(value: KeyAes256) -> Self {
-        crate::model::CommonObjectRequestParams::new()
-            .set_encryption_algorithm("AES256")
-            .set_encryption_key_bytes(value.key.to_vec())
-            .set_encryption_key_sha256_bytes(Sha256::digest(value.key).as_slice().to_owned())
-    }
-}
-
 pub(crate) fn apply_customer_supplied_encryption_headers(
     builder: reqwest::RequestBuilder,
     common_object_request_params: &Option<crate::model::CommonObjectRequestParams>,
@@ -679,9 +618,6 @@ pub(crate) mod tests {
     use super::*;
     use gax::retry_result::RetryResult;
     use std::{sync::Arc, time::Duration};
-    use test_case::test_case;
-
-    type Result = anyhow::Result<()>;
 
     pub(crate) fn test_builder() -> ClientBuilder {
         ClientBuilder::new()
@@ -700,54 +636,6 @@ pub(crate) mod tests {
     pub(crate) fn test_inner_client(builder: ClientBuilder) -> Arc<StorageInner> {
         let client = reqwest::Client::new();
         Arc::new(StorageInner::new(client, builder))
-    }
-
-    /// This is used by the request builder tests.
-    pub(crate) fn create_key_helper() -> (Vec<u8>, String, Vec<u8>, String) {
-        // Make a 32-byte key.
-        let key = vec![b'a'; 32];
-        let key_base64 = BASE64_STANDARD.encode(key.clone());
-
-        let key_sha256 = Sha256::digest(key.clone());
-        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
-        (key, key_base64, key_sha256.to_vec(), key_sha256_base64)
-    }
-
-    #[test]
-    // This tests converting to KeyAes256 from some different types
-    // that can get converted to &[u8].
-    fn test_key_aes_256() -> Result {
-        let v_slice: &[u8] = &[b'c'; 32];
-        KeyAes256::new(v_slice)?;
-
-        let v_vec: Vec<u8> = vec![b'a'; 32];
-        KeyAes256::new(&v_vec)?;
-
-        let v_array: [u8; 32] = [b'a'; 32];
-        KeyAes256::new(&v_array)?;
-
-        let v_bytes: bytes::Bytes = bytes::Bytes::copy_from_slice(&v_array);
-        KeyAes256::new(&v_bytes)?;
-
-        Ok(())
-    }
-
-    #[test_case(&[b'a'; 0]; "no bytes")]
-    #[test_case(&[b'a'; 1]; "not enough bytes")]
-    #[test_case(&[b'a'; 33]; "too many bytes")]
-    fn test_key_aes_256_err(input: &[u8]) {
-        KeyAes256::new(input).unwrap_err();
-    }
-
-    #[test]
-    fn test_key_aes_256_to_control_model_object() -> Result {
-        let (key, _, key_sha256, _) = create_key_helper();
-        let key_aes_256 = KeyAes256::new(&key)?;
-        let params = crate::model::CommonObjectRequestParams::from(key_aes_256);
-        assert_eq!(params.encryption_algorithm, "AES256");
-        assert_eq!(params.encryption_key_bytes, key);
-        assert_eq!(params.encryption_key_sha256_bytes, key_sha256);
-        Ok(())
     }
 
     mockall::mock! {
@@ -781,10 +669,10 @@ pub(crate) mod tests {
 
     mockall::mock! {
         #[derive(Debug)]
-        pub DownloadResumePolicy {}
+        pub ReadResumePolicy {}
 
-        impl crate::download_resume_policy::DownloadResumePolicy for DownloadResumePolicy {
-            fn on_error(&self, query: &crate::download_resume_policy::ResumeQuery, error: gax::error::Error) -> crate::download_resume_policy::ResumeResult;
+        impl crate::read_resume_policy::ReadResumePolicy for ReadResumePolicy {
+            fn on_error(&self, query: &crate::read_resume_policy::ResumeQuery, error: gax::error::Error) -> crate::read_resume_policy::ResumeResult;
         }
     }
 }

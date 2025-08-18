@@ -12,27 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Contains the request builder for [upload_object()] and related types.
+//! Contains the request builder for [write_object()] and related types.
 //!
-//! [upload_object()]: crate::storage::client::Storage::upload_object()
+//! [write_object()]: crate::storage::client::Storage::write_object()
 
 use super::client::*;
 use super::perform_upload::PerformUpload;
-use super::upload_source::{Seek, StreamingSource};
+use super::streaming_source::{Seek, StreamingSource};
 use super::*;
+use crate::model::request_helpers::KeyAes256;
 use crate::storage::checksum::{
     ChecksumEngine,
     details::{Crc32c, Known, KnownCrc32c, KnownMd5, Md5, update as checksum_update},
 };
 
-/// A request builder for object uploads.
+/// A request builder for object writes.
 ///
 /// # Example: hello world
 /// ```
 /// use google_cloud_storage::client::Storage;
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
 ///     let response = client
-///         .upload_object("projects/_/buckets/my-bucket", "hello", "Hello World!")
+///         .write_object("projects/_/buckets/my-bucket", "hello", "Hello World!")
 ///         .send_unbuffered()
 ///         .await?;
 ///     println!("response details={response:?}");
@@ -46,7 +47,7 @@ use crate::storage::checksum::{
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
 ///     let payload = tokio::fs::File::open("my-data").await?;
 ///     let response = client
-///         .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+///         .write_object("projects/_/buckets/my-bucket", "my-object", payload)
 ///         .send_unbuffered()
 ///         .await?;
 ///     println!("response details={response:?}");
@@ -54,9 +55,9 @@ use crate::storage::checksum::{
 /// }
 /// ```
 ///
-/// # Example: upload a custom data source
+/// # Example: create a new object from a custom data source
 /// ```
-/// use google_cloud_storage::{client::Storage, upload_source::StreamingSource};
+/// use google_cloud_storage::{client::Storage, streaming_source::StreamingSource};
 /// struct DataSource;
 /// impl StreamingSource for DataSource {
 ///     type Error = std::io::Error;
@@ -67,14 +68,14 @@ use crate::storage::checksum::{
 ///
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
 ///     let response = client
-///         .upload_object("projects/_/buckets/my-bucket", "my-object", DataSource)
+///         .write_object("projects/_/buckets/my-bucket", "my-object", DataSource)
 ///         .send_buffered()
 ///         .await?;
 ///     println!("response details={response:?}");
 ///     Ok(())
 /// }
 /// ```
-pub struct UploadObject<T, C = Crc32c> {
+pub struct WriteObject<T, C = Crc32c> {
     inner: std::sync::Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
@@ -83,19 +84,19 @@ pub struct UploadObject<T, C = Crc32c> {
     checksum: C,
 }
 
-impl<T, C> UploadObject<T, C> {
+impl<T, C> WriteObject<T, C> {
     /// Set a [request precondition] on the object generation to match.
     ///
     /// With this precondition the request fails if the current object
     /// generation matches the provided value. A common value is `0`, which
-    /// prevents uploads from succeeding if the object already exists.
+    /// prevents writes from succeeding if the object already exists.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_generation_match(0)
     ///     .send_buffered()
     ///     .await?;
@@ -122,7 +123,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_generation_not_match(0)
     ///     .send_buffered()
     ///     .await?;
@@ -150,7 +151,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_metageneration_match(1234)
     ///     .send_buffered()
     ///     .await?;
@@ -171,15 +172,15 @@ impl<T, C> UploadObject<T, C> {
     ///
     /// With this precondition the request fails if the current object metadata
     /// generation matches the provided value. This is rarely useful in uploads,
-    /// it is more commonly used on downloads to prevent downloads if the value
-    /// is already cached.
+    /// it is more commonly used on reads to prevent a large response if the
+    /// data is already cached.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_metageneration_not_match(1234)
     ///     .send_buffered()
     ///     .await?;
@@ -204,7 +205,7 @@ impl<T, C> UploadObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// # use google_cloud_storage::model::ObjectAccessControl;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_acl([ObjectAccessControl::new().set_entity("allAuthenticatedUsers").set_role("READER")])
     ///     .send_buffered()
     ///     .await?;
@@ -229,7 +230,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_cache_control("public; max-age=7200")
     ///     .send_buffered()
     ///     .await?;
@@ -255,7 +256,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_disposition("inline")
     ///     .send_buffered()
     ///     .await?;
@@ -272,7 +273,7 @@ impl<T, C> UploadObject<T, C> {
     /// Sets the [content encoding] for the object data.
     ///
     /// This can be used to upload compressed data and enable [transcoding] of
-    /// the data during downloads.
+    /// the data during reads.
     ///
     /// # Example
     /// ```
@@ -283,7 +284,7 @@ impl<T, C> UploadObject<T, C> {
     /// let mut e = GzEncoder::new(Vec::new(), flate2::Compression::default());
     /// e.write_all(b"hello world");
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", bytes::Bytes::from_owner(e.finish()?))
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", bytes::Bytes::from_owner(e.finish()?))
     ///     .with_content_encoding("gzip")
     ///     .send_buffered()
     ///     .await?;
@@ -309,7 +310,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_language("en")
     ///     .send_buffered()
     ///     .await?;
@@ -334,7 +335,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_type("text/plain")
     ///     .send_buffered()
     ///     .await?;
@@ -359,7 +360,7 @@ impl<T, C> UploadObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_custom_time(time)
     ///     .send_buffered()
     ///     .await?;
@@ -384,7 +385,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_event_based_hold(true)
     ///     .send_buffered()
     ///     .await?;
@@ -409,7 +410,7 @@ impl<T, C> UploadObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_metadata([("test-only", "true"), ("environment", "qa")])
     ///     .send_buffered()
     ///     .await?;
@@ -436,7 +437,7 @@ impl<T, C> UploadObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// # use google_cloud_storage::model::object::{Retention, retention};
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_retention(
     ///         Retention::new()
     ///             .set_mode(retention::Mode::Locked)
@@ -463,7 +464,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_storage_class("ARCHIVE")
     ///     .send_buffered()
     ///     .await?;
@@ -491,7 +492,7 @@ impl<T, C> UploadObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_temporary_hold(true)
     ///     .send_buffered()
     ///     .await?;
@@ -519,7 +520,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_kms_key("projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key")
     ///     .send_buffered()
     ///     .await?;
@@ -543,7 +544,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_predefined_acl("private")
     ///     .send_buffered()
     ///     .await?;
@@ -567,10 +568,10 @@ impl<T, C> UploadObject<T, C> {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// # use google_cloud_storage::builder::storage::KeyAes256;
+    /// # use google_cloud_storage::model::request_helpers::KeyAes256;
     /// let key: &[u8] = &[97; 32];
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_key(KeyAes256::new(key)?)
     ///     .send_buffered()
     ///     .await?;
@@ -607,7 +608,7 @@ impl<T, C> UploadObject<T, C> {
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_idempotency(true)
     ///     .send_buffered()
     ///     .await?;
@@ -632,7 +633,7 @@ impl<T, C> UploadObject<T, C> {
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_retry_policy(RecommendedPolicy
     ///         .with_attempt_limit(5)
     ///         .with_time_limit(Duration::from_secs(10)),
@@ -656,7 +657,7 @@ impl<T, C> UploadObject<T, C> {
     /// use std::time::Duration;
     /// use gax::exponential_backoff::ExponentialBackoff;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_backoff_policy(ExponentialBackoff::default())
     ///     .send_buffered()
     ///     .await?;
@@ -683,7 +684,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_retry_throttler(adhoc_throttler())
     ///     .send_buffered()
     ///     .await?;
@@ -708,7 +709,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_resumable_upload_threshold(0_usize) // Forces a resumable upload.
     ///     .send_buffered()
     ///     .await?;
@@ -745,7 +746,7 @@ impl<T, C> UploadObject<T, C> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_resumable_upload_buffer_size(32 * 1024 * 1024_usize)
     ///     .send_buffered()
     ///     .await?;
@@ -767,7 +768,7 @@ impl<T, C> UploadObject<T, C> {
     /// Keep in mind that there are diminishing returns on using larger buffers.
     ///
     /// [resumable uploads]: https://cloud.google.com/storage/docs/resumable-uploads
-    /// [Seek]: crate::upload_source::Seek
+    /// [Seek]: crate::streaming_source::Seek
     pub fn with_resumable_upload_buffer_size<V: Into<usize>>(mut self, v: V) -> Self {
         self.options.resumable_upload_buffer_size = v.into();
         self
@@ -791,11 +792,11 @@ impl<T, C> UploadObject<T, C> {
         )
     }
 
-    fn switch_checksum<F, U>(self, new: F) -> UploadObject<T, U>
+    fn switch_checksum<F, U>(self, new: F) -> WriteObject<T, U>
     where
         F: FnOnce(C) -> U,
     {
-        UploadObject {
+        WriteObject {
             payload: self.payload,
             inner: self.inner,
             spec: self.spec,
@@ -822,7 +823,7 @@ impl<T, C> UploadObject<T, C> {
     }
 }
 
-impl<T> UploadObject<T, Crc32c> {
+impl<T> WriteObject<T, Crc32c> {
     /// Provide a precomputed value for the CRC32C checksum.
     ///
     /// # Example
@@ -831,7 +832,7 @@ impl<T> UploadObject<T, Crc32c> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use crc32c::crc32c;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_known_crc32c(crc32c(b"hello world"))
     ///     .send_buffered()
     ///     .await?;
@@ -840,8 +841,8 @@ impl<T> UploadObject<T, Crc32c> {
     /// ```
     ///
     /// In some applications, the payload's CRC32C checksum is already known.
-    /// For example, the application may be downloading the data from another
-    /// blob storage system.
+    /// For example, the application may be reading the data from another blob
+    /// storage system.
     ///
     /// In such cases, it is safer to pass the known CRC32C of the payload to
     /// [Cloud Storage], and more efficient to skip the computation in the
@@ -850,8 +851,8 @@ impl<T> UploadObject<T, Crc32c> {
     /// Note that once you provide a CRC32C value to this builder you cannot
     /// use [compute_md5()] to also have the library compute the checksums.
     ///
-    /// [compute_md5()]: UploadObject::compute_md5
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> UploadObject<T, KnownCrc32c> {
+    /// [compute_md5()]: WriteObject::compute_md5
+    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> WriteObject<T, KnownCrc32c> {
         let this = self.switch_checksum(|_| KnownCrc32c);
         this.set_crc32c(v)
     }
@@ -865,7 +866,7 @@ impl<T> UploadObject<T, Crc32c> {
     /// use md5::compute;
     /// let hash = md5::compute(b"hello world");
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_known_md5_hash(bytes::Bytes::from_owner(hash.0))
     ///     .send_buffered()
     ///     .await?;
@@ -874,7 +875,7 @@ impl<T> UploadObject<T, Crc32c> {
     /// ```
     ///
     /// In some applications, the payload's MD5 hash is already known. For
-    /// example, the application may be downloading the data from another blob
+    /// example, the application may be reading the data from another blob
     /// storage system.
     ///
     /// In such cases, it is safer to pass the known MD5 of the payload to
@@ -884,8 +885,8 @@ impl<T> UploadObject<T, Crc32c> {
     /// Note that once you provide a MD5 value to this builder you cannot
     /// use [compute_md5()] to also have the library compute the checksums.
     ///
-    /// [compute_md5()]: UploadObject::compute_md5
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Crc32c<KnownMd5>>
+    /// [compute_md5()]: WriteObject::compute_md5
+    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Crc32c<KnownMd5>>
     where
         I: IntoIterator<Item = V>,
         V: Into<u8>,
@@ -902,7 +903,7 @@ impl<T> UploadObject<T, Crc32c> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let payload = tokio::fs::File::open("my-data").await?;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", payload)
     ///     .compute_md5()
     ///     .send_buffered()
     ///     .await?;
@@ -910,31 +911,31 @@ impl<T> UploadObject<T, Crc32c> {
     /// # Ok(()) }
     /// ```
     ///
-    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
+    /// See [precompute_checksums][WriteObject::precompute_checksums] for more
     /// details on how checksums are used by the client library and their
     /// limitations.
-    pub fn compute_md5(self) -> UploadObject<T, Md5<Crc32c>> {
+    pub fn compute_md5(self) -> WriteObject<T, Md5<Crc32c>> {
         self.switch_checksum(Md5::from_inner)
     }
 }
 
-impl<T> UploadObject<T, Crc32c<KnownMd5>> {
-    /// See [UploadObject<T, Crc32c>::with_known_crc32c].
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> UploadObject<T, Known> {
+impl<T> WriteObject<T, Crc32c<KnownMd5>> {
+    /// See [WriteObject<T, Crc32c>::with_known_crc32c].
+    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> WriteObject<T, Known> {
         let this = self.switch_checksum(|_| Known);
         this.set_crc32c(v)
     }
 }
 
-impl<T> UploadObject<T, Md5<Crc32c>> {
-    /// See [UploadObject<T, Crc32c>::with_known_crc32c].
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> UploadObject<T, Md5<KnownCrc32c>> {
+impl<T> WriteObject<T, Md5<Crc32c>> {
+    /// See [WriteObject<T, Crc32c>::with_known_crc32c].
+    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> WriteObject<T, Md5<KnownCrc32c>> {
         let this = self.switch_checksum(|_| Md5::from_inner(KnownCrc32c));
         this.set_crc32c(v)
     }
 
-    /// See [UploadObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Crc32c<KnownMd5>>
+    /// See [WriteObject<T, Crc32c>::with_known_md5_hash].
+    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Crc32c<KnownMd5>>
     where
         I: IntoIterator<Item = V>,
         V: Into<u8>,
@@ -944,9 +945,9 @@ impl<T> UploadObject<T, Md5<Crc32c>> {
     }
 }
 
-impl<T> UploadObject<T, Md5<KnownCrc32c>> {
-    /// See [UploadObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Known>
+impl<T> WriteObject<T, Md5<KnownCrc32c>> {
+    /// See [WriteObject<T, Crc32c>::with_known_md5_hash].
+    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Known>
     where
         I: IntoIterator<Item = V>,
         V: Into<u8>,
@@ -956,9 +957,9 @@ impl<T> UploadObject<T, Md5<KnownCrc32c>> {
     }
 }
 
-impl<T> UploadObject<T, KnownCrc32c> {
-    /// See [UploadObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> UploadObject<T, Known>
+impl<T> WriteObject<T, KnownCrc32c> {
+    /// See [WriteObject<T, Crc32c>::with_known_md5_hash].
+    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Known>
     where
         I: IntoIterator<Item = V>,
         V: Into<u8>,
@@ -967,13 +968,13 @@ impl<T> UploadObject<T, KnownCrc32c> {
         this.set_md5_hash(i)
     }
 
-    /// See [UploadObject<T, Crc32c>::compute_md5()].
-    pub fn compute_md5(self) -> UploadObject<T, Md5<KnownCrc32c>> {
+    /// See [WriteObject<T, Crc32c>::compute_md5()].
+    pub fn compute_md5(self) -> WriteObject<T, Md5<KnownCrc32c>> {
         self.switch_checksum(Md5::from_inner)
     }
 }
 
-impl<T> UploadObject<T> {
+impl<T> WriteObject<T> {
     pub(crate) fn new<B, O, P>(
         inner: std::sync::Arc<StorageInner>,
         bucket: B,
@@ -989,7 +990,7 @@ impl<T> UploadObject<T> {
         let resource = crate::model::Object::new()
             .set_bucket(bucket)
             .set_name(object);
-        UploadObject {
+        WriteObject {
             inner,
             spec: crate::model::WriteObjectSpec::new().set_resource(resource),
             params: None,
@@ -1000,7 +1001,7 @@ impl<T> UploadObject<T> {
     }
 }
 
-impl<T, C> UploadObject<T, C>
+impl<T, C> WriteObject<T, C>
 where
     C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Seek + Send + Sync + 'static,
@@ -1014,7 +1015,7 @@ where
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send_unbuffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -1036,7 +1037,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let payload = tokio::fs::File::open("my-data").await?;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", payload)
     ///     .precompute_checksums()
     ///     .await?
     ///     .send_unbuffered()
@@ -1056,7 +1057,7 @@ where
     /// send the checksums at the end of the upload with this API.
     ///
     /// [JSON API]: https://cloud.google.com/storage/docs/json_api
-    pub async fn precompute_checksums(mut self) -> Result<UploadObject<T, Known>>
+    pub async fn precompute_checksums(mut self) -> Result<WriteObject<T, Known>>
     where
         C: ChecksumEngine + Send + Sync + 'static,
     {
@@ -1074,7 +1075,7 @@ where
     }
 }
 
-impl<T, C> UploadObject<T, C>
+impl<T, C> WriteObject<T, C>
 where
     C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Send + Sync + 'static,
@@ -1087,7 +1088,7 @@ where
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -1098,13 +1099,13 @@ where
     }
 }
 
-// We need `Debug` to use `expect_err()` in `Result<UploadObject, ...>`.
-impl<T, C> std::fmt::Debug for UploadObject<T, C>
+// We need `Debug` to use `expect_err()` in `Result<WriteObject, ...>`.
+impl<T, C> std::fmt::Debug for WriteObject<T, C>
 where
     C: std::fmt::Debug,
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("UploadObject")
+        f.debug_struct("WriteObject")
             .field("inner", &self.inner)
             .field("spec", &self.spec)
             .field("params", &self.params)
@@ -1120,23 +1121,24 @@ mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
     use crate::model::{ObjectChecksums, WriteObjectSpec};
-    use crate::upload_source::tests::MockSeekSource;
+    use crate::streaming_source::tests::MockSeekSource;
     use std::error::Error as _;
     use std::io::{Error as IoError, ErrorKind};
 
     type Result = anyhow::Result<()>;
 
-    // Verify `upload_object()` can be used with a source that implements `StreamingSource` **and** `Seek`
+    // Verify `write_object()` can be used with a source that implements
+    // `StreamingSource` **and** `Seek`
     #[tokio::test]
     async fn test_upload_streaming_source_and_seek() -> Result {
         struct Source;
-        impl crate::upload_source::StreamingSource for Source {
+        impl crate::streaming_source::StreamingSource for Source {
             type Error = std::io::Error;
             async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
                 None
             }
         }
-        impl crate::upload_source::Seek for Source {
+        impl crate::streaming_source::Seek for Source {
             type Error = std::io::Error;
             async fn seek(&mut self, _offset: u64) -> std::result::Result<(), Self::Error> {
                 Ok(())
@@ -1147,15 +1149,16 @@ mod tests {
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
-        let _ = client.upload_object("projects/_/buckets/test-bucket", "test-object", Source);
+        let _ = client.write_object("projects/_/buckets/test-bucket", "test-object", Source);
         Ok(())
     }
 
-    // Verify `upload_object()` can be used with a source that **only** implements `StreamingSource`.
+    // Verify `write_object()` can be used with a source that **only**
+    // implements `StreamingSource`.
     #[tokio::test]
     async fn test_upload_only_streaming_source() -> Result {
         struct Source;
-        impl crate::upload_source::StreamingSource for Source {
+        impl crate::streaming_source::StreamingSource for Source {
             type Error = std::io::Error;
             async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
                 None
@@ -1166,11 +1169,11 @@ mod tests {
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
-        let _ = client.upload_object("projects/_/buckets/test-bucket", "test-object", Source);
+        let _ = client.write_object("projects/_/buckets/test-bucket", "test-object", Source);
         Ok(())
     }
 
-    // Verify `upload_object()` meets normal Send, Sync, requirements.
+    // Verify `write_object()` meets normal Send, Sync, requirements.
     #[tokio::test]
     async fn test_upload_is_send_and_static() -> Result {
         let client = Storage::builder()
@@ -1182,19 +1185,19 @@ mod tests {
         fn need_sync<T: Sync>(_val: &T) {}
         fn need_static<T: 'static>(_val: &T) {}
 
-        let upload = client.upload_object("projects/_/buckets/test-bucket", "test-object", "");
+        let upload = client.write_object("projects/_/buckets/test-bucket", "test-object", "");
         need_send(&upload);
         need_sync(&upload);
         need_static(&upload);
 
         let upload = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .write_object("projects/_/buckets/test-bucket", "test-object", "")
             .send_unbuffered();
         need_send(&upload);
         need_static(&upload);
 
         let upload = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .write_object("projects/_/buckets/test-bucket", "test-object", "")
             .send_buffered();
         need_send(&upload);
         need_static(&upload);
@@ -1206,7 +1209,7 @@ mod tests {
     fn upload_object_unbuffered_metadata() -> Result {
         use crate::model::ObjectAccessControl;
         let inner = test_inner_client(test_builder());
-        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
+        let mut request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
             .with_if_generation_match(10)
             .with_if_generation_not_match(20)
             .with_if_metageneration_match(30)
@@ -1287,11 +1290,11 @@ mod tests {
                 .with_resumable_upload_threshold(123_usize)
                 .with_resumable_upload_buffer_size(234_usize),
         );
-        let request = UploadObject::new(inner.clone(), "projects/_/buckets/bucket", "object", "");
+        let request = WriteObject::new(inner.clone(), "projects/_/buckets/bucket", "object", "");
         assert_eq!(request.options.resumable_upload_threshold, 123);
         assert_eq!(request.options.resumable_upload_buffer_size, 234);
 
-        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
+        let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
             .with_resumable_upload_threshold(345_usize)
             .with_resumable_upload_buffer_size(456_usize);
         assert_eq!(request.options.resumable_upload_threshold, 345);
@@ -1318,7 +1321,7 @@ mod tests {
     async fn checksum_default() -> Result {
         let client = test_builder().build().await?;
         let upload = client
-            .upload_object("my-bucket", "my-object", QUICK)
+            .write_object("my-bucket", "my-object", QUICK)
             .precompute_checksums()
             .await?;
         let want = quick_checksum(Crc32c::default());
@@ -1332,7 +1335,7 @@ mod tests {
     async fn checksum_md5_and_crc32c() -> Result {
         let client = test_builder().build().await?;
         let upload = client
-            .upload_object("my-bucket", "my-object", QUICK)
+            .write_object("my-bucket", "my-object", QUICK)
             .compute_md5()
             .precompute_checksums()
             .await?;
@@ -1349,7 +1352,7 @@ mod tests {
 
         let client = test_builder().build().await?;
         let upload = client
-            .upload_object("my-bucket", "my-object", QUICK)
+            .write_object("my-bucket", "my-object", QUICK)
             .with_known_crc32c(ck.crc32c.unwrap())
             .with_known_md5_hash(ck.md5_hash.clone())
             .precompute_checksums()
@@ -1370,7 +1373,7 @@ mod tests {
 
         let client = test_builder().build().await?;
         let upload = client
-            .upload_object("my-bucket", "my-object", QUICK)
+            .write_object("my-bucket", "my-object", QUICK)
             .compute_md5()
             .with_known_crc32c(ck.crc32c.unwrap())
             .precompute_checksums()
@@ -1392,7 +1395,7 @@ mod tests {
 
         let client = test_builder().build().await?;
         let upload = client
-            .upload_object("my-bucket", "my-object", QUICK)
+            .write_object("my-bucket", "my-object", QUICK)
             .with_known_md5_hash(ck.md5_hash.clone())
             .with_known_crc32c(ck.crc32c.unwrap())
             .precompute_checksums()
@@ -1414,7 +1417,7 @@ mod tests {
 
         let client = test_builder().build().await?;
         let upload = client
-            .upload_object("my-bucket", "my-object", QUICK)
+            .write_object("my-bucket", "my-object", QUICK)
             .compute_md5()
             .with_known_md5_hash(ck.md5_hash.clone())
             .precompute_checksums()
@@ -1436,7 +1439,7 @@ mod tests {
 
         let client = test_builder().build().await?;
         let upload = client
-            .upload_object("my-bucket", "my-object", QUICK)
+            .write_object("my-bucket", "my-object", QUICK)
             .with_known_crc32c(ck.crc32c.unwrap())
             .compute_md5()
             .with_known_md5_hash(ck.md5_hash.clone())
@@ -1459,7 +1462,7 @@ mod tests {
 
         let client = test_builder().build().await?;
         let upload = client
-            .upload_object("my-bucket", "my-object", QUICK)
+            .write_object("my-bucket", "my-object", QUICK)
             .with_known_crc32c(ck.crc32c.unwrap())
             .with_known_md5_hash(ck.md5_hash.clone())
             .precompute_checksums()
@@ -1483,7 +1486,7 @@ mod tests {
 
         let client = test_builder().build().await?;
         let err = client
-            .upload_object("my-bucket", "my-object", source)
+            .write_object("my-bucket", "my-object", source)
             .precompute_checksums()
             .await
             .expect_err("seek() returns an error");
@@ -1516,7 +1519,7 @@ mod tests {
 
         let client = test_builder().build().await?;
         let err = client
-            .upload_object("my-bucket", "my-object", source)
+            .write_object("my-bucket", "my-object", source)
             .precompute_checksums()
             .await
             .expect_err("seek() returns an error");
@@ -1535,12 +1538,12 @@ mod tests {
     async fn debug() -> Result {
         let client = test_builder().build().await?;
         let upload = client
-            .upload_object("my-bucket", "my-object", "")
+            .write_object("my-bucket", "my-object", "")
             .precompute_checksums()
             .await;
 
         let fmt = format!("{upload:?}");
-        ["UploadObject", "inner", "spec", "options", "checksum"]
+        ["WriteObject", "inner", "spec", "options", "checksum"]
             .into_iter()
             .for_each(|text| {
                 assert!(fmt.contains(text), "expected {text} in {fmt}");

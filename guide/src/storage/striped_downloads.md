@@ -58,15 +58,15 @@ As usual, the function starts with some use declarations to simplify the code:
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:seed-use}}
 ```
 
-Using the storage client, you upload a 1MiB object:
+Using the storage client, you create a 1MiB object:
 
 ```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/striped.rs:upload-1MiB}}
+{{#rustdoc_include ../../samples/tests/storage/striped.rs:create-1MiB}}
 ```
 
 Then you use the storage control client to concatenate 32 copies of this object
-into a larger object. This operation does not require downloading or uploading
-any object data, it is performed by the service:
+into a larger object. This operation does not require transferring any object
+data to the client, it is performed by the service:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:compose-32}}

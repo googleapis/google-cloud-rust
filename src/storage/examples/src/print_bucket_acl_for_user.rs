@@ -15,10 +15,7 @@
 // [START storage_print_bucket_acl_for_user]
 use google_cloud_storage::client::StorageControl;
 
-pub async fn print_bucket_acl_for_user(
-    client: &StorageControl,
-    bucket_id: &str,
-) -> anyhow::Result<()> {
+pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
     // For other scopes see:
     //     https://cloud.google.com/storage/docs/access-control/lists#scopes
     const NAME: &str = "allAuthenticatedUsers";

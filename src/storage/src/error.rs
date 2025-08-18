@@ -19,6 +19,21 @@
 
 use crate::model::{Object, ObjectChecksums};
 
+/// Indicates that a checksum mismatch was detected while reading or writing
+/// Cloud Storage object.
+///
+/// When performing a full read of an object, the client library automatically
+/// computes the CRC32C checksum (and optionally the MD5 hash) of the received
+/// data. At the end of the read The client library automatically computes this
+/// checksum to the values reported by the service. If the values do not match,
+/// the read operation completes with an error and the error includes this type
+/// showing which checksums did not match.
+///
+/// Likewise, when performing an object write, the client library automatically
+/// compares the CRC32C checksum (and optionally the MD5 hash) of the data sent
+/// to the service against the values reported by the service when the object is
+/// finalized. If the values do not match, the write operation completes with an
+/// error and the error includes this type.
 #[derive(Clone, Debug)]
 #[non_exhaustive]
 pub enum ChecksumMismatch {
@@ -69,14 +84,14 @@ impl std::fmt::Display for ChecksumMismatch {
 ///
 /// # Example:
 /// ```
-/// # use google_cloud_storage::{builder::storage::KeyAes256, error::KeyAes256Error};
+/// # use google_cloud_storage::{model::request_helpers::KeyAes256, error::KeyAes256Error};
 /// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
 /// let result = KeyAes256::new(invalid_key_bytes);
 ///
 /// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
 /// ```
 ///
-/// [KeyAes256]: crate::builder::storage::KeyAes256
+/// [KeyAes256]: crate::model::request_helpers::KeyAes256
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum KeyAes256Error {
@@ -110,7 +125,7 @@ pub enum ReadError {
     ShortRead(u64),
 
     /// The read received more bytes than expected.
-    #[error("too many bytes received: expected {expected}, stopped download at {got}")]
+    #[error("too many bytes received: expected {expected}, stopped read at {got}")]
     LongRead { got: u64, expected: u64 },
 
     /// Only 200 and 206 status codes are expected in successful responses.
@@ -133,17 +148,17 @@ pub enum ReadError {
 ///
 /// # Example
 /// ```
-/// # use google_cloud_storage::{client::Storage, error::UploadError};
+/// # use google_cloud_storage::{client::Storage, error::WriteError};
 /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
 /// use std::error::Error as _;
-/// let upload = client
-///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+/// let writer = client
+///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
 ///     .with_if_generation_not_match(0);
-/// match upload.send_buffered().await {
-///     Ok(object) => println!("Successfully uploaded the object"),
+/// match writer.send_buffered().await {
+///     Ok(object) => println!("Successfully created the object {object:?}"),
 ///     Err(error) if error.is_serialization() => {
 ///         println!("Some problem {error:?} sending the data to the service");
-///         if let Some(m) = error.source().and_then(|e| e.downcast_ref::<UploadError>()) {
+///         if let Some(m) = error.source().and_then(|e| e.downcast_ref::<WriteError>()) {
 ///             println!("{m}");
 ///         }
 ///     },
@@ -154,7 +169,7 @@ pub enum ReadError {
 ///
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
-pub enum UploadError {
+pub enum WriteError {
     /// The service has "uncommitted" previously persisted bytes.
     ///
     /// # Troubleshoot

@@ -16,11 +16,7 @@
 use google_cloud_storage::{client::StorageControl, model::BucketAccessControl};
 use google_cloud_wkt::FieldMask;
 
-pub async fn add_bucket_owner(
-    client: &StorageControl,
-    bucket_id: &str,
-    user: &str,
-) -> anyhow::Result<()> {
+pub async fn sample(client: &StorageControl, bucket_id: &str, user: &str) -> anyhow::Result<()> {
     let bucket = client
         .get_bucket()
         .set_name(format!("projects/_/buckets/{bucket_id}"))

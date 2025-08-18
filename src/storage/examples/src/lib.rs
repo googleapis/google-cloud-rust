@@ -22,12 +22,14 @@ mod create_bucket_hierarchical_namespace;
 mod delete_bucket;
 mod get_bucket_metadata;
 mod list_buckets;
+mod objects;
 mod print_bucket_acl;
 mod print_bucket_acl_for_user;
 mod quickstart;
 mod remove_bucket_owner;
 
-use google_cloud_storage::client::StorageControl;
+use google_cloud_storage::client::{Storage, StorageControl};
+use google_cloud_storage::model::Object;
 use rand::{Rng, distr::Distribution};
 
 pub const BUCKET_ID_LENGTH: usize = 63;
@@ -51,21 +53,21 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket example");
-    create_bucket::create_bucket(&client, &project_id, &id).await?;
+    create_bucket::sample(&client, &project_id, &id).await?;
     tracing::info!("running change_default_storage_class example");
-    change_default_storage_class::change_default_storage_class(&client, &id).await?;
+    change_default_storage_class::sample(&client, &id).await?;
     tracing::info!("running get_bucket_metadata example");
-    get_bucket_metadata::get_bucket_metadata(&client, &id).await?;
+    get_bucket_metadata::sample(&client, &id).await?;
     tracing::info!("running print_bucket_acl example");
-    print_bucket_acl::print_bucket_acl(&client, &id).await?;
+    print_bucket_acl::sample(&client, &id).await?;
     tracing::info!("running add_bucket_owner example");
-    add_bucket_owner::add_bucket_owner(&client, &id, &service_account).await?;
+    add_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running add_bucket_owner example");
-    remove_bucket_owner::remove_bucket_owner(&client, &id, &service_account).await?;
+    remove_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running print_bucket_acl_for_user example");
-    print_bucket_acl_for_user::print_bucket_acl_for_user(&client, &id).await?;
+    print_bucket_acl_for_user::sample(&client, &id).await?;
     tracing::info!("running delete_bucket example");
-    delete_bucket::delete_bucket(&client, &id).await?;
+    delete_bucket::sample(&client, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -75,25 +77,20 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_class_location example");
-    create_bucket_class_location::create_bucket_class_location(&client, &project_id, &id).await?;
+    create_bucket_class_location::sample(&client, &project_id, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_dual_region example");
-    create_bucket_dual_region::create_bucket_dual_region(&client, &project_id, &id).await?;
+    create_bucket_dual_region::sample(&client, &project_id, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_hierarchical_namespace example");
-    create_bucket_hierarchical_namespace::create_bucket_hierarchical_namespace(
-        &client,
-        &project_id,
-        &id,
-    )
-    .await?;
+    create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
 
     tracing::info!("running list_buckets example");
-    list_buckets::list_buckets(&client, &project_id).await?;
+    list_buckets::sample(&client, &project_id).await?;
     Ok(())
 }
 
@@ -114,12 +111,7 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
 
     let id = random_bucket_id();
     buckets.push(id.clone());
-    create_bucket_hierarchical_namespace::create_bucket_hierarchical_namespace(
-        &client,
-        &project_id,
-        &id,
-    )
-    .await?;
+    create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
 
     tracing::info!("running control::quickstart example");
     control::quickstart::sample(&client, &id).await?;
@@ -154,6 +146,81 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
     control::delete_folder::sample(&client, &id).await?;
 
     Ok(())
+}
+
+pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let control = StorageControl::builder().build().await?;
+    let client = Storage::builder().build().await?;
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
+
+    tracing::info!("create test objects for the examples");
+    let writers = [
+        "object-to-download.txt",
+        "prefixes/are-not-always/folders-001",
+        "prefixes/are-not-always/folders-002",
+        "prefixes/are-not-always/folders-003",
+        "prefixes/are-not-always/folders-004/abc",
+        "prefixes/are-not-always/folders-004/def",
+        "object-to-update",
+        "deleted-object-name",
+    ]
+    .map(|name| make_object(&client, &id, name));
+    let _ = futures::future::join_all(writers)
+        .await
+        .into_iter()
+        .collect::<anyhow::Result<Vec<_>>>()?;
+
+    tracing::info!("running stream_file_upload example");
+    objects::stream_file_upload::sample(&client, &id).await?;
+    tracing::info!("running stream_file_download example");
+    objects::stream_file_download::sample(&client, &id).await?;
+
+    tracing::info!("running list_files example");
+    objects::list_files::sample(&control, &id).await?;
+    tracing::info!("running list_files_with_prefix example");
+    objects::list_files_with_prefix::sample(&control, &id).await?;
+    tracing::info!("running set_metadata example");
+    objects::set_metadata::sample(&control, &id).await?;
+    tracing::info!("running delete_file example");
+    objects::delete_file::sample(&control, &id).await?;
+
+    // Create a folder for the delete_folder example.
+    let _ = control
+        .create_folder()
+        .set_parent(format!("projects/_/buckets/{id}"))
+        .set_folder_id("deleted-folder-id")
+        .send()
+        .await?;
+
+    tracing::info!("running control::delete_folder example");
+    control::delete_folder::sample(&control, &id).await?;
+
+    Ok(())
+}
+
+async fn make_object(client: &Storage, bucket_id: &str, name: &str) -> anyhow::Result<Object> {
+    const VEXING: &str = "how vexingly quick daft zebras jump\n";
+    let object = client
+        .write_object(format!("projects/_/buckets/{bucket_id}"), name, VEXING)
+        .with_if_generation_match(0)
+        .send_buffered()
+        .await?;
+    Ok(object)
 }
 
 pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {

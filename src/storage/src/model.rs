@@ -12,15 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod checksum;
-pub(crate) mod client;
-pub(crate) mod perform_upload;
-pub(crate) mod read_object;
-pub(crate) mod request_options;
-pub mod streaming_source;
-pub(crate) mod v1;
-pub(crate) mod write_object;
+//! The messages and enums that are part of this client library.
 
-use crate::model::Object;
-use crate::streaming_source::Payload;
-use crate::{Error, Result};
+// Re-export all generated types
+pub use crate::control::model::*;
+
+// Custom types used in the hand-crafted code. We do not expect this name to
+// conflict with generated types, that would require a `RequestHelpers` message
+// with nested enums or messages. If we ever get a conflict, we would configure
+// sidekick to rename the generated types.
+pub mod request_helpers;

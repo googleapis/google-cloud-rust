@@ -15,7 +15,7 @@
 // [START storage_create_bucket]
 use google_cloud_storage::{client::StorageControl, model::Bucket};
 
-pub async fn create_bucket(
+pub async fn sample(
     client: &StorageControl,
     project_id: &str,
     bucket_id: &str,

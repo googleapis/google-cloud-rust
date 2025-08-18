@@ -234,7 +234,7 @@ pub(crate) struct ChecksummedSource<C, S> {
     source: S,
 }
 
-use crate::upload_source::{Seek, SizeHint, StreamingSource};
+use crate::streaming_source::{Seek, SizeHint, StreamingSource};
 
 impl<C, S> ChecksummedSource<C, S> {
     pub fn new(checksum: C, source: S) -> Self {
@@ -302,7 +302,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::upload_source::tests::MockSeekSource;
+    use crate::streaming_source::tests::MockSeekSource;
     use test_case::test_case;
 
     pub(super) fn empty() -> bytes::Bytes {
@@ -496,7 +496,7 @@ mod tests {
         let input = [
             "the ", "quick ", "brown ", "fox ", "jumps ", "over ", "the ", "lazy ", "dog",
         ];
-        let source = crate::upload_source::IterSource::new(
+        let source = crate::streaming_source::IterSource::new(
             input.map(|s| bytes::Bytes::from_static(s.as_bytes())),
         );
         let want_hint = source.size_hint().await?;
