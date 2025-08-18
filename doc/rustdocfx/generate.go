@@ -416,11 +416,11 @@ func newDocfxManagedReference(c crate, id string) (*docfxManagedReference, error
 	return r, nil
 }
 
-func generate(c crate, outDir string) error {
+func generate(c crate, projectRoot string, outDir string) error {
 	var errs []error
 
 	m, _ := newDocfxMetadata(c)
-	s, err := mustache.RenderFile("/usr/local/google/home/chuongph/Desktop/google-cloud-rust/doc/rustdocfx/templates/docs.metadata.mustache", m)
+	s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/docs.metadata.mustache"), m)
 	if err != nil {
 		fmt.Printf("err: %v", err)
 	}
@@ -453,8 +453,7 @@ func generate(c crate, outDir string) error {
 				errs = append(errs, err)
 			}
 
-			// TODO(NOW): Use a better file path.
-			s, _ := mustache.RenderFile("/usr/local/google/home/chuongph/Desktop/google-cloud-rust/doc/rustdocfx/templates/universalReference.yml.mustache", r)
+			s, _ := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/universalReference.yml.mustache"), r)
 			uid, err := c.getDocfxUid(id)
 			if err != nil {
 				errs = append(errs, err)
@@ -471,7 +470,7 @@ func generate(c crate, outDir string) error {
 		}
 	}
 
-	s, _ = mustache.RenderFile("/usr/local/google/home/chuongph/Desktop/google-cloud-rust/doc/rustdocfx/templates/toc.yml.mustache", toc)
+	s, _ = mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/toc.yml.mustache"), toc)
 	if err := os.WriteFile(filepath.Join(outDir, "toc.yml"), []byte(s), 0666); err != nil {
 		errs = append(errs, err)
 	}

@@ -104,7 +104,7 @@ func main() {
 
 			// TODO(NOW): This is not needed.
 			crate := workspaceCrates[i]
-			err = generate(crate, crateOutDir)
+			err = generate(crate, *projectRoot, crateOutDir)
 			if err != nil {
 				// TODO: Better log message for the failure with crate name.
 				log.Fatalf("failed to generate for crate %s: %v", workspaceCrates[i].Name, err)
