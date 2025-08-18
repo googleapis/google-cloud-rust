@@ -6606,6 +6606,7 @@ dependencies = [
  "parse-size",
  "rand 0.9.2",
  "tokio",
+ "tokio-metrics",
  "tracing",
  "tracing-subscriber",
 ]
@@ -6819,6 +6820,18 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "tokio-metrics"
+version = "0.4.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f960dc1df82e5a0cff5a77e986a10ec7bfabf23ff2377922e012af742878e12"
+dependencies = [
+ "futures-util",
+ "pin-project-lite",
+ "tokio",
+ "tokio-stream",
 ]
 
 [[package]]
