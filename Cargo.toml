@@ -349,7 +349,7 @@ tokio-test     = { default-features = false, version = "0.4" }
 auth                          = { version = "0.22.3", path = "src/auth", package = "google-cloud-auth" }
 gax                           = { version = "0.23.3", path = "src/gax", package = "google-cloud-gax" }
 google-cloud-gax              = { version = "0.23.3", path = "src/gax", package = "google-cloud-gax" }
-gaxi                          = { version = "0.5.0", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+gaxi                          = { version = "0.5.1", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "0.4.4", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
 location                      = { version = "0.4.4", path = "src/generated/cloud/location", package = "google-cloud-location" }
 longrunning                   = { version = "0.25.4", path = "src/generated/longrunning", package = "google-cloud-longrunning" }

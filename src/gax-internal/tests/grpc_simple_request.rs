@@ -84,7 +84,9 @@ mod tests {
             .with_credentials(test_credentials())
             .build()
             .await;
-        let err = client.unwrap_err();
+        let client = client.expect("clients should use lazy connections");
+        let response = send_request(client, "connection error", "").await;
+        let err = response.unwrap_err();
         assert!(err.is_transport(), "{err:?}");
         Ok(())
     }
@@ -106,7 +108,9 @@ mod tests {
             .with_credentials(test_credentials())
             .build()
             .await;
-        let err = client.unwrap_err();
+        let client = client.expect("clients should use lazy connections");
+        let response = send_request(client, "connection error", "").await;
+        let err = response.unwrap_err();
         assert!(err.is_transport(), "{err:?}");
         Ok(())
     }
