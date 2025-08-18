@@ -153,6 +153,7 @@ where
                 reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
+        let builder = self.apply_preconditions(builder);
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
 

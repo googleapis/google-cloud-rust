@@ -23,6 +23,7 @@ use test_case::test_case;
 type Result = anyhow::Result<()>;
 
 mod checksums;
+mod preconditions;
 
 fn response_body() -> Value {
     json!({
