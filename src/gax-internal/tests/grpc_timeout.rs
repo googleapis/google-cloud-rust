@@ -201,19 +201,17 @@ mod tests {
             .await
     }
 
-    async fn connect_client(client: grpc::Client, server: tokio::task::JoinHandle<()>) -> anyhow::Result<std::pin::Pin<Box<tokio::task::JoinHandle<()>>>> {
+    async fn connect_client(
+        client: grpc::Client,
+        server: tokio::task::JoinHandle<()>,
+    ) -> anyhow::Result<std::pin::Pin<Box<tokio::task::JoinHandle<()>>>> {
         // Make sure the client is connected, the first request has higher
         // latency. It is hard to write a timeout test that includes the request.
         let mut interval = tokio::time::interval(Duration::from_millis(10));
         let mut server = Box::pin(server);
 
         let request_options = RequestOptions::default();
-        let response = send_request(
-            client,
-            request_options,
-            "great success!",
-            None,
-        );
+        let response = send_request(client, request_options, "great success!", None);
         tokio::pin!(response);
         for _ in 0..100 {
             tokio::select! {
