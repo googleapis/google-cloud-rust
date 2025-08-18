@@ -84,32 +84,10 @@ mod tests {
     async fn test_timeout_expires() -> Result<()> {
         let (endpoint, server) = start_echo_server().await?;
         let client = test_client(endpoint).await?;
-        let mut server = Box::pin(server);
+        let mut server = connect_client(client.clone(), server).await?;
 
-        // Make sure the client is connected, the first request has higher
-        // latency. It is hard to write a timeout test that includes the request.
         let delay = Duration::from_millis(200);
         let mut interval = tokio::time::interval(Duration::from_millis(10));
-
-        let request_options = RequestOptions::default();
-        let response = send_request(
-            client.clone(),
-            request_options,
-            "great success!",
-            Some(delay),
-        );
-        tokio::pin!(response);
-        loop {
-            tokio::select! {
-                _ = &mut server => {  },
-                r = &mut response => {
-                    assert!(r.is_ok(), "{r:?}");
-                    break;
-                },
-                _ = interval.tick() => { },
-            }
-        }
-
         let timeout = Duration::from_millis(150);
         let mut request_options = RequestOptions::default();
         request_options.set_attempt_timeout(timeout);
@@ -144,37 +122,15 @@ mod tests {
     async fn test_effective_timeout() -> Result<()> {
         let (endpoint, server) = start_echo_server().await?;
         let client = test_client(endpoint).await?;
-        let mut server = Box::pin(server);
-
-        // Make sure the client is connected, the first request has higher
-        // latency. It is hard to write a timeout test that includes the request.
-        let delay = Duration::from_millis(200);
-        let mut interval = tokio::time::interval(Duration::from_millis(10));
-
-        let request_options = RequestOptions::default();
-        let response = send_request(
-            client.clone(),
-            request_options,
-            "great success!",
-            Some(delay),
-        );
-        tokio::pin!(response);
-        loop {
-            tokio::select! {
-                _ = &mut server => {  },
-                r = &mut response => {
-                    assert!(r.is_ok(), "{r:?}");
-                    break;
-                },
-                _ = interval.tick() => { },
-            }
-        }
+        let mut server = connect_client(client.clone(), server).await?;
 
         // The first attempt should timeout, because of the attempt timeout of
         // 100ms. The next attempt should timeout, because of the overall
         // timeout at 150ms.
         let attempt_timeout = Duration::from_millis(100);
         let overall_timeout = Duration::from_millis(150);
+        let delay = Duration::from_millis(200);
+        let mut interval = tokio::time::interval(Duration::from_millis(10));
 
         #[derive(Default, Debug)]
         struct TestBackoffPolicy {
@@ -243,6 +199,33 @@ mod tests {
             .with_credentials(test_credentials())
             .build()
             .await
+    }
+
+    async fn connect_client(client: grpc::Client, server: tokio::task::JoinHandle<()>) -> anyhow::Result<std::pin::Pin<Box<tokio::task::JoinHandle<()>>>> {
+        // Make sure the client is connected, the first request has higher
+        // latency. It is hard to write a timeout test that includes the request.
+        let mut interval = tokio::time::interval(Duration::from_millis(10));
+        let mut server = Box::pin(server);
+
+        let request_options = RequestOptions::default();
+        let response = send_request(
+            client,
+            request_options,
+            "great success!",
+            None,
+        );
+        tokio::pin!(response);
+        for _ in 0..100 {
+            tokio::select! {
+                _ = &mut server => {  },
+                r = &mut response => {
+                    assert!(r.is_ok(), "{r:?}");
+                    return Ok(server);
+                },
+                _ = interval.tick() => { },
+            }
+        }
+        Err(anyhow::Error::msg("cannot connect client"))
     }
 
     fn disable_throttling(o: &mut RequestOptions) {
