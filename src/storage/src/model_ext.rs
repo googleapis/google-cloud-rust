@@ -12,11 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Types used in the request builders ([ReadObject] and/or [WriteObject])
-//! to improve type safety or ergonomics.
-//!
-//! [ReadObject]: crate::builder::storage::ReadObject
-//! [WriteObject]: crate::builder::storage::WriteObject
+//! Extends [model][crate::model] with types that improve type safety and/or
+//! ergonomics.
 
 use crate::error::KeyAes256Error;
 use sha2::{Digest, Sha256};
@@ -32,7 +29,7 @@ use sha2::{Digest, Sha256};
 ///
 /// Creating a `KeyAes256` instance from a valid byte slice:
 /// ```
-/// # use google_cloud_storage::{model::request_helpers::KeyAes256, error::KeyAes256Error};
+/// # use google_cloud_storage::{model_ext::KeyAes256, error::KeyAes256Error};
 /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
 /// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
 /// # Ok::<(), KeyAes256Error>(())
@@ -40,7 +37,7 @@ use sha2::{Digest, Sha256};
 ///
 /// Handling an error for an invalid key length:
 /// ```
-/// # use google_cloud_storage::{model::request_helpers::KeyAes256, error::KeyAes256Error};
+/// # use google_cloud_storage::{model_ext::KeyAes256, error::KeyAes256Error};
 /// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
 /// let result = KeyAes256::new(invalid_key_bytes);
 ///
@@ -57,7 +54,7 @@ impl KeyAes256 {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::{model::request_helpers::KeyAes256, error::KeyAes256Error};
+    /// # use google_cloud_storage::{model_ext::KeyAes256, error::KeyAes256Error};
     /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
     /// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
     /// # Ok::<(), KeyAes256Error>(())

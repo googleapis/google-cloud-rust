@@ -20,7 +20,7 @@ use super::client::*;
 use super::perform_upload::PerformUpload;
 use super::streaming_source::{Seek, StreamingSource};
 use super::*;
-use crate::request_helpers::KeyAes256;
+use crate::model_ext::KeyAes256;
 use crate::storage::checksum::{
     ChecksumEngine,
     details::{Crc32c, Known, KnownCrc32c, KnownMd5, Md5, update as checksum_update},
@@ -568,7 +568,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// # use google_cloud_storage::model::request_helpers::KeyAes256;
+    /// # use google_cloud_storage::model_ext::KeyAes256;
     /// let key: &[u8] = &[97; 32];
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")

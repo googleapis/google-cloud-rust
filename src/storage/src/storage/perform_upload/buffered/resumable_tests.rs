@@ -106,7 +106,7 @@
 //! [Seek]: crate::streaming_source::Seek
 
 use super::RESUMABLE_UPLOAD_QUANTUM;
-use crate::request_helpers::{KeyAes256, tests::create_key_helper};
+use crate::model_ext::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::tests::{
     MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
 };

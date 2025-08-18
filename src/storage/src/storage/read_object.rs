@@ -17,8 +17,8 @@ use super::*;
 use crate::error::{RangeError, ReadError};
 use crate::model::ObjectChecksums;
 use crate::model::v1::ObjectHighlights;
+use crate::model_ext::KeyAes256;
 use crate::read_resume_policy::ReadResumePolicy;
-use crate::request_helpers::KeyAes256;
 use crate::storage::checksum::{
     ChecksumEngine,
     details::{Crc32c, Md5, validate},
@@ -290,7 +290,7 @@ where
     ///
     /// Example:
     /// ```
-    /// # use google_cloud_storage::{model::request_helpers::KeyAes256, client::Storage};
+    /// # use google_cloud_storage::{model_ext::KeyAes256, client::Storage};
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let key: &[u8] = &[97; 32];
     /// let response = client
@@ -864,7 +864,7 @@ mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
     use crate::error::ChecksumMismatch;
-    use crate::request_helpers::{KeyAes256, tests::create_key_helper};
+    use crate::model_ext::{KeyAes256, tests::create_key_helper};
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
