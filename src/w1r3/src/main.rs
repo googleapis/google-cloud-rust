@@ -181,7 +181,7 @@ async fn runner(
             let sample = match download(&client, &args, &upload).await {
                 (_, Ok(_)) => builder.success(),
                 (0, Err(e)) => builder.error(&e),
-                (_partial, Err(e)) => builder.error(&e),
+                (partial, Err(e)) => builder.interrupted(partial, &e),
             };
             let _ = task.tx.send(sample).await;
         }
@@ -374,6 +374,27 @@ impl SampleBuilder {
         }
     }
 
+    fn interrupted(self, transfer_size: usize, error: &google_cloud_storage::Error) -> Sample {
+        tracing::error!("experiment = {self:?} download interrupted");
+        let details = counters()
+            .map(|(name, value)| format!("{name}={value}"))
+            .chain([format!("error={error:?}")])
+            .collect::<Vec<_>>()
+            .join(";");
+        Sample {
+            task: self.task,
+            iteration: self.iteration,
+            op_start: self.relative,
+            size: self.target_size,
+            transfer_size,
+            op: self.op,
+            elapsed: Instant::now() - self.start,
+            object: self.object.to_string(),
+            result: ExperimentResult::Interrupted,
+            details,
+        }
+    }
+
     fn success(self) -> Sample {
         Sample {
             task: self.task,
@@ -462,6 +483,7 @@ impl Operation {
 enum ExperimentResult {
     Success,
     Error,
+    Interrupted,
 }
 
 impl ExperimentResult {
@@ -469,6 +491,7 @@ impl ExperimentResult {
         match self {
             Self::Success => "OK",
             Self::Error => "ERR",
+            Self::Interrupted => "INT",
         }
     }
 }
