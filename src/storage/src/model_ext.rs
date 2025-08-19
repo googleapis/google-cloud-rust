@@ -354,6 +354,17 @@ pub(crate) mod tests {
         assert_eq!(request.read_limit, 0);
     }
 
+    #[test_case(100, 100)]
+    #[test_case(u64::MAX, i64::MAX)]
+    #[test_case(0, 0)]
+    fn apply_head(input: u64, want: i64) {
+        let range = ReadRange::head(input);
+        let mut request = ReadObjectRequest::new();
+        request.with_range(range);
+        assert_eq!(request.read_offset, 0);
+        assert_eq!(request.read_limit, want);
+    }
+
     #[test_case(100, -100)]
     #[test_case(u64::MAX, -i64::MAX)]
     #[test_case(0, 0)]
