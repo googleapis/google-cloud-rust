@@ -78,8 +78,8 @@ showing possible values for the request fields. Most template strings include
 
 ### Single wildcard
 
-The `*` wildcard alone means a non-empty string without a `/`. It can be
-thought of as the regex `[^/]+`.
+The `*` wildcard alone means a non-empty string without a `/`. It can be thought
+of as the regex `[^/]+`.
 
 Here are some examples:
 
