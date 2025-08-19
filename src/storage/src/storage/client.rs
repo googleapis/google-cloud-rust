@@ -29,11 +29,11 @@ use std::sync::Arc;
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_storage::client::Storage;
 /// let client = Storage::builder().build().await?;
 /// // use `client` to make requests to Cloud Storage.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Configuration
