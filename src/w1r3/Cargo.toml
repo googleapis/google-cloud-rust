@@ -26,7 +26,7 @@ categories.workspace = true
 [dependencies]
 anyhow.workspace               = true
 bytes.workspace                = true
-clap                           = { workspace = true, features = ["derive", "std"] }
+clap                           = { workspace = true, features = ["derive", "help", "std", "usage"] }
 futures.workspace              = true
 google-cloud-storage.workspace = true
 humantime.workspace            = true

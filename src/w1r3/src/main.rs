@@ -13,11 +13,16 @@
 // limitations under the License.
 
 //! An implementation of the W1R3 benchmark for Rust.
-//!
-//! The W1R3 benchmark repeatedly uploads an object, then downloads the object
-//! 3 times, and then deletes the object. In each iteration of the benchmark the
-//! size and name of the object is selected at random. The benchmark runs
-//! multiple tasks concurrently.
+
+const DESCRIPTION: &str = concat!(
+    "The W1R3 benchmark repeatedly uploads an object, then downloads the object",
+    " 3 times. In each iteration of the benchmark the size and name of the",
+    " object is selected at random.",
+    " The type of upload (resumable vs. single-shot) is also selected at random.",
+    " Every few iterations, the tasks delete a batch of objects. The size of the",
+    " batch is selected at random, from a range specified in the commend line.",
+    " The benchmark runs multiple tasks concurrently, all running identical loops."
+);
 
 use clap::Parser;
 use google_cloud_storage::client::{Storage, StorageControl};
@@ -35,6 +40,9 @@ async fn main() -> anyhow::Result<()> {
     let _guard = enable_tracing();
 
     let args = Args::parse();
+    if args.min_object_size > args.max_object_size {
+        return Err(anyhow::Error::msg("invalid object size range"));
+    }
     tracing::info!("{args:?}");
 
     let handle = tokio::runtime::Handle::current();
@@ -99,7 +107,7 @@ async fn runner(
     );
     let size = Uniform::new_inclusive(args.min_object_size, args.max_object_size)?;
 
-    for iteration in 0..args.min_sample_count {
+    for iteration in 0..args.iterations {
         let size = rand::rng().sample(size) as usize;
         let name = random_object_name();
         let (write_op, threshold) = if rand::rng().random_bool(0.5) {
@@ -323,22 +331,38 @@ fn enable_tracing() -> tracing::dispatcher::DefaultGuard {
     tracing::subscriber::set_default(subscriber)
 }
 
+/// Runs the W1R3 benchmark for the Rust client library.
 #[derive(Clone, Debug, Parser)]
-#[command(version, about)]
+#[command(version, about, long_about = DESCRIPTION)]
 struct Args {
+    /// The name of the bucket used by the benchmark.
+    ///
+    /// You should use a regional bucket in the same region as the VM running
+    /// the benchmark.
     #[arg(long)]
     bucket_name: String,
 
+    /// The minimum object size.
+    ///
+    /// See `--maximum-object-size` for more details.
     #[arg(long, default_value_t = 0, value_parser = parse_size_arg)]
     min_object_size: u64,
+
+    /// The maximum object size.
+    ///
+    /// In each iteration, the benchmark picks a size at random between
+    /// `--minimum-object-size` and `--maximum-object-size`, both inclusive. The
+    /// benchmark uploads an object of that size and then reads it back
     #[arg(long, default_value_t = 0, value_parser = parse_size_arg)]
     max_object_size: u64,
 
+    /// The number of concurrent tasks running the benchmark.
     #[arg(long, default_value_t = 1)]
     task_count: usize,
 
+    /// The number of iterations for each task.
     #[arg(long, default_value_t = 1)]
-    min_sample_count: u64,
+    iterations: u64,
 }
 
 fn parse_size_arg(arg: &str) -> anyhow::Result<u64> {
