@@ -201,6 +201,7 @@ where
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .set_read_offset(100)
@@ -214,6 +215,7 @@ where
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .set_read_offset(-100)
@@ -227,6 +229,7 @@ where
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .set_read_offset(1000)
@@ -256,6 +259,7 @@ where
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .set_read_limit(100)
@@ -269,6 +273,7 @@ where
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .set_read_offset(1000)
@@ -293,6 +298,7 @@ where
     /// ```
     /// # use google_cloud_storage::{model_ext::KeyAes256, client::Storage};
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let key: &[u8] = &[97; 32];
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
@@ -313,6 +319,7 @@ where
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// use google_cloud_storage::retry_policy::RetryableErrors;
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
@@ -339,6 +346,7 @@ where
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// use std::time::Duration;
     /// use gax::exponential_backoff::ExponentialBackoff;
     /// let response = client
@@ -368,6 +376,7 @@ where
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_retry_throttler(adhoc_throttler())
@@ -398,6 +407,7 @@ where
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
@@ -742,6 +752,7 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let object = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
@@ -763,6 +774,7 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let mut resp = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
