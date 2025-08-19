@@ -28,6 +28,7 @@ use clap::Parser;
 use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials};
 use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
+use google_cloud_storage::ReadObjectResponse;
 use google_cloud_storage::Result as StorageResult;
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::Object;
