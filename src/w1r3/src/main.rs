@@ -235,14 +235,12 @@ async fn download(
         .set_generation(object.generation)
         .send();
 
-    let mut read = match tokio::time::timeout(duration, read)
-        .await
-    {
+    let mut read = match tokio::time::timeout(duration, read).await {
         Err(e) => {
             read_done();
             read_error();
             return (0, Err(google_cloud_gax::error::Error::timeout(e)));
-        },
+        }
         Ok(Ok(r)) => r,
         Ok(Err(e)) => {
             read_done();
