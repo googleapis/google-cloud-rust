@@ -106,11 +106,15 @@ async fn main() -> anyhow::Result<()> {
     }
     let counters = BTreeMap::from_iter(counters());
     tracing::info!("Counters = {counters:?}");
-    tracing::info!("DONE");
 
-    for t in tasks {
-        t.await??;
+    for (id, t) in tasks.into_iter().enumerate() {
+        match t.await {
+            Err(e) => tracing::error!("cannot join task {id}: {e}"),
+            Ok(Err(e)) => tracing::error!("error in task {id}: {e}"),
+            Ok(Ok(_)) => {}
+        }
     }
+    tracing::info!("DONE");
     Ok(())
 }
 
