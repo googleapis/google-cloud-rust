@@ -28,6 +28,8 @@ anyhow.workspace               = true
 bytes.workspace                = true
 clap                           = { workspace = true, features = ["derive", "help", "std", "usage"] }
 futures.workspace              = true
+google-cloud-auth.workspace    = true
+google-cloud-gax.workspace     = true
 google-cloud-storage.workspace = true
 humantime.workspace            = true
 parse-size.workspace           = true

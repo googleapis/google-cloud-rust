@@ -25,7 +25,13 @@ const DESCRIPTION: &str = concat!(
 );
 
 use clap::Parser;
+use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials};
+use google_cloud_gax::options::RequestOptionsBuilder;
+use google_cloud_gax::retry_policy::RetryPolicyExt;
+use google_cloud_storage::Result as StorageResult;
 use google_cloud_storage::client::{Storage, StorageControl};
+use google_cloud_storage::model::Object;
+use google_cloud_storage::retry_policy::RetryableErrors;
 use rand::{
     Rng,
     distr::{Alphanumeric, Uniform},
@@ -43,6 +49,9 @@ async fn main() -> anyhow::Result<()> {
     if args.min_object_size > args.max_object_size {
         return Err(anyhow::Error::msg("invalid object size range"));
     }
+    if args.min_delete_batch > args.max_delete_batch {
+        return Err(anyhow::Error::msg("invalid delete batch size range"));
+    }
     tracing::info!("{args:?}");
 
     let handle = tokio::runtime::Handle::current();
@@ -56,8 +65,11 @@ async fn main() -> anyhow::Result<()> {
         }
     });
 
-    let client = Storage::builder().build().await?;
-    let control = StorageControl::builder().build().await?;
+    let credentials = CredentialsBuilder::default().build()?;
+    let client = Storage::builder()
+        .with_credentials(credentials.clone())
+        .build()
+        .await?;
 
     let (tx, mut rx) = tokio::sync::mpsc::channel(128);
     let test_start = Instant::now();
@@ -66,7 +78,7 @@ async fn main() -> anyhow::Result<()> {
             tokio::spawn(runner(
                 task,
                 client.clone(),
-                control.clone(),
+                credentials.clone(),
                 test_start,
                 args.clone(),
                 tx.clone(),
@@ -90,25 +102,48 @@ async fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
+#[derive(Clone)]
+struct Task {
+    start: Instant,
+    id: usize,
+    tx: Sender<Sample>,
+}
+
 async fn runner(
-    task: usize,
+    id: usize,
     client: Storage,
-    control: StorageControl,
+    credentials: Credentials,
     test_start: Instant,
     args: Args,
     tx: Sender<Sample>,
 ) -> anyhow::Result<()> {
     let _guard = enable_tracing();
+    let control = StorageControl::builder()
+        .with_credentials(credentials)
+        .with_retry_policy(RetryableErrors.with_time_limit(Duration::from_secs(args.retry_seconds)))
+        .with_backoff_policy(google_cloud_storage::backoff_policy::default())
+        .build()
+        .await?;
     let buffer = bytes::Bytes::from_owner(
         rand::rng()
             .sample_iter(Uniform::new_inclusive(u8::MIN, u8::MAX)?)
             .take(args.max_object_size as usize)
             .collect::<Vec<_>>(),
     );
-    let size = Uniform::new_inclusive(args.min_object_size, args.max_object_size)?;
+    let task = Task {
+        id,
+        start: test_start,
+        tx,
+    };
 
+    let size_gen = Uniform::new_inclusive(args.min_object_size, args.max_object_size)?;
+    let batch_size_gen =
+        Uniform::new_inclusive(args.min_delete_batch, args.max_delete_batch).unwrap();
+
+    let mut batch_size = rand::rng().sample(batch_size_gen);
+    let mut deletes = Vec::new();
     for iteration in 0..args.iterations {
-        let size = rand::rng().sample(size) as usize;
+        let size = rand::rng().sample(size_gen) as usize;
         let name = random_object_name();
         let (write_op, threshold) = if rand::rng().random_bool(0.5) {
             (Operation::Resumable, 0_usize)
@@ -135,19 +170,20 @@ async fn runner(
                 continue;
             }
         };
-        tx.send(Sample {
-            task,
-            iteration,
-            size,
-            transfer_size: size,
-            op: write_op,
-            op_start: write_start - test_start,
-            elapsed: Instant::now() - write_start,
-            object: upload.name.clone(),
-            result: ExperimentResult::Success,
-            details: "".to_string(),
-        })
-        .await?;
+        task.tx
+            .send(Sample {
+                task: task.id,
+                iteration,
+                size,
+                transfer_size: size,
+                op: write_op,
+                op_start: write_start - test_start,
+                elapsed: Instant::now() - write_start,
+                object: upload.name.clone(),
+                result: ExperimentResult::Success,
+                details: "".to_string(),
+            })
+            .await?;
         for op in [Operation::Read0, Operation::Read1, Operation::Read2] {
             let read_start = Instant::now();
             let Ok(mut read) = client
@@ -167,33 +203,156 @@ async fn runner(
                 }
             }
             read_done();
-            tx.send(Sample {
-                task,
-                iteration,
-                size,
-                transfer_size,
-                op,
-                op_start: read_start - test_start,
-                elapsed: Instant::now() - read_start,
-                object: upload.name.clone(),
-                result: if transfer_size == size {
-                    ExperimentResult::Success
-                } else {
-                    ExperimentResult::Error
-                },
-                details: "".to_string(),
-            })
-            .await?;
+            task.tx
+                .send(Sample {
+                    task: task.id,
+                    iteration,
+                    size,
+                    transfer_size,
+                    op,
+                    op_start: read_start - test_start,
+                    elapsed: Instant::now() - read_start,
+                    object: upload.name.clone(),
+                    result: if transfer_size == size {
+                        ExperimentResult::Success
+                    } else {
+                        ExperimentResult::Error
+                    },
+                    details: "".to_string(),
+                })
+                .await?;
         }
-        let _ = control
-            .delete_object()
-            .set_bucket(upload.bucket)
-            .set_object(upload.name)
-            .set_generation(upload.generation)
-            .send()
+        deletes.push(delete(&control, &args, upload));
+        if deletes.len() >= batch_size {
+            batch_size = rand::rng().sample(batch_size_gen);
+            batch_delete(
+                &task,
+                iteration,
+                deletes.len(),
+                deletes.drain(..),
+                name.as_str(),
+            )
             .await;
+        }
     }
+    batch_delete(
+        &task,
+        args.iterations,
+        deletes.len(),
+        deletes.into_iter(),
+        "N/A",
+    )
+    .await;
     Ok(())
+}
+
+async fn batch_delete<I, F>(task: &Task, iteration: u64, size: usize, pending: I, name: &str)
+where
+    I: Iterator<Item = F>,
+    F: Future<Output = StorageResult<()>>,
+{
+    let builder = SampleBuilder::new(task, iteration, Operation::Delete, size, name.to_string());
+    let done = futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .collect::<StorageResult<Vec<_>>>();
+    delete_done();
+    match done {
+        Ok(_) => {
+            let _ = task.tx.send(builder.success()).await;
+        }
+        Err(e) => {
+            tracing::error!("delete error: {e:?}");
+            delete_error();
+            let _ = task.tx.send(builder.error(&e)).await;
+        }
+    }
+}
+
+async fn delete(control: &StorageControl, args: &Args, object: Object) -> StorageResult<()> {
+    use google_cloud_gax::error::rpc::Code;
+
+    let result = control
+        .delete_object()
+        .set_bucket(object.bucket)
+        .set_object(object.name)
+        .set_generation(object.generation)
+        .with_attempt_timeout(Duration::from_secs(args.attempt_seconds))
+        .with_idempotency(true)
+        .send()
+        .await;
+    if let Err(e) = result {
+        // Ignore NotFound errors as they may be the result of a retry.
+        if e.status().is_some_and(|s| s.code == Code::NotFound) {
+            return Ok(());
+        }
+        return Err(e);
+    };
+    Ok(())
+}
+
+#[derive(Clone, Debug)]
+struct SampleBuilder {
+    task: usize,
+    relative: Duration,
+    iteration: u64,
+    start: Instant,
+    op: Operation,
+    target_size: usize,
+    object: String,
+}
+
+impl SampleBuilder {
+    fn new(task: &Task, iteration: u64, op: Operation, target_size: usize, object: String) -> Self {
+        Self {
+            task: task.id,
+            relative: Instant::now() - task.start,
+            start: Instant::now(),
+            iteration,
+            op,
+            target_size,
+            object,
+        }
+    }
+
+    fn error(self, error: &google_cloud_storage::Error) -> Sample {
+        tracing::error!(
+            "{} sample_builder = {self:?} error = {error:?}",
+            self.op.name()
+        );
+        let details = counters()
+            .map(|(name, value)| format!("{name}={value}"))
+            .chain([format!("error={error:?}")])
+            .collect::<Vec<_>>()
+            .join(";");
+        Sample {
+            task: self.task,
+            iteration: self.iteration,
+            op_start: self.relative,
+            size: self.target_size,
+            transfer_size: 0,
+            op: self.op,
+            elapsed: Instant::now() - self.start,
+            object: self.object,
+            result: ExperimentResult::Error,
+            details,
+        }
+    }
+
+    fn success(self) -> Sample {
+        Sample {
+            task: self.task,
+            iteration: self.iteration,
+            op_start: self.relative,
+            size: self.target_size,
+            transfer_size: self.target_size,
+            op: self.op,
+            elapsed: Instant::now() - self.start,
+            object: self.object.to_string(),
+            result: ExperimentResult::Success,
+            details: String::new(),
+        }
+    }
 }
 
 fn random_object_name() -> String {
@@ -248,6 +407,7 @@ enum Operation {
     Read0,
     Read1,
     Read2,
+    Delete,
 }
 
 impl Operation {
@@ -258,6 +418,7 @@ impl Operation {
             Self::Read0 => "READ[0]",
             Self::Read1 => "READ[1]",
             Self::Read2 => "READ[2]",
+            Self::Delete => "DELETE",
         }
     }
 }
@@ -277,11 +438,18 @@ impl ExperimentResult {
     }
 }
 
+static DELETE_COUNT: AtomicU64 = AtomicU64::new(0);
 static READ_COUNT: AtomicU64 = AtomicU64::new(0);
 static SAMPLE_COUNT: AtomicU64 = AtomicU64::new(0);
 static WRITE_COUNT: AtomicU64 = AtomicU64::new(0);
+static DELETE_ERROR: AtomicU64 = AtomicU64::new(0);
 static READ_ERROR: AtomicU64 = AtomicU64::new(0);
 static WRITE_ERROR: AtomicU64 = AtomicU64::new(0);
+
+#[inline]
+fn delete_done() {
+    DELETE_COUNT.fetch_add(1, Ordering::SeqCst);
+}
 
 #[inline]
 fn read_done() {
@@ -299,6 +467,11 @@ fn write_done() {
 }
 
 #[inline]
+fn delete_error() {
+    DELETE_ERROR.fetch_add(1, Ordering::SeqCst);
+}
+
+#[inline]
 fn read_error() {
     READ_ERROR.fetch_add(1, Ordering::SeqCst);
 }
@@ -310,9 +483,11 @@ fn write_error() {
 
 fn counters() -> impl Iterator<Item = (&'static str, u64)> {
     [
-        ("READ_COUNT", READ_COUNT.load(Ordering::SeqCst)),
         ("SAMPLE_COUNT", SAMPLE_COUNT.load(Ordering::SeqCst)),
+        ("DELETE_COUNT", DELETE_COUNT.load(Ordering::SeqCst)),
+        ("READ_COUNT", READ_COUNT.load(Ordering::SeqCst)),
         ("WRITE_COUNT", WRITE_COUNT.load(Ordering::SeqCst)),
+        ("DELETE_ERROR", DELETE_ERROR.load(Ordering::SeqCst)),
         ("READ_ERROR", READ_ERROR.load(Ordering::Relaxed)),
         ("WRITE_ERROR", WRITE_ERROR.load(Ordering::Relaxed)),
     ]
@@ -363,6 +538,22 @@ struct Args {
     /// The number of iterations for each task.
     #[arg(long, default_value_t = 1)]
     iterations: u64,
+
+    /// The minimum size for the delete batch.
+    #[arg(long, default_value_t = 20)]
+    min_delete_batch: usize,
+
+    /// The maximum size for the delete batch.
+    #[arg(long, default_value_t = 20)]
+    max_delete_batch: usize,
+
+    /// The maximum time for the retry loop.
+    #[arg(long, default_value_t = 900)]
+    retry_seconds: u64,
+
+    /// The maximum time for each attempt.
+    #[arg(long, default_value_t = 30)]
+    attempt_seconds: u64,
 }
 
 fn parse_size_arg(arg: &str) -> anyhow::Result<u64> {
