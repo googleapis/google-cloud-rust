@@ -151,76 +151,28 @@ async fn runner(
             (Operation::SingleShot, size)
         };
 
-        let write_start = Instant::now();
-        let upload = client
-            .write_object(
-                format!("projects/_/buckets/{}", &args.bucket_name),
-                &name,
-                buffer.slice(0..size),
-            )
-            .with_resumable_upload_threshold(threshold)
-            .send_unbuffered()
-            .await;
-        write_done();
-        let upload = match upload {
-            Ok(u) => u,
+        let builder = SampleBuilder::new(&task, iteration, write_op, size, name.clone());
+        let upload = match upload(&client, &args, &name, buffer.slice(0..size), threshold).await {
+            Ok(u) => {
+                let _ = task.tx.send(builder.success()).await;
+                write_done();
+                u
+            }
             Err(e) => {
+                let _ = task.tx.send(builder.error(&e)).await;
+                write_done();
                 write_error();
-                tracing::error!("# Error in upload {e}");
                 continue;
             }
         };
-        task.tx
-            .send(Sample {
-                task: task.id,
-                iteration,
-                size,
-                transfer_size: size,
-                op: write_op,
-                op_start: write_start - test_start,
-                elapsed: Instant::now() - write_start,
-                object: upload.name.clone(),
-                result: ExperimentResult::Success,
-                details: "".to_string(),
-            })
-            .await?;
         for op in [Operation::Read0, Operation::Read1, Operation::Read2] {
-            let read_start = Instant::now();
-            let Ok(mut read) = client
-                .read_object(&upload.bucket, &upload.name)
-                .set_generation(upload.generation)
-                .send()
-                .await
-            else {
-                read_done();
-                read_error();
-                continue;
+            let builder = SampleBuilder::new(&task, iteration, op, size, upload.name.clone());
+            let sample = match download(&client, &args, &upload).await {
+                (_, Ok(_)) => builder.success(),
+                (0, Err(e)) => builder.error(&e),
+                (_partial, Err(e)) => builder.error(&e),
             };
-            let mut transfer_size = 0;
-            while let Some(b) = read.next().await {
-                if let Ok(b) = b {
-                    transfer_size += b.len();
-                }
-            }
-            read_done();
-            task.tx
-                .send(Sample {
-                    task: task.id,
-                    iteration,
-                    size,
-                    transfer_size,
-                    op,
-                    op_start: read_start - test_start,
-                    elapsed: Instant::now() - read_start,
-                    object: upload.name.clone(),
-                    result: if transfer_size == size {
-                        ExperimentResult::Success
-                    } else {
-                        ExperimentResult::Error
-                    },
-                    details: "".to_string(),
-                })
-                .await?;
+            let _ = task.tx.send(sample).await;
         }
         deletes.push(delete(&control, &args, upload));
         if deletes.len() >= batch_size {
@@ -244,6 +196,77 @@ async fn runner(
     )
     .await;
     Ok(())
+}
+
+async fn upload(
+    client: &Storage,
+    args: &Args,
+    name: &str,
+    buffer: bytes::Bytes,
+    threshold: usize,
+) -> StorageResult<Object> {
+    let duration = Duration::from_secs(args.retry_seconds);
+
+    let future = client
+        .write_object(
+            format!("projects/_/buckets/{}", &args.bucket_name),
+            name,
+            buffer,
+        )
+        .set_if_generation_match(0)
+        .with_resumable_upload_threshold(threshold)
+        .send_unbuffered();
+
+    match tokio::time::timeout(duration, future).await {
+        Err(e) => Err(google_cloud_storage::Error::timeout(e)),
+        Ok(r) => r,
+    }
+}
+
+async fn download(
+    client: &Storage,
+    args: &Args,
+    object: &google_cloud_storage::model::Object,
+) -> (usize, StorageResult<()>) {
+    let duration = Duration::from_secs(args.retry_seconds);
+
+    let read = client
+        .read_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .send();
+
+    let mut read = match tokio::time::timeout(duration, read)
+        .await
+        .map_err(google_cloud_storage::Error::timeout)
+        .flatten()
+    {
+        Ok(r) => r,
+        Err(e) => {
+            read_done();
+            read_error();
+            return (0, Err(e));
+        }
+    };
+    read_done();
+    let duration = Duration::from_secs(args.retry_seconds);
+    let mut transfer_size = 0;
+    let mut read_data = async move || {
+        while let Some(result) = read.next().await {
+            match result {
+                Ok(b) => transfer_size += b.len(),
+                Err(e) => {
+                    read_error();
+                    return Err(e);
+                }
+            }
+        }
+        Ok(())
+    };
+
+    match tokio::time::timeout(duration, read_data()).await {
+        Err(e) => (transfer_size, Err(google_cloud_storage::Error::timeout(e))),
+        Ok(r) => (transfer_size, r),
+    }
 }
 
 async fn batch_delete<I, F>(task: &Task, iteration: u64, size: usize, pending: I, name: &str)
