@@ -71,6 +71,16 @@ async fn main() -> anyhow::Result<()> {
         .build()
         .await?;
 
+    // Use random data for the uploads. We could use a buffer full of zeroes,
+    // but that compresses too well and may introduce artificially good results.
+    tracing::info!("generating random data");
+    let buffer = bytes::Bytes::from_owner(
+        rand::rng()
+            .sample_iter(Uniform::new_inclusive(u8::MIN, u8::MAX)?)
+            .take(args.max_object_size as usize)
+            .collect::<Vec<_>>(),
+    );
+    tracing::info!("random data ready");
     let (tx, mut rx) = tokio::sync::mpsc::channel(128);
     let test_start = Instant::now();
     let tasks = (0..args.task_count)
@@ -79,6 +89,7 @@ async fn main() -> anyhow::Result<()> {
                 task,
                 client.clone(),
                 credentials.clone(),
+                buffer.clone(),
                 test_start,
                 args.clone(),
                 tx.clone(),
@@ -113,6 +124,7 @@ async fn runner(
     id: usize,
     client: Storage,
     credentials: Credentials,
+    buffer: bytes::Bytes,
     test_start: Instant,
     args: Args,
     tx: Sender<Sample>,
@@ -124,12 +136,6 @@ async fn runner(
         .with_backoff_policy(google_cloud_storage::backoff_policy::default())
         .build()
         .await?;
-    let buffer = bytes::Bytes::from_owner(
-        rand::rng()
-            .sample_iter(Uniform::new_inclusive(u8::MIN, u8::MAX)?)
-            .take(args.max_object_size as usize)
-            .collect::<Vec<_>>(),
-    );
     let task = Task {
         id,
         start: test_start,
