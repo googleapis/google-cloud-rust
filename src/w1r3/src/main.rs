@@ -237,11 +237,14 @@ async fn download(
 
     let mut read = match tokio::time::timeout(duration, read)
         .await
-        .map_err(google_cloud_storage::Error::timeout)
-        .flatten()
     {
-        Ok(r) => r,
         Err(e) => {
+            read_done();
+            read_error();
+            return (0, Err(google_cloud_gax::error::Error::timeout(e)));
+        },
+        Ok(Ok(r)) => r,
+        Ok(Err(e)) => {
             read_done();
             read_error();
             return (0, Err(e));
