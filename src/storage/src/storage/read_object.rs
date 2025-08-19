@@ -632,9 +632,8 @@ where
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let object = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
@@ -644,7 +643,7 @@ where
     /// println!("object metageneration={}", object.metageneration);
     /// println!("object size={}", object.size);
     /// println!("object content encoding={}", object.content_encoding);
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub fn object(&self) -> ObjectHighlights {
         self.highlights.clone()
@@ -656,18 +655,16 @@ where
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let mut resp = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
     ///     .await?;
-    ///
     /// while let Some(next) = resp.next().await {
     ///     println!("next={:?}", next?);
     /// }
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
         match self.next_attempt().await {
