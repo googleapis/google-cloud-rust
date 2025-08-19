@@ -16,7 +16,8 @@ limitations under the License.
 
 # Handling binding errors
 
-You might have tried to make a request and run into an error that looks like:
+You might have tried to make a request and run into an error that looks like
+this:
 
 ```norust
 Error: cannot find a matching binding to send the request: at least one of the
@@ -25,23 +26,25 @@ conditions must be met: (1) field `name` needs to be set and match the template:
 template: 'projects/*/locations/*/secrets/*'
 ```
 
-This guide will explain how to troubleshoot this type of error.
+This is a *binding error*, and this guide explains how to troubleshoot binding
+errors.
 
-## When this happens
+## What causes a binding error
 
 The Google Cloud Client Libraries for Rust primarily use HTTP to send requests
-to Google Cloud services.
+to Google Cloud services. An HTTP request uses a Uniform Resource Identifier
+([URI]) to specify a resource.
 
-Some RPCs correspond to multiple [URI]s. The contents of the request determine
+Some RPCs correspond to multiple URIs. The contents of the request determine
 which URI is used.
 
 The client library considers all possible URIs, and only returns a binding error
-if no URIs work. Typically this happens when a field is either missing, or in an
+if no URIs work. Typically this happens when a field is either missing or in an
 invalid format.
 
-The example error above was produced by trying to get a resource, without naming
+The example error above was produced by trying to get a resource without naming
 the resource. Specifically, the `name` field on a [`GetSecretRequest`] was
-required, but not set.
+required but not set.
 
 ```rust,ignore
 {{#include ../samples/src/binding_errors.rs:request}}
@@ -49,29 +52,33 @@ required, but not set.
 
 ## How to fix it
 
-To fix the code, we need to set the `name` field to something matching one of
-the above templates. Either will allow the client library to make a request to
-the server.
+In this case, to fix the error you'd set the `name` field to something matching
+one of the templates shown in the error message:
+
+- `'projects/*/secrets/*'`
+- `'projects/*/locations/*/secrets/*'`
+
+Either allows the client library to make a request to the server:
 
 ```rust,ignore
 {{#include ../samples/src/binding_errors.rs:request-success-1}}
 ```
 
-OR
+or
 
 ```rust,ignore
 {{#include ../samples/src/binding_errors.rs:request-success-2}}
 ```
 
-## Interpreting the templates
+## Interpreting templates
 
-The error message includes a number of "template strings" showing possible
-values for the request fields. Most template strings include `*` and `**` as
-wildcards to match the field values.
+The error message for a binding error includes a number of template strings
+showing possible values for the request fields. Most template strings include
+`*` and `**` as wildcards to match the field values.
 
 ### Single wildcard
 
-The `*` wildcard alone means: a non-empty string without a `/`. It can be
+The `*` wildcard alone means a non-empty string without a `/`. It can be
 thought of as the regex `[^/]+`.
 
 Here are some examples:
@@ -92,7 +99,7 @@ Here are some examples:
 
 ### Double wildcard
 
-Less common is the `**` wildcard, which means: any string. The string can be
+Less common is the `**` wildcard, which means any string. The string can be
 empty or contain any number of `/`'s. It can be thought of as the regex `.*`.
 
 Also, when a template ends in `/**`, that initial slash is optionally included.
