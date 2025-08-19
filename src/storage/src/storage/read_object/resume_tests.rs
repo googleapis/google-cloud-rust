@@ -53,6 +53,7 @@ use crate::{
     storage::client::tests::{
         MockBackoffPolicy, MockReadResumePolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
     },
+    storage::read_object::ReadObjectResponse,
 };
 use gax::retry_policy::RetryPolicyExt;
 use gax::retry_result::RetryResult;
