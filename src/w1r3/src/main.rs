@@ -24,6 +24,8 @@ const DESCRIPTION: &str = concat!(
     " The benchmark runs multiple tasks concurrently, all running identical loops."
 );
 
+mod instrumented_future;
+
 use clap::Parser;
 use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials};
 use google_cloud_gax::options::RequestOptionsBuilder;
@@ -33,6 +35,7 @@ use google_cloud_storage::Result as StorageResult;
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::Object;
 use google_cloud_storage::retry_policy::RetryableErrors;
+use instrumented_future::Instrumented;
 use rand::{
     Rng,
     distr::{Alphanumeric, Uniform},
@@ -227,7 +230,7 @@ async fn upload(
         .with_resumable_upload_threshold(threshold)
         .send_unbuffered();
 
-    match tokio::time::timeout(duration, future).await {
+    match tokio::time::timeout(duration, Instrumented::new(future)).await {
         Err(e) => Err(google_cloud_storage::Error::timeout(e)),
         Ok(r) => r,
     }
@@ -274,7 +277,7 @@ async fn download(
         Ok(())
     };
 
-    match tokio::time::timeout(duration, read_data()).await {
+    match tokio::time::timeout(duration, Instrumented::new(read_data())).await {
         Err(e) => (transfer_size, Err(google_cloud_storage::Error::timeout(e))),
         Ok(r) => (transfer_size, r),
     }
@@ -313,8 +316,8 @@ async fn delete(control: &StorageControl, args: &Args, object: Object) -> Storag
         .set_generation(object.generation)
         .with_attempt_timeout(Duration::from_secs(args.attempt_seconds))
         .with_idempotency(true)
-        .send()
-        .await;
+        .send();
+    let result = Instrumented::new(result).await;
     if let Err(e) = result {
         // Ignore NotFound errors as they may be the result of a retry.
         if e.status().is_some_and(|s| s.code == Code::NotFound) {
