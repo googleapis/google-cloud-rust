@@ -811,6 +811,7 @@ pub async fn ranged_reads(
     tracing::info!("created object {object:?}");
 
     use storage::model_ext::ReadRange;
+    let want = VEXING.as_bytes();
     tracing::info!("running with ReadRange::head");
     let response = client
         .read_object(&object.bucket, &object.name)
@@ -819,7 +820,7 @@ pub async fn ranged_reads(
         .send()
         .await?;
     let got = read_all(response).await?;
-    assert_eq!(&got, VEXING[0..4].as_bytes());
+    assert_eq!(&got, &want[0..4]);
 
     tracing::info!("running with ReadRange::tail");
     let response = client
@@ -829,7 +830,7 @@ pub async fn ranged_reads(
         .send()
         .await?;
     let got = read_all(response).await?;
-    assert_eq!(&got, VEXING[(VEXING.len() - 4)..].as_bytes());
+    assert_eq!(&got, &want[(VEXING.len() - 4)..]);
 
     tracing::info!("running with ReadRange::offset");
     let response = client
@@ -839,7 +840,7 @@ pub async fn ranged_reads(
         .send()
         .await?;
     let got = read_all(response).await?;
-    assert_eq!(&got, VEXING[4..].as_bytes());
+    assert_eq!(&got, &want[4..]);
 
     tracing::info!("running with ReadRange::segment");
     let response = client
@@ -849,7 +850,7 @@ pub async fn ranged_reads(
         .send()
         .await?;
     let got = read_all(response).await?;
-    assert_eq!(&got, VEXING[4..8].as_bytes());
+    assert_eq!(&got, &want[4..8]);
 
     tracing::info!("DONE");
     Ok(())
