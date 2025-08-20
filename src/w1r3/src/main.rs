@@ -82,7 +82,7 @@ async fn main() -> anyhow::Result<()> {
             .collect::<Vec<_>>(),
     );
     tracing::info!("random data ready");
-    let (tx, mut rx) = tokio::sync::mpsc::channel(128);
+    let (tx, mut rx) = tokio::sync::mpsc::channel(1024 * args.task_count);
     let test_start = Instant::now();
     let tasks = (0..args.task_count)
         .map(|task| {
