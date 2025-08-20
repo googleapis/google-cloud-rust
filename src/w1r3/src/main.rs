@@ -159,7 +159,7 @@ async fn runner(
         let (write_op, threshold) = if rand::rng().random_bool(0.5) {
             (Operation::Resumable, 0_usize)
         } else {
-            (Operation::SingleShot, size)
+            (Operation::SingleShot, size + 1)
         };
 
         let builder = SampleBuilder::new(&task, iteration, write_op, size, name.clone());
