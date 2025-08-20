@@ -255,7 +255,7 @@ impl crate::model::ReadObjectRequest {
     pub(crate) fn with_range(&mut self, range: ReadRange) {
         // The limit for GCS objects is (currently) 5TiB, and the gRPC protocol
         // uses i64 for the offset and limit. Clamping the values to the
-        // `[0, i64::MAX]`` range is safe, in that it does not loose any
+        // `[0, i64::MAX]`` range is safe, in that it does not lose any
         // functionality.
         match range.0 {
             Range::All => {

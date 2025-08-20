@@ -191,11 +191,10 @@ where
 
     /// The range of bytes to return in the read.
     ///
-    /// This can be all the bytes starting at a give offset (`ReadRange::offset()`),
-    /// all the bytes in a explicit range (`Range::segment`), the last N bytes
-    /// of the object (`ReadRange::tail`)
-    /// A negative `read_offset` value will be interpreted as the number of bytes
-    /// back from the end of the object to be returned.
+    /// This can be all the bytes starting at a given offset
+    /// (`ReadRange::offset()`), all the bytes in an explicit range
+    /// (`Range::segment`), or the last N bytes of the object
+    /// (`ReadRange::tail`).
     ///
     /// # Examples
     ///
@@ -487,6 +486,8 @@ where
             ),
             // If both are zero, we use default implementation (no range header).
             (0, 0) => builder,
+            // negative offset with no limit means the last N bytes.
+            (o, 0) if o < 0 => builder.header("range", format!("bytes={o}")),
             // read_limit is zero, means no limit. Read from offset to end of file.
             // This handles cases like (5, 0) -> "bytes=5-"
             (o, 0) => builder.header("range", format!("bytes={o}-")),
@@ -1354,7 +1355,7 @@ mod tests {
 
     #[test_case(ReadRange::all(), None; "no headers needed")]
     #[test_case(ReadRange::offset(10), Some(&http::HeaderValue::from_static("bytes=10-")); "offset only")]
-    #[test_case(ReadRange::tail(2000), Some(&http::HeaderValue::from_static("bytes=-2000-")); "negative offset")]
+    #[test_case(ReadRange::tail(2000), Some(&http::HeaderValue::from_static("bytes=-2000")); "negative offset")]
     #[test_case(ReadRange::segment(0, 100), Some(&http::HeaderValue::from_static("bytes=0-99")); "limit only")]
     #[test_case(ReadRange::segment(1000, 100), Some(&http::HeaderValue::from_static("bytes=1000-1099")); "offset and limit")]
     #[tokio::test]
