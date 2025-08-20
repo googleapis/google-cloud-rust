@@ -15,7 +15,7 @@
 use super::request_options::RequestOptions;
 use crate::Error;
 use crate::builder::storage::ReadObject;
-use crate::builder::storage::UploadObject;
+use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::streaming_source::Payload;
 use auth::credentials::CacheableResource;
@@ -28,11 +28,11 @@ use std::sync::Arc;
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_storage::client::Storage;
 /// let client = Storage::builder().build().await?;
 /// // use `client` to make requests to Cloud Storage.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Configuration
@@ -112,12 +112,13 @@ impl Storage {
         ClientBuilder::new()
     }
 
-    /// Upload an object using a local buffer.
+    /// Write an object using a local buffer.
     ///
     /// If the data source does **not** implement [Seek] the client library must
-    /// buffer uploaded data until this data is persisted in the service. This
-    /// requires more memory in the client, and when the buffer grows too large,
-    /// may require stalling the upload until the service can persist the data.
+    /// buffer data sent to the service until the service confirms it has
+    /// persisted the data. This requires more memory in the client, and when
+    /// the buffer grows too large, may require stalling the writer until the
+    /// service can persist the data.
     ///
     /// Use this function for data sources representing computations where
     /// it is expensive or impossible to restart said computation. This function
@@ -130,7 +131,7 @@ impl Storage {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -142,7 +143,7 @@ impl Storage {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send_unbuffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -156,13 +157,13 @@ impl Storage {
     /// * `payload` - the object data.
     ///
     /// [Seek]: crate::streaming_source::Seek
-    pub fn upload_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> UploadObject<P>
+    pub fn write_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> WriteObject<P>
     where
         B: Into<String>,
         O: Into<String>,
         T: Into<Payload<P>>,
     {
-        UploadObject::new(self.inner.clone(), bucket, object, payload)
+        WriteObject::new(self.inner.clone(), bucket, object, payload)
     }
 
     /// Reads the contents of an object.
@@ -171,6 +172,7 @@ impl Storage {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let mut resp = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
@@ -438,21 +440,21 @@ impl ClientBuilder {
     ///     .build()
     ///     .await?;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
     ///
-    /// The client library can perform uploads using [single-shot] or
-    /// [resumable] uploads. For small objects, single-shot uploads offer better
+    /// The client library can write objects using [single-shot] or [resumable]
+    /// uploads. For small objects, single-shot uploads offer better
     /// performance, as they require a single HTTP transfer. For larger objects,
     /// the additional request latency is not significant, and resumable uploads
     /// offer better recovery on errors.
     ///
     /// The library automatically selects resumable uploads when the payload is
-    /// equal to or larger than this option. For smaller uploads the client
+    /// equal to or larger than this option. For smaller writes the client
     /// library uses single-shot uploads.
     ///
     /// The exact threshold depends on where the application is deployed and
@@ -478,7 +480,7 @@ impl ClientBuilder {
     ///     .build()
     ///     .await?;
     /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -487,13 +489,13 @@ impl ClientBuilder {
     ///
     /// When performing [resumable uploads] from sources without [Seek] the
     /// client library needs to buffer data in memory until it is persisted by
-    /// the service. Otherwise the data would be lost if the upload fails.
-    /// Applications may want to tune this buffer size:
+    /// the service. Otherwise the data would be lost if the upload is
+    /// interrupted. Applications may want to tune this buffer size:
     ///
-    /// - Use smaller buffer sizes to support more concurrent uploads in the
+    /// - Use smaller buffer sizes to support more concurrent writes in the
     ///   same application.
     /// - Use larger buffer sizes for better throughput. Sending many small
-    ///   buffers stalls the upload until the client receives a successful
+    ///   buffers stalls the writer until the client receives a successful
     ///   response from the service.
     ///
     /// Keep in mind that there are diminishing returns on using larger buffers.

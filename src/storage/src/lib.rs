@@ -56,7 +56,7 @@ pub mod builder {
         //! Request builders for [Storage][crate::client::Storage].
         pub use crate::storage::client::ClientBuilder;
         pub use crate::storage::read_object::ReadObject;
-        pub use crate::storage::upload_object::UploadObject;
+        pub use crate::storage::write_object::WriteObject;
     }
     pub mod storage_control {
         //! Request builders for [StorageControl][crate::client::StorageControl].
@@ -65,10 +65,11 @@ pub mod builder {
     }
 }
 pub mod error;
-pub mod model;
+/// The messages and enums that are part of this client library.
+pub use crate::control::model;
+pub mod model_ext;
 pub use crate::control::stub;
 
-pub use storage::read_object::ObjectHighlights;
 pub use storage::read_object::ReadObjectResponse;
 
 #[allow(dead_code)]

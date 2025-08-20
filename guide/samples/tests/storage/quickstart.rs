@@ -52,13 +52,14 @@ pub async fn quickstart(project_id: &str, bucket_id: &str) -> anyhow::Result<()>
 
     // ANCHOR: upload
     let object = client
-        .upload_object(&bucket.name, "hello.txt", "Hello World!")
+        .write_object(&bucket.name, "hello.txt", "Hello World!")
         .send_buffered()
         .await?;
     println!("object successfully uploaded {object:?}");
     // ANCHOR_END: upload
 
     // ANCHOR: download
+    use google_cloud_storage::ReadObjectResponse;
     let mut reader = client.read_object(&bucket.name, "hello.txt").send().await?;
     let mut contents = Vec::new();
     while let Some(chunk) = reader.next().await.transpose()? {

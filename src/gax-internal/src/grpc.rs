@@ -193,8 +193,7 @@ impl Client {
                 .map_err(BuilderError::transport)?
                 .tls_config(ClientTlsConfig::new().with_enabled_roots())
                 .map_err(BuilderError::transport)?;
-        let conn = endpoint.connect().await.map_err(BuilderError::transport)?;
-        Ok(tonic::client::Grpc::new(conn))
+        Ok(tonic::client::Grpc::new(endpoint.connect_lazy()))
     }
 
     async fn make_credentials(

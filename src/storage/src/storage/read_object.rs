@@ -16,7 +16,8 @@ use super::client::*;
 use super::*;
 use crate::error::{RangeError, ReadError};
 use crate::model::ObjectChecksums;
-use crate::model::request_helpers::KeyAes256;
+use crate::model_ext::KeyAes256;
+use crate::model_ext::ObjectHighlights;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::{
     ChecksumEngine,
@@ -31,7 +32,7 @@ use serde_with::DeserializeAs;
 ///
 /// # Example: accumulate the contents of an object into a vector
 /// ```
-/// use google_cloud_storage::{client::Storage, builder::storage::ReadObject};
+/// use google_cloud_storage::{client::Storage, builder::storage::ReadObject, ReadObjectResponse};
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
 ///     let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
 ///     let mut reader = builder.send().await?;
@@ -46,14 +47,14 @@ use serde_with::DeserializeAs;
 ///
 /// # Example: read part of an object
 /// ```
-/// use google_cloud_storage::{client::Storage, builder::storage::ReadObject};
+/// use google_cloud_storage::{client::Storage, builder::storage::ReadObject, ReadObjectResponse};
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
 ///     const MIB: i64 = 1024 * 1024;
 ///     let mut contents = Vec::new();
 ///     let mut reader = client
 ///         .read_object("projects/_/buckets/my-bucket", "my-object")
-///         .with_read_offset(4 * MIB)
-///         .with_read_limit(2 * MIB)
+///         .set_read_offset(4 * MIB)
+///         .set_read_limit(2 * MIB)
 ///         .send()
 ///         .await?;
 ///     while let Some(chunk) = reader.next().await.transpose()? {
@@ -103,6 +104,7 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let builder =  client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .compute_md5();
@@ -123,7 +125,7 @@ impl ReadObject {
 
     /// If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
-    pub fn with_generation<T: Into<i64>>(mut self, v: T) -> Self {
+    pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
         self.request.generation = v.into();
         self
     }
@@ -131,7 +133,7 @@ impl ReadObject {
     /// Makes the operation conditional on whether the object's current generation
     /// matches the given value. Setting to 0 makes the operation succeed only if
     /// there are no live versions of the object.
-    pub fn with_if_generation_match<T>(mut self, v: T) -> Self
+    pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -143,7 +145,7 @@ impl ReadObject {
     /// does not match the given value. If no live object exists, the precondition
     /// fails. Setting to 0 makes the operation succeed only if there is a live
     /// version of the object.
-    pub fn with_if_generation_not_match<T>(mut self, v: T) -> Self
+    pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -153,7 +155,7 @@ impl ReadObject {
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration matches the given value.
-    pub fn with_if_metageneration_match<T>(mut self, v: T) -> Self
+    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -163,7 +165,7 @@ impl ReadObject {
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration does not match the given value.
-    pub fn with_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -183,9 +185,10 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_read_offset(100)
+    ///     .set_read_offset(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -196,9 +199,10 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_read_offset(-100)
+    ///     .set_read_offset(-100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -209,16 +213,17 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_read_offset(1000)
-    ///     .with_read_limit(100)
+    ///     .set_read_offset(1000)
+    ///     .set_read_limit(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_read_offset<T>(mut self, v: T) -> Self
+    pub fn set_read_offset<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -238,9 +243,10 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_read_limit(100)
+    ///     .set_read_limit(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -251,16 +257,17 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_read_offset(1000)
-    ///     .with_read_limit(100)
+    ///     .set_read_offset(1000)
+    ///     .set_read_limit(100)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_read_limit<T>(mut self, v: T) -> Self
+    pub fn set_read_limit<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -273,18 +280,19 @@ impl ReadObject {
     ///
     /// Example:
     /// ```
-    /// # use google_cloud_storage::{model::request_helpers::KeyAes256, client::Storage};
+    /// # use google_cloud_storage::{model_ext::KeyAes256, client::Storage};
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let key: &[u8] = &[97; 32];
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_key(KeyAes256::new(key)?)
+    ///     .set_key(KeyAes256::new(key)?)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_key(mut self, v: KeyAes256) -> Self {
+    pub fn set_key(mut self, v: KeyAes256) -> Self {
         self.request.common_object_request_params = Some(v.into());
         self
     }
@@ -295,14 +303,16 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::retry_policy::RecommendedPolicy;
+    /// use google_cloud_storage::ReadObjectResponse;
+    /// use google_cloud_storage::retry_policy::RetryableErrors;
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_retry_policy(RecommendedPolicy
-    ///         .with_attempt_limit(5)
-    ///         .with_time_limit(Duration::from_secs(10)),
+    ///     .with_retry_policy(
+    ///         RetryableErrors
+    ///             .with_attempt_limit(5)
+    ///             .with_time_limit(Duration::from_secs(10)),
     ///     )
     ///     .send()
     ///     .await?;
@@ -320,6 +330,7 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// use std::time::Duration;
     /// use gax::exponential_backoff::ExponentialBackoff;
     /// let response = client
@@ -349,6 +360,7 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .with_retry_throttler(adhoc_throttler())
@@ -379,6 +391,7 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
     /// use google_cloud_storage::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
@@ -396,9 +409,9 @@ impl ReadObject {
     }
 
     /// Sends the request.
-    pub async fn send(self) -> Result<ReadObjectResponse> {
+    pub async fn send(self) -> Result<impl ReadObjectResponse> {
         let read = self.clone().read().await?;
-        ReadObjectResponse::new(self, read)
+        ReadObjectResponseImpl::new(self, read)
     }
 
     async fn read(self) -> Result<reqwest::Response> {
@@ -535,7 +548,7 @@ fn headers_to_md5_hash(headers: &http::HeaderMap) -> Vec<u8> {
 
 /// A response to a [Storage::read_object] request.
 #[derive(Debug)]
-pub struct ReadObjectResponse {
+struct ReadObjectResponseImpl {
     inner: Option<reqwest::Response>,
     highlights: ObjectHighlights,
     // Fields for tracking the crc checksum checks.
@@ -547,7 +560,7 @@ pub struct ReadObjectResponse {
     resume_count: u32,
 }
 
-impl ReadObjectResponse {
+impl ReadObjectResponseImpl {
     fn new(builder: ReadObject, inner: reqwest::Response) -> Result<Self> {
         let full = builder.request.read_offset == 0 && builder.request.read_limit == 0;
         let response_checksums = checksums_from_response(full, inner.status(), inner.headers());
@@ -598,60 +611,46 @@ impl ReadObjectResponse {
             resume_count: 0,
         })
     }
-    /// Get the highlights of the object metadata included in the
-    /// response.
-    ///
-    /// To get full metadata about this object, use [crate::client::StorageControl::get_object].
-    ///
-    /// # Example
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
-    /// let object = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .send()
-    ///     .await?
-    ///     .object();
-    /// println!("object generation={}", object.generation);
-    /// println!("object metageneration={}", object.metageneration);
-    /// println!("object size={}", object.size);
-    /// println!("object content encoding={}", object.content_encoding);
-    /// # Ok::<(), anyhow::Error>(()) });
-    /// ```
-    pub fn object(&self) -> ObjectHighlights {
+}
+
+impl ReadObjectResponse for ReadObjectResponseImpl {
+    fn object(&self) -> ObjectHighlights {
         self.highlights.clone()
     }
 
-    /// Stream the next bytes of the object.
-    ///
-    /// When the response has been exhausted, this will return None.
-    ///
-    /// # Example
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
-    /// let mut resp = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .send()
-    ///     .await?;
-    ///
-    /// while let Some(next) = resp.next().await {
-    ///     println!("next={:?}", next?);
-    /// }
-    /// # Ok::<(), anyhow::Error>(()) });
-    /// ```
-    pub async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
-        match self.next_attempt().await {
-            None => None,
-            Some(Ok(b)) => Some(Ok(b)),
-            // Recursive async requires pin:
-            //     https://rust-lang.github.io/async-book/07_workarounds/04_recursion.html
-            Some(Err(e)) => Box::pin(self.resume(e)).await,
+    // A type-checking cycle is detected with `async fn` when its return type
+    // depends on an opaque type that is defined within the function body.
+    // Writing out `impl Future` breaks this cycle, allowing the compiler to
+    // resolve the return type and proceed.
+    #[allow(clippy::manual_async_fn)]
+    fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes>>> + Send {
+        async move {
+            match self.next_attempt().await {
+                None => None,
+                Some(Ok(b)) => Some(Ok(b)),
+                // Recursive async requires pin:
+                //     https://rust-lang.github.io/async-book/07_workarounds/04_recursion.html
+                Some(Err(e)) => Box::pin(self.resume(e)).await,
+            }
         }
     }
 
+    #[cfg(feature = "unstable-stream")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin {
+        use futures::stream::unfold;
+        Box::pin(unfold(Some(self), move |state| async move {
+            if let Some(mut this) = state {
+                if let Some(chunk) = this.next().await {
+                    return Some((chunk, Some(this)));
+                }
+            };
+            None
+        }))
+    }
+}
+
+impl ReadObjectResponseImpl {
     async fn next_attempt(&mut self) -> Option<Result<bytes::Bytes>> {
         let inner = self.inner.as_mut()?;
         let res = inner.chunk().await.map_err(Error::io);
@@ -710,74 +709,62 @@ impl ReadObjectResponse {
         };
         self.next().await
     }
+}
+
+mod sealed {
+    pub trait ReadObjectResponse {}
+}
+
+impl<T> sealed::ReadObjectResponse for T where T: ReadObjectResponse {}
+
+pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
+    /// Get the highlights of the object metadata included in the
+    /// response.
+    ///
+    /// To get full metadata about this object, use [crate::client::StorageControl::get_object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
+    /// let object = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?
+    ///     .object();
+    /// println!("object generation={}", object.generation);
+    /// println!("object metageneration={}", object.metageneration);
+    /// println!("object size={}", object.size);
+    /// println!("object content encoding={}", object.content_encoding);
+    /// # Ok(()) }
+    /// ```
+    fn object(&self) -> ObjectHighlights;
+
+    /// Stream the next bytes of the object.
+    ///
+    /// When the response has been exhausted, this will return None.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::ReadObjectResponse;
+    /// let mut resp = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?;
+    /// while let Some(next) = resp.next().await {
+    ///     println!("next={:?}", next?);
+    /// }
+    /// # Ok(()) }
+    /// ```
+    fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes>>> + Send;
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Convert the response to a [Stream].
-    pub fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin {
-        use futures::stream::unfold;
-        Box::pin(unfold(Some(self), move |state| async move {
-            if let Some(mut this) = state {
-                if let Some(chunk) = this.next().await {
-                    return Some((chunk, Some(this)));
-                }
-            };
-            None
-        }))
-    }
-}
-
-/// ObjectHighlights contains select metadata from a [crate::model::Object].
-#[derive(Clone, Debug, PartialEq)]
-#[non_exhaustive]
-pub struct ObjectHighlights {
-    /// The content generation of this object. Used for object versioning.
-    pub generation: i64,
-
-    /// The version of the metadata for this generation of this
-    /// object. Used for preconditions and for detecting changes in metadata. A
-    /// metageneration number is only meaningful in the context of a particular
-    /// generation of a particular object.
-    pub metageneration: i64,
-
-    /// Content-Length of the object data in bytes, matching [RFC 7230 §3.3.2].
-    ///
-    /// [rfc 7230 §3.3.2]: https://tools.ietf.org/html/rfc7230#section-3.3.2
-    pub size: i64,
-
-    /// Content-Encoding of the object data, matching [RFC 7231 §3.1.2.2].
-    ///
-    /// [rfc 7231 §3.1.2.2]: https://tools.ietf.org/html/rfc7231#section-3.1.2.2
-    pub content_encoding: String,
-
-    /// Hashes for the data part of this object. The checksums of the complete
-    /// object regardless of data range. If the object is read in full, the
-    /// client should compute one of these checksums over the read object and
-    /// compare it against the value provided here.
-    pub checksums: std::option::Option<crate::model::ObjectChecksums>,
-
-    /// Storage class of the object.
-    pub storage_class: String,
-
-    /// Content-Language of the object data, matching [RFC 7231 §3.1.3.2].
-    ///
-    /// [rfc 7231 §3.1.3.2]: https://tools.ietf.org/html/rfc7231#section-3.1.3.2
-    pub content_language: String,
-
-    /// Content-Type of the object data, matching [RFC 7231 §3.1.1.5]. If an
-    /// object is stored without a Content-Type, it is served as
-    /// `application/octet-stream`.
-    ///
-    /// [rfc 7231 §3.1.1.5]: https://tools.ietf.org/html/rfc7231#section-3.1.1.5
-    pub content_type: String,
-
-    /// Content-Disposition of the object data, matching [RFC 6266].
-    ///
-    /// [rfc 6266]: https://tools.ietf.org/html/rfc6266
-    pub content_disposition: String,
-
-    /// The etag of the object.
-    pub etag: String,
+    fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin;
 }
 
 /// Returns the object checksums to validate against.
@@ -891,7 +878,7 @@ mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
     use crate::error::ChecksumMismatch;
-    use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
+    use crate::model_ext::{KeyAes256, tests::create_key_helper};
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
@@ -1315,11 +1302,11 @@ mod tests {
     async fn read_object_query_params() -> Result {
         let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_generation(5)
-            .with_if_generation_match(10)
-            .with_if_generation_not_match(20)
-            .with_if_metageneration_match(30)
-            .with_if_metageneration_not_match(40)
+            .set_generation(5)
+            .set_if_generation_match(10)
+            .set_if_generation_not_match(20)
+            .set_if_metageneration_match(30)
+            .set_if_metageneration_not_match(40)
             .http_request_builder()
             .await?
             .build()?;
@@ -1354,7 +1341,7 @@ mod tests {
         // The API takes the unencoded byte array.
         let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_key(KeyAes256::new(&key)?)
+            .set_key(KeyAes256::new(&key)?)
             .http_request_builder()
             .await?
             .build()?;
@@ -1389,8 +1376,8 @@ mod tests {
     async fn range_header(offset: i64, limit: i64, want: Option<&http::HeaderValue>) -> Result {
         let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_read_offset(offset)
-            .with_read_limit(limit)
+            .set_read_offset(offset)
+            .set_read_limit(limit)
             .http_request_builder()
             .await?
             .build()?;
@@ -1409,7 +1396,7 @@ mod tests {
     async fn range_header_negative_limit() -> Result {
         let inner = test_inner_client(test_builder());
         let err = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_read_limit(-100)
+            .set_read_limit(-100)
             .http_request_builder()
             .await
             .unwrap_err();
@@ -1428,8 +1415,8 @@ mod tests {
     async fn range_header_negative_offset_with_limit() -> Result {
         let inner = test_inner_client(test_builder());
         let err = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .with_read_offset(-100)
-            .with_read_limit(100)
+            .set_read_offset(-100)
+            .set_read_limit(100)
             .http_request_builder()
             .await
             .unwrap_err();

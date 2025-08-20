@@ -12,14 +12,64 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Types used in the request builders ([ReadObject] and/or [UploadObject])
-//! to improve type safety or ergonomics.
-//!
-//! [ReadObject]: crate::builder::storage::ReadObject
-//! [UploadObject]: crate::builder::storage::UploadObject
+//! Extends [model][crate::model] with types that improve type safety and/or
+//! ergonomics.
 
 use crate::error::KeyAes256Error;
 use sha2::{Digest, Sha256};
+
+/// ObjectHighlights contains select metadata from a [crate::model::Object].
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub struct ObjectHighlights {
+    /// The content generation of this object. Used for object versioning.
+    pub generation: i64,
+
+    /// The version of the metadata for this generation of this
+    /// object. Used for preconditions and for detecting changes in metadata. A
+    /// metageneration number is only meaningful in the context of a particular
+    /// generation of a particular object.
+    pub metageneration: i64,
+
+    /// Content-Length of the object data in bytes, matching [RFC 7230 §3.3.2].
+    ///
+    /// [rfc 7230 §3.3.2]: https://tools.ietf.org/html/rfc7230#section-3.3.2
+    pub size: i64,
+
+    /// Content-Encoding of the object data, matching [RFC 7231 §3.1.2.2].
+    ///
+    /// [rfc 7231 §3.1.2.2]: https://tools.ietf.org/html/rfc7231#section-3.1.2.2
+    pub content_encoding: String,
+
+    /// Hashes for the data part of this object. The checksums of the complete
+    /// object regardless of data range. If the object is read in full, the
+    /// client should compute one of these checksums over the read object and
+    /// compare it against the value provided here.
+    pub checksums: std::option::Option<crate::model::ObjectChecksums>,
+
+    /// Storage class of the object.
+    pub storage_class: String,
+
+    /// Content-Language of the object data, matching [RFC 7231 §3.1.3.2].
+    ///
+    /// [rfc 7231 §3.1.3.2]: https://tools.ietf.org/html/rfc7231#section-3.1.3.2
+    pub content_language: String,
+
+    /// Content-Type of the object data, matching [RFC 7231 §3.1.1.5]. If an
+    /// object is stored without a Content-Type, it is served as
+    /// `application/octet-stream`.
+    ///
+    /// [rfc 7231 §3.1.1.5]: https://tools.ietf.org/html/rfc7231#section-3.1.1.5
+    pub content_type: String,
+
+    /// Content-Disposition of the object data, matching [RFC 6266].
+    ///
+    /// [rfc 6266]: https://tools.ietf.org/html/rfc6266
+    pub content_disposition: String,
+
+    /// The etag of the object.
+    pub etag: String,
+}
 
 #[derive(Debug)]
 /// KeyAes256 represents an AES-256 encryption key used with the
@@ -32,7 +82,7 @@ use sha2::{Digest, Sha256};
 ///
 /// Creating a `KeyAes256` instance from a valid byte slice:
 /// ```
-/// # use google_cloud_storage::{model::request_helpers::KeyAes256, error::KeyAes256Error};
+/// # use google_cloud_storage::{model_ext::KeyAes256, error::KeyAes256Error};
 /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
 /// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
 /// # Ok::<(), KeyAes256Error>(())
@@ -40,7 +90,7 @@ use sha2::{Digest, Sha256};
 ///
 /// Handling an error for an invalid key length:
 /// ```
-/// # use google_cloud_storage::{model::request_helpers::KeyAes256, error::KeyAes256Error};
+/// # use google_cloud_storage::{model_ext::KeyAes256, error::KeyAes256Error};
 /// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
 /// let result = KeyAes256::new(invalid_key_bytes);
 ///
@@ -57,7 +107,7 @@ impl KeyAes256 {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::{model::request_helpers::KeyAes256, error::KeyAes256Error};
+    /// # use google_cloud_storage::{model_ext::KeyAes256, error::KeyAes256Error};
     /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
     /// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
     /// # Ok::<(), KeyAes256Error>(())

@@ -18,11 +18,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_storage::client::StorageControl;
 /// let client = StorageControl::builder().build().await?;
 /// // use `client` to make requests to Cloud Storage.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Configuration
@@ -90,7 +90,7 @@ pub struct StorageControl {
 /// A builder for [StorageControl].
 ///
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_storage::*;
 /// # use builder::storage_control::ClientBuilder;
 /// # use client::StorageControl;
@@ -98,7 +98,7 @@ pub struct StorageControl {
 /// let client = builder
 ///     .with_endpoint("https://storage.googleapis.com")
 ///     .build().await?;
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 pub type ClientBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;

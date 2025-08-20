@@ -53,6 +53,7 @@ use crate::{
     storage::client::tests::{
         MockBackoffPolicy, MockReadResumePolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
     },
+    storage::read_object::ReadObjectResponse,
 };
 use gax::retry_policy::RetryPolicyExt;
 use gax::retry_result::RetryResult;
@@ -143,7 +144,7 @@ async fn start_too_many_transients() -> Result {
         .await?;
     let err = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .send()
         .await
         .expect_err("test generates permanent error");
@@ -479,7 +480,7 @@ async fn resume_after_start_range() -> Result {
         .await?;
     let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
-        .with_read_offset(OFFSET as i64)
+        .set_read_offset(OFFSET as i64)
         .send()
         .await?;
     let mut got = Vec::new();

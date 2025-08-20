@@ -152,6 +152,7 @@ where
                 reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
+        let builder = self.apply_preconditions(builder);
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
 
@@ -204,12 +205,12 @@ mod resumable_tests;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
+    use crate::builder::storage::WriteObject;
+    use crate::model_ext::{KeyAes256, tests::create_key_helper};
     use crate::storage::client::{
         Storage,
         tests::{test_builder, test_inner_client},
     };
-    use crate::storage::upload_object::UploadObject;
     use crate::streaming_source::IterSource;
     use gax::retry_policy::RetryPolicyExt;
     use http_body_util::BodyExt;
@@ -242,7 +243,7 @@ mod tests {
             .build()
             .await?;
         let response = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .write_object("projects/_/buckets/test-bucket", "test-object", "")
             .send_unbuffered()
             .await?;
         assert_eq!(response.name, "test-object");
@@ -273,7 +274,7 @@ mod tests {
             .build()
             .await?;
         let err = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .write_object("projects/_/buckets/test-bucket", "test-object", "")
             .send_unbuffered()
             .await
             .expect_err("expected a not found error");
@@ -300,7 +301,7 @@ mod tests {
             .build()
             .await?;
         let err = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .write_object("projects/_/buckets/test-bucket", "test-object", "")
             .send_unbuffered()
             .await
             .expect_err("expected a deserialization error");
@@ -331,7 +332,7 @@ mod tests {
             .once()
             .returning(|| Ok(SizeHint::with_exact(1024)));
         let err = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .write_object("projects/_/buckets/test-bucket", "test-object", source)
             .send_unbuffered()
             .await
             .expect_err("expected a serialization error");
@@ -371,7 +372,7 @@ mod tests {
             .once()
             .returning(|| Ok(SizeHint::with_exact(1024_u64)));
         let err = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .write_object("projects/_/buckets/test-bucket", "test-object", source)
             .send_unbuffered()
             .await
             .expect_err("expected a serialization error");
@@ -428,7 +429,7 @@ mod tests {
     async fn upload_object_bytes() -> Result {
         const PAYLOAD: &str = "hello";
         let inner = test_inner_client(test_builder());
-        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", PAYLOAD)
+        let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", PAYLOAD)
             .build()
             .single_shot_builder(SizeHint::with_exact(PAYLOAD.len() as u64))
             .await?
@@ -447,8 +448,8 @@ mod tests {
     #[tokio::test]
     async fn upload_object_metadata() -> Result {
         let inner = test_inner_client(test_builder());
-        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .with_metadata([("k0", "v0"), ("k1", "v1")])
+        let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .set_metadata([("k0", "v0"), ("k1", "v1")])
             .build()
             .single_shot_builder(SizeHint::new())
             .await?
@@ -475,7 +476,7 @@ mod tests {
             .map(|x| bytes::Bytes::from_static(x.as_bytes())),
         );
         let inner = test_inner_client(test_builder());
-        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream)
+        let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", stream)
             .build()
             .single_shot_builder(SizeHint::new())
             .await?
@@ -496,7 +497,7 @@ mod tests {
         let inner = test_inner_client(
             test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
         );
-        let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+        let _ = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .build()
             .single_shot_builder(SizeHint::new())
             .await
@@ -508,7 +509,7 @@ mod tests {
     #[tokio::test]
     async fn upload_object_bad_bucket() -> Result {
         let inner = test_inner_client(test_builder());
-        UploadObject::new(inner, "malformed", "object", "hello")
+        WriteObject::new(inner, "malformed", "object", "hello")
             .build()
             .single_shot_builder(SizeHint::new())
             .await
@@ -522,8 +523,8 @@ mod tests {
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         let inner = test_inner_client(test_builder());
-        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .with_key(KeyAes256::new(&key)?)
+        let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .set_key(KeyAes256::new(&key)?)
             .build()
             .single_shot_builder(SizeHint::new())
             .await?
@@ -568,7 +569,7 @@ mod tests {
 
         let inner =
             test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
-        let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+        let err = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .send_unbuffered()
             .await
             .expect_err("expected error as request is not idempotent");
@@ -595,7 +596,7 @@ mod tests {
 
         let inner =
             test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
-        let got = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+        let got = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_idempotency(true)
             .send_unbuffered()
             .await?;
@@ -623,13 +624,13 @@ mod tests {
 
         let inner =
             test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
-        let got = UploadObject::new(
+        let got = WriteObject::new(
             inner,
             "projects/_/buckets/test-bucket",
             "test-object",
             "hello",
         )
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .send_unbuffered()
         .await?;
         let want = Object::from(serde_json::from_value::<v1::Object>(response_body())?);
@@ -656,13 +657,13 @@ mod tests {
 
         let inner =
             test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
-        let err = UploadObject::new(
+        let err = WriteObject::new(
             inner,
             "projects/_/buckets/test-bucket",
             "test-object",
             "hello",
         )
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .send_unbuffered()
         .await
         .expect_err("expected permanent error");
@@ -689,14 +690,14 @@ mod tests {
 
         let inner =
             test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
-        let err = UploadObject::new(
+        let err = WriteObject::new(
             inner,
             "projects/_/buckets/test-bucket",
             "test-object",
             "hello",
         )
-        .with_if_generation_match(0)
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .set_if_generation_match(0)
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .send_unbuffered()
         .await
         .expect_err("expected permanent error");

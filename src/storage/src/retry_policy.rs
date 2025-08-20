@@ -25,7 +25,7 @@
 //! - [504 - Gateway Timeout][504]
 //!
 //! In addition, resumable uploads return [308 - Resume Incomplete][308]. This
-//! is not handled by the [recommended][RecommendedPolicy] retry policy.
+//! is not handled by the [RetryableErrors] retry policy.
 //!
 //! [recommends]: https://cloud.google.com/storage/docs/retry-strategy
 //! [308]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#308_Resume_Incomplete
@@ -48,25 +48,23 @@ use std::time::Duration;
 ///
 /// The client will retry all the errors shown as retryable in the service
 /// documentation, and stop retrying after 10 seconds.
-pub(crate) fn default() -> impl RetryPolicy {
-    RecommendedPolicy.with_time_limit(Duration::from_secs(10))
+pub(crate) fn storage_default() -> impl RetryPolicy {
+    RetryableErrors.with_time_limit(Duration::from_secs(10))
 }
 
-/// The default retry policy for Google Cloud Storage requests.
+/// Follows the [retry strategy] recommended by the Cloud Storage service guides.
 ///
-/// This policy must be decorated to limit the number of retry attempts or the
-/// duration of the retry loop.
-///
-/// The policy follows the [retry strategy] recommended by Google Cloud Storage.
+/// This policy must be decorated to limit the number of retry attempts and/or
+/// the duration of the retry loop.
 ///
 /// # Example
 /// ```
-/// # use google_cloud_storage::retry_policy::RecommendedPolicy;
+/// # use google_cloud_storage::retry_policy::RetryableErrors;
 /// use gax::retry_policy::RetryPolicyExt;
 /// use google_cloud_storage::client::Storage;
 /// use std::time::Duration;
 /// let builder = Storage::builder().with_retry_policy(
-///     RecommendedPolicy
+///     RetryableErrors
 ///         .with_time_limit(Duration::from_secs(60))
 ///         .with_attempt_limit(10),
 /// );
@@ -74,9 +72,9 @@ pub(crate) fn default() -> impl RetryPolicy {
 ///
 /// [retry strategy]: https://cloud.google.com/storage/docs/retry-strategy
 #[derive(Clone, Debug)]
-pub struct RecommendedPolicy;
+pub struct RetryableErrors;
 
-impl RetryPolicy for RecommendedPolicy {
+impl RetryPolicy for RetryableErrors {
     fn on_error(
         &self,
         _loop_start: std::time::Instant,
@@ -112,6 +110,9 @@ impl RetryPolicy for RecommendedPolicy {
     }
 }
 
+/// Decorate the retry policy to continue on 308 errors.
+///
+/// Used internally to handle the resumable upload loop.
 #[derive(Clone, Debug)]
 pub(crate) struct ContinueOn308<T> {
     inner: T,
@@ -153,8 +154,8 @@ mod tests {
     #[test_case(502)]
     #[test_case(503)]
     #[test_case(504)]
-    fn retryable(code: u16) {
-        let p = RecommendedPolicy;
+    fn retryable_http(code: u16) {
+        let p = RetryableErrors;
         let now = std::time::Instant::now();
         assert!(p.on_error(now, 0, true, http_error(code)).is_continue());
         assert!(p.on_error(now, 0, false, http_error(code)).is_permanent());
@@ -165,8 +166,8 @@ mod tests {
 
     #[test_case(401)]
     #[test_case(403)]
-    fn not_recommended(code: u16) {
-        let p = RecommendedPolicy;
+    fn not_recommended_http(code: u16) {
+        let p = RetryableErrors;
         let now = std::time::Instant::now();
         assert!(p.on_error(now, 0, true, http_error(code)).is_permanent());
         assert!(p.on_error(now, 0, false, http_error(code)).is_permanent());
@@ -179,7 +180,7 @@ mod tests {
     #[test_case(Code::Internal)]
     #[test_case(Code::ResourceExhausted)]
     fn retryable_grpc(code: Code) {
-        let p = RecommendedPolicy;
+        let p = RetryableErrors;
         let now = std::time::Instant::now();
         assert!(p.on_error(now, 0, true, grpc_error(code)).is_continue());
         assert!(p.on_error(now, 0, false, grpc_error(code)).is_permanent());
@@ -191,7 +192,7 @@ mod tests {
     #[test_case(Code::Unauthenticated)]
     #[test_case(Code::PermissionDenied)]
     fn not_recommended_grpc(code: Code) {
-        let p = RecommendedPolicy;
+        let p = RetryableErrors;
         let now = std::time::Instant::now();
         assert!(p.on_error(now, 0, true, grpc_error(code)).is_permanent());
         assert!(p.on_error(now, 0, false, grpc_error(code)).is_permanent());
@@ -202,7 +203,7 @@ mod tests {
 
     #[test]
     fn continue_on_308() {
-        let inner: Arc<dyn RetryPolicy + 'static> = Arc::new(RecommendedPolicy);
+        let inner: Arc<dyn RetryPolicy + 'static> = Arc::new(RetryableErrors);
         let p = ContinueOn308::new(inner);
         let now = std::time::Instant::now();
         assert!(p.on_error(now, 0, true, http_error(308)).is_continue());

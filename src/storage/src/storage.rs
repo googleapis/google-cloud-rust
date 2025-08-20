@@ -18,8 +18,8 @@ pub(crate) mod perform_upload;
 pub(crate) mod read_object;
 pub(crate) mod request_options;
 pub mod streaming_source;
-pub(crate) mod upload_object;
 pub(crate) mod v1;
+pub(crate) mod write_object;
 
 use crate::model::Object;
 use crate::streaming_source::Payload;

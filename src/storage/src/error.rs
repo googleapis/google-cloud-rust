@@ -84,14 +84,14 @@ impl std::fmt::Display for ChecksumMismatch {
 ///
 /// # Example:
 /// ```
-/// # use google_cloud_storage::{model::request_helpers::KeyAes256, error::KeyAes256Error};
+/// # use google_cloud_storage::{model_ext::KeyAes256, error::KeyAes256Error};
 /// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
 /// let result = KeyAes256::new(invalid_key_bytes);
 ///
 /// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
 /// ```
 ///
-/// [KeyAes256]: crate::model::request_helpers::KeyAes256
+/// [KeyAes256]: crate::model_ext::KeyAes256
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum KeyAes256Error {
@@ -148,17 +148,17 @@ pub enum ReadError {
 ///
 /// # Example
 /// ```
-/// # use google_cloud_storage::{client::Storage, error::UploadError};
+/// # use google_cloud_storage::{client::Storage, error::WriteError};
 /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
 /// use std::error::Error as _;
-/// let upload = client
-///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-///     .with_if_generation_not_match(0);
-/// match upload.send_buffered().await {
-///     Ok(object) => println!("Successfully uploaded the object"),
+/// let writer = client
+///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+///     .set_if_generation_not_match(0);
+/// match writer.send_buffered().await {
+///     Ok(object) => println!("Successfully created the object {object:?}"),
 ///     Err(error) if error.is_serialization() => {
 ///         println!("Some problem {error:?} sending the data to the service");
-///         if let Some(m) = error.source().and_then(|e| e.downcast_ref::<UploadError>()) {
+///         if let Some(m) = error.source().and_then(|e| e.downcast_ref::<WriteError>()) {
 ///             println!("{m}");
 ///         }
 ///     },
@@ -169,7 +169,7 @@ pub enum ReadError {
 ///
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
-pub enum UploadError {
+pub enum WriteError {
     /// The service has "uncommitted" previously persisted bytes.
     ///
     /// # Troubleshoot

@@ -25,10 +25,10 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
     use google_cloud_storage::model::compose_object_request::SourceObject;
     // ANCHOR_END: seed-use
 
-    // ANCHOR: upload-1MiB
+    // ANCHOR: create-1MiB
     let buffer = String::from_iter(('a'..='z').cycle().take(1024 * 1024));
     let seed = client
-        .upload_object(bucket_name, "1MiB.txt", bytes::Bytes::from_owner(buffer))
+        .write_object(bucket_name, "1MiB.txt", bytes::Bytes::from_owner(buffer))
         .send_unbuffered()
         .await?;
     println!(
@@ -36,7 +36,7 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
         seed.name,
         seed.size / 1024
     );
-    // ANCHOR_END: upload-1MiB
+    // ANCHOR_END: create-1MiB
 
     // ANCHOR: compose-32
     let seed_32 = control
@@ -175,15 +175,16 @@ async fn write_stripe(
     writer.seek(std::io::SeekFrom::Start(offset as u64)).await?;
     // ANCHOR_END: write-stripe-seek
     // ANCHOR: write-stripe-reader
+    use google_cloud_storage::ReadObjectResponse;
     let mut reader = client
         .read_object(&metadata.bucket, &metadata.name)
         // ANCHOR_END: write-stripe-reader
         // ANCHOR: write-stripe-reader-generation
-        .with_generation(metadata.generation)
+        .set_generation(metadata.generation)
         // ANCHOR_END: write-stripe-reader-generation
         // ANCHOR: write-stripe-reader-range
-        .with_read_offset(offset)
-        .with_read_limit(limit)
+        .set_read_offset(offset)
+        .set_read_limit(limit)
         // ANCHOR_END: write-stripe-reader-range
         // ANCHOR: write-stripe-reader
         .send()

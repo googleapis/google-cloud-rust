@@ -169,7 +169,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
 
     tracing::info!("create test objects for the examples");
-    let uploads = [
+    let writers = [
         "object-to-download.txt",
         "prefixes/are-not-always/folders-001",
         "prefixes/are-not-always/folders-002",
@@ -180,7 +180,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         "deleted-object-name",
     ]
     .map(|name| make_object(&client, &id, name));
-    let _ = futures::future::join_all(uploads)
+    let _ = futures::future::join_all(writers)
         .await
         .into_iter()
         .collect::<anyhow::Result<Vec<_>>>()?;
@@ -216,8 +216,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 async fn make_object(client: &Storage, bucket_id: &str, name: &str) -> anyhow::Result<Object> {
     const VEXING: &str = "how vexingly quick daft zebras jump\n";
     let object = client
-        .upload_object(format!("projects/_/buckets/{bucket_id}"), name, VEXING)
-        .with_if_generation_match(0)
+        .write_object(format!("projects/_/buckets/{bucket_id}"), name, VEXING)
+        .set_if_generation_match(0)
         .send_buffered()
         .await?;
     Ok(object)

@@ -17,7 +17,7 @@ use gcs::Result;
 use gcs::builder::storage_control::RewriteObject;
 use gcs::client::StorageControl;
 use gcs::model::Object;
-use gcs::retry_policy::RecommendedPolicy;
+use gcs::retry_policy::RetryableErrors;
 use google_cloud_gax::retry_policy::RetryPolicyExt as _;
 use google_cloud_storage as gcs;
 
@@ -26,7 +26,7 @@ pub async fn rewrite_object(bucket_name: &str) -> anyhow::Result<()> {
 
     // ANCHOR: client
     let control = StorageControl::builder()
-        .with_retry_policy(RecommendedPolicy.with_attempt_limit(5))
+        .with_retry_policy(RetryableErrors.with_attempt_limit(5))
         .build()
         .await?;
     // ANCHOR_END: client
@@ -102,7 +102,7 @@ async fn upload(bucket_name: &str) -> anyhow::Result<Object> {
     // We need the size to exceed 1MiB to exercise the rewrite token logic.
     let payload = bytes::Bytes::from(vec![65_u8; 3 * 1024 * 1024]);
     let object = storage
-        .upload_object(bucket_name, "rewrite-object-source", payload)
+        .write_object(bucket_name, "rewrite-object-source", payload)
         .send_unbuffered()
         .await?;
     Ok(object)

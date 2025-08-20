@@ -27,9 +27,9 @@ use tokio::sync::Mutex;
 mod buffered;
 mod unbuffered;
 
-/// Represents an upload constructed via `UploadObject<T>`.
+/// Represents an upload constructed via `WriteObject<T>`.
 ///
-/// Once the application has fully configured an `UploadObject<T>` it calls
+/// Once the application has fully configured an `WriteObject<T>` it calls
 /// `send()` or `send_buffered()` to initiate the upload. At that point the
 /// client library creates an instance of this class. Notably, the `payload`
 /// becomes `Arc<Mutex<T>>` because it needs to be reused in the retry loop.
@@ -113,6 +113,7 @@ impl<S> PerformUpload<S> {
             .request(reqwest::Method::PUT, upload_url)
             .header("content-type", "application/octet-stream")
             .header("Content-Range", "bytes */*")
+            .header("content-length", 0)
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),

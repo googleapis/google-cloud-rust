@@ -13,9 +13,9 @@
 // limitations under the License.
 
 use super::*;
-use crate::model::request_helpers::{KeyAes256, tests::create_key_helper};
+use crate::builder::storage::WriteObject;
+use crate::model_ext::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::tests::{test_builder, test_inner_client};
-use crate::storage::upload_object::UploadObject;
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
 use test_case::test_case;
@@ -23,6 +23,7 @@ use test_case::test_case;
 type Result = anyhow::Result<()>;
 
 mod checksums;
+mod preconditions;
 
 fn response_body() -> Value {
     json!({
@@ -37,7 +38,7 @@ fn response_body() -> Value {
 #[tokio::test]
 async fn start_resumable_upload() -> Result {
     let inner = test_inner_client(test_builder());
-    let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+    let mut request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
         .build()
         .start_resumable_upload_request()
         .await?
@@ -61,8 +62,8 @@ async fn start_resumable_upload_headers() -> Result {
     let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
     let inner = test_inner_client(test_builder());
-    let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-        .with_key(KeyAes256::new(&key)?)
+    let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+        .set_key(KeyAes256::new(&key)?)
         .build()
         .start_resumable_upload_request()
         .await?
@@ -92,7 +93,7 @@ async fn start_resumable_upload_headers() -> Result {
 #[tokio::test]
 async fn start_resumable_upload_bad_bucket() -> Result {
     let inner = test_inner_client(test_builder());
-    UploadObject::new(inner, "malformed", "object", "hello")
+    WriteObject::new(inner, "malformed", "object", "hello")
         .build()
         .start_resumable_upload_request()
         .await
@@ -104,33 +105,33 @@ async fn start_resumable_upload_bad_bucket() -> Result {
 async fn start_resumable_upload_metadata_in_request() -> Result {
     use crate::model::ObjectAccessControl;
     let inner = test_inner_client(test_builder());
-    let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
-        .with_if_generation_match(10)
-        .with_if_generation_not_match(20)
-        .with_if_metageneration_match(30)
-        .with_if_metageneration_not_match(40)
-        .with_predefined_acl("private")
-        .with_acl([ObjectAccessControl::new()
+    let mut request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
+        .set_if_generation_match(10)
+        .set_if_generation_not_match(20)
+        .set_if_metageneration_match(30)
+        .set_if_metageneration_not_match(40)
+        .set_predefined_acl("private")
+        .set_acl([ObjectAccessControl::new()
             .set_entity("allAuthenticatedUsers")
             .set_role("READER")])
-        .with_cache_control("public; max-age=7200")
-        .with_content_disposition("inline")
-        .with_content_encoding("gzip")
-        .with_content_language("en")
-        .with_content_type("text/plain")
-        .with_known_crc32c(crc32c::crc32c(b""))
-        .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
-        .with_event_based_hold(true)
-        .with_known_md5_hash(md5::compute(b"").0)
-        .with_metadata([("k0", "v0"), ("k1", "v1")])
-        .with_retention(
+        .set_cache_control("public; max-age=7200")
+        .set_content_disposition("inline")
+        .set_content_encoding("gzip")
+        .set_content_language("en")
+        .set_content_type("text/plain")
+        .set_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
+        .set_event_based_hold(true)
+        .set_metadata([("k0", "v0"), ("k1", "v1")])
+        .set_retention(
             crate::model::object::Retention::new()
                 .set_mode(crate::model::object::retention::Mode::Locked)
                 .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
         )
-        .with_storage_class("ARCHIVE")
-        .with_temporary_hold(true)
-        .with_kms_key("test-key")
+        .set_storage_class("ARCHIVE")
+        .set_temporary_hold(true)
+        .set_kms_key("test-key")
+        .with_known_crc32c(crc32c::crc32c(b""))
+        .with_known_md5_hash(md5::compute(b"").0)
         .build()
         .start_resumable_upload_request()
         .await?
@@ -187,7 +188,7 @@ async fn start_resumable_upload_credentials() -> Result {
     let inner = test_inner_client(
         test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
     );
-    let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+    let _ = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
         .build()
         .start_resumable_upload_request()
         .await

@@ -361,13 +361,16 @@ async fn cleanup_stale_secrets(
             .send()
             .await?;
         for secret in response.secrets {
-            if let Some("true") = secret.labels.get("integration-test").map(String::as_str) {
-                if let Some(true) = secret.create_time.map(|v| v < stale_deadline) {
-                    secret
-                        .name
-                        .into_iter()
-                        .for_each(|name| stale_secrets.push(name));
-                }
+            if secret
+                .labels
+                .get("integration-test")
+                .is_some_and(|v| v == "true")
+                && secret.create_time.is_some_and(|v| v < stale_deadline)
+            {
+                secret
+                    .name
+                    .into_iter()
+                    .for_each(|name| stale_secrets.push(name));
             }
         }
         if response

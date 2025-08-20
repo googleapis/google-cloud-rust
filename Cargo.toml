@@ -312,6 +312,7 @@ sha2               = { default-features = false, version = "0.10" }
 thiserror          = { default-features = false, version = "2" }
 time               = { default-features = false, version = "0.3" }
 tokio              = { default-features = false, version = "1" }
+tokio-metrics      = { default-features = false, version = "0.4" }
 tonic              = { default-features = false, version = "0.14.1", features = ["tls-native-roots", "tls-ring"] }
 tonic-prost        = { default-features = false, version = "0.14.1" }
 tonic-prost-build  = { default-features = false, version = "0.14.1" }
@@ -346,9 +347,10 @@ tokio-test     = { default-features = false, version = "0.4" }
 
 # Local packages used as dependencies
 auth                          = { version = "0.22.3", path = "src/auth", package = "google-cloud-auth" }
+google-cloud-auth             = { version = "0.22.3", path = "src/auth", package = "google-cloud-auth" }
 gax                           = { version = "0.23.3", path = "src/gax", package = "google-cloud-gax" }
 google-cloud-gax              = { version = "0.23.3", path = "src/gax", package = "google-cloud-gax" }
-gaxi                          = { version = "0.5.0", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+gaxi                          = { version = "0.5.1", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "0.4.4", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
 location                      = { version = "0.4.4", path = "src/generated/cloud/location", package = "google-cloud-location" }
 longrunning                   = { version = "0.25.4", path = "src/generated/longrunning", package = "google-cloud-longrunning" }

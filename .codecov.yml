@@ -24,6 +24,7 @@ ignore:
   # Ignore tools and test helpers.
   - "src/gax-internal/echo-server"
   - "src/gax-internal/grpc-server"
+  - "src/w1r3"
   - "tools/check-copyright"
   # Ignore libraries which go unused in the coverage build.
   - "guide/samples"
