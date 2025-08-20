@@ -38,6 +38,7 @@ pub use gax::Result;
 pub use gax::error::Error;
 
 pub mod backoff_policy;
+pub mod read_object_response;
 pub mod read_resume_policy;
 pub mod retry_policy;
 pub use crate::storage::streaming_source;
@@ -69,8 +70,6 @@ pub mod error;
 pub use crate::control::model;
 pub mod model_ext;
 pub use crate::control::stub;
-
-pub use storage::read_object::ReadObjectResponse;
 
 #[allow(dead_code)]
 pub(crate) mod generated;

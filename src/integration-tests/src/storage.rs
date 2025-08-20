@@ -19,12 +19,12 @@ use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::RetryPolicyExt;
 use lro::Poller;
 use std::time::Duration;
-use storage::ReadObjectResponse;
 use storage::client::StorageControl;
 use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 use storage::model_ext::KeyAes256;
+use storage::read_object_response::ReadObjectResponse;
 use storage::streaming_source::{Seek, SizeHint, StreamingSource};
 use storage_samples::cleanup_bucket;
 
@@ -858,7 +858,7 @@ pub async fn ranged_reads(
 
 async fn read_all<R>(mut response: R) -> Result<Vec<u8>>
 where
-    R: storage::ReadObjectResponse,
+    R: ReadObjectResponse,
 {
     let mut contents = Vec::new();
     while let Some(b) = response.next().await.transpose()? {
