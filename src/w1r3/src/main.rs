@@ -88,12 +88,12 @@ async fn main() -> anyhow::Result<()> {
         .map(|task| {
             tokio::spawn(runner(
                 task,
+                test_start,
                 client.clone(),
                 credentials.clone(),
                 buffer.clone(),
-                test_start,
-                args.clone(),
                 tx.clone(),
+                args.clone(),
             ))
         })
         .collect::<Vec<_>>();
@@ -120,32 +120,31 @@ async fn main() -> anyhow::Result<()> {
 
 #[derive(Clone)]
 struct Task {
-    start: Instant,
     id: usize,
+    start: Instant,
     tx: Sender<Sample>,
 }
 
 async fn runner(
     id: usize,
+    start: Instant,
     client: Storage,
     credentials: Credentials,
     buffer: bytes::Bytes,
-    test_start: Instant,
-    args: Args,
     tx: Sender<Sample>,
+    args: Args,
 ) -> anyhow::Result<()> {
     let _guard = enable_tracing();
+    let task = Task { id, start, tx };
+    if task.id % 128 == 0 {
+        tracing::info!("Task::run({})", task.id);
+    }
     let control = StorageControl::builder()
         .with_credentials(credentials)
         .with_retry_policy(RetryableErrors.with_time_limit(Duration::from_secs(args.retry_seconds)))
         .with_backoff_policy(google_cloud_storage::backoff_policy::default())
         .build()
         .await?;
-    let task = Task {
-        id,
-        start: test_start,
-        tx,
-    };
 
     let size_gen = Uniform::new_inclusive(args.min_object_size, args.max_object_size)?;
     let batch_size_gen =
@@ -326,6 +325,14 @@ async fn delete(control: &StorageControl, args: &Args, object: Object) -> Storag
     Ok(())
 }
 
+fn random_object_name() -> String {
+    rand::rng()
+        .sample_iter(&Alphanumeric)
+        .take(32)
+        .map(char::from)
+        .collect()
+}
+
 #[derive(Clone, Debug)]
 struct SampleBuilder {
     task: usize,
@@ -411,14 +418,6 @@ impl SampleBuilder {
     }
 }
 
-fn random_object_name() -> String {
-    rand::rng()
-        .sample_iter(&Alphanumeric)
-        .take(32)
-        .map(char::from)
-        .collect()
-}
-
 #[derive(Clone, Debug)]
 struct Sample {
     task: usize,
@@ -439,6 +438,7 @@ impl Sample {
         ",Size,TransferSize,ElapsedMicroseconds,Object",
         ",Result,Details"
     );
+
     fn to_row(&self) -> String {
         format!(
             "{},{},{},{},{},{},{},{},{},{}",
