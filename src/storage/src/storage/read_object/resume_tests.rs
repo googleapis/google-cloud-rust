@@ -48,6 +48,7 @@
 //! policies in the request, the policies set in the client are used for the
 //! retry loop.
 
+use crate::model_ext::ReadRange;
 use crate::{
     read_resume_policy::{ReadResumePolicyExt, Recommended},
     storage::client::tests::{
@@ -480,7 +481,7 @@ async fn resume_after_start_range() -> Result {
         .await?;
     let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
-        .set_read_offset(OFFSET as i64)
+        .set_read_range(ReadRange::offset(OFFSET as u64))
         .send()
         .await?;
     let mut got = Vec::new();

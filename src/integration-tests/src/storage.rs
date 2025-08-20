@@ -781,6 +781,92 @@ async fn abort_upload_buffered(client: storage::client::Storage, bucket_name: &s
     Ok(())
 }
 
+pub async fn ranged_reads(
+    builder: storage::builder::storage::ClientBuilder,
+    bucket_name: &str,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    tracing::info!("ranged reads test, using bucket {bucket_name}");
+    let client = builder.build().await?;
+    const VEXING: &str = "how vexingly quick daft zebras jump";
+
+    let object = client
+        .write_object(bucket_name, "ranged_reads", VEXING)
+        .set_if_generation_match(0)
+        .send_unbuffered()
+        .await?;
+    tracing::info!("created object {object:?}");
+
+    use storage::model_ext::ReadRange;
+    let want = VEXING.as_bytes();
+    tracing::info!("running with ReadRange::head");
+    let response = client
+        .read_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .set_read_range(ReadRange::head(4))
+        .send()
+        .await?;
+    let got = read_all(response).await?;
+    assert_eq!(&got, &want[0..4]);
+
+    tracing::info!("running with ReadRange::tail");
+    let response = client
+        .read_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .set_read_range(ReadRange::tail(4))
+        .send()
+        .await?;
+    let got = read_all(response).await?;
+    assert_eq!(&got, &want[(VEXING.len() - 4)..]);
+
+    tracing::info!("running with ReadRange::offset");
+    let response = client
+        .read_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .set_read_range(ReadRange::offset(4))
+        .send()
+        .await?;
+    let got = read_all(response).await?;
+    assert_eq!(&got, &want[4..]);
+
+    tracing::info!("running with ReadRange::segment");
+    let response = client
+        .read_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .set_read_range(ReadRange::segment(4, 4))
+        .send()
+        .await?;
+    let got = read_all(response).await?;
+    assert_eq!(&got, &want[4..8]);
+
+    tracing::info!("DONE");
+    Ok(())
+}
+
+async fn read_all<R>(mut response: R) -> Result<Vec<u8>>
+where
+    R: storage::ReadObjectResponse,
+{
+    let mut contents = Vec::new();
+    while let Some(b) = response.next().await.transpose()? {
+        contents.extend_from_slice(&b);
+    }
+    Ok(contents)
+}
+
 pub async fn checksums(
     builder: storage::builder::storage::ClientBuilder,
     bucket_name: &str,

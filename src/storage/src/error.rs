@@ -100,18 +100,6 @@ pub enum KeyAes256Error {
     InvalidLength,
 }
 
-/// Represents an error that can occur when invalid range is specified.
-#[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-pub enum RangeError {
-    /// The provided read limit was negative.
-    #[error("read limit was negative, expected non-negative value.")]
-    NegativeLimit,
-    /// A negative offset was provided with a read limit.
-    #[error("negative read offsets cannot be used with read limits.")]
-    NegativeOffsetWithLimit,
-}
-
 /// Represents an error that can occur when reading response data.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]

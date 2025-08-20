@@ -125,12 +125,13 @@ async fn download(
     let start = std::time::Instant::now();
 
     // ANCHOR: compute-stripes
-    let limit = stripe_size as i64;
-    let count = metadata.size / limit;
+    let size = metadata.size as u64;
+    let limit = stripe_size as u64;
+    let count = size / limit;
     let mut stripes = (0..count)
         .map(|i| write_stripe(client.clone(), &file, i * limit, limit, &metadata))
         .collect::<Vec<_>>();
-    if metadata.size % limit != 0 {
+    if size % limit != 0 {
         stripes.push(write_stripe(
             client.clone(),
             &file,
@@ -164,15 +165,16 @@ async fn download(
 async fn write_stripe(
     client: Storage,
     file: &tokio::fs::File,
-    offset: i64,
-    limit: i64,
+    offset: u64,
+    limit: u64,
     metadata: &Object,
 ) -> anyhow::Result<()> {
+    use google_cloud_storage::model_ext::ReadRange;
     use tokio::io::AsyncSeekExt;
     // ANCHOR_END: write-stripe-function
     // ANCHOR: write-stripe-seek
     let mut writer = file.try_clone().await?;
-    writer.seek(std::io::SeekFrom::Start(offset as u64)).await?;
+    writer.seek(std::io::SeekFrom::Start(offset)).await?;
     // ANCHOR_END: write-stripe-seek
     // ANCHOR: write-stripe-reader
     use google_cloud_storage::ReadObjectResponse;
@@ -183,8 +185,7 @@ async fn write_stripe(
         .set_generation(metadata.generation)
         // ANCHOR_END: write-stripe-reader-generation
         // ANCHOR: write-stripe-reader-range
-        .set_read_offset(offset)
-        .set_read_limit(limit)
+        .set_read_range(ReadRange::segment(offset, limit))
         // ANCHOR_END: write-stripe-reader-range
         // ANCHOR: write-stripe-reader
         .send()
