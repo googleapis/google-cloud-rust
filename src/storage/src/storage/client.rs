@@ -17,7 +17,6 @@ use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
-use crate::storage::checksum::details::Crc32c;
 use crate::streaming_source::Payload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
@@ -158,12 +157,7 @@ impl Storage {
     /// * `payload` - the object data.
     ///
     /// [Seek]: crate::streaming_source::Seek
-    pub fn write_object<B, O, T, P>(
-        &self,
-        bucket: B,
-        object: O,
-        payload: T,
-    ) -> WriteObject<P, Crc32c>
+    pub fn write_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> WriteObject<P>
     where
         B: Into<String>,
         O: Into<String>,

@@ -21,10 +21,8 @@ use super::perform_upload::PerformUpload;
 use super::streaming_source::{Seek, StreamingSource};
 use super::*;
 use crate::model_ext::KeyAes256;
-use crate::storage::checksum::{
-    ChecksumEngine,
-    details::{Crc32c, Known, KnownCrc32c, KnownMd5, Md5, update as checksum_update},
-};
+use crate::storage::checksum::details::update as checksum_update;
+use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
 
 /// A request builder for object writes.
 ///
@@ -75,16 +73,16 @@ use crate::storage::checksum::{
 ///     Ok(())
 /// }
 /// ```
-pub struct WriteObject<T, C = Crc32c> {
+pub struct WriteObject<T> {
     inner: std::sync::Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
     payload: Payload<T>,
     options: super::request_options::RequestOptions,
-    checksum: C,
+    checksum: Checksum,
 }
 
-impl<T, C> WriteObject<T, C> {
+impl<T> WriteObject<T> {
     /// Set a [request precondition] on the object generation to match.
     ///
     /// With this precondition the request fails if the current object
@@ -781,7 +779,7 @@ impl<T, C> WriteObject<T, C> {
             .expect("resource field initialized in `new()`")
     }
 
-    pub(crate) fn build(self) -> PerformUpload<C, Payload<T>> {
+    pub(crate) fn build(self) -> PerformUpload<Payload<T>> {
         PerformUpload::new(
             self.checksum,
             self.payload,
@@ -790,20 +788,6 @@ impl<T, C> WriteObject<T, C> {
             self.params,
             self.options,
         )
-    }
-
-    fn switch_checksum<F, U>(self, new: F) -> WriteObject<T, U>
-    where
-        F: FnOnce(C) -> U,
-    {
-        WriteObject {
-            payload: self.payload,
-            inner: self.inner,
-            spec: self.spec,
-            params: self.params,
-            options: self.options,
-            checksum: new(self.checksum),
-        }
     }
 
     fn set_crc32c<V: Into<u32>>(mut self, v: V) -> Self {
@@ -821,9 +805,7 @@ impl<T, C> WriteObject<T, C> {
         checksum.md5_hash = i.into_iter().map(|v| v.into()).collect();
         self
     }
-}
 
-impl<T> WriteObject<T, Crc32c> {
     /// Provide a precomputed value for the CRC32C checksum.
     ///
     /// # Example
@@ -852,8 +834,18 @@ impl<T> WriteObject<T, Crc32c> {
     /// use [compute_md5()] to also have the library compute the checksums.
     ///
     /// [compute_md5()]: WriteObject::compute_md5
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> WriteObject<T, KnownCrc32c> {
-        let this = self.switch_checksum(|_| KnownCrc32c);
+    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> Self {
+        let this = Self {
+            inner: self.inner,
+            spec: self.spec,
+            params: self.params,
+            payload: self.payload,
+            options: self.options,
+            checksum: Checksum {
+                crc32c: None,
+                md5_hash: self.checksum.md5_hash,
+            },
+        };
         this.set_crc32c(v)
     }
 
@@ -886,12 +878,22 @@ impl<T> WriteObject<T, Crc32c> {
     /// use [compute_md5()] to also have the library compute the checksums.
     ///
     /// [compute_md5()]: WriteObject::compute_md5
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Crc32c<KnownMd5>>
+    pub fn with_known_md5_hash<I, V>(self, i: I) -> Self
     where
         I: IntoIterator<Item = V>,
         V: Into<u8>,
     {
-        let this = self.switch_checksum(|_| Crc32c::from_inner(KnownMd5));
+        let this = Self {
+            inner: self.inner,
+            spec: self.spec,
+            params: self.params,
+            payload: self.payload,
+            options: self.options,
+            checksum: Checksum {
+                crc32c: self.checksum.crc32c,
+                md5_hash: None,
+            },
+        };
         this.set_md5_hash(i)
     }
 
@@ -914,67 +916,23 @@ impl<T> WriteObject<T, Crc32c> {
     /// See [precompute_checksums][WriteObject::precompute_checksums] for more
     /// details on how checksums are used by the client library and their
     /// limitations.
-    pub fn compute_md5(self) -> WriteObject<T, Md5<Crc32c>> {
-        self.switch_checksum(Md5::from_inner)
-    }
-}
-
-impl<T> WriteObject<T, Crc32c<KnownMd5>> {
-    /// See [WriteObject<T, Crc32c>::with_known_crc32c].
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> WriteObject<T, Known> {
-        let this = self.switch_checksum(|_| Known);
-        this.set_crc32c(v)
-    }
-}
-
-impl<T> WriteObject<T, Md5<Crc32c>> {
-    /// See [WriteObject<T, Crc32c>::with_known_crc32c].
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> WriteObject<T, Md5<KnownCrc32c>> {
-        let this = self.switch_checksum(|_| Md5::from_inner(KnownCrc32c));
-        this.set_crc32c(v)
+    pub fn compute_md5(self) -> Self {
+        Self {
+            payload: self.payload,
+            inner: self.inner,
+            spec: self.spec,
+            params: self.params,
+            options: self.options,
+            checksum: {
+                let this = self.checksum;
+                Checksum {
+                    crc32c: this.crc32c,
+                    md5_hash: Some(Md5::default()),
+                }
+            },
+        }
     }
 
-    /// See [WriteObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Crc32c<KnownMd5>>
-    where
-        I: IntoIterator<Item = V>,
-        V: Into<u8>,
-    {
-        let this = self.switch_checksum(|_| Crc32c::from_inner(KnownMd5));
-        this.set_md5_hash(i)
-    }
-}
-
-impl<T> WriteObject<T, Md5<KnownCrc32c>> {
-    /// See [WriteObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Known>
-    where
-        I: IntoIterator<Item = V>,
-        V: Into<u8>,
-    {
-        let this = self.switch_checksum(|_| Known);
-        this.set_md5_hash(i)
-    }
-}
-
-impl<T> WriteObject<T, KnownCrc32c> {
-    /// See [WriteObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Known>
-    where
-        I: IntoIterator<Item = V>,
-        V: Into<u8>,
-    {
-        let this = self.switch_checksum(|_| Known);
-        this.set_md5_hash(i)
-    }
-
-    /// See [WriteObject<T, Crc32c>::compute_md5()].
-    pub fn compute_md5(self) -> WriteObject<T, Md5<KnownCrc32c>> {
-        self.switch_checksum(Md5::from_inner)
-    }
-}
-
-impl<T> WriteObject<T> {
     pub(crate) fn new<B, O, P>(
         inner: std::sync::Arc<StorageInner>,
         bucket: B,
@@ -996,14 +954,16 @@ impl<T> WriteObject<T> {
             params: None,
             payload: payload.into(),
             options,
-            checksum: Crc32c::default(),
+            checksum: Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: None,
+            },
         }
     }
 }
 
-impl<T, C> WriteObject<T, C>
+impl<T> WriteObject<T>
 where
-    C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Seek + Send + Sync + 'static,
     <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
@@ -1057,10 +1017,7 @@ where
     /// send the checksums at the end of the upload with this API.
     ///
     /// [JSON API]: https://cloud.google.com/storage/docs/json_api
-    pub async fn precompute_checksums(mut self) -> Result<WriteObject<T, Known>>
-    where
-        C: ChecksumEngine + Send + Sync + 'static,
-    {
+    pub async fn precompute_checksums(mut self) -> Result<WriteObject<T>> {
         let mut offset = 0_u64;
         self.payload.seek(offset).await.map_err(Error::ser)?;
         while let Some(n) = self.payload.next().await.transpose().map_err(Error::ser)? {
@@ -1071,13 +1028,16 @@ where
         let computed = self.checksum.finalize();
         let current = self.mut_resource().checksums.get_or_insert_default();
         checksum_update(current, computed);
-        Ok(self.switch_checksum(|_| Known))
+        self.checksum = Checksum {
+            crc32c: None,
+            md5_hash: None,
+        };
+        Ok(self)
     }
 }
 
-impl<T, C> WriteObject<T, C>
+impl<T> WriteObject<T>
 where
-    C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Send + Sync + 'static,
     T::Error: std::error::Error + Send + Sync + 'static,
 {
@@ -1100,10 +1060,7 @@ where
 }
 
 // We need `Debug` to use `expect_err()` in `Result<WriteObject, ...>`.
-impl<T, C> std::fmt::Debug for WriteObject<T, C>
-where
-    C: std::fmt::Debug,
-{
+impl<T> std::fmt::Debug for WriteObject<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("WriteObject")
             .field("inner", &self.inner)
@@ -1121,6 +1078,7 @@ mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
     use crate::model::{ObjectChecksums, WriteObjectSpec};
+    use crate::storage::checksum::details::{Crc32c, Md5};
     use crate::streaming_source::tests::MockSeekSource;
     use std::error::Error as _;
     use std::io::{Error as IoError, ErrorKind};
@@ -1304,7 +1262,7 @@ mod tests {
     const QUICK: &str = "the quick brown fox jumps over the lazy dog";
     const VEXING: &str = "how vexingly quick daft zebras jump";
 
-    fn quick_checksum<E: ChecksumEngine>(mut engine: E) -> ObjectChecksums {
+    fn quick_checksum(mut engine: Checksum) -> ObjectChecksums {
         engine.update(0, &bytes::Bytes::from_static(QUICK.as_bytes()));
         engine.finalize()
     }
@@ -1324,7 +1282,10 @@ mod tests {
             .write_object("my-bucket", "my-object", QUICK)
             .precompute_checksums()
             .await?;
-        let want = quick_checksum(Crc32c::default());
+        let want = quick_checksum(Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: None,
+        });
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
         let collected = collect(upload.payload).await?;
         assert_eq!(collected, QUICK.as_bytes());
@@ -1339,14 +1300,20 @@ mod tests {
             .compute_md5()
             .precompute_checksums()
             .await?;
-        let want = quick_checksum(Crc32c::from_inner(Md5::default()));
+        let want = quick_checksum(Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        });
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
         Ok(())
     }
 
     #[tokio::test]
     async fn checksum_precomputed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1367,7 +1334,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_crc32c_known_md5_computed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1381,7 +1351,11 @@ mod tests {
         // Note that the checksums do not match the data. This is intentional,
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
-        let want = quick_checksum(Md5::default()).set_crc32c(ck.crc32c.unwrap());
+        let want = quick_checksum(Checksum {
+            crc32c: None,
+            md5_hash: Some(Md5::default()),
+        })
+        .set_crc32c(ck.crc32c.unwrap());
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
 
         Ok(())
@@ -1389,7 +1363,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_mixed_then_precomputed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1411,7 +1388,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_full_computed_then_md5_precomputed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1425,7 +1405,11 @@ mod tests {
         // Note that the checksums do not match the data. This is intentional,
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
-        let want = quick_checksum(Crc32c::default()).set_md5_hash(ck.md5_hash.clone());
+        let want = quick_checksum(Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: None,
+        })
+        .set_md5_hash(ck.md5_hash.clone());
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
 
         Ok(())
@@ -1433,7 +1417,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_known_crc32_then_computed_md5() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1456,7 +1443,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_known_crc32_then_known_md5() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
