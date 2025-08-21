@@ -25,6 +25,7 @@ const DESCRIPTION: &str = concat!(
 );
 
 mod instrumented_future;
+mod instrumented_retry;
 
 use clap::Parser;
 use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials};
@@ -38,6 +39,7 @@ use google_cloud_storage::read_object::ReadObjectResponse;
 use google_cloud_storage::retry_policy::RetryableErrors;
 use humantime::parse_duration;
 use instrumented_future::Instrumented;
+use instrumented_retry::DebugRetry;
 use rand::{
     Rng,
     distr::{Alphanumeric, Uniform},
@@ -239,6 +241,9 @@ async fn upload(
         )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(threshold)
+        .with_retry_policy(DebugRetry::new(
+            RetryableErrors.with_time_limit(args.retry_timeout),
+        ))
         .send_unbuffered();
 
     match tokio::time::timeout(args.retry_timeout, Instrumented::new(future)).await {
@@ -253,12 +258,19 @@ async fn upload(
 }
 
 async fn get_object(control: &StorageControl, args: &Args, name: &str) -> StorageResult<Object> {
-    control
+    let future = control
         .get_object()
         .set_bucket(format!("projects/_/buckets/{}", &args.bucket_name))
         .set_object(name)
-        .send()
-        .await
+        .with_retry_policy(DebugRetry::new(
+            RetryableErrors.with_time_limit(args.retry_timeout),
+        ))
+        .send();
+    match tokio::time::timeout(args.retry_timeout, Instrumented::new(future)).await {
+        Err(e) => Err(google_cloud_storage::Error::timeout(e)),
+        Ok(Err(e)) => Err(e),
+        Ok(Ok(r)) => Ok(r),
+    }
 }
 
 async fn download(
@@ -269,6 +281,9 @@ async fn download(
     let read = client
         .read_object(&object.bucket, &object.name)
         .set_generation(object.generation)
+        .with_retry_policy(DebugRetry::new(
+            RetryableErrors.with_time_limit(args.retry_timeout),
+        ))
         .send();
 
     let mut read = match tokio::time::timeout(args.retry_timeout, read).await {
@@ -336,6 +351,9 @@ async fn delete(control: &StorageControl, args: &Args, object: Object) -> Storag
         .set_generation(object.generation)
         .with_attempt_timeout(args.attempt_timeout)
         .with_idempotency(true)
+        .with_retry_policy(DebugRetry::new(
+            RetryableErrors.with_time_limit(args.retry_timeout),
+        ))
         .send();
     let result = Instrumented::new(result).await;
     if let Err(e) = result {
