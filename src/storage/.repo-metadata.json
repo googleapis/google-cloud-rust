@@ -1,0 +1,13 @@
+{
+    "api_id": "storage.googleapis.com",
+    "api_shortname": "storage",
+    "client_documentation": "https://docs.rs/google-cloud-storage/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_COMBO",
+    "name_pretty": "Cloud Storage API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust",
+    "product_documentation": "https://cloud.google.com/storage/docs",
+    "issue_tracker": "https://issuetracker.google.com/savedsearches/559782"
+}
