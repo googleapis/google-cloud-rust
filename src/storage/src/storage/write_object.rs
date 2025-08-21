@@ -917,7 +917,7 @@ impl<T> WriteObject<T> {
     /// details on how checksums are used by the client library and their
     /// limitations.
     pub fn compute_md5(self) -> Self {
-        WriteObject {
+        Self {
             payload: self.payload,
             inner: self.inner,
             spec: self.spec,

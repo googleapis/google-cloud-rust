@@ -13,26 +13,6 @@
 // limitations under the License.
 
 //! Define types to compute and compare Cloud Storage object checksums.
-//!
-//! # Example
-//! ```
-//! use google_cloud_storage::builder::storage::WriteObject;
-//! use google_cloud_storage::model::Object;
-//! use google_cloud_storage::{streaming_source::StreamingSource};
-//!
-//! async fn example<S, C>(builder: WriteObject<S>) -> anyhow::Result<Object>
-//! where
-//!     S: StreamingSource + Send + Sync + 'static,
-//! {
-//!     // Finish configuring `builder` and complete the upload.
-//!     let object = builder
-//!         .set_if_generation_match(0)
-//!         .with_resumable_upload_threshold(0_usize)
-//!         .send_buffered()
-//!         .await?;
-//!     Ok(object)
-//! }
-//! ```
 
 use crate::error::ChecksumMismatch;
 use crate::model::ObjectChecksums;
