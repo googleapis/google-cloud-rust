@@ -35,6 +35,7 @@ use google_cloud_storage::Result as StorageResult;
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::Object;
 use google_cloud_storage::retry_policy::RetryableErrors;
+use humantime::parse_duration;
 use instrumented_future::Instrumented;
 use rand::{
     Rng,
@@ -138,13 +139,14 @@ async fn runner(
     args: Args,
 ) -> anyhow::Result<()> {
     let _guard = enable_tracing();
+    tokio::time::sleep(args.rampup_period * id as u32).await;
     let task = Task { id, start, tx };
     if task.id % 128 == 0 {
         tracing::info!("Task::run({})", task.id);
     }
     let control = StorageControl::builder()
         .with_credentials(credentials)
-        .with_retry_policy(RetryableErrors.with_time_limit(Duration::from_secs(args.retry_seconds)))
+        .with_retry_policy(RetryableErrors.with_time_limit(args.retry_timeout))
         .with_backoff_policy(google_cloud_storage::backoff_policy::default())
         .build()
         .await?;
@@ -218,8 +220,6 @@ async fn upload(
     buffer: bytes::Bytes,
     threshold: usize,
 ) -> StorageResult<Object> {
-    let duration = Duration::from_secs(args.retry_seconds);
-
     let future = client
         .write_object(
             format!("projects/_/buckets/{}", &args.bucket_name),
@@ -230,7 +230,7 @@ async fn upload(
         .with_resumable_upload_threshold(threshold)
         .send_unbuffered();
 
-    match tokio::time::timeout(duration, Instrumented::new(future)).await {
+    match tokio::time::timeout(args.retry_timeout, Instrumented::new(future)).await {
         Err(e) => Err(google_cloud_storage::Error::timeout(e)),
         Ok(r) => r,
     }
@@ -241,14 +241,12 @@ async fn download(
     args: &Args,
     object: &google_cloud_storage::model::Object,
 ) -> (usize, StorageResult<()>) {
-    let duration = Duration::from_secs(args.retry_seconds);
-
     let read = client
         .read_object(&object.bucket, &object.name)
         .set_generation(object.generation)
         .send();
 
-    let mut read = match tokio::time::timeout(duration, read).await {
+    let mut read = match tokio::time::timeout(args.retry_timeout, read).await {
         Err(e) => {
             read_done();
             read_error();
@@ -262,7 +260,6 @@ async fn download(
         }
     };
     read_done();
-    let duration = Duration::from_secs(args.retry_seconds);
     let mut transfer_size = 0;
     let mut read_data = async move || {
         while let Some(result) = read.next().await {
@@ -277,7 +274,7 @@ async fn download(
         Ok(())
     };
 
-    match tokio::time::timeout(duration, Instrumented::new(read_data())).await {
+    match tokio::time::timeout(args.retry_timeout, Instrumented::new(read_data())).await {
         Err(e) => (transfer_size, Err(google_cloud_storage::Error::timeout(e))),
         Ok(r) => (transfer_size, r),
     }
@@ -314,7 +311,7 @@ async fn delete(control: &StorageControl, args: &Args, object: Object) -> Storag
         .set_bucket(object.bucket)
         .set_object(object.name)
         .set_generation(object.generation)
-        .with_attempt_timeout(Duration::from_secs(args.attempt_seconds))
+        .with_attempt_timeout(args.attempt_timeout)
         .with_idempotency(true)
         .send();
     let result = Instrumented::new(result).await;
@@ -609,12 +606,16 @@ struct Args {
     max_delete_batch: usize,
 
     /// The maximum time for the retry loop.
-    #[arg(long, default_value_t = 900)]
-    retry_seconds: u64,
+    #[arg(long, value_parser = parse_duration, default_value = "900s")]
+    retry_timeout: Duration,
 
     /// The maximum time for each attempt.
-    #[arg(long, default_value_t = 30)]
-    attempt_seconds: u64,
+    #[arg(long, value_parser = parse_duration, default_value = "30s")]
+    attempt_timeout: Duration,
+
+    /// The rampup period between new tasks.
+    #[arg(long, value_parser = parse_duration, default_value = "500ms")]
+    rampup_period: Duration,
 }
 
 fn parse_size_arg(arg: &str) -> anyhow::Result<u64> {
