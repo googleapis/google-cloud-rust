@@ -51,6 +51,51 @@ path = "src/run/delete_job.rs"
 name = "run-run_job"
 path = "src/run/run_job.rs"
 
+[[bin]]
+name = "run-create_service"
+path = "src/run/create_service.rs"
+
+[[bin]]
+name = "run-get_service"
+path = "src/run/get_service.rs"
+
+[[bin]]
+name = "run-list_services"
+path = "src/run/list_services.rs"
+
+[[bin]]
+name = "run-update_service"
+path = "src/run/update_service.rs"
+
+[[bin]]
+name = "run-delete_service"
+path = "src/run/delete_service.rs"
+
+[[bin]]
+name = "run-get_revision"
+path = "src/run/get_revision.rs"
+
+[[bin]]
+name = "run-list_revisions"
+path = "src/run/list_revisions.rs"
+
+[[bin]]
+name = "run-delete_revision"
+path = "src/run/delete_revision.rs"
+
+[[bin]]
+name = "run-get_execution"
+path = "src/run/get_execution.rs"
+
+
+
+
+
+
+
+
+
+
 
 
 
