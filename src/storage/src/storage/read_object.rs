@@ -14,7 +14,7 @@
 
 use super::client::*;
 use super::*;
-use crate::error::{RangeError, ReadError};
+use crate::error::ReadError;
 use crate::model::ObjectChecksums;
 use crate::model_ext::KeyAes256;
 use crate::model_ext::ObjectHighlights;
@@ -45,13 +45,13 @@ use serde_with::DeserializeAs;
 /// # Example: read part of an object
 /// ```
 /// use google_cloud_storage::{client::Storage, builder::storage::ReadObject, ReadObjectResponse};
+/// use google_cloud_storage::model_ext::ReadRange;
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
-///     const MIB: i64 = 1024 * 1024;
+///     const MIB: u64 = 1024 * 1024;
 ///     let mut contents = Vec::new();
 ///     let mut reader = client
 ///         .read_object("projects/_/buckets/my-bucket", "my-object")
-///         .set_read_offset(4 * MIB)
-///         .set_read_limit(2 * MIB)
+///         .set_read_range(ReadRange::segment(4 * MIB, 2 * MIB))
 ///         .send()
 ///         .await?;
 ///     while let Some(chunk) = reader.next().await.transpose()? {
@@ -180,22 +180,24 @@ impl ReadObject {
         self
     }
 
-    /// The offset for the first byte to return in the read, relative to
-    /// the start of the object.
+    /// The range of bytes to return in the read.
     ///
-    /// A negative `read_offset` value will be interpreted as the number of bytes
-    /// back from the end of the object to be returned.
+    /// This can be all the bytes starting at a given offset
+    /// (`ReadRange::offset()`), all the bytes in an explicit range
+    /// (`Range::segment`), or the last N bytes of the object
+    /// (`ReadRange::tail`).
     ///
     /// # Examples
     ///
     /// Read starting at 100 bytes to end of file.
     /// ```
     /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::model_ext::ReadRange;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .set_read_offset(100)
+    ///     .set_read_range(ReadRange::offset(100))
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -205,11 +207,12 @@ impl ReadObject {
     /// Read last 100 bytes of file:
     /// ```
     /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::model_ext::ReadRange;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .set_read_offset(-100)
+    ///     .set_read_range(ReadRange::tail(100))
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -219,66 +222,19 @@ impl ReadObject {
     /// Read bytes 1000 to 1099.
     /// ```
     /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::model_ext::ReadRange;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use google_cloud_storage::ReadObjectResponse;
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .set_read_offset(1000)
-    ///     .set_read_limit(100)
+    ///     .set_read_range(ReadRange::segment(1000, 100))
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn set_read_offset<T>(mut self, v: T) -> Self
-    where
-        T: Into<i64>,
-    {
-        self.request.read_offset = v.into();
-        self
-    }
-
-    /// The maximum number of `data` bytes the server is allowed to
-    /// return.
-    ///
-    /// A `read_limit` of zero indicates that there is no limit,
-    /// and a negative `read_limit` will cause an error.
-    ///
-    /// # Examples:
-    ///
-    /// Read first 100 bytes.
-    /// ```
-    /// # use google_cloud_storage::client::Storage;
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::ReadObjectResponse;
-    /// let response = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .set_read_limit(100)
-    ///     .send()
-    ///     .await?;
-    /// println!("response details={response:?}");
-    /// # Ok(()) }
-    /// ```
-    ///
-    /// Read bytes 1000 to 1099.
-    /// ```
-    /// # use google_cloud_storage::client::Storage;
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::ReadObjectResponse;
-    /// let response = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .set_read_offset(1000)
-    ///     .set_read_limit(100)
-    ///     .send()
-    ///     .await?;
-    /// println!("response details={response:?}");
-    /// # Ok(()) }
-    /// ```
-    pub fn set_read_limit<T>(mut self, v: T) -> Self
-    where
-        T: Into<i64>,
-    {
-        self.request.read_limit = v.into();
+    pub fn set_read_range(mut self, range: crate::model_ext::ReadRange) -> Self {
+        self.request.with_range(range);
         self
     }
 
@@ -512,19 +468,24 @@ impl ReadObject {
         // Apply "range" header for read limits and offsets.
         let builder = match (self.request.read_offset, self.request.read_limit) {
             // read_limit can't be negative.
-            (_, l) if l < 0 => Err(RangeError::NegativeLimit),
+            (_, l) if l < 0 => {
+                unreachable!("ReadObject build never sets a negative read_limit value")
+            }
             // negative offset can't also have a read_limit.
-            (o, l) if o < 0 && l > 0 => Err(RangeError::NegativeOffsetWithLimit),
+            (o, l) if o < 0 && l > 0 => unreachable!(
+                "ReadObject builder never sets a positive read_offset value with a negative read_limit value"
+            ),
             // If both are zero, we use default implementation (no range header).
-            (0, 0) => Ok(builder),
+            (0, 0) => builder,
+            // negative offset with no limit means the last N bytes.
+            (o, 0) if o < 0 => builder.header("range", format!("bytes={o}")),
             // read_limit is zero, means no limit. Read from offset to end of file.
             // This handles cases like (5, 0) -> "bytes=5-"
-            (o, 0) => Ok(builder.header("range", format!("bytes={o}-"))),
+            (o, 0) => builder.header("range", format!("bytes={o}-")),
             // General case: non-negative offset and positive limit.
             // This covers cases like (0, 100) -> "bytes=0-99", (5, 100) -> "bytes=5-104"
-            (o, l) => Ok(builder.header("range", format!("bytes={o}-{}", o + l - 1))),
-        }
-        .map_err(Error::ser)?;
+            (o, l) => builder.header("range", format!("bytes={o}-{}", o + l - 1)),
+        };
 
         self.inner.apply_auth_headers(builder).await
     }
@@ -885,7 +846,7 @@ mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
     use crate::error::ChecksumMismatch;
-    use crate::model_ext::{KeyAes256, tests::create_key_helper};
+    use crate::model_ext::{KeyAes256, ReadRange, tests::create_key_helper};
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
@@ -1374,17 +1335,16 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(0, 0, None; "no headers needed")]
-    #[test_case(10, 0, Some(&http::HeaderValue::from_static("bytes=10-")); "offset only")]
-    #[test_case(-2000, 0, Some(&http::HeaderValue::from_static("bytes=-2000-")); "negative offset")]
-    #[test_case(0, 100, Some(&http::HeaderValue::from_static("bytes=0-99")); "limit only")]
-    #[test_case(1000, 100, Some(&http::HeaderValue::from_static("bytes=1000-1099")); "offset and limit")]
+    #[test_case(ReadRange::all(), None; "no headers needed")]
+    #[test_case(ReadRange::offset(10), Some(&http::HeaderValue::from_static("bytes=10-")); "offset only")]
+    #[test_case(ReadRange::tail(2000), Some(&http::HeaderValue::from_static("bytes=-2000")); "negative offset")]
+    #[test_case(ReadRange::segment(0, 100), Some(&http::HeaderValue::from_static("bytes=0-99")); "limit only")]
+    #[test_case(ReadRange::segment(1000, 100), Some(&http::HeaderValue::from_static("bytes=1000-1099")); "offset and limit")]
     #[tokio::test]
-    async fn range_header(offset: i64, limit: i64, want: Option<&http::HeaderValue>) -> Result {
+    async fn range_header(input: ReadRange, want: Option<&http::HeaderValue>) -> Result {
         let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .set_read_offset(offset)
-            .set_read_limit(limit)
+            .set_read_range(input.clone())
             .http_request_builder()
             .await?
             .build()?;
@@ -1396,45 +1356,6 @@ mod tests {
         );
 
         assert_eq!(request.headers().get("range"), want);
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn range_header_negative_limit() -> Result {
-        let inner = test_inner_client(test_builder());
-        let err = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .set_read_limit(-100)
-            .http_request_builder()
-            .await
-            .unwrap_err();
-
-        assert!(
-            matches!(
-                err.source().unwrap().downcast_ref::<RangeError>().unwrap(),
-                RangeError::NegativeLimit
-            ),
-            "{err:?}"
-        );
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn range_header_negative_offset_with_limit() -> Result {
-        let inner = test_inner_client(test_builder());
-        let err = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .set_read_offset(-100)
-            .set_read_limit(100)
-            .http_request_builder()
-            .await
-            .unwrap_err();
-
-        assert!(
-            matches!(
-                err.source().unwrap().downcast_ref::<RangeError>().unwrap(),
-                RangeError::NegativeOffsetWithLimit
-            ),
-            "{err:?}"
-        );
         Ok(())
     }
 
@@ -1542,7 +1463,7 @@ mod tests {
             .body(Vec::new())?;
         let response = reqwest::Response::from(response);
         let range = response_range(&response)?;
-        assert_eq!(range, ReadRange { start: 0, limit });
+        assert_eq!(range, super::ReadRange { start: 0, limit });
         Ok(())
     }
 
@@ -1590,7 +1511,7 @@ mod tests {
         let range = response_range(&response)?;
         assert_eq!(
             range,
-            ReadRange {
+            super::ReadRange {
                 start,
                 limit: (end + 1 - start)
             }

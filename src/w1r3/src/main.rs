@@ -24,6 +24,8 @@ const DESCRIPTION: &str = concat!(
     " The benchmark runs multiple tasks concurrently, all running identical loops."
 );
 
+mod instrumented_future;
+
 use clap::Parser;
 use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials};
 use google_cloud_gax::options::RequestOptionsBuilder;
@@ -33,6 +35,7 @@ use google_cloud_storage::Result as StorageResult;
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::Object;
 use google_cloud_storage::retry_policy::RetryableErrors;
+use instrumented_future::Instrumented;
 use rand::{
     Rng,
     distr::{Alphanumeric, Uniform},
@@ -82,18 +85,18 @@ async fn main() -> anyhow::Result<()> {
             .collect::<Vec<_>>(),
     );
     tracing::info!("random data ready");
-    let (tx, mut rx) = tokio::sync::mpsc::channel(128);
+    let (tx, mut rx) = tokio::sync::mpsc::channel(1024 * args.task_count);
     let test_start = Instant::now();
     let tasks = (0..args.task_count)
         .map(|task| {
             tokio::spawn(runner(
                 task,
+                test_start,
                 client.clone(),
                 credentials.clone(),
                 buffer.clone(),
-                test_start,
-                args.clone(),
                 tx.clone(),
+                args.clone(),
             ))
         })
         .collect::<Vec<_>>();
@@ -120,32 +123,31 @@ async fn main() -> anyhow::Result<()> {
 
 #[derive(Clone)]
 struct Task {
-    start: Instant,
     id: usize,
+    start: Instant,
     tx: Sender<Sample>,
 }
 
 async fn runner(
     id: usize,
+    start: Instant,
     client: Storage,
     credentials: Credentials,
     buffer: bytes::Bytes,
-    test_start: Instant,
-    args: Args,
     tx: Sender<Sample>,
+    args: Args,
 ) -> anyhow::Result<()> {
     let _guard = enable_tracing();
+    let task = Task { id, start, tx };
+    if task.id % 128 == 0 {
+        tracing::info!("Task::run({})", task.id);
+    }
     let control = StorageControl::builder()
         .with_credentials(credentials)
         .with_retry_policy(RetryableErrors.with_time_limit(Duration::from_secs(args.retry_seconds)))
         .with_backoff_policy(google_cloud_storage::backoff_policy::default())
         .build()
         .await?;
-    let task = Task {
-        id,
-        start: test_start,
-        tx,
-    };
 
     let size_gen = Uniform::new_inclusive(args.min_object_size, args.max_object_size)?;
     let batch_size_gen =
@@ -159,7 +161,7 @@ async fn runner(
         let (write_op, threshold) = if rand::rng().random_bool(0.5) {
             (Operation::Resumable, 0_usize)
         } else {
-            (Operation::SingleShot, size)
+            (Operation::SingleShot, size + 1)
         };
 
         let builder = SampleBuilder::new(&task, iteration, write_op, size, name.clone());
@@ -228,7 +230,7 @@ async fn upload(
         .with_resumable_upload_threshold(threshold)
         .send_unbuffered();
 
-    match tokio::time::timeout(duration, future).await {
+    match tokio::time::timeout(duration, Instrumented::new(future)).await {
         Err(e) => Err(google_cloud_storage::Error::timeout(e)),
         Ok(r) => r,
     }
@@ -275,7 +277,7 @@ async fn download(
         Ok(())
     };
 
-    match tokio::time::timeout(duration, read_data()).await {
+    match tokio::time::timeout(duration, Instrumented::new(read_data())).await {
         Err(e) => (transfer_size, Err(google_cloud_storage::Error::timeout(e))),
         Ok(r) => (transfer_size, r),
     }
@@ -314,8 +316,8 @@ async fn delete(control: &StorageControl, args: &Args, object: Object) -> Storag
         .set_generation(object.generation)
         .with_attempt_timeout(Duration::from_secs(args.attempt_seconds))
         .with_idempotency(true)
-        .send()
-        .await;
+        .send();
+    let result = Instrumented::new(result).await;
     if let Err(e) = result {
         // Ignore NotFound errors as they may be the result of a retry.
         if e.status().is_some_and(|s| s.code == Code::NotFound) {
@@ -324,6 +326,14 @@ async fn delete(control: &StorageControl, args: &Args, object: Object) -> Storag
         return Err(e);
     };
     Ok(())
+}
+
+fn random_object_name() -> String {
+    rand::rng()
+        .sample_iter(&Alphanumeric)
+        .take(32)
+        .map(char::from)
+        .collect()
 }
 
 #[derive(Clone, Debug)]
@@ -411,14 +421,6 @@ impl SampleBuilder {
     }
 }
 
-fn random_object_name() -> String {
-    rand::rng()
-        .sample_iter(&Alphanumeric)
-        .take(32)
-        .map(char::from)
-        .collect()
-}
-
 #[derive(Clone, Debug)]
 struct Sample {
     task: usize,
@@ -439,6 +441,7 @@ impl Sample {
         ",Size,TransferSize,ElapsedMicroseconds,Object",
         ",Result,Details"
     );
+
     fn to_row(&self) -> String {
         format!(
             "{},{},{},{},{},{},{},{},{},{}",

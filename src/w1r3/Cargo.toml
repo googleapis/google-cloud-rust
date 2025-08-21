@@ -33,6 +33,7 @@ google-cloud-gax.workspace     = true
 google-cloud-storage.workspace = true
 humantime.workspace            = true
 parse-size.workspace           = true
+pin-project.workspace          = true
 rand.workspace                 = true
 tokio                          = { workspace = true, features = ["macros"] }
 tokio-metrics                  = { workspace = true, features = ["rt"] }
