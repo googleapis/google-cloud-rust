@@ -7098,6 +7098,7 @@ dependencies = [
  "futures",
  "google-cloud-aiplatform-v1",
  "google-cloud-gax",
+ "google-cloud-iam-v1",
  "google-cloud-language-v2",
  "google-cloud-longrunning",
  "google-cloud-lro",

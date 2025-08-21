@@ -29,7 +29,32 @@ name = "getting_started"
 
 [[bin]]
 name = "run-list_jobs"
-path = "src/run_list_jobs.rs"
+path = "src/run/list_jobs.rs"
+
+[[bin]]
+name = "run-create_job"
+path = "src/run/create_job.rs"
+
+[[bin]]
+name = "run-get_job"
+path = "src/run/get_job.rs"
+
+[[bin]]
+name = "run-update_job"
+path = "src/run/update_job.rs"
+
+[[bin]]
+name = "run-delete_job"
+path = "src/run/delete_job.rs"
+
+[[bin]]
+name = "run-run_job"
+path = "src/run/run_job.rs"
+
+
+
+
+
 
 
 [dependencies]
@@ -43,6 +68,7 @@ google-cloud-longrunning.workspace      = true
 google-cloud-lro                        = { workspace = true, features = ["unstable-stream"] }
 google-cloud-rpc.workspace              = true
 google-cloud-secretmanager-v1.workspace = true
+google-cloud-iam-v1 = { workspace = true }
 google-cloud-run-v2.workspace = true
 google-cloud-speech-v2.workspace        = true
 google-cloud-storage.workspace          = true
