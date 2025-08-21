@@ -7102,6 +7102,7 @@ dependencies = [
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",
+ "google-cloud-run-v2",
  "google-cloud-secretmanager-v1",
  "google-cloud-speech-v2",
  "google-cloud-storage",

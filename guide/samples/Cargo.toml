@@ -27,6 +27,11 @@ categories.workspace = true
 [[bin]]
 name = "getting_started"
 
+[[bin]]
+name = "run-list_jobs"
+path = "src/run_list_jobs.rs"
+
+
 [dependencies]
 anyhow.workspace                        = true
 crc32c.workspace                        = true
@@ -38,6 +43,7 @@ google-cloud-longrunning.workspace      = true
 google-cloud-lro                        = { workspace = true, features = ["unstable-stream"] }
 google-cloud-rpc.workspace              = true
 google-cloud-secretmanager-v1.workspace = true
+google-cloud-run-v2.workspace = true
 google-cloud-speech-v2.workspace        = true
 google-cloud-storage.workspace          = true
 google-cloud-wkt.workspace              = true
