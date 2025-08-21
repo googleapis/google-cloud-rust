@@ -28,6 +28,7 @@ mod instrumented_future;
 
 use clap::Parser;
 use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials};
+use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_storage::ReadObjectResponse;
@@ -167,7 +168,16 @@ async fn runner(
         };
 
         let builder = SampleBuilder::new(&task, iteration, write_op, size, name.clone());
-        let upload = match upload(&client, &args, &name, buffer.slice(0..size), threshold).await {
+        let upload = match upload(
+            &client,
+            &control,
+            &args,
+            &name,
+            buffer.slice(0..size),
+            threshold,
+        )
+        .await
+        {
             Ok(u) => {
                 let _ = task.tx.send(builder.success()).await;
                 write_done();
@@ -215,6 +225,7 @@ async fn runner(
 
 async fn upload(
     client: &Storage,
+    control: &StorageControl,
     args: &Args,
     name: &str,
     buffer: bytes::Bytes,
@@ -232,8 +243,22 @@ async fn upload(
 
     match tokio::time::timeout(args.retry_timeout, Instrumented::new(future)).await {
         Err(e) => Err(google_cloud_storage::Error::timeout(e)),
-        Ok(r) => r,
+        Ok(Err(e)) if e.http_status_code().is_some_and(|code| code == 412) => {
+            tracing::info!("failed precondition, object may exist, fetching object details");
+            get_object(control, args, name).await
+        }
+        Ok(Err(e)) => Err(e),
+        Ok(Ok(r)) => Ok(r),
     }
+}
+
+async fn get_object(control: &StorageControl, args: &Args, name: &str) -> StorageResult<Object> {
+    control
+        .get_object()
+        .set_bucket(format!("projects/_/buckets/{}", &args.bucket_name))
+        .set_object(name)
+        .send()
+        .await
 }
 
 async fn download(
@@ -304,8 +329,6 @@ where
 }
 
 async fn delete(control: &StorageControl, args: &Args, object: Object) -> StorageResult<()> {
-    use google_cloud_gax::error::rpc::Code;
-
     let result = control
         .delete_object()
         .set_bucket(object.bucket)
