@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{ChecksumEngine, ChecksumMismatch, ObjectChecksums, sealed};
+use super::{ChecksumMismatch, ObjectChecksums};
 
 pub fn update(known: &mut ObjectChecksums, computed: ObjectChecksums) {
     known.crc32c = known.crc32c.or(computed.crc32c);
@@ -61,262 +61,79 @@ pub fn validate(
     }
 }
 
+/// Computes a checksum or hash for [Cloud Storage] transfers.
 #[derive(Clone, Debug)]
-pub enum ChecksumEnum {
-    Null(Null),
-    Md5(Md5),
-
-    KnownCrc32c(KnownCrc32c),
-    KnownMd5(KnownMd5),
-
-    Crc32cKnownMd5(Crc32c<KnownMd5>),
-    Md5KnownCrc32c(Md5<KnownCrc32c>),
-    Known(Known),
-
-    Crc32c(Crc32c),
-    Both(Crc32c<Md5>),
+pub struct Checksum {
+    pub crc32c: Option<Crc32c>,
+    pub md5_hash: Option<Md5>,
 }
 
-impl sealed::ChecksumEngine for ChecksumEnum {}
-
-impl std::default::Default for ChecksumEnum {
-    fn default() -> Self {
-        ChecksumEnum::Crc32c(Crc32c::default())
-    }
-}
-
-impl ChecksumEnum {
-    pub(crate) fn compute_md5(self) -> Self {
-        match self {
-            // If CRC32C is known, we want to keep it known and compute MD5.
-            ChecksumEnum::KnownCrc32c(_)
-            | ChecksumEnum::Known(_)
-            | ChecksumEnum::Md5KnownCrc32c(_) => {
-                ChecksumEnum::Md5KnownCrc32c(Md5::from_inner(KnownCrc32c))
-            }
-
-            // If we are not computing CRC32C, just compute MD5.
-            ChecksumEnum::Null(_) | ChecksumEnum::KnownMd5(_) | ChecksumEnum::Md5(_) => {
-                ChecksumEnum::Md5(Md5::default())
-            }
-
-            // If we are already computing CRC32C, compute both.
-            ChecksumEnum::Crc32c(_) | ChecksumEnum::Crc32cKnownMd5(_) | ChecksumEnum::Both(_) => {
-                ChecksumEnum::Both(Crc32c::from_inner(Md5::default()))
-            }
+impl Checksum {
+    pub fn update(&mut self, offset: u64, data: &bytes::Bytes) {
+        if let Some(crc32c) = &mut self.crc32c {
+            crc32c.update(offset, data);
+        }
+        if let Some(md5) = &mut self.md5_hash {
+            md5.update(offset, data);
         }
     }
 
-    pub(crate) fn with_known_crc32c(self) -> Self {
-        match self {
-            // If we are not computing MD5, use the KnownCrc32c state.
-            ChecksumEnum::Crc32c(_) | ChecksumEnum::KnownCrc32c(_) | ChecksumEnum::Null(_) => {
-                ChecksumEnum::KnownCrc32c(KnownCrc32c)
-            }
-            // If we are computing MD5, we need to keep computing it.
-            ChecksumEnum::Both(_) | ChecksumEnum::Md5KnownCrc32c(_) | ChecksumEnum::Md5(_) => {
-                ChecksumEnum::Md5KnownCrc32c(Md5::from_inner(KnownCrc32c))
-            }
-            // If MD5 is previously known, now both are known.
-            ChecksumEnum::Crc32cKnownMd5(_)
-            | ChecksumEnum::KnownMd5(_)
-            | ChecksumEnum::Known(_) => ChecksumEnum::Known(Known),
-        }
-    }
-
-    pub(crate) fn with_known_md5_hash(self) -> Self {
-        match self {
-            // If we are not computing CRC32C, we can use the simpler KnownMd5 state.
-            ChecksumEnum::Null(_) | ChecksumEnum::KnownMd5(_) | ChecksumEnum::Md5(_) => {
-                ChecksumEnum::KnownMd5(KnownMd5)
-            }
-            // If we are computing CRC32C, we need to keep computing it.
-            ChecksumEnum::Both(_) | ChecksumEnum::Crc32c(_) | ChecksumEnum::Crc32cKnownMd5(_) => {
-                ChecksumEnum::Crc32cKnownMd5(Crc32c::from_inner(KnownMd5))
-            }
-            // If CRC32C is previously known, now both are known.
-            ChecksumEnum::Known(_)
-            | ChecksumEnum::KnownCrc32c(_)
-            | ChecksumEnum::Md5KnownCrc32c(_) => ChecksumEnum::Known(Known),
-        }
-    }
-}
-
-macro_rules! forward_checksum_engine {
-    ($s:expr, $name:ident, $($args:tt),*) => {
-        match $s {
-            ChecksumEnum::Crc32c(c) => c.$name($($args),*),
-            ChecksumEnum::Both(c) => c.$name($($args),*),
-            ChecksumEnum::KnownCrc32c(c) => c.$name($($args),*),
-            ChecksumEnum::Crc32cKnownMd5(c) => c.$name($($args),*),
-            ChecksumEnum::Md5KnownCrc32c(c) => c.$name($($args),*),
-            ChecksumEnum::Known(c) => c.$name($($args),*),
-            ChecksumEnum::Null(c) => c.$name($($args),*),
-            ChecksumEnum::Md5(c) => c.$name($($args),*),
-            ChecksumEnum::KnownMd5(c) => c.$name($($args),*),
-        }
-    };
-}
-
-impl ChecksumEngine for ChecksumEnum {
-    fn update(&mut self, offset: u64, data: &bytes::Bytes) {
-        forward_checksum_engine!(self, update, offset, data)
-    }
-
-    fn finalize(&self) -> ObjectChecksums {
-        forward_checksum_engine!(self, finalize,)
-    }
-}
-
-/// YOLO checksum engine.
-#[derive(Clone, Debug)]
-pub struct Null;
-
-impl sealed::ChecksumEngine for Null {}
-
-impl ChecksumEngine for Null {
-    fn update(&mut self, _offset: u64, _data: &bytes::Bytes) {}
-    fn finalize(&self) -> ObjectChecksums {
-        ObjectChecksums::new()
-    }
-}
-
-/// Assumes the CRC32C checksum is known and included in the object metadata.
-#[derive(Clone, Debug)]
-pub struct KnownCrc32c;
-
-impl sealed::ChecksumEngine for KnownCrc32c {}
-
-impl ChecksumEngine for KnownCrc32c {
-    fn update(&mut self, _offset: u64, _data: &bytes::Bytes) {}
-    fn finalize(&self) -> ObjectChecksums {
-        ObjectChecksums::new()
-    }
-}
-
-/// Assumes the MD5 hash is known and included in the object metadata.
-#[derive(Clone, Debug)]
-pub struct KnownMd5;
-
-impl sealed::ChecksumEngine for KnownMd5 {}
-
-impl ChecksumEngine for KnownMd5 {
-    fn update(&mut self, _offset: u64, _data: &bytes::Bytes) {}
-    fn finalize(&self) -> ObjectChecksums {
-        ObjectChecksums::new()
-    }
-}
-
-/// Assumes both the CRC32C checksum, and the MD5 checksums are known and
-/// included in the object metadata.
-#[derive(Clone, Debug)]
-pub struct Known;
-
-impl sealed::ChecksumEngine for Known {}
-
-impl ChecksumEngine for Known {
-    fn update(&mut self, _offset: u64, _data: &bytes::Bytes) {}
-    fn finalize(&self) -> ObjectChecksums {
-        ObjectChecksums::new()
+    pub fn finalize(&self) -> ObjectChecksums {
+        let res = ObjectChecksums::new();
+        let res = self
+            .crc32c
+            .iter()
+            .fold(res, |r, b| r.set_crc32c(b.finalize()));
+        self.md5_hash
+            .iter()
+            .fold(res, |r, b| r.set_md5_hash(b.finalize()))
     }
 }
 
 /// Automatically computes the CRC32C checksum.
-#[derive(Clone, Debug)]
-pub struct Crc32c<C = Null> {
+#[derive(Clone, Debug, Default)]
+pub struct Crc32c {
     checksum: u32,
     offset: u64,
-    inner: C,
 }
 
-impl<C> sealed::ChecksumEngine for Crc32c<C> {}
-
-impl<C> Crc32c<C> {
-    pub fn from_inner(inner: C) -> Self {
-        Self {
-            checksum: 0,
-            offset: 0,
-            inner,
-        }
-    }
-}
-
-impl std::default::Default for Crc32c<Null> {
-    fn default() -> Self {
-        Self::from_inner(Null)
-    }
-}
-
-impl<C> ChecksumEngine for Crc32c<C>
-where
-    C: ChecksumEngine,
-{
+impl Crc32c {
     fn update(&mut self, offset: u64, data: &bytes::Bytes) {
-        self.inner.update(offset, data);
         self.offset = self::checked_update(self.offset, offset, data, |data| {
             self.checksum = crc32c::crc32c_append(self.checksum, data)
         })
     }
 
-    fn finalize(&self) -> ObjectChecksums {
-        self.inner.finalize().set_crc32c(self.checksum)
+    fn finalize(&self) -> u32 {
+        self.checksum
     }
 }
 
 /// Automatically computes the MD5 checksum.
-#[derive(Clone)]
-pub struct Md5<C = Null> {
+#[derive(Clone, Default)]
+pub struct Md5 {
     hasher: md5::Context,
     offset: u64,
-    inner: C,
 }
 
-impl<C> sealed::ChecksumEngine for Md5<C> {}
-
-impl<C> Md5<C> {
-    pub fn from_inner(inner: C) -> Self {
-        Self {
-            hasher: md5::Context::new(),
-            offset: 0,
-            inner,
-        }
-    }
-}
-
-impl std::default::Default for Md5<Null> {
-    fn default() -> Self {
-        Self::from_inner(Null)
-    }
-}
-
-impl<C> ChecksumEngine for Md5<C>
-where
-    C: ChecksumEngine,
-{
+impl Md5 {
     fn update(&mut self, offset: u64, data: &bytes::Bytes) {
-        self.inner.update(offset, data);
         self.offset = self::checked_update(self.offset, offset, data, |data| {
             self.hasher.consume(data);
         });
     }
 
-    fn finalize(&self) -> ObjectChecksums {
+    fn finalize(&self) -> bytes::Bytes {
         let digest = self.hasher.clone().finalize();
-        self.inner
-            .finalize()
-            .set_md5_hash(bytes::Bytes::from_owner(Vec::from_iter(digest.0)))
+        bytes::Bytes::from_owner(Vec::from_iter(digest.0))
     }
 }
 
-impl<C> std::fmt::Debug for Md5<C>
-where
-    C: std::fmt::Debug,
-{
+impl std::fmt::Debug for Md5 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Md5")
             .field("hasher", &"[skipped]")
             .field("offset", &self.offset)
-            .field("inner", &self.inner)
             .finish()
     }
 }
@@ -337,14 +154,14 @@ where
 
 pub(crate) struct ChecksummedSource<S> {
     offset: u64,
-    checksum: ChecksumEnum,
+    checksum: Checksum,
     source: S,
 }
 
 use crate::streaming_source::{Seek, SizeHint, StreamingSource};
 
 impl<S> ChecksummedSource<S> {
-    pub fn new(checksum: ChecksumEnum, source: S) -> Self {
+    pub fn new(checksum: Checksum, source: S) -> Self {
         Self {
             offset: 0,
             checksum,
@@ -468,15 +285,11 @@ mod tests {
     }
 
     #[test]
-    fn null() {
-        let mut engine = Null;
-        engine.update(0, &data());
-        assert_eq!(engine.finalize(), ObjectChecksums::new());
-    }
-
-    #[test]
-    fn precomputed() {
-        let mut engine = Known;
+    fn none() {
+        let mut engine = Checksum {
+            crc32c: None,
+            md5_hash: None,
+        };
         engine.update(0, &data());
         assert_eq!(engine.finalize(), ObjectChecksums::new());
     }
@@ -484,7 +297,10 @@ mod tests {
     #[test_case(empty())]
     #[test_case(data())]
     fn crc32c_basic(input: bytes::Bytes) {
-        let mut engine = Crc32c::default();
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: None,
+        };
         engine.update(0, &input);
         let want = crc32c::crc32c(&input);
         assert_eq!(engine.finalize(), ObjectChecksums::new().set_crc32c(want));
@@ -494,7 +310,10 @@ mod tests {
     fn crc32c_in_parts() {
         let input = data();
 
-        let mut engine = Crc32c::default();
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: None,
+        };
         engine.update(0, &input.slice(0..4));
         engine.update(0, &input.slice(0..4));
         engine.update(4, &input.slice(4..8));
@@ -509,7 +328,10 @@ mod tests {
     #[test_case(empty())]
     #[test_case(data())]
     fn md5_basic(input: bytes::Bytes) {
-        let mut engine = Md5::default();
+        let mut engine = Checksum {
+            crc32c: None,
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &input);
         let digest = md5::compute(&input);
         let want = bytes::Bytes::from_owner(Vec::from_iter(digest.0));
@@ -519,7 +341,10 @@ mod tests {
     #[test]
     fn md5_in_parts() {
         let input = data();
-        let mut engine = Md5::default();
+        let mut engine = Checksum {
+            crc32c: None,
+            md5_hash: Some(Md5::default()),
+        };
         let digest = md5::compute(&input);
         let want = bytes::Bytes::from_owner(Vec::from_iter(digest.0));
 
@@ -536,7 +361,10 @@ mod tests {
     #[test]
     fn md5_and_crc32_in_parts() {
         let input = data();
-        let mut engine = Md5::from_inner(Crc32c::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         let digest = md5::compute(&input);
         let md5_want = bytes::Bytes::from_owner(Vec::from_iter(digest.0));
         let crc32_want = crc32c::crc32c(&input);
@@ -560,7 +388,10 @@ mod tests {
     #[test]
     fn crc32_and_md5_in_parts() {
         let input = data();
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         let digest = md5::compute(&input);
         let md5_want = bytes::Bytes::from_owner(Vec::from_iter(digest.0));
         let crc32_want = crc32c::crc32c(&input);
@@ -588,7 +419,6 @@ mod tests {
         assert!(fmt.contains("Md5"), "{fmt}");
         assert!(fmt.contains("hasher"), "{fmt}");
         assert!(fmt.contains("offset"), "{fmt}");
-        assert!(fmt.contains("inner"), "{fmt}");
     }
 
     #[tokio::test]
@@ -600,7 +430,13 @@ mod tests {
             input.map(|s| bytes::Bytes::from_static(s.as_bytes())),
         );
         let want_hint = source.size_hint().await?;
-        let mut source = ChecksummedSource::new(ChecksumEnum::Crc32c(Crc32c::default()), source);
+        let mut source = ChecksummedSource::new(
+            Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: None,
+            },
+            source,
+        );
         let got_hint = source.size_hint().await?;
         assert_eq!(got_hint.lower(), want_hint.lower());
         assert_eq!(got_hint.upper(), want_hint.upper());
@@ -639,7 +475,13 @@ mod tests {
             .once()
             .returning(|_| Err(Error::new(ErrorKind::FileTooLarge, "test-only")));
 
-        let mut ck = ChecksummedSource::new(ChecksumEnum::Null(Null), source);
+        let mut ck = ChecksummedSource::new(
+            Checksum {
+                crc32c: None,
+                md5_hash: None,
+            },
+            source,
+        );
         let err = ck.next().await.transpose().unwrap_err();
         assert_eq!(err.kind(), ErrorKind::BrokenPipe, "{err:?}");
 

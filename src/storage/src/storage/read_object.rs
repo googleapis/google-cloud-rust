@@ -19,10 +19,7 @@ use crate::model::ObjectChecksums;
 use crate::model_ext::KeyAes256;
 use crate::model_ext::ObjectHighlights;
 use crate::read_resume_policy::ReadResumePolicy;
-use crate::storage::checksum::{
-    ChecksumEngine,
-    details::{ChecksumEnum, validate},
-};
+use crate::storage::checksum::details::{Checksum, Crc32c, Md5, validate};
 use base64::Engine;
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
@@ -69,7 +66,7 @@ pub struct ReadObject {
     inner: std::sync::Arc<StorageInner>,
     request: crate::model::ReadObjectRequest,
     options: super::request_options::RequestOptions,
-    checksum: ChecksumEnum,
+    checksum: Checksum,
 }
 
 impl ReadObject {
@@ -85,7 +82,10 @@ impl ReadObject {
                 .set_bucket(bucket)
                 .set_object(object),
             options,
-            checksum: ChecksumEnum::default(),
+            checksum: Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: None,
+            },
         }
     }
 
@@ -118,9 +118,16 @@ impl ReadObject {
     /// println!("object contents={:?}", contents);
     /// # Ok(()) }
     /// ```
-    pub fn compute_md5(mut self) -> Self {
-        self.checksum = self.checksum.compute_md5();
-        self
+    pub fn compute_md5(self) -> Self {
+        Self {
+            inner: self.inner,
+            request: self.request,
+            options: self.options,
+            checksum: Checksum {
+                crc32c: self.checksum.crc32c,
+                md5_hash: Some(Md5::default()),
+            },
+        }
     }
 
     /// If present, selects a specific revision of this object (as

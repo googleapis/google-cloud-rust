@@ -21,10 +21,8 @@ use super::perform_upload::PerformUpload;
 use super::streaming_source::{Seek, StreamingSource};
 use super::*;
 use crate::model_ext::KeyAes256;
-use crate::storage::checksum::{
-    ChecksumEngine,
-    details::{ChecksumEnum, Known, update as checksum_update},
-};
+use crate::storage::checksum::details::update as checksum_update;
+use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
 
 /// A request builder for object writes.
 ///
@@ -81,7 +79,7 @@ pub struct WriteObject<T> {
     params: Option<crate::model::CommonObjectRequestParams>,
     payload: Payload<T>,
     options: super::request_options::RequestOptions,
-    checksum: ChecksumEnum,
+    checksum: Checksum,
 }
 
 impl<T> WriteObject<T> {
@@ -836,9 +834,19 @@ impl<T> WriteObject<T> {
     /// use [compute_md5()] to also have the library compute the checksums.
     ///
     /// [compute_md5()]: WriteObject::compute_md5
-    pub fn with_known_crc32c<V: Into<u32>>(mut self, v: V) -> Self {
-        self.checksum = self.checksum.with_known_crc32c();
-        self.set_crc32c(v)
+    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> Self {
+        let this = Self {
+            inner: self.inner,
+            spec: self.spec,
+            params: self.params,
+            payload: self.payload,
+            options: self.options,
+            checksum: Checksum {
+                crc32c: None,
+                md5_hash: self.checksum.md5_hash,
+            },
+        };
+        this.set_crc32c(v)
     }
 
     /// Provide a precomputed value for the MD5 hash.
@@ -870,13 +878,23 @@ impl<T> WriteObject<T> {
     /// use [compute_md5()] to also have the library compute the checksums.
     ///
     /// [compute_md5()]: WriteObject::compute_md5
-    pub fn with_known_md5_hash<I, V>(mut self, i: I) -> Self
+    pub fn with_known_md5_hash<I, V>(self, i: I) -> Self
     where
         I: IntoIterator<Item = V>,
         V: Into<u8>,
     {
-        self.checksum = self.checksum.with_known_md5_hash();
-        self.set_md5_hash(i)
+        let this = Self {
+            inner: self.inner,
+            spec: self.spec,
+            params: self.params,
+            payload: self.payload,
+            options: self.options,
+            checksum: Checksum {
+                crc32c: self.checksum.crc32c,
+                md5_hash: None,
+            },
+        };
+        this.set_md5_hash(i)
     }
 
     /// Enables computation of MD5 hashes.
@@ -898,9 +916,21 @@ impl<T> WriteObject<T> {
     /// See [precompute_checksums][WriteObject::precompute_checksums] for more
     /// details on how checksums are used by the client library and their
     /// limitations.
-    pub fn compute_md5(mut self) -> Self {
-        self.checksum = self.checksum.compute_md5();
-        self
+    pub fn compute_md5(self) -> Self {
+        WriteObject {
+            payload: self.payload,
+            inner: self.inner,
+            spec: self.spec,
+            params: self.params,
+            options: self.options,
+            checksum: {
+                let this = self.checksum;
+                Checksum {
+                    crc32c: this.crc32c,
+                    md5_hash: Some(Md5::default()),
+                }
+            },
+        }
     }
 
     pub(crate) fn new<B, O, P>(
@@ -924,7 +954,10 @@ impl<T> WriteObject<T> {
             params: None,
             payload: payload.into(),
             options,
-            checksum: ChecksumEnum::default(),
+            checksum: Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: None,
+            },
         }
     }
 }
@@ -995,7 +1028,10 @@ where
         let computed = self.checksum.finalize();
         let current = self.mut_resource().checksums.get_or_insert_default();
         checksum_update(current, computed);
-        self.checksum = ChecksumEnum::Known(Known);
+        self.checksum = Checksum {
+            crc32c: None,
+            md5_hash: None,
+        };
         Ok(self)
     }
 }
@@ -1226,7 +1262,7 @@ mod tests {
     const QUICK: &str = "the quick brown fox jumps over the lazy dog";
     const VEXING: &str = "how vexingly quick daft zebras jump";
 
-    fn quick_checksum<E: ChecksumEngine>(mut engine: E) -> ObjectChecksums {
+    fn quick_checksum(mut engine: Checksum) -> ObjectChecksums {
         engine.update(0, &bytes::Bytes::from_static(QUICK.as_bytes()));
         engine.finalize()
     }
@@ -1246,7 +1282,10 @@ mod tests {
             .write_object("my-bucket", "my-object", QUICK)
             .precompute_checksums()
             .await?;
-        let want = quick_checksum(Crc32c::default());
+        let want = quick_checksum(Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: None,
+        });
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
         let collected = collect(upload.payload).await?;
         assert_eq!(collected, QUICK.as_bytes());
@@ -1261,14 +1300,20 @@ mod tests {
             .compute_md5()
             .precompute_checksums()
             .await?;
-        let want = quick_checksum(Crc32c::from_inner(Md5::default()));
+        let want = quick_checksum(Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        });
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
         Ok(())
     }
 
     #[tokio::test]
     async fn checksum_precomputed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1289,7 +1334,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_crc32c_known_md5_computed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1303,7 +1351,11 @@ mod tests {
         // Note that the checksums do not match the data. This is intentional,
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
-        let want = quick_checksum(Md5::default()).set_crc32c(ck.crc32c.unwrap());
+        let want = quick_checksum(Checksum {
+            crc32c: None,
+            md5_hash: Some(Md5::default()),
+        })
+        .set_crc32c(ck.crc32c.unwrap());
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
 
         Ok(())
@@ -1311,7 +1363,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_mixed_then_precomputed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1333,7 +1388,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_full_computed_then_md5_precomputed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1347,7 +1405,11 @@ mod tests {
         // Note that the checksums do not match the data. This is intentional,
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
-        let want = quick_checksum(Crc32c::default()).set_md5_hash(ck.md5_hash.clone());
+        let want = quick_checksum(Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: None,
+        })
+        .set_md5_hash(ck.md5_hash.clone());
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
 
         Ok(())
@@ -1355,7 +1417,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_known_crc32_then_computed_md5() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1378,7 +1443,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_known_crc32_then_known_md5() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
