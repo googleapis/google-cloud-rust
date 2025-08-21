@@ -7110,6 +7110,7 @@ dependencies = [
  "google-cloud-wkt",
  "integration-tests",
  "mockall",
+ "prost-types",
  "rand 0.9.2",
  "serde_json",
  "storage-samples",

@@ -83,9 +83,82 @@ path = "src/run/list_revisions.rs"
 name = "run-delete_revision"
 path = "src/run/delete_revision.rs"
 
+
+
 [[bin]]
-name = "run-get_execution"
-path = "src/run/get_execution.rs"
+name = "secretmanager-list_secrets"
+path = "src/secretmanager/list_secrets.rs"
+
+[[bin]]
+name = "secretmanager-create_secret"
+path = "src/secretmanager/create_secret.rs"
+
+[[bin]]
+name = "secretmanager-add_secret_version"
+path = "src/secretmanager/add_secret_version.rs"
+
+[[bin]]
+name = "secretmanager-get_secret"
+path = "src/secretmanager/get_secret.rs"
+
+[[bin]]
+name = "secretmanager-update_secret"
+path = "src/secretmanager/update_secret.rs"
+
+[[bin]]
+name = "secretmanager-delete_secret"
+path = "src/secretmanager/delete_secret.rs"
+
+[[bin]]
+name = "secretmanager-list_secret_versions"
+path = "src/secretmanager/list_secret_versions.rs"
+
+[[bin]]
+name = "secretmanager-get_secret_version"
+path = "src/secretmanager/get_secret_version.rs"
+
+[[bin]]
+name = "secretmanager-access_secret_version"
+path = "src/secretmanager/access_secret_version.rs"
+
+[[bin]]
+name = "secretmanager-disable_secret_version"
+path = "src/secretmanager/disable_secret_version.rs"
+
+[[bin]]
+name = "secretmanager-enable_secret_version"
+path = "src/secretmanager/enable_secret_version.rs"
+
+[[bin]]
+name = "secretmanager-destroy_secret_version"
+path = "src/secretmanager/destroy_secret_version.rs"
+
+[[bin]]
+name = "secretmanager-get_iam_policy"
+path = "src/secretmanager/get_iam_policy.rs"
+
+[[bin]]
+name = "secretmanager-set_iam_policy"
+path = "src/secretmanager/set_iam_policy.rs"
+
+[[bin]]
+name = "secretmanager-test_iam_permissions"
+path = "src/secretmanager/test_iam_permissions.rs"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -113,6 +186,7 @@ google-cloud-longrunning.workspace      = true
 google-cloud-lro                        = { workspace = true, features = ["unstable-stream"] }
 google-cloud-rpc.workspace              = true
 google-cloud-secretmanager-v1.workspace = true
+prost-types = { workspace = true }
 google-cloud-iam-v1 = { workspace = true }
 google-cloud-run-v2.workspace = true
 google-cloud-speech-v2.workspace        = true

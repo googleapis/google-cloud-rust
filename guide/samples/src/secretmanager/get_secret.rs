@@ -14,19 +14,15 @@
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    use google_cloud_run_v2::client::Executions;
+    use google_cloud_secretmanager_v1::client::SecretManagerService;
 
     let project_id = std::env::args().nth(1).unwrap();
-    let location = std::env::args().nth(2).unwrap();
-    let job_id = std::env::args().nth(3).unwrap();
-    let execution_id = std::env::args().nth(4).unwrap();
-    let client = Executions::builder().build().await?;
+    let secret_id = std::env::args().nth(2).unwrap();
+    let client = SecretManagerService::builder().build().await?;
 
     let response = client
-        .get_execution()
-        .set_name(format!(
-            "projects/{project_id}/locations/{location}/jobs/{job_id}/executions/{execution_id}"
-        ))
+        .get_secret()
+        .set_name(format!("projects/{project_id}/secrets/{secret_id}"))
         .send()
         .await?;
 
