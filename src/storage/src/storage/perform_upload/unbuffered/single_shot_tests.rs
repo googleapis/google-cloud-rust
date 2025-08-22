@@ -59,6 +59,33 @@ async fn http_error() -> Result {
 }
 
 #[tokio::test]
+async fn http_308_error() -> Result {
+    let server = Server::run();
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+            request::query(url_decoded(contains(("name", "test-object")))),
+            request::query(url_decoded(contains(("uploadType", "multipart")))),
+        ])
+        .respond_with(status_code(308).body("never happens")),
+    );
+
+    let client = Storage::builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(auth::credentials::testing::test_credentials())
+        .build()
+        .await?;
+    let err = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", "")
+        .send_unbuffered()
+        .await
+        .expect_err("expected a not found error");
+    assert_eq!(err.http_status_code(), Some(308));
+
+    Ok(())
+}
+
+#[tokio::test]
 async fn deserialization() -> Result {
     let server = Server::run();
     server.expect(
