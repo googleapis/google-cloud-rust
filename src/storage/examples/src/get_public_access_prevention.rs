@@ -22,8 +22,9 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .send()
         .await?;
     println!(
-        "Public access prevention is {} for bucket {}",
-        bucket.iam_config.unwrap().public_access_prevention, bucket_id
+        "Public access prevention is {:?} for bucket {}",
+        bucket.iam_config.map(|c| c.public_access_prevention),
+        bucket_id
     );
     Ok(())
 }

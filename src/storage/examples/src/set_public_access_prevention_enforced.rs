@@ -14,7 +14,6 @@
 
 // [START storage_set_public_access_prevention_enforced]
 use google_cloud_storage::client::StorageControl;
-use google_cloud_storage::model::iam_config::PublicAccessPrevention;
 use google_cloud_storage::model::bucket::IamConfig;
 use google_cloud_wkt::FieldMask;
 
@@ -27,9 +26,9 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
     let metageneration = bucket.metageneration;
     let bucket = client
         .update_bucket()
-        .set_bucket(bucket.set_iam_config(
-            IamConfig::new().set_public_access_prevention(PublicAccessPrevention::Enforced),
-        ))
+        .set_bucket(
+            bucket.set_iam_config(IamConfig::new().set_public_access_prevention("enforced")),
+        )
         .set_if_metageneration_match(metageneration)
         .set_update_mask(FieldMask::default().set_paths(["iam_config.public_access_prevention"]))
         .send()
