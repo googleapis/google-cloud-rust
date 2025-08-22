@@ -213,6 +213,13 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running stream_file_download example");
     objects::stream_file_download::sample(&client, &id).await?;
 
+    tracing::info!("running generate_encryption_key example");
+    let csek_key = objects::generate_encryption_key::sample();
+    tracing::info!("running upload_encrypted_file example");
+    objects::upload_encrypted_file::sample(&client, &id, "csek_file.txt", &key).await?;
+    tracing::info!("running download_encrypted_file example");
+    objects::download_encrypted_file::sample(&client, &id, "csek_file.txt", &key).await?;
+
     tracing::info!("running list_files example");
     objects::list_files::sample(&control, &id).await?;
     tracing::info!("running list_files_with_prefix example");
