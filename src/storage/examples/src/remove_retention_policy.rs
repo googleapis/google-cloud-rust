@@ -24,14 +24,17 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .send()
         .await?;
     let metageneration = bucket.metageneration;
-    let _bucket = client
+    let bucket = client
         .update_bucket()
         .set_bucket(bucket.set_retention_policy(RetentionPolicy::new()))
         .set_if_metageneration_match(metageneration)
         .set_update_mask(FieldMask::default().set_paths(["retention_policy"]))
         .send()
         .await?;
-    println!("Retention policy for bucket {} removed.", bucket_id);
+    println!(
+        "Retention policy for bucket {bucket_id} removed: {:?}",
+        bucket.retention_policy
+    );
     Ok(())
 }
 // [END storage_remove_retention_policy]

@@ -38,8 +38,8 @@ pub async fn sample(
         .send()
         .await?;
     println!(
-        "Retention policy for bucket {} set to: {:?}",
-        bucket_id, bucket.retention_policy
+        "Retention policy for bucket {bucket_id} set to: {:?}",
+        bucket.retention_policy
     );
     Ok(())
 }

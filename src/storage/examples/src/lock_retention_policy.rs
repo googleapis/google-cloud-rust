@@ -29,8 +29,8 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .send()
         .await?;
     println!(
-        "Retention policy for bucket {} locked: {:?}",
-        bucket_id, bucket.retention_policy
+        "Retention policy for bucket {bucket_id} locked: {:?}",
+        bucket.retention_policy
     );
     Ok(())
 }

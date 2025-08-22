@@ -38,12 +38,11 @@ mod print_bucket_website_configuration;
 mod quickstart;
 mod remove_bucket_owner;
 mod remove_retention_policy;
-mod set_retention_policy;
-
 mod set_lifecycle_abort_multipart_upload;
 mod set_public_access_prevention_enforced;
 mod set_public_access_prevention_inherited;
 mod set_public_access_prevention_unspecified;
+mod set_retention_policy;
 mod view_lifecycle_management_configuration;
 
 use google_cloud_gax::throttle_result::ThrottleResult;
@@ -101,6 +100,8 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
     let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
 
+    // We create multiple buckets because there is a rate limit on bucket
+    // changes.
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket example");
@@ -125,7 +126,6 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     enable_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running disable_default_event_based_hold example");
     disable_default_event_based_hold::sample(&client, &id).await?;
-
     tracing::info!("running set_public_access_prevention_unspecified example");
     set_public_access_prevention_unspecified::sample(&client, &id).await?;
     tracing::info!("running set_public_access_prevention_inherited example");
@@ -136,7 +136,6 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     set_public_access_prevention_enforced::sample(&client, &id).await?;
     tracing::info!("running get_public_access_prevention example");
     get_public_access_prevention::sample(&client, &id).await?;
-
     tracing::info!("running view_lifecycle_management_configuration example");
     view_lifecycle_management_configuration::sample(&client, &id).await?;
     tracing::info!("running enable_bucket_lifecycle_management example");
@@ -149,12 +148,12 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     print_bucket_website_configuration::sample(&client, &id).await?;
     tracing::info!("running define_bucket_website_configuration example");
     define_bucket_website_configuration::sample(&client, &id, "index.html", "404.html").await?;
-    tracing::info!("running get_retention_policy example");
-    get_retention_policy::sample(&client, &id).await?;
-    tracing::info!("running set_retention_policy example");
-    set_retention_policy::sample(&client, &id, 60).await?;
     tracing::info!("running remove_retention_policy example");
     remove_retention_policy::sample(&client, &id).await?;
+    tracing::info!("running set_retention_policy example");
+    set_retention_policy::sample(&client, &id, 60).await?;
+    tracing::info!("running get_retention_policy example");
+    get_retention_policy::sample(&client, &id).await?;
     tracing::info!("running lock_retention_policy example");
     lock_retention_policy::sample(&client, &id).await?;
     tracing::info!("running print_bucket_acl example");
