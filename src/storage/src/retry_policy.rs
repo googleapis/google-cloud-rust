@@ -88,7 +88,13 @@ impl RetryPolicy for RetryableErrors {
         if !idempotent {
             return RetryResult::Permanent(error);
         }
-        if error.is_io() {
+        if error.is_io() || error.is_timeout() {
+            return RetryResult::Continue(error);
+        }
+        if error.is_transport() && error.http_status_code().is_none() {
+            // Sometimes gRPC returns a transport error without an HTTP status
+            // code. We treat all of these as I/O errors and therefore
+            // retryable.
             return RetryResult::Continue(error);
         }
         if let Some(code) = error.http_status_code() {
@@ -103,6 +109,9 @@ impl RetryPolicy for RetryableErrors {
                 Code::Internal | Code::ResourceExhausted | Code::Unavailable => {
                     RetryResult::Continue(error)
                 }
+                // Over gRPC, the service returns DeadlineExceeded for some
+                // "Internal Error; please retry" conditions.
+                Code::DeadlineExceeded => RetryResult::Continue(error),
                 _ => RetryResult::Permanent(error),
             };
         }
@@ -179,6 +188,7 @@ mod tests {
     #[test_case(Code::Unavailable)]
     #[test_case(Code::Internal)]
     #[test_case(Code::ResourceExhausted)]
+    #[test_case(Code::DeadlineExceeded)]
     fn retryable_grpc(code: Code) {
         let p = RetryableErrors;
         let now = std::time::Instant::now();
@@ -198,6 +208,28 @@ mod tests {
         assert!(p.on_error(now, 0, false, grpc_error(code)).is_permanent());
 
         let t = p.on_throttle(now, 0, grpc_error(code));
+        assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
+    }
+
+    #[test]
+    fn io() {
+        let p = RetryableErrors;
+        let now = std::time::Instant::now();
+        assert!(p.on_error(now, 0, true, io_error()).is_continue());
+        assert!(p.on_error(now, 0, false, io_error()).is_permanent());
+
+        let t = p.on_throttle(now, 0, io_error());
+        assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
+    }
+
+    #[test]
+    fn timeout() {
+        let p = RetryableErrors;
+        let now = std::time::Instant::now();
+        assert!(p.on_error(now, 0, true, timeout_error()).is_continue());
+        assert!(p.on_error(now, 0, false, timeout_error()).is_permanent());
+
+        let t = p.on_throttle(now, 0, timeout_error());
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
     }
 
@@ -226,5 +258,13 @@ mod tests {
     fn grpc_error(code: Code) -> Error {
         let status = gax::error::rpc::Status::default().set_code(code);
         Error::service(status)
+    }
+
+    fn timeout_error() -> Error {
+        Error::timeout(tonic::Status::deadline_exceeded("try again"))
+    }
+
+    fn io_error() -> Error {
+        Error::io(tonic::Status::unavailable("try again"))
     }
 }
