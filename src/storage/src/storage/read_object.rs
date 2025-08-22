@@ -18,7 +18,7 @@ use crate::error::ReadError;
 use crate::model::ObjectChecksums;
 use crate::model_ext::KeyAes256;
 use crate::model_ext::ObjectHighlights;
-use crate::read_object_response::ReadObjectResponse;
+use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::{Checksum, Crc32c, Md5, validate};
 use base64::Engine;
@@ -31,7 +31,7 @@ use serde_with::DeserializeAs;
 /// # Example: accumulate the contents of an object into a vector
 /// ```
 /// use google_cloud_storage::{client::Storage, builder::storage::ReadObject};
-/// use google_cloud_storage::read_object_response::ReadObjectResponse;
+/// use google_cloud_storage::read_object::ReadObjectResponse;
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
 ///     let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
 ///     let mut reader = builder.send().await?;
@@ -48,7 +48,7 @@ use serde_with::DeserializeAs;
 /// ```
 /// use google_cloud_storage::{client::Storage, builder::storage::ReadObject};
 /// use google_cloud_storage::model_ext::ReadRange;
-/// use google_cloud_storage::read_object_response::ReadObjectResponse;
+/// use google_cloud_storage::read_object::ReadObjectResponse;
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
 ///     const MIB: u64 = 1024 * 1024;
 ///     let mut contents = Vec::new();
@@ -107,7 +107,7 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::read_object_response::ReadObjectResponse;
+    /// use google_cloud_storage::read_object::ReadObjectResponse;
     /// let builder =  client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .compute_md5();

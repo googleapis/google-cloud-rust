@@ -14,7 +14,7 @@
 
 // [START storage_stream_file_download]
 use google_cloud_storage::client::Storage;
-use google_cloud_storage::read_object_response::ReadObjectResponse;
+use google_cloud_storage::read_object::ReadObjectResponse;
 
 pub async fn sample(client: &Storage, bucket_id: &str) -> anyhow::Result<()> {
     const NAME: &str = "object-to-download.txt";

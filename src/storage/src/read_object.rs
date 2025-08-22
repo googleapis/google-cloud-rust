@@ -36,7 +36,7 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::read_object_response::ReadObjectResponse;
+    /// use google_cloud_storage::read_object::ReadObjectResponse;
     /// let object = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
@@ -58,7 +58,7 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::read_object_response::ReadObjectResponse;
+    /// use google_cloud_storage::read_object::ReadObjectResponse;
     /// let mut resp = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()

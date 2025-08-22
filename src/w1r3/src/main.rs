@@ -33,7 +33,7 @@ use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_storage::Result as StorageResult;
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::Object;
-use google_cloud_storage::read_object_response::ReadObjectResponse;
+use google_cloud_storage::read_object::ReadObjectResponse;
 use google_cloud_storage::retry_policy::RetryableErrors;
 use humantime::parse_duration;
 use instrumented_future::Instrumented;

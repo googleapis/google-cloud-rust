@@ -38,7 +38,7 @@ pub use gax::Result;
 pub use gax::error::Error;
 
 pub mod backoff_policy;
-pub mod read_object_response;
+pub mod read_object;
 pub mod read_resume_policy;
 pub mod retry_policy;
 pub use crate::storage::streaming_source;
