@@ -109,7 +109,7 @@ impl RetryPolicy for RetryableErrors {
                 Code::Internal | Code::ResourceExhausted | Code::Unavailable => {
                     RetryResult::Continue(error)
                 }
-                // Over gRPC, the service returns DeadlineExceeded for some 
+                // Over gRPC, the service returns DeadlineExceeded for some
                 // "Internal Error; please retry" conditions.
                 Code::DeadlineExceeded => RetryResult::Continue(error),
                 _ => RetryResult::Permanent(error),
