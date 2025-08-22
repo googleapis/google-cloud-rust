@@ -13,7 +13,6 @@
 // limitations under the License.
 
 mod add_bucket_owner;
-mod add_lifecycle_rule;
 mod change_default_storage_class;
 mod control;
 mod create_bucket;
@@ -21,10 +20,10 @@ mod create_bucket_class_location;
 mod create_bucket_dual_region;
 mod create_bucket_hierarchical_namespace;
 mod delete_bucket;
+mod disable_bucket_lifecycle_management;
 mod disable_default_event_based_hold;
-mod disable_lifecycle_management;
+mod enable_bucket_lifecycle_management;
 mod enable_default_event_based_hold;
-mod enable_lifecycle_management;
 mod get_bucket_metadata;
 mod get_default_event_based_hold;
 mod get_public_access_prevention;
@@ -34,6 +33,7 @@ mod print_bucket_acl;
 mod print_bucket_acl_for_user;
 mod quickstart;
 mod remove_bucket_owner;
+mod set_lifecycle_abort_multipart_upload;
 mod set_public_access_prevention_enforced;
 mod set_public_access_prevention_inherited;
 mod set_public_access_prevention_unspecified;
@@ -87,12 +87,12 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     get_public_access_prevention::sample(&client, &id).await?;
     tracing::info!("running view_lifecycle_management_configuration example");
     view_lifecycle_management_configuration::sample(&client, &id).await?;
-    tracing::info!("running enable_lifecycle_management example");
-    enable_lifecycle_management::sample(&client, &id).await?;
-    tracing::info!("running add_lifecycle_rule example");
-    add_lifecycle_rule::sample(&client, &id).await?;
-    tracing::info!("running disable_lifecycle_management example");
-    disable_lifecycle_management::sample(&client, &id).await?;
+    tracing::info!("running enable_bucket_lifecycle_management example");
+    enable_bucket_lifecycle_management::sample(&client, &id).await?;
+    tracing::info!("running set_lifecycle_abort_multipart_upload example");
+    set_lifecycle_abort_multipart_upload::sample(&client, &id).await?;
+    tracing::info!("running disable_bucket_lifecycle_management example");
+    disable_bucket_lifecycle_management::sample(&client, &id).await?;
     tracing::info!("running print_bucket_acl example");
     print_bucket_acl::sample(&client, &id).await?;
     tracing::info!("running add_bucket_owner example");

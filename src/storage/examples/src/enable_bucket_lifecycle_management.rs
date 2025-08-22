@@ -12,9 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_disable_lifecycle_management]
+// [START storage_enable_lifecycle_management]
 use google_cloud_storage::client::StorageControl;
-use google_cloud_storage::model::{Bucket, bucket::Lifecycle};
+use google_cloud_storage::model::bucket::Lifecycle;
+use google_cloud_storage::model::bucket::lifecycle::{
+    Rule,
+    rule::{Action, Condition},
+};
 use google_cloud_wkt::FieldMask;
 
 pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
@@ -24,14 +28,18 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .send()
         .await?;
     let metageneration = bucket.metageneration;
+    let rule = Rule::new()
+        .set_action(Action::new().set_type("Delete"))
+        .set_condition(Condition::new().set_age_days(30));
+    let lifecycle = Lifecycle::new().set_rule(vec![rule]);
     let bucket = client
         .update_bucket()
-        .set_bucket(Bucket::new().set_lifecycle(Lifecycle::new()))
+        .set_bucket(bucket.set_lifecycle(lifecycle))
         .set_if_metageneration_match(metageneration)
         .set_update_mask(FieldMask::default().set_paths(["lifecycle"]))
         .send()
         .await?;
-    println!("Lifecycle management disabled for bucket {bucket_id}: {bucket:?}");
+    println!("Lifecycle management enabled for bucket {bucket_id}: {bucket:?}");
     Ok(())
 }
-// [END storage_disable_lifecycle_management]
+// [END storage_enable_lifecycle_management]
