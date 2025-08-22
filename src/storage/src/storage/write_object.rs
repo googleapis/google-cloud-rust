@@ -835,17 +835,8 @@ impl<T> WriteObject<T> {
     ///
     /// [compute_md5()]: WriteObject::compute_md5
     pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> Self {
-        let this = Self {
-            inner: self.inner,
-            spec: self.spec,
-            params: self.params,
-            payload: self.payload,
-            options: self.options,
-            checksum: Checksum {
-                crc32c: None,
-                md5_hash: self.checksum.md5_hash,
-            },
-        };
+        let mut this = self;
+        this.checksum.crc32c = None;
         this.set_crc32c(v)
     }
 
@@ -883,17 +874,8 @@ impl<T> WriteObject<T> {
         I: IntoIterator<Item = V>,
         V: Into<u8>,
     {
-        let this = Self {
-            inner: self.inner,
-            spec: self.spec,
-            params: self.params,
-            payload: self.payload,
-            options: self.options,
-            checksum: Checksum {
-                crc32c: self.checksum.crc32c,
-                md5_hash: None,
-            },
-        };
+        let mut this = self;
+        this.checksum.md5_hash = None;
         this.set_md5_hash(i)
     }
 
@@ -917,20 +899,9 @@ impl<T> WriteObject<T> {
     /// details on how checksums are used by the client library and their
     /// limitations.
     pub fn compute_md5(self) -> Self {
-        Self {
-            payload: self.payload,
-            inner: self.inner,
-            spec: self.spec,
-            params: self.params,
-            options: self.options,
-            checksum: {
-                let this = self.checksum;
-                Checksum {
-                    crc32c: this.crc32c,
-                    md5_hash: Some(Md5::default()),
-                }
-            },
-        }
+        let mut this = self;
+        this.checksum.md5_hash = Some(Md5::default());
+        this
     }
 
     pub(crate) fn new<B, O, P>(

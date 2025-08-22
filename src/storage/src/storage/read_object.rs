@@ -119,15 +119,9 @@ impl ReadObject {
     /// # Ok(()) }
     /// ```
     pub fn compute_md5(self) -> Self {
-        Self {
-            inner: self.inner,
-            request: self.request,
-            options: self.options,
-            checksum: Checksum {
-                crc32c: self.checksum.crc32c,
-                md5_hash: Some(Md5::default()),
-            },
-        }
+        let mut this = self;
+        this.checksum.md5_hash = Some(Md5::default());
+        this
     }
 
     /// If present, selects a specific revision of this object (as
