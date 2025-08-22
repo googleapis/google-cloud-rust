@@ -93,7 +93,7 @@ impl RetryPolicy for RetryableErrors {
         }
         if error.is_transport() && error.http_status_code().is_none() {
             // Sometimes gRPC returns a transport error without an HTTP status
-            // code. We treat all of these are I/O errors and therefore
+            // code. We treat all of these as I/O errors and therefore
             // retryable.
             return RetryResult::Continue(error);
         }
