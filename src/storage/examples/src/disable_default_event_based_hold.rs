@@ -27,9 +27,7 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .update_bucket()
         .set_bucket(bucket.set_default_event_based_hold(false))
         .set_if_metageneration_match(metageneration)
-        .set_update_mask(
-            FieldMask::default().set_paths(["default_event_based_hold"]),
-        )
+        .set_update_mask(FieldMask::default().set_paths(["default_event_based_hold"]))
         .send()
         .await?;
     println!("Default event-based hold was disabled for bucket {bucket_id}: {bucket:?}");
