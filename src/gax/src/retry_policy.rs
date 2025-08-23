@@ -135,9 +135,8 @@ impl From<RetryPolicyArg> for Arc<dyn RetryPolicy> {
 /// should make a new attempt. The client library provides an instance of this
 /// type to the retry policy.
 ///
-/// We use a struct so we can grow the amount of information without breaking
-/// existing retry policies.
-#[derive(Debug)]
+/// This struct may gain new fields in future versions of the client libraries.
+#[derive(Clone, Debug)]
 #[non_exhaustive]
 pub struct RetryLoopState {
     /// If true, the request is idempotent and it is safe to retry.
