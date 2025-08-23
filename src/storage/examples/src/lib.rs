@@ -172,9 +172,13 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     Ok(())
 }
 
-async fn new_bucket(client: &StorageControl, project_id: &str, buckets: &mut Vec<String>) -> anyhow::Result<String> {
-    use google_cloud_storage::model::Bucket;
+async fn new_bucket(
+    client: &StorageControl,
+    project_id: &str,
+    buckets: &mut Vec<String>,
+) -> anyhow::Result<String> {
     use google_cloud_gax::options::RequestOptionsBuilder;
+    use google_cloud_storage::model::Bucket;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
