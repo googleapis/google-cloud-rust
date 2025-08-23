@@ -204,7 +204,9 @@ async fn runner(
             };
             let _ = task.tx.send(sample).await;
         }
-        deletes.push(delete(&control, &args, upload));
+        if !args.no_delete {
+            deletes.push(delete(&control, &args, upload));
+        }
         if deletes.len() >= batch_size {
             batch_size = rand::rng().sample(batch_size_gen);
             batch_delete(
@@ -701,6 +703,10 @@ struct Args {
     /// Sets the number of reads on each object.
     #[arg(long, default_value_t = 3)]
     read_count: i32,
+
+    /// Skip the deletes.
+    #[arg(long)]
+    no_delete: bool,
 
     /// Disable logs in the `reqwest` layer.
     #[arg(long)]
