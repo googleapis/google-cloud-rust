@@ -39,6 +39,7 @@ mod set_public_access_prevention_inherited;
 mod set_public_access_prevention_unspecified;
 mod view_lifecycle_management_configuration;
 
+use google_cloud_gax::throttle_result::ThrottleResult;
 use google_cloud_gax::{
     exponential_backoff::ExponentialBackoffBuilder, retry_policy::RetryPolicyExt,
 };
@@ -62,25 +63,35 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         tracing::subscriber::set_default(subscriber)
     };
 
+    // Avoid creating more than one bucket every 2 seconds:
+    //     https://cloud.google.com/storage/quotas
+    const BUCKET_CREATION_DELAY: Duration = Duration::from_secs(2);
+    // Avoid mutating a bucket more than once per second:
+    //     https://cloud.google.com/storage/quotas
+    const BUCKET_MUTATION_DELAY: Duration = Duration::from_secs(1);
+
+    // Use a longer than normal initial backoff, to better handle rate limit
+    // errors.
+    let backoff = ExponentialBackoffBuilder::new()
+        .with_initial_delay(std::cmp::max(BUCKET_CREATION_DELAY, BUCKET_MUTATION_DELAY))
+        .with_maximum_delay(Duration::from_secs(60))
+        .build()?;
+
     let client = StorageControl::builder()
-        .with_backoff_policy(
-            ExponentialBackoffBuilder::new()
-                .with_initial_delay(Duration::from_secs(2))
-                .with_maximum_delay(Duration::from_secs(60))
-                .build()?,
+        .with_backoff_policy(backoff)
+        .with_retry_policy(
+            // Retry all errors, the examples are tested with on newly created
+            // buckets, using a static configuration. Most likely the errors are
+            // network problems and can be safely retried. Or at least, we will
+            // get fewer flakes from retrying failures vs. not.
+            RetryableErrors
+                .with_time_limit(Duration::from_secs(900))
+                .always_idempotent(),
         )
-        .with_retry_policy(RetryableErrors.with_time_limit(Duration::from_secs(900)))
         .build()
         .await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
     let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
-
-    // Avoid creating more than one bucket every 2 seconds:
-    //     https://cloud.google.com/storage/quotas
-    const BUCKET_CREATION_PAUSE: Duration = Duration::from_secs(2);
-    // Avoid mutating a bucket more than once per second:
-    //     https://cloud.google.com/storage/quotas
-    const BUCKET_MUTATION_PAUSE: Duration = Duration::from_secs(2);
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -92,8 +103,9 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     delete_bucket::sample(&client, &id).await?;
 
     // Create a new bucket for several tests.
-    tokio::time::sleep(BUCKET_CREATION_PAUSE).await;
-    tracing::info!("running create_bucket example");
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket example [2]");
     create_bucket::sample(&client, &project_id, &id).await?;
     tracing::info!("running change_default_storage_class example");
     change_default_storage_class::sample(&client, &id).await?;
@@ -103,19 +115,15 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     get_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running enable_default_event_based_hold example");
     enable_default_event_based_hold::sample(&client, &id).await?;
-    tokio::time::sleep(BUCKET_MUTATION_PAUSE).await;
     tracing::info!("running disable_default_event_based_hold example");
     disable_default_event_based_hold::sample(&client, &id).await?;
 
-    let id = new_bucket(&client, &project_id, buckets).await?;
     tracing::info!("running set_public_access_prevention_unspecified example");
     set_public_access_prevention_unspecified::sample(&client, &id).await?;
-    tokio::time::sleep(BUCKET_MUTATION_PAUSE).await;
     tracing::info!("running set_public_access_prevention_inherited example");
     set_public_access_prevention_inherited::sample(&client, &id).await?;
     tracing::info!("running get_public_access_prevention example");
     get_public_access_prevention::sample(&client, &id).await?;
-    tokio::time::sleep(BUCKET_MUTATION_PAUSE).await;
     tracing::info!("running set_public_access_prevention_enforced example");
     set_public_access_prevention_enforced::sample(&client, &id).await?;
     tracing::info!("running get_public_access_prevention example");
@@ -123,23 +131,17 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     tracing::info!("running view_lifecycle_management_configuration example");
     view_lifecycle_management_configuration::sample(&client, &id).await?;
-    tokio::time::sleep(BUCKET_MUTATION_PAUSE).await;
     tracing::info!("running enable_bucket_lifecycle_management example");
     enable_bucket_lifecycle_management::sample(&client, &id).await?;
-    tokio::time::sleep(BUCKET_MUTATION_PAUSE).await;
     tracing::info!("running set_lifecycle_abort_multipart_upload example");
     set_lifecycle_abort_multipart_upload::sample(&client, &id).await?;
-    tokio::time::sleep(BUCKET_MUTATION_PAUSE).await;
     tracing::info!("running disable_bucket_lifecycle_management example");
     disable_bucket_lifecycle_management::sample(&client, &id).await?;
 
     tracing::info!("running print_bucket_acl example");
     print_bucket_acl::sample(&client, &id).await?;
-
-    tokio::time::sleep(BUCKET_MUTATION_PAUSE).await;
     tracing::info!("running add_bucket_owner example");
     add_bucket_owner::sample(&client, &id, &service_account).await?;
-    tokio::time::sleep(BUCKET_MUTATION_PAUSE).await;
     tracing::info!("running remove_bucket_owner example");
     remove_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running print_bucket_acl_for_user example");
@@ -149,49 +151,23 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets.push(id.clone());
     tracing::info!("running quickstart example");
     quickstart::sample(&client, &project_id, &id).await?;
-    tokio::time::sleep(BUCKET_CREATION_PAUSE).await;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_class_location example");
     create_bucket_class_location::sample(&client, &project_id, &id).await?;
-    tokio::time::sleep(BUCKET_CREATION_PAUSE).await;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_dual_region example");
     create_bucket_dual_region::sample(&client, &project_id, &id).await?;
-    tokio::time::sleep(BUCKET_CREATION_PAUSE).await;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_hierarchical_namespace example");
     create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
-    tokio::time::sleep(BUCKET_CREATION_PAUSE).await;
 
     Ok(())
-}
-
-async fn new_bucket(
-    client: &StorageControl,
-    project_id: &str,
-    buckets: &mut Vec<String>,
-) -> anyhow::Result<String> {
-    use google_cloud_gax::options::RequestOptionsBuilder;
-    use google_cloud_storage::model::Bucket;
-
-    let id = random_bucket_id();
-    buckets.push(id.clone());
-    let bucket = client
-        .create_bucket()
-        .set_parent("projects/_")
-        .set_bucket_id(&id)
-        .set_bucket(Bucket::new().set_project(format!("projects/{project_id}")))
-        .with_idempotency(true)
-        .send()
-        .await?;
-    tracing::info!("Using bucket {}", bucket.name);
-    Ok(id)
 }
 
 pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
@@ -392,6 +368,54 @@ pub fn random_bucket_id() -> String {
         .map(char::from)
         .collect();
     format!("{PREFIX}{bucket_id}")
+}
+
+trait RetryPolicyExt2: Sized {
+    fn always_idempotent(self) -> AlwaysIdempotent<Self> {
+        AlwaysIdempotent { inner: self }
+    }
+}
+
+impl<T> RetryPolicyExt2 for T where T: RetryPolicy {}
+
+#[derive(Clone, Debug)]
+struct AlwaysIdempotent<T> {
+    inner: T,
+}
+
+use google_cloud_gax::error::Error as GaxError;
+use google_cloud_gax::retry_policy::RetryPolicy;
+use google_cloud_gax::retry_result::RetryResult;
+
+impl<T> RetryPolicy for AlwaysIdempotent<T>
+where
+    T: RetryPolicy,
+{
+    fn on_error(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+        _idempotent: bool,
+        error: GaxError,
+    ) -> RetryResult {
+        self.inner.on_error(loop_start, attempt_count, true, error)
+    }
+    fn on_throttle(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+        error: GaxError,
+    ) -> ThrottleResult {
+        self.inner.on_throttle(loop_start, attempt_count, error)
+    }
+
+    fn remaining_time(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+    ) -> Option<Duration> {
+        self.inner.remaining_time(loop_start, attempt_count)
+    }
 }
 
 pub struct RandomChars {
