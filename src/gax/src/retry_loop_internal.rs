@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::retry_policy::RetryLoopState;
 use crate::throttle_result::ThrottleResult;
 
 use super::Result;
@@ -63,7 +64,10 @@ where
     let mut attempt = RetryLoopAttempt::Initial;
     loop {
         let mut attempt_count = attempt.count();
-        let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);
+        let state = RetryLoopState::new(idempotent)
+            .set_attempt_count(attempt_count)
+            .set_start(loop_start);
+        let remaining_time = retry_policy.remaining_time(&state);
 
         if let RetryLoopAttempt::Retry(attempt_count, delay, prev_error) = attempt {
             if remaining_time.is_some_and(|remaining| remaining < delay) {
@@ -77,7 +81,7 @@ where
                 .throttle_retry_attempt()
             {
                 // This counts as an error for the purposes of the retry policy.
-                let error = match retry_policy.on_throttle(loop_start, attempt_count, prev_error) {
+                let error = match retry_policy.on_throttle(&state, prev_error) {
                     ThrottleResult::Exhausted(e) => {
                         return Err(e);
                     }
@@ -89,6 +93,7 @@ where
             }
         }
         attempt_count += 1;
+        let state = state.set_attempt_count(attempt_count);
         match inner(remaining_time).await {
             Ok(r) => {
                 retry_throttler
@@ -98,7 +103,7 @@ where
                 return Ok(r);
             }
             Err(e) => {
-                let flow = retry_policy.on_error(loop_start, attempt_count, idempotent, e);
+                let flow = retry_policy.on_error(&state, e);
                 let delay = backoff_policy.on_failure(loop_start, attempt_count);
                 retry_throttler
                     .lock()
@@ -214,7 +219,7 @@ mod tests {
         retry_policy
             .expect_on_error()
             .once()
-            .returning(|_, _, _, e| RetryResult::Permanent(e));
+            .returning(|_, e| RetryResult::Permanent(e));
         let mut backoff_policy = MockBackoffPolicy::new();
         backoff_policy
             .expect_on_failure()
@@ -311,8 +316,8 @@ mod tests {
         retry_policy
             .expect_on_error()
             .times(2)
-            .withf(move |_, _, idempotent, _| idempotent == &expected_idempotency)
-            .returning(|_, _, _, e| RetryResult::Continue(e));
+            .withf(move |state, _| state.idempotent == expected_idempotency)
+            .returning(|_, e| RetryResult::Continue(e));
 
         let mut backoff_seq = mockall::Sequence::new();
         let mut backoff_policy = MockBackoffPolicy::new();
@@ -393,12 +398,12 @@ mod tests {
             .expect_on_error()
             .times(ERRORS - 1)
             .in_sequence(&mut retry_seq)
-            .returning(|_, _, _, e| RetryResult::Continue(e));
+            .returning(|_, e| RetryResult::Continue(e));
         retry_policy
             .expect_on_error()
             .once()
             .in_sequence(&mut retry_seq)
-            .returning(|_, _, _, e| RetryResult::Exhausted(e));
+            .returning(|_, e| RetryResult::Exhausted(e));
         let mut backoff_policy = MockBackoffPolicy::new();
         backoff_policy
             .expect_on_failure()
@@ -476,12 +481,12 @@ mod tests {
             .expect_on_error()
             .once()
             .in_sequence(&mut retry_seq)
-            .returning(|_, _, _, e| RetryResult::Continue(e));
+            .returning(|_, e| RetryResult::Continue(e));
         retry_policy
             .expect_on_error()
             .once()
             .in_sequence(&mut retry_seq)
-            .returning(|_, _, _, e| RetryResult::Permanent(e));
+            .returning(|_, e| RetryResult::Permanent(e));
         let mut backoff_policy = MockBackoffPolicy::new();
         backoff_policy
             .expect_on_failure()
@@ -558,12 +563,12 @@ mod tests {
             .expect_on_error()
             .once()
             .in_sequence(&mut retry_seq)
-            .returning(|_, _, _, e| RetryResult::Continue(e));
+            .returning(|_, e| RetryResult::Continue(e));
         retry_policy
             .expect_on_throttle()
             .once()
             .in_sequence(&mut retry_seq)
-            .returning(|_, _, e| ThrottleResult::Continue(e));
+            .returning(|_, e| ThrottleResult::Continue(e));
 
         let mut backoff_policy = MockBackoffPolicy::new();
         backoff_policy
@@ -624,12 +629,12 @@ mod tests {
             .expect_on_error()
             .once()
             .in_sequence(&mut retry_seq)
-            .returning(|_, _, _, e| RetryResult::Continue(e));
+            .returning(|_, e| RetryResult::Continue(e));
         retry_policy
             .expect_on_throttle()
             .once()
             .in_sequence(&mut retry_seq)
-            .returning(|_, _, e| ThrottleResult::Exhausted(e));
+            .returning(|_, e| ThrottleResult::Exhausted(e));
 
         let mut backoff_policy = MockBackoffPolicy::new();
         backoff_policy
@@ -691,7 +696,7 @@ mod tests {
             .expect_on_error()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _, _, e| RetryResult::Continue(e));
+            .returning(|_, e| RetryResult::Continue(e));
 
         // The backoff policy wants to sleep for longer than the overall timeout.
         backoff_policy
@@ -773,7 +778,7 @@ mod tests {
             .expect_on_error()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _, _, e| RetryResult::Continue(e));
+            .returning(|_, e| RetryResult::Continue(e));
 
         // The backoff policy returns an instantaneous sleep.
         backoff_policy
@@ -818,7 +823,7 @@ mod tests {
             .expect_on_throttle()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _, e| ThrottleResult::Continue(e));
+            .returning(|_, e| ThrottleResult::Continue(e));
 
         // The backoff policy wants to sleep for longer than the overall timeout.
         backoff_policy
@@ -925,9 +930,9 @@ mod tests {
         #[derive(Debug)]
         RetryPolicy {}
         impl RetryPolicy for RetryPolicy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> RetryResult;
-            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> ThrottleResult;
-            fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Duration>;
+            fn on_error(&self,       state: &RetryLoopState, error: Error) -> RetryResult;
+            fn on_throttle(&self,    state: &RetryLoopState, error: Error) -> ThrottleResult;
+            fn remaining_time(&self, state: &RetryLoopState) -> Option<Duration>;
         }
         impl std::clone::Clone for RetryPolicy {
             fn clone(&self) -> Self;

@@ -38,7 +38,7 @@
 
 use gax::error::Error;
 use gax::{
-    retry_policy::{RetryPolicy, RetryPolicyExt},
+    retry_policy::{RetryLoopState, RetryPolicy, RetryPolicyExt},
     retry_result::RetryResult,
 };
 use std::sync::Arc;
@@ -77,15 +77,13 @@ pub struct RetryableErrors;
 impl RetryPolicy for RetryableErrors {
     fn on_error(
         &self,
-        _loop_start: std::time::Instant,
-        _attempt_count: u32,
-        idempotent: bool,
+        state: &RetryLoopState,
         error: Error,
     ) -> RetryResult {
         if error.is_transient_and_before_rpc() {
             return RetryResult::Continue(error);
         }
-        if !idempotent {
+        if !state.idempotent {
             return RetryResult::Permanent(error);
         }
         if error.is_io() || error.is_timeout() {
@@ -136,16 +134,14 @@ impl<T> ContinueOn308<T> {
 impl RetryPolicy for ContinueOn308<Arc<dyn RetryPolicy + 'static>> {
     fn on_error(
         &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-        idempotent: bool,
+        state: &RetryLoopState,
         error: Error,
     ) -> RetryResult {
         if error.http_status_code() == Some(308) {
             return RetryResult::Continue(error);
         }
         self.inner
-            .on_error(loop_start, attempt_count, idempotent, error)
+            .on_error(state, error)
     }
 }
 
@@ -165,11 +161,10 @@ mod tests {
     #[test_case(504)]
     fn retryable_http(code: u16) {
         let p = RetryableErrors;
-        let now = std::time::Instant::now();
-        assert!(p.on_error(now, 0, true, http_error(code)).is_continue());
-        assert!(p.on_error(now, 0, false, http_error(code)).is_permanent());
+        assert!(p.on_error(&RetryLoopState::new(true), http_error(code)).is_continue());
+        assert!(p.on_error(&RetryLoopState::new(false), http_error(code)).is_permanent());
 
-        let t = p.on_throttle(now, 0, http_error(code));
+        let t = p.on_throttle(&RetryLoopState::new(true), http_error(code));
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
     }
 
@@ -177,11 +172,10 @@ mod tests {
     #[test_case(403)]
     fn not_recommended_http(code: u16) {
         let p = RetryableErrors;
-        let now = std::time::Instant::now();
-        assert!(p.on_error(now, 0, true, http_error(code)).is_permanent());
-        assert!(p.on_error(now, 0, false, http_error(code)).is_permanent());
+        assert!(p.on_error(&RetryLoopState::new(true), http_error(code)).is_permanent());
+        assert!(p.on_error(&RetryLoopState::new(false), http_error(code)).is_permanent());
 
-        let t = p.on_throttle(now, 0, http_error(code));
+        let t = p.on_throttle(&RetryLoopState::new(true), http_error(code));
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
     }
 
@@ -191,11 +185,10 @@ mod tests {
     #[test_case(Code::DeadlineExceeded)]
     fn retryable_grpc(code: Code) {
         let p = RetryableErrors;
-        let now = std::time::Instant::now();
-        assert!(p.on_error(now, 0, true, grpc_error(code)).is_continue());
-        assert!(p.on_error(now, 0, false, grpc_error(code)).is_permanent());
+        assert!(p.on_error(&RetryLoopState::new(true), grpc_error(code)).is_continue());
+        assert!(p.on_error(&RetryLoopState::new(false), grpc_error(code)).is_permanent());
 
-        let t = p.on_throttle(now, 0, grpc_error(code));
+        let t = p.on_throttle(&RetryLoopState::new(true), grpc_error(code));
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
     }
 
@@ -203,33 +196,30 @@ mod tests {
     #[test_case(Code::PermissionDenied)]
     fn not_recommended_grpc(code: Code) {
         let p = RetryableErrors;
-        let now = std::time::Instant::now();
-        assert!(p.on_error(now, 0, true, grpc_error(code)).is_permanent());
-        assert!(p.on_error(now, 0, false, grpc_error(code)).is_permanent());
+        assert!(p.on_error(&RetryLoopState::new(true), grpc_error(code)).is_permanent());
+        assert!(p.on_error(&RetryLoopState::new(false), grpc_error(code)).is_permanent());
 
-        let t = p.on_throttle(now, 0, grpc_error(code));
+        let t = p.on_throttle(&RetryLoopState::new(true), grpc_error(code));
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
     }
 
     #[test]
     fn io() {
         let p = RetryableErrors;
-        let now = std::time::Instant::now();
-        assert!(p.on_error(now, 0, true, io_error()).is_continue());
-        assert!(p.on_error(now, 0, false, io_error()).is_permanent());
+        assert!(p.on_error(&RetryLoopState::new(true), io_error()).is_continue());
+        assert!(p.on_error(&RetryLoopState::new(false), io_error()).is_permanent());
 
-        let t = p.on_throttle(now, 0, io_error());
+        let t = p.on_throttle(&RetryLoopState::new(true), io_error());
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
     }
 
     #[test]
     fn timeout() {
         let p = RetryableErrors;
-        let now = std::time::Instant::now();
-        assert!(p.on_error(now, 0, true, timeout_error()).is_continue());
-        assert!(p.on_error(now, 0, false, timeout_error()).is_permanent());
+        assert!(p.on_error(&RetryLoopState::new(true), timeout_error()).is_continue());
+        assert!(p.on_error(&RetryLoopState::new(false), timeout_error()).is_permanent());
 
-        let t = p.on_throttle(now, 0, timeout_error());
+        let t = p.on_throttle(&RetryLoopState::new(true), timeout_error());
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
     }
 
@@ -237,17 +227,16 @@ mod tests {
     fn continue_on_308() {
         let inner: Arc<dyn RetryPolicy + 'static> = Arc::new(RetryableErrors);
         let p = ContinueOn308::new(inner);
-        let now = std::time::Instant::now();
-        assert!(p.on_error(now, 0, true, http_error(308)).is_continue());
-        assert!(p.on_error(now, 0, false, http_error(308)).is_continue());
+        assert!(p.on_error(&RetryLoopState::new(true), http_error(308)).is_continue());
+        assert!(p.on_error(&RetryLoopState::new(false), http_error(308)).is_continue());
 
-        assert!(p.on_error(now, 0, true, http_error(429)).is_continue());
-        assert!(p.on_error(now, 0, false, http_error(429)).is_permanent());
+        assert!(p.on_error(&RetryLoopState::new(true), http_error(429)).is_continue());
+        assert!(p.on_error(&RetryLoopState::new(false), http_error(429)).is_permanent());
 
-        let t = p.on_throttle(now, 0, http_error(308));
+        let t = p.on_throttle(&RetryLoopState::new(true), http_error(308));
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
 
-        let t = p.on_throttle(now, 0, http_error(429));
+        let t = p.on_throttle(&RetryLoopState::new(true), http_error(429));
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
     }
 

@@ -26,12 +26,10 @@ mod tests {
     impl RetryPolicy for CustomRetryPolicy {
         fn on_error(
             &self,
-            _loop_start: std::time::Instant,
-            _attempt_count: u32,
-            idempotent: bool,
+            state: &RetryLoopState,
             error: Error,
         ) -> RetryResult {
-            if idempotent {
+            if state.idempotent {
                 RetryResult::Continue(error)
             } else {
                 RetryResult::Permanent(error)
@@ -40,8 +38,7 @@ mod tests {
 
         fn remaining_time(
             &self,
-            _loop_start: std::time::Instant,
-            _attempt_count: u32,
+            _state: &RetryLoopState,
         ) -> Option<std::time::Duration> {
             None
         }
