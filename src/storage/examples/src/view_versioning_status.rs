@@ -21,15 +21,7 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .set_name(format!("projects/_/buckets/{bucket_id}"))
         .send()
         .await?;
-    if let Some(versioning) = bucket.versioning {
-        if versioning.enabled {
-            println!("Versioning is enabled for bucket {bucket_id}");
-        } else {
-            println!("Versioning is disabled for bucket {bucket_id}");
-        }
-    } else {
-        println!("Versioning is not configured for bucket {bucket_id}");
-    }
+    println!("Versioning for bucket {bucket_id}: {:?}", bucket.versioning);
     Ok(())
 }
 // [END storage_view_versioning_status]
