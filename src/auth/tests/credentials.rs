@@ -42,7 +42,7 @@ mod tests {
     use test_case::test_case;
 
     type Result<T> = anyhow::Result<T>;
-    type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
+    type TestResult = anyhow::Result<()>;
 
     fn find_source_error<'a, T: Error + 'static>(
         error: &'a (dyn Error + 'static),

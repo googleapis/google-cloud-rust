@@ -183,6 +183,35 @@ jobs:
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
 
+  minimal-versions:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['rust:current']
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          cargo install cargo-minimal-versions cargo-hack@0.6.37 cargo-minimal-versions@0.1.31 --locked
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - run: cargo minimal-versions test
+      - name: Upload to codecov.io
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
+
   showcase:
     runs-on: ubuntu-24.04
     strategy:
