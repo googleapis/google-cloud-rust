@@ -205,7 +205,15 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustup show active-toolchain -v
-      - run: cargo minimal-versions test
+      - run: cargo minimal-versions test \
+          --package integration-tests \
+          --package user-buide-samples \
+          --package storage-samples \
+          --package google-cloud-storage \
+          --package google-cloud-gax-internal \
+          --package google-cloud-auth \
+          --package google-cloud-gax \
+          --package google-cloud-wkt
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v5
         with:
