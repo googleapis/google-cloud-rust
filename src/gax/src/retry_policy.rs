@@ -55,9 +55,10 @@
 
 use crate::error::Error;
 use crate::retry_result::RetryResult;
+use crate::retry_state::RetryState;
 use crate::throttle_result::ThrottleResult;
 use std::sync::Arc;
-use std::time::{Duration, Instant};
+use std::time::Duration;
 
 /// Determines how errors are handled in the retry loop.
 ///
@@ -70,7 +71,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// * `_state` - the state of the retry loop.
     /// * `error` - the last error when attempting the request.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    fn on_error(&self, state: &RetryLoopState, error: Error) -> RetryResult;
+    fn on_error(&self, state: &RetryState, error: Error) -> RetryResult;
 
     /// Query the retry policy after a retry attempt is throttled.
     ///
@@ -84,7 +85,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     ///   only applies to retry attempts, and a retry attempt implies that a
     ///   previous attempt failed. The retry policy should preserve this error.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    fn on_throttle(&self, _state: &RetryLoopState, error: Error) -> ThrottleResult {
+    fn on_throttle(&self, _state: &RetryState, error: Error) -> ThrottleResult {
         ThrottleResult::Continue(error)
     }
 
@@ -99,7 +100,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// * `attempt_count` - the number of attempts. This method is called before
     ///   the first attempt, so the first value is zero.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    fn remaining_time(&self, _state: &RetryLoopState) -> Option<Duration> {
+    fn remaining_time(&self, _state: &RetryState) -> Option<Duration> {
         None
     }
 }
@@ -129,52 +130,6 @@ impl From<RetryPolicyArg> for Arc<dyn RetryPolicy> {
     }
 }
 
-/// The inputs into a retry policy query.
-///
-/// On an error, the client library queries the retry policy as to whether it
-/// should make a new attempt. The client library provides an instance of this
-/// type to the retry policy.
-///
-/// This struct may gain new fields in future versions of the client libraries.
-#[derive(Clone, Debug)]
-#[non_exhaustive]
-pub struct RetryLoopState {
-    /// If true, the request is idempotent and it is safe to retry.
-    ///
-    /// Some policies retry non-idempotent operations because they are safe for
-    /// a given configuration of the service or client.
-    pub idempotent: bool,
-
-    /// The start time for this retry loop.
-    pub start: Instant,
-
-    /// The number of times the read request has been interrupted already.
-    pub attempt_count: u32,
-}
-
-impl RetryLoopState {
-    /// Create a new instance.
-    pub fn new(idempotent: bool) -> Self {
-        Self {
-            idempotent,
-            start: Instant::now(),
-            attempt_count: 0,
-        }
-    }
-
-    /// Update the start time, useful in mocks.
-    pub fn set_start<T: Into<Instant>>(mut self, v: T) -> Self {
-        self.start = v.into();
-        self
-    }
-
-    /// Update the attempt count, useful in mocks.
-    pub fn set_attempt_count<T: Into<u32>>(mut self, v: T) -> Self {
-        self.attempt_count = v.into();
-        self
-    }
-}
-
 /// Extension trait for [`RetryPolicy`]
 pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// Decorate a [RetryPolicy] to limit the total elapsed time in the retry loop.
@@ -192,9 +147,10 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::retry_state::RetryState;
     /// let d = std::time::Duration::from_secs(10);
     /// let policy = Aip194Strict.with_time_limit(d);
-    /// assert!(policy.remaining_time(&RetryLoopState::new(true)) <= Some(d));
+    /// assert!(policy.remaining_time(&RetryState::new(true)) <= Some(d));
     /// ```
     fn with_time_limit(self, maximum_duration: Duration) -> LimitedElapsedTime<Self> {
         LimitedElapsedTime::custom(self, maximum_duration)
@@ -215,12 +171,13 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::retry_state::RetryState;
     /// let policy = Aip194Strict.with_attempt_limit(3);
-    /// assert_eq!(policy.remaining_time(&RetryLoopState::new(true)), None);
-    /// assert!(policy.on_error(&RetryLoopState::new(true).set_attempt_count(0_u32), transient_error()).is_continue());
-    /// assert!(policy.on_error(&RetryLoopState::new(true).set_attempt_count(1_u32), transient_error()).is_continue());
-    /// assert!(policy.on_error(&RetryLoopState::new(true).set_attempt_count(2_u32), transient_error()).is_continue());
-    /// assert!(policy.on_error(&RetryLoopState::new(true).set_attempt_count(3_u32), transient_error()).is_exhausted());
+    /// assert_eq!(policy.remaining_time(&RetryState::new(true)), None);
+    /// assert!(policy.on_error(&RetryState::new(true).set_attempt_count(0_u32), transient_error()).is_continue());
+    /// assert!(policy.on_error(&RetryState::new(true).set_attempt_count(1_u32), transient_error()).is_continue());
+    /// assert!(policy.on_error(&RetryState::new(true).set_attempt_count(2_u32), transient_error()).is_continue());
+    /// assert!(policy.on_error(&RetryState::new(true).set_attempt_count(3_u32), transient_error()).is_exhausted());
     ///
     /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
@@ -244,9 +201,10 @@ impl<T: RetryPolicy> RetryPolicyExt for T {}
 /// # Example
 /// ```
 /// # use google_cloud_gax::retry_policy::*;
+/// # use google_cloud_gax::retry_state::RetryState;
 /// let policy = Aip194Strict;
-/// assert!(policy.on_error(&RetryLoopState::new(true), transient_error()).is_continue());
-/// assert!(policy.on_error(&RetryLoopState::new(true), permanent_error()).is_permanent());
+/// assert!(policy.on_error(&RetryState::new(true), transient_error()).is_continue());
+/// assert!(policy.on_error(&RetryState::new(true), permanent_error()).is_permanent());
 ///
 /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
 /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
@@ -258,7 +216,7 @@ impl<T: RetryPolicy> RetryPolicyExt for T {}
 pub struct Aip194Strict;
 
 impl RetryPolicy for Aip194Strict {
-    fn on_error(&self, state: &RetryLoopState, error: Error) -> RetryResult {
+    fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
         if error.is_transient_and_before_rpc() {
             return RetryResult::Continue(error);
         }
@@ -296,9 +254,10 @@ impl RetryPolicy for Aip194Strict {
 /// # Example
 /// ```
 /// # use google_cloud_gax::retry_policy::*;
+/// # use google_cloud_gax::retry_state::RetryState;
 /// let policy = AlwaysRetry;
-/// assert!(policy.on_error(&RetryLoopState::new(true), transient_error()).is_continue());
-/// assert!(policy.on_error(&RetryLoopState::new(true), permanent_error()).is_continue());
+/// assert!(policy.on_error(&RetryState::new(true), transient_error()).is_continue());
+/// assert!(policy.on_error(&RetryState::new(true), permanent_error()).is_continue());
 ///
 /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
 /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
@@ -308,7 +267,7 @@ impl RetryPolicy for Aip194Strict {
 pub struct AlwaysRetry;
 
 impl RetryPolicy for AlwaysRetry {
-    fn on_error(&self, _state: &RetryLoopState, error: Error) -> RetryResult {
+    fn on_error(&self, _state: &RetryState, error: Error) -> RetryResult {
         RetryResult::Continue(error)
     }
 }
@@ -321,9 +280,10 @@ impl RetryPolicy for AlwaysRetry {
 /// # Example
 /// ```
 /// # use google_cloud_gax::retry_policy::*;
+/// # use google_cloud_gax::retry_state::RetryState;
 /// let policy = NeverRetry;
-/// assert!(policy.on_error(&RetryLoopState::new(true), transient_error()).is_exhausted());
-/// assert!(policy.on_error(&RetryLoopState::new(true), permanent_error()).is_exhausted());
+/// assert!(policy.on_error(&RetryState::new(true), transient_error()).is_exhausted());
+/// assert!(policy.on_error(&RetryState::new(true), permanent_error()).is_exhausted());
 ///
 /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
 /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
@@ -333,7 +293,7 @@ impl RetryPolicy for AlwaysRetry {
 pub struct NeverRetry;
 
 impl RetryPolicy for NeverRetry {
-    fn on_error(&self, _state: &RetryLoopState, error: Error) -> RetryResult {
+    fn on_error(&self, _state: &RetryState, error: Error) -> RetryResult {
         RetryResult::Exhausted(error)
     }
 }
@@ -398,9 +358,10 @@ impl LimitedElapsedTime {
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::retry_state::RetryState;
     /// let d = std::time::Duration::from_secs(10);
     /// let policy = LimitedElapsedTime::new(d);
-    /// assert!(policy.remaining_time(&RetryLoopState::new(true)) <= Some(d));
+    /// assert!(policy.remaining_time(&RetryState::new(true)) <= Some(d));
     /// ```
     pub fn new(maximum_duration: Duration) -> Self {
         Self {
@@ -419,12 +380,13 @@ where
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::retry_state::RetryState;
     /// # use google_cloud_gax::error;
     /// use std::time::{Duration, Instant};
     /// let d = Duration::from_secs(10);
     /// let policy = AlwaysRetry.with_time_limit(d);
-    /// assert!(policy.remaining_time(&RetryLoopState::new(false)) <= Some(d));
-    /// assert!(policy.on_error(&RetryLoopState::new(false), permanent_error()).is_continue());
+    /// assert!(policy.remaining_time(&RetryState::new(false)) <= Some(d));
+    /// assert!(policy.on_error(&RetryState::new(false), permanent_error()).is_continue());
     ///
     /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
@@ -437,7 +399,7 @@ where
         }
     }
 
-    fn error_if_exhausted(&self, state: &RetryLoopState, error: Error) -> ThrottleResult {
+    fn error_if_exhausted(&self, state: &RetryState, error: Error) -> ThrottleResult {
         let deadline = state.start + self.maximum_duration;
         let now = tokio::time::Instant::now().into_std();
         if now < deadline {
@@ -455,7 +417,7 @@ impl<P> RetryPolicy for LimitedElapsedTime<P>
 where
     P: RetryPolicy + 'static,
 {
-    fn on_error(&self, state: &RetryLoopState, error: Error) -> RetryResult {
+    fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
         match self.inner.on_error(state, error) {
             RetryResult::Permanent(e) => RetryResult::Permanent(e),
             RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
@@ -469,14 +431,14 @@ where
         }
     }
 
-    fn on_throttle(&self, state: &RetryLoopState, error: Error) -> ThrottleResult {
+    fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult {
         match self.inner.on_throttle(state, error) {
             ThrottleResult::Continue(e) => self.error_if_exhausted(state, e),
             ThrottleResult::Exhausted(e) => ThrottleResult::Exhausted(e),
         }
     }
 
-    fn remaining_time(&self, state: &RetryLoopState) -> Option<Duration> {
+    fn remaining_time(&self, state: &RetryState) -> Option<Duration> {
         let deadline = state.start + self.maximum_duration;
         let remaining = deadline.saturating_duration_since(tokio::time::Instant::now().into_std());
         if let Some(inner) = self.inner.remaining_time(state) {
@@ -534,9 +496,10 @@ where
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::retry_state::RetryState;
     /// let policy = LimitedAttemptCount::custom(AlwaysRetry, 2);
-    /// assert!(policy.on_error(&RetryLoopState::new(false).set_attempt_count(1_u32), permanent_error()).is_continue());
-    /// assert!(policy.on_error(&RetryLoopState::new(false).set_attempt_count(2_u32), permanent_error()).is_exhausted());
+    /// assert!(policy.on_error(&RetryState::new(false).set_attempt_count(1_u32), permanent_error()).is_continue());
+    /// assert!(policy.on_error(&RetryState::new(false).set_attempt_count(2_u32), permanent_error()).is_exhausted());
     ///
     /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
     /// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
@@ -553,7 +516,7 @@ impl<P> RetryPolicy for LimitedAttemptCount<P>
 where
     P: RetryPolicy,
 {
-    fn on_error(&self, state: &RetryLoopState, error: Error) -> RetryResult {
+    fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
         match self.inner.on_error(state, error) {
             RetryResult::Permanent(e) => RetryResult::Permanent(e),
             RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
@@ -567,7 +530,7 @@ where
         }
     }
 
-    fn on_throttle(&self, state: &RetryLoopState, error: Error) -> ThrottleResult {
+    fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult {
         // The retry loop only calls `on_throttle()` if the policy has not
         // been exhausted.
         assert!(
@@ -577,7 +540,7 @@ where
         self.inner.on_throttle(state, error)
     }
 
-    fn remaining_time(&self, state: &RetryLoopState) -> Option<Duration> {
+    fn remaining_time(&self, state: &RetryState) -> Option<Duration> {
         self.inner.remaining_time(state)
     }
 }
@@ -585,6 +548,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::time::Instant;
     use http::HeaderMap;
     use std::error::Error as StdError;
 
@@ -827,9 +791,9 @@ mod tests {
         #[derive(Debug)]
         Policy {}
         impl RetryPolicy for Policy {
-            fn on_error(&self, state: &RetryLoopState, error: Error) -> RetryResult;
-            fn on_throttle(&self, state: &RetryLoopState, error: Error) -> ThrottleResult;
-            fn remaining_time(&self, state: &RetryLoopState) -> Option<Duration>;
+            fn on_error(&self, state: &RetryState, error: Error) -> RetryResult;
+            fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult;
+            fn remaining_time(&self, state: &RetryState) -> Option<Duration>;
         }
     }
 
@@ -1149,11 +1113,11 @@ mod tests {
         )
     }
 
-    fn idempotent_state(now: Instant) -> RetryLoopState {
-        RetryLoopState::new(true).set_start(now)
+    fn idempotent_state(now: Instant) -> RetryState {
+        RetryState::new(true).set_start(now)
     }
 
-    fn non_idempotent_state(now: Instant) -> RetryLoopState {
-        RetryLoopState::new(false).set_start(now)
+    fn non_idempotent_state(now: Instant) -> RetryState {
+        RetryState::new(false).set_start(now)
     }
 }

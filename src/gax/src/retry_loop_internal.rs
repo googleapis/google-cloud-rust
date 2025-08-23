@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::retry_policy::RetryLoopState;
+use crate::retry_state::RetryState;
 use crate::throttle_result::ThrottleResult;
 
 use super::Result;
@@ -64,7 +64,7 @@ where
     let mut attempt = RetryLoopAttempt::Initial;
     loop {
         let mut attempt_count = attempt.count();
-        let state = RetryLoopState::new(idempotent)
+        let state = RetryState::new(idempotent)
             .set_attempt_count(attempt_count)
             .set_start(loop_start);
         let remaining_time = retry_policy.remaining_time(&state);
@@ -930,9 +930,9 @@ mod tests {
         #[derive(Debug)]
         RetryPolicy {}
         impl RetryPolicy for RetryPolicy {
-            fn on_error(&self,       state: &RetryLoopState, error: Error) -> RetryResult;
-            fn on_throttle(&self,    state: &RetryLoopState, error: Error) -> ThrottleResult;
-            fn remaining_time(&self, state: &RetryLoopState) -> Option<Duration>;
+            fn on_error(&self,       state: &RetryState, error: Error) -> RetryResult;
+            fn on_throttle(&self,    state: &RetryState, error: Error) -> ThrottleResult;
+            fn remaining_time(&self, state: &RetryState) -> Option<Duration>;
         }
         impl std::clone::Clone for RetryPolicy {
             fn clone(&self) -> Self;
