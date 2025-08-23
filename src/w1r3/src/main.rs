@@ -51,8 +51,6 @@ use tokio::sync::mpsc::Sender;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let _guard = enable_tracing();
-
     let args = Args::parse();
     if args.min_object_size > args.max_object_size {
         return Err(anyhow::Error::msg("invalid object size range"));
@@ -60,6 +58,10 @@ async fn main() -> anyhow::Result<()> {
     if args.min_delete_batch > args.max_delete_batch {
         return Err(anyhow::Error::msg("invalid delete batch size range"));
     }
+    if args.reqwest_logs {
+        tracing_log::LogTracer::init()?;
+    }
+    let _guard = enable_tracing(&args);
     tracing::info!("{args:?}");
 
     let handle = tokio::runtime::Handle::current();
@@ -141,7 +143,7 @@ async fn runner(
     tx: Sender<Sample>,
     args: Args,
 ) -> anyhow::Result<()> {
-    let _guard = enable_tracing();
+    let _guard = enable_tracing(&args);
     tokio::time::sleep(args.rampup_period * id as u32).await;
     let task = Task { id, start, tx };
     if task.id % 128 == 0 {
@@ -593,14 +595,51 @@ fn counters() -> impl Iterator<Item = (&'static str, u64)> {
     .into_iter()
 }
 
-fn enable_tracing() -> tracing::dispatcher::DefaultGuard {
-    use tracing_subscriber::fmt::format::FmtSpan;
+fn enable_tracing(args: &Args) -> tracing::dispatcher::DefaultGuard {
+    use tracing_subscriber::fmt::format::{self, FmtSpan};
+    use tracing_subscriber::prelude::*;
+
+    let formatter = format::debug_fn(|writer, field, value| match field.name() {
+        "message" => {
+            let v = format!("{value:?}");
+            let re = regex::Regex::new("authorization: Bearer [A-Z0-9a-z_\\-\\.]*").unwrap();
+            let clean = re.replace(&v, "authorization: Bearer [censored]");
+            if clean.contains(" read: b") {
+                write!(
+                    writer,
+                    "{}: {}",
+                    field,
+                    &clean[..std::cmp::min(256, clean.len())]
+                )
+            } else if clean.contains(" write (vectored): b") {
+                write!(
+                    writer,
+                    "{}: {}",
+                    field,
+                    &clean[..std::cmp::min(1024, clean.len())]
+                )
+            } else {
+                write!(writer, "{}: {}", field, clean)
+            }
+        }
+        _ => write!(writer, "{}: {:?}", field, value),
+    })
+    // Use the `tracing_subscriber::MakeFmtExt` trait to wrap the
+    // formatter so that a delimiter is added between fields.
+    .delimited("; ");
+
     let subscriber = tracing_subscriber::fmt()
         .with_level(true)
         .with_thread_ids(true)
         .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
         .with_writer(std::io::stderr)
-        .finish();
+        .fmt_fields(formatter);
+    let subscriber = if !args.reqwest_logs {
+        subscriber.with_max_level(tracing::Level::INFO)
+    } else {
+        subscriber.with_max_level(tracing::Level::TRACE)
+    };
+    let subscriber = subscriber.finish();
 
     tracing::subscriber::set_default(subscriber)
 }
@@ -657,6 +696,10 @@ struct Args {
     /// The rampup period between new tasks.
     #[arg(long, value_parser = parse_duration, default_value = "500ms")]
     rampup_period: Duration,
+
+    /// Disable logs in the `reqwest` layer.
+    #[arg(long)]
+    reqwest_logs: bool,
 }
 
 fn parse_size_arg(arg: &str) -> anyhow::Result<u64> {
