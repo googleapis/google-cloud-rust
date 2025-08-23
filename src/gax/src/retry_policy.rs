@@ -571,7 +571,10 @@ where
     fn on_throttle(&self, state: &RetryLoopState, error: Error) -> ThrottleResult {
         // The retry loop only calls `on_throttle()` if the policy has not
         // been exhausted.
-        assert!(state.attempt_count < self.maximum_attempts, "state={state:?}, self={self:?}");
+        assert!(
+            state.attempt_count < self.maximum_attempts,
+            "state={state:?}, self={self:?}"
+        );
         self.inner.on_throttle(state, error)
     }
 

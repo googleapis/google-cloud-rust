@@ -24,11 +24,7 @@ mod tests {
     #[derive(Debug)]
     struct CustomRetryPolicy;
     impl RetryPolicy for CustomRetryPolicy {
-        fn on_error(
-            &self,
-            state: &RetryLoopState,
-            error: Error,
-        ) -> RetryResult {
+        fn on_error(&self, state: &RetryLoopState, error: Error) -> RetryResult {
             if state.idempotent {
                 RetryResult::Continue(error)
             } else {
@@ -36,10 +32,7 @@ mod tests {
             }
         }
 
-        fn remaining_time(
-            &self,
-            _state: &RetryLoopState,
-        ) -> Option<std::time::Duration> {
+        fn remaining_time(&self, _state: &RetryLoopState) -> Option<std::time::Duration> {
             None
         }
     }
