@@ -18,8 +18,8 @@
 mod tests {
     use google_cloud_gax::error::Error;
     use google_cloud_gax::retry_policy::*;
-    use google_cloud_gax::retry_state::RetryState;
     use google_cloud_gax::retry_result::RetryResult;
+    use google_cloud_gax::retry_state::RetryState;
     use std::time::Duration;
 
     #[derive(Debug)]

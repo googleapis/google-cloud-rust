@@ -548,9 +548,9 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::time::Instant;
     use http::HeaderMap;
     use std::error::Error as StdError;
+    use std::time::Instant;
 
     // Verify `RetryPolicyArg` can be converted from the desired types.
     #[test]
