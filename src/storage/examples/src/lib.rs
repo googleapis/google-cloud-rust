@@ -15,6 +15,7 @@
 mod buckets;
 mod control;
 mod objects;
+mod quickstart;
 
 use google_cloud_gax::throttle_result::ThrottleResult;
 use google_cloud_gax::{
@@ -76,101 +77,96 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket example");
-    self::buckets::create_bucket::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket::sample(&client, &project_id, &id).await?;
     tracing::info!("running list_buckets example");
-    self::buckets::list_buckets::sample(&client, &project_id).await?;
+    buckets::list_buckets::sample(&client, &project_id).await?;
     tracing::info!("running delete_bucket example");
-    self::buckets::delete_bucket::sample(&client, &id).await?;
+    buckets::delete_bucket::sample(&client, &id).await?;
 
     // Create a new bucket for several tests.
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket example [2]");
-    self::buckets::create_bucket::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket::sample(&client, &project_id, &id).await?;
     tracing::info!("running change_default_storage_class example");
-    self::buckets::change_default_storage_class::sample(&client, &id).await?;
+    buckets::change_default_storage_class::sample(&client, &id).await?;
     tracing::info!("running get_bucket_metadata example");
-    self::buckets::get_bucket_metadata::sample(&client, &id).await?;
+    buckets::get_bucket_metadata::sample(&client, &id).await?;
     tracing::info!("running get_default_event_based_hold example");
-    self::buckets::get_default_event_based_hold::sample(&client, &id).await?;
+    buckets::get_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running enable_default_event_based_hold example");
-    self::buckets::enable_default_event_based_hold::sample(&client, &id).await?;
+    buckets::enable_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running disable_default_event_based_hold example");
-    self::buckets::disable_default_event_based_hold::sample(&client, &id).await?;
+    buckets::disable_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running set_public_access_prevention_unspecified example");
-    self::buckets::set_public_access_prevention_unspecified::sample(&client, &id).await?;
+    buckets::set_public_access_prevention_unspecified::sample(&client, &id).await?;
     tracing::info!("running set_public_access_prevention_inherited example");
-    self::buckets::set_public_access_prevention_inherited::sample(&client, &id).await?;
+    buckets::set_public_access_prevention_inherited::sample(&client, &id).await?;
     tracing::info!("running get_public_access_prevention example");
-    self::buckets::get_public_access_prevention::sample(&client, &id).await?;
+    buckets::get_public_access_prevention::sample(&client, &id).await?;
     tracing::info!("running set_public_access_prevention_enforced example");
-    self::buckets::set_public_access_prevention_enforced::sample(&client, &id).await?;
+    buckets::set_public_access_prevention_enforced::sample(&client, &id).await?;
     tracing::info!("running get_public_access_prevention example");
-    self::buckets::get_public_access_prevention::sample(&client, &id).await?;
+    buckets::get_public_access_prevention::sample(&client, &id).await?;
     tracing::info!("running view_versioning_status example");
-    self::buckets::view_versioning_status::sample(&client, &id).await?;
+    buckets::view_versioning_status::sample(&client, &id).await?;
     tracing::info!("running enable_versioning example");
-    self::buckets::enable_versioning::sample(&client, &id).await?;
+    buckets::enable_versioning::sample(&client, &id).await?;
     tracing::info!("running view_versioning_status example");
-    self::buckets::view_versioning_status::sample(&client, &id).await?;
+    buckets::view_versioning_status::sample(&client, &id).await?;
     tracing::info!("running disable_versioning example");
-    self::buckets::disable_versioning::sample(&client, &id).await?;
+    buckets::disable_versioning::sample(&client, &id).await?;
     tracing::info!("running view_versioning_status example");
-    self::buckets::view_versioning_status::sample(&client, &id).await?;
+    buckets::view_versioning_status::sample(&client, &id).await?;
     tracing::info!("running view_lifecycle_management_configuration example");
-    self::buckets::view_lifecycle_management_configuration::sample(&client, &id).await?;
+    buckets::view_lifecycle_management_configuration::sample(&client, &id).await?;
     tracing::info!("running enable_bucket_lifecycle_management example");
-    self::buckets::enable_bucket_lifecycle_management::sample(&client, &id).await?;
+    buckets::enable_bucket_lifecycle_management::sample(&client, &id).await?;
     tracing::info!("running set_lifecycle_abort_multipart_upload example");
-    self::buckets::set_lifecycle_abort_multipart_upload::sample(&client, &id).await?;
+    buckets::set_lifecycle_abort_multipart_upload::sample(&client, &id).await?;
     tracing::info!("running disable_bucket_lifecycle_management example");
-    self::buckets::disable_bucket_lifecycle_management::sample(&client, &id).await?;
+    buckets::disable_bucket_lifecycle_management::sample(&client, &id).await?;
     tracing::info!("running print_bucket_website_configuration example");
-    self::buckets::print_bucket_website_configuration::sample(&client, &id).await?;
+    buckets::print_bucket_website_configuration::sample(&client, &id).await?;
     tracing::info!("running define_bucket_website_configuration example");
-    self::buckets::define_bucket_website_configuration::sample(
-        &client,
-        &id,
-        "index.html",
-        "404.html",
-    )
-    .await?;
+    buckets::define_bucket_website_configuration::sample(&client, &id, "index.html", "404.html")
+        .await?;
     tracing::info!("running remove_retention_policy example");
-    self::buckets::remove_retention_policy::sample(&client, &id).await?;
+    buckets::remove_retention_policy::sample(&client, &id).await?;
     tracing::info!("running set_retention_policy example");
-    self::buckets::set_retention_policy::sample(&client, &id, 60).await?;
+    buckets::set_retention_policy::sample(&client, &id, 60).await?;
     tracing::info!("running get_retention_policy example");
-    self::buckets::get_retention_policy::sample(&client, &id).await?;
+    buckets::get_retention_policy::sample(&client, &id).await?;
     tracing::info!("running lock_retention_policy example");
-    self::buckets::lock_retention_policy::sample(&client, &id).await?;
+    buckets::lock_retention_policy::sample(&client, &id).await?;
     tracing::info!("running print_bucket_acl example");
-    self::buckets::print_bucket_acl::sample(&client, &id).await?;
+    buckets::print_bucket_acl::sample(&client, &id).await?;
     tracing::info!("running add_bucket_owner example");
-    self::buckets::add_bucket_owner::sample(&client, &id, &service_account).await?;
+    buckets::add_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running remove_bucket_owner example");
-    self::buckets::remove_bucket_owner::sample(&client, &id, &service_account).await?;
+    buckets::remove_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running print_bucket_acl_for_user example");
-    self::buckets::print_bucket_acl_for_user::sample(&client, &id).await?;
+    buckets::print_bucket_acl_for_user::sample(&client, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running quickstart example");
-    self::buckets::quickstart::sample(&client, &project_id, &id).await?;
+    quickstart::sample(&client, &project_id, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_class_location example");
-    self::buckets::create_bucket_class_location::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket_class_location::sample(&client, &project_id, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_dual_region example");
-    self::buckets::create_bucket_dual_region::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket_dual_region::sample(&client, &project_id, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_hierarchical_namespace example");
-    self::buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
 
     Ok(())
 }
@@ -192,7 +188,7 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
 
     let id = random_bucket_id();
     buckets.push(id.clone());
-    self::buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
 
     tracing::info!("running control::quickstart example");
     control::quickstart::sample(&client, &id).await?;
@@ -247,7 +243,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     let id = random_bucket_id();
     buckets.push(id.clone());
-    self::buckets::create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
+    buckets::create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
 
     tracing::info!("create test objects for the examples");
     let writers = [

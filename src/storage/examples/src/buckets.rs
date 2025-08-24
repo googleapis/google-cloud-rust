@@ -35,7 +35,6 @@ pub mod lock_retention_policy;
 pub mod print_bucket_acl;
 pub mod print_bucket_acl_for_user;
 pub mod print_bucket_website_configuration;
-pub mod quickstart;
 pub mod remove_bucket_owner;
 pub mod remove_retention_policy;
 pub mod set_lifecycle_abort_multipart_upload;
