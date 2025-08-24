@@ -584,6 +584,33 @@ where
         self
     }
 
+    /// Sets the object custom contexts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// # use google_cloud_storage::model::{ObjectContexts, ObjectCustomContextPayload};
+    /// let response = client
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .set_contexts(
+    ///         ObjectContexts::new().set_custom([
+    ///             ("example", ObjectCustomContextPayload::new().set_value("true")),
+    ///         ])
+    ///     )
+    ///     .send_buffered()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn set_contexts<V>(mut self, v: V) -> Self
+    where
+        V: Into<crate::model::ObjectContexts>,
+    {
+        self.mut_resource().contexts = Some(v.into());
+        self
+    }
+
     /// Configure the idempotency for this upload.
     ///
     /// By default, the client library treats single-shot uploads without

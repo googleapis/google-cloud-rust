@@ -388,6 +388,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         "object-to-update",
         "object-to-read",
         "deleted-object-name",
+        "object-with-contexts",
         "compose-source-object-1",
         "compose-source-object-2",
         "update-storage-class",
@@ -472,6 +473,13 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     tracing::info!("running move_file example");
     objects::move_file::sample(&control, &id, &id).await?;
+
+    tracing::info!("running set_object_contexts example");
+    objects::set_object_contexts::sample(&control, &id).await?;
+    tracing::info!("running list_object_contexts example");
+    objects::list_object_contexts::sample(&control, &id).await?;
+    tracing::info!("running get_object_contexts example");
+    objects::get_object_contexts::sample(&control, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
