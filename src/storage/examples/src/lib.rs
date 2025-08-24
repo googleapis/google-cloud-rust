@@ -147,6 +147,24 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::remove_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running print_bucket_acl_for_user example");
     buckets::print_bucket_acl_for_user::sample(&client, &id).await?;
+    tracing::info!("running view_bucket_iam_members example");
+    buckets::view_bucket_iam_members::sample(&client, &id).await?;
+    tracing::info!("running add_bucket_iam_member example");
+    buckets::add_bucket_iam_member::sample(&client, &id, "roles/storage.objectViewer", "allUsers")
+        .await?;
+    tracing::info!("running set_bucket_public_iam example");
+    buckets::set_bucket_public_iam::sample(&client, &id).await?;
+    tracing::info!("running add_bucket_conditional_iam_binding example");
+    buckets::add_bucket_conditional_iam_binding::sample(
+        &client,
+        &id,
+        "roles/storage.objectViewer",
+        "allUsers",
+        "title",
+        "description",
+        "resource.name.startsWith(\"projects/_/buckets/bucket-name/objects/prefix-a-\")",
+    )
+    .await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());

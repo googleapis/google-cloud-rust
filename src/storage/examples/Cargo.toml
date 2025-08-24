@@ -33,6 +33,8 @@ google-cloud-gax.workspace     = true
 google-cloud-lro.workspace     = true
 google-cloud-wkt.workspace     = true
 google-cloud-storage.workspace = true
+google-cloud-iam-v1.workspace = true
+gtype.workspace = true
 rand.workspace                 = true
 tokio                          = { workspace = true, features = ["macros"] }
 tracing.workspace              = true
