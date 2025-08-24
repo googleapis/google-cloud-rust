@@ -364,6 +364,7 @@ google-cloud-wkt              = { version = "0.5.4", path = "src/wkt", package =
 api                           = { version = "0.4.4", path = "src/generated/api/types", package = "google-cloud-api" }
 cloud_common                  = { version = "0.4.4", path = "src/generated/cloud/common", package = "google-cloud-common" }
 gtype                         = { version = "0.4.4", path = "src/generated/type", package = "google-cloud-type" }
+google-cloud-type             = { version = "0.4.4", path = "src/generated/type" }
 grafeas                       = { version = "0.4.4", path = "src/generated/grafeas/v1", package = "google-cloud-grafeas-v1" }
 logging_type                  = { version = "0.4.4", path = "src/generated/logging/type", package = "google-cloud-logging-type" }
 rpc                           = { version = "0.4.4", path = "src/generated/rpc/types", package = "google-cloud-rpc" }

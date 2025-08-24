@@ -15,35 +15,32 @@
 // [START storage_add_bucket_conditional_iam_binding]
 use google_cloud_iam_v1::model::{Binding, GetPolicyOptions};
 use google_cloud_storage::client::StorageControl;
-use gtype::model::Expr;
+use google_cloud_type::model::Expr;
 
 pub async fn sample(
     client: &StorageControl,
     bucket_id: &str,
-    role: &str,
-    member: &str,
-    condition_title: &str,
-    condition_description: &str,
-    condition_expression: &str,
+    service_account: &str,
 ) -> anyhow::Result<()> {
-    let options = GetPolicyOptions::new().set_requested_policy_version(3);
     let mut policy = client
         .get_iam_policy()
         .set_resource(format!("projects/_/buckets/{bucket_id}"))
-        .set_options(options)
+        .set_options(GetPolicyOptions::new().set_requested_policy_version(3))
         .send()
         .await?;
+    let condition = Expr::new()
+        .set_expression(format!(
+            "resource.name.startsWith(\"projects/_/buckets/{bucket_id}/objects/prefix-a-\")"
+        ))
+        .set_title("A service account can read prefix-a-*")
+        .set_description(format!(
+            "Allows {service_account} read access to objects starting with `prefix-a-`"
+        ));
+    let binding = Binding::new()
+        .set_role("roles/storage.objectViewer")
+        .set_members([format!("serviceAccount:{service_account}")])
+        .set_condition(condition);
     policy.version = 3;
-    let mut binding = Binding::new()
-        .set_role(role)
-        .set_members(vec![member.to_string()]);
-    let mut condition = Expr::new()
-        .set_expression(condition_expression)
-        .set_title(condition_title);
-    if !condition_description.is_empty() {
-        condition = condition.set_description(condition_description);
-    }
-    binding = binding.set_condition(condition);
     policy.bindings.push(binding);
     let updated_policy = client
         .set_iam_policy()
@@ -51,10 +48,7 @@ pub async fn sample(
         .set_policy(policy)
         .send()
         .await?;
-    println!(
-        "Successfully added conditional IAM binding to bucket {}",
-        bucket_id
-    );
+    println!("Successfully added conditional IAM binding to bucket {bucket_id}");
     println!("The updated policy is: {:?}", updated_policy);
     Ok(())
 }

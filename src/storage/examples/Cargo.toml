@@ -30,15 +30,16 @@ bytes.workspace                = true
 clap                           = { workspace = true, features = ["derive", "std"] }
 futures.workspace              = true
 google-cloud-gax.workspace     = true
+google-cloud-iam-v1.workspace  = true
 google-cloud-lro.workspace     = true
-google-cloud-wkt.workspace     = true
 google-cloud-storage.workspace = true
-google-cloud-iam-v1.workspace = true
-gtype.workspace = true
+google-cloud-type.workspace    = true
+google-cloud-wkt.workspace     = true
 rand.workspace                 = true
 tokio                          = { workspace = true, features = ["macros"] }
-tracing.workspace              = true
 tracing-subscriber             = { workspace = true, features = ["fmt", "std"] }
+tracing.workspace              = true
 
 [features]
 run-integration-tests = []
+skipped-integration-tests = []

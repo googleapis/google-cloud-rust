@@ -39,6 +39,7 @@ pub mod print_bucket_acl_for_user;
 pub mod print_bucket_website_configuration;
 pub mod remove_bucket_owner;
 pub mod remove_retention_policy;
+#[allow(dead_code)]
 pub mod set_bucket_public_iam;
 pub mod set_lifecycle_abort_multipart_upload;
 pub mod set_public_access_prevention_enforced;

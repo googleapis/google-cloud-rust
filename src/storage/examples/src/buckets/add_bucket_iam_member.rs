@@ -27,11 +27,9 @@ pub async fn sample(
         .set_resource(format!("projects/_/buckets/{bucket_id}"))
         .send()
         .await?;
-    policy.bindings.push(
-        Binding::new()
-            .set_role(role)
-            .set_members(vec![member.to_string()]),
-    );
+    policy
+        .bindings
+        .push(Binding::new().set_role(role).set_members([member]));
     let updated_policy = client
         .set_iam_policy()
         .set_resource(format!("projects/_/buckets/{bucket_id}"))
