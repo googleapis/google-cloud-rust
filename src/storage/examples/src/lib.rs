@@ -19,6 +19,7 @@ mod create_bucket;
 mod create_bucket_class_location;
 mod create_bucket_dual_region;
 mod create_bucket_hierarchical_namespace;
+mod define_bucket_website_configuration;
 mod delete_bucket;
 mod disable_bucket_lifecycle_management;
 mod disable_default_event_based_hold;
@@ -31,6 +32,7 @@ mod list_buckets;
 mod objects;
 mod print_bucket_acl;
 mod print_bucket_acl_for_user;
+mod print_bucket_website_configuration;
 mod quickstart;
 mod remove_bucket_owner;
 mod set_lifecycle_abort_multipart_upload;
@@ -138,7 +140,10 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     set_lifecycle_abort_multipart_upload::sample(&client, &id).await?;
     tracing::info!("running disable_bucket_lifecycle_management example");
     disable_bucket_lifecycle_management::sample(&client, &id).await?;
-
+    tracing::info!("running print_bucket_website_configuration example");
+    print_bucket_website_configuration::sample(&client, &id).await?;
+    tracing::info!("running define_bucket_website_configuration example");
+    define_bucket_website_configuration::sample(&client, &id, "index.html", "404.html").await?;
     tracing::info!("running print_bucket_acl example");
     print_bucket_acl::sample(&client, &id).await?;
     tracing::info!("running add_bucket_owner example");
