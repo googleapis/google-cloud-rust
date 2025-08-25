@@ -16,7 +16,7 @@
 //! ergonomics.
 
 use crate::error::KeyAes256Error;
-use base64::Engine;
+use base64::{Engine, prelude::BASE64_STANDARD};
 use sha2::{Digest, Sha256};
 
 /// ObjectHighlights contains select metadata from a [crate::model::Object].
@@ -134,11 +134,7 @@ impl std::convert::From<KeyAes256> for crate::model::CommonObjectRequestParams {
 
 impl std::fmt::Display for KeyAes256 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{}",
-            base64::engine::general_purpose::STANDARD.encode(self.key)
-        )
+        write!(f, "{}", BASE64_STANDARD.encode(self.key))
     }
 }
 
@@ -407,5 +403,13 @@ pub(crate) mod tests {
         request.with_range(range);
         assert_eq!(request.read_offset, 1000);
         assert_eq!(request.read_limit, want);
+    }
+
+    #[test]
+    fn test_key_aes_256_display() -> Result {
+        let (key, key_base64, _, _) = create_key_helper();
+        let key_aes_256 = KeyAes256::new(&key)?;
+        assert_eq!(key_aes_256.to_string(), key_base64);
+        Ok(())
     }
 }
