@@ -612,6 +612,7 @@ pub(crate) fn apply_customer_supplied_encryption_headers(
 pub(crate) mod tests {
     use super::*;
     use gax::retry_result::RetryResult;
+    use gax::retry_state::RetryState;
     use std::{sync::Arc, time::Duration};
 
     pub(crate) fn test_builder() -> ClientBuilder {
@@ -649,7 +650,7 @@ pub(crate) mod tests {
         pub RetryPolicy {}
 
         impl gax::retry_policy::RetryPolicy for RetryPolicy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: gax::error::Error) -> RetryResult;
+            fn on_error(&self, state: &RetryState, error: gax::error::Error) -> RetryResult;
         }
     }
 

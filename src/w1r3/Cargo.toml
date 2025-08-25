@@ -35,7 +35,9 @@ humantime.workspace            = true
 parse-size.workspace           = true
 pin-project.workspace          = true
 rand.workspace                 = true
+regex.workspace                = true
 tokio                          = { workspace = true, features = ["macros"] }
 tokio-metrics                  = { workspace = true, features = ["rt"] }
-tracing-subscriber             = { workspace = true, features = ["fmt", "std"] }
 tracing.workspace              = true
+tracing-log                    = { workspace = true, features = ["log-tracer", "std"] }
+tracing-subscriber             = { workspace = true, features = ["fmt", "std"] }

@@ -637,6 +637,7 @@ pub(crate) mod tests {
     use gax::backoff_policy::BackoffPolicy;
     use gax::retry_policy::RetryPolicy;
     use gax::retry_result::RetryResult;
+    use gax::retry_state::RetryState;
     use gax::retry_throttler::RetryThrottler;
     use mockall::mock;
     use num_bigint_dig::BigUint;
@@ -668,9 +669,7 @@ pub(crate) mod tests {
         impl RetryPolicy for RetryPolicy {
             fn on_error(
                 &self,
-                loop_start: std::time::Instant,
-                attempt_count: u32,
-                idempotent: bool,
+                state: &RetryState,
                 error: gax::error::Error,
             ) -> RetryResult;
         }
@@ -704,8 +703,8 @@ pub(crate) mod tests {
         let mut retry_policy = MockRetryPolicy::new();
         retry_policy
             .expect_on_error()
-            .returning(move |_, attempt_count, _, error| {
-                if attempt_count >= attempts as u32 {
+            .returning(move |state, error| {
+                if state.attempt_count >= attempts as u32 {
                     return RetryResult::Exhausted(error);
                 }
                 let is_transient = error

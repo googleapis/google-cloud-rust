@@ -25,6 +25,7 @@ const DESCRIPTION: &str = concat!(
 );
 
 mod instrumented_future;
+mod instrumented_retry;
 
 use clap::Parser;
 use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials};
@@ -38,6 +39,7 @@ use google_cloud_storage::read_object::ReadObjectResponse;
 use google_cloud_storage::retry_policy::RetryableErrors;
 use humantime::parse_duration;
 use instrumented_future::Instrumented;
+use instrumented_retry::DebugRetry;
 use rand::{
     Rng,
     distr::{Alphanumeric, Uniform},
@@ -49,8 +51,6 @@ use tokio::sync::mpsc::Sender;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let _guard = enable_tracing();
-
     let args = Args::parse();
     if args.min_object_size > args.max_object_size {
         return Err(anyhow::Error::msg("invalid object size range"));
@@ -58,6 +58,10 @@ async fn main() -> anyhow::Result<()> {
     if args.min_delete_batch > args.max_delete_batch {
         return Err(anyhow::Error::msg("invalid delete batch size range"));
     }
+    if args.reqwest_logs {
+        tracing_log::LogTracer::init()?;
+    }
+    let _guard = enable_tracing(&args);
     tracing::info!("{args:?}");
 
     let handle = tokio::runtime::Handle::current();
@@ -139,7 +143,7 @@ async fn runner(
     tx: Sender<Sample>,
     args: Args,
 ) -> anyhow::Result<()> {
-    let _guard = enable_tracing();
+    let _guard = enable_tracing(&args);
     tokio::time::sleep(args.rampup_period * id as u32).await;
     let task = Task { id, start, tx };
     if task.id % 128 == 0 {
@@ -190,7 +194,8 @@ async fn runner(
                 continue;
             }
         };
-        for op in [Operation::Read0, Operation::Read1, Operation::Read2] {
+        for i in 0..(args.read_count) {
+            let op = Operation::Read(i);
             let builder = SampleBuilder::new(&task, iteration, op, size, upload.name.clone());
             let sample = match download(&client, &args, &upload).await {
                 (_, Ok(_)) => builder.success(),
@@ -199,7 +204,9 @@ async fn runner(
             };
             let _ = task.tx.send(sample).await;
         }
-        deletes.push(delete(&control, &args, upload));
+        if !args.no_delete {
+            deletes.push(delete(&control, &args, upload));
+        }
         if deletes.len() >= batch_size {
             batch_size = rand::rng().sample(batch_size_gen);
             batch_delete(
@@ -239,6 +246,9 @@ async fn upload(
         )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(threshold)
+        .with_retry_policy(DebugRetry::new(
+            RetryableErrors.with_time_limit(args.retry_timeout),
+        ))
         .send_unbuffered();
 
     match tokio::time::timeout(args.retry_timeout, Instrumented::new(future)).await {
@@ -253,12 +263,19 @@ async fn upload(
 }
 
 async fn get_object(control: &StorageControl, args: &Args, name: &str) -> StorageResult<Object> {
-    control
+    let future = control
         .get_object()
         .set_bucket(format!("projects/_/buckets/{}", &args.bucket_name))
         .set_object(name)
-        .send()
-        .await
+        .with_retry_policy(DebugRetry::new(
+            RetryableErrors.with_time_limit(args.retry_timeout),
+        ))
+        .send();
+    match tokio::time::timeout(args.retry_timeout, Instrumented::new(future)).await {
+        Err(e) => Err(google_cloud_storage::Error::timeout(e)),
+        Ok(Err(e)) => Err(e),
+        Ok(Ok(r)) => Ok(r),
+    }
 }
 
 async fn download(
@@ -269,6 +286,9 @@ async fn download(
     let read = client
         .read_object(&object.bucket, &object.name)
         .set_generation(object.generation)
+        .with_retry_policy(DebugRetry::new(
+            RetryableErrors.with_time_limit(args.retry_timeout),
+        ))
         .send();
 
     let mut read = match tokio::time::timeout(args.retry_timeout, read).await {
@@ -336,6 +356,9 @@ async fn delete(control: &StorageControl, args: &Args, object: Object) -> Storag
         .set_generation(object.generation)
         .with_attempt_timeout(args.attempt_timeout)
         .with_idempotency(true)
+        .with_retry_policy(DebugRetry::new(
+            RetryableErrors.with_time_limit(args.retry_timeout),
+        ))
         .send();
     let result = Instrumented::new(result).await;
     if let Err(e) = result {
@@ -382,14 +405,10 @@ impl SampleBuilder {
 
     fn error(self, error: &google_cloud_storage::Error) -> Sample {
         tracing::error!(
-            "{} sample_builder = {self:?} error = {error:?}",
+            "ERR {} sample_builder = {self:?} error = {error:?}",
             self.op.name()
         );
-        let details = counters()
-            .map(|(name, value)| format!("{name}={value}"))
-            .chain([format!("error={error:?}")])
-            .collect::<Vec<_>>()
-            .join(";");
+        let details = Self::error_details(error);
         Sample {
             task: self.task,
             iteration: self.iteration,
@@ -405,12 +424,11 @@ impl SampleBuilder {
     }
 
     fn interrupted(self, transfer_size: usize, error: &google_cloud_storage::Error) -> Sample {
-        tracing::error!("experiment = {self:?} download interrupted");
-        let details = counters()
-            .map(|(name, value)| format!("{name}={value}"))
-            .chain([format!("error={error:?}")])
-            .collect::<Vec<_>>()
-            .join(";");
+        tracing::error!(
+            "INT {} sample_builder = {self:?} error = {error:?}",
+            self.op.name()
+        );
+        let details = Self::error_details(error);
         Sample {
             task: self.task,
             iteration: self.iteration,
@@ -438,6 +456,15 @@ impl SampleBuilder {
             result: ExperimentResult::Success,
             details: String::new(),
         }
+    }
+
+    fn error_details(error: &google_cloud_storage::Error) -> String {
+        counters()
+            .map(|(name, value)| format!("{name}={value}"))
+            .chain([format!("error={error:?}")])
+            .collect::<Vec<_>>()
+            .join(";")
+            .replace(",", ";")
     }
 }
 
@@ -483,21 +510,17 @@ impl Sample {
 enum Operation {
     Resumable,
     SingleShot,
-    Read0,
-    Read1,
-    Read2,
+    Read(i32),
     Delete,
 }
 
 impl Operation {
-    fn name(&self) -> &str {
+    fn name(&self) -> std::borrow::Cow<'static, str> {
         match self {
-            Self::Resumable => "RESUMABLE",
-            Self::SingleShot => "SINGLE_SHOT",
-            Self::Read0 => "READ[0]",
-            Self::Read1 => "READ[1]",
-            Self::Read2 => "READ[2]",
-            Self::Delete => "DELETE",
+            Self::Resumable => "RESUMABLE".into(),
+            Self::SingleShot => "SINGLE_SHOT".into(),
+            Self::Read(i) => format!("READ[{i}]").into(),
+            Self::Delete => "DELETE".into(),
         }
     }
 }
@@ -575,14 +598,51 @@ fn counters() -> impl Iterator<Item = (&'static str, u64)> {
     .into_iter()
 }
 
-fn enable_tracing() -> tracing::dispatcher::DefaultGuard {
-    use tracing_subscriber::fmt::format::FmtSpan;
+fn enable_tracing(args: &Args) -> tracing::dispatcher::DefaultGuard {
+    use tracing_subscriber::fmt::format::{self, FmtSpan};
+    use tracing_subscriber::prelude::*;
+
+    let formatter = format::debug_fn(|writer, field, value| match field.name() {
+        "message" => {
+            let v = format!("{value:?}");
+            let re = regex::Regex::new("authorization: Bearer [A-Z0-9a-z_\\-\\.]*").unwrap();
+            let clean = re.replace(&v, "authorization: Bearer [censored]");
+            if clean.contains(" read: b") {
+                write!(
+                    writer,
+                    "{}: {}",
+                    field,
+                    &clean[..std::cmp::min(256, clean.len())]
+                )
+            } else if clean.contains(" write (vectored): b") {
+                write!(
+                    writer,
+                    "{}: {}",
+                    field,
+                    &clean[..std::cmp::min(1024, clean.len())]
+                )
+            } else {
+                write!(writer, "{}: {}", field, clean)
+            }
+        }
+        _ => write!(writer, "{}: {:?}", field, value),
+    })
+    // Use the `tracing_subscriber::MakeFmtExt` trait to wrap the
+    // formatter so that a delimiter is added between fields.
+    .delimited("; ");
+
     let subscriber = tracing_subscriber::fmt()
         .with_level(true)
         .with_thread_ids(true)
         .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
         .with_writer(std::io::stderr)
-        .finish();
+        .fmt_fields(formatter);
+    let subscriber = if !args.reqwest_logs {
+        subscriber.with_max_level(tracing::Level::INFO)
+    } else {
+        subscriber.with_max_level(tracing::Level::TRACE)
+    };
+    let subscriber = subscriber.finish();
 
     tracing::subscriber::set_default(subscriber)
 }
@@ -639,6 +699,18 @@ struct Args {
     /// The rampup period between new tasks.
     #[arg(long, value_parser = parse_duration, default_value = "500ms")]
     rampup_period: Duration,
+
+    /// Sets the number of reads on each object.
+    #[arg(long, default_value_t = 3)]
+    read_count: i32,
+
+    /// Skip the deletes.
+    #[arg(long)]
+    no_delete: bool,
+
+    /// Disable logs in the `reqwest` layer.
+    #[arg(long)]
+    reqwest_logs: bool,
 }
 
 fn parse_size_arg(arg: &str) -> anyhow::Result<u64> {

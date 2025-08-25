@@ -52,6 +52,7 @@ pub mod polling_backoff_policy;
 pub mod polling_error_policy;
 pub mod retry_policy;
 pub mod retry_result;
+pub mod retry_state;
 pub mod retry_throttler;
 pub mod throttle_result;
 

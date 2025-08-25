@@ -246,7 +246,7 @@ mod tests {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     use test_case::test_case;
 
-    type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
+    type TestResult = anyhow::Result<()>;
 
     #[test_case("/bin/cat /tmp/file", "/bin/cat", vec!["/tmp/file"]; "command with single arg")]
     #[test_case("gcloud auth print-access-token", "gcloud", vec!["auth", "print-access-token"]; "command with multiple args")]
