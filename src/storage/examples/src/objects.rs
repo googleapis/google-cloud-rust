@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub mod delete_file;
+pub mod download_byte_range;
 pub mod download_encrypted_file;
 pub mod generate_encryption_key;
 pub mod list_files;
