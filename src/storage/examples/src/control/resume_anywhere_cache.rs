@@ -12,20 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod create_anywhere_cache;
-pub mod create_folder;
-pub mod delete_folder;
-pub mod disable_anywhere_cache;
-pub mod get_anywhere_cache;
-pub mod get_folder;
-pub mod list_anywhere_caches;
-pub mod list_folders;
-pub mod managed_folder_create;
-pub mod managed_folder_delete;
-pub mod managed_folder_get;
-pub mod managed_folder_list;
-pub mod pause_anywhere_cache;
-pub mod quickstart;
-pub mod rename_folder;
-pub mod resume_anywhere_cache;
-pub mod update_anywhere_cache;
+// [START storage_control_resume_anywhere_cache]
+use google_cloud_storage::client::StorageControl;
+
+pub async fn sample(
+    client: &StorageControl,
+    bucket_id: &str,
+    cache_id: &str,
+) -> anyhow::Result<()> {
+    let cache = client
+        .resume_anywhere_cache()
+        .set_name(format!(
+            "projects/_/buckets/{}/anywhereCaches/{}",
+            bucket_id, cache_id
+        ))
+        .send()
+        .await?;
+    println!("Resumed anywhere cache: {:?}", cache);
+    Ok(())
+}
+// [END storage_control_resume_anywhere_cache]
