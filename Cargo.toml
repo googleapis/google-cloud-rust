@@ -317,6 +317,7 @@ tonic              = { default-features = false, version = "0.14.1", features = 
 tonic-prost        = { default-features = false, version = "0.14.1" }
 tonic-prost-build  = { default-features = false, version = "0.14.1" }
 tracing            = { default-features = false, version = "0.1", features = ["attributes"] }
+tracing-log        = { default-features = false, version = "0.2" }
 tracing-subscriber = { default-features = false, version = "0.3" }
 url                = { default-features = false, version = "2" }
 uuid               = { default-features = false, version = "1", features = ["v4"] }
