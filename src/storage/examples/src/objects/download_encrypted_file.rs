@@ -13,7 +13,6 @@
 // limitations under the License.
 
 // [START storage_download_encrypted_file]
-use base64::{Engine as _, engine::general_purpose};
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::KeyAes256;
 use google_cloud_storage::read_object::ReadObjectResponse;
@@ -22,13 +21,11 @@ pub async fn sample(
     client: &Storage,
     bucket: &str,
     object: &str,
-    encryption_key: &str,
+    encryption_key: KeyAes256,
 ) -> Result<(), anyhow::Error> {
-    let raw_key_bytes = general_purpose::STANDARD.decode(encryption_key)?;
-
     let mut reader = client
         .read_object(format!("projects/_/buckets/{bucket}"), object)
-        .set_key(KeyAes256::new(&raw_key_bytes)?)
+        .set_key(encryption_key.clone())
         .send()
         .await?;
 

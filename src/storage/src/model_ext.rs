@@ -16,6 +16,7 @@
 //! ergonomics.
 
 use crate::error::KeyAes256Error;
+use base64::Engine;
 use sha2::{Digest, Sha256};
 
 /// ObjectHighlights contains select metadata from a [crate::model::Object].
@@ -71,7 +72,7 @@ pub struct ObjectHighlights {
     pub etag: String,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 /// KeyAes256 represents an AES-256 encryption key used with the
 /// Customer-Supplied Encryption Keys (CSEK) feature.
 ///
@@ -128,6 +129,16 @@ impl std::convert::From<KeyAes256> for crate::model::CommonObjectRequestParams {
             .set_encryption_algorithm("AES256")
             .set_encryption_key_bytes(value.key.to_vec())
             .set_encryption_key_sha256_bytes(Sha256::digest(value.key).as_slice().to_owned())
+    }
+}
+
+impl std::fmt::Display for KeyAes256 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{}",
+            base64::engine::general_purpose::STANDARD.encode(self.key)
+        )
     }
 }
 

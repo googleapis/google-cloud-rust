@@ -13,18 +13,18 @@
 // limitations under the License.
 
 // [START storage_generate_encryption_key]
-use base64::{Engine as _, engine::general_purpose};
+use google_cloud_storage::{error::KeyAes256Error, model_ext::KeyAes256};
 use rand::RngCore;
 
-pub fn sample() -> String {
+pub fn sample() -> Result<KeyAes256, KeyAes256Error> {
     // Generates a 256 bit (32 byte) AES encryption key and prints the base64 representation.
     //
     // This is included for demonstration purposes. You should generate your own key.
     // Please remember that encryption keys should be handled with a comprehensive security policy.
-    let mut key = [0u8; 32];
-    rand::rng().fill_bytes(&mut key);
-    let key = general_purpose::STANDARD.encode(key);
+    let mut raw_key_bytes = [0u8; 32];
+    rand::rng().fill_bytes(&mut raw_key_bytes);
+    let key = KeyAes256::new(&raw_key_bytes)?;
     println!("Sample encryption key: {}", key);
-    key
+    Ok(key)
 }
 // [END storage_generate_encryption_key]
