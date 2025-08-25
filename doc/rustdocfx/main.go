@@ -30,7 +30,6 @@ The flags are:
 package main
 
 import (
-	//	"context"
 	"flag"
 	"fmt"
 	"io"
@@ -39,8 +38,12 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"slices"
 	"strings"
 )
+
+// TODO(NOW): Make sure this list is empty before merging.
+var crateDenyList = []string{"gcp-sdk", "google-cloud-base", "google-cloud-wkt", "google-cloud-gax", "google-cloud-auth", "google-cloud-storage"}
 
 func main() {
 	out := flag.String("out", "docfx", "Output directory within project-root (default docfx)")
@@ -52,6 +55,7 @@ func main() {
 	// TODO: Preflight checks for:
 	// cargo workspaces
 	// cargo rustdoc
+	// docuploader
 	// Failfast if not installed.
 
 	// Create a temporary file to store `cargo workspace plan` output.
@@ -80,10 +84,12 @@ func main() {
 		return
 	}
 
+	fmt.Printf("crates: %s\n", crates)
+
 	for i := 0; i < len(workspaceCrates); i++ {
-		// TODO: Ignore the "gcp-sdk" crate.
-		// TODO(NOW): Filter, right now, we only work on the first arguemnt.
-		if workspaceCrates[i].Name == crates[0] {
+		// TODO: Allow for regex on crate names instead.
+		if !slices.Contains(crateDenyList, workspaceCrates[i].Name) && (len(crates) == 0 || slices.Contains(crates, workspaceCrates[i].Name)) {
+
 			runCmd(nil, *projectRoot, "cargo", "+nightly", "-Z", "unstable-options", "rustdoc", "--output-format=json", fmt.Sprintf("--manifest-path=%s/Cargo.toml", workspaceCrates[i].Location))
 			// cargo names are snake case while cargo rustdoc output files are kebob case.
 			fileName := fmt.Sprintf("%s.json", strings.ReplaceAll(workspaceCrates[i].Name, "-", "_"))
