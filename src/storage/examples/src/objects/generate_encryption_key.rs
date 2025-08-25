@@ -24,7 +24,7 @@ pub fn sample() -> Result<KeyAes256, KeyAes256Error> {
     let mut raw_key_bytes = [0u8; 32];
     rand::rng().fill_bytes(&mut raw_key_bytes);
     let key = KeyAes256::new(&raw_key_bytes)?;
-    println!("Sample encryption key: {}", key);
+    println!("Sample encryption key: {key}");
     Ok(key)
 }
 // [END storage_generate_encryption_key]

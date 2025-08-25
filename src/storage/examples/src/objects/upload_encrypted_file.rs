@@ -28,10 +28,7 @@ pub async fn sample(
         .send_unbuffered()
         .await?;
 
-    println!(
-        "Uploaded to {} in bucket {} with key={}.",
-        object, bucket, encryption_key
-    );
+    println!("Uploaded to {object} in bucket {bucket} with key={encryption_key}.",);
     Ok(())
 }
 // [END storage_upload_encrypted_file]

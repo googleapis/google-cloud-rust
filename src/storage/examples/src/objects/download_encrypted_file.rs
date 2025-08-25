@@ -33,10 +33,7 @@ pub async fn sample(
         println!("downloaded {} bytes", data.len())
     }
 
-    println!(
-        "Downloaded {} in bucket {} with key={}.",
-        object, bucket, encryption_key
-    );
+    println!("Downloaded {object} in bucket {bucket} with key={encryption_key}.");
     Ok(())
 }
 // [END storage_download_encrypted_file]
