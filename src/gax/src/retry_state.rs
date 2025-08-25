@@ -67,7 +67,7 @@ impl std::default::Default for RetryState {
         Self {
             start: Instant::now(),
             idempotent: false,
-            attempt_count: 0
+            attempt_count: 0,
         }
     }
 }
