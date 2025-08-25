@@ -34,7 +34,6 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"log/slog"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -48,6 +47,7 @@ var crateDenyList = []string{"gcp-sdk", "google-cloud-base", "google-cloud-wkt",
 func main() {
 	out := flag.String("out", "docfx", "Output directory within project-root (default docfx)")
 	projectRoot := flag.String("project-root", "", "Top level directory of googleapis/google-cloud-rust")
+	upload := flag.Bool("upload", false, "Upload generated docfx using docuploader")
 	flag.Parse()
 
 	crates := flag.Args()
@@ -84,8 +84,6 @@ func main() {
 		return
 	}
 
-	fmt.Printf("crates: %s\n", crates)
-
 	for i := 0; i < len(workspaceCrates); i++ {
 		// TODO: Allow for regex on crate names instead.
 		if !slices.Contains(crateDenyList, workspaceCrates[i].Name) && (len(crates) == 0 || slices.Contains(crates, workspaceCrates[i].Name)) {
@@ -115,12 +113,18 @@ func main() {
 				// TODO: Better log message for the failure with crate name.
 				log.Fatalf("failed to generate for crate %s: %v", workspaceCrates[i].Name, err)
 			}
+
+			if *upload == true {
+				fmt.Printf("Uploading crate:%s\n", workspaceCrates[i].Name)
+				// TODO(NOW): Remove --staging-bucket=docs-staging-v2-dev
+				runCmd(nil, "", "docuploader", "upload", "--staging-bucket=docs-staging-v2-dev", "--destination-prefix", "docfx", fmt.Sprintf("--metadata-file=%s/docs.metadata", crateOutDir), crateOutDir)
+			}
 		}
 	}
 }
 
 func runCmd(stdout io.Writer, dir, name string, args ...string) error {
-	slog.Info("Running command: ", "dir", dir, "name", name, "args", strings.Join(args, " "))
+	fmt.Printf("Running command: dir=%s, name=%s, args=%s\n", dir, name, strings.Join(args, " "))
 
 	cmd := exec.Command(name, args...)
 	cmd.Dir = dir
