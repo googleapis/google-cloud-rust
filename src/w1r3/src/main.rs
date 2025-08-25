@@ -403,14 +403,10 @@ impl SampleBuilder {
 
     fn error(self, error: &google_cloud_storage::Error) -> Sample {
         tracing::error!(
-            "{} sample_builder = {self:?} error = {error:?}",
+            "ERR {} sample_builder = {self:?} error = {error:?}",
             self.op.name()
         );
-        let details = counters()
-            .map(|(name, value)| format!("{name}={value}"))
-            .chain([format!("error={error:?}")])
-            .collect::<Vec<_>>()
-            .join(";");
+        let details = Self::error_details(error);
         Sample {
             task: self.task,
             iteration: self.iteration,
@@ -426,12 +422,11 @@ impl SampleBuilder {
     }
 
     fn interrupted(self, transfer_size: usize, error: &google_cloud_storage::Error) -> Sample {
-        tracing::error!("experiment = {self:?} download interrupted");
-        let details = counters()
-            .map(|(name, value)| format!("{name}={value}"))
-            .chain([format!("error={error:?}")])
-            .collect::<Vec<_>>()
-            .join(";");
+        tracing::error!(
+            "INT {} sample_builder = {self:?} error = {error:?}",
+            self.op.name()
+        );
+        let details = Self::error_details(error);
         Sample {
             task: self.task,
             iteration: self.iteration,
@@ -459,6 +454,15 @@ impl SampleBuilder {
             result: ExperimentResult::Success,
             details: String::new(),
         }
+    }
+
+    fn error_details(error: &google_cloud_storage::Error) -> String {
+        counters()
+            .map(|(name, value)| format!("{name}={value}"))
+            .chain([format!("error={error:?}")])
+            .collect::<Vec<_>>()
+            .join(";")
+            .replace(",", ";")
     }
 }
 
