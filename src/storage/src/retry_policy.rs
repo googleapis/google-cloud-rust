@@ -50,7 +50,7 @@ use std::time::Duration;
 /// The client will retry all the errors shown as retryable in the service
 /// documentation, and stop retrying after 10 seconds.
 pub(crate) fn storage_default() -> impl RetryPolicy {
-    RetryableErrors.with_time_limit(Duration::from_secs(10))
+    RetryableErrors.with_time_limit(Duration::from_secs(300))
 }
 
 /// Follows the [retry strategy] recommended by the Cloud Storage service guides.
