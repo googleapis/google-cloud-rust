@@ -31,25 +31,16 @@ use crate::error::Error;
 ///
 /// ```
 /// # use google_cloud_gax::{error::Error, retry_policy::RetryPolicy};
+/// # use google_cloud_gax::retry_state::RetryState;
 /// # use google_cloud_gax::{retry_result::RetryResult, throttle_result::ThrottleResult};
 /// #[derive(Debug)]
 /// struct MyRetryPolicy;
 /// impl google_cloud_gax::retry_policy::RetryPolicy for MyRetryPolicy {
-///     fn on_throttle(
-///         &self,
-///        _loop_start: std::time::Instant,
-///        _attempt_count: u32,
-///        error: Error,
-///     ) -> ThrottleResult {
+///     fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult {
 ///         // Always stop the loop
 ///         ThrottleResult::Exhausted(error)
 ///     }
-///     fn on_error(
-///         &self,
-///         loop_start: std::time::Instant,
-///         attempt_count: u32,
-///         idempotent: bool,
-///         error: Error) -> RetryResult {
+///     fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
 ///        # panic!();
 ///     }
 /// }

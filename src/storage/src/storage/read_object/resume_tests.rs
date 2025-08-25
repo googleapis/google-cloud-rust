@@ -174,7 +174,7 @@ async fn start_uses_request_retry_options() -> Result {
     retry
         .expect_on_error()
         .times(1..)
-        .returning(|_, _, _, e| RetryResult::Continue(e));
+        .returning(|_, e| RetryResult::Continue(e));
 
     let mut backoff = MockBackoffPolicy::new();
     backoff
@@ -233,7 +233,7 @@ async fn start_uses_client_retry_options() -> Result {
     retry
         .expect_on_error()
         .times(1..)
-        .returning(|_, _, _, e| RetryResult::Continue(e));
+        .returning(|_, e| RetryResult::Continue(e));
 
     let mut backoff = MockBackoffPolicy::new();
     backoff
@@ -613,7 +613,7 @@ async fn resume_uses_request_retry_options() -> Result {
     retry
         .expect_on_error()
         .times(1..)
-        .returning(|_, _, _, e| RetryResult::Continue(e));
+        .returning(|_, e| RetryResult::Continue(e));
 
     let mut backoff = MockBackoffPolicy::new();
     backoff
@@ -694,7 +694,7 @@ async fn resume_uses_client_retry_options() -> Result {
     retry
         .expect_on_error()
         .times(1..)
-        .returning(|_, _, _, e| RetryResult::Continue(e));
+        .returning(|_, e| RetryResult::Continue(e));
 
     let mut backoff = MockBackoffPolicy::new();
     backoff

@@ -138,6 +138,7 @@ mod tests {
     use crate::token::{Token, TokenProvider, tests::MockTokenProvider};
     use gax::retry_policy::RetryPolicy;
     use gax::retry_result::RetryResult;
+    use gax::retry_state::RetryState;
     use gax::retry_throttler::RetryThrottler;
     use mockall::{Sequence, mock};
     use std::error::Error;
@@ -162,14 +163,8 @@ mod tests {
     }
 
     impl RetryPolicy for AuthRetryPolicy {
-        fn on_error(
-            &self,
-            _loop_start: std::time::Instant,
-            attempt_count: u32,
-            _idempotent: bool,
-            error: gax::error::Error,
-        ) -> RetryResult {
-            if attempt_count >= self.max_attempts {
+        fn on_error(&self, state: &RetryState, error: gax::error::Error) -> RetryResult {
+            if state.attempt_count >= self.max_attempts {
                 return RetryResult::Exhausted(error);
             }
 

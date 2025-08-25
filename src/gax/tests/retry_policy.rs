@@ -19,30 +19,21 @@ mod tests {
     use google_cloud_gax::error::Error;
     use google_cloud_gax::retry_policy::*;
     use google_cloud_gax::retry_result::RetryResult;
+    use google_cloud_gax::retry_state::RetryState;
     use std::time::Duration;
 
     #[derive(Debug)]
     struct CustomRetryPolicy;
     impl RetryPolicy for CustomRetryPolicy {
-        fn on_error(
-            &self,
-            _loop_start: std::time::Instant,
-            _attempt_count: u32,
-            idempotent: bool,
-            error: Error,
-        ) -> RetryResult {
-            if idempotent {
+        fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
+            if state.idempotent {
                 RetryResult::Continue(error)
             } else {
                 RetryResult::Permanent(error)
             }
         }
 
-        fn remaining_time(
-            &self,
-            _loop_start: std::time::Instant,
-            _attempt_count: u32,
-        ) -> Option<std::time::Duration> {
+        fn remaining_time(&self, _state: &RetryState) -> Option<std::time::Duration> {
             None
         }
     }
