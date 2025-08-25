@@ -39,7 +39,7 @@ const RESUMABLE_UPLOAD_TARGET_CHUNK: usize = 8 * MIB;
 
 impl RequestOptions {
     pub(crate) fn new() -> Self {
-        let retry_policy = Arc::new(crate::retry_policy::default());
+        let retry_policy = Arc::new(crate::retry_policy::storage_default());
         let backoff_policy = Arc::new(crate::backoff_policy::default());
         let retry_throttler = Arc::new(Mutex::new(AdaptiveThrottler::default()));
         let read_resume_policy = Arc::new(Recommended);

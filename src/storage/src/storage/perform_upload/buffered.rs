@@ -13,21 +13,22 @@
 // limitations under the License.
 
 use super::{
-    ChecksumEngine, ChecksummedSource, ContinueOn308, Error, IterSource, Known, Object,
-    PerformUpload, Result, ResumableUploadStatus, SizeHint, StreamingSource,
-    X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
+    ChecksummedSource, ContinueOn308, Error, IterSource, Object, PerformUpload, Result,
+    ResumableUploadStatus, SizeHint, StreamingSource, X_GOOG_API_CLIENT_HEADER,
+    apply_customer_supplied_encryption_headers,
 };
 use crate::error::WriteError;
-use crate::storage::checksum::details::{update as checksum_update, validate as checksum_validate};
+use crate::storage::checksum::details::{
+    Checksum, update as checksum_update, validate as checksum_validate,
+};
 use progress::InProgressUpload;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
 mod progress;
 
-impl<C, S> PerformUpload<C, S>
+impl<S> PerformUpload<S>
 where
-    C: ChecksumEngine + Send + Sync + 'static,
     S: StreamingSource + Send + Sync + 'static,
     S::Error: std::error::Error + Send + Sync + 'static,
 {
@@ -153,7 +154,13 @@ where
             .get_or_insert_default();
         checksum_update(current, computed);
         let upload = PerformUpload {
-            payload: Arc::new(Mutex::new(ChecksummedSource::new(Known, source))),
+            payload: Arc::new(Mutex::new(ChecksummedSource::new(
+                Checksum {
+                    crc32c: None,
+                    md5_hash: None,
+                },
+                source,
+            ))),
             inner: self.inner,
             spec: self.spec,
             params: self.params,
@@ -224,95 +231,15 @@ const RESUMABLE_UPLOAD_QUANTUM: usize = 256 * 1024;
 mod resumable_tests;
 
 #[cfg(test)]
+mod single_shot_tests;
+
+#[cfg(test)]
 mod tests {
-    use super::*;
     use crate::builder::storage::WriteObject;
-    use crate::storage::client::{
-        Storage,
-        tests::{test_builder, test_inner_client},
-    };
-    use httptest::{Expectation, Server, matchers::*, responders::status_code};
+    use crate::storage::client::tests::{test_builder, test_inner_client};
     use test_case::test_case;
 
     type Result = anyhow::Result<()>;
-
-    // We rely on the tests from `unbuffered.rs` for coverage of other
-    // single-shot upload features. Here we just want to verify the right upload
-    // type is selected depending on the with_resumable_upload_threshold()
-    // option.
-    #[tokio::test]
-    async fn upload_object_buffered_single_shot() -> Result {
-        let payload = serde_json::json!({
-            "name": "test-object",
-            "bucket": "test-bucket",
-            "metadata": {
-                "is-test-object": "true",
-            }
-        })
-        .to_string();
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
-                request::query(url_decoded(contains(("name", "test-object")))),
-                request::query(url_decoded(contains(("uploadType", "multipart")))),
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("content-type", "application/json")
-                    .body(payload),
-            ),
-        );
-
-        let client = Storage::builder()
-            .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .with_resumable_upload_threshold(4 * RESUMABLE_UPLOAD_QUANTUM)
-            .build()
-            .await?;
-        let response = client
-            .write_object("projects/_/buckets/test-bucket", "test-object", "")
-            .send_buffered()
-            .await?;
-        assert_eq!(response.name, "test-object");
-        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
-        assert_eq!(
-            response.metadata.get("is-test-object").map(String::as_str),
-            Some("true")
-        );
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn single_shot_source_error() -> Result {
-        let server = Server::run();
-
-        let client = Storage::builder()
-            .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .build()
-            .await?;
-        use crate::streaming_source::tests::MockSimpleSource;
-        use std::io::{Error as IoError, ErrorKind};
-        let mut source = MockSimpleSource::new();
-        source
-            .expect_next()
-            .once()
-            .returning(|| Some(Err(IoError::new(ErrorKind::ConnectionAborted, "test-only"))));
-        source
-            .expect_size_hint()
-            .once()
-            .returning(|| Ok(SizeHint::with_exact(1024)));
-        let err = client
-            .write_object("projects/_/buckets/test-bucket", "test-object", source)
-            .send_buffered()
-            .await
-            .expect_err("expected a serialization error");
-        assert!(err.is_serialization(), "{err:?}");
-
-        Ok(())
-    }
 
     #[test_case("projects/p")]
     #[test_case("kebab-case")]

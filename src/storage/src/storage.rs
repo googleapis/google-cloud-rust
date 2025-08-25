@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod checksum;
+pub(crate) mod checksum;
 pub(crate) mod client;
 pub(crate) mod perform_upload;
 pub(crate) mod read_object;

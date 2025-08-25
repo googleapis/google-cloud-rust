@@ -15,10 +15,7 @@
 use super::client::{StorageInner, apply_customer_supplied_encryption_headers};
 use crate::model::Object;
 use crate::retry_policy::ContinueOn308;
-use crate::storage::checksum::{
-    ChecksumEngine,
-    details::{ChecksummedSource, Known},
-};
+use crate::storage::checksum::details::{Checksum, ChecksummedSource};
 use crate::storage::client::info::X_GOOG_API_CLIENT_HEADER;
 use crate::storage::v1;
 use crate::streaming_source::{IterSource, Seek, SizeHint, StreamingSource};
@@ -35,18 +32,18 @@ mod unbuffered;
 /// `send()` or `send_buffered()` to initiate the upload. At that point the
 /// client library creates an instance of this class. Notably, the `payload`
 /// becomes `Arc<Mutex<T>>` because it needs to be reused in the retry loop.
-pub struct PerformUpload<C, S> {
+pub struct PerformUpload<S> {
     // We need `Arc<Mutex<>>` because this is re-used in retryable uploads.
-    payload: Arc<Mutex<ChecksummedSource<C, S>>>,
+    payload: Arc<Mutex<ChecksummedSource<S>>>,
     inner: Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
     options: super::request_options::RequestOptions,
 }
 
-impl<C, S> PerformUpload<C, S> {
+impl<S> PerformUpload<S> {
     pub(crate) fn new(
-        checksum: C,
+        checksum: Checksum,
         payload: S,
         inner: Arc<StorageInner>,
         spec: crate::model::WriteObjectSpec,

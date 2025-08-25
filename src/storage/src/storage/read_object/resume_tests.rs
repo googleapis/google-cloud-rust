@@ -48,7 +48,9 @@
 //! policies in the request, the policies set in the client are used for the
 //! retry loop.
 
+use crate::model_ext::ReadRange;
 use crate::{
+    read_object::ReadObjectResponse,
     read_resume_policy::{ReadResumePolicyExt, Recommended},
     storage::client::tests::{
         MockBackoffPolicy, MockReadResumePolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
@@ -143,7 +145,7 @@ async fn start_too_many_transients() -> Result {
         .await?;
     let err = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
-        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
         .send()
         .await
         .expect_err("test generates permanent error");
@@ -172,7 +174,7 @@ async fn start_uses_request_retry_options() -> Result {
     retry
         .expect_on_error()
         .times(1..)
-        .returning(|_, _, _, e| RetryResult::Continue(e));
+        .returning(|_, e| RetryResult::Continue(e));
 
     let mut backoff = MockBackoffPolicy::new();
     backoff
@@ -231,7 +233,7 @@ async fn start_uses_client_retry_options() -> Result {
     retry
         .expect_on_error()
         .times(1..)
-        .returning(|_, _, _, e| RetryResult::Continue(e));
+        .returning(|_, e| RetryResult::Continue(e));
 
     let mut backoff = MockBackoffPolicy::new();
     backoff
@@ -479,7 +481,7 @@ async fn resume_after_start_range() -> Result {
         .await?;
     let mut reader = client
         .read_object("projects/_/buckets/test-bucket", "test-object")
-        .with_read_offset(OFFSET as i64)
+        .set_read_range(ReadRange::offset(OFFSET as u64))
         .send()
         .await?;
     let mut got = Vec::new();
@@ -611,7 +613,7 @@ async fn resume_uses_request_retry_options() -> Result {
     retry
         .expect_on_error()
         .times(1..)
-        .returning(|_, _, _, e| RetryResult::Continue(e));
+        .returning(|_, e| RetryResult::Continue(e));
 
     let mut backoff = MockBackoffPolicy::new();
     backoff
@@ -692,7 +694,7 @@ async fn resume_uses_client_retry_options() -> Result {
     retry
         .expect_on_error()
         .times(1..)
-        .returning(|_, _, _, e| RetryResult::Continue(e));
+        .returning(|_, e| RetryResult::Continue(e));
 
     let mut backoff = MockBackoffPolicy::new();
     backoff

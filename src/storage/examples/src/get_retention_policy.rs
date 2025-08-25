@@ -12,13 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! The messages and enums that are part of this client library.
+// [START storage_get_retention_policy]
+use google_cloud_storage::client::StorageControl;
 
-// Re-export all generated types
-pub use crate::control::model::*;
-
-// Custom types used in the hand-crafted code. We do not expect this name to
-// conflict with generated types, that would require a `RequestHelpers` message
-// with nested enums or messages. If we ever get a conflict, we would configure
-// sidekick to rename the generated types.
-pub mod request_helpers;
+pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
+    let bucket = client
+        .get_bucket()
+        .set_name(format!("projects/_/buckets/{bucket_id}"))
+        .send()
+        .await?;
+    println!(
+        "Retention policy for bucket {bucket_id}: {:?}",
+        bucket.retention_policy
+    );
+    Ok(())
+}
+// [END storage_get_retention_policy]

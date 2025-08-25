@@ -84,32 +84,20 @@ impl std::fmt::Display for ChecksumMismatch {
 ///
 /// # Example:
 /// ```
-/// # use google_cloud_storage::{model::request_helpers::KeyAes256, error::KeyAes256Error};
+/// # use google_cloud_storage::{model_ext::KeyAes256, error::KeyAes256Error};
 /// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
 /// let result = KeyAes256::new(invalid_key_bytes);
 ///
 /// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
 /// ```
 ///
-/// [KeyAes256]: crate::model::request_helpers::KeyAes256
+/// [KeyAes256]: crate::model_ext::KeyAes256
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum KeyAes256Error {
     /// The provided key's length was not exactly 32 bytes.
     #[error("Key has an invalid length: expected 32 bytes.")]
     InvalidLength,
-}
-
-/// Represents an error that can occur when invalid range is specified.
-#[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-pub enum RangeError {
-    /// The provided read limit was negative.
-    #[error("read limit was negative, expected non-negative value.")]
-    NegativeLimit,
-    /// A negative offset was provided with a read limit.
-    #[error("negative read offsets cannot be used with read limits.")]
-    NegativeOffsetWithLimit,
 }
 
 /// Represents an error that can occur when reading response data.
@@ -153,7 +141,7 @@ pub enum ReadError {
 /// use std::error::Error as _;
 /// let writer = client
 ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-///     .with_if_generation_not_match(0);
+///     .set_if_generation_not_match(0);
 /// match writer.send_buffered().await {
 ///     Ok(object) => println!("Successfully created the object {object:?}"),
 ///     Err(error) if error.is_serialization() => {

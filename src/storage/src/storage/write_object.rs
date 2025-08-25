@@ -20,11 +20,9 @@ use super::client::*;
 use super::perform_upload::PerformUpload;
 use super::streaming_source::{Seek, StreamingSource};
 use super::*;
-use crate::model::request_helpers::KeyAes256;
-use crate::storage::checksum::{
-    ChecksumEngine,
-    details::{Crc32c, Known, KnownCrc32c, KnownMd5, Md5, update as checksum_update},
-};
+use crate::model_ext::KeyAes256;
+use crate::storage::checksum::details::update as checksum_update;
+use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
 
 /// A request builder for object writes.
 ///
@@ -75,16 +73,16 @@ use crate::storage::checksum::{
 ///     Ok(())
 /// }
 /// ```
-pub struct WriteObject<T, C = Crc32c> {
+pub struct WriteObject<T> {
     inner: std::sync::Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
     payload: Payload<T>,
     options: super::request_options::RequestOptions,
-    checksum: C,
+    checksum: Checksum,
 }
 
-impl<T, C> WriteObject<T, C> {
+impl<T> WriteObject<T> {
     /// Set a [request precondition] on the object generation to match.
     ///
     /// With this precondition the request fails if the current object
@@ -97,7 +95,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_if_generation_match(0)
+    ///     .set_if_generation_match(0)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -105,7 +103,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
-    pub fn with_if_generation_match<V>(mut self, v: V) -> Self
+    pub fn set_if_generation_match<V>(mut self, v: V) -> Self
     where
         V: Into<i64>,
     {
@@ -124,7 +122,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_if_generation_not_match(0)
+    ///     .set_if_generation_not_match(0)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -132,7 +130,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
-    pub fn with_if_generation_not_match<V>(mut self, v: V) -> Self
+    pub fn set_if_generation_not_match<V>(mut self, v: V) -> Self
     where
         V: Into<i64>,
     {
@@ -152,7 +150,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_if_metageneration_match(1234)
+    ///     .set_if_metageneration_match(1234)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -160,7 +158,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
-    pub fn with_if_metageneration_match<V>(mut self, v: V) -> Self
+    pub fn set_if_metageneration_match<V>(mut self, v: V) -> Self
     where
         V: Into<i64>,
     {
@@ -181,7 +179,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_if_metageneration_not_match(1234)
+    ///     .set_if_metageneration_not_match(1234)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -189,7 +187,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
-    pub fn with_if_metageneration_not_match<V>(mut self, v: V) -> Self
+    pub fn set_if_metageneration_not_match<V>(mut self, v: V) -> Self
     where
         V: Into<i64>,
     {
@@ -206,13 +204,13 @@ impl<T, C> WriteObject<T, C> {
     /// # use google_cloud_storage::model::ObjectAccessControl;
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_acl([ObjectAccessControl::new().set_entity("allAuthenticatedUsers").set_role("READER")])
+    ///     .set_acl([ObjectAccessControl::new().set_entity("allAuthenticatedUsers").set_role("READER")])
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_acl<I, V>(mut self, v: I) -> Self
+    pub fn set_acl<I, V>(mut self, v: I) -> Self
     where
         I: IntoIterator<Item = V>,
         V: Into<crate::model::ObjectAccessControl>,
@@ -231,7 +229,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_cache_control("public; max-age=7200")
+    ///     .set_cache_control("public; max-age=7200")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -240,7 +238,7 @@ impl<T, C> WriteObject<T, C> {
     ///
     /// [public objects]: https://cloud.google.com/storage/docs/access-control/making-data-public
     /// [cache control]: https://datatracker.ietf.org/doc/html/rfc7234#section-5.2
-    pub fn with_cache_control<V: Into<String>>(mut self, v: V) -> Self {
+    pub fn set_cache_control<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().cache_control = v.into();
         self
     }
@@ -257,7 +255,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_content_disposition("inline")
+    ///     .set_content_disposition("inline")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -265,7 +263,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [content disposition]: https://datatracker.ietf.org/doc/html/rfc6266
-    pub fn with_content_disposition<V: Into<String>>(mut self, v: V) -> Self {
+    pub fn set_content_disposition<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().content_disposition = v.into();
         self
     }
@@ -285,7 +283,7 @@ impl<T, C> WriteObject<T, C> {
     /// e.write_all(b"hello world");
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", bytes::Bytes::from_owner(e.finish()?))
-    ///     .with_content_encoding("gzip")
+    ///     .set_content_encoding("gzip")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -294,7 +292,7 @@ impl<T, C> WriteObject<T, C> {
     ///
     /// [transcoding]: https://cloud.google.com/storage/docs/transcoding
     /// [content encoding]: https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.2.2
-    pub fn with_content_encoding<V: Into<String>>(mut self, v: V) -> Self {
+    pub fn set_content_encoding<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().content_encoding = v.into();
         self
     }
@@ -311,7 +309,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_content_language("en")
+    ///     .set_content_language("en")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -319,7 +317,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [content language]: https://cloud.google.com/storage/docs/metadata#content-language
-    pub fn with_content_language<V: Into<String>>(mut self, v: V) -> Self {
+    pub fn set_content_language<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().content_language = v.into();
         self
     }
@@ -336,7 +334,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_content_type("text/plain")
+    ///     .set_content_type("text/plain")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -344,7 +342,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [content type]: https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5
-    pub fn with_content_type<V: Into<String>>(mut self, v: V) -> Self {
+    pub fn set_content_type<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().content_type = v.into();
         self
     }
@@ -361,7 +359,7 @@ impl<T, C> WriteObject<T, C> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_custom_time(time)
+    ///     .set_custom_time(time)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -370,7 +368,7 @@ impl<T, C> WriteObject<T, C> {
     ///
     /// [DaysSinceCustomTime]: https://cloud.google.com/storage/docs/lifecycle#dayssincecustomtime
     /// [custom time]: https://cloud.google.com/storage/docs/metadata#custom-time
-    pub fn with_custom_time<V: Into<wkt::Timestamp>>(mut self, v: V) -> Self {
+    pub fn set_custom_time<V: Into<wkt::Timestamp>>(mut self, v: V) -> Self {
         self.mut_resource().custom_time = Some(v.into());
         self
     }
@@ -386,7 +384,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_event_based_hold(true)
+    ///     .set_event_based_hold(true)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -394,7 +392,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [event based hold]: https://cloud.google.com/storage/docs/object-holds
-    pub fn with_event_based_hold<V: Into<bool>>(mut self, v: V) -> Self {
+    pub fn set_event_based_hold<V: Into<bool>>(mut self, v: V) -> Self {
         self.mut_resource().event_based_hold = Some(v.into());
         self
     }
@@ -411,7 +409,7 @@ impl<T, C> WriteObject<T, C> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_metadata([("test-only", "true"), ("environment", "qa")])
+    ///     .set_metadata([("test-only", "true"), ("environment", "qa")])
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -419,7 +417,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [custom metadata]: https://cloud.google.com/storage/docs/metadata#custom-metadata
-    pub fn with_metadata<I, K, V>(mut self, i: I) -> Self
+    pub fn set_metadata<I, K, V>(mut self, i: I) -> Self
     where
         I: IntoIterator<Item = (K, V)>,
         K: Into<String>,
@@ -438,7 +436,7 @@ impl<T, C> WriteObject<T, C> {
     /// # use google_cloud_storage::model::object::{Retention, retention};
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_retention(
+    ///     .set_retention(
     ///         Retention::new()
     ///             .set_mode(retention::Mode::Locked)
     ///             .set_retain_until_time(wkt::Timestamp::try_from("2035-01-01T00:00:00Z")?))
@@ -449,7 +447,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [retention configuration]: https://cloud.google.com/storage/docs/metadata#retention-config
-    pub fn with_retention<V>(mut self, v: V) -> Self
+    pub fn set_retention<V>(mut self, v: V) -> Self
     where
         V: Into<crate::model::object::Retention>,
     {
@@ -465,7 +463,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_storage_class("ARCHIVE")
+    ///     .set_storage_class("ARCHIVE")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -473,7 +471,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [storage class]: https://cloud.google.com/storage/docs/storage-classes
-    pub fn with_storage_class<V>(mut self, v: V) -> Self
+    pub fn set_storage_class<V>(mut self, v: V) -> Self
     where
         V: Into<String>,
     {
@@ -493,7 +491,7 @@ impl<T, C> WriteObject<T, C> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_temporary_hold(true)
+    ///     .set_temporary_hold(true)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -501,7 +499,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [temporary hold]: https://cloud.google.com/storage/docs/object-holds
-    pub fn with_temporary_hold<V: Into<bool>>(mut self, v: V) -> Self {
+    pub fn set_temporary_hold<V: Into<bool>>(mut self, v: V) -> Self {
         self.mut_resource().temporary_hold = v.into();
         self
     }
@@ -521,7 +519,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_kms_key("projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key")
+    ///     .set_kms_key("projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -529,7 +527,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [Customer-managed encryption key]: https://cloud.google.com/storage/docs/encryption/customer-managed-keys
-    pub fn with_kms_key<V>(mut self, v: V) -> Self
+    pub fn set_kms_key<V>(mut self, v: V) -> Self
     where
         V: Into<String>,
     {
@@ -545,7 +543,7 @@ impl<T, C> WriteObject<T, C> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_predefined_acl("private")
+    ///     .set_predefined_acl("private")
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -553,7 +551,7 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     ///
     /// [predefined ACLs]: https://cloud.google.com/storage/docs/access-control/lists#predefined-acl
-    pub fn with_predefined_acl<V>(mut self, v: V) -> Self
+    pub fn set_predefined_acl<V>(mut self, v: V) -> Self
     where
         V: Into<String>,
     {
@@ -568,17 +566,17 @@ impl<T, C> WriteObject<T, C> {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// # use google_cloud_storage::model::request_helpers::KeyAes256;
+    /// # use google_cloud_storage::model_ext::KeyAes256;
     /// let key: &[u8] = &[97; 32];
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_key(KeyAes256::new(key)?)
+    ///     .set_key(KeyAes256::new(key)?)
     ///     .send_buffered()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_key(mut self, v: KeyAes256) -> Self {
+    pub fn set_key(mut self, v: KeyAes256) -> Self {
         self.params = Some(v.into());
         self
     }
@@ -603,7 +601,6 @@ impl<T, C> WriteObject<T, C> {
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::retry_policy::RecommendedPolicy;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
@@ -628,15 +625,16 @@ impl<T, C> WriteObject<T, C> {
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::retry_policy::RecommendedPolicy;
+    /// # use google_cloud_storage::retry_policy::RetryableErrors;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use std::time::Duration;
     /// use gax::retry_policy::RetryPolicyExt;
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_retry_policy(RecommendedPolicy
-    ///         .with_attempt_limit(5)
-    ///         .with_time_limit(Duration::from_secs(10)),
+    ///     .with_retry_policy(
+    ///         RetryableErrors
+    ///             .with_attempt_limit(5)
+    ///             .with_time_limit(Duration::from_secs(90)),
     ///     )
     ///     .send_buffered()
     ///     .await?;
@@ -781,7 +779,7 @@ impl<T, C> WriteObject<T, C> {
             .expect("resource field initialized in `new()`")
     }
 
-    pub(crate) fn build(self) -> PerformUpload<C, Payload<T>> {
+    pub(crate) fn build(self) -> PerformUpload<Payload<T>> {
         PerformUpload::new(
             self.checksum,
             self.payload,
@@ -790,20 +788,6 @@ impl<T, C> WriteObject<T, C> {
             self.params,
             self.options,
         )
-    }
-
-    fn switch_checksum<F, U>(self, new: F) -> WriteObject<T, U>
-    where
-        F: FnOnce(C) -> U,
-    {
-        WriteObject {
-            payload: self.payload,
-            inner: self.inner,
-            spec: self.spec,
-            params: self.params,
-            options: self.options,
-            checksum: new(self.checksum),
-        }
     }
 
     fn set_crc32c<V: Into<u32>>(mut self, v: V) -> Self {
@@ -821,9 +805,7 @@ impl<T, C> WriteObject<T, C> {
         checksum.md5_hash = i.into_iter().map(|v| v.into()).collect();
         self
     }
-}
 
-impl<T> WriteObject<T, Crc32c> {
     /// Provide a precomputed value for the CRC32C checksum.
     ///
     /// # Example
@@ -852,8 +834,9 @@ impl<T> WriteObject<T, Crc32c> {
     /// use [compute_md5()] to also have the library compute the checksums.
     ///
     /// [compute_md5()]: WriteObject::compute_md5
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> WriteObject<T, KnownCrc32c> {
-        let this = self.switch_checksum(|_| KnownCrc32c);
+    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> Self {
+        let mut this = self;
+        this.checksum.crc32c = None;
         this.set_crc32c(v)
     }
 
@@ -886,12 +869,13 @@ impl<T> WriteObject<T, Crc32c> {
     /// use [compute_md5()] to also have the library compute the checksums.
     ///
     /// [compute_md5()]: WriteObject::compute_md5
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Crc32c<KnownMd5>>
+    pub fn with_known_md5_hash<I, V>(self, i: I) -> Self
     where
         I: IntoIterator<Item = V>,
         V: Into<u8>,
     {
-        let this = self.switch_checksum(|_| Crc32c::from_inner(KnownMd5));
+        let mut this = self;
+        this.checksum.md5_hash = None;
         this.set_md5_hash(i)
     }
 
@@ -914,67 +898,12 @@ impl<T> WriteObject<T, Crc32c> {
     /// See [precompute_checksums][WriteObject::precompute_checksums] for more
     /// details on how checksums are used by the client library and their
     /// limitations.
-    pub fn compute_md5(self) -> WriteObject<T, Md5<Crc32c>> {
-        self.switch_checksum(Md5::from_inner)
-    }
-}
-
-impl<T> WriteObject<T, Crc32c<KnownMd5>> {
-    /// See [WriteObject<T, Crc32c>::with_known_crc32c].
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> WriteObject<T, Known> {
-        let this = self.switch_checksum(|_| Known);
-        this.set_crc32c(v)
-    }
-}
-
-impl<T> WriteObject<T, Md5<Crc32c>> {
-    /// See [WriteObject<T, Crc32c>::with_known_crc32c].
-    pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> WriteObject<T, Md5<KnownCrc32c>> {
-        let this = self.switch_checksum(|_| Md5::from_inner(KnownCrc32c));
-        this.set_crc32c(v)
+    pub fn compute_md5(self) -> Self {
+        let mut this = self;
+        this.checksum.md5_hash = Some(Md5::default());
+        this
     }
 
-    /// See [WriteObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Crc32c<KnownMd5>>
-    where
-        I: IntoIterator<Item = V>,
-        V: Into<u8>,
-    {
-        let this = self.switch_checksum(|_| Crc32c::from_inner(KnownMd5));
-        this.set_md5_hash(i)
-    }
-}
-
-impl<T> WriteObject<T, Md5<KnownCrc32c>> {
-    /// See [WriteObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Known>
-    where
-        I: IntoIterator<Item = V>,
-        V: Into<u8>,
-    {
-        let this = self.switch_checksum(|_| Known);
-        this.set_md5_hash(i)
-    }
-}
-
-impl<T> WriteObject<T, KnownCrc32c> {
-    /// See [WriteObject<T, Crc32c>::with_known_md5_hash].
-    pub fn with_known_md5_hash<I, V>(self, i: I) -> WriteObject<T, Known>
-    where
-        I: IntoIterator<Item = V>,
-        V: Into<u8>,
-    {
-        let this = self.switch_checksum(|_| Known);
-        this.set_md5_hash(i)
-    }
-
-    /// See [WriteObject<T, Crc32c>::compute_md5()].
-    pub fn compute_md5(self) -> WriteObject<T, Md5<KnownCrc32c>> {
-        self.switch_checksum(Md5::from_inner)
-    }
-}
-
-impl<T> WriteObject<T> {
     pub(crate) fn new<B, O, P>(
         inner: std::sync::Arc<StorageInner>,
         bucket: B,
@@ -996,14 +925,16 @@ impl<T> WriteObject<T> {
             params: None,
             payload: payload.into(),
             options,
-            checksum: Crc32c::default(),
+            checksum: Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: None,
+            },
         }
     }
 }
 
-impl<T, C> WriteObject<T, C>
+impl<T> WriteObject<T>
 where
-    C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Seek + Send + Sync + 'static,
     <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
@@ -1057,10 +988,7 @@ where
     /// send the checksums at the end of the upload with this API.
     ///
     /// [JSON API]: https://cloud.google.com/storage/docs/json_api
-    pub async fn precompute_checksums(mut self) -> Result<WriteObject<T, Known>>
-    where
-        C: ChecksumEngine + Send + Sync + 'static,
-    {
+    pub async fn precompute_checksums(mut self) -> Result<WriteObject<T>> {
         let mut offset = 0_u64;
         self.payload.seek(offset).await.map_err(Error::ser)?;
         while let Some(n) = self.payload.next().await.transpose().map_err(Error::ser)? {
@@ -1071,13 +999,16 @@ where
         let computed = self.checksum.finalize();
         let current = self.mut_resource().checksums.get_or_insert_default();
         checksum_update(current, computed);
-        Ok(self.switch_checksum(|_| Known))
+        self.checksum = Checksum {
+            crc32c: None,
+            md5_hash: None,
+        };
+        Ok(self)
     }
 }
 
-impl<T, C> WriteObject<T, C>
+impl<T> WriteObject<T>
 where
-    C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Send + Sync + 'static,
     T::Error: std::error::Error + Send + Sync + 'static,
 {
@@ -1100,10 +1031,7 @@ where
 }
 
 // We need `Debug` to use `expect_err()` in `Result<WriteObject, ...>`.
-impl<T, C> std::fmt::Debug for WriteObject<T, C>
-where
-    C: std::fmt::Debug,
-{
+impl<T> std::fmt::Debug for WriteObject<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("WriteObject")
             .field("inner", &self.inner)
@@ -1121,6 +1049,7 @@ mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
     use crate::model::{ObjectChecksums, WriteObjectSpec};
+    use crate::storage::checksum::details::{Crc32c, Md5};
     use crate::streaming_source::tests::MockSeekSource;
     use std::error::Error as _;
     use std::io::{Error as IoError, ErrorKind};
@@ -1210,32 +1139,32 @@ mod tests {
         use crate::model::ObjectAccessControl;
         let inner = test_inner_client(test_builder());
         let mut request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
-            .with_if_generation_match(10)
-            .with_if_generation_not_match(20)
-            .with_if_metageneration_match(30)
-            .with_if_metageneration_not_match(40)
-            .with_predefined_acl("private")
-            .with_acl([ObjectAccessControl::new()
+            .set_if_generation_match(10)
+            .set_if_generation_not_match(20)
+            .set_if_metageneration_match(30)
+            .set_if_metageneration_not_match(40)
+            .set_predefined_acl("private")
+            .set_acl([ObjectAccessControl::new()
                 .set_entity("allAuthenticatedUsers")
                 .set_role("READER")])
-            .with_cache_control("public; max-age=7200")
-            .with_content_disposition("inline")
-            .with_content_encoding("gzip")
-            .with_content_language("en")
-            .with_content_type("text/plain")
-            .with_known_crc32c(crc32c::crc32c(b""))
-            .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
-            .with_event_based_hold(true)
-            .with_known_md5_hash(md5::compute(b"").0)
-            .with_metadata([("k0", "v0"), ("k1", "v1")])
-            .with_retention(
+            .set_cache_control("public; max-age=7200")
+            .set_content_disposition("inline")
+            .set_content_encoding("gzip")
+            .set_content_language("en")
+            .set_content_type("text/plain")
+            .set_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
+            .set_event_based_hold(true)
+            .set_metadata([("k0", "v0"), ("k1", "v1")])
+            .set_retention(
                 crate::model::object::Retention::new()
                     .set_mode(crate::model::object::retention::Mode::Locked)
                     .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
             )
-            .with_storage_class("ARCHIVE")
-            .with_temporary_hold(true)
-            .with_kms_key("test-key");
+            .set_storage_class("ARCHIVE")
+            .set_temporary_hold(true)
+            .set_kms_key("test-key")
+            .with_known_crc32c(crc32c::crc32c(b""))
+            .with_known_md5_hash(md5::compute(b"").0);
 
         let resource = request.spec.resource.take().unwrap();
         let request = request;
@@ -1304,7 +1233,7 @@ mod tests {
     const QUICK: &str = "the quick brown fox jumps over the lazy dog";
     const VEXING: &str = "how vexingly quick daft zebras jump";
 
-    fn quick_checksum<E: ChecksumEngine>(mut engine: E) -> ObjectChecksums {
+    fn quick_checksum(mut engine: Checksum) -> ObjectChecksums {
         engine.update(0, &bytes::Bytes::from_static(QUICK.as_bytes()));
         engine.finalize()
     }
@@ -1324,7 +1253,10 @@ mod tests {
             .write_object("my-bucket", "my-object", QUICK)
             .precompute_checksums()
             .await?;
-        let want = quick_checksum(Crc32c::default());
+        let want = quick_checksum(Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: None,
+        });
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
         let collected = collect(upload.payload).await?;
         assert_eq!(collected, QUICK.as_bytes());
@@ -1339,14 +1271,20 @@ mod tests {
             .compute_md5()
             .precompute_checksums()
             .await?;
-        let want = quick_checksum(Crc32c::from_inner(Md5::default()));
+        let want = quick_checksum(Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        });
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
         Ok(())
     }
 
     #[tokio::test]
     async fn checksum_precomputed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1367,7 +1305,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_crc32c_known_md5_computed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1381,7 +1322,11 @@ mod tests {
         // Note that the checksums do not match the data. This is intentional,
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
-        let want = quick_checksum(Md5::default()).set_crc32c(ck.crc32c.unwrap());
+        let want = quick_checksum(Checksum {
+            crc32c: None,
+            md5_hash: Some(Md5::default()),
+        })
+        .set_crc32c(ck.crc32c.unwrap());
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
 
         Ok(())
@@ -1389,7 +1334,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_mixed_then_precomputed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1411,7 +1359,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_full_computed_then_md5_precomputed() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1425,7 +1376,11 @@ mod tests {
         // Note that the checksums do not match the data. This is intentional,
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
-        let want = quick_checksum(Crc32c::default()).set_md5_hash(ck.md5_hash.clone());
+        let want = quick_checksum(Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: None,
+        })
+        .set_md5_hash(ck.md5_hash.clone());
         assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
 
         Ok(())
@@ -1433,7 +1388,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_known_crc32_then_computed_md5() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 
@@ -1456,7 +1414,10 @@ mod tests {
 
     #[tokio::test]
     async fn checksum_known_crc32_then_known_md5() -> Result {
-        let mut engine = Crc32c::from_inner(Md5::default());
+        let mut engine = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
         engine.update(0, &bytes::Bytes::from_static(VEXING.as_bytes()));
         let ck = engine.finalize();
 

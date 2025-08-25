@@ -38,9 +38,9 @@ pub use gax::Result;
 pub use gax::error::Error;
 
 pub mod backoff_policy;
+pub mod read_object;
 pub mod read_resume_policy;
 pub mod retry_policy;
-pub use crate::storage::checksum;
 pub use crate::storage::streaming_source;
 
 mod control;
@@ -66,11 +66,10 @@ pub mod builder {
     }
 }
 pub mod error;
-pub mod model;
+/// The messages and enums that are part of this client library.
+pub use crate::control::model;
+pub mod model_ext;
 pub use crate::control::stub;
-
-pub use storage::read_object::ObjectHighlights;
-pub use storage::read_object::ReadObjectResponse;
 
 #[allow(dead_code)]
 pub(crate) mod generated;

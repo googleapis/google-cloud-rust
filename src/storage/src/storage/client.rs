@@ -17,7 +17,6 @@ use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
-use crate::storage::checksum::details::Crc32c;
 use crate::streaming_source::Payload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
@@ -29,11 +28,11 @@ use std::sync::Arc;
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_storage::client::Storage;
 /// let client = Storage::builder().build().await?;
 /// // use `client` to make requests to Cloud Storage.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Configuration
@@ -158,12 +157,7 @@ impl Storage {
     /// * `payload` - the object data.
     ///
     /// [Seek]: crate::streaming_source::Seek
-    pub fn write_object<B, O, T, P>(
-        &self,
-        bucket: B,
-        object: O,
-        payload: T,
-    ) -> WriteObject<P, Crc32c>
+    pub fn write_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> WriteObject<P>
     where
         B: Into<String>,
         O: Into<String>,
@@ -178,6 +172,7 @@ impl Storage {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::read_object::ReadObjectResponse;
     /// let mut resp = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
@@ -617,6 +612,7 @@ pub(crate) fn apply_customer_supplied_encryption_headers(
 pub(crate) mod tests {
     use super::*;
     use gax::retry_result::RetryResult;
+    use gax::retry_state::RetryState;
     use std::{sync::Arc, time::Duration};
 
     pub(crate) fn test_builder() -> ClientBuilder {
@@ -654,7 +650,7 @@ pub(crate) mod tests {
         pub RetryPolicy {}
 
         impl gax::retry_policy::RetryPolicy for RetryPolicy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: gax::error::Error) -> RetryResult;
+            fn on_error(&self, state: &RetryState, error: gax::error::Error) -> RetryResult;
         }
     }
 

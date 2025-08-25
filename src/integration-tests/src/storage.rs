@@ -23,7 +23,8 @@ use storage::client::StorageControl;
 use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
-use storage::model::request_helpers::KeyAes256;
+use storage::model_ext::KeyAes256;
+use storage::read_object::ReadObjectResponse;
 use storage::streaming_source::{Seek, SizeHint, StreamingSource};
 use storage_samples::cleanup_bucket;
 
@@ -132,10 +133,10 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let insert = client
         .write_object(&bucket.name, "quick.text", CONTENTS)
-        .with_metadata([("verify-metadata-works", "yes")])
-        .with_content_type("text/plain")
-        .with_content_language("en")
-        .with_storage_class("STANDARD")
+        .set_metadata([("verify-metadata-works", "yes")])
+        .set_content_type("text/plain")
+        .set_content_language("en")
+        .set_storage_class("STANDARD")
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -220,7 +221,7 @@ pub async fn objects_customer_supplied_encryption(
     let key = vec![b'a'; 32];
     let insert = client
         .write_object(&bucket.name, "quick.text", CONTENTS)
-        .with_key(KeyAes256::new(&key)?)
+        .set_key(KeyAes256::new(&key)?)
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -228,7 +229,7 @@ pub async fn objects_customer_supplied_encryption(
     tracing::info!("testing read_object() with key");
     let mut resp = client
         .read_object(&bucket.name, &insert.name)
-        .with_key(KeyAes256::new(&key)?)
+        .set_key(KeyAes256::new(&key)?)
         .send()
         .await?;
     let mut contents = Vec::new();
@@ -369,7 +370,7 @@ pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) 
     tracing::info!("testing upload_object_buffered() [1]");
     let insert = client
         .write_object(&bucket.name, "empty.txt", "")
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -379,7 +380,7 @@ pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) 
     tracing::info!("testing upload_object_buffered() [2]");
     let insert = client
         .write_object(&bucket.name, "128K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -389,7 +390,7 @@ pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) 
     tracing::info!("testing upload_object_buffered() [3]");
     let insert = client
         .write_object(&bucket.name, "512K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -425,7 +426,7 @@ pub async fn upload_buffered_resumable_known_size(
     let payload = TestDataSource::new(0_u64);
     let insert = client
         .write_object(&bucket.name, "empty.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
         .await?;
@@ -436,7 +437,7 @@ pub async fn upload_buffered_resumable_known_size(
     tracing::info!("testing upload_object_buffered() [2]");
     let insert = client
         .write_object(&bucket.name, "128K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
         .await?;
@@ -447,7 +448,7 @@ pub async fn upload_buffered_resumable_known_size(
     tracing::info!("testing upload_object_buffered() [3]");
     let insert = client
         .write_object(&bucket.name, "512K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
         .await?;
@@ -484,7 +485,7 @@ pub async fn upload_buffered_resumable_unknown_size(
     let payload = TestDataSource::new(0_u64).without_size_hint();
     let insert = client
         .write_object(&bucket.name, "empty.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
         .await?;
@@ -495,7 +496,7 @@ pub async fn upload_buffered_resumable_unknown_size(
     tracing::info!("testing upload_object_buffered() [2]");
     let insert = client
         .write_object(&bucket.name, "128K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
         .await?;
@@ -506,7 +507,7 @@ pub async fn upload_buffered_resumable_unknown_size(
     tracing::info!("testing upload_object_buffered() [3]");
     let insert = client
         .write_object(&bucket.name, "512K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
         .await?;
@@ -517,7 +518,7 @@ pub async fn upload_buffered_resumable_unknown_size(
     tracing::info!("testing upload_object_buffered() [4]");
     let insert = client
         .write_object(&bucket.name, "500K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
         .await?;
@@ -554,7 +555,7 @@ pub async fn upload_unbuffered_resumable_known_size(
     let payload = TestDataSource::new(0_u64);
     let insert = client
         .write_object(&bucket.name, "empty.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
         .await?;
@@ -565,7 +566,7 @@ pub async fn upload_unbuffered_resumable_known_size(
     tracing::info!("testing upload_object_buffered() [2]");
     let insert = client
         .write_object(&bucket.name, "128K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
         .await?;
@@ -576,7 +577,7 @@ pub async fn upload_unbuffered_resumable_known_size(
     tracing::info!("testing upload_object_buffered() [3]");
     let insert = client
         .write_object(&bucket.name, "512K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
         .await?;
@@ -613,7 +614,7 @@ pub async fn upload_unbuffered_resumable_unknown_size(
     let payload = TestDataSource::new(0_u64).without_size_hint();
     let insert = client
         .write_object(&bucket.name, "empty.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
         .await?;
@@ -624,7 +625,7 @@ pub async fn upload_unbuffered_resumable_unknown_size(
     tracing::info!("testing upload_object_buffered() [2]");
     let insert = client
         .write_object(&bucket.name, "128K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
         .await?;
@@ -635,7 +636,7 @@ pub async fn upload_unbuffered_resumable_unknown_size(
     tracing::info!("testing upload_object_buffered() [3]");
     let insert = client
         .write_object(&bucket.name, "512K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
         .await?;
@@ -646,7 +647,7 @@ pub async fn upload_unbuffered_resumable_unknown_size(
     tracing::info!("testing upload_object_buffered() [4]");
     let insert = client
         .write_object(&bucket.name, "500K.txt", payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
         .await?;
@@ -721,7 +722,7 @@ fn abort_upload_test_cases(
             let name = format!("{prefix}-{}-{}.txt", s.0, t.0);
             let upload = client
                 .write_object(bucket_name, &name, s.1.clone())
-                .with_if_generation_match(0)
+                .set_if_generation_match(0)
                 .with_resumable_upload_threshold(t.1);
             uploads.push(AbortUploadTestCase { name, upload });
         }
@@ -780,6 +781,92 @@ async fn abort_upload_buffered(client: storage::client::Storage, bucket_name: &s
     Ok(())
 }
 
+pub async fn ranged_reads(
+    builder: storage::builder::storage::ClientBuilder,
+    bucket_name: &str,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    tracing::info!("ranged reads test, using bucket {bucket_name}");
+    let client = builder.build().await?;
+    const VEXING: &str = "how vexingly quick daft zebras jump";
+
+    let object = client
+        .write_object(bucket_name, "ranged_reads", VEXING)
+        .set_if_generation_match(0)
+        .send_unbuffered()
+        .await?;
+    tracing::info!("created object {object:?}");
+
+    use storage::model_ext::ReadRange;
+    let want = VEXING.as_bytes();
+    tracing::info!("running with ReadRange::head");
+    let response = client
+        .read_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .set_read_range(ReadRange::head(4))
+        .send()
+        .await?;
+    let got = read_all(response).await?;
+    assert_eq!(&got, &want[0..4]);
+
+    tracing::info!("running with ReadRange::tail");
+    let response = client
+        .read_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .set_read_range(ReadRange::tail(4))
+        .send()
+        .await?;
+    let got = read_all(response).await?;
+    assert_eq!(&got, &want[(VEXING.len() - 4)..]);
+
+    tracing::info!("running with ReadRange::offset");
+    let response = client
+        .read_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .set_read_range(ReadRange::offset(4))
+        .send()
+        .await?;
+    let got = read_all(response).await?;
+    assert_eq!(&got, &want[4..]);
+
+    tracing::info!("running with ReadRange::segment");
+    let response = client
+        .read_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .set_read_range(ReadRange::segment(4, 4))
+        .send()
+        .await?;
+    let got = read_all(response).await?;
+    assert_eq!(&got, &want[4..8]);
+
+    tracing::info!("DONE");
+    Ok(())
+}
+
+async fn read_all<R>(mut response: R) -> Result<Vec<u8>>
+where
+    R: ReadObjectResponse,
+{
+    let mut contents = Vec::new();
+    while let Some(b) = response.next().await.transpose()? {
+        contents.extend_from_slice(&b);
+    }
+    Ok(contents)
+}
+
 pub async fn checksums(
     builder: storage::builder::storage::ClientBuilder,
     bucket_name: &str,
@@ -811,7 +898,7 @@ pub async fn checksums(
             Box::pin(
                 client
                     .write_object(bucket_name, "verify/default", VEXING)
-                    .with_if_generation_match(0)
+                    .set_if_generation_match(0)
                     .send_buffered(),
             ),
         ),
@@ -820,7 +907,7 @@ pub async fn checksums(
             Box::pin(
                 client
                     .write_object(bucket_name, "verify/md5", VEXING)
-                    .with_if_generation_match(0)
+                    .set_if_generation_match(0)
                     .compute_md5()
                     .send_buffered(),
             ),
@@ -830,7 +917,7 @@ pub async fn checksums(
             Box::pin(
                 client
                     .write_object(bucket_name, "computed/default", VEXING)
-                    .with_if_generation_match(0)
+                    .set_if_generation_match(0)
                     .precompute_checksums()
                     .await?
                     .send_buffered(),
@@ -841,7 +928,7 @@ pub async fn checksums(
             Box::pin(
                 client
                     .write_object(bucket_name, "computed/md5", VEXING)
-                    .with_if_generation_match(0)
+                    .set_if_generation_match(0)
                     .compute_md5()
                     .precompute_checksums()
                     .await?
@@ -892,7 +979,7 @@ pub async fn object_names(
     for name in names {
         let upload = client
             .write_object(bucket_name, name, "")
-            .with_if_generation_match(0)
+            .set_if_generation_match(0)
             .send_unbuffered()
             .await?;
         assert_eq!(upload.bucket, bucket_name);
@@ -901,7 +988,7 @@ pub async fn object_names(
 
         let reader = client
             .read_object(&upload.bucket, &upload.name)
-            .with_generation(upload.generation)
+            .set_generation(upload.generation)
             .send()
             .await?;
         let highlights = reader.object();

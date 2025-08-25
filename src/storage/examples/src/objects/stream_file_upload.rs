@@ -21,7 +21,7 @@ pub async fn sample(client: &Storage, bucket_id: &str) -> anyhow::Result<()> {
     let payload = Payload(100);
     let object = client
         .write_object(format!("projects/_/buckets/{bucket_id}"), NAME, payload)
-        .with_if_generation_match(0)
+        .set_if_generation_match(0)
         .send_buffered()
         .await?;
     println!("successfully uploaded object {NAME} to bucket {bucket_id}: {object:?}");
