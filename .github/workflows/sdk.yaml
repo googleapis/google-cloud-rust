@@ -183,6 +183,39 @@ jobs:
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
 
+  minimal-versions:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['rust:current']
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          cargo install cargo-minimal-versions cargo-hack@0.6.37 cargo-minimal-versions@0.1.31 --locked
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - run: |
+          set -e
+          cargo minimal-versions test --package integration-tests
+          cargo minimal-versions test --package user-guide-samples
+          cargo minimal-versions test --package storage-samples
+          cargo minimal-versions test --package google-cloud-storage
+          cargo minimal-versions test --package google-cloud-gax-internal
+          cargo minimal-versions test --package google-cloud-auth
+          cargo minimal-versions test --package google-cloud-gax
+          cargo minimal-versions test --package google-cloud-wkt
+
   showcase:
     runs-on: ubuntu-24.04
     strategy:
