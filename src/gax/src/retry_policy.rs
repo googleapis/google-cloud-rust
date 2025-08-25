@@ -68,7 +68,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// Query the retry policy after an error.
     ///
     /// # Parameters
-    /// * `_state` - the state of the retry loop.
+    /// * `state` - the state of the retry loop.
     /// * `error` - the last error when attempting the request.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_error(&self, state: &RetryState, error: Error) -> RetryResult;

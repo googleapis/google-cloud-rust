@@ -40,11 +40,13 @@ pub struct RetryState {
 impl RetryState {
     /// Create a new instance.
     pub fn new(idempotent: bool) -> Self {
-        Self {
-            idempotent,
-            start: Instant::now(),
-            attempt_count: 0,
-        }
+        Self::default().set_idempotent(idempotent)
+    }
+
+    /// Update the idempotency.
+    pub fn set_idempotent(mut self, v: bool) -> Self {
+        self.idempotent = v;
+        self
     }
 
     /// Update the start time, useful in mocks.
@@ -57,5 +59,15 @@ impl RetryState {
     pub fn set_attempt_count<T: Into<u32>>(mut self, v: T) -> Self {
         self.attempt_count = v.into();
         self
+    }
+}
+
+impl std::default::Default for RetryState {
+    fn default() -> Self {
+        Self {
+            start: Instant::now(),
+            idempotent: false,
+            attempt_count: 0
+        }
     }
 }

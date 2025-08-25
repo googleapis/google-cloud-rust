@@ -13,11 +13,11 @@
 // limitations under the License.
 
 use google_cloud_gax::{
-    error::Error, retry_policy::RetryPolicy, retry_result::RetryResult,
+    error::Error, retry_policy::RetryPolicy, retry_result::RetryResult, retry_state::RetryState,
     throttle_result::ThrottleResult,
 };
 use std::sync::{Arc, Mutex};
-use std::time::{Duration, Instant};
+use std::time::Duration;
 
 #[derive(Clone, Debug)]
 struct RetryHistory(Arc<Mutex<Vec<String>>>);
@@ -57,21 +57,9 @@ impl<T> RetryPolicy for DebugRetry<T>
 where
     T: RetryPolicy,
 {
-    fn on_error(
-        &self,
-        loop_start: Instant,
-        attempt_count: u32,
-        idempotent: bool,
-        error: Error,
-    ) -> RetryResult {
-        let value = format!(
-            "on_error({:?}, {:?}, {attempt_count}, {idempotent}, {error:?})",
-            self.inner,
-            Instant::now() - loop_start
-        );
-        let result = self
-            .inner
-            .on_error(loop_start, attempt_count, idempotent, error);
+    fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
+        let value = format!("on_error({:?}, {state:?}, {error:?})", self.inner);
+        let result = self.inner.on_error(state, error);
         self.history.push(value, &result);
         match &result {
             RetryResult::Continue(_) => {}
@@ -88,22 +76,14 @@ where
         result
     }
 
-    fn on_throttle(&self, loop_start: Instant, attempt_count: u32, error: Error) -> ThrottleResult {
-        let value = format!(
-            "on_throttle({:?}, {:?}, {attempt_count}, {error:?})",
-            self.inner,
-            Instant::now() - loop_start
-        );
-        let result = self.inner.on_throttle(loop_start, attempt_count, error);
+    fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult {
+        let value = format!("on_throttle({:?}, {state:?}, {error:?})", self.inner);
+        let result = self.inner.on_throttle(state, error);
         self.history.push(value, &result);
         result
     }
 
-    fn remaining_time(
-        &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-    ) -> Option<Duration> {
-        self.inner.remaining_time(loop_start, attempt_count)
+    fn remaining_time(&self, state: &RetryState) -> Option<Duration> {
+        self.inner.remaining_time(state)
     }
 }

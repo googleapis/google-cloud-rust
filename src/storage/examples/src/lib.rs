@@ -42,6 +42,7 @@ mod view_lifecycle_management_configuration;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use google_cloud_gax::{
     exponential_backoff::ExponentialBackoffBuilder, retry_policy::RetryPolicyExt,
+    retry_state::RetryState,
 };
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::Object;
@@ -391,30 +392,16 @@ impl<T> RetryPolicy for AlwaysIdempotent<T>
 where
     T: RetryPolicy,
 {
-    fn on_error(
-        &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-        _idempotent: bool,
-        error: GaxError,
-    ) -> RetryResult {
-        self.inner.on_error(loop_start, attempt_count, true, error)
+    fn on_error(&self, state: &RetryState, error: GaxError) -> RetryResult {
+        self.inner
+            .on_error(&state.clone().set_idempotent(true), error)
     }
-    fn on_throttle(
-        &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-        error: GaxError,
-    ) -> ThrottleResult {
-        self.inner.on_throttle(loop_start, attempt_count, error)
+    fn on_throttle(&self, state: &RetryState, error: GaxError) -> ThrottleResult {
+        self.inner.on_throttle(state, error)
     }
 
-    fn remaining_time(
-        &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-    ) -> Option<Duration> {
-        self.inner.remaining_time(loop_start, attempt_count)
+    fn remaining_time(&self, state: &RetryState) -> Option<Duration> {
+        self.inner.remaining_time(state)
     }
 }
 
