@@ -695,7 +695,7 @@ struct Args {
     rampup_period: Duration,
 
     /// Sets the number of reads on each object.
-    #[arg(long, default_value_t = 2)]
+    #[arg(long, default_value_t = 3)]
     read_count: i32,
 
     /// Disable logs in the `reqwest` layer.
