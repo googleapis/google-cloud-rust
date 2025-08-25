@@ -17,24 +17,17 @@ use google_cloud_lro::Poller;
 use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::AnywhereCache;
 
-pub async fn sample(
-    client: &StorageControl,
-    bucket_id: &str,
-    cache_id: &str,
-    zone: &str,
-) -> anyhow::Result<()> {
-    let anywhere_cache = AnywhereCache::new()
-        .set_zone(zone.to_string())
-        .set_admission_policy("ADMIT_ALL".to_string());
-    let operation = client
+pub async fn sample(client: &StorageControl, bucket_id: &str, zone: &str) -> anyhow::Result<()> {
+    let cache = client
         .create_anywhere_cache()
-        .set_parent(format!("projects/_/buckets/{}", bucket_id))
-        .set_anywhere_cache_id(cache_id)
-        .set_anywhere_cache(anywhere_cache)
+        .set_parent(format!("projects/_/buckets/{bucket_id}"))
+        .set_anywhere_cache(AnywhereCache::new().set_zone(zone).set_name(format!(
+            "projects/_/buckets/{bucket_id}/anywhereCaches/{zone}"
+        )))
         .poller()
         .until_done()
         .await?;
-    println!("Created anywhere cache: {:?}", operation);
+    println!("Created anywhere cache: {cache:?}");
     Ok(())
 }
 // [END storage_control_create_anywhere_cache]

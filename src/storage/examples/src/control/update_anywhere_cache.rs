@@ -28,7 +28,7 @@ pub async fn sample(
             "projects/_/buckets/{}/anywhereCaches/{}",
             bucket_id, cache_id
         ))
-        .set_admission_policy("ADMIT_ALL".to_string());
+        .set_admission_policy("ADMIT_ON_SECOND_MISS".to_string());
     let operation = client
         .update_anywhere_cache()
         .set_anywhere_cache(anywhere_cache)

@@ -23,8 +23,7 @@ pub async fn sample(
     let cache = client
         .pause_anywhere_cache()
         .set_name(format!(
-            "projects/_/buckets/{}/anywhereCaches/{}",
-            bucket_id, cache_id
+            "projects/_/buckets/{bucket_id}/anywhereCaches/{cache_id}"
         ))
         .send()
         .await?;
