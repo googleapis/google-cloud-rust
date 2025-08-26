@@ -124,6 +124,14 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::change_default_storage_class::sample(&client, &id).await?;
     tracing::info!("running get_bucket_metadata example");
     buckets::get_bucket_metadata::sample(&client, &id).await?;
+    tracing::info!("running get_autoclass example");
+    buckets::get_autoclass::sample(&client, &id).await?;
+    tracing::info!("running set_autoclass example");
+    buckets::set_autoclass::sample(&client, &id, true).await?;
+    tracing::info!("running get_autoclass example");
+    buckets::get_autoclass::sample(&client, &id).await?;
+    tracing::info!("running set_autoclass example");
+    buckets::set_autoclass::sample(&client, &id, false).await?;
     tracing::info!("running get_default_event_based_hold example");
     buckets::get_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running enable_default_event_based_hold example");
