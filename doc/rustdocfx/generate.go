@@ -20,6 +20,7 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"sort"
 	"time"
 
 	"github.com/cbroglie/mustache"
@@ -455,15 +456,26 @@ func generate(c *crate, projectRoot string, outDir string) error {
 			if err := os.WriteFile(filepath.Join(outDir, fmt.Sprintf("%s.yml", uid)), []byte(s), 0666); err != nil {
 				errs = append(errs, err)
 			}
-			// TODO(NOW): crate is added twice for this table.
-			tocItem := docfxTableOfContent{Name: c.getName(id), Uid: uid}
-			toc.appendItem(tocItem)
+			if c.getKind(id) != crateKind {
+				// Crates do not need to be added to the TOC as serves as the landing page.
+				// TODO(NOW): Verify this is the case.
+				tocItem := docfxTableOfContent{Name: c.getName(id), Uid: uid}
+				toc.appendItem(tocItem)
+			}
+		case functionKind:
+			fallthrough
+		case implKind:
+			// We do not generate a page these kinds as they are used as inner items in other pages.
+			continue
+		case undefinedKind:
+			fallthrough
 		default:
-			// TODO(NOW): Do we need to log errors for unexpcted kinds?
-			// errs = append(errs, fmt.Errorf("unexpected path kind, %s, for id %s", c.Paths[id].Kind, id))
+			errs = append(errs, fmt.Errorf("unexpected path kind, %s, for id %s", c.getKind(id), id))
 		}
 	}
 
+	// Sort the toc before rendering.
+	sort.SliceStable(toc.Items, func(i, j int) bool { return toc.Items[i].Name < toc.Items[j].Name })
 	s, _ = mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/toc.yml.mustache"), toc)
 	if err := os.WriteFile(filepath.Join(outDir, "toc.yml"), []byte(s), 0666); err != nil {
 		errs = append(errs, err)
