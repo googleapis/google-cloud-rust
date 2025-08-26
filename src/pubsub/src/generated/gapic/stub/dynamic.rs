@@ -29,12 +29,6 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Topic>>;
 
-    async fn publish(
-        &self,
-        req: crate::model::PublishRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublishResponse>>;
-
     async fn get_topic(
         &self,
         req: crate::model::GetTopicRequest,
@@ -71,24 +65,6 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::DetachSubscriptionResponse>>;
 
-    async fn set_iam_policy(
-        &self,
-        req: iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
-
-    async fn get_iam_policy(
-        &self,
-        req: iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
-
-    async fn test_iam_permissions(
-        &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
-
 }
 
 /// All implementations of [super::Publisher] also implement [Publisher].
@@ -110,15 +86,6 @@ impl<T: super::Publisher> Publisher for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Topic>> {
         T::update_topic(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn publish(
-        &self,
-        req: crate::model::PublishRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublishResponse>> {
-        T::publish(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -175,33 +142,6 @@ impl<T: super::Publisher> Publisher for T {
         T::detach_subscription(self, req, options).await
     }
 
-    /// Forwards the call to the implementation provided by `T`.
-    async fn set_iam_policy(
-        &self,
-        req: iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
-        T::set_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn get_iam_policy(
-        &self,
-        req: iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
-        T::get_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
-    }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::Subscriber].
@@ -236,24 +176,6 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteSubscriptionRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
-    async fn modify_ack_deadline(
-        &self,
-        req: crate::model::ModifyAckDeadlineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
-
-    async fn acknowledge(
-        &self,
-        req: crate::model::AcknowledgeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
-
-    async fn pull(
-        &self,
-        req: crate::model::PullRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PullResponse>>;
 
     async fn modify_push_config(
         &self,
@@ -296,24 +218,6 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         req: crate::model::SeekRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SeekResponse>>;
-
-    async fn set_iam_policy(
-        &self,
-        req: iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
-
-    async fn get_iam_policy(
-        &self,
-        req: iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
-
-    async fn test_iam_permissions(
-        &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
 }
 
@@ -363,33 +267,6 @@ impl<T: super::Subscriber> Subscriber for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_subscription(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn modify_ack_deadline(
-        &self,
-        req: crate::model::ModifyAckDeadlineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
-        T::modify_ack_deadline(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn acknowledge(
-        &self,
-        req: crate::model::AcknowledgeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
-        T::acknowledge(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn pull(
-        &self,
-        req: crate::model::PullRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PullResponse>> {
-        T::pull(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -453,33 +330,6 @@ impl<T: super::Subscriber> Subscriber for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SeekResponse>> {
         T::seek(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn set_iam_policy(
-        &self,
-        req: iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
-        T::set_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn get_iam_policy(
-        &self,
-        req: iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
-        T::get_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
     }
 
 }

@@ -16,5 +16,31 @@
 specification-source = 'google/pubsub/v1'
 service-config = 'google/pubsub/v1/pubsub_v1.yaml'
 
+[source]
+included-ids = """\
+    .google.pubsub.v1.SchemaService,\
+    .google.pubsub.v1.Publisher.CreateTopic,\
+    .google.pubsub.v1.Publisher.UpdateTopic,\
+    .google.pubsub.v1.Publisher.GetTopic,\
+    .google.pubsub.v1.Publisher.ListTopics,\
+    .google.pubsub.v1.Publisher.ListTopicSubscriptions,\
+    .google.pubsub.v1.Publisher.ListTopicSnapshots,\
+    .google.pubsub.v1.Publisher.DeleteTopic,\
+    .google.pubsub.v1.Publisher.DetachSubscription,\
+    .google.pubsub.v1.Subscriber.CreateSubscription,\
+    .google.pubsub.v1.Subscriber.GetSubscription,\
+    .google.pubsub.v1.Subscriber.UpdateSubscription,\
+    .google.pubsub.v1.Subscriber.ListSubscriptions,\
+    .google.pubsub.v1.Subscriber.DeleteSubscription,\
+    .google.pubsub.v1.Subscriber.ModifyPushConfig,\
+    .google.pubsub.v1.Subscriber.GetSnapshot,\
+    .google.pubsub.v1.Subscriber.ListSnapshots,\
+    .google.pubsub.v1.Subscriber.CreateSnapshot,\
+    .google.pubsub.v1.Subscriber.UpdateSnapshot,\
+    .google.pubsub.v1.Subscriber.DeleteSnapshot,\
+    .google.pubsub.v1.Subscriber.Seek\
+    """
+
 [codec]
 copyright-year = '2025'
+template-override         = 'templates/grpc-client'

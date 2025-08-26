@@ -119,13 +119,6 @@ impl Publisher {
         super::builder::publisher::UpdateTopic::new(self.inner.clone())
     }
 
-    /// Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic
-    /// does not exist.
-    pub fn publish(&self) -> super::builder::publisher::Publish
-    {
-        super::builder::publisher::Publish::new(self.inner.clone())
-    }
-
     /// Gets the configuration of a topic.
     pub fn get_topic(&self) -> super::builder::publisher::GetTopic
     {
@@ -171,35 +164,6 @@ impl Publisher {
     pub fn detach_subscription(&self) -> super::builder::publisher::DetachSubscription
     {
         super::builder::publisher::DetachSubscription::new(self.inner.clone())
-    }
-
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
-    ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::publisher::SetIamPolicy
-    {
-        super::builder::publisher::SetIamPolicy::new(self.inner.clone())
-    }
-
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::publisher::GetIamPolicy
-    {
-        super::builder::publisher::GetIamPolicy::new(self.inner.clone())
-    }
-
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
-    ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::publisher::TestIamPermissions
-    {
-        super::builder::publisher::TestIamPermissions::new(self.inner.clone())
     }
 }
 
@@ -339,34 +303,6 @@ impl Subscriber {
         super::builder::subscriber::DeleteSubscription::new(self.inner.clone())
     }
 
-    /// Modifies the ack deadline for a specific message. This method is useful
-    /// to indicate that more time is needed to process a message by the
-    /// subscriber, or to make the message available for redelivery if the
-    /// processing was interrupted. Note that this does not modify the
-    /// subscription-level `ackDeadlineSeconds` used for subsequent messages.
-    pub fn modify_ack_deadline(&self) -> super::builder::subscriber::ModifyAckDeadline
-    {
-        super::builder::subscriber::ModifyAckDeadline::new(self.inner.clone())
-    }
-
-    /// Acknowledges the messages associated with the `ack_ids` in the
-    /// `AcknowledgeRequest`. The Pub/Sub system can remove the relevant messages
-    /// from the subscription.
-    ///
-    /// Acknowledging a message whose ack deadline has expired may succeed,
-    /// but such a message may be redelivered later. Acknowledging a message more
-    /// than once will not result in an error.
-    pub fn acknowledge(&self) -> super::builder::subscriber::Acknowledge
-    {
-        super::builder::subscriber::Acknowledge::new(self.inner.clone())
-    }
-
-    /// Pulls messages from the server.
-    pub fn pull(&self) -> super::builder::subscriber::Pull
-    {
-        super::builder::subscriber::Pull::new(self.inner.clone())
-    }
-
     /// Modifies the `PushConfig` for a specified subscription.
     ///
     /// This may be used to change a push subscription to a pull one (signified by
@@ -454,35 +390,6 @@ impl Subscriber {
     pub fn seek(&self) -> super::builder::subscriber::Seek
     {
         super::builder::subscriber::Seek::new(self.inner.clone())
-    }
-
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
-    ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::subscriber::SetIamPolicy
-    {
-        super::builder::subscriber::SetIamPolicy::new(self.inner.clone())
-    }
-
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::subscriber::GetIamPolicy
-    {
-        super::builder::subscriber::GetIamPolicy::new(self.inner.clone())
-    }
-
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
-    ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::subscriber::TestIamPermissions
-    {
-        super::builder::subscriber::TestIamPermissions::new(self.inner.clone())
     }
 }
 

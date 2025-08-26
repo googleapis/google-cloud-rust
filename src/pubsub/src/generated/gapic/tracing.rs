@@ -50,15 +50,6 @@ where T: super::stub::Publisher + std::fmt::Debug + Send + Sync {
     }
 
     #[tracing::instrument(ret)]
-    async fn publish(
-        &self,
-        req: crate::model::PublishRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublishResponse>> {
-        self.inner.publish(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
     async fn get_topic(
         &self,
         req: crate::model::GetTopicRequest,
@@ -110,33 +101,6 @@ where T: super::stub::Publisher + std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DetachSubscriptionResponse>> {
         self.inner.detach_subscription(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn set_iam_policy(
-        &self,
-        req: iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        self.inner.set_iam_policy(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn get_iam_policy(
-        &self,
-        req: iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        self.inner.get_iam_policy(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
     }
 
 }
@@ -203,33 +167,6 @@ where T: super::stub::Subscriber + std::fmt::Debug + Send + Sync {
     }
 
     #[tracing::instrument(ret)]
-    async fn modify_ack_deadline(
-        &self,
-        req: crate::model::ModifyAckDeadlineRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
-        self.inner.modify_ack_deadline(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn acknowledge(
-        &self,
-        req: crate::model::AcknowledgeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
-        self.inner.acknowledge(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn pull(
-        &self,
-        req: crate::model::PullRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PullResponse>> {
-        self.inner.pull(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
     async fn modify_push_config(
         &self,
         req: crate::model::ModifyPushConfigRequest,
@@ -290,33 +227,6 @@ where T: super::stub::Subscriber + std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SeekResponse>> {
         self.inner.seek(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn set_iam_policy(
-        &self,
-        req: iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        self.inner.set_iam_policy(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn get_iam_policy(
-        &self,
-        req: iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        self.inner.get_iam_policy(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
     }
 
 }

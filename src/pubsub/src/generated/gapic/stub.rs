@@ -57,15 +57,6 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Publisher::publish].
-    fn publish(
-        &self,
-        _req: crate::model::PublishRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PublishResponse>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [super::client::Publisher::get_topic].
     fn get_topic(
         &self,
@@ -117,33 +108,6 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         _req: crate::model::DetachSubscriptionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::DetachSubscriptionResponse>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Publisher::set_iam_policy].
-    fn set_iam_policy(
-        &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Publisher::get_iam_policy].
-    fn get_iam_policy(
-        &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Publisher::test_iam_permissions].
-    fn test_iam_permissions(
-        &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -203,33 +167,6 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteSubscriptionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Subscriber::modify_ack_deadline].
-    fn modify_ack_deadline(
-        &self,
-        _req: crate::model::ModifyAckDeadlineRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Subscriber::acknowledge].
-    fn acknowledge(
-        &self,
-        _req: crate::model::AcknowledgeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Subscriber::pull].
-    fn pull(
-        &self,
-        _req: crate::model::PullRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PullResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -293,33 +230,6 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         _req: crate::model::SeekRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SeekResponse>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Subscriber::set_iam_policy].
-    fn set_iam_policy(
-        &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Subscriber::get_iam_policy].
-    fn get_iam_policy(
-        &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Subscriber::test_iam_permissions].
-    fn test_iam_permissions(
-        &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
