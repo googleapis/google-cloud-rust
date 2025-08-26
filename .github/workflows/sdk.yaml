@@ -320,7 +320,7 @@ jobs:
       - name: Upload user guide
         if: ${{ matrix.rust-version == 'rust:current' }}
         id: deployment
-        uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+        uses: actions/upload-pages-artifact@v4 # or specific "vX.X.X" version tag for this action
         with:
           path: guide/book/
   deploy:
