@@ -24,6 +24,7 @@ use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 use storage::model_ext::KeyAes256;
+use storage::read_object::ReadObjectResponse;
 use storage::streaming_source::{Seek, SizeHint, StreamingSource};
 use storage_samples::cleanup_bucket;
 
@@ -855,10 +856,7 @@ pub async fn ranged_reads(
     Ok(())
 }
 
-async fn read_all<R>(mut response: R) -> Result<Vec<u8>>
-where
-    R: ReadObjectResponse,
-{
+async fn read_all(mut response: ReadObjectResponse) -> Result<Vec<u8>> {
     let mut contents = Vec::new();
     while let Some(b) = response.next().await.transpose()? {
         contents.extend_from_slice(&b);
