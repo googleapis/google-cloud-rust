@@ -401,7 +401,7 @@ jobs:
           sudo unzip -x /tmp/protoc.zip
           protoc --version
       - name: Regenerate all the code
-        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.2-0.20250812135937-eb593463c88c refreshall -project-root .
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.2-0.20250826011555-c0c043b7a0a6 refreshall -project-root .
       - run: cargo fmt
         # If there is any difference between the generated code and the
         # committed code that is an error. All the inputs should be pinned,
