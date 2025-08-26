@@ -24,7 +24,6 @@ use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 use storage::model_ext::KeyAes256;
-use storage::read_object::ReadObjectResponse;
 use storage::streaming_source::{Seek, SizeHint, StreamingSource};
 use storage_samples::cleanup_bucket;
 
