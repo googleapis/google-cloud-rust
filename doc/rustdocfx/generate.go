@@ -348,7 +348,9 @@ func newDocfxItemFromField(c *crate, parent *docfxItem, id string) (*docfxItem, 
 	r.Name = c.getName(id)
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
 	// TODO: Add the field type to Summary.
-	r.Summary = c.getDocString(id)
+	// r.Summary = c.getDocString(id)
+	// TODO: There is an issue where doc-pipeline is unable to parse unknown escape character in field doc strings.
+	r.Summary = "TODO"
 	return r, nil
 }
 
