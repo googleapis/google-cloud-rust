@@ -12,20 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod create_anywhere_cache;
-pub mod create_folder;
-pub mod delete_folder;
-pub mod disable_anywhere_cache;
-pub mod get_anywhere_cache;
-pub mod get_folder;
-pub mod list_anywhere_caches;
-pub mod list_folders;
-pub mod managed_folder_create;
-pub mod managed_folder_delete;
-pub mod managed_folder_get;
-pub mod managed_folder_list;
-pub mod pause_anywhere_cache;
-pub mod quickstart;
-pub mod rename_folder;
-pub mod resume_anywhere_cache;
-pub mod update_anywhere_cache;
+// [START storage_control_list_anywhere_caches]
+use google_cloud_gax::paginator::ItemPaginator;
+use google_cloud_storage::client::StorageControl;
+
+pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
+    let mut stream = client
+        .list_anywhere_caches()
+        .set_parent(format!("projects/_/buckets/{}", bucket_id))
+        .by_item();
+    while let Some(cache) = stream.next().await {
+        println!("Found cache: {:?}", cache?);
+    }
+    Ok(())
+}
+// [END storage_control_list_anywhere_caches]

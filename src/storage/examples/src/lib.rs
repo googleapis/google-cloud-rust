@@ -30,6 +30,64 @@ use std::time::Duration;
 
 pub const BUCKET_ID_LENGTH: usize = 63;
 
+pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
+    use google_cloud_storage::model::{
+        Bucket,
+        bucket::iam_config::UniformBucketLevelAccess,
+        bucket::{HierarchicalNamespace, IamConfig},
+    };
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let client = control_client().await?;
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    let zone = "us-central1-f";
+    tracing::info!("Create bucket for anywhere cache examples");
+    let _bucket = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(&id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location("us-central1")
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
+        )
+        .send()
+        .await?;
+
+    tracing::info!("running control_create_anywhere_cache");
+    control::create_anywhere_cache::sample(&client, &id, zone).await?;
+    tracing::info!("running control_get_anywhere_cache");
+    control::get_anywhere_cache::sample(&client, &id, zone).await?;
+    tracing::info!("running control_list_anywhere_caches");
+    control::list_anywhere_caches::sample(&client, &id).await?;
+    tracing::info!("running control_pause_anywhere_caches");
+    control::pause_anywhere_cache::sample(&client, &id, zone).await?;
+    tracing::info!("running control_resume_anywhere_caches");
+    control::resume_anywhere_cache::sample(&client, &id, zone).await?;
+    tracing::info!("running control_update_anywhere_caches");
+    control::update_anywhere_cache::sample(&client, &id, zone).await?;
+    tracing::info!("running control_disable_anywhere_caches");
+    control::disable_anywhere_cache::sample(&client, &id, zone).await?;
+
+    Ok(())
+}
+
 pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
     let _guard = {
         use tracing_subscriber::fmt::format::FmtSpan;
@@ -42,33 +100,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         tracing::subscriber::set_default(subscriber)
     };
 
-    // Avoid creating more than one bucket every 2 seconds:
-    //     https://cloud.google.com/storage/quotas
-    const BUCKET_CREATION_DELAY: Duration = Duration::from_secs(2);
-    // Avoid mutating a bucket more than once per second:
-    //     https://cloud.google.com/storage/quotas
-    const BUCKET_MUTATION_DELAY: Duration = Duration::from_secs(1);
-
-    // Use a longer than normal initial backoff, to better handle rate limit
-    // errors.
-    let backoff = ExponentialBackoffBuilder::new()
-        .with_initial_delay(std::cmp::max(BUCKET_CREATION_DELAY, BUCKET_MUTATION_DELAY))
-        .with_maximum_delay(Duration::from_secs(60))
-        .build()?;
-
-    let client = StorageControl::builder()
-        .with_backoff_policy(backoff)
-        .with_retry_policy(
-            // Retry all errors, the examples are tested with on newly created
-            // buckets, using a static configuration. Most likely the errors are
-            // network problems and can be safely retried. Or at least, we will
-            // get fewer flakes from retrying failures vs. not.
-            RetryableErrors
-                .with_time_limit(Duration::from_secs(900))
-                .always_idempotent(),
-        )
-        .build()
-        .await?;
+    let client = control_client().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
     let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
 
@@ -208,7 +240,7 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
         tracing::subscriber::set_default(subscriber)
     };
 
-    let client = StorageControl::builder().build().await?;
+    let client = control_client().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
 
     let id = random_bucket_id();
@@ -262,7 +294,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         tracing::subscriber::set_default(subscriber)
     };
 
-    let control = StorageControl::builder().build().await?;
+    let control = control_client().await?;
     let client = Storage::builder().build().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
 
@@ -323,6 +355,37 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     control::delete_folder::sample(&control, &id).await?;
 
     Ok(())
+}
+
+async fn control_client() -> anyhow::Result<StorageControl> {
+    // Avoid creating more than one bucket every 2 seconds:
+    //     https://cloud.google.com/storage/quotas
+    const BUCKET_CREATION_DELAY: Duration = Duration::from_secs(2);
+    // Avoid mutating a bucket more than once per second:
+    //     https://cloud.google.com/storage/quotas
+    const BUCKET_MUTATION_DELAY: Duration = Duration::from_secs(1);
+
+    // Use a longer than normal initial backoff, to better handle rate limit
+    // errors.
+    let backoff = ExponentialBackoffBuilder::new()
+        .with_initial_delay(std::cmp::max(BUCKET_CREATION_DELAY, BUCKET_MUTATION_DELAY))
+        .with_maximum_delay(Duration::from_secs(60))
+        .build()?;
+
+    let control = StorageControl::builder()
+        .with_backoff_policy(backoff)
+        .with_retry_policy(
+            // Retry all errors, the examples are tested with on newly created
+            // buckets, using a static configuration. Most likely the errors are
+            // network problems and can be safely retried. Or at least, we will
+            // get fewer flakes from retrying failures vs. not.
+            RetryableErrors
+                .with_time_limit(Duration::from_secs(900))
+                .always_idempotent(),
+        )
+        .build()
+        .await?;
+    Ok(control)
 }
 
 async fn make_object(client: &Storage, bucket_id: &str, name: &str) -> anyhow::Result<Object> {
