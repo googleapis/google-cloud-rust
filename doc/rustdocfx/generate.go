@@ -291,9 +291,9 @@ func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxIte
 	if c.Index[id].Inner.Function.Sig.Output != nil {
 		docfxReturn := new(docfxParameter)
 		if c.Index[id].Inner.Function.Sig.Output.Generic != "" {
-			docfxReturn.Id = c.Index[id].Inner.Function.Sig.Output.Generic
+			docfxReturn.VarType = c.Index[id].Inner.Function.Sig.Output.Generic
 		} else {
-			docfxReturn.Id = c.Index[id].Inner.Function.Sig.Output.ResolvedPath.toString()
+			docfxReturn.VarType = c.Index[id].Inner.Function.Sig.Output.ResolvedPath.toString()
 		}
 		syntax.appendReturn(docfxReturn)
 	}
