@@ -10,7 +10,7 @@ are still possible, but not expected.
 We also believe the implementation is ready for production, bugs are
 still possible, but not expected.
 
-A service to modify your BigQuery flat-rate reservations.
+A service to modify your BigQuery reservations.
 
 ## Quickstart
 

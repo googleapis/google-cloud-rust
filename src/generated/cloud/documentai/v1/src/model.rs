@@ -8485,6 +8485,9 @@ pub mod document {
         /// purposes.
         pub redacted: bool,
 
+        /// Optional. Specifies how the entity's value is obtained.
+        pub method: crate::model::document::entity::Method,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8614,6 +8617,15 @@ pub mod document {
             self.redacted = v.into();
             self
         }
+
+        /// Sets the value of [method][crate::model::document::Entity::method].
+        pub fn set_method<T: std::convert::Into<crate::model::document::entity::Method>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.method = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for Entity {
@@ -8643,6 +8655,7 @@ pub mod document {
                 __properties,
                 __provenance,
                 __redacted,
+                __method,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8682,6 +8695,7 @@ pub mod document {
                                 "properties" => Ok(__FieldTag::__properties),
                                 "provenance" => Ok(__FieldTag::__provenance),
                                 "redacted" => Ok(__FieldTag::__redacted),
+                                "method" => Ok(__FieldTag::__method),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -8827,6 +8841,14 @@ pub mod document {
                                     .next_value::<std::option::Option<bool>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__method => {
+                                if !fields.insert(__FieldTag::__method) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for method",
+                                    ));
+                                }
+                                result.method = map.next_value::<std::option::Option<crate::model::document::entity::Method>>()?.unwrap_or_default();
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -8892,6 +8914,9 @@ pub mod document {
             if !wkt::internal::is_default(&self.redacted) {
                 state.serialize_entry("redacted", &self.redacted)?;
             }
+            if !wkt::internal::is_default(&self.method) {
+                state.serialize_entry("method", &self.method)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -8915,6 +8940,7 @@ pub mod document {
             debug_struct.field("properties", &self.properties);
             debug_struct.field("provenance", &self.provenance);
             debug_struct.field("redacted", &self.redacted);
+            debug_struct.field("method", &self.method);
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -9180,6 +9206,31 @@ pub mod document {
                 );
                 self
             }
+
+            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
+            /// if it holds a `SignatureValue`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn signature_value(&self) -> std::option::Option<&bool> {
+                #[allow(unreachable_patterns)]
+                self.structured_value.as_ref().and_then(|v| match v {
+                    crate::model::document::entity::normalized_value::StructuredValue::SignatureValue(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
+            /// to hold a `SignatureValue`.
+            ///
+            /// Note that all the setters affecting `structured_value` are
+            /// mutually exclusive.
+            pub fn set_signature_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.structured_value = std::option::Option::Some(
+                    crate::model::document::entity::normalized_value::StructuredValue::SignatureValue(
+                        v.into()
+                    )
+                );
+                self
+            }
         }
 
         impl wkt::message::Message for NormalizedValue {
@@ -9205,6 +9256,7 @@ pub mod document {
                     __boolean_value,
                     __integer_value,
                     __float_value,
+                    __signature_value,
                     __text,
                     Unknown(std::string::String),
                 }
@@ -9246,6 +9298,8 @@ pub mod document {
                                     "integer_value" => Ok(__FieldTag::__integer_value),
                                     "floatValue" => Ok(__FieldTag::__float_value),
                                     "float_value" => Ok(__FieldTag::__float_value),
+                                    "signatureValue" => Ok(__FieldTag::__signature_value),
+                                    "signature_value" => Ok(__FieldTag::__signature_value),
                                     "text" => Ok(__FieldTag::__text),
                                     _ => Ok(__FieldTag::Unknown(value.to_string())),
                                 }
@@ -9441,6 +9495,27 @@ pub mod document {
                                         ),
                                     );
                                 }
+                                __FieldTag::__signature_value => {
+                                    if !fields.insert(__FieldTag::__signature_value) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for signature_value",
+                                            ),
+                                        );
+                                    }
+                                    if result.structured_value.is_some() {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for `structured_value`, a oneof with full ID .google.cloud.documentai.v1.Document.Entity.NormalizedValue.signature_value, latest field was signatureValue",
+                                            ),
+                                        );
+                                    }
+                                    result.structured_value = std::option::Option::Some(
+                                        crate::model::document::entity::normalized_value::StructuredValue::SignatureValue(
+                                            map.next_value::<std::option::Option<bool>>()?.unwrap_or_default()
+                                        ),
+                                    );
+                                }
                                 __FieldTag::__text => {
                                     if !fields.insert(__FieldTag::__text) {
                                         return std::result::Result::Err(
@@ -9519,6 +9594,9 @@ pub mod document {
                     }
                     state.serialize_entry("floatValue", &__With(value))?;
                 }
+                if let Some(value) = self.signature_value() {
+                    state.serialize_entry("signatureValue", value)?;
+                }
                 if !self.text.is_empty() {
                     state.serialize_entry("text", &self.text)?;
                 }
@@ -9574,6 +9652,144 @@ pub mod document {
                 IntegerValue(i32),
                 /// Float value.
                 FloatValue(f32),
+                SignatureValue(bool),
+            }
+        }
+
+        /// Specifies how the entity's value is obtained.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Method {
+            /// When the method is not specified, it should be treated as `EXTRACT`.
+            Unspecified,
+            /// The entity's value is directly extracted as-is from the document
+            /// text.
+            Extract,
+            /// The entity's value is derived through inference and is not
+            /// necessarily an exact text extraction from the document.
+            Derive,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Method::value] or
+            /// [Method::name].
+            UnknownValue(method::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod method {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Method {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Extract => std::option::Option::Some(1),
+                    Self::Derive => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("METHOD_UNSPECIFIED"),
+                    Self::Extract => std::option::Option::Some("EXTRACT"),
+                    Self::Derive => std::option::Option::Some("DERIVE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Method {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Method {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Method {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Extract,
+                    2 => Self::Derive,
+                    _ => Self::UnknownValue(method::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Method {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "METHOD_UNSPECIFIED" => Self::Unspecified,
+                    "EXTRACT" => Self::Extract,
+                    "DERIVE" => Self::Derive,
+                    _ => Self::UnknownValue(method::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Method {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Extract => serializer.serialize_i32(1),
+                    Self::Derive => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Method {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Method>::new(
+                    ".google.cloud.documentai.v1.Document.Entity.Method",
+                ))
             }
         }
     }
@@ -30918,6 +31134,9 @@ pub mod document_schema {
             pub occurrence_type:
                 crate::model::document_schema::entity_type::property::OccurrenceType,
 
+            /// Specifies how the entity's value is obtained.
+            pub method: crate::model::document_schema::entity_type::property::Method,
+
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -30962,6 +31181,17 @@ pub mod document_schema {
                 self.occurrence_type = v.into();
                 self
             }
+
+            /// Sets the value of [method][crate::model::document_schema::entity_type::Property::method].
+            pub fn set_method<
+                T: std::convert::Into<crate::model::document_schema::entity_type::property::Method>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.method = v.into();
+                self
+            }
         }
 
         impl wkt::message::Message for Property {
@@ -30984,6 +31214,7 @@ pub mod document_schema {
                     __display_name,
                     __value_type,
                     __occurrence_type,
+                    __method,
                     Unknown(std::string::String),
                 }
                 impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -31017,6 +31248,7 @@ pub mod document_schema {
                                     "value_type" => Ok(__FieldTag::__value_type),
                                     "occurrenceType" => Ok(__FieldTag::__occurrence_type),
                                     "occurrence_type" => Ok(__FieldTag::__occurrence_type),
+                                    "method" => Ok(__FieldTag::__method),
                                     _ => Ok(__FieldTag::Unknown(value.to_string())),
                                 }
                             }
@@ -31086,6 +31318,14 @@ pub mod document_schema {
                                     }
                                     result.occurrence_type = map.next_value::<std::option::Option<crate::model::document_schema::entity_type::property::OccurrenceType>>()?.unwrap_or_default();
                                 }
+                                __FieldTag::__method => {
+                                    if !fields.insert(__FieldTag::__method) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field("multiple values for method"),
+                                        );
+                                    }
+                                    result.method = map.next_value::<std::option::Option<crate::model::document_schema::entity_type::property::Method>>()?.unwrap_or_default();
+                                }
                                 __FieldTag::Unknown(key) => {
                                     let value = map.next_value::<serde_json::Value>()?;
                                     result._unknown_fields.insert(key, value);
@@ -31121,6 +31361,9 @@ pub mod document_schema {
                 if !wkt::internal::is_default(&self.occurrence_type) {
                     state.serialize_entry("occurrenceType", &self.occurrence_type)?;
                 }
+                if !wkt::internal::is_default(&self.method) {
+                    state.serialize_entry("method", &self.method)?;
+                }
                 if !self._unknown_fields.is_empty() {
                     for (key, value) in self._unknown_fields.iter() {
                         state.serialize_entry(key, &value)?;
@@ -31137,6 +31380,7 @@ pub mod document_schema {
                 debug_struct.field("display_name", &self.display_name);
                 debug_struct.field("value_type", &self.value_type);
                 debug_struct.field("occurrence_type", &self.occurrence_type);
+                debug_struct.field("method", &self.method);
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -31306,6 +31550,143 @@ pub mod document_schema {
                 {
                     deserializer.deserialize_any(wkt::internal::EnumVisitor::<OccurrenceType>::new(
                         ".google.cloud.documentai.v1.DocumentSchema.EntityType.Property.OccurrenceType"))
+                }
+            }
+
+            /// Specifies how the entity's value is obtained from the document.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Method {
+                /// Unspecified method. It defaults to `EXTRACT`.
+                Unspecified,
+                /// The entity's value is directly extracted as-is from the document
+                /// text.
+                Extract,
+                /// The entity's value is derived through inference and is not
+                /// necessarily an exact text extraction from the document.
+                Derive,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [Method::value] or
+                /// [Method::name].
+                UnknownValue(method::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod method {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl Method {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Extract => std::option::Option::Some(1),
+                        Self::Derive => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some("METHOD_UNSPECIFIED"),
+                        Self::Extract => std::option::Option::Some("EXTRACT"),
+                        Self::Derive => std::option::Option::Some("DERIVE"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for Method {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for Method {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for Method {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Extract,
+                        2 => Self::Derive,
+                        _ => Self::UnknownValue(method::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for Method {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "METHOD_UNSPECIFIED" => Self::Unspecified,
+                        "EXTRACT" => Self::Extract,
+                        "DERIVE" => Self::Derive,
+                        _ => Self::UnknownValue(method::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for Method {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Extract => serializer.serialize_i32(1),
+                        Self::Derive => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for Method {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<Method>::new(
+                        ".google.cloud.documentai.v1.DocumentSchema.EntityType.Property.Method",
+                    ))
                 }
             }
         }
@@ -34957,28 +35338,30 @@ pub struct ProcessorVersion {
     /// The display name of the processor version.
     pub display_name: std::string::String,
 
-    /// The schema of the processor version. Describes the output.
+    /// Output only. The schema of the processor version. Describes the output.
     pub document_schema: std::option::Option<crate::model::DocumentSchema>,
 
     /// Output only. The state of the processor version.
     pub state: crate::model::processor_version::State,
 
-    /// The time the processor version was created.
+    /// Output only. The time the processor version was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// The most recently invoked evaluation for the processor version.
+    /// Output only. The most recently invoked evaluation for the processor
+    /// version.
     pub latest_evaluation: std::option::Option<crate::model::EvaluationReference>,
 
-    /// The KMS key name used for encryption.
+    /// Output only. The KMS key name used for encryption.
     pub kms_key_name: std::string::String,
 
-    /// The KMS key version with which data is encrypted.
+    /// Output only. The KMS key version with which data is encrypted.
     pub kms_key_version_name: std::string::String,
 
     /// Output only. Denotes that this `ProcessorVersion` is managed by Google.
     pub google_managed: bool,
 
-    /// If set, information about the eventual deprecation of this version.
+    /// Output only. If set, information about the eventual deprecation of this
+    /// version.
     pub deprecation_info: std::option::Option<crate::model::processor_version::DeprecationInfo>,
 
     /// Output only. The model type of this processor version.
@@ -37038,7 +37421,7 @@ pub struct Processor {
     /// processing.
     pub process_endpoint: std::string::String,
 
-    /// The time the processor was created.
+    /// Output only. The time the processor was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// The [KMS key](https://cloud.google.com/security-key-management) used for
