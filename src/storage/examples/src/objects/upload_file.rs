@@ -12,15 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod delete_file;
-pub mod download_byte_range;
-pub mod download_encrypted_file;
-pub mod download_file;
-pub mod generate_encryption_key;
-pub mod list_files;
-pub mod list_files_with_prefix;
-pub mod set_metadata;
-pub mod stream_file_download;
-pub mod stream_file_upload;
-pub mod upload_encrypted_file;
-pub mod upload_file;
+// [START storage_upload_file]
+use google_cloud_storage::client::Storage;
+
+pub async fn sample(
+    client: &Storage,
+    bucket: &str,
+    object: &str,
+    file_path: &str,
+) -> Result<(), anyhow::Error> {
+    let payload = tokio::fs::File::open(file_path).await?;
+    let _result = client
+        .write_object(format!("projects/_/buckets/{bucket}"), object, payload)
+        .send_unbuffered()
+        .await?;
+
+    println!("Uploaded {file_path} to {object} in bucket {bucket}.");
+    Ok(())
+}
+// [END storage_upload_file]
