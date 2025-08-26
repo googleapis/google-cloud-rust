@@ -15,7 +15,6 @@
 // [START storage_download_byte_range]
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::ReadRange;
-use google_cloud_storage::read_object::ReadObjectResponse;
 
 pub async fn sample(
     client: &Storage,

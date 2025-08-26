@@ -22,8 +22,6 @@ use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::{Checksum, Crc32c, Md5, validate};
 use base64::Engine;
-#[cfg(feature = "unstable-stream")]
-use futures::Stream;
 use serde_with::DeserializeAs;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
@@ -31,7 +29,6 @@ use serde_with::DeserializeAs;
 /// # Example: accumulate the contents of an object into a vector
 /// ```
 /// use google_cloud_storage::{client::Storage, builder::storage::ReadObject};
-/// use google_cloud_storage::read_object::ReadObjectResponse;
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
 ///     let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
 ///     let mut reader = builder.send().await?;
@@ -48,7 +45,6 @@ use serde_with::DeserializeAs;
 /// ```
 /// use google_cloud_storage::{client::Storage, builder::storage::ReadObject};
 /// use google_cloud_storage::model_ext::ReadRange;
-/// use google_cloud_storage::read_object::ReadObjectResponse;
 /// async fn sample(client: &Storage) -> anyhow::Result<()> {
 ///     const MIB: u64 = 1024 * 1024;
 ///     let mut contents = Vec::new();
@@ -107,7 +103,6 @@ impl ReadObject {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::read_object::ReadObjectResponse;
     /// let builder =  client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .compute_md5();
@@ -361,9 +356,10 @@ impl ReadObject {
     }
 
     /// Sends the request.
-    pub async fn send(self) -> Result<impl ReadObjectResponse> {
+    pub async fn send(self) -> Result<ReadObjectResponse> {
         let read = self.clone().read().await?;
-        ReadObjectResponseImpl::new(self, read)
+        let inner = ReadObjectResponseImpl::new(self, read)?;
+        Ok(ReadObjectResponse::new(Box::new(inner)))
     }
 
     async fn read(self) -> Result<reqwest::Response> {
@@ -570,40 +566,20 @@ impl ReadObjectResponseImpl {
     }
 }
 
-impl ReadObjectResponse for ReadObjectResponseImpl {
+#[async_trait::async_trait]
+impl crate::read_object::dynamic::ReadObjectResponse for ReadObjectResponseImpl {
     fn object(&self) -> ObjectHighlights {
         self.highlights.clone()
     }
 
-    // A type-checking cycle is detected with `async fn` when its return type
-    // depends on an opaque type that is defined within the function body.
-    // Writing out `impl Future` breaks this cycle, allowing the compiler to
-    // resolve the return type and proceed.
-    #[allow(clippy::manual_async_fn)]
-    fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes>>> + Send {
-        async move {
-            match self.next_attempt().await {
-                None => None,
-                Some(Ok(b)) => Some(Ok(b)),
-                // Recursive async requires pin:
-                //     https://rust-lang.github.io/async-book/07_workarounds/04_recursion.html
-                Some(Err(e)) => Box::pin(self.resume(e)).await,
-            }
+    async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
+        match self.next_attempt().await {
+            None => None,
+            Some(Ok(b)) => Some(Ok(b)),
+            // Recursive async requires pin:
+            //     https://rust-lang.github.io/async-book/07_workarounds/04_recursion.html
+            Some(Err(e)) => Box::pin(self.resume(e)).await,
         }
-    }
-
-    #[cfg(feature = "unstable-stream")]
-    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin {
-        use futures::stream::unfold;
-        Box::pin(unfold(Some(self), move |state| async move {
-            if let Some(mut this) = state {
-                if let Some(chunk) = this.next().await {
-                    return Some((chunk, Some(this)));
-                }
-            };
-            None
-        }))
     }
 }
 
@@ -641,6 +617,7 @@ impl ReadObjectResponseImpl {
     }
 
     async fn resume(&mut self, error: Error) -> Option<Result<bytes::Bytes>> {
+        use crate::read_object::dynamic::ReadObjectResponse;
         use crate::read_resume_policy::{ResumeQuery, ResumeResult};
 
         // The existing read is no longer valid.
