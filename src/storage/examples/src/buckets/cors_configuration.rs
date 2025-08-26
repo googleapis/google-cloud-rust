@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_add_cors_configuration]
+// [START storage_cors_configuration]
 use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::bucket::Cors;
 use google_cloud_wkt::FieldMask;
@@ -43,4 +43,4 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
     println!("successfully updated bucket CORS for {bucket_id}: {bucket:?}");
     Ok(())
 }
-// [END storage_add_cors_configuration]
+// [END storage_cors_configuration]

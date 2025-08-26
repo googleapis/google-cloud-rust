@@ -14,6 +14,7 @@
 
 // [START storage_remove_cors_configuration]
 use google_cloud_storage::client::StorageControl;
+use google_cloud_storage::model::bucket::Cors;
 use google_cloud_wkt::FieldMask;
 
 pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
@@ -23,17 +24,18 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .send()
         .await?;
     let metageneration = bucket.metageneration;
-    let mut cors = bucket.cors.clone();
-    cors.retain(|c| c.max_age_seconds != 3600);
 
     let bucket = client
         .update_bucket()
-        .set_bucket(bucket.set_cors(cors))
+        .set_bucket(bucket.set_cors(Vec::<Cors>::new()))
         .set_if_metageneration_match(metageneration)
         .set_update_mask(FieldMask::default().set_paths(["cors"]))
         .send()
         .await?;
-    println!("successfully removed CORS rule for bucket {bucket_id}: {bucket:?}");
+    println!(
+        "successfully removed CORS rule for bucket {bucket_id}: {:?}",
+        bucket.cors
+    );
     Ok(())
 }
 // [END storage_remove_cors_configuration]
