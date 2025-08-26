@@ -124,14 +124,6 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::change_default_storage_class::sample(&client, &id).await?;
     tracing::info!("running get_bucket_metadata example");
     buckets::get_bucket_metadata::sample(&client, &id).await?;
-    tracing::info!("running get_autoclass example");
-    buckets::get_autoclass::sample(&client, &id).await?;
-    tracing::info!("running set_autoclass example");
-    buckets::set_autoclass::sample(&client, &id, true).await?;
-    tracing::info!("running get_autoclass example");
-    buckets::get_autoclass::sample(&client, &id).await?;
-    tracing::info!("running set_autoclass example");
-    buckets::set_autoclass::sample(&client, &id, false).await?;
     tracing::info!("running get_default_event_based_hold example");
     buckets::get_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running enable_default_event_based_hold example");
@@ -187,6 +179,15 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::remove_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running print_bucket_acl_for_user example");
     buckets::print_bucket_acl_for_user::sample(&client, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket example [3]");
+    buckets::create_bucket::sample(&client, &project_id, &id).await?;
+    tracing::info!("running set_autoclass example");
+    buckets::set_autoclass::sample(&client, &id).await?;
+    tracing::info!("running get_autoclass example");
+    buckets::get_autoclass::sample(&client, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());

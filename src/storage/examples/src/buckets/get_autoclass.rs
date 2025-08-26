@@ -21,14 +21,7 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .set_name(format!("projects/_/buckets/{bucket_id}"))
         .send()
         .await?;
-    if let Some(autoclass) = bucket.autoclass {
-        println!(
-            "Autoclass for bucket {} is enabled={}, terminal_storage_class={:?}, toggled_time={:?}",
-            bucket_id, autoclass.enabled, autoclass.terminal_storage_class, autoclass.toggle_time
-        );
-    } else {
-        println!("Autoclass is not set for bucket {bucket_id}.");
-    }
+    println!("Autoclass for bucket {bucket_id}: {:?}", bucket.autoclass);
     Ok(())
 }
 // [END storage_get_autoclass]
