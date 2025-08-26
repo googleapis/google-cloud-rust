@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub mod add_bucket_conditional_iam_binding;
+pub mod add_bucket_cors;
 pub mod add_bucket_iam_member;
 pub mod add_bucket_owner;
 pub mod change_default_storage_class;
@@ -35,9 +36,12 @@ pub mod get_public_access_prevention;
 pub mod get_retention_policy;
 pub mod list_buckets;
 pub mod lock_retention_policy;
+pub mod patch_bucket_cors;
 pub mod print_bucket_acl;
 pub mod print_bucket_acl_for_user;
+pub mod print_bucket_cors;
 pub mod print_bucket_website_configuration;
+pub mod remove_bucket_cors;
 pub mod remove_bucket_owner;
 pub mod remove_retention_policy;
 pub mod set_autoclass;
