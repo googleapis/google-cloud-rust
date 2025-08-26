@@ -24,6 +24,7 @@ learning expertise and effort.
 
 The main types to work with this crate are the clients:
 
+- [DataFoundryService]: enabled by the `data-foundry-service` feature.
 - [DatasetService]: enabled by the `dataset-service` feature.
 - [DeploymentResourcePoolService]: enabled by the `deployment-resource-pool-service` feature.
 - [EndpointService]: enabled by the `endpoint-service` feature.
@@ -61,6 +62,7 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-aiplatform-v1/latest/google-cloud-aiplatform-v1)
 
+[DataFoundryService]: https://docs.rs/google-cloud-aiplatform-v1/latest/google_cloud_aiplatform_v1/client/struct.DataFoundryService.html
 [DatasetService]: https://docs.rs/google-cloud-aiplatform-v1/latest/google_cloud_aiplatform_v1/client/struct.DatasetService.html
 [DeploymentResourcePoolService]: https://docs.rs/google-cloud-aiplatform-v1/latest/google_cloud_aiplatform_v1/client/struct.DeploymentResourcePoolService.html
 [EndpointService]: https://docs.rs/google-cloud-aiplatform-v1/latest/google_cloud_aiplatform_v1/client/struct.EndpointService.html

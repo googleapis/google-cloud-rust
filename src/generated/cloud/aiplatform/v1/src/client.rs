@@ -22,6 +22,193 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+/// let client = DataFoundryService::builder().build().await?;
+/// // use `client` to make requests to the Vertex AI API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for generating and preparing datasets for Gen AI evaluation.
+///
+/// # Configuration
+///
+/// To configure `DataFoundryService` use the `with_*` methods in the type returned
+/// by [builder()][DataFoundryService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://aiplatform.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::data_foundry_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::data_foundry_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `DataFoundryService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `DataFoundryService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "data-foundry-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "data-foundry-service")))]
+#[derive(Clone, Debug)]
+pub struct DataFoundryService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataFoundryService>,
+}
+
+#[cfg(feature = "data-foundry-service")]
+impl DataFoundryService {
+    /// Returns a builder for [DataFoundryService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// let client = DataFoundryService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::data_foundry_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::data_foundry_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::DataFoundryService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataFoundryService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DataFoundryService> {
+        super::transport::DataFoundryService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::DataFoundryService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DataFoundryService::new)
+    }
+
+    /// Generates synthetic data based on the provided configuration.
+    pub fn generate_synthetic_data(
+        &self,
+    ) -> super::builder::data_foundry_service::GenerateSyntheticData {
+        super::builder::data_foundry_service::GenerateSyntheticData::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::data_foundry_service::ListLocations {
+        super::builder::data_foundry_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::data_foundry_service::GetLocation {
+        super::builder::data_foundry_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    pub fn set_iam_policy(&self) -> super::builder::data_foundry_service::SetIamPolicy {
+        super::builder::data_foundry_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    pub fn get_iam_policy(&self) -> super::builder::data_foundry_service::GetIamPolicy {
+        super::builder::data_foundry_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    pub fn test_iam_permissions(&self) -> super::builder::data_foundry_service::TestIamPermissions {
+        super::builder::data_foundry_service::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::data_foundry_service::ListOperations {
+        super::builder::data_foundry_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::data_foundry_service::GetOperation {
+        super::builder::data_foundry_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(&self) -> super::builder::data_foundry_service::DeleteOperation {
+        super::builder::data_foundry_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::data_foundry_service::CancelOperation {
+        super::builder::data_foundry_service::CancelOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn wait_operation(&self) -> super::builder::data_foundry_service::WaitOperation {
+        super::builder::data_foundry_service::WaitOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Vertex AI API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::DatasetService;
 /// let client = DatasetService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
