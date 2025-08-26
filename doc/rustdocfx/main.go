@@ -117,7 +117,7 @@ func main() {
 			if *upload == true {
 				fmt.Printf("Uploading crate:%s\n", workspaceCrates[i].Name)
 				// TODO(NOW): Remove --staging-bucket=docs-staging-v2-dev
-				runCmd(nil, "", "docuploader", "upload", "--staging-bucket=docs-staging-v2-dev", "--destination-prefix", "docfx", fmt.Sprintf("--metadata-file=%s/docs.metadata", crateOutDir), crateOutDir)
+				runCmd(nil, "", "docuploader", "upload", "--staging-bucket=docs-staging-v2-dev", fmt.Sprintf("--metadata-file=%s/docs.metadata", crateOutDir), crateOutDir)
 			}
 		}
 	}

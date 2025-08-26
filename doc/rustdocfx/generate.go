@@ -20,7 +20,6 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
-	"strings"
 	"time"
 
 	"github.com/cbroglie/mustache"
@@ -35,8 +34,7 @@ type docfxMetadata struct {
 
 func newDocfxMetadata(c *crate) (*docfxMetadata, error) {
 	d := new(docfxMetadata)
-	// Reference doc backend does not like tenants with underscore names.
-	d.Name = strings.ReplaceAll(c.getRootName(), "_", "-")
+	d.Name = c.getRootName()
 	d.Version = c.Version
 	now := time.Now().UTC()
 	d.UpdateTimeSeconds = now.Unix()
@@ -186,16 +184,7 @@ func processTypeAlias(c *crate, id string, page *docfxManagedReference, parent *
 		// Generates a type alias doc string in the following format:
 		// pub type LhsIdentifier = RhsIdentifier<Args>
 		LhsIdentifier := c.Index[id].Name
-		RhsIdentifier := c.Index[id].Inner.TypeAlias.Type.ResolvedPath.Path
-		argString := ""
-		args := []string{}
-		for i := 0; i < len(c.Index[id].Inner.TypeAlias.Type.ResolvedPath.Args.AngleBracketed.Args); i++ {
-			args = append(args, c.Index[id].Inner.TypeAlias.Type.ResolvedPath.Args.AngleBracketed.Args[i].Type.ResolvedPath.Path)
-		}
-		if len(args) > 0 {
-			argString = fmt.Sprintf("<%s>", strings.Join(args, ", "))
-		}
-		typeAliasString := fmt.Sprintf("pub type %s = %s%s;", LhsIdentifier, RhsIdentifier, argString)
+		typeAliasString := fmt.Sprintf("pub type %s = %s;", LhsIdentifier, c.Index[id].Inner.TypeAlias.Type.ResolvedPath.toString())
 		// TODO: Create code block in the item Summary for the type alias string.
 		parent.Summary = typeAliasString + "\n" + parent.Summary
 	}
@@ -288,7 +277,7 @@ func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxIte
 	r.Name = c.getName(id)
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
 
-	// Type is explicitly not set.
+	// Type is explicitly not set as this function is used for multiple doc pipeline types.
 	r.Summary = c.getDocString(id)
 
 	syntax := new(docfxSyntax)
@@ -299,11 +288,15 @@ func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxIte
 		}
 		syntax.appendParameter(parameter)
 	}
-	// TODO: return value.
-	docfxReturn := new(docfxParameter)
-	docfxReturn.Id = "TODO:Return Id"
-	docfxReturn.Description = "TODO:Return Description"
-	syntax.appendReturn(docfxReturn)
+	if c.Index[id].Inner.Function.Sig.Output != nil {
+		docfxReturn := new(docfxParameter)
+		if c.Index[id].Inner.Function.Sig.Output.Generic != "" {
+			docfxReturn.Id = c.Index[id].Inner.Function.Sig.Output.Generic
+		} else {
+			docfxReturn.Id = c.Index[id].Inner.Function.Sig.Output.ResolvedPath.toString()
+		}
+		syntax.appendReturn(docfxReturn)
+	}
 	r.Syntax = *syntax
 	return r, nil
 }

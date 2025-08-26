@@ -180,6 +180,18 @@ type path struct {
 	Args genericArgs
 }
 
+func (path *path) toString() string {
+	argString := ""
+	args := []string{}
+	for i := 0; i < len(path.Args.AngleBracketed.Args); i++ {
+		args = append(args, path.Args.AngleBracketed.Args[i].Type.ResolvedPath.Path)
+	}
+	if len(args) > 0 {
+		argString = fmt.Sprintf("<%s>", strings.Join(args, ", "))
+	}
+	return fmt.Sprintf("%s%s", path.Path, argString)
+}
+
 type typeEnum struct {
 	ResolvedPath path `json:"resolved_path"`
 	Generic      string
@@ -187,6 +199,7 @@ type typeEnum struct {
 
 type functionSignature struct {
 	Inputs [][]interface{}
+	Output *typeEnum
 }
 
 type genericArgs struct {
