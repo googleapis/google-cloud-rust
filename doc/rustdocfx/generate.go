@@ -35,7 +35,8 @@ type docfxMetadata struct {
 
 func newDocfxMetadata(c *crate) (*docfxMetadata, error) {
 	d := new(docfxMetadata)
-	d.Name = c.getRootName()
+	// Reference doc backend does not like tenants with underscore names.
+	d.Name = strings.ReplaceAll(c.getRootName(), "_", "-")
 	d.Version = c.Version
 	now := time.Now().UTC()
 	d.UpdateTimeSeconds = now.Unix()
