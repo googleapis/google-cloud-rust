@@ -30,7 +30,7 @@ pub async fn sample(
         .await?;
     let condition = Expr::new()
         .set_expression(format!(
-            "resource.name.startsWith(\"projects/_/buckets/{bucket_id}/objects/prefix-a-\")"
+            r#"resource.name.startsWith("projects/_/buckets/{bucket_id}/objects/prefix-a-")"#
         ))
         .set_title("A service account can read prefix-a-*")
         .set_description(format!(
@@ -48,8 +48,9 @@ pub async fn sample(
         .set_policy(policy)
         .send()
         .await?;
-    println!("Successfully added conditional IAM binding to bucket {bucket_id}");
-    println!("The updated policy is: {:?}", updated_policy);
+    println!(
+        "Successfully added conditional IAM binding to bucket {bucket_id}: {updated_policy:?}"
+    );
     Ok(())
 }
 // [END storage_add_bucket_conditional_iam_binding]

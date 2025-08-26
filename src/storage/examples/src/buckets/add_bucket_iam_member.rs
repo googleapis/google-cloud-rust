@@ -37,10 +37,8 @@ pub async fn sample(
         .send()
         .await?;
     println!(
-        "Successfully added {} with role {} to bucket {}",
-        member, role, bucket_id
+        "Successfully added binding for {member} to bucket {bucket_id} policy: {updated_policy:?}"
     );
-    println!("The updated policy is: {:?}", updated_policy);
     Ok(())
 }
 // [END storage_add_bucket_iam_member]
