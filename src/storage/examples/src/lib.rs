@@ -23,8 +23,10 @@ mod define_bucket_website_configuration;
 mod delete_bucket;
 mod disable_bucket_lifecycle_management;
 mod disable_default_event_based_hold;
+mod disable_versioning;
 mod enable_bucket_lifecycle_management;
 mod enable_default_event_based_hold;
+mod enable_versioning;
 mod get_bucket_metadata;
 mod get_default_event_based_hold;
 mod get_public_access_prevention;
@@ -44,6 +46,7 @@ mod set_public_access_prevention_inherited;
 mod set_public_access_prevention_unspecified;
 mod set_retention_policy;
 mod view_lifecycle_management_configuration;
+mod view_versioning_status;
 
 use google_cloud_gax::throttle_result::ThrottleResult;
 use google_cloud_gax::{
@@ -136,6 +139,16 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     set_public_access_prevention_enforced::sample(&client, &id).await?;
     tracing::info!("running get_public_access_prevention example");
     get_public_access_prevention::sample(&client, &id).await?;
+    tracing::info!("running view_versioning_status example");
+    view_versioning_status::sample(&client, &id).await?;
+    tracing::info!("running enable_versioning example");
+    enable_versioning::sample(&client, &id).await?;
+    tracing::info!("running view_versioning_status example");
+    view_versioning_status::sample(&client, &id).await?;
+    tracing::info!("running disable_versioning example");
+    disable_versioning::sample(&client, &id).await?;
+    tracing::info!("running view_versioning_status example");
+    view_versioning_status::sample(&client, &id).await?;
     tracing::info!("running view_lifecycle_management_configuration example");
     view_lifecycle_management_configuration::sample(&client, &id).await?;
     tracing::info!("running enable_bucket_lifecycle_management example");
