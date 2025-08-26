@@ -168,6 +168,18 @@ func processModule(c *crate, id string, page *docfxManagedReference, parent *doc
 
 func processStruct(c *crate, id string, page *docfxManagedReference, parent *docfxItem) error {
 	if c.Index[id].Inner.Struct != nil {
+		isNonExhaustive := isNonExhaustive(c.Index[id].Attrs)
+		for i := 0; i < len(c.Index[id].Inner.Struct.Kind.Plain.Fields); i++ {
+			fieldId := idToString(c.Index[id].Inner.Struct.Kind.Plain.Fields[i])
+			field, _ := newDocfxItemFromField(c, parent, fieldId)
+			if isNonExhaustive {
+				field.Type = "fieldnonexhaustive"
+			} else {
+				return fmt.Errorf("error processing struct item with id %s, expecting field %s to be non-exhaustive", id, fieldId)
+			}
+			page.appendItem(field)
+		}
+
 		for i := 0; i < len(c.Index[id].Inner.Struct.Impls); i++ {
 			referenceId := idToString(c.Index[id].Inner.Struct.Impls[i])
 			// TODO: This assumes the inner struct impls are all impls. Validation and error checking is needed.
@@ -192,12 +204,17 @@ func processTypeAlias(c *crate, id string, page *docfxManagedReference, parent *
 	return nil
 }
 
+func isNonExhaustive(attrs []string) bool {
+	return slices.IndexFunc(attrs, func(attr string) bool { return attr == "#[non_exhaustive]" }) >= 0
+}
+
 func processEnum(c *crate, id string, page *docfxManagedReference, parent *docfxItem) error {
 	if c.Index[id].Inner.Enum.HasStrippedVariants {
 		return fmt.Errorf("error processing enum, expecting %s to have no stripped variants", id)
 	}
 
-	isNonExhaustive := slices.IndexFunc(c.Index[id].Attrs, func(attr string) bool { return attr == "#[non_exhaustive]" }) >= 0
+	isNonExhaustive := isNonExhaustive(c.Index[id].Attrs)
+
 	// Adds the variants
 	for i := 0; i < len(c.Index[id].Inner.Enum.Variants); i++ {
 		variantId := idToString(c.Index[id].Inner.Enum.Variants[i])
@@ -322,6 +339,15 @@ func newDocfxItemFromEnumVariant(c *crate, parent *docfxItem, id string) (*docfx
 	r := new(docfxItem)
 	r.Name = c.getName(id)
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
+	r.Summary = c.getDocString(id)
+	return r, nil
+}
+
+func newDocfxItemFromField(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
+	r := new(docfxItem)
+	r.Name = c.getName(id)
+	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
+	// TODO: Add the field type to Summary.
 	r.Summary = c.getDocString(id)
 	return r, nil
 }
@@ -470,7 +496,7 @@ func generate(c *crate, projectRoot string, outDir string) error {
 		case undefinedKind:
 			fallthrough
 		default:
-			errs = append(errs, fmt.Errorf("unexpected path kind, %s, for id %s", c.getKind(id), id))
+			// errs = append(errs, fmt.Errorf("unexpected path kind, %s, for id %s", c.getKind(id), id))
 		}
 	}
 

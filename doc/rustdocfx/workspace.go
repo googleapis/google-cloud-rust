@@ -153,7 +153,16 @@ type function struct {
 }
 
 type structInner struct {
+	Kind  StructKind
 	Impls []Id
+}
+
+type StructKind struct {
+	Plain Plain
+}
+
+type Plain struct {
+	Fields []Id
 }
 
 type enum struct {
