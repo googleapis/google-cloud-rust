@@ -31,7 +31,7 @@ use clap::Parser;
 use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials};
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::options::RequestOptionsBuilder;
-use google_cloud_gax::retry_policy::RetryPolicyExt;
+use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyExt};
 use google_cloud_storage::Result as StorageResult;
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::Object;
@@ -48,6 +48,8 @@ use std::collections::BTreeMap;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{Duration, Instant};
 use tokio::sync::mpsc::Sender;
+
+const DEFAULT_TIMEOUT: Duration = Duration::from_secs(900);
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -149,12 +151,12 @@ async fn runner(
     if task.id % 128 == 0 {
         tracing::info!("Task::run({})", task.id);
     }
-    let control = StorageControl::builder()
-        .with_credentials(credentials)
-        .with_retry_policy(RetryableErrors.with_time_limit(args.retry_timeout))
-        .with_backoff_policy(google_cloud_storage::backoff_policy::default())
-        .build()
-        .await?;
+    let builder = StorageControl::builder().with_credentials(credentials);
+    let builder = args
+        .retry_timeout
+        .iter()
+        .fold(builder, |b, v| b.with_retry_policy(retry_policy(*v, &args)));
+    let control = builder.build().await?;
 
     let size_gen = Uniform::new_inclusive(args.min_object_size, args.max_object_size)?;
     let batch_size_gen =
@@ -238,20 +240,22 @@ async fn upload(
     buffer: bytes::Bytes,
     threshold: usize,
 ) -> StorageResult<Object> {
-    let future = client
+    let timeout = args.retry_timeout.unwrap_or(DEFAULT_TIMEOUT);
+    let builder = client
         .write_object(
             format!("projects/_/buckets/{}", &args.bucket_name),
             name,
             buffer,
         )
         .set_if_generation_match(0)
-        .with_resumable_upload_threshold(threshold)
-        .with_retry_policy(DebugRetry::new(
-            RetryableErrors.with_time_limit(args.retry_timeout),
-        ))
-        .send_unbuffered();
+        .with_resumable_upload_threshold(threshold);
+    let builder = args
+        .retry_timeout
+        .iter()
+        .fold(builder, |b, v| b.with_retry_policy(retry_policy(*v, args)));
+    let future = Instrumented::new(builder.send_unbuffered());
 
-    match tokio::time::timeout(args.retry_timeout, Instrumented::new(future)).await {
+    match tokio::time::timeout(timeout, future).await {
         Err(e) => Err(google_cloud_storage::Error::timeout(e)),
         Ok(Err(e)) if e.http_status_code().is_some_and(|code| code == 412) => {
             tracing::info!("failed precondition, object may exist, fetching object details");
@@ -263,15 +267,14 @@ async fn upload(
 }
 
 async fn get_object(control: &StorageControl, args: &Args, name: &str) -> StorageResult<Object> {
+    let timeout = args.retry_timeout.unwrap_or(DEFAULT_TIMEOUT);
     let future = control
         .get_object()
         .set_bucket(format!("projects/_/buckets/{}", &args.bucket_name))
         .set_object(name)
-        .with_retry_policy(DebugRetry::new(
-            RetryableErrors.with_time_limit(args.retry_timeout),
-        ))
+        .with_retry_policy(DebugRetry::new(RetryableErrors.with_time_limit(timeout)))
         .send();
-    match tokio::time::timeout(args.retry_timeout, Instrumented::new(future)).await {
+    match tokio::time::timeout(timeout, Instrumented::new(future)).await {
         Err(e) => Err(google_cloud_storage::Error::timeout(e)),
         Ok(Err(e)) => Err(e),
         Ok(Ok(r)) => Ok(r),
@@ -283,15 +286,17 @@ async fn download(
     args: &Args,
     object: &google_cloud_storage::model::Object,
 ) -> (usize, StorageResult<()>) {
-    let read = client
+    let timeout = args.retry_timeout.unwrap_or(DEFAULT_TIMEOUT);
+    let builder = client
         .read_object(&object.bucket, &object.name)
-        .set_generation(object.generation)
-        .with_retry_policy(DebugRetry::new(
-            RetryableErrors.with_time_limit(args.retry_timeout),
-        ))
-        .send();
+        .set_generation(object.generation);
+    let builder = args
+        .retry_timeout
+        .iter()
+        .fold(builder, |b, v| b.with_retry_policy(retry_policy(*v, args)));
+    let read = builder.send();
 
-    let mut read = match tokio::time::timeout(args.retry_timeout, read).await {
+    let mut read = match tokio::time::timeout(timeout, read).await {
         Err(e) => {
             read_done();
             read_error();
@@ -319,7 +324,7 @@ async fn download(
         Ok(())
     };
 
-    match tokio::time::timeout(args.retry_timeout, Instrumented::new(read_data())).await {
+    match tokio::time::timeout(timeout, Instrumented::new(read_data())).await {
         Err(e) => (transfer_size, Err(google_cloud_storage::Error::timeout(e))),
         Ok(r) => (transfer_size, r),
     }
@@ -349,18 +354,18 @@ where
 }
 
 async fn delete(control: &StorageControl, args: &Args, object: Object) -> StorageResult<()> {
-    let result = control
+    let builder = control
         .delete_object()
         .set_bucket(object.bucket)
         .set_object(object.name)
         .set_generation(object.generation)
         .with_attempt_timeout(args.attempt_timeout)
-        .with_idempotency(true)
-        .with_retry_policy(DebugRetry::new(
-            RetryableErrors.with_time_limit(args.retry_timeout),
-        ))
-        .send();
-    let result = Instrumented::new(result).await;
+        .with_idempotency(true);
+    let builder = args
+        .retry_timeout
+        .iter()
+        .fold(builder, |b, v| b.with_retry_policy(retry_policy(*v, args)));
+    let result = Instrumented::new(builder.send()).await;
     if let Err(e) = result {
         // Ignore NotFound errors as they may be the result of a retry.
         if e.status().is_some_and(|s| s.code == Code::NotFound) {
@@ -369,6 +374,15 @@ async fn delete(control: &StorageControl, args: &Args, object: Object) -> Storag
         return Err(e);
     };
     Ok(())
+}
+
+use std::sync::Arc;
+fn retry_policy(time_limit: Duration, args: &Args) -> Arc<dyn RetryPolicy> {
+    if args.debug_retry {
+        Arc::new(DebugRetry::new(RetryableErrors.with_time_limit(time_limit)))
+    } else {
+        Arc::new(RetryableErrors.with_time_limit(time_limit))
+    }
 }
 
 fn random_object_name() -> String {
@@ -689,8 +703,8 @@ struct Args {
     max_delete_batch: usize,
 
     /// The maximum time for the retry loop.
-    #[arg(long, value_parser = parse_duration, default_value = "900s")]
-    retry_timeout: Duration,
+    #[arg(long, value_parser = parse_duration)]
+    retry_timeout: Option<Duration>,
 
     /// The maximum time for each attempt.
     #[arg(long, value_parser = parse_duration, default_value = "30s")]
@@ -708,9 +722,13 @@ struct Args {
     #[arg(long)]
     no_delete: bool,
 
-    /// Disable logs in the `reqwest` layer.
+    /// Enable logs in the `reqwest` layer.
     #[arg(long)]
     reqwest_logs: bool,
+
+    /// Enable logs for the retry policies.
+    #[arg(long)]
+    debug_retry: bool,
 }
 
 fn parse_size_arg(arg: &str) -> anyhow::Result<u64> {
