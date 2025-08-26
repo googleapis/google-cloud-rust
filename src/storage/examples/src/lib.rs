@@ -168,6 +168,31 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running create_bucket_hierarchical_namespace example");
     buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
 
+    // Use a new bucket to avoid clashing policies from the previous examples.
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket_hierarchical_namespace example [2]");
+    buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
+    tracing::info!("running add_bucket_iam_member example");
+    buckets::add_bucket_iam_member::sample(
+        &client,
+        &id,
+        "roles/storage.objectViewer",
+        &format!("serviceAccount:{service_account}"),
+    )
+    .await?;
+    #[cfg(feature = "skipped-integration-tests")]
+    {
+        // Skip, the internal Google policies prevent granting public access to
+        // any buckets in our test projects.
+        tracing::info!("running set_bucket_public_iam example");
+        buckets::set_bucket_public_iam::sample(&client, &id).await?;
+    }
+    tracing::info!("running add_bucket_conditional_iam_binding example");
+    buckets::add_bucket_conditional_iam_binding::sample(&client, &id, &service_account).await?;
+    tracing::info!("running view_bucket_iam_members example");
+    buckets::view_bucket_iam_members::sample(&client, &id).await?;
+
     Ok(())
 }
 

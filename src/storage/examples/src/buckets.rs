@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod add_bucket_conditional_iam_binding;
+pub mod add_bucket_iam_member;
 pub mod add_bucket_owner;
 pub mod change_default_storage_class;
 pub mod create_bucket;
@@ -37,10 +39,13 @@ pub mod print_bucket_acl_for_user;
 pub mod print_bucket_website_configuration;
 pub mod remove_bucket_owner;
 pub mod remove_retention_policy;
+#[allow(dead_code)]
+pub mod set_bucket_public_iam;
 pub mod set_lifecycle_abort_multipart_upload;
 pub mod set_public_access_prevention_enforced;
 pub mod set_public_access_prevention_inherited;
 pub mod set_public_access_prevention_unspecified;
 pub mod set_retention_policy;
+pub mod view_bucket_iam_members;
 pub mod view_lifecycle_management_configuration;
 pub mod view_versioning_status;
