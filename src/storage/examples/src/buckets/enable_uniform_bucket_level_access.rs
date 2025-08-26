@@ -34,13 +34,10 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .set_update_mask(FieldMask::default().set_paths(["iam_config.uniform_bucket_level_access"]))
         .send()
         .await?;
-    println!("Uniform bucket-level access enabled for bucket {bucket_id}.");
-    if let Some(iam_config) = bucket.iam_config {
-        println!(
-            "The bucket's UBLA config is now: {:?}",
-            iam_config.uniform_bucket_level_access
-        );
-    }
+    println!(
+        "Uniform bucket-level access enabled for bucket {bucket_id}: {:?}",
+        bucket.iam_config
+    );
     Ok(())
 }
 // [END storage_enable_uniform_bucket_level_access]

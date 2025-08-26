@@ -21,18 +21,10 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .set_name(format!("projects/_/buckets/{bucket_id}"))
         .send()
         .await?;
-    if let Some(iam_config) = bucket.iam_config {
-        if let Some(ubla) = iam_config.uniform_bucket_level_access {
-            println!(
-                "Uniform bucket-level access is enabled for bucket {}. Is Locked: {}, Lock Time: {:?}",
-                bucket_id, ubla.enabled, ubla.lock_time
-            );
-        } else {
-            println!("Uniform bucket-level access is not configured for bucket {bucket_id}.");
-        }
-    } else {
-        println!("IAM configuration is not set for bucket {bucket_id}.");
-    }
+    println!(
+        "IAM Config for bucket {bucket_id} is: {:?}",
+        bucket.iam_config
+    );
     Ok(())
 }
 // [END storage_get_uniform_bucket_level_access]
