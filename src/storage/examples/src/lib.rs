@@ -144,6 +144,16 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::set_public_access_prevention_enforced::sample(&client, &id).await?;
     tracing::info!("running get_public_access_prevention example");
     buckets::get_public_access_prevention::sample(&client, &id).await?;
+    tracing::info!("running get_uniform_bucket_level_access example");
+    buckets::get_uniform_bucket_level_access::sample(&client, &id).await?;
+    tracing::info!("running enable_uniform_bucket_level_access example");
+    buckets::enable_uniform_bucket_level_access::sample(&client, &id).await?;
+    tracing::info!("running get_uniform_bucket_level_access example");
+    buckets::get_uniform_bucket_level_access::sample(&client, &id).await?;
+    tracing::info!("running disable_uniform_bucket_level_access example");
+    buckets::disable_uniform_bucket_level_access::sample(&client, &id).await?;
+    tracing::info!("running get_uniform_bucket_level_access example");
+    buckets::get_uniform_bucket_level_access::sample(&client, &id).await?;
     tracing::info!("running view_versioning_status example");
     buckets::view_versioning_status::sample(&client, &id).await?;
     tracing::info!("running enable_versioning example");
