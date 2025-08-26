@@ -22,6 +22,9 @@ pub async fn sample(
     bucket_id: &str,
     service_account: &str,
 ) -> anyhow::Result<()> {
+    const ROLE: &str = "roles/storage.objectViewer";
+    const TITLE: &str = "A service account can read prefix-a-*";
+
     let mut policy = client
         .get_iam_policy()
         .set_resource(format!("projects/_/buckets/{bucket_id}"))
@@ -32,12 +35,12 @@ pub async fn sample(
         .set_expression(format!(
             r#"resource.name.startsWith("projects/_/buckets/{bucket_id}/objects/prefix-a-")"#
         ))
-        .set_title("A service account can read prefix-a-*")
+        .set_title(TITLE)
         .set_description(format!(
             "Allows {service_account} read access to objects starting with `prefix-a-`"
         ));
     let binding = Binding::new()
-        .set_role("roles/storage.objectViewer")
+        .set_role(ROLE)
         .set_members([format!("serviceAccount:{service_account}")])
         .set_condition(condition);
     policy.version = 3;

@@ -16,12 +16,10 @@
 use google_cloud_iam_v1::model::GetPolicyOptions;
 use google_cloud_storage::client::StorageControl;
 
-pub async fn sample(
-    client: &StorageControl,
-    bucket_id: &str,
-    role: &str,
-    title: &str,
-) -> anyhow::Result<()> {
+pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
+    const ROLE: &str = "roles/storage.objectViewer";
+    const TITLE: &str = "A service account can read prefix-a-*";
+
     let mut policy = client
         .get_iam_policy()
         .set_resource(format!("projects/_/buckets/{bucket_id}"))
@@ -30,12 +28,8 @@ pub async fn sample(
         .await?;
     policy.version = 3;
     policy.bindings.retain(|b| {
-        if b.role == role {
-            if let Some(condition) = &b.condition {
-                return condition.title != title;
-            }
-        }
-        true
+        // Remove the bindings matching the role *and* the condition title.
+        return b.role != ROLE || !b.condition.as_ref().is_some_and(|c| c.title == TITLE);
     });
     let updated_policy = client
         .set_iam_policy()

@@ -36,10 +36,7 @@ pub async fn sample(
         .set_policy(policy)
         .send()
         .await?;
-    println!(
-        "Successfully removed {} with role {} from bucket {}",
-        member, role, bucket_id
-    );
+    println!("Successfully removed {member} with role {role} from bucket {bucket_id}");
     println!("The updated policy is: {:?}", updated_policy);
     Ok(())
 }

@@ -244,13 +244,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running add_bucket_conditional_iam_binding example");
     buckets::add_bucket_conditional_iam_binding::sample(&client, &id, &service_account).await?;
     tracing::info!("running remove_bucket_conditional_iam_binding example");
-    buckets::remove_bucket_conditional_iam_binding::sample(
-        &client,
-        &id,
-        "roles/storage.objectViewer",
-        "A service account can read prefix-a-*",
-    )
-    .await?;
+    buckets::remove_bucket_conditional_iam_binding::sample(&client, &id).await?;
     tracing::info!("running view_bucket_iam_members example");
     buckets::view_bucket_iam_members::sample(&client, &id).await?;
 
