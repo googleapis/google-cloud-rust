@@ -98,7 +98,7 @@ you enable by adding the `futures` crate.
 cargo add futures
 ```
 
-Add the requred `use` declarations:
+Add the required `use` declarations:
 
 ```rust,ignore
 {{#include ../samples/src/pagination.rs:paginator-stream-items-use}}
