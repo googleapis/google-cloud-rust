@@ -25,13 +25,13 @@ use futures::Stream;
 /// also provides an accessor to retrieve the object's metadata.
 #[derive(Debug)]
 pub struct ReadObjectResponse {
-    inner: Box<dyn dynamic::ReadObjectResponse>,
+    inner: Box<dyn dynamic::ReadObjectResponse + Send>,
 }
 
 impl ReadObjectResponse {
     pub(crate) fn new<T>(inner: Box<T>) -> Self
     where
-        T: dynamic::ReadObjectResponse + 'static,
+        T: dynamic::ReadObjectResponse + Send + 'static,
     {
         Self { inner }
     }
