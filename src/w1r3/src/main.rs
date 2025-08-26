@@ -272,9 +272,7 @@ async fn get_object(control: &StorageControl, args: &Args, name: &str) -> Storag
         .get_object()
         .set_bucket(format!("projects/_/buckets/{}", &args.bucket_name))
         .set_object(name)
-        .with_retry_policy(DebugRetry::new(
-            RetryableErrors.with_time_limit(timeout),
-        ))
+        .with_retry_policy(DebugRetry::new(RetryableErrors.with_time_limit(timeout)))
         .send();
     match tokio::time::timeout(timeout, Instrumented::new(future)).await {
         Err(e) => Err(google_cloud_storage::Error::timeout(e)),
