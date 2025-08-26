@@ -3806,23 +3806,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "google-cloud-pubsub-v1"
-version = "0.4.4"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
+name = "google-cloud-pubsub"
+version = "0.0.0"
 
 [[package]]
 name = "google-cloud-rapidmigrationassessment-v1"
