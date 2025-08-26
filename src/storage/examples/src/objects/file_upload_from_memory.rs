@@ -12,15 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod delete_file;
-pub mod download_byte_range;
-pub mod download_encrypted_file;
-pub mod file_download_into_memory;
-pub mod file_upload_from_memory;
-pub mod generate_encryption_key;
-pub mod list_files;
-pub mod list_files_with_prefix;
-pub mod set_metadata;
-pub mod stream_file_download;
-pub mod stream_file_upload;
-pub mod upload_encrypted_file;
+// [START storage_upload_from_memory]
+use google_cloud_storage::client::Storage;
+
+pub async fn sample(client: &Storage, bucket: &str) -> Result<(), anyhow::Error> {
+    const NAME: &str = "object-to-upload.txt";
+    let data = "Hello, world!";
+    let _result = client
+        .write_object(format!("projects/_/buckets/{bucket}"), NAME, data)
+        .send_unbuffered()
+        .await?;
+
+    println!("Uploaded to {NAME} in bucket {bucket} from memory.");
+    Ok(())
+}
+// [END storage_upload_from_memory]
