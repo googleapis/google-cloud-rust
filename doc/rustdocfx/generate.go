@@ -281,24 +281,26 @@ func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxIte
 	// Type is explicitly not set as this function is used for multiple doc pipeline types.
 	r.Summary = c.getDocString(id)
 
-	syntax := new(docfxSyntax)
-	for i := 0; i < len(c.Index[id].Inner.Function.Sig.Inputs); i++ {
-		parameter := new(docfxParameter)
-		if s, ok := c.Index[id].Inner.Function.Sig.Inputs[i][0].(string); ok {
-			parameter.Id = s
-		}
-		syntax.appendParameter(parameter)
-	}
-	if c.Index[id].Inner.Function.Sig.Output != nil {
-		docfxReturn := new(docfxParameter)
-		if c.Index[id].Inner.Function.Sig.Output.Generic != "" {
-			docfxReturn.VarType = c.Index[id].Inner.Function.Sig.Output.Generic
-		} else {
-			docfxReturn.VarType = c.Index[id].Inner.Function.Sig.Output.ResolvedPath.toString()
-		}
-		syntax.appendReturn(docfxReturn)
-	}
-	r.Syntax = *syntax
+	// TODO: Delete
+	// syntax := new(docfxSyntax)
+	// for i := 0; i < len(c.Index[id].Inner.Function.Sig.Inputs); i++ {
+	// 	parameter := new(docfxParameter)
+	// 	if s, ok := c.Index[id].Inner.Function.Sig.Inputs[i][0].(string); ok {
+	// 		parameter.Id = s
+	// 	}
+	// 	syntax.appendParameter(parameter)
+	// }
+	// if c.Index[id].Inner.Function.Sig.Output != nil {
+	// 	docfxReturn := new(docfxParameter)
+	// 	if c.Index[id].Inner.Function.Sig.Output.Generic != "" {
+	// 		docfxReturn.VarType = c.Index[id].Inner.Function.Sig.Output.Generic
+	// 	} else {
+	// 		// docfxReturn.VarType = c.Index[id].Inner.Function.Sig.Output.ResolvedPath.toString()
+	// 		docfxReturn.VarType = "CHUONGPH:ResolvePathSpecialCharIssue"
+	// 	}
+	// 	syntax.appendReturn(docfxReturn)
+	// }
+	// r.Syntax = *syntax
 	return r, nil
 }
 
@@ -456,9 +458,7 @@ func generate(c *crate, projectRoot string, outDir string) error {
 			if err := os.WriteFile(filepath.Join(outDir, fmt.Sprintf("%s.yml", uid)), []byte(s), 0666); err != nil {
 				errs = append(errs, err)
 			}
-			if c.getKind(id) != crateKind {
-				// Crates do not need to be added to the TOC as serves as the landing page.
-				// TODO(NOW): Verify this is the case.
+			if c.getKind(id) == moduleKind {
 				tocItem := docfxTableOfContent{Name: c.getName(id), Uid: uid}
 				toc.appendItem(tocItem)
 			}
