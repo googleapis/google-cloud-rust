@@ -29,7 +29,7 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
     policy.version = 3;
     policy.bindings.retain(|b| {
         // Remove the bindings matching the role *and* the condition title.
-        return b.role != ROLE || !b.condition.as_ref().is_some_and(|c| c.title == TITLE);
+        b.role != ROLE || b.condition.as_ref().is_none_or(|c| c.title != TITLE)
     });
     let updated_policy = client
         .set_iam_policy()
