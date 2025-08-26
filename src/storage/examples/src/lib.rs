@@ -192,8 +192,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::add_bucket_cors::sample(&client, &id).await?;
     tracing::info!("running print_bucket_cors example");
     buckets::print_bucket_cors::sample(&client, &id).await?;
-    tracing::info!("running patch_bucket_cors example");
-    buckets::patch_bucket_cors::sample(&client, &id).await?;
+
     tracing::info!("running remove_bucket_cors example");
     buckets::remove_bucket_cors::sample(&client, &id).await?;
 

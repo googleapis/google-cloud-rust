@@ -36,7 +36,7 @@ pub mod get_public_access_prevention;
 pub mod get_retention_policy;
 pub mod list_buckets;
 pub mod lock_retention_policy;
-pub mod patch_bucket_cors;
+
 pub mod print_bucket_acl;
 pub mod print_bucket_acl_for_user;
 pub mod print_bucket_cors;
