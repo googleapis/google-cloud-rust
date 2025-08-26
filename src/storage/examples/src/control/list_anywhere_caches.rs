@@ -13,7 +13,6 @@
 // limitations under the License.
 
 // [START storage_control_list_anywhere_caches]
-
 use google_cloud_gax::paginator::ItemPaginator;
 use google_cloud_storage::client::StorageControl;
 
