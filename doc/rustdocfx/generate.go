@@ -178,6 +178,10 @@ func processStruct(c *crate, id string, page *docfxManagedReference, parent *doc
 				return fmt.Errorf("error processing struct item with id %s, expecting field %s to be non-exhaustive", id, fieldId)
 			}
 			page.appendItem(field)
+
+			reference, _ := newDocfxReferenceFromDocfxItem(field, parent)
+			parent.appendChildren(reference.Uid)
+			page.appendReference(reference)
 		}
 
 		for i := 0; i < len(c.Index[id].Inner.Struct.Impls); i++ {
