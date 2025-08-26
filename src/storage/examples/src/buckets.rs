@@ -28,6 +28,7 @@ pub mod disable_versioning;
 pub mod enable_bucket_lifecycle_management;
 pub mod enable_default_event_based_hold;
 pub mod enable_versioning;
+pub mod get_autoclass;
 pub mod get_bucket_metadata;
 pub mod get_default_event_based_hold;
 pub mod get_public_access_prevention;
@@ -39,6 +40,7 @@ pub mod print_bucket_acl_for_user;
 pub mod print_bucket_website_configuration;
 pub mod remove_bucket_owner;
 pub mod remove_retention_policy;
+pub mod set_autoclass;
 #[allow(dead_code)]
 pub mod set_bucket_public_iam;
 pub mod set_lifecycle_abort_multipart_upload;
