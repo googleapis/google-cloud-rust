@@ -79,23 +79,41 @@ void main() {
   }
 
   // Validate that a given RFC3339 gives the expected seconds and nanos.
-  validate('0001-01-01T00:00:00.123456789Z', TimestampExtension.minSeconds,
-      123_456_789);
-  validate('0001-01-01T00:00:00.123456Z', TimestampExtension.minSeconds,
-      123_456_000);
   validate(
-      '0001-01-01T00:00:00.123Z', TimestampExtension.minSeconds, 123_000_000);
+    '0001-01-01T00:00:00.123456789Z',
+    TimestampExtension.minSeconds,
+    123_456_789,
+  );
+  validate(
+    '0001-01-01T00:00:00.123456Z',
+    TimestampExtension.minSeconds,
+    123_456_000,
+  );
+  validate(
+    '0001-01-01T00:00:00.123Z',
+    TimestampExtension.minSeconds,
+    123_000_000,
+  );
   validate('0001-01-01T00:00:00Z', TimestampExtension.minSeconds, 0);
   validate('1970-01-01T00:00:00.123456789Z', 0, 123_456_789);
   validate('1970-01-01T00:00:00.123456Z', 0, 123_456_000);
   validate('1970-01-01T00:00:00.123Z', 0, 123_000_000);
   validate('1970-01-01T00:00:00Z', 0, 0);
-  validate('9999-12-31T23:59:59.123456789Z', TimestampExtension.maxSeconds,
-      123_456_789);
-  validate('9999-12-31T23:59:59.123456Z', TimestampExtension.maxSeconds,
-      123_456_000);
   validate(
-      '9999-12-31T23:59:59.123Z', TimestampExtension.maxSeconds, 123_000_000);
+    '9999-12-31T23:59:59.123456789Z',
+    TimestampExtension.maxSeconds,
+    123_456_789,
+  );
+  validate(
+    '9999-12-31T23:59:59.123456Z',
+    TimestampExtension.maxSeconds,
+    123_456_000,
+  );
+  validate(
+    '9999-12-31T23:59:59.123Z',
+    TimestampExtension.maxSeconds,
+    123_000_000,
+  );
   validate('9999-12-31T23:59:59Z', TimestampExtension.maxSeconds, 0);
 
   // bad format tests
