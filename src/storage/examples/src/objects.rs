@@ -20,6 +20,8 @@ pub mod generate_encryption_key;
 pub mod list_files;
 pub mod list_files_with_prefix;
 pub mod set_metadata;
+#[allow(dead_code)]
+pub mod storage_upload_with_kms_key;
 pub mod stream_file_download;
 pub mod stream_file_upload;
 pub mod upload_encrypted_file;
