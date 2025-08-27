@@ -30,5 +30,5 @@ go -C ../../librarian run ./cmd/sidekick refreshall -project-root $PWD
 
 - make any desired changes to the Sidekick fork
 - create a PR for the Sidekick changes
-- rev. the Sidekick deps in `.github/workflows`; re-run Sidekick from
-  that version; create a PR from the repo changes
+- rev. the Sidekick deps in `.github/workflows`; re-run Sidekick from that
+  version; create a PR from the repo changes
