@@ -17,7 +17,7 @@ description: Common code for the Google Cloud client library packages.
 version: 0.1.0
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.9.0
 
 resolution: workspace
 
