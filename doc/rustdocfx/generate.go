@@ -251,16 +251,18 @@ func processEnum(c *crate, id string, page *docfxManagedReference, parent *docfx
 
 func processImplementation(c *crate, id string, page *docfxManagedReference, parent *docfxItem) error {
 	if c.Index[id].Inner.Impl.BlanketImpl != nil {
-		// TODO: Add blanket implementations
-		// Example: Struct:1890->1897
+		// TODO: Add blanket implementations.
+		// Example: Struct:1890->1897.
 		return nil
 	}
 
 	if c.Index[id].Inner.Impl.IsSyntheic {
+		// TODO: Add autotraitimplementation.
 		return nil
 	}
 
 	if c.Index[id].Inner.Impl.Trait != nil {
+		// TODO: Add traitimplementation.
 		return nil
 	}
 
