@@ -210,6 +210,15 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     let id = random_bucket_id();
     buckets.push(id.clone());
+    tracing::info!("running create_bucket_turbo_replication example");
+    buckets::create_bucket_turbo_replication::sample(&client, &project_id, &id).await?;
+    tracing::info!("running set_rpo_default example");
+    buckets::set_rpo_default::sample(&client, &id).await?;
+    tracing::info!("running set_rpo_async_turbo example");
+    buckets::set_rpo_async_turbo::sample(&client, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
     tracing::info!("running create_bucket_hierarchical_namespace example");
     buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
 
