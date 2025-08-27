@@ -39,7 +39,7 @@ pub async fn sample(
         .update_bucket()
         .set_bucket(bucket.set_default_object_acl(acls))
         .set_if_metageneration_match(metageneration)
-        .set_update_mask(FieldMask::default().set_paths(["defaultObjectAcl"]))
+        .set_update_mask(FieldMask::default().set_paths(["default_object_acl"]))
         .send()
         .await?;
     println!("Successfully added default owner {user_email} to bucket {bucket_id}");
