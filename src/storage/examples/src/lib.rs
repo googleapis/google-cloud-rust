@@ -124,6 +124,10 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::change_default_storage_class::sample(&client, &id).await?;
     tracing::info!("running get_bucket_metadata example");
     buckets::get_bucket_metadata::sample(&client, &id).await?;
+    tracing::info!("running add_bucket_label example");
+    buckets::add_bucket_label::sample(&client, &id, "test-label", "test-value").await?;
+    tracing::info!("running remove_bucket_label example");
+    buckets::remove_bucket_label::sample(&client, &id, "test-label").await?;
     tracing::info!("running get_default_event_based_hold example");
     buckets::get_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running enable_default_event_based_hold example");
