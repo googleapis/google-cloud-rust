@@ -203,7 +203,7 @@ func processTypeAlias(c *crate, id string, page *docfxManagedReference, parent *
 		LhsIdentifier := c.Index[id].Name
 		typeAliasString := fmt.Sprintf("pub type %s = %s;", LhsIdentifier, c.Index[id].Inner.TypeAlias.Type.ResolvedPath.toString())
 		// TODO: Create code block in the item Summary for the type alias string.
-		parent.Summary = typeAliasString + "\n" + parent.Summary
+		parent.Summary = fmt.Sprintf("%#v", typeAliasString+"\n"+c.Index[id].Docs)
 	}
 	return nil
 }
@@ -349,12 +349,10 @@ func newDocfxItemFromEnumVariant(c *crate, parent *docfxItem, id string) (*docfx
 
 func newDocfxItemFromField(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
 	r := new(docfxItem)
+	// TODO: Add the field type to Name.
 	r.Name = c.getName(id)
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
-	// TODO: Add the field type to Summary.
-	// r.Summary = c.getDocString(id)
-	// TODO: There is an issue where doc-pipeline is unable to parse unknown escape character in field doc strings.
-	r.Summary = "TODO"
+	r.Summary = c.getDocString(id)
 	return r, nil
 }
 
