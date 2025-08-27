@@ -29,6 +29,7 @@ base64.workspace               = true
 bytes.workspace                = true
 clap                           = { workspace = true, features = ["derive", "std"] }
 futures.workspace              = true
+google-cloud-auth.workspace    = true
 google-cloud-gax.workspace     = true
 google-cloud-iam-v1.workspace  = true
 google-cloud-lro.workspace     = true

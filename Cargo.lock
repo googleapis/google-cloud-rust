@@ -6649,6 +6649,7 @@ dependencies = [
  "bytes",
  "clap",
  "futures",
+ "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-iam-v1",
  "google-cloud-lro",

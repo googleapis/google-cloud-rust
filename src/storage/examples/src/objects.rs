@@ -23,6 +23,7 @@ pub mod delete_file_archived_generation;
 pub mod download_byte_range;
 pub mod download_encrypted_file;
 pub mod download_file;
+pub mod download_public_file;
 pub mod file_download_into_memory;
 pub mod file_upload_from_memory;
 pub mod generate_encryption_key;
