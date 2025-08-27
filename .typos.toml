@@ -40,4 +40,6 @@ extend-ignore-re = [
   "\"typ\"",
   "\\Wtyp:",
   "test_typ\"",
+  # The name of a Cloud Storage dual region, used in some tests.
+  "NAM4",
 ]
