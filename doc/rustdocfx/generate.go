@@ -173,7 +173,9 @@ func processStruct(c *crate, id string, page *docfxManagedReference, parent *doc
 			fieldId := idToString(c.Index[id].Inner.Struct.Kind.Plain.Fields[i])
 			field, _ := newDocfxItemFromField(c, parent, fieldId)
 			if isNonExhaustive {
-				field.Type = "fieldnonexhaustive"
+				// TODO: Change to fieldnonexhaustive when https://github.com/googleapis/doc-pipeline/pull/698 is merged/pushed.
+				// field.Type = "fieldnonexhaustive"
+				field.Type = "enumvariantnonexhaustive"
 			} else {
 				return fmt.Errorf("error processing struct item with id %s, expecting field %s to be non-exhaustive", id, fieldId)
 			}
@@ -255,24 +257,10 @@ func processImplementation(c *crate, id string, page *docfxManagedReference, par
 	}
 
 	if c.Index[id].Inner.Impl.IsSyntheic {
-		impl, _ := newDocfxItemFromImpl(c, parent, id)
-		impl.Type = "autotraitimplementation"
-		page.appendItem(impl)
-
-		reference, _ := newDocfxReferenceFromDocfxItem(impl, parent)
-		parent.appendChildren(reference.Uid)
-		page.appendReference(reference)
 		return nil
 	}
 
 	if c.Index[id].Inner.Impl.Trait != nil {
-		traitImpl, _ := newDocfxItemFromImpl(c, parent, id)
-		traitImpl.Type = "traitimplementation"
-		page.appendItem(traitImpl)
-
-		reference, _ := newDocfxReferenceFromDocfxItem(traitImpl, parent)
-		parent.appendChildren(reference.Uid)
-		page.appendReference(reference)
 		return nil
 	}
 
@@ -301,27 +289,6 @@ func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxIte
 
 	// Type is explicitly not set as this function is used for multiple doc pipeline types.
 	r.Summary = c.getDocString(id)
-
-	// TODO: Delete
-	// syntax := new(docfxSyntax)
-	// for i := 0; i < len(c.Index[id].Inner.Function.Sig.Inputs); i++ {
-	// 	parameter := new(docfxParameter)
-	// 	if s, ok := c.Index[id].Inner.Function.Sig.Inputs[i][0].(string); ok {
-	// 		parameter.Id = s
-	// 	}
-	// 	syntax.appendParameter(parameter)
-	// }
-	// if c.Index[id].Inner.Function.Sig.Output != nil {
-	// 	docfxReturn := new(docfxParameter)
-	// 	if c.Index[id].Inner.Function.Sig.Output.Generic != "" {
-	// 		docfxReturn.VarType = c.Index[id].Inner.Function.Sig.Output.Generic
-	// 	} else {
-	// 		// docfxReturn.VarType = c.Index[id].Inner.Function.Sig.Output.ResolvedPath.toString()
-	// 		docfxReturn.VarType = "CHUONGPH:ResolvePathSpecialCharIssue"
-	// 	}
-	// 	syntax.appendReturn(docfxReturn)
-	// }
-	// r.Syntax = *syntax
 	return r, nil
 }
 
