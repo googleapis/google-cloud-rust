@@ -41,8 +41,10 @@ void main() {
       name: 'temp-name',
       done: false,
       metadata: Any.from(metadata),
-      operationHelper:
-          OperationHelper(LocalizedMessage.fromJson, Status.fromJson),
+      operationHelper: OperationHelper(
+        LocalizedMessage.fromJson,
+        Status.fromJson,
+      ),
     );
 
     expect(operation.metadata, isNotNull);

@@ -51,12 +51,13 @@ class Operations {
   final ServiceClient _client;
 
   Operations({required http.Client client})
-      : _client = ServiceClient(client: client);
+    : _client = ServiceClient(client: client);
 
   /// Lists operations that match the specified filter in the request. If the
   /// server doesn't support this method, it returns `UNIMPLEMENTED`.
   Future<ListOperationsResponse> listOperations(
-      ListOperationsRequest request) async {
+    ListOperationsRequest request,
+  ) async {
     final url = Uri.https(_host, '/v1/${request.name}', {
       if (request.filter != null) 'filter': request.filter!,
       if (request.pageSize != null) 'pageSize': '${request.pageSize}',
@@ -115,28 +116,20 @@ class GetOperationRequest extends ProtoMessage {
   /// The name of the operation resource.
   final String name;
 
-  GetOperationRequest({
-    required this.name,
-  }) : super(fullyQualifiedName);
+  GetOperationRequest({required this.name}) : super(fullyQualifiedName);
 
   factory GetOperationRequest.fromJson(Map<String, dynamic> json) {
-    return GetOperationRequest(
-      name: json['name'],
-    );
+    return GetOperationRequest(name: json['name']);
   }
 
   @override
   Object toJson() {
-    return {
-      'name': name,
-    };
+    return {'name': name};
   }
 
   @override
   String toString() {
-    final contents = [
-      'name=$name',
-    ].join(',');
+    final contents = ['name=$name'].join(',');
     return 'GetOperationRequest($contents)';
   }
 }
@@ -209,10 +202,8 @@ class ListOperationsResponse extends ProtoMessage {
   /// The standard List next-page token.
   final String? nextPageToken;
 
-  ListOperationsResponse({
-    this.operations,
-    this.nextPageToken,
-  }) : super(fullyQualifiedName);
+  ListOperationsResponse({this.operations, this.nextPageToken})
+    : super(fullyQualifiedName);
 
   factory ListOperationsResponse.fromJson(Map<String, dynamic> json) {
     return ListOperationsResponse(
@@ -247,28 +238,20 @@ class CancelOperationRequest extends ProtoMessage {
   /// The name of the operation resource to be cancelled.
   final String name;
 
-  CancelOperationRequest({
-    required this.name,
-  }) : super(fullyQualifiedName);
+  CancelOperationRequest({required this.name}) : super(fullyQualifiedName);
 
   factory CancelOperationRequest.fromJson(Map<String, dynamic> json) {
-    return CancelOperationRequest(
-      name: json['name'],
-    );
+    return CancelOperationRequest(name: json['name']);
   }
 
   @override
   Object toJson() {
-    return {
-      'name': name,
-    };
+    return {'name': name};
   }
 
   @override
   String toString() {
-    final contents = [
-      'name=$name',
-    ].join(',');
+    final contents = ['name=$name'].join(',');
     return 'CancelOperationRequest($contents)';
   }
 }
@@ -282,28 +265,20 @@ class DeleteOperationRequest extends ProtoMessage {
   /// The name of the operation resource to be deleted.
   final String name;
 
-  DeleteOperationRequest({
-    required this.name,
-  }) : super(fullyQualifiedName);
+  DeleteOperationRequest({required this.name}) : super(fullyQualifiedName);
 
   factory DeleteOperationRequest.fromJson(Map<String, dynamic> json) {
-    return DeleteOperationRequest(
-      name: json['name'],
-    );
+    return DeleteOperationRequest(name: json['name']);
   }
 
   @override
   Object toJson() {
-    return {
-      'name': name,
-    };
+    return {'name': name};
   }
 
   @override
   String toString() {
-    final contents = [
-      'name=$name',
-    ].join(',');
+    final contents = ['name=$name'].join(',');
     return 'DeleteOperationRequest($contents)';
   }
 }
@@ -322,10 +297,7 @@ class WaitOperationRequest extends ProtoMessage {
   /// If RPC context deadline is also specified, the shorter one will be used.
   final Duration? timeout;
 
-  WaitOperationRequest({
-    this.name,
-    this.timeout,
-  }) : super(fullyQualifiedName);
+  WaitOperationRequest({this.name, this.timeout}) : super(fullyQualifiedName);
 
   factory WaitOperationRequest.fromJson(Map<String, dynamic> json) {
     return WaitOperationRequest(
@@ -344,9 +316,7 @@ class WaitOperationRequest extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (name != null) 'name=$name',
-    ].join(',');
+    final contents = [if (name != null) 'name=$name'].join(',');
     return 'WaitOperationRequest($contents)';
   }
 }
@@ -383,10 +353,8 @@ class OperationInfo extends ProtoMessage {
   /// Note: Altering this value constitutes a breaking change.
   final String? metadataType;
 
-  OperationInfo({
-    this.responseType,
-    this.metadataType,
-  }) : super(fullyQualifiedName);
+  OperationInfo({this.responseType, this.metadataType})
+    : super(fullyQualifiedName);
 
   factory OperationInfo.fromJson(Map<String, dynamic> json) {
     return OperationInfo(

@@ -42,13 +42,11 @@ class Any extends ProtoMessage {
   final Map<String, dynamic> json;
 
   Any({Map<String, dynamic>? json})
-      : json = json ?? {},
-        super(fullyQualifiedName);
+    : json = json ?? {},
+      super(fullyQualifiedName);
 
   /// Create an [Any] from an existing [message].
-  Any.from(ProtoMessage message)
-      : json = {},
-        super(fullyQualifiedName) {
+  Any.from(ProtoMessage message) : json = {}, super(fullyQualifiedName) {
     packInto(message);
   }
 
@@ -308,16 +306,17 @@ extension TimestampExtension on Timestamp {
 }
 
 class _TimestampHelper {
-  static final RegExp _rfc3339 = RegExp(//
-      r'^(\d{4})-' // year
-      r'(\d{2})-' // month
-      r'(\d{2})T' // day
-      r'(\d{2}):' // hour
-      r'(\d{2}):' // minute
-      r'(\d{2})' // second
-      r'(\.\d+)?' // fractional seconds
-      r'Z?' // timezone
-      );
+  static final RegExp _rfc3339 = RegExp(
+    //
+    r'^(\d{4})-' // year
+    r'(\d{2})-' // month
+    r'(\d{2})T' // day
+    r'(\d{2}):' // hour
+    r'(\d{2}):' // minute
+    r'(\d{2})' // second
+    r'(\.\d+)?' // fractional seconds
+    r'Z?', // timezone
+  );
 
   /// Encode the timestamp in RFC3339/UTC format.
   static String encode(Timestamp timestamp) {
@@ -468,8 +467,9 @@ class _StructHelper {
   }
 
   static Struct decode(Object value) {
-    final fields = (value as Map<String, dynamic>)
-        .map((key, value) => MapEntry(key, Value.fromJson(value)));
+    final fields = (value as Map<String, dynamic>).map(
+      (key, value) => MapEntry(key, Value.fromJson(value)),
+    );
     return Struct(fields: fields);
   }
 }

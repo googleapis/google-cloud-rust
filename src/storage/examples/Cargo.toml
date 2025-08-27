@@ -36,6 +36,7 @@ google-cloud-storage.workspace = true
 google-cloud-type.workspace    = true
 google-cloud-wkt.workspace     = true
 rand.workspace                 = true
+tempfile.workspace             = true
 tokio                          = { workspace = true, features = ["macros"] }
 tracing-subscriber             = { workspace = true, features = ["fmt", "std"] }
 tracing.workspace              = true

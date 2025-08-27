@@ -83,12 +83,16 @@ void main() {
 
   test('too many positive nanoseconds', () {
     expect(
-        () => Duration(seconds: 0, nanos: 1_000_000_000), throwsArgumentError);
+      () => Duration(seconds: 0, nanos: 1_000_000_000),
+      throwsArgumentError,
+    );
   });
 
   test('too many negative nanoseconds', () {
     expect(
-        () => Duration(seconds: 0, nanos: -1_000_000_000), throwsArgumentError);
+      () => Duration(seconds: 0, nanos: -1_000_000_000),
+      throwsArgumentError,
+    );
   });
 
   test('mismatched sign case 1', () {

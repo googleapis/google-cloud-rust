@@ -163,6 +163,10 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running define_bucket_website_configuration example");
     buckets::define_bucket_website_configuration::sample(&client, &id, "index.html", "404.html")
         .await?;
+    tracing::info!("running cors_configuiration example");
+    buckets::cors_configuration::sample(&client, &id).await?;
+    tracing::info!("running remove_cors_configuration example");
+    buckets::remove_cors_configuration::sample(&client, &id).await?;
     tracing::info!("running remove_retention_policy example");
     buckets::remove_retention_policy::sample(&client, &id).await?;
     tracing::info!("running set_retention_policy example");
@@ -332,6 +336,20 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::stream_file_upload::sample(&client, &id).await?;
     tracing::info!("running stream_file_download example");
     objects::stream_file_download::sample(&client, &id).await?;
+
+    tracing::info!("create temp file for upload");
+    let file_to_upload = tempfile::NamedTempFile::new()?;
+    let file_to_upload_path = file_to_upload.path().to_str().unwrap();
+    tokio::fs::write(file_to_upload_path, "hello world from file").await?;
+    tracing::info!("running upload_file example");
+    objects::upload_file::sample(&client, &id, "uploaded-file.txt", file_to_upload_path).await?;
+    tracing::info!("running download_file example");
+    let downloaded_file = tempfile::NamedTempFile::new()?;
+    let downloaded_file_path = downloaded_file.path().to_str().unwrap();
+    objects::download_file::sample(&client, &id, "uploaded-file.txt", downloaded_file_path).await?;
+    tracing::info!("checking downloaded file content");
+    let content = tokio::fs::read_to_string(downloaded_file_path).await?;
+    assert_eq!(content, "hello world from file");
 
     tracing::info!("running download_byte_range example");
     objects::download_byte_range::sample(&client, &id, "object-to-download.txt", 4, 10).await?;
