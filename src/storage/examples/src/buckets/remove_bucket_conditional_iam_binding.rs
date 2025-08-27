@@ -12,16 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_add_bucket_conditional_iam_binding]
-use google_cloud_iam_v1::model::{Binding, GetPolicyOptions};
+// [START storage_remove_bucket_conditional_iam_binding]
+use google_cloud_iam_v1::model::GetPolicyOptions;
 use google_cloud_storage::client::StorageControl;
-use google_cloud_type::model::Expr;
 
-pub async fn sample(
-    client: &StorageControl,
-    bucket_id: &str,
-    service_account: &str,
-) -> anyhow::Result<()> {
+pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
     const ROLE: &str = "roles/storage.objectViewer";
     const TITLE: &str = "A service account can read prefix-a-*";
 
@@ -31,29 +26,19 @@ pub async fn sample(
         .set_options(GetPolicyOptions::new().set_requested_policy_version(3))
         .send()
         .await?;
-    let condition = Expr::new()
-        .set_expression(format!(
-            r#"resource.name.startsWith("projects/_/buckets/{bucket_id}/objects/prefix-a-")"#
-        ))
-        .set_title(TITLE)
-        .set_description(format!(
-            "Allows {service_account} read access to objects starting with `prefix-a-`"
-        ));
-    let binding = Binding::new()
-        .set_role(ROLE)
-        .set_members([format!("serviceAccount:{service_account}")])
-        .set_condition(condition);
     policy.version = 3;
-    policy.bindings.push(binding);
+    policy.bindings.retain(|b| {
+        // Remove the bindings matching the role *and* the condition title.
+        b.role != ROLE || b.condition.as_ref().is_none_or(|c| c.title != TITLE)
+    });
     let updated_policy = client
         .set_iam_policy()
         .set_resource(format!("projects/_/buckets/{bucket_id}"))
         .set_policy(policy)
         .send()
         .await?;
-    println!(
-        "Successfully added conditional IAM binding to bucket {bucket_id}: {updated_policy:?}"
-    );
+    println!("Successfully removed conditional IAM binding from bucket {bucket_id}");
+    println!("The updated policy is: {:?}", updated_policy);
     Ok(())
 }
-// [END storage_add_bucket_conditional_iam_binding]
+// [END storage_remove_bucket_conditional_iam_binding]

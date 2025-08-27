@@ -39,6 +39,8 @@ pub mod lock_retention_policy;
 pub mod print_bucket_acl;
 pub mod print_bucket_acl_for_user;
 pub mod print_bucket_website_configuration;
+pub mod remove_bucket_conditional_iam_binding;
+pub mod remove_bucket_iam_member;
 pub mod remove_bucket_owner;
 pub mod remove_cors_configuration;
 pub mod remove_retention_policy;

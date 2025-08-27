@@ -226,6 +226,14 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         &format!("serviceAccount:{service_account}"),
     )
     .await?;
+    tracing::info!("running remove_bucket_iam_member example");
+    buckets::remove_bucket_iam_member::sample(
+        &client,
+        &id,
+        "roles/storage.objectViewer",
+        &format!("serviceAccount:{service_account}"),
+    )
+    .await?;
     #[cfg(feature = "skipped-integration-tests")]
     {
         // Skip, the internal Google policies prevent granting public access to
@@ -235,6 +243,8 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     }
     tracing::info!("running add_bucket_conditional_iam_binding example");
     buckets::add_bucket_conditional_iam_binding::sample(&client, &id, &service_account).await?;
+    tracing::info!("running remove_bucket_conditional_iam_binding example");
+    buckets::remove_bucket_conditional_iam_binding::sample(&client, &id).await?;
     tracing::info!("running view_bucket_iam_members example");
     buckets::view_bucket_iam_members::sample(&client, &id).await?;
 
