@@ -17,7 +17,7 @@ use google_cloud_storage::client::Storage;
 
 pub async fn sample(client: &Storage, bucket: &str) -> Result<(), anyhow::Error> {
     const NAME: &str = "object-to-upload.txt";
-    let data = "Hello, world!";
+    let data: bytes::Bytes = bytes::Bytes::from("Hello, world!");
     let _result = client
         .write_object(format!("projects/_/buckets/{bucket}"), NAME, data)
         .send_unbuffered()
