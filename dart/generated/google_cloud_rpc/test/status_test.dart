@@ -21,16 +21,13 @@ void main() {
     code: 429,
     message: "Zone 'us-east1-a': not enough resources",
     details: [
-      Any.from(ErrorInfo(
-        reason: 'RESOURCE_AVAILABILITY',
-        domain: 'compute.googleapis.com',
-      )),
       Any.from(
-        LocalizedMessage(
-          locale: 'en-US',
-          message: 'Lorem ipsum.',
+        ErrorInfo(
+          reason: 'RESOURCE_AVAILABILITY',
+          domain: 'compute.googleapis.com',
         ),
-      )
+      ),
+      Any.from(LocalizedMessage(locale: 'en-US', message: 'Lorem ipsum.')),
     ],
   );
 

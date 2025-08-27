@@ -56,7 +56,7 @@ class IAMPolicy {
   final ServiceClient _client;
 
   IAMPolicy({required http.Client client})
-      : _client = ServiceClient(client: client);
+    : _client = ServiceClient(client: client);
 
   /// Sets the access control policy on the specified resource. Replaces any
   /// existing policy.
@@ -85,7 +85,8 @@ class IAMPolicy {
   /// UIs and command-line tools, not for authorization checking. This operation
   /// may "fail open" without warning.
   Future<TestIamPermissionsResponse> testIamPermissions(
-      TestIamPermissionsRequest request) async {
+    TestIamPermissionsRequest request,
+  ) async {
     final url = Uri.https(_host, '/v1/${request.resource}:testIamPermissions');
     final response = await _client.post(url, body: request);
     return TestIamPermissionsResponse.fromJson(response);
@@ -118,11 +119,8 @@ class SetIamPolicyRequest extends ProtoMessage {
   /// `paths: "bindings, etag"`
   final FieldMask? updateMask;
 
-  SetIamPolicyRequest({
-    required this.resource,
-    this.policy,
-    this.updateMask,
-  }) : super(fullyQualifiedName);
+  SetIamPolicyRequest({required this.resource, this.policy, this.updateMask})
+    : super(fullyQualifiedName);
 
   factory SetIamPolicyRequest.fromJson(Map<String, dynamic> json) {
     return SetIamPolicyRequest(
@@ -143,9 +141,7 @@ class SetIamPolicyRequest extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      'resource=$resource',
-    ].join(',');
+    final contents = ['resource=$resource'].join(',');
     return 'SetIamPolicyRequest($contents)';
   }
 }
@@ -162,10 +158,8 @@ class GetIamPolicyRequest extends ProtoMessage {
   /// `GetIamPolicy`.
   final GetPolicyOptions? options;
 
-  GetIamPolicyRequest({
-    required this.resource,
-    this.options,
-  }) : super(fullyQualifiedName);
+  GetIamPolicyRequest({required this.resource, this.options})
+    : super(fullyQualifiedName);
 
   factory GetIamPolicyRequest.fromJson(Map<String, dynamic> json) {
     return GetIamPolicyRequest(
@@ -184,9 +178,7 @@ class GetIamPolicyRequest extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      'resource=$resource',
-    ].join(',');
+    final contents = ['resource=$resource'].join(',');
     return 'GetIamPolicyRequest($contents)';
   }
 }
@@ -206,10 +198,8 @@ class TestIamPermissionsRequest extends ProtoMessage {
   /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
   final List<String>? permissions;
 
-  TestIamPermissionsRequest({
-    required this.resource,
-    this.permissions,
-  }) : super(fullyQualifiedName);
+  TestIamPermissionsRequest({required this.resource, this.permissions})
+    : super(fullyQualifiedName);
 
   factory TestIamPermissionsRequest.fromJson(Map<String, dynamic> json) {
     return TestIamPermissionsRequest(
@@ -228,9 +218,7 @@ class TestIamPermissionsRequest extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      'resource=$resource',
-    ].join(',');
+    final contents = ['resource=$resource'].join(',');
     return 'TestIamPermissionsRequest($contents)';
   }
 }
@@ -244,9 +232,7 @@ class TestIamPermissionsResponse extends ProtoMessage {
   /// allowed.
   final List<String>? permissions;
 
-  TestIamPermissionsResponse({
-    this.permissions,
-  }) : super(fullyQualifiedName);
+  TestIamPermissionsResponse({this.permissions}) : super(fullyQualifiedName);
 
   factory TestIamPermissionsResponse.fromJson(Map<String, dynamic> json) {
     return TestIamPermissionsResponse(
@@ -256,9 +242,7 @@ class TestIamPermissionsResponse extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (permissions != null) 'permissions': permissions,
-    };
+    return {if (permissions != null) 'permissions': permissions};
   }
 
   @override
@@ -289,9 +273,7 @@ class GetPolicyOptions extends ProtoMessage {
   /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
   final int? requestedPolicyVersion;
 
-  GetPolicyOptions({
-    this.requestedPolicyVersion,
-  }) : super(fullyQualifiedName);
+  GetPolicyOptions({this.requestedPolicyVersion}) : super(fullyQualifiedName);
 
   factory GetPolicyOptions.fromJson(Map<String, dynamic> json) {
     return GetPolicyOptions(
@@ -449,19 +431,17 @@ class Policy extends ProtoMessage {
   /// the conditions in the version `3` policy are lost.
   final Uint8List? etag;
 
-  Policy({
-    this.version,
-    this.bindings,
-    this.auditConfigs,
-    this.etag,
-  }) : super(fullyQualifiedName);
+  Policy({this.version, this.bindings, this.auditConfigs, this.etag})
+    : super(fullyQualifiedName);
 
   factory Policy.fromJson(Map<String, dynamic> json) {
     return Policy(
       version: json['version'],
       bindings: decodeListMessage(json['bindings'], Binding.fromJson),
-      auditConfigs:
-          decodeListMessage(json['auditConfigs'], AuditConfig.fromJson),
+      auditConfigs: decodeListMessage(
+        json['auditConfigs'],
+        AuditConfig.fromJson,
+      ),
       etag: decodeBytes(json['etag']),
     );
   }
@@ -552,11 +532,8 @@ class Binding extends ProtoMessage {
   /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
   final Expr? condition;
 
-  Binding({
-    this.role,
-    this.members,
-    this.condition,
-  }) : super(fullyQualifiedName);
+  Binding({this.role, this.members, this.condition})
+    : super(fullyQualifiedName);
 
   factory Binding.fromJson(Map<String, dynamic> json) {
     return Binding(
@@ -577,9 +554,7 @@ class Binding extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (role != null) 'role=$role',
-    ].join(',');
+    final contents = [if (role != null) 'role=$role'].join(',');
     return 'Binding($contents)';
   }
 }
@@ -646,16 +621,15 @@ class AuditConfig extends ProtoMessage {
   /// The configuration for logging of each type of permission.
   final List<AuditLogConfig>? auditLogConfigs;
 
-  AuditConfig({
-    this.service,
-    this.auditLogConfigs,
-  }) : super(fullyQualifiedName);
+  AuditConfig({this.service, this.auditLogConfigs}) : super(fullyQualifiedName);
 
   factory AuditConfig.fromJson(Map<String, dynamic> json) {
     return AuditConfig(
       service: json['service'],
-      auditLogConfigs:
-          decodeListMessage(json['auditLogConfigs'], AuditLogConfig.fromJson),
+      auditLogConfigs: decodeListMessage(
+        json['auditLogConfigs'],
+        AuditLogConfig.fromJson,
+      ),
     );
   }
 
@@ -670,9 +644,7 @@ class AuditConfig extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (service != null) 'service=$service',
-    ].join(',');
+    final contents = [if (service != null) 'service=$service'].join(',');
     return 'AuditConfig($contents)';
   }
 }
@@ -708,10 +680,8 @@ class AuditLogConfig extends ProtoMessage {
   /// `Binding.members`.
   final List<String>? exemptedMembers;
 
-  AuditLogConfig({
-    this.logType,
-    this.exemptedMembers,
-  }) : super(fullyQualifiedName);
+  AuditLogConfig({this.logType, this.exemptedMembers})
+    : super(fullyQualifiedName);
 
   factory AuditLogConfig.fromJson(Map<String, dynamic> json) {
     return AuditLogConfig(
@@ -730,9 +700,7 @@ class AuditLogConfig extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (logType != null) 'logType=$logType',
-    ].join(',');
+    final contents = [if (logType != null) 'logType=$logType'].join(',');
     return 'AuditLogConfig($contents)';
   }
 }
@@ -741,8 +709,9 @@ class AuditLogConfig extends ProtoMessage {
 /// Admin writes are always logged, and are not configurable.
 class AuditLogConfig_LogType extends ProtoEnum {
   /// Default case. Should never be this.
-  static const logTypeUnspecified =
-      AuditLogConfig_LogType('LOG_TYPE_UNSPECIFIED');
+  static const logTypeUnspecified = AuditLogConfig_LogType(
+    'LOG_TYPE_UNSPECIFIED',
+  );
 
   /// Admin reads. Example: CloudIAM getIamPolicy
   static const adminRead = AuditLogConfig_LogType('ADMIN_READ');
@@ -772,17 +741,19 @@ class PolicyDelta extends ProtoMessage {
   /// The delta for AuditConfigs between two policies.
   final List<AuditConfigDelta>? auditConfigDeltas;
 
-  PolicyDelta({
-    this.bindingDeltas,
-    this.auditConfigDeltas,
-  }) : super(fullyQualifiedName);
+  PolicyDelta({this.bindingDeltas, this.auditConfigDeltas})
+    : super(fullyQualifiedName);
 
   factory PolicyDelta.fromJson(Map<String, dynamic> json) {
     return PolicyDelta(
-      bindingDeltas:
-          decodeListMessage(json['bindingDeltas'], BindingDelta.fromJson),
+      bindingDeltas: decodeListMessage(
+        json['bindingDeltas'],
+        BindingDelta.fromJson,
+      ),
       auditConfigDeltas: decodeListMessage(
-          json['auditConfigDeltas'], AuditConfigDelta.fromJson),
+        json['auditConfigDeltas'],
+        AuditConfigDelta.fromJson,
+      ),
     );
   }
 
@@ -821,12 +792,8 @@ class BindingDelta extends ProtoMessage {
   /// The condition that is associated with this binding.
   final Expr? condition;
 
-  BindingDelta({
-    this.action,
-    this.role,
-    this.member,
-    this.condition,
-  }) : super(fullyQualifiedName);
+  BindingDelta({this.action, this.role, this.member, this.condition})
+    : super(fullyQualifiedName);
 
   factory BindingDelta.fromJson(Map<String, dynamic> json) {
     return BindingDelta(
@@ -944,8 +911,9 @@ class AuditConfigDelta extends ProtoMessage {
 /// The type of action performed on an audit configuration in a policy.
 class AuditConfigDelta_Action extends ProtoEnum {
   /// Unspecified.
-  static const actionUnspecified =
-      AuditConfigDelta_Action('ACTION_UNSPECIFIED');
+  static const actionUnspecified = AuditConfigDelta_Action(
+    'ACTION_UNSPECIFIED',
+  );
 
   /// Addition of an audit configuration.
   static const add = AuditConfigDelta_Action('ADD');

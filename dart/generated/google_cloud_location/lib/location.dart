@@ -35,11 +35,12 @@ class Locations {
   final ServiceClient _client;
 
   Locations({required http.Client client})
-      : _client = ServiceClient(client: client);
+    : _client = ServiceClient(client: client);
 
   /// Lists information about the supported locations for this service.
   Future<ListLocationsResponse> listLocations(
-      ListLocationsRequest request) async {
+    ListLocationsRequest request,
+  ) async {
     final url = Uri.https(_host, '/v1/${request.name}', {
       if (request.filter != null) 'filter': request.filter!,
       if (request.pageSize != null) 'pageSize': '${request.pageSize}',
@@ -128,10 +129,8 @@ class ListLocationsResponse extends ProtoMessage {
   /// The standard List next-page token.
   final String? nextPageToken;
 
-  ListLocationsResponse({
-    this.locations,
-    this.nextPageToken,
-  }) : super(fullyQualifiedName);
+  ListLocationsResponse({this.locations, this.nextPageToken})
+    : super(fullyQualifiedName);
 
   factory ListLocationsResponse.fromJson(Map<String, dynamic> json) {
     return ListLocationsResponse(
@@ -165,28 +164,20 @@ class GetLocationRequest extends ProtoMessage {
   /// Resource name for the location.
   final String name;
 
-  GetLocationRequest({
-    required this.name,
-  }) : super(fullyQualifiedName);
+  GetLocationRequest({required this.name}) : super(fullyQualifiedName);
 
   factory GetLocationRequest.fromJson(Map<String, dynamic> json) {
-    return GetLocationRequest(
-      name: json['name'],
-    );
+    return GetLocationRequest(name: json['name']);
   }
 
   @override
   Object toJson() {
-    return {
-      'name': name,
-    };
+    return {'name': name};
   }
 
   @override
   String toString() {
-    final contents = [
-      'name=$name',
-    ].join(',');
+    final contents = ['name=$name'].join(',');
     return 'GetLocationRequest($contents)';
   }
 }

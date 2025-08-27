@@ -78,11 +78,8 @@ class ErrorInfo extends ProtoMessage {
   /// instances that can be created in a single (batch) request.
   final Map<String, String>? metadata;
 
-  ErrorInfo({
-    this.reason,
-    this.domain,
-    this.metadata,
-  }) : super(fullyQualifiedName);
+  ErrorInfo({this.reason, this.domain, this.metadata})
+    : super(fullyQualifiedName);
 
   factory ErrorInfo.fromJson(Map<String, dynamic> json) {
     return ErrorInfo(
@@ -130,9 +127,7 @@ class RetryInfo extends ProtoMessage {
   /// Clients should wait at least this long between retrying the same request.
   final Duration? retryDelay;
 
-  RetryInfo({
-    this.retryDelay,
-  }) : super(fullyQualifiedName);
+  RetryInfo({this.retryDelay}) : super(fullyQualifiedName);
 
   factory RetryInfo.fromJson(Map<String, dynamic> json) {
     return RetryInfo(
@@ -142,9 +137,7 @@ class RetryInfo extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (retryDelay != null) 'retryDelay': retryDelay!.toJson(),
-    };
+    return {if (retryDelay != null) 'retryDelay': retryDelay!.toJson()};
   }
 
   @override
@@ -161,10 +154,7 @@ class DebugInfo extends ProtoMessage {
   /// Additional debugging information provided by the server.
   final String? detail;
 
-  DebugInfo({
-    this.stackEntries,
-    this.detail,
-  }) : super(fullyQualifiedName);
+  DebugInfo({this.stackEntries, this.detail}) : super(fullyQualifiedName);
 
   factory DebugInfo.fromJson(Map<String, dynamic> json) {
     return DebugInfo(
@@ -183,9 +173,7 @@ class DebugInfo extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (detail != null) 'detail=$detail',
-    ].join(',');
+    final contents = [if (detail != null) 'detail=$detail'].join(',');
     return 'DebugInfo($contents)';
   }
 }
@@ -207,22 +195,20 @@ class QuotaFailure extends ProtoMessage {
   /// Describes all quota violations.
   final List<QuotaFailure_Violation>? violations;
 
-  QuotaFailure({
-    this.violations,
-  }) : super(fullyQualifiedName);
+  QuotaFailure({this.violations}) : super(fullyQualifiedName);
 
   factory QuotaFailure.fromJson(Map<String, dynamic> json) {
     return QuotaFailure(
       violations: decodeListMessage(
-          json['violations'], QuotaFailure_Violation.fromJson),
+        json['violations'],
+        QuotaFailure_Violation.fromJson,
+      ),
     );
   }
 
   @override
   Object toJson() {
-    return {
-      if (violations != null) 'violations': encodeList(violations),
-    };
+    return {if (violations != null) 'violations': encodeList(violations)};
   }
 
   @override
@@ -378,22 +364,20 @@ class PreconditionFailure extends ProtoMessage {
   /// Describes all precondition violations.
   final List<PreconditionFailure_Violation>? violations;
 
-  PreconditionFailure({
-    this.violations,
-  }) : super(fullyQualifiedName);
+  PreconditionFailure({this.violations}) : super(fullyQualifiedName);
 
   factory PreconditionFailure.fromJson(Map<String, dynamic> json) {
     return PreconditionFailure(
       violations: decodeListMessage(
-          json['violations'], PreconditionFailure_Violation.fromJson),
+        json['violations'],
+        PreconditionFailure_Violation.fromJson,
+      ),
     );
   }
 
   @override
   Object toJson() {
-    return {
-      if (violations != null) 'violations': encodeList(violations),
-    };
+    return {if (violations != null) 'violations': encodeList(violations)};
   }
 
   @override
@@ -421,11 +405,8 @@ class PreconditionFailure_Violation extends ProtoMessage {
   /// For example: "Terms of service not accepted".
   final String? description;
 
-  PreconditionFailure_Violation({
-    this.type,
-    this.subject,
-    this.description,
-  }) : super(fullyQualifiedName);
+  PreconditionFailure_Violation({this.type, this.subject, this.description})
+    : super(fullyQualifiedName);
 
   factory PreconditionFailure_Violation.fromJson(Map<String, dynamic> json) {
     return PreconditionFailure_Violation(
@@ -463,14 +444,14 @@ class BadRequest extends ProtoMessage {
   /// Describes all violations in a client request.
   final List<BadRequest_FieldViolation>? fieldViolations;
 
-  BadRequest({
-    this.fieldViolations,
-  }) : super(fullyQualifiedName);
+  BadRequest({this.fieldViolations}) : super(fullyQualifiedName);
 
   factory BadRequest.fromJson(Map<String, dynamic> json) {
     return BadRequest(
       fieldViolations: decodeListMessage(
-          json['fieldViolations'], BadRequest_FieldViolation.fromJson),
+        json['fieldViolations'],
+        BadRequest_FieldViolation.fromJson,
+      ),
     );
   }
 
@@ -557,8 +538,10 @@ class BadRequest_FieldViolation extends ProtoMessage {
       field: json['field'],
       description: json['description'],
       reason: json['reason'],
-      localizedMessage:
-          decode(json['localizedMessage'], LocalizedMessage.fromJson),
+      localizedMessage: decode(
+        json['localizedMessage'],
+        LocalizedMessage.fromJson,
+      ),
     );
   }
 
@@ -597,10 +580,7 @@ class RequestInfo extends ProtoMessage {
   /// stack trace that can be sent back to the service provider for debugging.
   final String? servingData;
 
-  RequestInfo({
-    this.requestId,
-    this.servingData,
-  }) : super(fullyQualifiedName);
+  RequestInfo({this.requestId, this.servingData}) : super(fullyQualifiedName);
 
   factory RequestInfo.fromJson(Map<String, dynamic> json) {
     return RequestInfo(
@@ -701,21 +681,15 @@ class Help extends ProtoMessage {
   /// URL(s) pointing to additional information on handling the current error.
   final List<Help_Link>? links;
 
-  Help({
-    this.links,
-  }) : super(fullyQualifiedName);
+  Help({this.links}) : super(fullyQualifiedName);
 
   factory Help.fromJson(Map<String, dynamic> json) {
-    return Help(
-      links: decodeListMessage(json['links'], Help_Link.fromJson),
-    );
+    return Help(links: decodeListMessage(json['links'], Help_Link.fromJson));
   }
 
   @override
   Object toJson() {
-    return {
-      if (links != null) 'links': encodeList(links),
-    };
+    return {if (links != null) 'links': encodeList(links)};
   }
 
   @override
@@ -732,16 +706,10 @@ class Help_Link extends ProtoMessage {
   /// The URL of the link.
   final String? url;
 
-  Help_Link({
-    this.description,
-    this.url,
-  }) : super(fullyQualifiedName);
+  Help_Link({this.description, this.url}) : super(fullyQualifiedName);
 
   factory Help_Link.fromJson(Map<String, dynamic> json) {
-    return Help_Link(
-      description: json['description'],
-      url: json['url'],
-    );
+    return Help_Link(description: json['description'], url: json['url']);
   }
 
   @override
@@ -775,16 +743,10 @@ class LocalizedMessage extends ProtoMessage {
   /// The localized error message in the above locale.
   final String? message;
 
-  LocalizedMessage({
-    this.locale,
-    this.message,
-  }) : super(fullyQualifiedName);
+  LocalizedMessage({this.locale, this.message}) : super(fullyQualifiedName);
 
   factory LocalizedMessage.fromJson(Map<String, dynamic> json) {
-    return LocalizedMessage(
-      locale: json['locale'],
-      message: json['message'],
-    );
+    return LocalizedMessage(locale: json['locale'], message: json['message']);
   }
 
   @override
@@ -822,12 +784,8 @@ class HttpRequest extends ProtoMessage {
   /// The HTTP request body. If the body is not expected, it should be empty.
   final Uint8List? body;
 
-  HttpRequest({
-    this.method,
-    this.uri,
-    this.headers,
-    this.body,
-  }) : super(fullyQualifiedName);
+  HttpRequest({this.method, this.uri, this.headers, this.body})
+    : super(fullyQualifiedName);
 
   factory HttpRequest.fromJson(Map<String, dynamic> json) {
     return HttpRequest(
@@ -876,12 +834,8 @@ class HttpResponse extends ProtoMessage {
   /// The HTTP response body. If the body is not expected, it should be empty.
   final Uint8List? body;
 
-  HttpResponse({
-    this.status,
-    this.reason,
-    this.headers,
-    this.body,
-  }) : super(fullyQualifiedName);
+  HttpResponse({this.status, this.reason, this.headers, this.body})
+    : super(fullyQualifiedName);
 
   factory HttpResponse.fromJson(Map<String, dynamic> json) {
     return HttpResponse(
@@ -923,24 +877,15 @@ class HttpHeader extends ProtoMessage {
   /// The HTTP header value.
   final String? value;
 
-  HttpHeader({
-    this.key,
-    this.value,
-  }) : super(fullyQualifiedName);
+  HttpHeader({this.key, this.value}) : super(fullyQualifiedName);
 
   factory HttpHeader.fromJson(Map<String, dynamic> json) {
-    return HttpHeader(
-      key: json['key'],
-      value: json['value'],
-    );
+    return HttpHeader(key: json['key'], value: json['value']);
   }
 
   @override
   Object toJson() {
-    return {
-      if (key != null) 'key': key,
-      if (value != null) 'value': value,
-    };
+    return {if (key != null) 'key': key, if (value != null) 'value': value};
   }
 
   @override
@@ -977,11 +922,7 @@ class Status extends ProtoMessage {
   /// message types for APIs to use.
   final List<Any>? details;
 
-  Status({
-    this.code,
-    this.message,
-    this.details,
-  }) : super(fullyQualifiedName);
+  Status({this.code, this.message, this.details}) : super(fullyQualifiedName);
 
   factory Status.fromJson(Map<String, dynamic> json) {
     return Status(
