@@ -128,7 +128,10 @@ func processTrait(c *crate, id string, page *docfxManagedReference, parent *docf
 		// This assumes the inner trait items are all functions. Validation and error checking is needed.
 		referenceId := idToString(c.Index[id].Inner.Trait.Items[i])
 		if c.getKind(referenceId) == functionKind {
-			function, _ := newDocfxItemFromFunction(c, parent, referenceId)
+			function, err := newDocfxItemFromFunction(c, parent, referenceId)
+			if err != nil {
+				return fmt.Errorf("error processing trait item with id %s:%w", id, err)
+			}
 			function.Type = "providedmethod"
 			page.appendItem(function)
 
@@ -252,7 +255,6 @@ func processEnum(c *crate, id string, page *docfxManagedReference, parent *docfx
 func processImplementation(c *crate, id string, page *docfxManagedReference, parent *docfxItem) error {
 	if c.Index[id].Inner.Impl.BlanketImpl != nil {
 		// TODO: Add blanket implementations.
-		// Example: Struct:1890->1897.
 		return nil
 	}
 
@@ -269,7 +271,10 @@ func processImplementation(c *crate, id string, page *docfxManagedReference, par
 	for j := 0; j < len(c.Index[id].Inner.Impl.Items); j++ {
 		innerImplItemId := idToString(c.Index[id].Inner.Impl.Items[j])
 		if c.getKind(innerImplItemId) == functionKind {
-			function, _ := newDocfxItemFromFunction(c, parent, innerImplItemId)
+			function, err := newDocfxItemFromFunction(c, parent, innerImplItemId)
+			if err != nil {
+				return fmt.Errorf("error processing trait item with id %s:%w", id, err)
+			}
 			function.Type = "implementation"
 			page.appendItem(function)
 
@@ -286,11 +291,20 @@ func processImplementation(c *crate, id string, page *docfxManagedReference, par
 
 func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
 	r := new(docfxItem)
+	if c.Index[id].Inner.Function.Sig.isCVariadic {
+		// We do not yet handle c variadic functions.
+		return r, fmt.Errorf("unexpected c variadic signature for id %s", id)
+	}
 	r.Name = c.getName(id)
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
 
+	functionSignature, err := c.Index[id].Inner.Function.toString(c.getName(id))
+	if err != nil {
+		return r, fmt.Errorf("error generating function signature for id %s:%w", id, err)
+	}
+
 	// Type is explicitly not set as this function is used for multiple doc pipeline types.
-	r.Summary = c.getDocString(id)
+	r.Summary = fmt.Sprintf("%#v%#v", functionSignature, c.getDocString(id))
 	return r, nil
 }
 

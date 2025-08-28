@@ -149,7 +149,52 @@ type trait struct {
 }
 
 type function struct {
-	Sig functionSignature
+	Sig      functionSignature
+	Generics generics
+	Header   functionHeader
+}
+
+type functionHeader struct {
+	IsConst  bool `json:"is_const"`
+	IsUnsafe bool `json:"is_unsafe"`
+	IsAsync  bool `json:"is_async"`
+}
+
+type generics struct {
+	Params         []genericParamDef
+	WherePredicate []wherePredicate `json:"where_predicates"`
+}
+
+type genericParamDef struct {
+	Name string
+	Kind genericParamDefKind
+}
+
+type wherePredicate struct {
+	BoundPredicate *BoundPredicate `json:"bound_predicate"`
+}
+
+type BoundPredicate struct {
+	Type   typeEnum `json:"type"`
+	Bounds []genericBound
+}
+
+type genericParamDefKind struct {
+	GenericParamDefType *genericParamDefKindType `json:"type"`
+}
+
+type genericParamDefKindType struct {
+	Bounds     []genericBound
+	IsSyntheic bool `json:"is_synthetic"`
+}
+
+type genericBound struct {
+	TraitBound *traitBound `json:"trait_bound"`
+	Outlives   *string
+}
+
+type traitBound struct {
+	Trait path
 }
 
 type structInner struct {
@@ -189,11 +234,106 @@ type path struct {
 	Args genericArgs
 }
 
+func (f *function) toString(name string) (string, error) {
+	keywords := ""
+	// We do not expect any functions to be const or unsafe.
+	if f.Header.IsConst {
+		return "", fmt.Errorf("error, IsConst == true")
+	}
+	if f.Header.IsUnsafe {
+		return "", fmt.Errorf("error, IsUnsafe == true")
+	}
+	if f.Header.IsAsync {
+		keywords = "async "
+	}
+
+	genericsString := ""
+	genericsParams := []string{}
+	for i := 0; i < len(f.Generics.Params); i++ {
+		if f.Generics.Params[i].Kind.GenericParamDefType != nil {
+			param := f.Generics.Params[i].Name
+			if f.Generics.Params[i].Kind.GenericParamDefType.IsSyntheic {
+				return "", fmt.Errorf("error, IsSyntheic == true")
+			}
+			for j := 0; j < len(f.Generics.Params[i].Kind.GenericParamDefType.Bounds); j++ {
+				if f.Generics.Params[i].Kind.GenericParamDefType.Bounds[j].TraitBound != nil {
+					param = fmt.Sprintf("%s: %s", f.Generics.Params[i].Name, f.Generics.Params[i].Kind.GenericParamDefType.Bounds[j].TraitBound.Trait.toString())
+				}
+			}
+			genericsParams = append(genericsParams, param)
+		}
+	}
+	if len(genericsParams) > 0 {
+		genericsString = fmt.Sprintf("<%s>", strings.Join(genericsParams, ", "))
+	}
+
+	args := []string{}
+	for i := 0; i < len(f.Sig.Inputs); i++ {
+		if s, ok := f.Sig.Inputs[i][0].(string); ok {
+			arg := s
+			if g, ok := f.Sig.Inputs[i][1].(map[string]interface{}); ok {
+				if _, ok := g["generic"]; ok {
+					// generic "Self" are not listed.
+					if g["generic"] != "Self" {
+						arg = fmt.Sprintf("%s: %s", arg, g["generic"])
+					}
+				}
+				if g["resolved_path"] != nil {
+					b, err := json.Marshal(g["resolved_path"])
+					if err != nil {
+						return "", fmt.Errorf("error marshaling resolved_path")
+					}
+					var p path
+					err = json.Unmarshal(b, &p)
+					if err != nil {
+						return "", fmt.Errorf("error Unmarshal resolved_path")
+					}
+					arg = fmt.Sprintf("%s: %s", arg, p.toString())
+				}
+			}
+			args = append(args, arg)
+		}
+	}
+	argString := fmt.Sprintf("(%s)", strings.Join(args, ", "))
+
+	whereString := ""
+	wherePredicates := []string{}
+	for i := 0; i < len(f.Generics.WherePredicate); i++ {
+		if f.Generics.WherePredicate[i].BoundPredicate != nil {
+			typeString := f.Generics.WherePredicate[i].BoundPredicate.Type.toString()
+			if len(f.Generics.WherePredicate[i].BoundPredicate.Bounds) == 0 {
+				return "", fmt.Errorf("error, where predicate bound == 0")
+			}
+			bounds := []string{}
+			for j := 0; j < len(f.Generics.WherePredicate[i].BoundPredicate.Bounds); j++ {
+				if f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].TraitBound != nil {
+					bound := f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].TraitBound.Trait.toString()
+					bounds = append(bounds, bound)
+				} else if f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].Outlives != nil {
+					bounds = append(bounds, *f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].Outlives)
+				} else {
+					return "", fmt.Errorf("unexpected predicate bound")
+				}
+			}
+			// 4 spaces are used to ident.
+			predicate := fmt.Sprintf("    %s: %s,", typeString, strings.Join(bounds, " + "))
+			wherePredicates = append(wherePredicates, predicate)
+		}
+	}
+	if len(wherePredicates) > 0 {
+		whereString = fmt.Sprintf("\nwhere\n%s", strings.Join(wherePredicates, "\n"))
+	}
+
+	returnString := f.Sig.Output.toString()
+	signature := fmt.Sprintf("%s fn %s%s%s -> %s%s", keywords, name, genericsString, argString, returnString, whereString)
+	return signature, nil
+}
+
 func (path *path) toString() string {
 	argString := ""
 	args := []string{}
 	for i := 0; i < len(path.Args.AngleBracketed.Args); i++ {
-		args = append(args, path.Args.AngleBracketed.Args[i].Type.ResolvedPath.Path)
+		args = append(args, path.Args.AngleBracketed.Args[i].Type.toString())
 	}
 	if len(args) > 0 {
 		argString = fmt.Sprintf("<%s>", strings.Join(args, ", "))
@@ -206,9 +346,17 @@ type typeEnum struct {
 	Generic      string
 }
 
+func (t *typeEnum) toString() string {
+	if t.Generic != "" {
+		return t.Generic
+	}
+	return t.ResolvedPath.toString()
+}
+
 type functionSignature struct {
-	Inputs [][]interface{}
-	Output *typeEnum
+	Inputs      [][]interface{}
+	Output      *typeEnum
+	isCVariadic bool `json:"is_c_variadic"`
 }
 
 type genericArgs struct {
