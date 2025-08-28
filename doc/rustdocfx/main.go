@@ -41,8 +41,8 @@ import (
 	"strings"
 )
 
-// TODO(NOW): Make sure this list is empty before merging.
-var crateDenyList = []string{"gcp-sdk", "google-cloud-base", "google-cloud-wkt", "google-cloud-gax", "google-cloud-auth", "google-cloud-storage"}
+// Temporarily disable generation for certain crates.
+var crateDenyList = []string{"gcp-sdk", "google-cloud-base"}
 
 func main() {
 	out := flag.String("out", "docfx", "Output directory within project-root (default docfx)")
@@ -61,8 +61,7 @@ func main() {
 	// Create a temporary file to store `cargo workspace plan` output.
 	tempFile, err := os.CreateTemp("", "cargo-plan-")
 	if err != nil {
-		fmt.Printf("Unable to create temp file for cargo workspace plan: %v\n", err)
-		return
+		log.Fatalf("Unable to create temp file for cargo workspace plan: %w\n", err)
 	}
 	defer os.Remove(tempFile.Name())
 	fmt.Printf("Created tmp file %s for cargo workspace plan\n", tempFile.Name())
@@ -72,21 +71,24 @@ func main() {
 
 	jsonFile, err := os.Open(tempFile.Name())
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatalf("Unable to open temp file for cargo workspace plan: %w\n", err)
 	}
 	defer jsonFile.Close()
 
-	byteValue, _ := io.ReadAll(jsonFile)
+	byteValue, err := io.ReadAll(jsonFile)
+	if err != nil {
+		log.Fatalf("Unable to read cargo workspace json file: %w\n", err)
+	}
+
 	workspaceCrates, err := getWorkspaceCrates(byteValue)
 	if err != nil {
-		fmt.Printf("Error getting workspace crates: %v\n", err)
-		return
+		log.Fatalf("Error getting workspace crates: %w\n", err)
 	}
 
 	for i := 0; i < len(workspaceCrates); i++ {
 		// TODO: Allow for regex on crate names instead.
 		if !slices.Contains(crateDenyList, workspaceCrates[i].Name) && (len(crates) == 0 || slices.Contains(crates, workspaceCrates[i].Name)) {
+			crate := workspaceCrates[i]
 
 			runCmd(nil, *projectRoot, "cargo", "+nightly", "-Z", "unstable-options", "rustdoc", "--output-format=json", fmt.Sprintf("--manifest-path=%s/Cargo.toml", workspaceCrates[i].Location))
 			// cargo names are snake case while cargo rustdoc output files are kebob case.
@@ -94,29 +96,26 @@ func main() {
 			file := filepath.Join(*projectRoot, "/target/doc", fileName)
 			rustDocFile, err := os.Open(file)
 			if err != nil {
-				// TODO(NOW): Failfast.
-				fmt.Println(err)
+				log.Fatalf("Error openning rustdoc file: %w\n", err)
 			}
 			defer rustDocFile.Close()
-			jsonBytes, _ := io.ReadAll(rustDocFile)
-			// TODO(NOW): Handle error.
-			unmarshalRustdoc(&workspaceCrates[i], jsonBytes)
+			jsonBytes, err := io.ReadAll(rustDocFile)
+			if err != nil {
+				log.Fatalf("Error reading rustdoc file: %w\n", err)
+			}
+			unmarshalRustdoc(&crate, jsonBytes)
 
-			// TODO(NOW): Should we handle the errors?
-			crateOutDir := filepath.Join(*projectRoot, *out, workspaceCrates[i].Name)
+			crateOutDir := filepath.Join(*projectRoot, *out, crate.Name)
 			os.MkdirAll(crateOutDir, 0777) // Ignore errors
 
-			// TODO(NOW): This is not needed.
-			crate := workspaceCrates[i]
 			err = generate(&crate, *projectRoot, crateOutDir)
 			if err != nil {
-				// TODO: Better log message for the failure with crate name.
-				log.Fatalf("failed to generate for crate %s: %v", workspaceCrates[i].Name, err)
+				log.Fatalf("failed to generate for crate %s: %w", crate.Name, err)
 			}
 
-			if *upload == true {
-				fmt.Printf("Uploading crate:%s\n", workspaceCrates[i].Name)
-				// TODO(NOW): Remove --staging-bucket=docs-staging-v2-dev
+			if *upload {
+				fmt.Printf("Uploading crate:%s\n", crate.Name)
+				// TODO: Add a flag to specify bucket location.
 				runCmd(nil, "", "docuploader", "upload", "--staging-bucket=docs-staging-v2-dev", fmt.Sprintf("--metadata-file=%s/docs.metadata", crateOutDir), crateOutDir)
 			}
 		}
@@ -135,10 +134,10 @@ func runCmd(stdout io.Writer, dir, name string, args ...string) error {
 	}
 	cmd.Stderr = os.Stderr
 	if err := cmd.Start(); err != nil {
-		return fmt.Errorf("cmd.Start: %v", err)
+		return fmt.Errorf("cmd.Start: %w", err)
 	}
 	if err := cmd.Wait(); err != nil {
-		return fmt.Errorf("cmd.Wait: %s", err)
+		return fmt.Errorf("cmd.Wait: %w", err)
 	}
 	return nil
 }

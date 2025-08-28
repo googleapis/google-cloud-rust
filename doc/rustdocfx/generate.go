@@ -149,7 +149,7 @@ func processModule(c *crate, id string, page *docfxManagedReference, parent *doc
 	for i := 0; i < len(c.Index[id].Inner.Module.Items); i++ {
 		referenceId := idToString(c.Index[id].Inner.Module.Items[i])
 		kind := c.getKind(referenceId)
-		if kind == undefinedKind {
+		if kind == useKind {
 			// TODO: Remove this check after we can generate gax/external crate references.
 			continue
 		}
@@ -291,10 +291,6 @@ func processImplementation(c *crate, id string, page *docfxManagedReference, par
 
 func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
 	r := new(docfxItem)
-	if c.Index[id].Inner.Function.Sig.isCVariadic {
-		// We do not yet handle c variadic functions.
-		return r, fmt.Errorf("unexpected c variadic signature for id %s", id)
-	}
 	r.Name = c.getName(id)
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
 
@@ -382,9 +378,15 @@ func newDocfxManagedReference(c *crate, id string) (*docfxManagedReference, erro
 
 	r := new(docfxManagedReference)
 
-	parent, _ := newDocfxItem(c, id)
+	parent, err := newDocfxItem(c, id)
+	if err != nil {
+		errs = append(errs, err)
+	}
 
-	reference, _ := newDocfxReferenceFromDocfxItem(parent, nil)
+	reference, err := newDocfxReferenceFromDocfxItem(parent, nil)
+	if err != nil {
+		errs = append(errs, err)
+	}
 	r.appendReference(reference)
 
 	switch c.getKind(id) {
@@ -416,7 +418,7 @@ func newDocfxManagedReference(c *crate, id string) (*docfxManagedReference, erro
 			errs = append(errs, err)
 		}
 	default:
-		// TODO(NOW): Add errors
+		errs = append(errs, fmt.Errorf("unexpected kind for id %s", id))
 	}
 
 	r.prependItem(parent)
@@ -429,10 +431,13 @@ func newDocfxManagedReference(c *crate, id string) (*docfxManagedReference, erro
 func generate(c *crate, projectRoot string, outDir string) error {
 	var errs []error
 
-	m, _ := newDocfxMetadata(c)
+	m, err := newDocfxMetadata(c)
+	if err != nil {
+		errs = append(errs, err)
+	}
 	s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/docs.metadata.mustache"), m)
 	if err != nil {
-		fmt.Printf("err: %v", err)
+		errs = append(errs, err)
 	}
 	if err := os.WriteFile(filepath.Join(outDir, "docs.metadata"), []byte(s), 0666); err != nil {
 		errs = append(errs, err)
@@ -445,7 +450,7 @@ func generate(c *crate, projectRoot string, outDir string) error {
 	}
 	toc := docfxTableOfContent{Name: c.getRootName(), Uid: rootUid}
 
-	for id, _ := range c.Index {
+	for id := range c.Index {
 		switch c.getKind(id) {
 		case crateKind:
 			fallthrough
@@ -463,7 +468,10 @@ func generate(c *crate, projectRoot string, outDir string) error {
 				errs = append(errs, err)
 			}
 
-			s, _ := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/universalReference.yml.mustache"), r)
+			s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/universalReference.yml.mustache"), r)
+			if err != nil {
+				errs = append(errs, err)
+			}
 			uid, err := c.getDocfxUid(id)
 			if err != nil {
 				errs = append(errs, err)
@@ -477,19 +485,30 @@ func generate(c *crate, projectRoot string, outDir string) error {
 			}
 		case functionKind:
 			fallthrough
+		case structFieldKind:
+			fallthrough
+		case variantKind:
+			fallthrough
+		case useKind:
+			fallthrough
+		case assocTypeKind:
+			fallthrough
 		case implKind:
 			// We do not generate a page these kinds as they are used as inner items in other pages.
 			continue
 		case undefinedKind:
 			fallthrough
 		default:
-			// errs = append(errs, fmt.Errorf("unexpected path kind, %s, for id %s", c.getKind(id), id))
+			errs = append(errs, fmt.Errorf("unexpected item kind, %s, for id %s", c.getKind(id), id))
 		}
 	}
 
 	// Sort the toc before rendering.
 	sort.SliceStable(toc.Items, func(i, j int) bool { return toc.Items[i].Name < toc.Items[j].Name })
-	s, _ = mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/toc.yml.mustache"), toc)
+	s, err = mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/toc.yml.mustache"), toc)
+	if err != nil {
+		errs = append(errs, err)
+	}
 	if err := os.WriteFile(filepath.Join(outDir, "toc.yml"), []byte(s), 0666); err != nil {
 		errs = append(errs, err)
 	}

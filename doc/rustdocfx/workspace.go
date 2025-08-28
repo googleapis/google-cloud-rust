@@ -50,6 +50,7 @@ func (c *crate) getDocfxUidWithParentPrefix(parentUid, id string) string {
 }
 
 func (c *crate) getKind(id string) kind {
+	// Heuristic to determine item kind.
 	if c.Index[id].Inner.Struct != nil {
 		return structKind
 	}
@@ -74,6 +75,18 @@ func (c *crate) getKind(id string) kind {
 	if c.Index[id].Inner.Impl != nil {
 		return implKind
 	}
+	if c.Index[id].Inner.StructField != nil {
+		return structFieldKind
+	}
+	if c.Index[id].Inner.Variant != nil {
+		return variantKind
+	}
+	if c.Index[id].Inner.Use != nil {
+		return useKind
+	}
+	if c.Index[id].Inner.AssocType != nil {
+		return assocTypeKind
+	}
 	return undefinedKind
 }
 
@@ -97,18 +110,26 @@ const (
 	moduleKind
 	functionKind
 	implKind
+	structFieldKind
+	variantKind
+	useKind
+	assocTypeKind
 )
 
 var kindName = map[kind]string{
-	undefinedKind: "undefined",
-	structKind:    "struct",
-	enumKind:      "enum",
-	traitKind:     "trait",
-	typeAliasKind: "typealias",
-	crateKind:     "crate",
-	moduleKind:    "module",
-	functionKind:  "function",
-	implKind:      "implementation",
+	undefinedKind:   "undefined",
+	structKind:      "struct",
+	enumKind:        "enum",
+	traitKind:       "trait",
+	typeAliasKind:   "typealias",
+	crateKind:       "crate",
+	moduleKind:      "module",
+	functionKind:    "function",
+	implKind:        "implementation",
+	structFieldKind: "struct_field",
+	variantKind:     "variant",
+	useKind:         "use",
+	assocTypeKind:   "assoc_type",
 }
 
 func (k kind) String() string {
@@ -130,13 +151,17 @@ type itemSummary struct {
 }
 
 type itemEnum struct {
-	Module    *module
-	Trait     *trait
-	Function  *function
-	Struct    *structInner
-	Enum      *enum
-	TypeAlias *typeAlias `json:"type_alias"`
-	Impl      *impl
+	Module      *module
+	Trait       *trait
+	Function    *function
+	Struct      *structInner
+	Enum        *enum
+	TypeAlias   *typeAlias `json:"type_alias"`
+	Impl        *impl
+	StructField *typeEnum `json:"struct_field"`
+	Variant     *variant
+	Use         *use
+	AssocType   *assocType `json:"assoc_type"`
 }
 
 type module struct {
@@ -152,6 +177,18 @@ type function struct {
 	Sig      functionSignature
 	Generics generics
 	Header   functionHeader
+}
+
+type variant struct {
+	// Identionally left blank.
+}
+
+type use struct {
+	// Identionally left blank.
+}
+
+type assocType struct {
+	// Identionally left blank.
 }
 
 type functionHeader struct {
@@ -198,15 +235,15 @@ type traitBound struct {
 }
 
 type structInner struct {
-	Kind  StructKind
+	Kind  structInnerKind
 	Impls []Id
 }
 
-type StructKind struct {
-	Plain Plain
+type structInnerKind struct {
+	Plain plain
 }
 
-type Plain struct {
+type plain struct {
 	Fields []Id
 }
 
@@ -245,6 +282,10 @@ func (f *function) toString(name string) (string, error) {
 	}
 	if f.Header.IsAsync {
 		keywords = "async "
+	}
+	if f.Sig.IsCVariadic {
+		// We do not yet handle c variadic functions.
+		return "", fmt.Errorf("error, IsCVariadic == true")
 	}
 
 	genericsString := ""
@@ -356,7 +397,7 @@ func (t *typeEnum) toString() string {
 type functionSignature struct {
 	Inputs      [][]interface{}
 	Output      *typeEnum
-	isCVariadic bool `json:"is_c_variadic"`
+	IsCVariadic bool `json:"is_c_variadic"`
 }
 
 type genericArgs struct {
@@ -375,7 +416,7 @@ func getWorkspaceCrates(jsonBytes []byte) ([]crate, error) {
 	var crates []crate
 	err := json.Unmarshal(jsonBytes, &crates)
 	if err != nil {
-		return nil, fmt.Errorf("workspace crate unmarshal error: %v", err)
+		return nil, fmt.Errorf("workspace crate unmarshal error: %w", err)
 	}
 	return crates, nil
 }
