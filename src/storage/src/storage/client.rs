@@ -135,19 +135,7 @@ where
         }
     }
 
-    /// Write an object using a local buffer.
-    ///
-    /// If the data source does **not** implement [Seek] the client library must
-    /// buffer data sent to the service until the service confirms it has
-    /// persisted the data. This requires more memory in the client, and when
-    /// the buffer grows too large, may require stalling the writer until the
-    /// service can persist the data.
-    ///
-    /// Use this function for data sources representing computations where
-    /// it is expensive or impossible to restart said computation. This function
-    /// is also useful when it is hard or impossible to predict the number of
-    /// bytes emitted by a stream, even if restarting the stream is not too
-    /// expensive.
+    /// Write an object with data from any data source.
     ///
     /// # Example
     /// ```
@@ -173,6 +161,13 @@ where
     /// # Ok(()) }
     /// ```
     ///
+    /// You can use many different types as the payload. For example, a string,
+    /// a [bytes::Bytes], a [tokio::fs::File], or a custom type that implements
+    /// the [StreamingSource] trait.
+    ///
+    /// If your data source also implements [Seek], prefer [send_unbuffered()]
+    /// to start the write. Otherwise use [send_buffered()].
+    ///
     /// # Parameters
     /// * `bucket` - the bucket name containing the object. In
     ///   `projects/_/buckets/{bucket_id}` format.
@@ -180,6 +175,9 @@ where
     /// * `payload` - the object data.
     ///
     /// [Seek]: crate::streaming_source::Seek
+    /// [StreamingSource]: crate::streaming_source::StreamingSource
+    /// [send_buffered()]: crate::builder::storage::WriteObject::send_buffered
+    /// [send_unbuffered()]: crate::builder::storage::WriteObject::send_unbuffered
     pub fn write_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> WriteObject<P, S>
     where
         B: Into<String>,
