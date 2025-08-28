@@ -28,10 +28,13 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .update_bucket()
         .set_bucket(bucket.set_billing(Billing::new().set_requester_pays(false)))
         .set_if_metageneration_match(metageneration)
-        .set_update_mask(FieldMask::default().set_paths(["billing.requesterPays"]))
+        .set_update_mask(FieldMask::default().set_paths(["billing.requester_pays"]))
         .send()
         .await?;
-    println!("Requester pays was disabled for bucket {bucket_id}.");
+    println!(
+        "Requester pays was disabled for bucket {bucket_id}: {:?}",
+        bucket.billing
+    );
     Ok(())
 }
 // [END storage_disable_requester_pays]

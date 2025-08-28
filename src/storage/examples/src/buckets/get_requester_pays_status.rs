@@ -21,15 +21,10 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .set_name(format!("projects/_/buckets/{bucket_id}"))
         .send()
         .await?;
-    if let Some(billing) = bucket.billing {
-        println!(
-            "Requester pays is {} for bucket {}.",
-            if billing.requester_pays { "enabled" } else { "disabled" },
-            bucket_id
-        );
-    } else {
-        println!("Requester pays is not configured for bucket {bucket_id}.");
-    }
+    println!(
+        "Bucket {bucket_id} has billing status: {:?}",
+        bucket.billing
+    );
     Ok(())
 }
 // [END storage_get_requester_pays_status]
