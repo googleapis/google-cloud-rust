@@ -52,7 +52,7 @@ resource "google_project_service" "firestore" {
 
 resource "google_project_service" "kms" {
   project = var.project
-  service = "kms.googleapis.com"
+  service = "cloudkms.googleapis.com"
 
   timeouts {
     create = "30m"
