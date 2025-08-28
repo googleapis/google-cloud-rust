@@ -2324,6 +2324,10 @@ pub struct VoiceSelectionParams {
     /// clone matching the specified configuration.
     pub voice_clone: std::option::Option<crate::model::VoiceCloneParams>,
 
+    /// Optional. The name of the model. If set, the service will choose the model
+    /// matching the specified configuration.
+    pub model_name: std::string::String,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2388,6 +2392,12 @@ impl VoiceSelectionParams {
         self.voice_clone = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [model_name][crate::model::VoiceSelectionParams::model_name].
+    pub fn set_model_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.model_name = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for VoiceSelectionParams {
@@ -2411,6 +2421,7 @@ impl<'de> serde::de::Deserialize<'de> for VoiceSelectionParams {
             __ssml_gender,
             __custom_voice,
             __voice_clone,
+            __model_name,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2440,6 +2451,8 @@ impl<'de> serde::de::Deserialize<'de> for VoiceSelectionParams {
                             "custom_voice" => Ok(__FieldTag::__custom_voice),
                             "voiceClone" => Ok(__FieldTag::__voice_clone),
                             "voice_clone" => Ok(__FieldTag::__voice_clone),
+                            "modelName" => Ok(__FieldTag::__model_name),
+                            "model_name" => Ok(__FieldTag::__model_name),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2515,6 +2528,16 @@ impl<'de> serde::de::Deserialize<'de> for VoiceSelectionParams {
                                 .next_value::<std::option::Option<crate::model::VoiceCloneParams>>(
                                 )?;
                         }
+                        __FieldTag::__model_name => {
+                            if !fields.insert(__FieldTag::__model_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model_name",
+                                ));
+                            }
+                            result.model_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2553,6 +2576,9 @@ impl serde::ser::Serialize for VoiceSelectionParams {
         if self.voice_clone.is_some() {
             state.serialize_entry("voiceClone", &self.voice_clone)?;
         }
+        if !self.model_name.is_empty() {
+            state.serialize_entry("modelName", &self.model_name)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2570,6 +2596,7 @@ impl std::fmt::Debug for VoiceSelectionParams {
         debug_struct.field("ssml_gender", &self.ssml_gender);
         debug_struct.field("custom_voice", &self.custom_voice);
         debug_struct.field("voice_clone", &self.voice_clone);
+        debug_struct.field("model_name", &self.model_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4059,6 +4086,9 @@ impl std::fmt::Debug for StreamingSynthesizeConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesisInput {
+    /// This is system instruction supported only for controllable voice models.
+    pub prompt: std::option::Option<std::string::String>,
+
     pub input_source: std::option::Option<crate::model::streaming_synthesis_input::InputSource>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4067,6 +4097,24 @@ pub struct StreamingSynthesisInput {
 impl StreamingSynthesisInput {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [prompt][crate::model::StreamingSynthesisInput::prompt].
+    pub fn set_prompt<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.prompt = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [prompt][crate::model::StreamingSynthesisInput::prompt].
+    pub fn set_or_clear_prompt<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.prompt = v.map(|x| x.into());
+        self
     }
 
     /// Sets the value of [input_source][crate::model::StreamingSynthesisInput::input_source].
@@ -4154,6 +4202,7 @@ impl<'de> serde::de::Deserialize<'de> for StreamingSynthesisInput {
         enum __FieldTag {
             __text,
             __markup,
+            __prompt,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4176,6 +4225,7 @@ impl<'de> serde::de::Deserialize<'de> for StreamingSynthesisInput {
                         match value {
                             "text" => Ok(__FieldTag::__text),
                             "markup" => Ok(__FieldTag::__markup),
+                            "prompt" => Ok(__FieldTag::__prompt),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4237,6 +4287,15 @@ impl<'de> serde::de::Deserialize<'de> for StreamingSynthesisInput {
                                 ),
                             );
                         }
+                        __FieldTag::__prompt => {
+                            if !fields.insert(__FieldTag::__prompt) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for prompt",
+                                ));
+                            }
+                            result.prompt =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4266,6 +4325,9 @@ impl serde::ser::Serialize for StreamingSynthesisInput {
         if let Some(value) = self.markup() {
             state.serialize_entry("markup", value)?;
         }
+        if self.prompt.is_some() {
+            state.serialize_entry("prompt", &self.prompt)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4278,6 +4340,7 @@ impl serde::ser::Serialize for StreamingSynthesisInput {
 impl std::fmt::Debug for StreamingSynthesisInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingSynthesisInput");
+        debug_struct.field("prompt", &self.prompt);
         debug_struct.field("input_source", &self.input_source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -5536,7 +5599,8 @@ impl<'de> serde::de::Deserialize<'de> for SsmlVoiceGender {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum AudioEncoding {
-    /// Not specified. Will return result
+    /// Not specified. Only used by GenerateVoiceCloningKey. Otherwise, will return
+    /// result
     /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
     Unspecified,
     /// Uncompressed 16-bit signed little-endian samples (Linear PCM).
@@ -5559,6 +5623,8 @@ pub enum AudioEncoding {
     /// Note that as opposed to LINEAR16, audio won't be wrapped in a WAV (or
     /// any other) header.
     Pcm,
+    /// M4A audio.
+    M4A,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [AudioEncoding::value] or
@@ -5588,6 +5654,7 @@ impl AudioEncoding {
             Self::Mulaw => std::option::Option::Some(5),
             Self::Alaw => std::option::Option::Some(6),
             Self::Pcm => std::option::Option::Some(7),
+            Self::M4A => std::option::Option::Some(8),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -5605,6 +5672,7 @@ impl AudioEncoding {
             Self::Mulaw => std::option::Option::Some("MULAW"),
             Self::Alaw => std::option::Option::Some("ALAW"),
             Self::Pcm => std::option::Option::Some("PCM"),
+            Self::M4A => std::option::Option::Some("M4A"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -5633,6 +5701,7 @@ impl std::convert::From<i32> for AudioEncoding {
             5 => Self::Mulaw,
             6 => Self::Alaw,
             7 => Self::Pcm,
+            8 => Self::M4A,
             _ => Self::UnknownValue(audio_encoding::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -5651,6 +5720,7 @@ impl std::convert::From<&str> for AudioEncoding {
             "MULAW" => Self::Mulaw,
             "ALAW" => Self::Alaw,
             "PCM" => Self::Pcm,
+            "M4A" => Self::M4A,
             _ => Self::UnknownValue(audio_encoding::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -5671,6 +5741,7 @@ impl serde::ser::Serialize for AudioEncoding {
             Self::Mulaw => serializer.serialize_i32(5),
             Self::Alaw => serializer.serialize_i32(6),
             Self::Pcm => serializer.serialize_i32(7),
+            Self::M4A => serializer.serialize_i32(8),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
