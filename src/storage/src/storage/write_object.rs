@@ -17,7 +17,6 @@
 //! [write_object()]: crate::storage::client::Storage::write_object()
 
 use super::client::*;
-use super::perform_upload::PerformUpload;
 use super::streaming_source::{Seek, StreamingSource};
 use super::*;
 use crate::model_ext::KeyAes256;
@@ -74,10 +73,10 @@ use crate::storage::checksum::details::{Checksum, Md5};
 /// }
 /// ```
 pub struct WriteObject<T> {
-    inner: std::sync::Arc<StorageInner>,
-    request: crate::model_ext::WriteObjectRequest,
-    payload: Payload<T>,
-    options: super::request_options::RequestOptions,
+    stub: std::sync::Arc<crate::storage::transport::Storage>,
+    pub(crate) request: crate::model_ext::WriteObjectRequest,
+    pub(crate) payload: Payload<T>,
+    pub(crate) options: super::request_options::RequestOptions,
 }
 
 impl<T> WriteObject<T> {
@@ -778,16 +777,6 @@ impl<T> WriteObject<T> {
             .expect("resource field initialized in `new()`")
     }
 
-    pub(crate) fn build(self) -> PerformUpload<Payload<T>> {
-        PerformUpload::new(
-            self.payload,
-            self.inner,
-            self.request.spec,
-            self.request.params,
-            self.options,
-        )
-    }
-
     fn set_crc32c<V: Into<u32>>(mut self, v: V) -> Self {
         let checksum = self.mut_resource().checksums.get_or_insert_default();
         checksum.crc32c = Some(v.into());
@@ -918,7 +907,7 @@ impl<T> WriteObject<T> {
             .set_bucket(bucket)
             .set_name(object);
         WriteObject {
-            inner,
+            stub: crate::storage::transport::Storage::new(inner),
             request: crate::model_ext::WriteObjectRequest {
                 spec: crate::model::WriteObjectSpec::new().set_resource(resource),
                 params: None,
@@ -949,7 +938,10 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_unbuffered(self) -> Result<Object> {
-        self.build().send_unbuffered().await
+        use crate::storage::stub::Storage;
+        self.stub
+            .write_object_unbuffered(self.payload, self.request, self.options)
+            .await
     }
 
     /// Precompute the payload checksums before uploading the data.
@@ -1022,7 +1014,10 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_buffered(self) -> crate::Result<Object> {
-        self.build().send().await
+        use crate::storage::stub::Storage;
+        self.stub
+            .write_object_buffered(self.payload, self.request, self.options)
+            .await
     }
 }
 
@@ -1030,7 +1025,7 @@ where
 impl<T> std::fmt::Debug for WriteObject<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("WriteObject")
-            .field("inner", &self.inner)
+            .field("stub", &self.stub)
             .field("request", &self.request)
             // skip payload, as it is not `Debug`
             .field("options", &self.options)

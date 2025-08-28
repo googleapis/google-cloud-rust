@@ -13,11 +13,14 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::model::ReadObjectRequest;
+use crate::model::{Object, ReadObjectRequest};
+use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::client::StorageInner;
+use crate::storage::perform_upload::PerformUpload;
 use crate::storage::read_object::{ReadObjectResponseImpl, Reader};
 use crate::storage::request_options::RequestOptions;
+use crate::storage::streaming_source::{Seek, StreamingSource};
 use std::sync::Arc;
 
 #[derive(Clone, Debug)]
@@ -44,5 +47,35 @@ impl super::stub::Storage for Storage {
         };
         let inner = ReadObjectResponseImpl::new(reader).await?;
         Ok(ReadObjectResponse::new(Box::new(inner)))
+    }
+
+    /// Implements [crate::client::Storage::write_object].
+    async fn write_object_buffered<P>(
+        &self,
+        payload: P,
+        req: WriteObjectRequest,
+        options: RequestOptions,
+    ) -> Result<Object>
+    where
+        P: StreamingSource + Send + Sync + 'static,
+    {
+        PerformUpload::new(payload, self.inner.clone(), req.spec, req.params, options)
+            .send()
+            .await
+    }
+
+    /// Implements [crate::client::Storage::write_object].
+    async fn write_object_unbuffered<P>(
+        &self,
+        payload: P,
+        req: WriteObjectRequest,
+        options: RequestOptions,
+    ) -> Result<Object>
+    where
+        P: StreamingSource + Seek + Send + Sync + 'static,
+    {
+        PerformUpload::new(payload, self.inner.clone(), req.spec, req.params, options)
+            .send_unbuffered()
+            .await
     }
 }

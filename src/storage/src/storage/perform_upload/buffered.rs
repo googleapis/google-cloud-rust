@@ -237,6 +237,7 @@ mod single_shot_tests;
 mod tests {
     use crate::builder::storage::WriteObject;
     use crate::storage::client::tests::{test_builder, test_inner_client};
+    use crate::storage::perform_upload::tests::perform_upload;
     use test_case::test_case;
 
     type Result = anyhow::Result<()>;
@@ -255,8 +256,8 @@ mod tests {
     #[tokio::test]
     async fn test_percent_encoding_object_name(want: &str) -> Result {
         let inner = test_inner_client(test_builder());
-        let request = WriteObject::new(inner, "projects/_/buckets/bucket", want, "hello")
-            .build()
+        let builder = WriteObject::new(inner.clone(), "projects/_/buckets/bucket", want, "hello");
+        let request = perform_upload(inner, builder)
             .start_resumable_upload_request()
             .await?
             .build()?;
