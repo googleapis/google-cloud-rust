@@ -351,7 +351,7 @@ auth                          = { version = "0.22.4", path = "src/auth", package
 google-cloud-auth             = { version = "0.22.4", path = "src/auth" }
 gax                           = { version = "0.24", path = "src/gax", package = "google-cloud-gax" }
 google-cloud-gax              = { version = "0.24", path = "src/gax" }
-gaxi                          = { version = "0.5.2", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+gaxi                          = { version = "0.5.1", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "0.4.4", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
 google-cloud-iam-v1           = { version = "0.4.4", path = "src/generated/iam/v1" }
 location                      = { version = "0.4.4", path = "src/generated/cloud/location", package = "google-cloud-location" }
@@ -391,8 +391,8 @@ accesscontextmanager_type     = { version = "0.4.4", path = "src/generated/ident
 google-cloud-language-v2      = { version = "0.4.4", path = "src/generated/cloud/language/v2" }
 google-cloud-speech-v2        = { version = "0.4.4", path = "src/generated/cloud/speech/v2" }
 google-cloud-secretmanager-v1 = { version = "0.4.4", path = "src/generated/cloud/secretmanager/v1" }
-google-cloud-aiplatform-v1    = { version = "0.5.0", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
-google-cloud-storage          = { version = "0.25.0-preview6", path = "src/storage" }
+google-cloud-aiplatform-v1    = { version = "0.4.5", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
+google-cloud-storage          = { version = "0.25.0", path = "src/storage" }
 
 # Local test package
 integration-tests = { path = "src/integration-tests" }

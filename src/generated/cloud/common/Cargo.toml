@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-common"
-version                = "0.4.4"
+version                = "0.4.5"
 description            = "Google Cloud Client Libraries for Rust - Common Operation Metadata type"
 edition.workspace      = true
 authors.workspace      = true
