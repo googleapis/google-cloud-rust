@@ -1009,6 +1009,17 @@ where
 {
     /// Upload an object from a streaming source without rewinds.
     ///
+    /// If the data source does **not** implement [Seek] the client library must
+    /// buffer data sent to the service until the service confirms it has
+    /// persisted the data. This requires more memory in the client, and when
+    /// the buffer grows too large, may require stalling the writer until the
+    /// service can persist the data.
+    ///
+    /// Use this function for data sources where it is expensive or impossible
+    /// to restart the data source. This function is also useful when it is hard
+    /// or impossible to predict the number of bytes emitted by a stream, even
+    /// if restarting the stream is not too expensive.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
