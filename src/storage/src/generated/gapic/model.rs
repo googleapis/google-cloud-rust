@@ -3957,7 +3957,7 @@ impl std::fmt::Debug for RestoreObjectRequest {
 /// Request message for ReadObject.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
-pub(crate) struct ReadObjectRequest {
+pub struct ReadObjectRequest {
     /// Required. The name of the bucket containing the object to read.
     pub bucket: std::string::String,
 
@@ -5235,7 +5235,7 @@ impl std::fmt::Debug for GetObjectRequest {
 /// Describes an attempt to insert an object, possibly over multiple requests.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
-pub(crate) struct WriteObjectSpec {
+pub struct WriteObjectSpec {
     /// Required. Destination object, including its name and its metadata.
     pub resource: std::option::Option<crate::model::Object>,
 
