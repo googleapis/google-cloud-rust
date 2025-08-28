@@ -14,8 +14,68 @@
 
 #[cfg(test)]
 mod tests {
+    use gax::error::{
+        Error,
+        rpc::{Code, Status},
+    };
+    use gcs::Result;
+    use gcs::model::Object;
+    use gcs::model_ext::WriteObjectRequest;
+    use gcs::request_options::RequestOptions;
+    use gcs::streaming_source::{BytesSource, Payload, Seek, StreamingSource};
     use google_cloud_storage as gcs;
     use paste::paste;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        Storage {}
+        impl gcs::stub::Storage for Storage {
+            async fn write_object_buffered<P: StreamingSource + Send + Sync + 'static>(
+                &self,
+                _payload: P,
+                _req: WriteObjectRequest,
+                _options: RequestOptions,
+            ) -> Result<Object>;
+            async fn write_object_unbuffered<P: StreamingSource + Seek + Send + Sync + 'static>(
+                &self,
+                _payload: P,
+                _req: WriteObjectRequest,
+                _options: RequestOptions,
+            ) -> Result<Object>;
+        }
+    }
+
+    #[tokio::test]
+    async fn mock_write_object_buffered() {
+        let mut mock = MockStorage::new();
+        mock.expect_write_object_buffered().times(1).returning(
+            |_payload: Payload<BytesSource>, _, _| {
+                Err(Error::service(Status::default().set_code(Code::Aborted)))
+            },
+        );
+        let client = gcs::client::Storage::from_stub(mock);
+        let _ = client
+            .write_object("projects/_/buckets/my-bucket", "my-object", "hello")
+            .send_buffered()
+            .await
+            .unwrap_err();
+    }
+
+    #[tokio::test]
+    async fn mock_write_object_unbuffered() {
+        let mut mock = MockStorage::new();
+        mock.expect_write_object_unbuffered().times(1).returning(
+            |_payload: Payload<BytesSource>, _, _| {
+                Err(Error::service(Status::default().set_code(Code::Aborted)))
+            },
+        );
+        let client = gcs::client::Storage::from_stub(mock);
+        let _ = client
+            .write_object("projects/_/buckets/my-bucket", "my-object", "hello")
+            .send_unbuffered()
+            .await
+            .unwrap_err();
+    }
 
     #[derive(Debug)]
     struct DefaultStorageControl;
