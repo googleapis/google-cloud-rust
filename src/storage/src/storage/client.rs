@@ -86,8 +86,11 @@ use std::sync::Arc;
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
-pub struct Storage {
-    stub: std::sync::Arc<crate::storage::transport::Storage>,
+pub struct Storage<S = crate::storage::transport::Storage>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
+    stub: std::sync::Arc<S>,
     options: RequestOptions,
 }
 
@@ -112,7 +115,12 @@ impl Storage {
     pub fn builder() -> ClientBuilder {
         ClientBuilder::new()
     }
+}
 
+impl<S> Storage<S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
     /// Write an object using a local buffer.
     ///
     /// If the data source does **not** implement [Seek] the client library must
@@ -158,7 +166,7 @@ impl Storage {
     /// * `payload` - the object data.
     ///
     /// [Seek]: crate::streaming_source::Seek
-    pub fn write_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> WriteObject<P>
+    pub fn write_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> WriteObject<P, S>
     where
         B: Into<String>,
         O: Into<String>,
@@ -195,14 +203,16 @@ impl Storage {
     /// * `bucket` - the bucket name containing the object. In
     ///   `projects/_/buckets/{bucket_id}` format.
     /// * `object` - the object name.
-    pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject
+    pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject<S>
     where
         B: Into<String>,
         O: Into<String>,
     {
         ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
+}
 
+impl Storage {
     pub(crate) fn new(builder: ClientBuilder) -> gax::client_builder::Result<Self> {
         use gax::client_builder::Error;
         let client = reqwest::Client::builder()

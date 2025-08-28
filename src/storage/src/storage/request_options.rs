@@ -22,7 +22,7 @@ use gax::{
 use std::sync::{Arc, Mutex};
 
 #[derive(Clone, Debug)]
-pub(crate) struct RequestOptions {
+pub struct RequestOptions {
     pub(crate) retry_policy: Arc<dyn RetryPolicy>,
     pub(crate) backoff_policy: Arc<dyn BackoffPolicy>,
     pub(crate) retry_throttler: SharedRetryThrottler,

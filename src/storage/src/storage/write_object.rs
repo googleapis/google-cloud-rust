@@ -72,14 +72,20 @@ use crate::storage::request_options::RequestOptions;
 ///     Ok(())
 /// }
 /// ```
-pub struct WriteObject<T> {
-    stub: std::sync::Arc<crate::storage::transport::Storage>,
+pub struct WriteObject<T, S = crate::storage::transport::Storage>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
+    stub: std::sync::Arc<S>,
     pub(crate) request: crate::model_ext::WriteObjectRequest,
     pub(crate) payload: Payload<T>,
     pub(crate) options: RequestOptions,
 }
 
-impl<T> WriteObject<T> {
+impl<T, S> WriteObject<T, S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
     /// Set a [request precondition] on the object generation to match.
     ///
     /// With this precondition the request fails if the current object
@@ -892,7 +898,7 @@ impl<T> WriteObject<T> {
     }
 
     pub(crate) fn new<B, O, P>(
-        stub: std::sync::Arc<crate::storage::transport::Storage>,
+        stub: std::sync::Arc<S>,
         bucket: B,
         object: O,
         payload: P,
@@ -918,11 +924,12 @@ impl<T> WriteObject<T> {
     }
 }
 
-impl<T> WriteObject<T>
+impl<T, S> WriteObject<T, S>
 where
     T: StreamingSource + Seek + Send + Sync + 'static,
     <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
+    S: crate::storage::stub::Storage + 'static,
 {
     /// A simple upload from a buffer.
     ///
@@ -938,7 +945,6 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_unbuffered(self) -> Result<Object> {
-        use crate::storage::stub::Storage;
         self.stub
             .write_object_unbuffered(self.payload, self.request, self.options)
             .await
@@ -976,7 +982,7 @@ where
     /// send the checksums at the end of the upload with this API.
     ///
     /// [JSON API]: https://cloud.google.com/storage/docs/json_api
-    pub async fn precompute_checksums(mut self) -> Result<WriteObject<T>> {
+    pub async fn precompute_checksums(mut self) -> Result<Self> {
         let mut offset = 0_u64;
         self.payload.seek(offset).await.map_err(Error::ser)?;
         while let Some(n) = self.payload.next().await.transpose().map_err(Error::ser)? {
@@ -995,10 +1001,11 @@ where
     }
 }
 
-impl<T> WriteObject<T>
+impl<T, S> WriteObject<T, S>
 where
     T: StreamingSource + Send + Sync + 'static,
     T::Error: std::error::Error + Send + Sync + 'static,
+    S: crate::storage::stub::Storage + 'static,
 {
     /// Upload an object from a streaming source without rewinds.
     ///
@@ -1014,7 +1021,6 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_buffered(self) -> crate::Result<Object> {
-        use crate::storage::stub::Storage;
         self.stub
             .write_object_buffered(self.payload, self.request, self.options)
             .await
@@ -1022,7 +1028,10 @@ where
 }
 
 // We need `Debug` to use `expect_err()` in `Result<WriteObject, ...>`.
-impl<T> std::fmt::Debug for WriteObject<T> {
+impl<T, S> std::fmt::Debug for WriteObject<T, S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("WriteObject")
             .field("stub", &self.stub)

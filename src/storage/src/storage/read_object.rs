@@ -62,15 +62,21 @@ use serde_with::DeserializeAs;
 /// }
 /// ```
 #[derive(Clone, Debug)]
-pub struct ReadObject {
-    stub: std::sync::Arc<crate::storage::transport::Storage>,
+pub struct ReadObject<S = crate::storage::transport::Storage>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
+    stub: std::sync::Arc<S>,
     request: crate::model::ReadObjectRequest,
     options: RequestOptions,
 }
 
-impl ReadObject {
+impl<S> ReadObject<S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
     pub(crate) fn new<B, O>(
-        stub: std::sync::Arc<crate::storage::transport::Storage>,
+        stub: std::sync::Arc<S>,
         bucket: B,
         object: O,
         options: RequestOptions,
@@ -357,7 +363,6 @@ impl ReadObject {
 
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
-        use crate::storage::stub::Storage;
         self.stub.read_object(self.request, self.options).await
     }
 }
