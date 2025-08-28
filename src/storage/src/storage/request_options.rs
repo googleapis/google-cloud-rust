@@ -21,6 +21,10 @@ use gax::{
 };
 use std::sync::{Arc, Mutex};
 
+/// The per-request options for a client call.
+///
+/// This is currently an opaque type, used only in mocking the `Storage` client.
+/// It is opaque to avoid breaking changes until its interface stabilizes.
 #[derive(Clone, Debug)]
 pub struct RequestOptions {
     pub(crate) retry_policy: Arc<dyn RetryPolicy>,
