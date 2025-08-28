@@ -1823,6 +1823,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-cloudsecuritycompliance-v1"
+version = "0.4.5"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-commerce-consumer-procurement-v1"
 version = "0.4.5"
 dependencies = [
