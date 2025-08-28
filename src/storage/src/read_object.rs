@@ -179,8 +179,10 @@ mod tests {
     #[tokio::test]
     async fn from_source() -> anyhow::Result<()> {
         const LAZY: &str = "the quick brown fox jumps over the lazy dog";
-        let mut object = ObjectHighlights::default();
-        object.etag = "etag".to_string();
+        let object = ObjectHighlights {
+            etag: "custom-etag".to_string(),
+            ..Default::default()
+        };
 
         let mut response = ReadObjectResponse::from_source(object.clone(), LAZY);
         assert_eq!(&object, &response.object());
