@@ -236,6 +236,11 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running create_bucket_hierarchical_namespace example");
     buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
 
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket_with_object_retention example");
+    buckets::create_bucket_with_object_retention::sample(&client, &project_id, &id).await?;
+
     // Use a new bucket to avoid clashing policies from the previous examples.
     let id = random_bucket_id();
     buckets.push(id.clone());

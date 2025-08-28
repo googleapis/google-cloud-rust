@@ -24,6 +24,7 @@ pub mod create_bucket_class_location;
 pub mod create_bucket_dual_region;
 pub mod create_bucket_hierarchical_namespace;
 pub mod create_bucket_turbo_replication;
+pub mod create_bucket_with_object_retention;
 pub mod define_bucket_website_configuration;
 pub mod delete_bucket;
 pub mod disable_bucket_lifecycle_management;
