@@ -75,7 +75,7 @@ impl super::stub::Storage for Storage {
 
 // This is the actual class impl
 impl Storage {
-    pub fn new(inner: Arc<StorageInner>) -> Arc<Self> {
+    pub(crate) fn new(inner: Arc<StorageInner>) -> Arc<Self> {
         Arc::new(Self { inner })
     }
 }
