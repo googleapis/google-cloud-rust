@@ -33,11 +33,12 @@ class LanguageService {
   final ServiceClient _client;
 
   LanguageService({required http.Client client})
-      : _client = ServiceClient(client: client);
+    : _client = ServiceClient(client: client);
 
   /// Analyzes the sentiment of the provided text.
   Future<AnalyzeSentimentResponse> analyzeSentiment(
-      AnalyzeSentimentRequest request) async {
+    AnalyzeSentimentRequest request,
+  ) async {
     final url = Uri.https(_host, '/v2/documents:analyzeSentiment');
     final response = await _client.post(url, body: request);
     return AnalyzeSentimentResponse.fromJson(response);
@@ -47,7 +48,8 @@ class LanguageService {
   /// along with entity types, probability, mentions for each entity, and
   /// other properties.
   Future<AnalyzeEntitiesResponse> analyzeEntities(
-      AnalyzeEntitiesRequest request) async {
+    AnalyzeEntitiesRequest request,
+  ) async {
     final url = Uri.https(_host, '/v2/documents:analyzeEntities');
     final response = await _client.post(url, body: request);
     return AnalyzeEntitiesResponse.fromJson(response);
@@ -108,12 +110,8 @@ class Document extends ProtoMessage {
   /// called API method, an `INVALID_ARGUMENT` error is returned.
   final String? languageCode;
 
-  Document({
-    this.type,
-    this.content,
-    this.gcsContentUri,
-    this.languageCode,
-  }) : super(fullyQualifiedName);
+  Document({this.type, this.content, this.gcsContentUri, this.languageCode})
+    : super(fullyQualifiedName);
 
   factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
@@ -177,10 +175,7 @@ class Sentence extends ProtoMessage {
   /// is set to true, this field will contain the sentiment for the sentence.
   final Sentiment? sentiment;
 
-  Sentence({
-    this.text,
-    this.sentiment,
-  }) : super(fullyQualifiedName);
+  Sentence({this.text, this.sentiment}) : super(fullyQualifiedName);
 
   factory Sentence.fromJson(Map<String, dynamic> json) {
     return Sentence(
@@ -229,13 +224,8 @@ class Entity extends ProtoMessage {
   /// for this entity in the provided document.
   final Sentiment? sentiment;
 
-  Entity({
-    this.name,
-    this.type,
-    this.metadata,
-    this.mentions,
-    this.sentiment,
-  }) : super(fullyQualifiedName);
+  Entity({this.name, this.type, this.metadata, this.mentions, this.sentiment})
+    : super(fullyQualifiedName);
 
   factory Entity.fromJson(Map<String, dynamic> json) {
     return Entity(
@@ -367,10 +357,7 @@ class Sentiment extends ProtoMessage {
   /// (positive sentiment).
   final double? score;
 
-  Sentiment({
-    this.magnitude,
-    this.score,
-  }) : super(fullyQualifiedName);
+  Sentiment({this.magnitude, this.score}) : super(fullyQualifiedName);
 
   factory Sentiment.fromJson(Map<String, dynamic> json) {
     return Sentiment(
@@ -421,12 +408,8 @@ class EntityMention extends ProtoMessage {
   /// type. The score is in (0, 1] range.
   final double? probability;
 
-  EntityMention({
-    this.text,
-    this.type,
-    this.sentiment,
-    this.probability,
-  }) : super(fullyQualifiedName);
+  EntityMention({this.text, this.type, this.sentiment, this.probability})
+    : super(fullyQualifiedName);
 
   factory EntityMention.fromJson(Map<String, dynamic> json) {
     return EntityMention(
@@ -489,16 +472,10 @@ class TextSpan extends ProtoMessage {
   /// request.
   final int? beginOffset;
 
-  TextSpan({
-    this.content,
-    this.beginOffset,
-  }) : super(fullyQualifiedName);
+  TextSpan({this.content, this.beginOffset}) : super(fullyQualifiedName);
 
   factory TextSpan.fromJson(Map<String, dynamic> json) {
-    return TextSpan(
-      content: json['content'],
-      beginOffset: json['beginOffset'],
-    );
+    return TextSpan(content: json['content'], beginOffset: json['beginOffset']);
   }
 
   @override
@@ -536,11 +513,8 @@ class ClassificationCategory extends ProtoMessage {
   /// the corresponding category has a severity score.
   final double? severity;
 
-  ClassificationCategory({
-    this.name,
-    this.confidence,
-    this.severity,
-  }) : super(fullyQualifiedName);
+  ClassificationCategory({this.name, this.confidence, this.severity})
+    : super(fullyQualifiedName);
 
   factory ClassificationCategory.fromJson(Map<String, dynamic> json) {
     return ClassificationCategory(
@@ -581,10 +555,8 @@ class AnalyzeSentimentRequest extends ProtoMessage {
   /// The encoding type used by the API to calculate sentence offsets.
   final EncodingType? encodingType;
 
-  AnalyzeSentimentRequest({
-    this.document,
-    this.encodingType,
-  }) : super(fullyQualifiedName);
+  AnalyzeSentimentRequest({this.document, this.encodingType})
+    : super(fullyQualifiedName);
 
   factory AnalyzeSentimentRequest.fromJson(Map<String, dynamic> json) {
     return AnalyzeSentimentRequest(
@@ -679,10 +651,8 @@ class AnalyzeEntitiesRequest extends ProtoMessage {
   /// The encoding type used by the API to calculate offsets.
   final EncodingType? encodingType;
 
-  AnalyzeEntitiesRequest({
-    this.document,
-    this.encodingType,
-  }) : super(fullyQualifiedName);
+  AnalyzeEntitiesRequest({this.document, this.encodingType})
+    : super(fullyQualifiedName);
 
   factory AnalyzeEntitiesRequest.fromJson(Map<String, dynamic> json) {
     return AnalyzeEntitiesRequest(
@@ -767,9 +737,7 @@ class ClassifyTextRequest extends ProtoMessage {
   /// Required. Input document.
   final Document? document;
 
-  ClassifyTextRequest({
-    this.document,
-  }) : super(fullyQualifiedName);
+  ClassifyTextRequest({this.document}) : super(fullyQualifiedName);
 
   factory ClassifyTextRequest.fromJson(Map<String, dynamic> json) {
     return ClassifyTextRequest(
@@ -779,9 +747,7 @@ class ClassifyTextRequest extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (document != null) 'document': document!.toJson(),
-    };
+    return {if (document != null) 'document': document!.toJson()};
   }
 
   @override
@@ -815,7 +781,9 @@ class ClassifyTextResponse extends ProtoMessage {
   factory ClassifyTextResponse.fromJson(Map<String, dynamic> json) {
     return ClassifyTextResponse(
       categories: decodeListMessage(
-          json['categories'], ClassificationCategory.fromJson),
+        json['categories'],
+        ClassificationCategory.fromJson,
+      ),
       languageCode: json['languageCode'],
       languageSupported: json['languageSupported'],
     );
@@ -851,16 +819,16 @@ class ModerateTextRequest extends ProtoMessage {
   /// Optional. The model version to use for ModerateText.
   final ModerateTextRequest_ModelVersion? modelVersion;
 
-  ModerateTextRequest({
-    this.document,
-    this.modelVersion,
-  }) : super(fullyQualifiedName);
+  ModerateTextRequest({this.document, this.modelVersion})
+    : super(fullyQualifiedName);
 
   factory ModerateTextRequest.fromJson(Map<String, dynamic> json) {
     return ModerateTextRequest(
       document: decode(json['document'], Document.fromJson),
       modelVersion: decodeEnum(
-          json['modelVersion'], ModerateTextRequest_ModelVersion.fromJson),
+        json['modelVersion'],
+        ModerateTextRequest_ModelVersion.fromJson,
+      ),
     );
   }
 
@@ -884,20 +852,23 @@ class ModerateTextRequest extends ProtoMessage {
 /// The model version to use for ModerateText.
 class ModerateTextRequest_ModelVersion extends ProtoEnum {
   /// The default model version.
-  static const modelVersionUnspecified =
-      ModerateTextRequest_ModelVersion('MODEL_VERSION_UNSPECIFIED');
+  static const modelVersionUnspecified = ModerateTextRequest_ModelVersion(
+    'MODEL_VERSION_UNSPECIFIED',
+  );
 
   /// Use the v1 model, this model is used by default when not provided.
   /// The v1 model only returns probability (confidence) score for each
   /// category.
-  static const modelVersion1 =
-      ModerateTextRequest_ModelVersion('MODEL_VERSION_1');
+  static const modelVersion1 = ModerateTextRequest_ModelVersion(
+    'MODEL_VERSION_1',
+  );
 
   /// Use the v2 model.
   /// The v2 model only returns probability (confidence) score for each
   /// category, and returns severity score for a subset of the categories.
-  static const modelVersion2 =
-      ModerateTextRequest_ModelVersion('MODEL_VERSION_2');
+  static const modelVersion2 = ModerateTextRequest_ModelVersion(
+    'MODEL_VERSION_2',
+  );
 
   const ModerateTextRequest_ModelVersion(super.value);
 
@@ -935,7 +906,9 @@ class ModerateTextResponse extends ProtoMessage {
   factory ModerateTextResponse.fromJson(Map<String, dynamic> json) {
     return ModerateTextResponse(
       moderationCategories: decodeListMessage(
-          json['moderationCategories'], ClassificationCategory.fromJson),
+        json['moderationCategories'],
+        ClassificationCategory.fromJson,
+      ),
       languageCode: json['languageCode'],
       languageSupported: json['languageSupported'],
     );
@@ -976,11 +949,8 @@ class AnnotateTextRequest extends ProtoMessage {
   /// The encoding type used by the API to calculate offsets.
   final EncodingType? encodingType;
 
-  AnnotateTextRequest({
-    this.document,
-    this.features,
-    this.encodingType,
-  }) : super(fullyQualifiedName);
+  AnnotateTextRequest({this.document, this.features, this.encodingType})
+    : super(fullyQualifiedName);
 
   factory AnnotateTextRequest.fromJson(Map<String, dynamic> json) {
     return AnnotateTextRequest(
@@ -1119,9 +1089,13 @@ class AnnotateTextResponse extends ProtoMessage {
       documentSentiment: decode(json['documentSentiment'], Sentiment.fromJson),
       languageCode: json['languageCode'],
       categories: decodeListMessage(
-          json['categories'], ClassificationCategory.fromJson),
+        json['categories'],
+        ClassificationCategory.fromJson,
+      ),
       moderationCategories: decodeListMessage(
-          json['moderationCategories'], ClassificationCategory.fromJson),
+        json['moderationCategories'],
+        ClassificationCategory.fromJson,
+      ),
       languageSupported: json['languageSupported'],
     );
   }

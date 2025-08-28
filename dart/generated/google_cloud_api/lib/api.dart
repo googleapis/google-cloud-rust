@@ -52,10 +52,7 @@ class Authentication extends ProtoMessage {
   /// Defines a set of authentication providers that a service supports.
   final List<AuthProvider>? providers;
 
-  Authentication({
-    this.rules,
-    this.providers,
-  }) : super(fullyQualifiedName);
+  Authentication({this.rules, this.providers}) : super(fullyQualifiedName);
 
   factory Authentication.fromJson(Map<String, dynamic> json) {
     return Authentication(
@@ -116,8 +113,10 @@ class AuthenticationRule extends ProtoMessage {
       selector: json['selector'],
       oauth: decode(json['oauth'], OauthRequirements.fromJson),
       allowWithoutCredential: json['allowWithoutCredential'],
-      requirements:
-          decodeListMessage(json['requirements'], AuthRequirement.fromJson),
+      requirements: decodeListMessage(
+        json['requirements'],
+        AuthRequirement.fromJson,
+      ),
     );
   }
 
@@ -166,12 +165,8 @@ class JwtLocation extends ProtoMessage {
   /// value_prefix="Bearer " with a space at the end.
   final String? valuePrefix;
 
-  JwtLocation({
-    this.header,
-    this.query,
-    this.cookie,
-    this.valuePrefix,
-  }) : super(fullyQualifiedName);
+  JwtLocation({this.header, this.query, this.cookie, this.valuePrefix})
+    : super(fullyQualifiedName);
 
   factory JwtLocation.fromJson(Map<String, dynamic> json) {
     return JwtLocation(
@@ -297,8 +292,10 @@ class AuthProvider extends ProtoMessage {
       jwksUri: json['jwksUri'],
       audiences: json['audiences'],
       authorizationUrl: json['authorizationUrl'],
-      jwtLocations:
-          decodeListMessage(json['jwtLocations'], JwtLocation.fromJson),
+      jwtLocations: decodeListMessage(
+        json['jwtLocations'],
+        JwtLocation.fromJson,
+      ),
     );
   }
 
@@ -357,21 +354,15 @@ class OauthRequirements extends ProtoMessage {
   ///                        https://www.googleapis.com/auth/calendar.read
   final String? canonicalScopes;
 
-  OauthRequirements({
-    this.canonicalScopes,
-  }) : super(fullyQualifiedName);
+  OauthRequirements({this.canonicalScopes}) : super(fullyQualifiedName);
 
   factory OauthRequirements.fromJson(Map<String, dynamic> json) {
-    return OauthRequirements(
-      canonicalScopes: json['canonicalScopes'],
-    );
+    return OauthRequirements(canonicalScopes: json['canonicalScopes']);
   }
 
   @override
   Object toJson() {
-    return {
-      if (canonicalScopes != null) 'canonicalScopes': canonicalScopes,
-    };
+    return {if (canonicalScopes != null) 'canonicalScopes': canonicalScopes};
   }
 
   @override
@@ -414,10 +405,8 @@ class AuthRequirement extends ProtoMessage {
   ///                bookstore_web.apps.googleusercontent.com
   final String? audiences;
 
-  AuthRequirement({
-    this.providerId,
-    this.audiences,
-  }) : super(fullyQualifiedName);
+  AuthRequirement({this.providerId, this.audiences})
+    : super(fullyQualifiedName);
 
   factory AuthRequirement.fromJson(Map<String, dynamic> json) {
     return AuthRequirement(
@@ -453,9 +442,7 @@ class Backend extends ProtoMessage {
   /// **NOTE:** All service configuration rules follow "last one wins" order.
   final List<BackendRule>? rules;
 
-  Backend({
-    this.rules,
-  }) : super(fullyQualifiedName);
+  Backend({this.rules}) : super(fullyQualifiedName);
 
   factory Backend.fromJson(Map<String, dynamic> json) {
     return Backend(
@@ -465,9 +452,7 @@ class Backend extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (rules != null) 'rules': encodeList(rules),
-    };
+    return {if (rules != null) 'rules': encodeList(rules)};
   }
 
   @override
@@ -577,12 +562,16 @@ class BackendRule extends ProtoMessage {
       minDeadline: decodeDouble(json['minDeadline']),
       operationDeadline: decodeDouble(json['operationDeadline']),
       pathTranslation: decodeEnum(
-          json['pathTranslation'], BackendRule_PathTranslation.fromJson),
+        json['pathTranslation'],
+        BackendRule_PathTranslation.fromJson,
+      ),
       jwtAudience: json['jwtAudience'],
       disableAuth: json['disableAuth'],
       protocol: json['protocol'],
       overridesByRequestProtocol: decodeMapMessage(
-          json['overridesByRequestProtocol'], BackendRule.fromJson),
+        json['overridesByRequestProtocol'],
+        BackendRule.fromJson,
+      ),
     );
   }
 
@@ -629,8 +618,9 @@ class BackendRule extends ProtoMessage {
 /// do not accept requests over HTTP/HTTPS should leave `path_translation`
 /// unspecified.
 class BackendRule_PathTranslation extends ProtoEnum {
-  static const pathTranslationUnspecified =
-      BackendRule_PathTranslation('PATH_TRANSLATION_UNSPECIFIED');
+  static const pathTranslationUnspecified = BackendRule_PathTranslation(
+    'PATH_TRANSLATION_UNSPECIFIED',
+  );
 
   /// Use the backend address as-is, with no modification to the path. If the
   /// URL pattern contains variables, the variable names and values will be
@@ -655,8 +645,9 @@ class BackendRule_PathTranslation extends ProtoEnum {
   ///     Request path: /api/company/widgetworks/user/johndoe?timezone=EST
   ///     Translated:
   ///     https://example.cloudfunctions.net/getUser?timezone=EST&cid=widgetworks&uid=johndoe
-  static const constantAddress =
-      BackendRule_PathTranslation('CONSTANT_ADDRESS');
+  static const constantAddress = BackendRule_PathTranslation(
+    'CONSTANT_ADDRESS',
+  );
 
   /// The request path will be appended to the backend address.
   ///
@@ -677,8 +668,9 @@ class BackendRule_PathTranslation extends ProtoEnum {
   ///     Request path: /api/company/widgetworks/user/johndoe?timezone=EST
   ///     Translated:
   ///     https://example.appspot.com/api/company/widgetworks/user/johndoe?timezone=EST
-  static const appendPathToAddress =
-      BackendRule_PathTranslation('APPEND_PATH_TO_ADDRESS');
+  static const appendPathToAddress = BackendRule_PathTranslation(
+    'APPEND_PATH_TO_ADDRESS',
+  );
 
   const BackendRule_PathTranslation(super.value);
 
@@ -730,14 +722,14 @@ class Billing extends ProtoMessage {
   /// one consumer destination.
   final List<Billing_BillingDestination>? consumerDestinations;
 
-  Billing({
-    this.consumerDestinations,
-  }) : super(fullyQualifiedName);
+  Billing({this.consumerDestinations}) : super(fullyQualifiedName);
 
   factory Billing.fromJson(Map<String, dynamic> json) {
     return Billing(
       consumerDestinations: decodeListMessage(
-          json['consumerDestinations'], Billing_BillingDestination.fromJson),
+        json['consumerDestinations'],
+        Billing_BillingDestination.fromJson,
+      ),
     );
   }
 
@@ -769,10 +761,8 @@ class Billing_BillingDestination extends ProtoMessage {
   /// `Service.metrics` section.
   final List<String>? metrics;
 
-  Billing_BillingDestination({
-    this.monitoredResource,
-    this.metrics,
-  }) : super(fullyQualifiedName);
+  Billing_BillingDestination({this.monitoredResource, this.metrics})
+    : super(fullyQualifiedName);
 
   factory Billing_BillingDestination.fromJson(Map<String, dynamic> json) {
     return Billing_BillingDestination(
@@ -822,9 +812,13 @@ class CommonLanguageSettings extends ProtoMessage {
     return CommonLanguageSettings(
       referenceDocsUri: json['referenceDocsUri'],
       destinations: decodeListEnum(
-          json['destinations'], ClientLibraryDestination.fromJson),
+        json['destinations'],
+        ClientLibraryDestination.fromJson,
+      ),
       selectiveGapicGeneration: decode(
-          json['selectiveGapicGeneration'], SelectiveGapicGeneration.fromJson),
+        json['selectiveGapicGeneration'],
+        SelectiveGapicGeneration.fromJson,
+      ),
     );
   }
 
@@ -1011,18 +1005,24 @@ class Publishing extends ProtoMessage {
 
   factory Publishing.fromJson(Map<String, dynamic> json) {
     return Publishing(
-      methodSettings:
-          decodeListMessage(json['methodSettings'], MethodSettings.fromJson),
+      methodSettings: decodeListMessage(
+        json['methodSettings'],
+        MethodSettings.fromJson,
+      ),
       newIssueUri: json['newIssueUri'],
       documentationUri: json['documentationUri'],
       apiShortName: json['apiShortName'],
       githubLabel: json['githubLabel'],
       codeownerGithubTeams: decodeList(json['codeownerGithubTeams']),
       docTagPrefix: json['docTagPrefix'],
-      organization:
-          decodeEnum(json['organization'], ClientLibraryOrganization.fromJson),
+      organization: decodeEnum(
+        json['organization'],
+        ClientLibraryOrganization.fromJson,
+      ),
       librarySettings: decodeListMessage(
-          json['librarySettings'], ClientLibrarySettings.fromJson),
+        json['librarySettings'],
+        ClientLibrarySettings.fromJson,
+      ),
       protoReferenceDocumentationUri: json['protoReferenceDocumentationUri'],
       restReferenceDocumentationUri: json['restReferenceDocumentationUri'],
     );
@@ -1103,11 +1103,8 @@ class JavaSettings extends ProtoMessage {
   /// Some settings.
   final CommonLanguageSettings? common;
 
-  JavaSettings({
-    this.libraryPackage,
-    this.serviceClassNames,
-    this.common,
-  }) : super(fullyQualifiedName);
+  JavaSettings({this.libraryPackage, this.serviceClassNames, this.common})
+    : super(fullyQualifiedName);
 
   factory JavaSettings.fromJson(Map<String, dynamic> json) {
     return JavaSettings(
@@ -1142,9 +1139,7 @@ class CppSettings extends ProtoMessage {
   /// Some settings.
   final CommonLanguageSettings? common;
 
-  CppSettings({
-    this.common,
-  }) : super(fullyQualifiedName);
+  CppSettings({this.common}) : super(fullyQualifiedName);
 
   factory CppSettings.fromJson(Map<String, dynamic> json) {
     return CppSettings(
@@ -1154,9 +1149,7 @@ class CppSettings extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (common != null) 'common': common!.toJson(),
-    };
+    return {if (common != null) 'common': common!.toJson()};
   }
 
   @override
@@ -1170,9 +1163,7 @@ class PhpSettings extends ProtoMessage {
   /// Some settings.
   final CommonLanguageSettings? common;
 
-  PhpSettings({
-    this.common,
-  }) : super(fullyQualifiedName);
+  PhpSettings({this.common}) : super(fullyQualifiedName);
 
   factory PhpSettings.fromJson(Map<String, dynamic> json) {
     return PhpSettings(
@@ -1182,9 +1173,7 @@ class PhpSettings extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (common != null) 'common': common!.toJson(),
-    };
+    return {if (common != null) 'common': common!.toJson()};
   }
 
   @override
@@ -1201,16 +1190,16 @@ class PythonSettings extends ProtoMessage {
   /// Experimental features to be included during client library generation.
   final PythonSettings_ExperimentalFeatures? experimentalFeatures;
 
-  PythonSettings({
-    this.common,
-    this.experimentalFeatures,
-  }) : super(fullyQualifiedName);
+  PythonSettings({this.common, this.experimentalFeatures})
+    : super(fullyQualifiedName);
 
   factory PythonSettings.fromJson(Map<String, dynamic> json) {
     return PythonSettings(
       common: decode(json['common'], CommonLanguageSettings.fromJson),
-      experimentalFeatures: decode(json['experimentalFeatures'],
-          PythonSettings_ExperimentalFeatures.fromJson),
+      experimentalFeatures: decode(
+        json['experimentalFeatures'],
+        PythonSettings_ExperimentalFeatures.fromJson,
+      ),
     );
   }
 
@@ -1259,7 +1248,8 @@ class PythonSettings_ExperimentalFeatures extends ProtoMessage {
   }) : super(fullyQualifiedName);
 
   factory PythonSettings_ExperimentalFeatures.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return PythonSettings_ExperimentalFeatures(
       restAsyncIoEnabled: json['restAsyncIoEnabled'],
       protobufPythonicTypesEnabled: json['protobufPythonicTypesEnabled'],
@@ -1298,9 +1288,7 @@ class NodeSettings extends ProtoMessage {
   /// Some settings.
   final CommonLanguageSettings? common;
 
-  NodeSettings({
-    this.common,
-  }) : super(fullyQualifiedName);
+  NodeSettings({this.common}) : super(fullyQualifiedName);
 
   factory NodeSettings.fromJson(Map<String, dynamic> json) {
     return NodeSettings(
@@ -1310,9 +1298,7 @@ class NodeSettings extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (common != null) 'common': common!.toJson(),
-    };
+    return {if (common != null) 'common': common!.toJson()};
   }
 
   @override
@@ -1401,9 +1387,7 @@ class RubySettings extends ProtoMessage {
   /// Some settings.
   final CommonLanguageSettings? common;
 
-  RubySettings({
-    this.common,
-  }) : super(fullyQualifiedName);
+  RubySettings({this.common}) : super(fullyQualifiedName);
 
   factory RubySettings.fromJson(Map<String, dynamic> json) {
     return RubySettings(
@@ -1413,9 +1397,7 @@ class RubySettings extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (common != null) 'common': common!.toJson(),
-    };
+    return {if (common != null) 'common': common!.toJson()};
   }
 
   @override
@@ -1439,10 +1421,7 @@ class GoSettings extends ProtoMessage {
   ///       Publisher: TopicAdmin
   final Map<String, String>? renamedServices;
 
-  GoSettings({
-    this.common,
-    this.renamedServices,
-  }) : super(fullyQualifiedName);
+  GoSettings({this.common, this.renamedServices}) : super(fullyQualifiedName);
 
   factory GoSettings.fromJson(Map<String, dynamic> json) {
     return GoSettings(
@@ -1507,17 +1486,16 @@ class MethodSettings extends ProtoMessage {
   ///        - request_id
   final List<String>? autoPopulatedFields;
 
-  MethodSettings({
-    this.selector,
-    this.longRunning,
-    this.autoPopulatedFields,
-  }) : super(fullyQualifiedName);
+  MethodSettings({this.selector, this.longRunning, this.autoPopulatedFields})
+    : super(fullyQualifiedName);
 
   factory MethodSettings.fromJson(Map<String, dynamic> json) {
     return MethodSettings(
       selector: json['selector'],
-      longRunning:
-          decode(json['longRunning'], MethodSettings_LongRunning.fromJson),
+      longRunning: decode(
+        json['longRunning'],
+        MethodSettings_LongRunning.fromJson,
+      ),
       autoPopulatedFields: decodeList(json['autoPopulatedFields']),
     );
   }
@@ -1534,9 +1512,7 @@ class MethodSettings extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (selector != null) 'selector=$selector',
-    ].join(',');
+    final contents = [if (selector != null) 'selector=$selector'].join(',');
     return 'MethodSettings($contents)';
   }
 }
@@ -1576,12 +1552,16 @@ class MethodSettings_LongRunning extends ProtoMessage {
 
   factory MethodSettings_LongRunning.fromJson(Map<String, dynamic> json) {
     return MethodSettings_LongRunning(
-      initialPollDelay:
-          decodeCustom(json['initialPollDelay'], Duration.fromJson),
+      initialPollDelay: decodeCustom(
+        json['initialPollDelay'],
+        Duration.fromJson,
+      ),
       pollDelayMultiplier: decodeDouble(json['pollDelayMultiplier']),
       maxPollDelay: decodeCustom(json['maxPollDelay'], Duration.fromJson),
-      totalPollTimeout:
-          decodeCustom(json['totalPollTimeout'], Duration.fromJson),
+      totalPollTimeout: decodeCustom(
+        json['totalPollTimeout'],
+        Duration.fromJson,
+      ),
     );
   }
 
@@ -1626,10 +1606,8 @@ class SelectiveGapicGeneration extends ProtoMessage {
   /// obfuscated identifiers, or other language idiomatic patterns.
   final bool? generateOmittedAsInternal;
 
-  SelectiveGapicGeneration({
-    this.methods,
-    this.generateOmittedAsInternal,
-  }) : super(fullyQualifiedName);
+  SelectiveGapicGeneration({this.methods, this.generateOmittedAsInternal})
+    : super(fullyQualifiedName);
 
   factory SelectiveGapicGeneration.fromJson(Map<String, dynamic> json) {
     return SelectiveGapicGeneration(
@@ -1742,21 +1720,15 @@ class Advice extends ProtoMessage {
   /// be taken to mitigate any implied risks.
   final String? description;
 
-  Advice({
-    this.description,
-  }) : super(fullyQualifiedName);
+  Advice({this.description}) : super(fullyQualifiedName);
 
   factory Advice.fromJson(Map<String, dynamic> json) {
-    return Advice(
-      description: json['description'],
-    );
+    return Advice(description: json['description']);
   }
 
   @override
   Object toJson() {
-    return {
-      if (description != null) 'description': description,
-    };
+    return {if (description != null) 'description': description};
   }
 
   @override
@@ -1790,9 +1762,7 @@ class ProjectProperties extends ProtoMessage {
   /// List of per consumer project-specific properties.
   final List<Property>? properties;
 
-  ProjectProperties({
-    this.properties,
-  }) : super(fullyQualifiedName);
+  ProjectProperties({this.properties}) : super(fullyQualifiedName);
 
   factory ProjectProperties.fromJson(Map<String, dynamic> json) {
     return ProjectProperties(
@@ -1802,9 +1772,7 @@ class ProjectProperties extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (properties != null) 'properties': encodeList(properties),
-    };
+    return {if (properties != null) 'properties': encodeList(properties)};
   }
 
   @override
@@ -1833,11 +1801,8 @@ class Property extends ProtoMessage {
   /// The description of the property
   final String? description;
 
-  Property({
-    this.name,
-    this.type,
-    this.description,
-  }) : super(fullyQualifiedName);
+  Property({this.name, this.type, this.description})
+    : super(fullyQualifiedName);
 
   factory Property.fromJson(Map<String, dynamic> json) {
     return Property(
@@ -1937,9 +1902,7 @@ class Context extends ProtoMessage {
   /// **NOTE:** All service configuration rules follow "last one wins" order.
   final List<ContextRule>? rules;
 
-  Context({
-    this.rules,
-  }) : super(fullyQualifiedName);
+  Context({this.rules}) : super(fullyQualifiedName);
 
   factory Context.fromJson(Map<String, dynamic> json) {
     return Context(
@@ -1949,9 +1912,7 @@ class Context extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (rules != null) 'rules': encodeList(rules),
-    };
+    return {if (rules != null) 'rules': encodeList(rules)};
   }
 
   @override
@@ -2018,9 +1979,7 @@ class ContextRule extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (selector != null) 'selector=$selector',
-    ].join(',');
+    final contents = [if (selector != null) 'selector=$selector'].join(',');
     return 'ContextRule($contents)';
   }
 }
@@ -2042,16 +2001,15 @@ class Control extends ProtoMessage {
   /// Defines policies applying to the API methods of the service.
   final List<MethodPolicy>? methodPolicies;
 
-  Control({
-    this.environment,
-    this.methodPolicies,
-  }) : super(fullyQualifiedName);
+  Control({this.environment, this.methodPolicies}) : super(fullyQualifiedName);
 
   factory Control.fromJson(Map<String, dynamic> json) {
     return Control(
       environment: json['environment'],
-      methodPolicies:
-          decodeListMessage(json['methodPolicies'], MethodPolicy.fromJson),
+      methodPolicies: decodeListMessage(
+        json['methodPolicies'],
+        MethodPolicy.fromJson,
+      ),
     );
   }
 
@@ -2153,11 +2111,15 @@ class Distribution extends ProtoMessage {
       mean: decodeDouble(json['mean']),
       sumOfSquaredDeviation: decodeDouble(json['sumOfSquaredDeviation']),
       range: decode(json['range'], Distribution_Range.fromJson),
-      bucketOptions:
-          decode(json['bucketOptions'], Distribution_BucketOptions.fromJson),
+      bucketOptions: decode(
+        json['bucketOptions'],
+        Distribution_BucketOptions.fromJson,
+      ),
       bucketCounts: decodeList(json['bucketCounts']),
-      exemplars:
-          decodeListMessage(json['exemplars'], Distribution_Exemplar.fromJson),
+      exemplars: decodeListMessage(
+        json['exemplars'],
+        Distribution_Exemplar.fromJson,
+      ),
     );
   }
 
@@ -2197,10 +2159,7 @@ class Distribution_Range extends ProtoMessage {
   /// The maximum of the population values.
   final double? max;
 
-  Distribution_Range({
-    this.min,
-    this.max,
-  }) : super(fullyQualifiedName);
+  Distribution_Range({this.min, this.max}) : super(fullyQualifiedName);
 
   factory Distribution_Range.fromJson(Map<String, dynamic> json) {
     return Distribution_Range(
@@ -2264,11 +2223,17 @@ class Distribution_BucketOptions extends ProtoMessage {
   factory Distribution_BucketOptions.fromJson(Map<String, dynamic> json) {
     return Distribution_BucketOptions(
       linearBuckets: decode(
-          json['linearBuckets'], Distribution_BucketOptions_Linear.fromJson),
-      exponentialBuckets: decode(json['exponentialBuckets'],
-          Distribution_BucketOptions_Exponential.fromJson),
-      explicitBuckets: decode(json['explicitBuckets'],
-          Distribution_BucketOptions_Explicit.fromJson),
+        json['linearBuckets'],
+        Distribution_BucketOptions_Linear.fromJson,
+      ),
+      exponentialBuckets: decode(
+        json['exponentialBuckets'],
+        Distribution_BucketOptions_Exponential.fromJson,
+      ),
+      explicitBuckets: decode(
+        json['explicitBuckets'],
+        Distribution_BucketOptions_Explicit.fromJson,
+      ),
     );
   }
 
@@ -2316,7 +2281,8 @@ class Distribution_BucketOptions_Linear extends ProtoMessage {
   }) : super(fullyQualifiedName);
 
   factory Distribution_BucketOptions_Linear.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return Distribution_BucketOptions_Linear(
       numFiniteBuckets: json['numFiniteBuckets'],
       width: decodeDouble(json['width']),
@@ -2374,7 +2340,8 @@ class Distribution_BucketOptions_Exponential extends ProtoMessage {
   }) : super(fullyQualifiedName);
 
   factory Distribution_BucketOptions_Exponential.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return Distribution_BucketOptions_Exponential(
       numFiniteBuckets: json['numFiniteBuckets'],
       growthFactor: decodeDouble(json['growthFactor']),
@@ -2420,12 +2387,12 @@ class Distribution_BucketOptions_Explicit extends ProtoMessage {
   /// The values must be monotonically increasing.
   final List<double>? bounds;
 
-  Distribution_BucketOptions_Explicit({
-    this.bounds,
-  }) : super(fullyQualifiedName);
+  Distribution_BucketOptions_Explicit({this.bounds})
+    : super(fullyQualifiedName);
 
   factory Distribution_BucketOptions_Explicit.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return Distribution_BucketOptions_Explicit(
       bounds: decodeList(json['bounds']),
     );
@@ -2433,9 +2400,7 @@ class Distribution_BucketOptions_Explicit extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (bounds != null) 'bounds': bounds,
-    };
+    return {if (bounds != null) 'bounds': bounds};
   }
 
   @override
@@ -2470,11 +2435,8 @@ class Distribution_Exemplar extends ProtoMessage {
   /// single exemplar, and this is enforced by the system.
   final List<Any>? attachments;
 
-  Distribution_Exemplar({
-    this.value,
-    this.timestamp,
-    this.attachments,
-  }) : super(fullyQualifiedName);
+  Distribution_Exemplar({this.value, this.timestamp, this.attachments})
+    : super(fullyQualifiedName);
 
   factory Distribution_Exemplar.fromJson(Map<String, dynamic> json) {
     return Distribution_Exemplar(
@@ -2495,9 +2457,7 @@ class Distribution_Exemplar extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (value != null) 'value=$value',
-    ].join(',');
+    final contents = [if (value != null) 'value=$value'].join(',');
     return 'Exemplar($contents)';
   }
 }
@@ -2732,11 +2692,7 @@ class Page extends ProtoMessage {
   /// honored in the generated docset.
   final List<Page>? subpages;
 
-  Page({
-    this.name,
-    this.content,
-    this.subpages,
-  }) : super(fullyQualifiedName);
+  Page({this.name, this.content, this.subpages}) : super(fullyQualifiedName);
 
   factory Page.fromJson(Map<String, dynamic> json) {
     return Page(
@@ -2812,12 +2768,8 @@ class Endpoint extends ProtoMessage {
   /// allowed to proceed.
   final bool? allowCors;
 
-  Endpoint({
-    this.name,
-    this.aliases,
-    this.target,
-    this.allowCors,
-  }) : super(fullyQualifiedName);
+  Endpoint({this.name, this.aliases, this.target, this.allowCors})
+    : super(fullyQualifiedName);
 
   factory Endpoint.fromJson(Map<String, dynamic> json) {
     return Endpoint(
@@ -2864,16 +2816,15 @@ class FieldInfo extends ProtoMessage {
   /// Supporting other generic types may be considered in the future.
   final List<TypeReference>? referencedTypes;
 
-  FieldInfo({
-    this.format,
-    this.referencedTypes,
-  }) : super(fullyQualifiedName);
+  FieldInfo({this.format, this.referencedTypes}) : super(fullyQualifiedName);
 
   factory FieldInfo.fromJson(Map<String, dynamic> json) {
     return FieldInfo(
       format: decodeEnum(json['format'], FieldInfo_Format.fromJson),
-      referencedTypes:
-          decodeListMessage(json['referencedTypes'], TypeReference.fromJson),
+      referencedTypes: decodeListMessage(
+        json['referencedTypes'],
+        TypeReference.fromJson,
+      ),
     );
   }
 
@@ -2888,9 +2839,7 @@ class FieldInfo extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (format != null) 'format=$format',
-    ].join(',');
+    final contents = [if (format != null) 'format=$format'].join(',');
     return 'FieldInfo($contents)';
   }
 }
@@ -2949,28 +2898,20 @@ class TypeReference extends ProtoMessage {
   /// See [AIP-202](https://google.aip.dev/202#type-references) for more details.
   final String? typeName;
 
-  TypeReference({
-    this.typeName,
-  }) : super(fullyQualifiedName);
+  TypeReference({this.typeName}) : super(fullyQualifiedName);
 
   factory TypeReference.fromJson(Map<String, dynamic> json) {
-    return TypeReference(
-      typeName: json['typeName'],
-    );
+    return TypeReference(typeName: json['typeName']);
   }
 
   @override
   Object toJson() {
-    return {
-      if (typeName != null) 'typeName': typeName,
-    };
+    return {if (typeName != null) 'typeName': typeName};
   }
 
   @override
   String toString() {
-    final contents = [
-      if (typeName != null) 'typeName=$typeName',
-    ].join(',');
+    final contents = [if (typeName != null) 'typeName=$typeName'].join(',');
     return 'TypeReference($contents)';
   }
 }
@@ -2994,10 +2935,8 @@ class Http extends ProtoMessage {
   /// segment matches.
   final bool? fullyDecodeReservedExpansion;
 
-  Http({
-    this.rules,
-    this.fullyDecodeReservedExpansion,
-  }) : super(fullyQualifiedName);
+  Http({this.rules, this.fullyDecodeReservedExpansion})
+    : super(fullyQualifiedName);
 
   factory Http.fromJson(Map<String, dynamic> json) {
     return Http(
@@ -3365,8 +3304,10 @@ class HttpRule extends ProtoMessage {
       custom: decode(json['custom'], CustomHttpPattern.fromJson),
       body: json['body'],
       responseBody: json['responseBody'],
-      additionalBindings:
-          decodeListMessage(json['additionalBindings'], HttpRule.fromJson),
+      additionalBindings: decodeListMessage(
+        json['additionalBindings'],
+        HttpRule.fromJson,
+      ),
     );
   }
 
@@ -3413,24 +3354,15 @@ class CustomHttpPattern extends ProtoMessage {
   /// The path matched by this custom verb.
   final String? path;
 
-  CustomHttpPattern({
-    this.kind,
-    this.path,
-  }) : super(fullyQualifiedName);
+  CustomHttpPattern({this.kind, this.path}) : super(fullyQualifiedName);
 
   factory CustomHttpPattern.fromJson(Map<String, dynamic> json) {
-    return CustomHttpPattern(
-      kind: json['kind'],
-      path: json['path'],
-    );
+    return CustomHttpPattern(kind: json['kind'], path: json['path']);
   }
 
   @override
   Object toJson() {
-    return {
-      if (kind != null) 'kind': kind,
-      if (path != null) 'path': path,
-    };
+    return {if (kind != null) 'kind': kind, if (path != null) 'path': path};
   }
 
   @override
@@ -3499,11 +3431,8 @@ class HttpBody extends ProtoMessage {
   /// for streaming APIs.
   final List<Any>? extensions;
 
-  HttpBody({
-    this.contentType,
-    this.data,
-    this.extensions,
-  }) : super(fullyQualifiedName);
+  HttpBody({this.contentType, this.data, this.extensions})
+    : super(fullyQualifiedName);
 
   factory HttpBody.fromJson(Map<String, dynamic> json) {
     return HttpBody(
@@ -3545,17 +3474,16 @@ class LabelDescriptor extends ProtoMessage {
   /// A human-readable description for the label.
   final String? description;
 
-  LabelDescriptor({
-    this.key,
-    this.valueType,
-    this.description,
-  }) : super(fullyQualifiedName);
+  LabelDescriptor({this.key, this.valueType, this.description})
+    : super(fullyQualifiedName);
 
   factory LabelDescriptor.fromJson(Map<String, dynamic> json) {
     return LabelDescriptor(
       key: json['key'],
-      valueType:
-          decodeEnum(json['valueType'], LabelDescriptor_ValueType.fromJson),
+      valueType: decodeEnum(
+        json['valueType'],
+        LabelDescriptor_ValueType.fromJson,
+      ),
       description: json['description'],
     );
   }
@@ -3630,12 +3558,8 @@ class LogDescriptor extends ProtoMessage {
   /// the user interface and should be concise.
   final String? displayName;
 
-  LogDescriptor({
-    this.name,
-    this.labels,
-    this.description,
-    this.displayName,
-  }) : super(fullyQualifiedName);
+  LogDescriptor({this.name, this.labels, this.description, this.displayName})
+    : super(fullyQualifiedName);
 
   factory LogDescriptor.fromJson(Map<String, dynamic> json) {
     return LogDescriptor(
@@ -3711,17 +3635,19 @@ class Logging extends ProtoMessage {
   /// one consumer destination.
   final List<Logging_LoggingDestination>? consumerDestinations;
 
-  Logging({
-    this.producerDestinations,
-    this.consumerDestinations,
-  }) : super(fullyQualifiedName);
+  Logging({this.producerDestinations, this.consumerDestinations})
+    : super(fullyQualifiedName);
 
   factory Logging.fromJson(Map<String, dynamic> json) {
     return Logging(
       producerDestinations: decodeListMessage(
-          json['producerDestinations'], Logging_LoggingDestination.fromJson),
+        json['producerDestinations'],
+        Logging_LoggingDestination.fromJson,
+      ),
       consumerDestinations: decodeListMessage(
-          json['consumerDestinations'], Logging_LoggingDestination.fromJson),
+        json['consumerDestinations'],
+        Logging_LoggingDestination.fromJson,
+      ),
     );
   }
 
@@ -3756,10 +3682,8 @@ class Logging_LoggingDestination extends ProtoMessage {
   /// with the service name followed by "/".
   final List<String>? logs;
 
-  Logging_LoggingDestination({
-    this.monitoredResource,
-    this.logs,
-  }) : super(fullyQualifiedName);
+  Logging_LoggingDestination({this.monitoredResource, this.logs})
+    : super(fullyQualifiedName);
 
   factory Logging_LoggingDestination.fromJson(Map<String, dynamic> json) {
     return Logging_LoggingDestination(
@@ -3966,15 +3890,21 @@ class MetricDescriptor extends ProtoMessage {
       name: json['name'],
       type: json['type'],
       labels: decodeListMessage(json['labels'], LabelDescriptor.fromJson),
-      metricKind:
-          decodeEnum(json['metricKind'], MetricDescriptor_MetricKind.fromJson),
-      valueType:
-          decodeEnum(json['valueType'], MetricDescriptor_ValueType.fromJson),
+      metricKind: decodeEnum(
+        json['metricKind'],
+        MetricDescriptor_MetricKind.fromJson,
+      ),
+      valueType: decodeEnum(
+        json['valueType'],
+        MetricDescriptor_ValueType.fromJson,
+      ),
       unit: json['unit'],
       description: json['description'],
       displayName: json['displayName'],
       metadata: decode(
-          json['metadata'], MetricDescriptor_MetricDescriptorMetadata.fromJson),
+        json['metadata'],
+        MetricDescriptor_MetricDescriptorMetadata.fromJson,
+      ),
       launchStage: decodeEnum(json['launchStage'], LaunchStage.fromJson),
       monitoredResourceTypes: decodeList(json['monitoredResourceTypes']),
     );
@@ -4037,8 +3967,9 @@ class MetricDescriptor_MetricDescriptorMetadata extends ProtoMessage {
 
   /// The scope of the timeseries data of the metric.
   final List<
-          MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel>?
-      timeSeriesResourceHierarchyLevel;
+    MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel
+  >?
+  timeSeriesResourceHierarchyLevel;
 
   MetricDescriptor_MetricDescriptorMetadata({
     this.launchStage,
@@ -4048,15 +3979,17 @@ class MetricDescriptor_MetricDescriptorMetadata extends ProtoMessage {
   }) : super(fullyQualifiedName);
 
   factory MetricDescriptor_MetricDescriptorMetadata.fromJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     return MetricDescriptor_MetricDescriptorMetadata(
       launchStage: decodeEnum(json['launchStage'], LaunchStage.fromJson),
       samplePeriod: decodeCustom(json['samplePeriod'], Duration.fromJson),
       ingestDelay: decodeCustom(json['ingestDelay'], Duration.fromJson),
       timeSeriesResourceHierarchyLevel: decodeListEnum(
-          json['timeSeriesResourceHierarchyLevel'],
-          MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel
-              .fromJson),
+        json['timeSeriesResourceHierarchyLevel'],
+        MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel
+            .fromJson,
+      ),
     );
   }
 
@@ -4067,8 +4000,9 @@ class MetricDescriptor_MetricDescriptorMetadata extends ProtoMessage {
       if (samplePeriod != null) 'samplePeriod': samplePeriod!.toJson(),
       if (ingestDelay != null) 'ingestDelay': ingestDelay!.toJson(),
       if (timeSeriesResourceHierarchyLevel != null)
-        'timeSeriesResourceHierarchyLevel':
-            encodeList(timeSeriesResourceHierarchyLevel),
+        'timeSeriesResourceHierarchyLevel': encodeList(
+          timeSeriesResourceHierarchyLevel,
+        ),
     };
   }
 
@@ -4087,30 +4021,37 @@ class MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel
   /// Do not use this default value.
   static const timeSeriesResourceHierarchyLevelUnspecified =
       MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel(
-          'TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED');
+        'TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED',
+      );
 
   /// Scopes a metric to a project.
   static const project =
       MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel(
-          'PROJECT');
+        'PROJECT',
+      );
 
   /// Scopes a metric to an organization.
   static const organization =
       MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel(
-          'ORGANIZATION');
+        'ORGANIZATION',
+      );
 
   /// Scopes a metric to a folder.
   static const folder =
       MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel(
-          'FOLDER');
+        'FOLDER',
+      );
 
   const MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel(
-      super.value);
+    super.value,
+  );
 
   factory MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel.fromJson(
-          String json) =>
+    String json,
+  ) =>
       MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel(
-          json);
+        json,
+      );
 
   @override
   String toString() => 'TimeSeriesResourceHierarchyLevel.$value';
@@ -4121,8 +4062,9 @@ class MetricDescriptor_MetricDescriptorMetadata_TimeSeriesResourceHierarchyLevel
 /// the MetricKind, see `TimeInterval`.
 class MetricDescriptor_MetricKind extends ProtoEnum {
   /// Do not use this default value.
-  static const metricKindUnspecified =
-      MetricDescriptor_MetricKind('METRIC_KIND_UNSPECIFIED');
+  static const metricKindUnspecified = MetricDescriptor_MetricKind(
+    'METRIC_KIND_UNSPECIFIED',
+  );
 
   /// An instantaneous measurement of a value.
   static const gauge = MetricDescriptor_MetricKind('GAUGE');
@@ -4149,8 +4091,9 @@ class MetricDescriptor_MetricKind extends ProtoEnum {
 /// The value type of a metric.
 class MetricDescriptor_ValueType extends ProtoEnum {
   /// Do not use this default value.
-  static const valueTypeUnspecified =
-      MetricDescriptor_ValueType('VALUE_TYPE_UNSPECIFIED');
+  static const valueTypeUnspecified = MetricDescriptor_ValueType(
+    'VALUE_TYPE_UNSPECIFIED',
+  );
 
   /// The value is a boolean.
   /// This value type can be used only if the metric kind is `GAUGE`.
@@ -4195,16 +4138,10 @@ class Metric extends ProtoMessage {
   /// labels listed in the `MetricDescriptor` must be assigned values.
   final Map<String, String>? labels;
 
-  Metric({
-    this.type,
-    this.labels,
-  }) : super(fullyQualifiedName);
+  Metric({this.type, this.labels}) : super(fullyQualifiedName);
 
   factory Metric.fromJson(Map<String, dynamic> json) {
-    return Metric(
-      type: json['type'],
-      labels: decodeMap(json['labels']),
-    );
+    return Metric(type: json['type'], labels: decodeMap(json['labels']));
   }
 
   @override
@@ -4217,9 +4154,7 @@ class Metric extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (type != null) 'type=$type',
-    ].join(',');
+    final contents = [if (type != null) 'type=$type'].join(',');
     return 'Metric($contents)';
   }
 }
@@ -4350,10 +4285,7 @@ class MonitoredResource extends ProtoMessage {
   /// labels `"project_id"`, `"instance_id"`, and `"zone"`.
   final Map<String, String>? labels;
 
-  MonitoredResource({
-    this.type,
-    this.labels,
-  }) : super(fullyQualifiedName);
+  MonitoredResource({this.type, this.labels}) : super(fullyQualifiedName);
 
   factory MonitoredResource.fromJson(Map<String, dynamic> json) {
     return MonitoredResource(
@@ -4372,9 +4304,7 @@ class MonitoredResource extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (type != null) 'type=$type',
-    ].join(',');
+    final contents = [if (type != null) 'type=$type'].join(',');
     return 'MonitoredResource($contents)';
   }
 }
@@ -4404,10 +4334,8 @@ class MonitoredResourceMetadata extends ProtoMessage {
   /// Output only. A map of user-defined metadata labels.
   final Map<String, String>? userLabels;
 
-  MonitoredResourceMetadata({
-    this.systemLabels,
-    this.userLabels,
-  }) : super(fullyQualifiedName);
+  MonitoredResourceMetadata({this.systemLabels, this.userLabels})
+    : super(fullyQualifiedName);
 
   factory MonitoredResourceMetadata.fromJson(Map<String, dynamic> json) {
     return MonitoredResourceMetadata(
@@ -4499,17 +4427,19 @@ class Monitoring extends ProtoMessage {
   /// in the Monitoring configuration.
   final List<Monitoring_MonitoringDestination>? consumerDestinations;
 
-  Monitoring({
-    this.producerDestinations,
-    this.consumerDestinations,
-  }) : super(fullyQualifiedName);
+  Monitoring({this.producerDestinations, this.consumerDestinations})
+    : super(fullyQualifiedName);
 
   factory Monitoring.fromJson(Map<String, dynamic> json) {
     return Monitoring(
-      producerDestinations: decodeListMessage(json['producerDestinations'],
-          Monitoring_MonitoringDestination.fromJson),
-      consumerDestinations: decodeListMessage(json['consumerDestinations'],
-          Monitoring_MonitoringDestination.fromJson),
+      producerDestinations: decodeListMessage(
+        json['producerDestinations'],
+        Monitoring_MonitoringDestination.fromJson,
+      ),
+      consumerDestinations: decodeListMessage(
+        json['consumerDestinations'],
+        Monitoring_MonitoringDestination.fromJson,
+      ),
     );
   }
 
@@ -4543,10 +4473,8 @@ class Monitoring_MonitoringDestination extends ProtoMessage {
   /// `Service.metrics` section.
   final List<String>? metrics;
 
-  Monitoring_MonitoringDestination({
-    this.monitoredResource,
-    this.metrics,
-  }) : super(fullyQualifiedName);
+  Monitoring_MonitoringDestination({this.monitoredResource, this.metrics})
+    : super(fullyQualifiedName);
 
   factory Monitoring_MonitoringDestination.fromJson(Map<String, dynamic> json) {
     return Monitoring_MonitoringDestination(
@@ -4604,11 +4532,8 @@ class FieldPolicy extends ProtoMessage {
   /// Specifies the resource type for the resource referred to by the field.
   final String? resourceType;
 
-  FieldPolicy({
-    this.selector,
-    this.resourcePermission,
-    this.resourceType,
-  }) : super(fullyQualifiedName);
+  FieldPolicy({this.selector, this.resourcePermission, this.resourceType})
+    : super(fullyQualifiedName);
 
   factory FieldPolicy.fromJson(Map<String, dynamic> json) {
     return FieldPolicy(
@@ -4655,16 +4580,16 @@ class MethodPolicy extends ProtoMessage {
   /// Policies that are applicable to the request message.
   final List<FieldPolicy>? requestPolicies;
 
-  MethodPolicy({
-    this.selector,
-    this.requestPolicies,
-  }) : super(fullyQualifiedName);
+  MethodPolicy({this.selector, this.requestPolicies})
+    : super(fullyQualifiedName);
 
   factory MethodPolicy.fromJson(Map<String, dynamic> json) {
     return MethodPolicy(
       selector: json['selector'],
-      requestPolicies:
-          decodeListMessage(json['requestPolicies'], FieldPolicy.fromJson),
+      requestPolicies: decodeListMessage(
+        json['requestPolicies'],
+        FieldPolicy.fromJson,
+      ),
     );
   }
 
@@ -4679,9 +4604,7 @@ class MethodPolicy extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (selector != null) 'selector=$selector',
-    ].join(',');
+    final contents = [if (selector != null) 'selector=$selector'].join(',');
     return 'MethodPolicy($contents)';
   }
 }
@@ -4745,10 +4668,7 @@ class Quota extends ProtoMessage {
   /// or more metrics.
   final List<MetricRule>? metricRules;
 
-  Quota({
-    this.limits,
-    this.metricRules,
-  }) : super(fullyQualifiedName);
+  Quota({this.limits, this.metricRules}) : super(fullyQualifiedName);
 
   factory Quota.fromJson(Map<String, dynamic> json) {
     return Quota(
@@ -4788,10 +4708,7 @@ class MetricRule extends ProtoMessage {
   /// The value must not be negative.
   final Map<String, int>? metricCosts;
 
-  MetricRule({
-    this.selector,
-    this.metricCosts,
-  }) : super(fullyQualifiedName);
+  MetricRule({this.selector, this.metricCosts}) : super(fullyQualifiedName);
 
   factory MetricRule.fromJson(Map<String, dynamic> json) {
     return MetricRule(
@@ -4810,9 +4727,7 @@ class MetricRule extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (selector != null) 'selector=$selector',
-    ].join(',');
+    final contents = [if (selector != null) 'selector=$selector'].join(',');
     return 'MetricRule($contents)';
   }
 }
@@ -5143,19 +5058,22 @@ class ResourceDescriptor extends ProtoMessage {
 /// resource pattern.
 class ResourceDescriptor_History extends ProtoEnum {
   /// The "unset" value.
-  static const historyUnspecified =
-      ResourceDescriptor_History('HISTORY_UNSPECIFIED');
+  static const historyUnspecified = ResourceDescriptor_History(
+    'HISTORY_UNSPECIFIED',
+  );
 
   /// The resource originally had one pattern and launched as such, and
   /// additional patterns were added later.
-  static const originallySinglePattern =
-      ResourceDescriptor_History('ORIGINALLY_SINGLE_PATTERN');
+  static const originallySinglePattern = ResourceDescriptor_History(
+    'ORIGINALLY_SINGLE_PATTERN',
+  );
 
   /// The resource has one pattern, but the API owner expects to add more
   /// later. (This is the inverse of ORIGINALLY_SINGLE_PATTERN, and prevents
   /// that from being necessary once there are multiple patterns.)
-  static const futureMultiPattern =
-      ResourceDescriptor_History('FUTURE_MULTI_PATTERN');
+  static const futureMultiPattern = ResourceDescriptor_History(
+    'FUTURE_MULTI_PATTERN',
+  );
 
   const ResourceDescriptor_History(super.value);
 
@@ -5179,8 +5097,9 @@ class ResourceDescriptor_Style extends ProtoEnum {
   ///
   /// Note: This is used by the API linter (linter.aip.dev) to enable
   /// additional checks.
-  static const declarativeFriendly =
-      ResourceDescriptor_Style('DECLARATIVE_FRIENDLY');
+  static const declarativeFriendly = ResourceDescriptor_Style(
+    'DECLARATIVE_FRIENDLY',
+  );
 
   const ResourceDescriptor_Style(super.value);
 
@@ -5231,16 +5150,10 @@ class ResourceReference extends ProtoMessage {
   ///     }
   final String? childType;
 
-  ResourceReference({
-    this.type,
-    this.childType,
-  }) : super(fullyQualifiedName);
+  ResourceReference({this.type, this.childType}) : super(fullyQualifiedName);
 
   factory ResourceReference.fromJson(Map<String, dynamic> json) {
-    return ResourceReference(
-      type: json['type'],
-      childType: json['childType'],
-    );
+    return ResourceReference(type: json['type'], childType: json['childType']);
   }
 
   @override
@@ -5631,14 +5544,14 @@ class RoutingRule extends ProtoMessage {
   /// See the examples for more details.
   final List<RoutingParameter>? routingParameters;
 
-  RoutingRule({
-    this.routingParameters,
-  }) : super(fullyQualifiedName);
+  RoutingRule({this.routingParameters}) : super(fullyQualifiedName);
 
   factory RoutingRule.fromJson(Map<String, dynamic> json) {
     return RoutingRule(
       routingParameters: decodeListMessage(
-          json['routingParameters'], RoutingParameter.fromJson),
+        json['routingParameters'],
+        RoutingParameter.fromJson,
+      ),
     );
   }
 
@@ -5717,10 +5630,7 @@ class RoutingParameter extends ProtoMessage {
   /// See Example 1 for more details.
   final String? pathTemplate;
 
-  RoutingParameter({
-    this.field,
-    this.pathTemplate,
-  }) : super(fullyQualifiedName);
+  RoutingParameter({this.field, this.pathTemplate}) : super(fullyQualifiedName);
 
   factory RoutingParameter.fromJson(Map<String, dynamic> json) {
     return RoutingParameter(
@@ -5944,12 +5854,16 @@ class Service extends ProtoMessage {
       logs: decodeListMessage(json['logs'], LogDescriptor.fromJson),
       metrics: decodeListMessage(json['metrics'], MetricDescriptor.fromJson),
       monitoredResources: decodeListMessage(
-          json['monitoredResources'], MonitoredResourceDescriptor.fromJson),
+        json['monitoredResources'],
+        MonitoredResourceDescriptor.fromJson,
+      ),
       billing: decode(json['billing'], Billing.fromJson),
       logging: decode(json['logging'], Logging.fromJson),
       monitoring: decode(json['monitoring'], Monitoring.fromJson),
-      systemParameters:
-          decode(json['systemParameters'], SystemParameters.fromJson),
+      systemParameters: decode(
+        json['systemParameters'],
+        SystemParameters.fromJson,
+      ),
       sourceInfo: decode(json['sourceInfo'], SourceInfo.fromJson),
       publishing: decode(json['publishing'], Publishing.fromJson),
       configVersion: decodeCustom(json['configVersion'], Uint32Value.fromJson),
@@ -6009,9 +5923,7 @@ class SourceInfo extends ProtoMessage {
   /// All files used during config generation.
   final List<Any>? sourceFiles;
 
-  SourceInfo({
-    this.sourceFiles,
-  }) : super(fullyQualifiedName);
+  SourceInfo({this.sourceFiles}) : super(fullyQualifiedName);
 
   factory SourceInfo.fromJson(Map<String, dynamic> json) {
     return SourceInfo(
@@ -6021,9 +5933,7 @@ class SourceInfo extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (sourceFiles != null) 'sourceFiles': encodeList(sourceFiles),
-    };
+    return {if (sourceFiles != null) 'sourceFiles': encodeList(sourceFiles)};
   }
 
   @override
@@ -6070,9 +5980,7 @@ class SystemParameters extends ProtoMessage {
   /// **NOTE:** All service configuration rules follow "last one wins" order.
   final List<SystemParameterRule>? rules;
 
-  SystemParameters({
-    this.rules,
-  }) : super(fullyQualifiedName);
+  SystemParameters({this.rules}) : super(fullyQualifiedName);
 
   factory SystemParameters.fromJson(Map<String, dynamic> json) {
     return SystemParameters(
@@ -6082,9 +5990,7 @@ class SystemParameters extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (rules != null) 'rules': encodeList(rules),
-    };
+    return {if (rules != null) 'rules': encodeList(rules)};
   }
 
   @override
@@ -6110,16 +6016,16 @@ class SystemParameterRule extends ProtoMessage {
   /// parameter-dependent.
   final List<SystemParameter>? parameters;
 
-  SystemParameterRule({
-    this.selector,
-    this.parameters,
-  }) : super(fullyQualifiedName);
+  SystemParameterRule({this.selector, this.parameters})
+    : super(fullyQualifiedName);
 
   factory SystemParameterRule.fromJson(Map<String, dynamic> json) {
     return SystemParameterRule(
       selector: json['selector'],
-      parameters:
-          decodeListMessage(json['parameters'], SystemParameter.fromJson),
+      parameters: decodeListMessage(
+        json['parameters'],
+        SystemParameter.fromJson,
+      ),
     );
   }
 
@@ -6133,9 +6039,7 @@ class SystemParameterRule extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (selector != null) 'selector=$selector',
-    ].join(',');
+    final contents = [if (selector != null) 'selector=$selector'].join(',');
     return 'SystemParameterRule($contents)';
   }
 }
@@ -6157,11 +6061,8 @@ class SystemParameter extends ProtoMessage {
   /// sensitive.
   final String? urlQueryParameter;
 
-  SystemParameter({
-    this.name,
-    this.httpHeader,
-    this.urlQueryParameter,
-  }) : super(fullyQualifiedName);
+  SystemParameter({this.name, this.httpHeader, this.urlQueryParameter})
+    : super(fullyQualifiedName);
 
   factory SystemParameter.fromJson(Map<String, dynamic> json) {
     return SystemParameter(
@@ -6221,11 +6122,8 @@ class Usage extends ProtoMessage {
   /// documented in https://cloud.google.com/pubsub/docs/overview.
   final String? producerNotificationChannel;
 
-  Usage({
-    this.requirements,
-    this.rules,
-    this.producerNotificationChannel,
-  }) : super(fullyQualifiedName);
+  Usage({this.requirements, this.rules, this.producerNotificationChannel})
+    : super(fullyQualifiedName);
 
   factory Usage.fromJson(Map<String, dynamic> json) {
     return Usage(
@@ -6367,9 +6265,7 @@ class Visibility extends ProtoMessage {
   /// **NOTE:** All service configuration rules follow "last one wins" order.
   final List<VisibilityRule>? rules;
 
-  Visibility({
-    this.rules,
-  }) : super(fullyQualifiedName);
+  Visibility({this.rules}) : super(fullyQualifiedName);
 
   factory Visibility.fromJson(Map<String, dynamic> json) {
     return Visibility(
@@ -6379,9 +6275,7 @@ class Visibility extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (rules != null) 'rules': encodeList(rules),
-    };
+    return {if (rules != null) 'rules': encodeList(rules)};
   }
 
   @override
@@ -6416,10 +6310,7 @@ class VisibilityRule extends ProtoMessage {
   /// this method and only had access to it through INTERNAL.
   final String? restriction;
 
-  VisibilityRule({
-    this.selector,
-    this.restriction,
-  }) : super(fullyQualifiedName);
+  VisibilityRule({this.selector, this.restriction}) : super(fullyQualifiedName);
 
   factory VisibilityRule.fromJson(Map<String, dynamic> json) {
     return VisibilityRule(
@@ -6450,8 +6341,9 @@ class VisibilityRule extends ProtoMessage {
 /// Affects the url where generated docs are published, etc.
 class ClientLibraryOrganization extends ProtoEnum {
   /// Not useful.
-  static const clientLibraryOrganizationUnspecified =
-      ClientLibraryOrganization('CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED');
+  static const clientLibraryOrganizationUnspecified = ClientLibraryOrganization(
+    'CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED',
+  );
 
   /// Google Cloud Platform Org.
   static const cloud = ClientLibraryOrganization('CLOUD');
@@ -6487,8 +6379,9 @@ class ClientLibraryOrganization extends ProtoEnum {
 class ClientLibraryDestination extends ProtoEnum {
   /// Client libraries will neither be generated nor published to package
   /// managers.
-  static const clientLibraryDestinationUnspecified =
-      ClientLibraryDestination('CLIENT_LIBRARY_DESTINATION_UNSPECIFIED');
+  static const clientLibraryDestinationUnspecified = ClientLibraryDestination(
+    'CLIENT_LIBRARY_DESTINATION_UNSPECIFIED',
+  );
 
   /// Generate the client library in a repo under github.com/googleapis,
   /// but don't publish it to package managers.
@@ -6625,8 +6518,9 @@ class ErrorReason extends ProtoEnum {
   ///         "service": "storage.googleapis.com",
   ///       }
   ///     }
-  static const apiKeyHttpReferrerBlocked =
-      ErrorReason('API_KEY_HTTP_REFERRER_BLOCKED');
+  static const apiKeyHttpReferrerBlocked = ErrorReason(
+    'API_KEY_HTTP_REFERRER_BLOCKED',
+  );
 
   /// The request is denied because it violates [API key IP address
   /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_application_restrictions).
@@ -6642,8 +6536,9 @@ class ErrorReason extends ProtoEnum {
   ///         "service": "storage.googleapis.com",
   ///       }
   ///     }
-  static const apiKeyIpAddressBlocked =
-      ErrorReason('API_KEY_IP_ADDRESS_BLOCKED');
+  static const apiKeyIpAddressBlocked = ErrorReason(
+    'API_KEY_IP_ADDRESS_BLOCKED',
+  );
 
   /// The request is denied because it violates [API key Android application
   /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_application_restrictions).
@@ -6659,8 +6554,9 @@ class ErrorReason extends ProtoEnum {
   ///         "service": "storage.googleapis.com"
   ///       }
   ///     }
-  static const apiKeyAndroidAppBlocked =
-      ErrorReason('API_KEY_ANDROID_APP_BLOCKED');
+  static const apiKeyAndroidAppBlocked = ErrorReason(
+    'API_KEY_ANDROID_APP_BLOCKED',
+  );
 
   /// The request is denied because it violates [API key iOS application
   /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_application_restrictions).
@@ -6766,8 +6662,9 @@ class ErrorReason extends ProtoEnum {
   ///
   /// This response indicates creating the Cloud Storage Bucket in
   /// "locations/asia-northeast3" violates the location tax restriction.
-  static const locationTaxPolicyViolated =
-      ErrorReason('LOCATION_TAX_POLICY_VIOLATED');
+  static const locationTaxPolicyViolated = ErrorReason(
+    'LOCATION_TAX_POLICY_VIOLATED',
+  );
 
   /// The request is denied because the caller does not have required permission
   /// on the user project "projects/123" or the user project is invalid. For more
@@ -6870,8 +6767,9 @@ class ErrorReason extends ProtoEnum {
   ///         "method": "google.storage.v1.Storage.GetObject"
   ///       }
   ///     }
-  static const accessTokenScopeInsufficient =
-      ErrorReason('ACCESS_TOKEN_SCOPE_INSUFFICIENT');
+  static const accessTokenScopeInsufficient = ErrorReason(
+    'ACCESS_TOKEN_SCOPE_INSUFFICIENT',
+  );
 
   /// The request is denied because the account associated with the provided
   /// access token is in an invalid state, such as disabled or deleted.
@@ -6908,8 +6806,9 @@ class ErrorReason extends ProtoEnum {
   ///         "method": "google.storage.v1.Storage.GetObject"
   ///       }
   ///     }
-  static const accessTokenTypeUnsupported =
-      ErrorReason('ACCESS_TOKEN_TYPE_UNSUPPORTED');
+  static const accessTokenTypeUnsupported = ErrorReason(
+    'ACCESS_TOKEN_TYPE_UNSUPPORTED',
+  );
 
   /// The request is denied because the request doesn't have any authentication
   /// credentials. For more information regarding the supported authentication
@@ -6995,8 +6894,9 @@ class ErrorReason extends ProtoEnum {
   ///         "service": "storage.googleapis.com"
   ///       }
   ///     }
-  static const resourceUsageRestrictionViolated =
-      ErrorReason('RESOURCE_USAGE_RESTRICTION_VIOLATED');
+  static const resourceUsageRestrictionViolated = ErrorReason(
+    'RESOURCE_USAGE_RESTRICTION_VIOLATED',
+  );
 
   /// Unimplemented. Do not use.
   ///
@@ -7014,8 +6914,9 @@ class ErrorReason extends ProtoEnum {
   ///         "parameter": "x-goog-user-ip"
   ///       }
   ///     }
-  static const systemParameterUnsupported =
-      ErrorReason('SYSTEM_PARAMETER_UNSUPPORTED');
+  static const systemParameterUnsupported = ErrorReason(
+    'SYSTEM_PARAMETER_UNSUPPORTED',
+  );
 
   /// The request is denied because it violates Org Restriction: the requested
   /// resource does not belong to allowed organizations specified in
@@ -7032,8 +6933,9 @@ class ErrorReason extends ProtoEnum {
   ///     "service": "pubsub.googleapis.com"
   ///   }
   /// }
-  static const orgRestrictionViolation =
-      ErrorReason('ORG_RESTRICTION_VIOLATION');
+  static const orgRestrictionViolation = ErrorReason(
+    'ORG_RESTRICTION_VIOLATION',
+  );
 
   /// The request is denied because "X-Goog-Allowed-Resources" header is in a bad
   /// format.
@@ -7050,8 +6952,9 @@ class ErrorReason extends ProtoEnum {
   ///     "service": "pubsub.googleapis.com"
   ///   }
   /// }
-  static const orgRestrictionHeaderInvalid =
-      ErrorReason('ORG_RESTRICTION_HEADER_INVALID');
+  static const orgRestrictionHeaderInvalid = ErrorReason(
+    'ORG_RESTRICTION_HEADER_INVALID',
+  );
 
   /// Unimplemented. Do not use.
   ///
@@ -7156,8 +7059,9 @@ class ErrorReason extends ProtoEnum {
 /// Note: This enum **may** receive new values in the future.
 class FieldBehavior extends ProtoEnum {
   /// Conventional default for enums. Do not use this.
-  static const fieldBehaviorUnspecified =
-      FieldBehavior('FIELD_BEHAVIOR_UNSPECIFIED');
+  static const fieldBehaviorUnspecified = FieldBehavior(
+    'FIELD_BEHAVIOR_UNSPECIFIED',
+  );
 
   /// Specifically denotes a field as optional.
   /// While all fields in protocol buffers are optional, this may be specified

@@ -177,7 +177,6 @@ async fn write_stripe(
     writer.seek(std::io::SeekFrom::Start(offset)).await?;
     // ANCHOR_END: write-stripe-seek
     // ANCHOR: write-stripe-reader
-    use google_cloud_storage::read_object::ReadObjectResponse;
     let mut reader = client
         .read_object(&metadata.bucket, &metadata.name)
         // ANCHOR_END: write-stripe-reader

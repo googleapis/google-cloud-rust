@@ -19,14 +19,23 @@ use crate::model_ext::ObjectHighlights;
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
 
-mod sealed {
-    pub trait ReadObjectResponse {}
+/// The result of a `ReadObject` request.
+///
+/// Objects can be large, and must be returned as a stream of bytes. This struct
+/// also provides an accessor to retrieve the object's metadata.
+#[derive(Debug)]
+pub struct ReadObjectResponse {
+    inner: Box<dyn dynamic::ReadObjectResponse + Send>,
 }
 
-impl<T> sealed::ReadObjectResponse for T where T: ReadObjectResponse {}
+impl ReadObjectResponse {
+    pub(crate) fn new<T>(inner: Box<T>) -> Self
+    where
+        T: dynamic::ReadObjectResponse + Send + 'static,
+    {
+        Self { inner }
+    }
 
-/// A trait representing the interface to read an object
-pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
     /// Get the highlights of the object metadata included in the
     /// response.
     ///
@@ -36,7 +45,6 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::read_object::ReadObjectResponse;
     /// let object = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
@@ -48,7 +56,9 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
     /// println!("object content encoding={}", object.content_encoding);
     /// # Ok(()) }
     /// ```
-    fn object(&self) -> ObjectHighlights;
+    pub fn object(&self) -> ObjectHighlights {
+        self.inner.object()
+    }
 
     /// Stream the next bytes of the object.
     ///
@@ -58,7 +68,6 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// use google_cloud_storage::read_object::ReadObjectResponse;
     /// let mut resp = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
@@ -68,10 +77,34 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
     /// }
     /// # Ok(()) }
     /// ```
-    fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes>>> + Send;
+    pub async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
+        self.inner.next().await
+    }
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Convert the response to a [Stream].
-    fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin;
+    pub fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin {
+        use futures::stream::unfold;
+        Box::pin(unfold(Some(self), move |state| async move {
+            if let Some(mut this) = state {
+                if let Some(chunk) = this.next().await {
+                    return Some((chunk, Some(this)));
+                }
+            };
+            None
+        }))
+    }
+}
+
+pub(crate) mod dynamic {
+    use crate::Result;
+    use crate::model_ext::ObjectHighlights;
+
+    /// A trait representing the interface to read an object
+    #[async_trait::async_trait]
+    pub trait ReadObjectResponse: std::fmt::Debug {
+        fn object(&self) -> ObjectHighlights;
+        async fn next(&mut self) -> Option<Result<bytes::Bytes>>;
+    }
 }

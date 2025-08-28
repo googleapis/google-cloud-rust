@@ -856,10 +856,7 @@ pub async fn ranged_reads(
     Ok(())
 }
 
-async fn read_all<R>(mut response: R) -> Result<Vec<u8>>
-where
-    R: ReadObjectResponse,
-{
+async fn read_all(mut response: ReadObjectResponse) -> Result<Vec<u8>> {
     let mut contents = Vec::new();
     while let Some(b) = response.next().await.transpose()? {
         contents.extend_from_slice(&b);

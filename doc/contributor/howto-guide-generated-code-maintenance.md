@@ -126,15 +126,22 @@ go -C ../librarian run ./cmd/sidekick refreshall -project-root $PWD && cargo fmt
 ```
 
 Once the changes work then send a PR in the librarian repo to make your changes.
-Wait for the PR to be approved and merged. Then finish your PR in
-`google-cloud-rust` by running sidekick again:
+Wait for the PR to be approved and merged.
+
+Then finish your PR in `google-cloud-rust` by running sidekick again:
 
 ```bash
 go run github.com/googleapis/librarian/cmd/sidekick@main refreshall && cargo fmt
 ```
 
+Find out what is the new version of librarian:
+
+```bash
+go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main
+```
+
 Then update any references in this document and in the `.github/workflows/*`
-files.
+files. Use a single PR to update the CI builds and any generated code.
 
 ### Generating a library with customized directories
 

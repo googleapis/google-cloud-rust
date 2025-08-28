@@ -18,7 +18,7 @@ description: Unit and integration tests for the generated cloud APIs.
 publish_to: none
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.9.0
 
 resolution: workspace
 

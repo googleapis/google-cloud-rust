@@ -1508,14 +1508,13 @@ impl super::stub::StorageControl for StorageControl {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
-                "google.storage.control.v2.StorageControl",
+                "google.longrunning.Operations",
                 "GetOperation",
             ));
             e
         };
-        let path = http::uri::PathAndQuery::from_static(
-            "/google.storage.control.v2.StorageControl/GetOperation",
-        );
+        let path =
+            http::uri::PathAndQuery::from_static("/google.longrunning.Operations/GetOperation");
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())

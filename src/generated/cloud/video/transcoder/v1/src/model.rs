@@ -1877,6 +1877,9 @@ pub struct Input {
     /// Preprocessing configurations.
     pub preprocessing_config: std::option::Option<crate::model::PreprocessingConfig>,
 
+    /// Optional. Input Attributes.
+    pub attributes: std::option::Option<crate::model::InputAttributes>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1914,6 +1917,24 @@ impl Input {
         self.preprocessing_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [attributes][crate::model::Input::attributes].
+    pub fn set_attributes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InputAttributes>,
+    {
+        self.attributes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [attributes][crate::model::Input::attributes].
+    pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InputAttributes>,
+    {
+        self.attributes = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Input {
@@ -1935,6 +1956,7 @@ impl<'de> serde::de::Deserialize<'de> for Input {
             __key,
             __uri,
             __preprocessing_config,
+            __attributes,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1959,6 +1981,7 @@ impl<'de> serde::de::Deserialize<'de> for Input {
                             "uri" => Ok(__FieldTag::__uri),
                             "preprocessingConfig" => Ok(__FieldTag::__preprocessing_config),
                             "preprocessing_config" => Ok(__FieldTag::__preprocessing_config),
+                            "attributes" => Ok(__FieldTag::__attributes),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2013,6 +2036,16 @@ impl<'de> serde::de::Deserialize<'de> for Input {
                             result.preprocessing_config = map.next_value::<std::option::Option<crate::model::PreprocessingConfig>>()?
                                 ;
                         }
+                        __FieldTag::__attributes => {
+                            if !fields.insert(__FieldTag::__attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attributes",
+                                ));
+                            }
+                            result.attributes = map
+                                .next_value::<std::option::Option<crate::model::InputAttributes>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2045,6 +2078,9 @@ impl serde::ser::Serialize for Input {
         if self.preprocessing_config.is_some() {
             state.serialize_entry("preprocessingConfig", &self.preprocessing_config)?;
         }
+        if self.attributes.is_some() {
+            state.serialize_entry("attributes", &self.attributes)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2060,6 +2096,7 @@ impl std::fmt::Debug for Input {
         debug_struct.field("key", &self.key);
         debug_struct.field("uri", &self.uri);
         debug_struct.field("preprocessing_config", &self.preprocessing_config);
+        debug_struct.field("attributes", &self.attributes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9374,6 +9411,420 @@ pub mod preprocessing_config {
             /// Specifies the Bob Weaver Deinterlacing Filter Configuration.
             Bwdif(std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>),
         }
+    }
+}
+
+/// Track definition for the input asset.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TrackDefinition {
+    /// The input track.
+    pub input_track: std::option::Option<i32>,
+
+    /// Optional. A list of languages spoken in the input asset, represented by a
+    /// BCP 47 language code, such as "en-US" or "sr-Latn". For more information,
+    /// see <https://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
+    pub languages: std::vec::Vec<std::string::String>,
+
+    /// Optional. Whether to automatically detect the languages present in the
+    /// track. If true, the system will attempt to identify all the languages
+    /// present in the track and populate the languages field.
+    pub detect_languages: bool,
+
+    /// Output only. A list of languages detected in the input asset, represented
+    /// by a BCP 47 language code, such as "en-US" or "sr-Latn". For more
+    /// information, see
+    /// <https://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
+    /// This field is only populated if the detect_languages field is set to true.
+    pub detected_languages: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TrackDefinition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [input_track][crate::model::TrackDefinition::input_track].
+    pub fn set_input_track<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.input_track = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_track][crate::model::TrackDefinition::input_track].
+    pub fn set_or_clear_input_track<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.input_track = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [languages][crate::model::TrackDefinition::languages].
+    pub fn set_languages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.languages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [detect_languages][crate::model::TrackDefinition::detect_languages].
+    pub fn set_detect_languages<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.detect_languages = v.into();
+        self
+    }
+
+    /// Sets the value of [detected_languages][crate::model::TrackDefinition::detected_languages].
+    pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.detected_languages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for TrackDefinition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.transcoder.v1.TrackDefinition"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for TrackDefinition {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __input_track,
+            __languages,
+            __detect_languages,
+            __detected_languages,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TrackDefinition")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "inputTrack" => Ok(__FieldTag::__input_track),
+                            "input_track" => Ok(__FieldTag::__input_track),
+                            "languages" => Ok(__FieldTag::__languages),
+                            "detectLanguages" => Ok(__FieldTag::__detect_languages),
+                            "detect_languages" => Ok(__FieldTag::__detect_languages),
+                            "detectedLanguages" => Ok(__FieldTag::__detected_languages),
+                            "detected_languages" => Ok(__FieldTag::__detected_languages),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = TrackDefinition;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TrackDefinition")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__input_track => {
+                            if !fields.insert(__FieldTag::__input_track) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for input_track",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.input_track = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__languages => {
+                            if !fields.insert(__FieldTag::__languages) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for languages",
+                                ));
+                            }
+                            result.languages = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__detect_languages => {
+                            if !fields.insert(__FieldTag::__detect_languages) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for detect_languages",
+                                ));
+                            }
+                            result.detect_languages = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__detected_languages => {
+                            if !fields.insert(__FieldTag::__detected_languages) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for detected_languages",
+                                ));
+                            }
+                            result.detected_languages = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for TrackDefinition {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.input_track.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("inputTrack", &__With(&self.input_track))?;
+        }
+        if !self.languages.is_empty() {
+            state.serialize_entry("languages", &self.languages)?;
+        }
+        if !wkt::internal::is_default(&self.detect_languages) {
+            state.serialize_entry("detectLanguages", &self.detect_languages)?;
+        }
+        if !self.detected_languages.is_empty() {
+            state.serialize_entry("detectedLanguages", &self.detected_languages)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for TrackDefinition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrackDefinition");
+        debug_struct.field("input_track", &self.input_track);
+        debug_struct.field("languages", &self.languages);
+        debug_struct.field("detect_languages", &self.detect_languages);
+        debug_struct.field("detected_languages", &self.detected_languages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Input attributes that provide additional information about the input asset.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InputAttributes {
+    /// Optional. A list of track definitions for the input asset.
+    pub track_definitions: std::vec::Vec<crate::model::TrackDefinition>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InputAttributes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [track_definitions][crate::model::InputAttributes::track_definitions].
+    pub fn set_track_definitions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TrackDefinition>,
+    {
+        use std::iter::Iterator;
+        self.track_definitions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for InputAttributes {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.transcoder.v1.InputAttributes"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for InputAttributes {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __track_definitions,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for InputAttributes")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "trackDefinitions" => Ok(__FieldTag::__track_definitions),
+                            "track_definitions" => Ok(__FieldTag::__track_definitions),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = InputAttributes;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct InputAttributes")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__track_definitions => {
+                            if !fields.insert(__FieldTag::__track_definitions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for track_definitions",
+                                ));
+                            }
+                            result.track_definitions =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::TrackDefinition>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for InputAttributes {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.track_definitions.is_empty() {
+            state.serialize_entry("trackDefinitions", &self.track_definitions)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for InputAttributes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InputAttributes");
+        debug_struct.field("track_definitions", &self.track_definitions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

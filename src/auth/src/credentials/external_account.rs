@@ -140,7 +140,8 @@ const IAM_SCOPE: &str = "https://www.googleapis.com/auth/iam";
 pub(crate) struct CredentialSourceFormat {
     #[serde(rename = "type")]
     pub format_type: String,
-    pub subject_token_field_name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub subject_token_field_name: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
@@ -153,13 +154,14 @@ pub(crate) struct ExecutableConfig {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 enum CredentialSourceFile {
+    // Most specific variants first for untagged enum
+    Executable {
+        executable: ExecutableConfig,
+    },
     Url {
         url: String,
         headers: Option<HashMap<String, String>>,
         format: Option<CredentialSourceFormat>,
-    },
-    Executable {
-        executable: ExecutableConfig,
     },
     File {
         file: String,
@@ -2055,5 +2057,71 @@ mod tests {
             CacheableResource::NotModified => panic!("Expected new headers"),
         }
         sts_server.verify_and_clear();
+    }
+
+    #[tokio::test]
+    async fn test_kubernetes_wif_direct_identity_parsing() {
+        let contents = json!({
+            "audience": "//iam.googleapis.com/projects/123456789/locations/global/workloadIdentityPools/pool-name/providers/k8s-cluster",
+            "credential_source": {
+                "file": "/var/run/service-account/token"
+            },
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.googleapis.com/v1/token",
+            "type": "external_account"
+        });
+
+        let file: ExternalAccountFile = serde_json::from_value(contents)
+            .expect("failed to parse kubernetes WIF direct identity config");
+        let config: ExternalAccountConfig = file.into();
+
+        match config.credential_source {
+            CredentialSource::File(source) => {
+                assert_eq!(source.file, "/var/run/service-account/token");
+                assert_eq!(source.format, "text"); // Default format
+                assert_eq!(source.subject_token_field_name, ""); // Default empty
+            }
+            _ => {
+                unreachable!("expected File sourced credential")
+            }
+        }
+    }
+
+    #[tokio::test]
+    async fn test_kubernetes_wif_impersonation_parsing() {
+        let contents = json!({
+            "audience": "//iam.googleapis.com/projects/123456789/locations/global/workloadIdentityPools/pool-name/providers/k8s-cluster",
+            "credential_source": {
+                "file": "/var/run/service-account/token",
+                "format": {
+                    "type": "text"
+                }
+            },
+            "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-sa@test-project.iam.gserviceaccount.com:generateAccessToken",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.googleapis.com/v1/token",
+            "type": "external_account",
+            "universe_domain": "googleapis.com"
+        });
+
+        let file: ExternalAccountFile = serde_json::from_value(contents)
+            .expect("failed to parse kubernetes WIF impersonation config");
+        let config: ExternalAccountConfig = file.into();
+
+        match config.credential_source {
+            CredentialSource::File(source) => {
+                assert_eq!(source.file, "/var/run/service-account/token");
+                assert_eq!(source.format, "text");
+                assert_eq!(source.subject_token_field_name, ""); // Empty for text format
+            }
+            _ => {
+                unreachable!("expected File sourced credential")
+            }
+        }
+
+        assert_eq!(
+            config.service_account_impersonation_url,
+            Some("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-sa@test-project.iam.gserviceaccount.com:generateAccessToken".to_string())
+        );
     }
 }

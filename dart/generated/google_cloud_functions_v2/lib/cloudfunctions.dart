@@ -41,7 +41,7 @@ class FunctionService {
   final ServiceClient _client;
 
   FunctionService({required http.Client client})
-      : _client = ServiceClient(client: client);
+    : _client = ServiceClient(client: client);
 
   /// Returns a function with the given name from the requested project.
   Future<Function$> getFunction(GetFunctionRequest request) async {
@@ -54,7 +54,8 @@ class FunctionService {
 
   /// Returns a list of functions that belong to the requested project.
   Future<ListFunctionsResponse> listFunctions(
-      ListFunctionsRequest request) async {
+    ListFunctionsRequest request,
+  ) async {
     final url = Uri.https(_host, '/v2/${request.parent}/functions', {
       if (request.pageSize != null) 'pageSize': '${request.pageSize}',
       if (request.pageToken != null) 'pageToken': request.pageToken!,
@@ -75,7 +76,8 @@ class FunctionService {
   /// When complete, [Operation.done] will be `true`. If successful,
   /// [Operation.responseAsMessage] will contain the operation's result.
   Future<Operation<Function$, OperationMetadata>> createFunction(
-      CreateFunctionRequest request) async {
+    CreateFunctionRequest request,
+  ) async {
     final url = Uri.https(_host, '/v2/${request.parent}/functions', {
       if (request.functionId != null) 'functionId': request.functionId!,
     });
@@ -94,7 +96,8 @@ class FunctionService {
   /// When complete, [Operation.done] will be `true`. If successful,
   /// [Operation.responseAsMessage] will contain the operation's result.
   Future<Operation<Function$, OperationMetadata>> updateFunction(
-      UpdateFunctionRequest request) async {
+    UpdateFunctionRequest request,
+  ) async {
     final url = Uri.https(_host, '/v2/${request.function.name}', {
       if (request.updateMask?.paths != null)
         'updateMask.paths': request.updateMask?.paths!,
@@ -116,7 +119,8 @@ class FunctionService {
   /// When complete, [Operation.done] will be `true`. If successful,
   /// [Operation.responseAsMessage] will contain the operation's result.
   Future<Operation<Empty, OperationMetadata>> deleteFunction(
-      DeleteFunctionRequest request) async {
+    DeleteFunctionRequest request,
+  ) async {
     final url = Uri.https(_host, '/v2/${request.name}');
     final response = await _client.delete(url);
     return Operation.fromJson(
@@ -149,9 +153,12 @@ class FunctionService {
   ///
   /// * `Authorization: Bearer YOUR_TOKEN`
   Future<GenerateUploadUrlResponse> generateUploadUrl(
-      GenerateUploadUrlRequest request) async {
-    final url =
-        Uri.https(_host, '/v2/${request.parent}/functions:generateUploadUrl');
+    GenerateUploadUrlRequest request,
+  ) async {
+    final url = Uri.https(
+      _host,
+      '/v2/${request.parent}/functions:generateUploadUrl',
+    );
     final response = await _client.post(url, body: request);
     return GenerateUploadUrlResponse.fromJson(response);
   }
@@ -162,7 +169,8 @@ class FunctionService {
   /// For more information about the signed URL usage see:
   /// https://cloud.google.com/storage/docs/access-control/signed-urls
   Future<GenerateDownloadUrlResponse> generateDownloadUrl(
-      GenerateDownloadUrlRequest request) async {
+    GenerateDownloadUrlRequest request,
+  ) async {
     final url = Uri.https(_host, '/v2/${request.name}:generateDownloadUrl');
     final response = await _client.post(url, body: request);
     return GenerateDownloadUrlResponse.fromJson(response);
@@ -179,7 +187,8 @@ class FunctionService {
 
   /// Lists information about the supported locations for this service.
   Future<ListLocationsResponse> listLocations(
-      ListLocationsRequest request) async {
+    ListLocationsRequest request,
+  ) async {
     final url = Uri.https(_host, '/v2/${request.name}/locations', {
       if (request.filter != null) 'filter': request.filter!,
       if (request.pageSize != null) 'pageSize': '${request.pageSize}',
@@ -220,7 +229,8 @@ class FunctionService {
   /// permission-aware UIs and command-line tools, not for authorization
   /// checking. This operation may "fail open" without warning.
   Future<TestIamPermissionsResponse> testIamPermissions(
-      TestIamPermissionsRequest request) async {
+    TestIamPermissionsRequest request,
+  ) async {
     final url = Uri.https(_host, '/v2/${request.resource}:testIamPermissions');
     final response = await _client.post(url, body: request);
     return TestIamPermissionsResponse.fromJson(response);
@@ -228,7 +238,8 @@ class FunctionService {
 
   /// Provides the `Operations` service functionality in this service.
   Future<ListOperationsResponse> listOperations(
-      ListOperationsRequest request) async {
+    ListOperationsRequest request,
+  ) async {
     final url = Uri.https(_host, '/v2/${request.name}/operations', {
       if (request.filter != null) 'filter': request.filter!,
       if (request.pageSize != null) 'pageSize': '${request.pageSize}',
@@ -242,9 +253,10 @@ class FunctionService {
   ///
   /// This method can be used to get the current status of a long-running
   /// operation.
-  Future<Operation<T, S>>
-      getOperation<T extends ProtoMessage, S extends ProtoMessage>(
-          Operation<T, S> request) async {
+  Future<Operation<T, S>> getOperation<
+    T extends ProtoMessage,
+    S extends ProtoMessage
+  >(Operation<T, S> request) async {
     final url = Uri.https(_host, '/v2/${request.name}');
     final response = await _client.get(url);
     return Operation.fromJson(response, request.operationHelper);
@@ -339,8 +351,10 @@ class Function$ extends ProtoMessage {
       state: decodeEnum(json['state'], Function$_State.fromJson),
       updateTime: decodeCustom(json['updateTime'], Timestamp.fromJson),
       labels: decodeMap(json['labels']),
-      stateMessages:
-          decodeListMessage(json['stateMessages'], StateMessage.fromJson),
+      stateMessages: decodeListMessage(
+        json['stateMessages'],
+        StateMessage.fromJson,
+      ),
       environment: decodeEnum(json['environment'], Environment.fromJson),
       url: json['url'],
       kmsKeyName: json['kmsKeyName'],
@@ -427,11 +441,8 @@ class StateMessage extends ProtoMessage {
   /// The message.
   final String? message;
 
-  StateMessage({
-    this.severity,
-    this.type,
-    this.message,
-  }) : super(fullyQualifiedName);
+  StateMessage({this.severity, this.type, this.message})
+    : super(fullyQualifiedName);
 
   factory StateMessage.fromJson(Map<String, dynamic> json) {
     return StateMessage(
@@ -464,8 +475,9 @@ class StateMessage extends ProtoMessage {
 /// Severity of the state message.
 class StateMessage_Severity extends ProtoEnum {
   /// Not specified. Invalid severity.
-  static const severityUnspecified =
-      StateMessage_Severity('SEVERITY_UNSPECIFIED');
+  static const severityUnspecified = StateMessage_Severity(
+    'SEVERITY_UNSPECIFIED',
+  );
 
   /// ERROR-level severity.
   static const error = StateMessage_Severity('ERROR');
@@ -652,11 +664,8 @@ class Source extends ProtoMessage {
   /// Example: https://github.com/<user>/<repo>/blob/<commit>/<path-to-code>
   final String? gitUri;
 
-  Source({
-    this.storageSource,
-    this.repoSource,
-    this.gitUri,
-  }) : super(fullyQualifiedName);
+  Source({this.storageSource, this.repoSource, this.gitUri})
+    : super(fullyQualifiedName);
 
   factory Source.fromJson(Map<String, dynamic> json) {
     return Source(
@@ -677,9 +686,7 @@ class Source extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (gitUri != null) 'gitUri=$gitUri',
-    ].join(',');
+    final contents = [if (gitUri != null) 'gitUri=$gitUri'].join(',');
     return 'Source($contents)';
   }
 }
@@ -710,10 +717,14 @@ class SourceProvenance extends ProtoMessage {
 
   factory SourceProvenance.fromJson(Map<String, dynamic> json) {
     return SourceProvenance(
-      resolvedStorageSource:
-          decode(json['resolvedStorageSource'], StorageSource.fromJson),
-      resolvedRepoSource:
-          decode(json['resolvedRepoSource'], RepoSource.fromJson),
+      resolvedStorageSource: decode(
+        json['resolvedStorageSource'],
+        StorageSource.fromJson,
+      ),
+      resolvedRepoSource: decode(
+        json['resolvedRepoSource'],
+        RepoSource.fromJson,
+      ),
       gitUri: json['gitUri'],
     );
   }
@@ -731,9 +742,7 @@ class SourceProvenance extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (gitUri != null) 'gitUri=$gitUri',
-    ].join(',');
+    final contents = [if (gitUri != null) 'gitUri=$gitUri'].join(',');
     return 'SourceProvenance($contents)';
   }
 }
@@ -835,20 +844,28 @@ class BuildConfig extends ProtoMessage {
 
   factory BuildConfig.fromJson(Map<String, dynamic> json) {
     return BuildConfig(
-      automaticUpdatePolicy:
-          decode(json['automaticUpdatePolicy'], AutomaticUpdatePolicy.fromJson),
-      onDeployUpdatePolicy:
-          decode(json['onDeployUpdatePolicy'], OnDeployUpdatePolicy.fromJson),
+      automaticUpdatePolicy: decode(
+        json['automaticUpdatePolicy'],
+        AutomaticUpdatePolicy.fromJson,
+      ),
+      onDeployUpdatePolicy: decode(
+        json['onDeployUpdatePolicy'],
+        OnDeployUpdatePolicy.fromJson,
+      ),
       build: json['build'],
       runtime: json['runtime'],
       entryPoint: json['entryPoint'],
       source: decode(json['source'], Source.fromJson),
-      sourceProvenance:
-          decode(json['sourceProvenance'], SourceProvenance.fromJson),
+      sourceProvenance: decode(
+        json['sourceProvenance'],
+        SourceProvenance.fromJson,
+      ),
       workerPool: json['workerPool'],
       environmentVariables: decodeMap(json['environmentVariables']),
       dockerRegistry: decodeEnum(
-          json['dockerRegistry'], BuildConfig_DockerRegistry.fromJson),
+        json['dockerRegistry'],
+        BuildConfig_DockerRegistry.fromJson,
+      ),
       dockerRepository: json['dockerRepository'],
       serviceAccount: json['serviceAccount'],
     );
@@ -894,21 +911,24 @@ class BuildConfig extends ProtoMessage {
 /// Docker Registry to use for storing function Docker images.
 class BuildConfig_DockerRegistry extends ProtoEnum {
   /// Unspecified.
-  static const dockerRegistryUnspecified =
-      BuildConfig_DockerRegistry('DOCKER_REGISTRY_UNSPECIFIED');
+  static const dockerRegistryUnspecified = BuildConfig_DockerRegistry(
+    'DOCKER_REGISTRY_UNSPECIFIED',
+  );
 
   /// Docker images will be stored in multi-regional Container Registry
   /// repositories named `gcf`.
-  static const containerRegistry =
-      BuildConfig_DockerRegistry('CONTAINER_REGISTRY');
+  static const containerRegistry = BuildConfig_DockerRegistry(
+    'CONTAINER_REGISTRY',
+  );
 
   /// Docker images will be stored in regional Artifact Registry repositories.
   /// By default, GCF will create and use repositories named `gcf-artifacts`
   /// in every region in which a function is deployed. But the repository to
   /// use can also be specified by the user using the `docker_repository`
   /// field.
-  static const artifactRegistry =
-      BuildConfig_DockerRegistry('ARTIFACT_REGISTRY');
+  static const artifactRegistry = BuildConfig_DockerRegistry(
+    'ARTIFACT_REGISTRY',
+  );
 
   const BuildConfig_DockerRegistry(super.value);
 
@@ -1059,21 +1079,31 @@ class ServiceConfig extends ProtoMessage {
       maxInstanceCount: json['maxInstanceCount'],
       minInstanceCount: json['minInstanceCount'],
       vpcConnector: json['vpcConnector'],
-      vpcConnectorEgressSettings: decodeEnum(json['vpcConnectorEgressSettings'],
-          ServiceConfig_VpcConnectorEgressSettings.fromJson),
+      vpcConnectorEgressSettings: decodeEnum(
+        json['vpcConnectorEgressSettings'],
+        ServiceConfig_VpcConnectorEgressSettings.fromJson,
+      ),
       ingressSettings: decodeEnum(
-          json['ingressSettings'], ServiceConfig_IngressSettings.fromJson),
+        json['ingressSettings'],
+        ServiceConfig_IngressSettings.fromJson,
+      ),
       uri: json['uri'],
       serviceAccountEmail: json['serviceAccountEmail'],
       allTrafficOnLatestRevision: json['allTrafficOnLatestRevision'],
       secretEnvironmentVariables: decodeListMessage(
-          json['secretEnvironmentVariables'], SecretEnvVar.fromJson),
-      secretVolumes:
-          decodeListMessage(json['secretVolumes'], SecretVolume.fromJson),
+        json['secretEnvironmentVariables'],
+        SecretEnvVar.fromJson,
+      ),
+      secretVolumes: decodeListMessage(
+        json['secretVolumes'],
+        SecretVolume.fromJson,
+      ),
       revision: json['revision'],
       maxInstanceRequestConcurrency: json['maxInstanceRequestConcurrency'],
       securityLevel: decodeEnum(
-          json['securityLevel'], ServiceConfig_SecurityLevel.fromJson),
+        json['securityLevel'],
+        ServiceConfig_SecurityLevel.fromJson,
+      ),
       binaryAuthorizationPolicy: json['binaryAuthorizationPolicy'],
     );
   }
@@ -1147,16 +1177,19 @@ class ServiceConfig_VpcConnectorEgressSettings extends ProtoEnum {
   /// Unspecified.
   static const vpcConnectorEgressSettingsUnspecified =
       ServiceConfig_VpcConnectorEgressSettings(
-          'VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED');
+        'VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED',
+      );
 
   /// Use the VPC Access Connector only for private IP space from RFC1918.
-  static const privateRangesOnly =
-      ServiceConfig_VpcConnectorEgressSettings('PRIVATE_RANGES_ONLY');
+  static const privateRangesOnly = ServiceConfig_VpcConnectorEgressSettings(
+    'PRIVATE_RANGES_ONLY',
+  );
 
   /// Force the use of VPC Access Connector for all egress traffic from the
   /// function.
-  static const allTraffic =
-      ServiceConfig_VpcConnectorEgressSettings('ALL_TRAFFIC');
+  static const allTraffic = ServiceConfig_VpcConnectorEgressSettings(
+    'ALL_TRAFFIC',
+  );
 
   const ServiceConfig_VpcConnectorEgressSettings(super.value);
 
@@ -1174,19 +1207,22 @@ class ServiceConfig_VpcConnectorEgressSettings extends ProtoEnum {
 /// If unspecified, ALLOW_ALL will be used.
 class ServiceConfig_IngressSettings extends ProtoEnum {
   /// Unspecified.
-  static const ingressSettingsUnspecified =
-      ServiceConfig_IngressSettings('INGRESS_SETTINGS_UNSPECIFIED');
+  static const ingressSettingsUnspecified = ServiceConfig_IngressSettings(
+    'INGRESS_SETTINGS_UNSPECIFIED',
+  );
 
   /// Allow HTTP traffic from public and private sources.
   static const allowAll = ServiceConfig_IngressSettings('ALLOW_ALL');
 
   /// Allow HTTP traffic from only private VPC sources.
-  static const allowInternalOnly =
-      ServiceConfig_IngressSettings('ALLOW_INTERNAL_ONLY');
+  static const allowInternalOnly = ServiceConfig_IngressSettings(
+    'ALLOW_INTERNAL_ONLY',
+  );
 
   /// Allow HTTP traffic from private VPC sources and through GCLB.
-  static const allowInternalAndGclb =
-      ServiceConfig_IngressSettings('ALLOW_INTERNAL_AND_GCLB');
+  static const allowInternalAndGclb = ServiceConfig_IngressSettings(
+    'ALLOW_INTERNAL_AND_GCLB',
+  );
 
   const ServiceConfig_IngressSettings(super.value);
 
@@ -1205,8 +1241,9 @@ class ServiceConfig_IngressSettings extends ProtoEnum {
 /// SECURE_OPTIONAL will be used. 2nd Gen functions are SECURE_ALWAYS ONLY.
 class ServiceConfig_SecurityLevel extends ProtoEnum {
   /// Unspecified.
-  static const securityLevelUnspecified =
-      ServiceConfig_SecurityLevel('SECURITY_LEVEL_UNSPECIFIED');
+  static const securityLevelUnspecified = ServiceConfig_SecurityLevel(
+    'SECURITY_LEVEL_UNSPECIFIED',
+  );
 
   /// Requests for a URL that match this handler that do not use HTTPS are
   /// automatically redirected to the HTTPS URL with the same path. Query
@@ -1251,12 +1288,8 @@ class SecretEnvVar extends ProtoMessage {
   /// start.
   final String? version;
 
-  SecretEnvVar({
-    this.key,
-    this.projectId,
-    this.secret,
-    this.version,
-  }) : super(fullyQualifiedName);
+  SecretEnvVar({this.key, this.projectId, this.secret, this.version})
+    : super(fullyQualifiedName);
 
   factory SecretEnvVar.fromJson(Map<String, dynamic> json) {
     return SecretEnvVar(
@@ -1316,12 +1349,8 @@ class SecretVolume extends ProtoMessage {
   /// secret under the mount point.
   final List<SecretVolume_SecretVersion>? versions;
 
-  SecretVolume({
-    this.mountPath,
-    this.projectId,
-    this.secret,
-    this.versions,
-  }) : super(fullyQualifiedName);
+  SecretVolume({this.mountPath, this.projectId, this.secret, this.versions})
+    : super(fullyQualifiedName);
 
   factory SecretVolume.fromJson(Map<String, dynamic> json) {
     return SecretVolume(
@@ -1329,7 +1358,9 @@ class SecretVolume extends ProtoMessage {
       projectId: json['projectId'],
       secret: json['secret'],
       versions: decodeListMessage(
-          json['versions'], SecretVolume_SecretVersion.fromJson),
+        json['versions'],
+        SecretVolume_SecretVersion.fromJson,
+      ),
     );
   }
 
@@ -1370,10 +1401,8 @@ class SecretVolume_SecretVersion extends ProtoMessage {
   /// secret value file at `/etc/secrets/secret_foo`.
   final String? path;
 
-  SecretVolume_SecretVersion({
-    this.version,
-    this.path,
-  }) : super(fullyQualifiedName);
+  SecretVolume_SecretVersion({this.version, this.path})
+    : super(fullyQualifiedName);
 
   factory SecretVolume_SecretVersion.fromJson(Map<String, dynamic> json) {
     return SecretVolume_SecretVersion(
@@ -1476,12 +1505,16 @@ class EventTrigger extends ProtoMessage {
       trigger: json['trigger'],
       triggerRegion: json['triggerRegion'],
       eventType: json['eventType'],
-      eventFilters:
-          decodeListMessage(json['eventFilters'], EventFilter.fromJson),
+      eventFilters: decodeListMessage(
+        json['eventFilters'],
+        EventFilter.fromJson,
+      ),
       pubsubTopic: json['pubsubTopic'],
       serviceAccountEmail: json['serviceAccountEmail'],
-      retryPolicy:
-          decodeEnum(json['retryPolicy'], EventTrigger_RetryPolicy.fromJson),
+      retryPolicy: decodeEnum(
+        json['retryPolicy'],
+        EventTrigger_RetryPolicy.fromJson,
+      ),
       channel: json['channel'],
       service: json['service'],
     );
@@ -1524,17 +1557,20 @@ class EventTrigger extends ProtoMessage {
 /// Retried execution is charged as any other execution.
 class EventTrigger_RetryPolicy extends ProtoEnum {
   /// Not specified.
-  static const retryPolicyUnspecified =
-      EventTrigger_RetryPolicy('RETRY_POLICY_UNSPECIFIED');
+  static const retryPolicyUnspecified = EventTrigger_RetryPolicy(
+    'RETRY_POLICY_UNSPECIFIED',
+  );
 
   /// Do not retry.
-  static const retryPolicyDoNotRetry =
-      EventTrigger_RetryPolicy('RETRY_POLICY_DO_NOT_RETRY');
+  static const retryPolicyDoNotRetry = EventTrigger_RetryPolicy(
+    'RETRY_POLICY_DO_NOT_RETRY',
+  );
 
   /// Retry on any failure, retry up to 7 days with an exponential backoff
   /// (capped at 10 seconds).
-  static const retryPolicyRetry =
-      EventTrigger_RetryPolicy('RETRY_POLICY_RETRY');
+  static const retryPolicyRetry = EventTrigger_RetryPolicy(
+    'RETRY_POLICY_RETRY',
+  );
 
   const EventTrigger_RetryPolicy(super.value);
 
@@ -1562,11 +1598,8 @@ class EventFilter extends ProtoMessage {
   /// `match-path-pattern`.
   final String? operator;
 
-  EventFilter({
-    this.attribute,
-    this.value,
-    this.operator,
-  }) : super(fullyQualifiedName);
+  EventFilter({this.attribute, this.value, this.operator})
+    : super(fullyQualifiedName);
 
   factory EventFilter.fromJson(Map<String, dynamic> json) {
     return EventFilter(
@@ -1612,24 +1645,16 @@ class GetFunctionRequest extends ProtoMessage {
   /// function.
   final String? revision;
 
-  GetFunctionRequest({
-    required this.name,
-    this.revision,
-  }) : super(fullyQualifiedName);
+  GetFunctionRequest({required this.name, this.revision})
+    : super(fullyQualifiedName);
 
   factory GetFunctionRequest.fromJson(Map<String, dynamic> json) {
-    return GetFunctionRequest(
-      name: json['name'],
-      revision: json['revision'],
-    );
+    return GetFunctionRequest(name: json['name'], revision: json['revision']);
   }
 
   @override
   Object toJson() {
-    return {
-      'name': name,
-      if (revision != null) 'revision': revision,
-    };
+    return {'name': name, if (revision != null) 'revision': revision};
   }
 
   @override
@@ -1734,11 +1759,8 @@ class ListFunctionsResponse extends ProtoMessage {
   /// functions from these locations.
   final List<String>? unreachable;
 
-  ListFunctionsResponse({
-    this.functions,
-    this.nextPageToken,
-    this.unreachable,
-  }) : super(fullyQualifiedName);
+  ListFunctionsResponse({this.functions, this.nextPageToken, this.unreachable})
+    : super(fullyQualifiedName);
 
   factory ListFunctionsResponse.fromJson(Map<String, dynamic> json) {
     return ListFunctionsResponse(
@@ -1830,10 +1852,8 @@ class UpdateFunctionRequest extends ProtoMessage {
   /// If no field mask is provided, all fields will be updated.
   final FieldMask? updateMask;
 
-  UpdateFunctionRequest({
-    required this.function,
-    this.updateMask,
-  }) : super(fullyQualifiedName);
+  UpdateFunctionRequest({required this.function, this.updateMask})
+    : super(fullyQualifiedName);
 
   factory UpdateFunctionRequest.fromJson(Map<String, dynamic> json) {
     return UpdateFunctionRequest(
@@ -1862,28 +1882,20 @@ class DeleteFunctionRequest extends ProtoMessage {
   /// Required. The name of the function which should be deleted.
   final String name;
 
-  DeleteFunctionRequest({
-    required this.name,
-  }) : super(fullyQualifiedName);
+  DeleteFunctionRequest({required this.name}) : super(fullyQualifiedName);
 
   factory DeleteFunctionRequest.fromJson(Map<String, dynamic> json) {
-    return DeleteFunctionRequest(
-      name: json['name'],
-    );
+    return DeleteFunctionRequest(name: json['name']);
   }
 
   @override
   Object toJson() {
-    return {
-      'name': name,
-    };
+    return {'name': name};
   }
 
   @override
   String toString() {
-    final contents = [
-      'name=$name',
-    ].join(',');
+    final contents = ['name=$name'].join(',');
     return 'DeleteFunctionRequest($contents)';
   }
 }
@@ -1974,10 +1986,8 @@ class GenerateUploadUrlResponse extends ProtoMessage {
   /// upon uploading a new object or version of an object.
   final StorageSource? storageSource;
 
-  GenerateUploadUrlResponse({
-    this.uploadUrl,
-    this.storageSource,
-  }) : super(fullyQualifiedName);
+  GenerateUploadUrlResponse({this.uploadUrl, this.storageSource})
+    : super(fullyQualifiedName);
 
   factory GenerateUploadUrlResponse.fromJson(Map<String, dynamic> json) {
     return GenerateUploadUrlResponse(
@@ -1996,9 +2006,7 @@ class GenerateUploadUrlResponse extends ProtoMessage {
 
   @override
   String toString() {
-    final contents = [
-      if (uploadUrl != null) 'uploadUrl=$uploadUrl',
-    ].join(',');
+    final contents = [if (uploadUrl != null) 'uploadUrl=$uploadUrl'].join(',');
     return 'GenerateUploadUrlResponse($contents)';
   }
 }
@@ -2012,28 +2020,20 @@ class GenerateDownloadUrlRequest extends ProtoMessage {
   /// signed URL should be generated.
   final String name;
 
-  GenerateDownloadUrlRequest({
-    required this.name,
-  }) : super(fullyQualifiedName);
+  GenerateDownloadUrlRequest({required this.name}) : super(fullyQualifiedName);
 
   factory GenerateDownloadUrlRequest.fromJson(Map<String, dynamic> json) {
-    return GenerateDownloadUrlRequest(
-      name: json['name'],
-    );
+    return GenerateDownloadUrlRequest(name: json['name']);
   }
 
   @override
   Object toJson() {
-    return {
-      'name': name,
-    };
+    return {'name': name};
   }
 
   @override
   String toString() {
-    final contents = [
-      'name=$name',
-    ].join(',');
+    final contents = ['name=$name'].join(',');
     return 'GenerateDownloadUrlRequest($contents)';
   }
 }
@@ -2047,21 +2047,15 @@ class GenerateDownloadUrlResponse extends ProtoMessage {
   /// function source code download.
   final String? downloadUrl;
 
-  GenerateDownloadUrlResponse({
-    this.downloadUrl,
-  }) : super(fullyQualifiedName);
+  GenerateDownloadUrlResponse({this.downloadUrl}) : super(fullyQualifiedName);
 
   factory GenerateDownloadUrlResponse.fromJson(Map<String, dynamic> json) {
-    return GenerateDownloadUrlResponse(
-      downloadUrl: json['downloadUrl'],
-    );
+    return GenerateDownloadUrlResponse(downloadUrl: json['downloadUrl']);
   }
 
   @override
   Object toJson() {
-    return {
-      if (downloadUrl != null) 'downloadUrl': downloadUrl,
-    };
+    return {if (downloadUrl != null) 'downloadUrl': downloadUrl};
   }
 
   @override
@@ -2086,24 +2080,16 @@ class ListRuntimesRequest extends ProtoMessage {
   /// following the syntax outlined in https://google.aip.dev/160.
   final String? filter;
 
-  ListRuntimesRequest({
-    required this.parent,
-    this.filter,
-  }) : super(fullyQualifiedName);
+  ListRuntimesRequest({required this.parent, this.filter})
+    : super(fullyQualifiedName);
 
   factory ListRuntimesRequest.fromJson(Map<String, dynamic> json) {
-    return ListRuntimesRequest(
-      parent: json['parent'],
-      filter: json['filter'],
-    );
+    return ListRuntimesRequest(parent: json['parent'], filter: json['filter']);
   }
 
   @override
   Object toJson() {
-    return {
-      'parent': parent,
-      if (filter != null) 'filter': filter,
-    };
+    return {'parent': parent, if (filter != null) 'filter': filter};
   }
 
   @override
@@ -2124,22 +2110,20 @@ class ListRuntimesResponse extends ProtoMessage {
   /// The runtimes that match the request.
   final List<ListRuntimesResponse_Runtime>? runtimes;
 
-  ListRuntimesResponse({
-    this.runtimes,
-  }) : super(fullyQualifiedName);
+  ListRuntimesResponse({this.runtimes}) : super(fullyQualifiedName);
 
   factory ListRuntimesResponse.fromJson(Map<String, dynamic> json) {
     return ListRuntimesResponse(
       runtimes: decodeListMessage(
-          json['runtimes'], ListRuntimesResponse_Runtime.fromJson),
+        json['runtimes'],
+        ListRuntimesResponse_Runtime.fromJson,
+      ),
     );
   }
 
   @override
   Object toJson() {
-    return {
-      if (runtimes != null) 'runtimes': encodeList(runtimes),
-    };
+    return {if (runtimes != null) 'runtimes': encodeList(runtimes)};
   }
 
   @override
@@ -2187,8 +2171,10 @@ class ListRuntimesResponse_Runtime extends ProtoMessage {
     return ListRuntimesResponse_Runtime(
       name: json['name'],
       displayName: json['displayName'],
-      stage:
-          decodeEnum(json['stage'], ListRuntimesResponse_RuntimeStage.fromJson),
+      stage: decodeEnum(
+        json['stage'],
+        ListRuntimesResponse_RuntimeStage.fromJson,
+      ),
       warnings: decodeList(json['warnings']),
       environment: decodeEnum(json['environment'], Environment.fromJson),
       deprecationDate: decode(json['deprecationDate'], Date.fromJson),
@@ -2225,8 +2211,9 @@ class ListRuntimesResponse_Runtime extends ProtoMessage {
 /// The various stages that a runtime can be in.
 class ListRuntimesResponse_RuntimeStage extends ProtoEnum {
   /// Not specified.
-  static const runtimeStageUnspecified =
-      ListRuntimesResponse_RuntimeStage('RUNTIME_STAGE_UNSPECIFIED');
+  static const runtimeStageUnspecified = ListRuntimesResponse_RuntimeStage(
+    'RUNTIME_STAGE_UNSPECIFIED',
+  );
 
   /// The runtime is in development.
   static const development = ListRuntimesResponse_RuntimeStage('DEVELOPMENT');
@@ -2244,8 +2231,9 @@ class ListRuntimesResponse_RuntimeStage extends ProtoEnum {
   static const deprecated = ListRuntimesResponse_RuntimeStage('DEPRECATED');
 
   /// The runtime is no longer supported.
-  static const decommissioned =
-      ListRuntimesResponse_RuntimeStage('DECOMMISSIONED');
+  static const decommissioned = ListRuntimesResponse_RuntimeStage(
+    'DECOMMISSIONED',
+  );
 
   const ListRuntimesResponse_RuntimeStage(super.value);
 
@@ -2286,21 +2274,15 @@ class OnDeployUpdatePolicy extends ProtoMessage {
   /// function deployment.
   final String? runtimeVersion;
 
-  OnDeployUpdatePolicy({
-    this.runtimeVersion,
-  }) : super(fullyQualifiedName);
+  OnDeployUpdatePolicy({this.runtimeVersion}) : super(fullyQualifiedName);
 
   factory OnDeployUpdatePolicy.fromJson(Map<String, dynamic> json) {
-    return OnDeployUpdatePolicy(
-      runtimeVersion: json['runtimeVersion'],
-    );
+    return OnDeployUpdatePolicy(runtimeVersion: json['runtimeVersion']);
   }
 
   @override
   Object toJson() {
-    return {
-      if (runtimeVersion != null) 'runtimeVersion': runtimeVersion,
-    };
+    return {if (runtimeVersion != null) 'runtimeVersion': runtimeVersion};
   }
 
   @override
@@ -2433,9 +2415,7 @@ class LocationMetadata extends ProtoMessage {
   /// The Cloud Function environments this location supports.
   final List<Environment>? environments;
 
-  LocationMetadata({
-    this.environments,
-  }) : super(fullyQualifiedName);
+  LocationMetadata({this.environments}) : super(fullyQualifiedName);
 
   factory LocationMetadata.fromJson(Map<String, dynamic> json) {
     return LocationMetadata(
@@ -2445,9 +2425,7 @@ class LocationMetadata extends ProtoMessage {
 
   @override
   Object toJson() {
-    return {
-      if (environments != null) 'environments': encodeList(environments),
-    };
+    return {if (environments != null) 'environments': encodeList(environments)};
   }
 
   @override
@@ -2492,8 +2470,10 @@ class Stage extends ProtoMessage {
       state: decodeEnum(json['state'], Stage_State.fromJson),
       resource: json['resource'],
       resourceUri: json['resourceUri'],
-      stateMessages:
-          decodeListMessage(json['stateMessages'], StateMessage.fromJson),
+      stateMessages: decodeListMessage(
+        json['stateMessages'],
+        StateMessage.fromJson,
+      ),
     );
   }
 
@@ -2578,8 +2558,9 @@ class Stage_State extends ProtoEnum {
 /// The type of the long running operation.
 class OperationType extends ProtoEnum {
   /// Unspecified
-  static const operationtypeUnspecified =
-      OperationType('OPERATIONTYPE_UNSPECIFIED');
+  static const operationtypeUnspecified = OperationType(
+    'OPERATIONTYPE_UNSPECIFIED',
+  );
 
   /// CreateFunction
   static const createFunction = OperationType('CREATE_FUNCTION');

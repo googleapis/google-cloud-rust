@@ -348,11 +348,12 @@ tokio-test     = { default-features = false, version = "0.4" }
 
 # Local packages used as dependencies
 auth                          = { version = "0.22.4", path = "src/auth", package = "google-cloud-auth" }
-google-cloud-auth             = { version = "0.22.4", path = "src/auth", package = "google-cloud-auth" }
+google-cloud-auth             = { version = "0.22.4", path = "src/auth" }
 gax                           = { version = "0.24", path = "src/gax", package = "google-cloud-gax" }
-google-cloud-gax              = { version = "0.24", path = "src/gax", package = "google-cloud-gax" }
+google-cloud-gax              = { version = "0.24", path = "src/gax" }
 gaxi                          = { version = "0.5.2", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "0.4.4", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
+google-cloud-iam-v1           = { version = "0.4.4", path = "src/generated/iam/v1" }
 location                      = { version = "0.4.4", path = "src/generated/cloud/location", package = "google-cloud-location" }
 longrunning                   = { version = "0.25.4", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
 google-cloud-longrunning      = { version = "0.25.4", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
@@ -363,6 +364,7 @@ google-cloud-wkt              = { version = "0.5.4", path = "src/wkt", package =
 api                           = { version = "0.4.4", path = "src/generated/api/types", package = "google-cloud-api" }
 cloud_common                  = { version = "0.4.4", path = "src/generated/cloud/common", package = "google-cloud-common" }
 gtype                         = { version = "0.4.4", path = "src/generated/type", package = "google-cloud-type" }
+google-cloud-type             = { version = "0.4.4", path = "src/generated/type" }
 grafeas                       = { version = "0.4.4", path = "src/generated/grafeas/v1", package = "google-cloud-grafeas-v1" }
 logging_type                  = { version = "0.4.4", path = "src/generated/logging/type", package = "google-cloud-logging-type" }
 rpc                           = { version = "0.4.4", path = "src/generated/rpc/types", package = "google-cloud-rpc" }

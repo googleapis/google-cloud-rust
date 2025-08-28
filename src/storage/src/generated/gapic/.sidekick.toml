@@ -47,8 +47,4 @@ package-name-override     = 'google-cloud-storage'
 name-overrides            = '.google.storage.v2.Storage=StorageControl'
 include-grpc-only-methods = 'true'
 has-veneer                = 'true'
-internal-types            = """\
-    .google.storage.v2.ReadObjectRequest,\
-    .google.storage.v2.WriteObjectSpec\
-    """
 routing-required          = 'true'

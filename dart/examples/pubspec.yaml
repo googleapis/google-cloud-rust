@@ -18,7 +18,7 @@ description: Various examples of Google Cloud client usage.
 publish_to: none
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.9.0
 
 resolution: workspace
 

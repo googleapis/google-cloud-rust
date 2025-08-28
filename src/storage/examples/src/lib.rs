@@ -12,38 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod add_bucket_owner;
-mod change_default_storage_class;
+mod buckets;
 mod control;
-mod create_bucket;
-mod create_bucket_class_location;
-mod create_bucket_dual_region;
-mod create_bucket_hierarchical_namespace;
-mod define_bucket_website_configuration;
-mod delete_bucket;
-mod disable_bucket_lifecycle_management;
-mod disable_default_event_based_hold;
-mod enable_bucket_lifecycle_management;
-mod enable_default_event_based_hold;
-mod get_bucket_metadata;
-mod get_default_event_based_hold;
-mod get_public_access_prevention;
-mod get_retention_policy;
-mod list_buckets;
-mod lock_retention_policy;
 mod objects;
-mod print_bucket_acl;
-mod print_bucket_acl_for_user;
-mod print_bucket_website_configuration;
 mod quickstart;
-mod remove_bucket_owner;
-mod remove_retention_policy;
-mod set_lifecycle_abort_multipart_upload;
-mod set_public_access_prevention_enforced;
-mod set_public_access_prevention_inherited;
-mod set_public_access_prevention_unspecified;
-mod set_retention_policy;
-mod view_lifecycle_management_configuration;
 
 use google_cloud_gax::throttle_result::ThrottleResult;
 use google_cloud_gax::{
@@ -58,6 +30,64 @@ use std::time::Duration;
 
 pub const BUCKET_ID_LENGTH: usize = 63;
 
+pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
+    use google_cloud_storage::model::{
+        Bucket,
+        bucket::iam_config::UniformBucketLevelAccess,
+        bucket::{HierarchicalNamespace, IamConfig},
+    };
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let client = control_client().await?;
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    let zone = "us-central1-f";
+    tracing::info!("Create bucket for anywhere cache examples");
+    let _bucket = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(&id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location("us-central1")
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
+        )
+        .send()
+        .await?;
+
+    tracing::info!("running control_create_anywhere_cache");
+    control::create_anywhere_cache::sample(&client, &id, zone).await?;
+    tracing::info!("running control_get_anywhere_cache");
+    control::get_anywhere_cache::sample(&client, &id, zone).await?;
+    tracing::info!("running control_list_anywhere_caches");
+    control::list_anywhere_caches::sample(&client, &id).await?;
+    tracing::info!("running control_pause_anywhere_caches");
+    control::pause_anywhere_cache::sample(&client, &id, zone).await?;
+    tracing::info!("running control_resume_anywhere_caches");
+    control::resume_anywhere_cache::sample(&client, &id, zone).await?;
+    tracing::info!("running control_update_anywhere_caches");
+    control::update_anywhere_cache::sample(&client, &id, zone).await?;
+    tracing::info!("running control_disable_anywhere_caches");
+    control::disable_anywhere_cache::sample(&client, &id, zone).await?;
+
+    Ok(())
+}
+
 pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
     let _guard = {
         use tracing_subscriber::fmt::format::FmtSpan;
@@ -70,33 +100,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         tracing::subscriber::set_default(subscriber)
     };
 
-    // Avoid creating more than one bucket every 2 seconds:
-    //     https://cloud.google.com/storage/quotas
-    const BUCKET_CREATION_DELAY: Duration = Duration::from_secs(2);
-    // Avoid mutating a bucket more than once per second:
-    //     https://cloud.google.com/storage/quotas
-    const BUCKET_MUTATION_DELAY: Duration = Duration::from_secs(1);
-
-    // Use a longer than normal initial backoff, to better handle rate limit
-    // errors.
-    let backoff = ExponentialBackoffBuilder::new()
-        .with_initial_delay(std::cmp::max(BUCKET_CREATION_DELAY, BUCKET_MUTATION_DELAY))
-        .with_maximum_delay(Duration::from_secs(60))
-        .build()?;
-
-    let client = StorageControl::builder()
-        .with_backoff_policy(backoff)
-        .with_retry_policy(
-            // Retry all errors, the examples are tested with on newly created
-            // buckets, using a static configuration. Most likely the errors are
-            // network problems and can be safely retried. Or at least, we will
-            // get fewer flakes from retrying failures vs. not.
-            RetryableErrors
-                .with_time_limit(Duration::from_secs(900))
-                .always_idempotent(),
-        )
-        .build()
-        .await?;
+    let client = control_client().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
     let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
 
@@ -105,65 +109,93 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket example");
-    create_bucket::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket::sample(&client, &project_id, &id).await?;
     tracing::info!("running list_buckets example");
-    list_buckets::sample(&client, &project_id).await?;
+    buckets::list_buckets::sample(&client, &project_id).await?;
     tracing::info!("running delete_bucket example");
-    delete_bucket::sample(&client, &id).await?;
+    buckets::delete_bucket::sample(&client, &id).await?;
 
     // Create a new bucket for several tests.
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket example [2]");
-    create_bucket::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket::sample(&client, &project_id, &id).await?;
     tracing::info!("running change_default_storage_class example");
-    change_default_storage_class::sample(&client, &id).await?;
+    buckets::change_default_storage_class::sample(&client, &id).await?;
     tracing::info!("running get_bucket_metadata example");
-    get_bucket_metadata::sample(&client, &id).await?;
+    buckets::get_bucket_metadata::sample(&client, &id).await?;
+    tracing::info!("running add_bucket_label example");
+    buckets::add_bucket_label::sample(&client, &id, "test-label", "test-value").await?;
+    tracing::info!("running remove_bucket_label example");
+    buckets::remove_bucket_label::sample(&client, &id, "test-label").await?;
     tracing::info!("running get_default_event_based_hold example");
-    get_default_event_based_hold::sample(&client, &id).await?;
+    buckets::get_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running enable_default_event_based_hold example");
-    enable_default_event_based_hold::sample(&client, &id).await?;
+    buckets::enable_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running disable_default_event_based_hold example");
-    disable_default_event_based_hold::sample(&client, &id).await?;
+    buckets::disable_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running set_public_access_prevention_unspecified example");
-    set_public_access_prevention_unspecified::sample(&client, &id).await?;
+    buckets::set_public_access_prevention_unspecified::sample(&client, &id).await?;
     tracing::info!("running set_public_access_prevention_inherited example");
-    set_public_access_prevention_inherited::sample(&client, &id).await?;
+    buckets::set_public_access_prevention_inherited::sample(&client, &id).await?;
     tracing::info!("running get_public_access_prevention example");
-    get_public_access_prevention::sample(&client, &id).await?;
+    buckets::get_public_access_prevention::sample(&client, &id).await?;
     tracing::info!("running set_public_access_prevention_enforced example");
-    set_public_access_prevention_enforced::sample(&client, &id).await?;
+    buckets::set_public_access_prevention_enforced::sample(&client, &id).await?;
     tracing::info!("running get_public_access_prevention example");
-    get_public_access_prevention::sample(&client, &id).await?;
+    buckets::get_public_access_prevention::sample(&client, &id).await?;
+    tracing::info!("running view_versioning_status example");
+    buckets::view_versioning_status::sample(&client, &id).await?;
+    tracing::info!("running enable_versioning example");
+    buckets::enable_versioning::sample(&client, &id).await?;
+    tracing::info!("running view_versioning_status example");
+    buckets::view_versioning_status::sample(&client, &id).await?;
+    tracing::info!("running disable_versioning example");
+    buckets::disable_versioning::sample(&client, &id).await?;
+    tracing::info!("running view_versioning_status example");
+    buckets::view_versioning_status::sample(&client, &id).await?;
     tracing::info!("running view_lifecycle_management_configuration example");
-    view_lifecycle_management_configuration::sample(&client, &id).await?;
+    buckets::view_lifecycle_management_configuration::sample(&client, &id).await?;
     tracing::info!("running enable_bucket_lifecycle_management example");
-    enable_bucket_lifecycle_management::sample(&client, &id).await?;
+    buckets::enable_bucket_lifecycle_management::sample(&client, &id).await?;
     tracing::info!("running set_lifecycle_abort_multipart_upload example");
-    set_lifecycle_abort_multipart_upload::sample(&client, &id).await?;
+    buckets::set_lifecycle_abort_multipart_upload::sample(&client, &id).await?;
     tracing::info!("running disable_bucket_lifecycle_management example");
-    disable_bucket_lifecycle_management::sample(&client, &id).await?;
+    buckets::disable_bucket_lifecycle_management::sample(&client, &id).await?;
     tracing::info!("running print_bucket_website_configuration example");
-    print_bucket_website_configuration::sample(&client, &id).await?;
+    buckets::print_bucket_website_configuration::sample(&client, &id).await?;
     tracing::info!("running define_bucket_website_configuration example");
-    define_bucket_website_configuration::sample(&client, &id, "index.html", "404.html").await?;
+    buckets::define_bucket_website_configuration::sample(&client, &id, "index.html", "404.html")
+        .await?;
+    tracing::info!("running cors_configuiration example");
+    buckets::cors_configuration::sample(&client, &id).await?;
+    tracing::info!("running remove_cors_configuration example");
+    buckets::remove_cors_configuration::sample(&client, &id).await?;
     tracing::info!("running remove_retention_policy example");
-    remove_retention_policy::sample(&client, &id).await?;
+    buckets::remove_retention_policy::sample(&client, &id).await?;
     tracing::info!("running set_retention_policy example");
-    set_retention_policy::sample(&client, &id, 60).await?;
+    buckets::set_retention_policy::sample(&client, &id, 60).await?;
     tracing::info!("running get_retention_policy example");
-    get_retention_policy::sample(&client, &id).await?;
+    buckets::get_retention_policy::sample(&client, &id).await?;
     tracing::info!("running lock_retention_policy example");
-    lock_retention_policy::sample(&client, &id).await?;
+    buckets::lock_retention_policy::sample(&client, &id).await?;
     tracing::info!("running print_bucket_acl example");
-    print_bucket_acl::sample(&client, &id).await?;
+    buckets::print_bucket_acl::sample(&client, &id).await?;
     tracing::info!("running add_bucket_owner example");
-    add_bucket_owner::sample(&client, &id, &service_account).await?;
+    buckets::add_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running remove_bucket_owner example");
-    remove_bucket_owner::sample(&client, &id, &service_account).await?;
+    buckets::remove_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running print_bucket_acl_for_user example");
-    print_bucket_acl_for_user::sample(&client, &id).await?;
+    buckets::print_bucket_acl_for_user::sample(&client, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket example [3]");
+    buckets::create_bucket::sample(&client, &project_id, &id).await?;
+    tracing::info!("running set_autoclass example");
+    buckets::set_autoclass::sample(&client, &id).await?;
+    tracing::info!("running get_autoclass example");
+    buckets::get_autoclass::sample(&client, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -173,17 +205,61 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_class_location example");
-    create_bucket_class_location::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket_class_location::sample(&client, &project_id, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_dual_region example");
-    create_bucket_dual_region::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket_dual_region::sample(&client, &project_id, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket_turbo_replication example");
+    buckets::create_bucket_turbo_replication::sample(&client, &project_id, &id).await?;
+    tracing::info!("running set_rpo_default example");
+    buckets::set_rpo_default::sample(&client, &id).await?;
+    tracing::info!("running set_rpo_async_turbo example");
+    buckets::set_rpo_async_turbo::sample(&client, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("running create_bucket_hierarchical_namespace example");
-    create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
+
+    // Use a new bucket to avoid clashing policies from the previous examples.
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket_hierarchical_namespace example [2]");
+    buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
+    tracing::info!("running add_bucket_iam_member example");
+    buckets::add_bucket_iam_member::sample(
+        &client,
+        &id,
+        "roles/storage.objectViewer",
+        &format!("serviceAccount:{service_account}"),
+    )
+    .await?;
+    tracing::info!("running remove_bucket_iam_member example");
+    buckets::remove_bucket_iam_member::sample(
+        &client,
+        &id,
+        "roles/storage.objectViewer",
+        &format!("serviceAccount:{service_account}"),
+    )
+    .await?;
+    #[cfg(feature = "skipped-integration-tests")]
+    {
+        // Skip, the internal Google policies prevent granting public access to
+        // any buckets in our test projects.
+        tracing::info!("running set_bucket_public_iam example");
+        buckets::set_bucket_public_iam::sample(&client, &id).await?;
+    }
+    tracing::info!("running add_bucket_conditional_iam_binding example");
+    buckets::add_bucket_conditional_iam_binding::sample(&client, &id, &service_account).await?;
+    tracing::info!("running remove_bucket_conditional_iam_binding example");
+    buckets::remove_bucket_conditional_iam_binding::sample(&client, &id).await?;
+    tracing::info!("running view_bucket_iam_members example");
+    buckets::view_bucket_iam_members::sample(&client, &id).await?;
 
     Ok(())
 }
@@ -200,12 +276,12 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
         tracing::subscriber::set_default(subscriber)
     };
 
-    let client = StorageControl::builder().build().await?;
+    let client = control_client().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
 
     let id = random_bucket_id();
     buckets.push(id.clone());
-    create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
+    buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
 
     tracing::info!("running control::quickstart example");
     control::quickstart::sample(&client, &id).await?;
@@ -254,13 +330,13 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         tracing::subscriber::set_default(subscriber)
     };
 
-    let control = StorageControl::builder().build().await?;
+    let control = control_client().await?;
     let client = Storage::builder().build().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
 
     let id = random_bucket_id();
     buckets.push(id.clone());
-    create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
+    buckets::create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
 
     tracing::info!("create test objects for the examples");
     let writers = [
@@ -283,6 +359,23 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::stream_file_upload::sample(&client, &id).await?;
     tracing::info!("running stream_file_download example");
     objects::stream_file_download::sample(&client, &id).await?;
+
+    tracing::info!("create temp file for upload");
+    let file_to_upload = tempfile::NamedTempFile::new()?;
+    let file_to_upload_path = file_to_upload.path().to_str().unwrap();
+    tokio::fs::write(file_to_upload_path, "hello world from file").await?;
+    tracing::info!("running upload_file example");
+    objects::upload_file::sample(&client, &id, "uploaded-file.txt", file_to_upload_path).await?;
+    tracing::info!("running download_file example");
+    let downloaded_file = tempfile::NamedTempFile::new()?;
+    let downloaded_file_path = downloaded_file.path().to_str().unwrap();
+    objects::download_file::sample(&client, &id, "uploaded-file.txt", downloaded_file_path).await?;
+    tracing::info!("checking downloaded file content");
+    let content = tokio::fs::read_to_string(downloaded_file_path).await?;
+    assert_eq!(content, "hello world from file");
+
+    tracing::info!("running download_byte_range example");
+    objects::download_byte_range::sample(&client, &id, "object-to-download.txt", 4, 10).await?;
 
     tracing::info!("running generate_encryption_key example");
     let csek_key = objects::generate_encryption_key::sample()?;
@@ -312,6 +405,37 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     control::delete_folder::sample(&control, &id).await?;
 
     Ok(())
+}
+
+async fn control_client() -> anyhow::Result<StorageControl> {
+    // Avoid creating more than one bucket every 2 seconds:
+    //     https://cloud.google.com/storage/quotas
+    const BUCKET_CREATION_DELAY: Duration = Duration::from_secs(2);
+    // Avoid mutating a bucket more than once per second:
+    //     https://cloud.google.com/storage/quotas
+    const BUCKET_MUTATION_DELAY: Duration = Duration::from_secs(1);
+
+    // Use a longer than normal initial backoff, to better handle rate limit
+    // errors.
+    let backoff = ExponentialBackoffBuilder::new()
+        .with_initial_delay(std::cmp::max(BUCKET_CREATION_DELAY, BUCKET_MUTATION_DELAY))
+        .with_maximum_delay(Duration::from_secs(60))
+        .build()?;
+
+    let control = StorageControl::builder()
+        .with_backoff_policy(backoff)
+        .with_retry_policy(
+            // Retry all errors, the examples are tested with on newly created
+            // buckets, using a static configuration. Most likely the errors are
+            // network problems and can be safely retried. Or at least, we will
+            // get fewer flakes from retrying failures vs. not.
+            RetryableErrors
+                .with_time_limit(Duration::from_secs(900))
+                .always_idempotent(),
+        )
+        .build()
+        .await?;
+    Ok(control)
 }
 
 async fn make_object(client: &Storage, bucket_id: &str, name: &str) -> anyhow::Result<Object> {

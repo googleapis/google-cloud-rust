@@ -37,6 +37,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
+//! * [DataFoundryService](client/struct.DataFoundryService.html)
 //! * [DatasetService](client/struct.DatasetService.html)
 //! * [DeploymentResourcePoolService](client/struct.DeploymentResourcePoolService.html)
 //! * [EndpointService](client/struct.EndpointService.html)
@@ -98,6 +99,7 @@ pub(crate) mod transport;
 
 /// The default host used by the service.
 #[cfg(any(
+    feature = "data-foundry-service",
     feature = "dataset-service",
     feature = "deployment-resource-pool-service",
     feature = "endpoint-service",
@@ -134,6 +136,7 @@ pub(crate) mod transport;
 const DEFAULT_HOST: &str = "https://aiplatform.googleapis.com/";
 
 #[cfg(any(
+    feature = "data-foundry-service",
     feature = "dataset-service",
     feature = "deployment-resource-pool-service",
     feature = "endpoint-service",

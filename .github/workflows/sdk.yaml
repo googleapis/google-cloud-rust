@@ -320,7 +320,7 @@ jobs:
       - name: Upload user guide
         if: ${{ matrix.rust-version == 'rust:current' }}
         id: deployment
-        uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+        uses: actions/upload-pages-artifact@v4 # or specific "vX.X.X" version tag for this action
         with:
           path: guide/book/
   deploy:
@@ -401,7 +401,7 @@ jobs:
           sudo unzip -x /tmp/protoc.zip
           protoc --version
       - name: Regenerate all the code
-        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.2-0.20250812135937-eb593463c88c refreshall -project-root .
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.2-0.20250827183345-8f409cc46adc refreshall -project-root .
       - run: cargo fmt
         # If there is any difference between the generated code and the
         # committed code that is an error. All the inputs should be pinned,
