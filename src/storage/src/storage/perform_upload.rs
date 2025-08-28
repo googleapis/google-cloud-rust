@@ -15,7 +15,7 @@
 use super::client::{StorageInner, apply_customer_supplied_encryption_headers};
 use crate::model::Object;
 use crate::retry_policy::ContinueOn308;
-use crate::storage::checksum::details::{Checksum, ChecksummedSource};
+use crate::storage::checksum::details::ChecksummedSource;
 use crate::storage::client::info::X_GOOG_API_CLIENT_HEADER;
 use crate::storage::v1;
 use crate::streaming_source::{IterSource, Seek, SizeHint, StreamingSource};
@@ -43,13 +43,13 @@ pub struct PerformUpload<S> {
 
 impl<S> PerformUpload<S> {
     pub(crate) fn new(
-        checksum: Checksum,
         payload: S,
         inner: Arc<StorageInner>,
         spec: crate::model::WriteObjectSpec,
         params: Option<crate::model::CommonObjectRequestParams>,
         options: super::request_options::RequestOptions,
     ) -> Self {
+        let checksum = options.checksum.clone();
         Self {
             payload: Arc::new(Mutex::new(ChecksummedSource::new(checksum, payload))),
             inner,

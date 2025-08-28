@@ -22,7 +22,7 @@ use super::streaming_source::{Seek, StreamingSource};
 use super::*;
 use crate::model_ext::KeyAes256;
 use crate::storage::checksum::details::update as checksum_update;
-use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
+use crate::storage::checksum::details::{Checksum, Md5};
 
 /// A request builder for object writes.
 ///
@@ -79,7 +79,6 @@ pub struct WriteObject<T> {
     params: Option<crate::model::CommonObjectRequestParams>,
     payload: Payload<T>,
     options: super::request_options::RequestOptions,
-    checksum: Checksum,
 }
 
 impl<T> WriteObject<T> {
@@ -781,7 +780,6 @@ impl<T> WriteObject<T> {
 
     pub(crate) fn build(self) -> PerformUpload<Payload<T>> {
         PerformUpload::new(
-            self.checksum,
             self.payload,
             self.inner,
             self.spec,
@@ -836,7 +834,7 @@ impl<T> WriteObject<T> {
     /// [compute_md5()]: WriteObject::compute_md5
     pub fn with_known_crc32c<V: Into<u32>>(self, v: V) -> Self {
         let mut this = self;
-        this.checksum.crc32c = None;
+        this.options.checksum.crc32c = None;
         this.set_crc32c(v)
     }
 
@@ -875,7 +873,7 @@ impl<T> WriteObject<T> {
         V: Into<u8>,
     {
         let mut this = self;
-        this.checksum.md5_hash = None;
+        this.options.checksum.md5_hash = None;
         this.set_md5_hash(i)
     }
 
@@ -900,7 +898,7 @@ impl<T> WriteObject<T> {
     /// limitations.
     pub fn compute_md5(self) -> Self {
         let mut this = self;
-        this.checksum.md5_hash = Some(Md5::default());
+        this.options.checksum.md5_hash = Some(Md5::default());
         this
     }
 
@@ -925,10 +923,6 @@ impl<T> WriteObject<T> {
             params: None,
             payload: payload.into(),
             options,
-            checksum: Checksum {
-                crc32c: Some(Crc32c::default()),
-                md5_hash: None,
-            },
         }
     }
 }
@@ -992,14 +986,14 @@ where
         let mut offset = 0_u64;
         self.payload.seek(offset).await.map_err(Error::ser)?;
         while let Some(n) = self.payload.next().await.transpose().map_err(Error::ser)? {
-            self.checksum.update(offset, &n);
+            self.options.checksum.update(offset, &n);
             offset += n.len() as u64;
         }
         self.payload.seek(0_u64).await.map_err(Error::ser)?;
-        let computed = self.checksum.finalize();
+        let computed = self.options.checksum.finalize();
         let current = self.mut_resource().checksums.get_or_insert_default();
         checksum_update(current, computed);
-        self.checksum = Checksum {
+        self.options.checksum = Checksum {
             crc32c: None,
             md5_hash: None,
         };
@@ -1039,7 +1033,6 @@ impl<T> std::fmt::Debug for WriteObject<T> {
             .field("params", &self.params)
             // skip payload, as it is not `Debug`
             .field("options", &self.options)
-            .field("checksum", &self.checksum)
             .finish()
     }
 }
