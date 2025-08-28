@@ -68,11 +68,12 @@ mod tests {
             o.etag = "custom-etag".to_string();
             o
         };
-        let object_clone = object.clone();
 
         let mut mock = MockStorage::new();
-        mock.expect_read_object()
-            .return_once(move |_, _| Ok(ReadObjectResponse::from_source(object_clone, LAZY)));
+        mock.expect_read_object().return_once({
+            let o = object.clone();
+            move |_, _| Ok(ReadObjectResponse::from_source(o, LAZY))
+        });
 
         let client = gcs::client::Storage::from_stub(mock);
         let mut reader = client
