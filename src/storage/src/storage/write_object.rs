@@ -75,8 +75,7 @@ use crate::storage::checksum::details::{Checksum, Md5};
 /// ```
 pub struct WriteObject<T> {
     inner: std::sync::Arc<StorageInner>,
-    spec: crate::model::WriteObjectSpec,
-    params: Option<crate::model::CommonObjectRequestParams>,
+    request: crate::model_ext::WriteObjectRequest,
     payload: Payload<T>,
     options: super::request_options::RequestOptions,
 }
@@ -106,7 +105,7 @@ impl<T> WriteObject<T> {
     where
         V: Into<i64>,
     {
-        self.spec.if_generation_match = Some(v.into());
+        self.request.spec.if_generation_match = Some(v.into());
         self
     }
 
@@ -133,7 +132,7 @@ impl<T> WriteObject<T> {
     where
         V: Into<i64>,
     {
-        self.spec.if_generation_not_match = Some(v.into());
+        self.request.spec.if_generation_not_match = Some(v.into());
         self
     }
 
@@ -161,7 +160,7 @@ impl<T> WriteObject<T> {
     where
         V: Into<i64>,
     {
-        self.spec.if_metageneration_match = Some(v.into());
+        self.request.spec.if_metageneration_match = Some(v.into());
         self
     }
 
@@ -190,7 +189,7 @@ impl<T> WriteObject<T> {
     where
         V: Into<i64>,
     {
-        self.spec.if_metageneration_not_match = Some(v.into());
+        self.request.spec.if_metageneration_not_match = Some(v.into());
         self
     }
 
@@ -554,7 +553,7 @@ impl<T> WriteObject<T> {
     where
         V: Into<String>,
     {
-        self.spec.predefined_acl = v.into();
+        self.request.spec.predefined_acl = v.into();
         self
     }
 
@@ -576,7 +575,7 @@ impl<T> WriteObject<T> {
     /// # Ok(()) }
     /// ```
     pub fn set_key(mut self, v: KeyAes256) -> Self {
-        self.params = Some(v.into());
+        self.request.params = Some(v.into());
         self
     }
 
@@ -772,7 +771,8 @@ impl<T> WriteObject<T> {
     }
 
     fn mut_resource(&mut self) -> &mut crate::model::Object {
-        self.spec
+        self.request
+            .spec
             .resource
             .as_mut()
             .expect("resource field initialized in `new()`")
@@ -782,8 +782,8 @@ impl<T> WriteObject<T> {
         PerformUpload::new(
             self.payload,
             self.inner,
-            self.spec,
-            self.params,
+            self.request.spec,
+            self.request.params,
             self.options,
         )
     }
@@ -919,8 +919,10 @@ impl<T> WriteObject<T> {
             .set_name(object);
         WriteObject {
             inner,
-            spec: crate::model::WriteObjectSpec::new().set_resource(resource),
-            params: None,
+            request: crate::model_ext::WriteObjectRequest {
+                spec: crate::model::WriteObjectSpec::new().set_resource(resource),
+                params: None,
+            },
             payload: payload.into(),
             options,
         }
@@ -1029,8 +1031,7 @@ impl<T> std::fmt::Debug for WriteObject<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("WriteObject")
             .field("inner", &self.inner)
-            .field("spec", &self.spec)
-            .field("params", &self.params)
+            .field("request", &self.request)
             // skip payload, as it is not `Debug`
             .field("options", &self.options)
             .finish()
@@ -1131,7 +1132,7 @@ mod tests {
     fn upload_object_unbuffered_metadata() -> Result {
         use crate::model::ObjectAccessControl;
         let inner = test_inner_client(test_builder());
-        let mut request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
+        let mut builder = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
             .set_if_generation_match(10)
             .set_if_generation_not_match(20)
             .set_if_metageneration_match(30)
@@ -1159,10 +1160,10 @@ mod tests {
             .with_known_crc32c(crc32c::crc32c(b""))
             .with_known_md5_hash(md5::compute(b"").0);
 
-        let resource = request.spec.resource.take().unwrap();
-        let request = request;
+        let resource = builder.request.spec.resource.take().unwrap();
+        let builder = builder;
         assert_eq!(
-            &request.spec,
+            &builder.request.spec,
             &WriteObjectSpec::new()
                 .set_if_generation_match(10)
                 .set_if_generation_not_match(20)
@@ -1250,7 +1251,10 @@ mod tests {
             crc32c: Some(Crc32c::default()),
             md5_hash: None,
         });
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
         let collected = collect(upload.payload).await?;
         assert_eq!(collected, QUICK.as_bytes());
         Ok(())
@@ -1268,7 +1272,10 @@ mod tests {
             crc32c: Some(Crc32c::default()),
             md5_hash: Some(Md5::default()),
         });
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
         Ok(())
     }
 
@@ -1291,7 +1298,10 @@ mod tests {
         // Note that the checksums do not match the data. This is intentional,
         // we are trying to verify that whatever is provided in with_crc32c()
         // and with_md5() is respected.
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(ck));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(ck)
+        );
 
         Ok(())
     }
@@ -1320,7 +1330,10 @@ mod tests {
             md5_hash: Some(Md5::default()),
         })
         .set_crc32c(ck.crc32c.unwrap());
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
 
         Ok(())
     }
@@ -1345,7 +1358,10 @@ mod tests {
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
         let want = ck.clone();
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
 
         Ok(())
     }
@@ -1374,7 +1390,10 @@ mod tests {
             md5_hash: None,
         })
         .set_md5_hash(ck.md5_hash.clone());
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
 
         Ok(())
     }
@@ -1400,7 +1419,10 @@ mod tests {
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
         let want = ck.clone();
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
 
         Ok(())
     }
@@ -1425,7 +1447,10 @@ mod tests {
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
         let want = ck.clone();
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
 
         Ok(())
     }
