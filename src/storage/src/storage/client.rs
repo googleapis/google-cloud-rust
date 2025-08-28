@@ -87,7 +87,8 @@ use std::sync::Arc;
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
 pub struct Storage {
-    inner: std::sync::Arc<StorageInner>,
+    stub: std::sync::Arc<crate::storage::transport::Storage>,
+    options: RequestOptions,
 }
 
 #[derive(Clone, Debug)]
@@ -163,7 +164,13 @@ impl Storage {
         O: Into<String>,
         T: Into<Payload<P>>,
     {
-        WriteObject::new(self.inner.clone(), bucket, object, payload)
+        WriteObject::new(
+            self.stub.clone(),
+            bucket,
+            object,
+            payload,
+            self.options.clone(),
+        )
     }
 
     /// Reads the contents of an object.
@@ -193,7 +200,7 @@ impl Storage {
         B: Into<String>,
         O: Into<String>,
     {
-        ReadObject::new(self.inner.clone(), bucket, object)
+        ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
 
     pub(crate) fn new(builder: ClientBuilder) -> gax::client_builder::Result<Self> {
@@ -222,7 +229,9 @@ impl Storage {
         builder.credentials = Some(cred);
         builder.endpoint = Some(endpoint);
         let inner = Arc::new(StorageInner::new(client, builder));
-        Ok(Self { inner })
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new(inner);
+        Ok(Self { stub, options })
     }
 }
 

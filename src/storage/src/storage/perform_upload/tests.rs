@@ -53,11 +53,14 @@ pub(crate) fn perform_upload<T>(
 #[tokio::test]
 async fn start_resumable_upload() -> Result {
     let inner = test_inner_client(test_builder());
+    let options = inner.options.clone();
+    let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(
-        inner.clone(),
+        stub,
         "projects/_/buckets/bucket",
         "object",
         "hello",
+        options,
     );
     let mut request = perform_upload(inner, builder)
         .start_resumable_upload_request()
@@ -82,11 +85,14 @@ async fn start_resumable_upload_headers() -> Result {
     let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
     let inner = test_inner_client(test_builder());
+    let options = inner.options.clone();
+    let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(
-        inner.clone(),
+        stub,
         "projects/_/buckets/bucket",
         "object",
         "hello",
+        options,
     )
     .set_key(KeyAes256::new(&key)?);
     let request = perform_upload(inner, builder)
@@ -118,7 +124,9 @@ async fn start_resumable_upload_headers() -> Result {
 #[tokio::test]
 async fn start_resumable_upload_bad_bucket() -> Result {
     let inner = test_inner_client(test_builder());
-    let builder = WriteObject::new(inner.clone(), "malformed", "object", "hello");
+    let options = inner.options.clone();
+    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let builder = WriteObject::new(stub, "malformed", "object", "hello", options);
     let _ = perform_upload(inner, builder)
         .start_resumable_upload_request()
         .await
@@ -130,7 +138,9 @@ async fn start_resumable_upload_bad_bucket() -> Result {
 async fn start_resumable_upload_metadata_in_request() -> Result {
     use crate::model::ObjectAccessControl;
     let inner = test_inner_client(test_builder());
-    let builder = WriteObject::new(inner.clone(), "projects/_/buckets/bucket", "object", "")
+    let options = inner.options.clone();
+    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let builder = WriteObject::new(stub, "projects/_/buckets/bucket", "object", "", options)
         .set_if_generation_match(10)
         .set_if_generation_not_match(20)
         .set_if_metageneration_match(30)
@@ -213,11 +223,14 @@ async fn start_resumable_upload_credentials() -> Result {
     let inner = test_inner_client(
         test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
     );
+    let options = inner.options.clone();
+    let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(
-        inner.clone(),
+        stub,
         "projects/_/buckets/bucket",
         "object",
         "hello",
+        options,
     );
     let _ = perform_upload(inner, builder)
         .start_resumable_upload_request()

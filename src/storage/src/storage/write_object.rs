@@ -16,12 +16,12 @@
 //!
 //! [write_object()]: crate::storage::client::Storage::write_object()
 
-use super::client::*;
 use super::streaming_source::{Seek, StreamingSource};
 use super::*;
 use crate::model_ext::KeyAes256;
 use crate::storage::checksum::details::update as checksum_update;
 use crate::storage::checksum::details::{Checksum, Md5};
+use crate::storage::request_options::RequestOptions;
 
 /// A request builder for object writes.
 ///
@@ -76,7 +76,7 @@ pub struct WriteObject<T> {
     stub: std::sync::Arc<crate::storage::transport::Storage>,
     pub(crate) request: crate::model_ext::WriteObjectRequest,
     pub(crate) payload: Payload<T>,
-    pub(crate) options: super::request_options::RequestOptions,
+    pub(crate) options: RequestOptions,
 }
 
 impl<T> WriteObject<T> {
@@ -892,22 +892,22 @@ impl<T> WriteObject<T> {
     }
 
     pub(crate) fn new<B, O, P>(
-        inner: std::sync::Arc<StorageInner>,
+        stub: std::sync::Arc<crate::storage::transport::Storage>,
         bucket: B,
         object: O,
         payload: P,
+        options: RequestOptions,
     ) -> Self
     where
         B: Into<String>,
         O: Into<String>,
         P: Into<Payload<T>>,
     {
-        let options = inner.options.clone();
         let resource = crate::model::Object::new()
             .set_bucket(bucket)
             .set_name(object);
         WriteObject {
-            stub: crate::storage::transport::Storage::new(inner),
+            stub,
             request: crate::model_ext::WriteObjectRequest {
                 spec: crate::model::WriteObjectSpec::new().set_resource(resource),
                 params: None,
@@ -1037,6 +1037,7 @@ impl<T> std::fmt::Debug for WriteObject<T> {
 mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
+    use crate::client::Storage;
     use crate::model::{ObjectChecksums, WriteObjectSpec};
     use crate::storage::checksum::details::{Crc32c, Md5};
     use crate::streaming_source::tests::MockSeekSource;
@@ -1127,33 +1128,36 @@ mod tests {
     fn upload_object_unbuffered_metadata() -> Result {
         use crate::model::ObjectAccessControl;
         let inner = test_inner_client(test_builder());
-        let mut builder = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
-            .set_if_generation_match(10)
-            .set_if_generation_not_match(20)
-            .set_if_metageneration_match(30)
-            .set_if_metageneration_not_match(40)
-            .set_predefined_acl("private")
-            .set_acl([ObjectAccessControl::new()
-                .set_entity("allAuthenticatedUsers")
-                .set_role("READER")])
-            .set_cache_control("public; max-age=7200")
-            .set_content_disposition("inline")
-            .set_content_encoding("gzip")
-            .set_content_language("en")
-            .set_content_type("text/plain")
-            .set_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
-            .set_event_based_hold(true)
-            .set_metadata([("k0", "v0"), ("k1", "v1")])
-            .set_retention(
-                crate::model::object::Retention::new()
-                    .set_mode(crate::model::object::retention::Mode::Locked)
-                    .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
-            )
-            .set_storage_class("ARCHIVE")
-            .set_temporary_hold(true)
-            .set_kms_key("test-key")
-            .with_known_crc32c(crc32c::crc32c(b""))
-            .with_known_md5_hash(md5::compute(b"").0);
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new(inner);
+        let mut builder =
+            WriteObject::new(stub, "projects/_/buckets/bucket", "object", "", options)
+                .set_if_generation_match(10)
+                .set_if_generation_not_match(20)
+                .set_if_metageneration_match(30)
+                .set_if_metageneration_not_match(40)
+                .set_predefined_acl("private")
+                .set_acl([ObjectAccessControl::new()
+                    .set_entity("allAuthenticatedUsers")
+                    .set_role("READER")])
+                .set_cache_control("public; max-age=7200")
+                .set_content_disposition("inline")
+                .set_content_encoding("gzip")
+                .set_content_language("en")
+                .set_content_type("text/plain")
+                .set_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
+                .set_event_based_hold(true)
+                .set_metadata([("k0", "v0"), ("k1", "v1")])
+                .set_retention(
+                    crate::model::object::Retention::new()
+                        .set_mode(crate::model::object::retention::Mode::Locked)
+                        .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
+                )
+                .set_storage_class("ARCHIVE")
+                .set_temporary_hold(true)
+                .set_kms_key("test-key")
+                .with_known_crc32c(crc32c::crc32c(b""))
+                .with_known_md5_hash(md5::compute(b"").0);
 
         let resource = builder.request.spec.resource.take().unwrap();
         let builder = builder;
@@ -1208,11 +1212,19 @@ mod tests {
                 .with_resumable_upload_threshold(123_usize)
                 .with_resumable_upload_buffer_size(234_usize),
         );
-        let request = WriteObject::new(inner.clone(), "projects/_/buckets/bucket", "object", "");
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new(inner);
+        let request = WriteObject::new(
+            stub.clone(),
+            "projects/_/buckets/bucket",
+            "object",
+            "",
+            options.clone(),
+        );
         assert_eq!(request.options.resumable_upload_threshold, 123);
         assert_eq!(request.options.resumable_upload_buffer_size, 234);
 
-        let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
+        let request = WriteObject::new(stub, "projects/_/buckets/bucket", "object", "", options)
             .with_resumable_upload_threshold(345_usize)
             .with_resumable_upload_buffer_size(456_usize);
         assert_eq!(request.options.resumable_upload_threshold, 345);
