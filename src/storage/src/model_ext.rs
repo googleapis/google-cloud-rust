@@ -293,7 +293,11 @@ enum Range {
     Segment { offset: u64, limit: u64 },
 }
 
-/// Represents the parameters of a `WriteObject` request for use in mocks
+/// Represents the parameters of a [WriteObject] request.
+///
+/// This type is only used in mocks of the `Storage` client.
+///
+/// [WriteObject]: crate::builder::storage::WriteObject
 #[derive(Debug, PartialEq)]
 #[non_exhaustive]
 #[allow(dead_code)]
