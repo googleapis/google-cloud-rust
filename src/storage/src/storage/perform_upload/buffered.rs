@@ -256,7 +256,9 @@ mod tests {
     #[tokio::test]
     async fn test_percent_encoding_object_name(want: &str) -> Result {
         let inner = test_inner_client(test_builder());
-        let builder = WriteObject::new(inner.clone(), "projects/_/buckets/bucket", want, "hello");
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = WriteObject::new(stub, "projects/_/buckets/bucket", want, "hello", options);
         let request = perform_upload(inner, builder)
             .start_resumable_upload_request()
             .await?
