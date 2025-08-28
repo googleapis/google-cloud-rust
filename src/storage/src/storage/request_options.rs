@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::read_resume_policy::{ReadResumePolicy, Recommended};
+use crate::storage::checksum::details::{Checksum, Crc32c};
 use gax::{
     backoff_policy::BackoffPolicy,
     retry_policy::RetryPolicy,
@@ -22,13 +23,14 @@ use std::sync::{Arc, Mutex};
 
 #[derive(Clone, Debug)]
 pub(crate) struct RequestOptions {
-    pub retry_policy: Arc<dyn RetryPolicy>,
-    pub backoff_policy: Arc<dyn BackoffPolicy>,
-    pub retry_throttler: SharedRetryThrottler,
-    pub read_resume_policy: Arc<dyn ReadResumePolicy>,
-    pub resumable_upload_threshold: usize,
-    pub resumable_upload_buffer_size: usize,
-    pub idempotency: Option<bool>,
+    pub(crate) retry_policy: Arc<dyn RetryPolicy>,
+    pub(crate) backoff_policy: Arc<dyn BackoffPolicy>,
+    pub(crate) retry_throttler: SharedRetryThrottler,
+    pub(crate) read_resume_policy: Arc<dyn ReadResumePolicy>,
+    pub(crate) resumable_upload_threshold: usize,
+    pub(crate) resumable_upload_buffer_size: usize,
+    pub(crate) idempotency: Option<bool>,
+    pub(crate) checksum: Checksum,
 }
 
 const MIB: usize = 1024 * 1024_usize;
@@ -51,6 +53,10 @@ impl RequestOptions {
             resumable_upload_threshold: RESUMABLE_UPLOAD_THRESHOLD,
             resumable_upload_buffer_size: RESUMABLE_UPLOAD_TARGET_CHUNK,
             idempotency: None,
+            checksum: Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: None,
+            },
         }
     }
 }

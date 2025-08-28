@@ -114,6 +114,51 @@ pub struct Reservation {
     /// charges for the failover reservation will be applied to this location.
     pub original_primary_location: std::string::String,
 
+    /// Optional. The overall max slots for the reservation, covering slot_capacity
+    /// (baseline), idle slots (if ignore_idle_slots is false) and scaled slots.
+    /// If present, the reservation won't use more than the specified number of
+    /// slots, even if there is demand and supply (from idle slots).
+    /// NOTE: capping a reservation's idle slot usage is best effort and its
+    /// usage may exceed the max_slots value. However, in terms of
+    /// autoscale.current_slots (which accounts for the additional added slots), it
+    /// will never exceed the max_slots - baseline.
+    ///
+    /// This field must be set together with the scaling_mode enum value.
+    ///
+    /// If the max_slots and scaling_mode are set, the autoscale or
+    /// autoscale.max_slots field must be unset. However, the
+    /// autoscale field may still be in the output. The autopscale.max_slots will
+    /// always show as 0 and the autoscaler.current_slots will represent the
+    /// current slots from autoscaler excluding idle slots.
+    /// For example, if the max_slots is 1000 and scaling_mode is AUTOSCALE_ONLY,
+    /// then in the output, the autoscaler.max_slots will be 0 and the
+    /// autoscaler.current_slots may be any value between 0 and 1000.
+    ///
+    /// If the max_slots is 1000, scaling_mode is ALL_SLOTS, the baseline is 100
+    /// and idle slots usage is 200, then in the output, the autoscaler.max_slots
+    /// will be 0 and the autoscaler.current_slots will not be higher than 700.
+    ///
+    /// If the max_slots is 1000, scaling_mode is IDLE_SLOTS_ONLY, then in the
+    /// output, the autoscaler field will be null.
+    ///
+    /// If the max_slots and scaling_mode are set, then the ignore_idle_slots field
+    /// must be aligned with the scaling_mode enum value.(See details in
+    /// ScalingMode comments).
+    ///
+    /// Please note,  the max_slots is for user to manage the part of slots greater
+    /// than the baseline. Therefore, we don't allow users to set max_slots smaller
+    /// or equal to the baseline as it will not be meaningful. If the field is
+    /// present and slot_capacity>=max_slots.
+    ///
+    /// Please note that if max_slots is set to 0, we will treat it as unset.
+    /// Customers can set max_slots to 0 and set scaling_mode to
+    /// SCALING_MODE_UNSPECIFIED to disable the max_slots feature.
+    pub max_slots: std::option::Option<i64>,
+
+    /// Optional. The scaling mode for the reservation.
+    /// If the field is present but max_slots is not present.
+    pub scaling_mode: crate::model::reservation::ScalingMode,
+
     /// Output only. The Disaster Recovery(DR) replication status of the
     /// reservation. This is only available for the primary replicas of DR/failover
     /// reservations and provides information about the both the staleness of the
@@ -249,6 +294,33 @@ impl Reservation {
         self
     }
 
+    /// Sets the value of [max_slots][crate::model::Reservation::max_slots].
+    pub fn set_max_slots<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.max_slots = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_slots][crate::model::Reservation::max_slots].
+    pub fn set_or_clear_max_slots<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.max_slots = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [scaling_mode][crate::model::Reservation::scaling_mode].
+    pub fn set_scaling_mode<T: std::convert::Into<crate::model::reservation::ScalingMode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.scaling_mode = v.into();
+        self
+    }
+
     /// Sets the value of [replication_status][crate::model::Reservation::replication_status].
     pub fn set_replication_status<T>(mut self, v: T) -> Self
     where
@@ -296,6 +368,8 @@ impl<'de> serde::de::Deserialize<'de> for Reservation {
             __primary_location,
             __secondary_location,
             __original_primary_location,
+            __max_slots,
+            __scaling_mode,
             __replication_status,
             Unknown(std::string::String),
         }
@@ -341,6 +415,10 @@ impl<'de> serde::de::Deserialize<'de> for Reservation {
                             "original_primary_location" => {
                                 Ok(__FieldTag::__original_primary_location)
                             }
+                            "maxSlots" => Ok(__FieldTag::__max_slots),
+                            "max_slots" => Ok(__FieldTag::__max_slots),
+                            "scalingMode" => Ok(__FieldTag::__scaling_mode),
+                            "scaling_mode" => Ok(__FieldTag::__scaling_mode),
                             "replicationStatus" => Ok(__FieldTag::__replication_status),
                             "replication_status" => Ok(__FieldTag::__replication_status),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -504,6 +582,33 @@ impl<'de> serde::de::Deserialize<'de> for Reservation {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__max_slots => {
+                            if !fields.insert(__FieldTag::__max_slots) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_slots",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_slots = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__scaling_mode => {
+                            if !fields.insert(__FieldTag::__scaling_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for scaling_mode",
+                                ));
+                            }
+                            result.scaling_mode = map.next_value::<std::option::Option<crate::model::reservation::ScalingMode>>()?.unwrap_or_default();
+                        }
                         __FieldTag::__replication_status => {
                             if !fields.insert(__FieldTag::__replication_status) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -592,6 +697,23 @@ impl serde::ser::Serialize for Reservation {
         if !self.original_primary_location.is_empty() {
             state.serialize_entry("originalPrimaryLocation", &self.original_primary_location)?;
         }
+        if self.max_slots.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("maxSlots", &__With(&self.max_slots))?;
+        }
+        if !wkt::internal::is_default(&self.scaling_mode) {
+            state.serialize_entry("scalingMode", &self.scaling_mode)?;
+        }
         if self.replication_status.is_some() {
             state.serialize_entry("replicationStatus", &self.replication_status)?;
         }
@@ -619,6 +741,8 @@ impl std::fmt::Debug for Reservation {
         debug_struct.field("primary_location", &self.primary_location);
         debug_struct.field("secondary_location", &self.secondary_location);
         debug_struct.field("original_primary_location", &self.original_primary_location);
+        debug_struct.field("max_slots", &self.max_slots);
+        debug_struct.field("scaling_mode", &self.scaling_mode);
         debug_struct.field("replication_status", &self.replication_status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1076,6 +1200,188 @@ pub mod reservation {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
             debug_struct.finish()
+        }
+    }
+
+    /// The scaling mode for the reservation. This enum determines how the
+    /// reservation scales up and down.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ScalingMode {
+        /// Default value of ScalingMode.
+        Unspecified,
+        /// The reservation will scale up only using slots from autoscaling. It will
+        /// not use any idle slots even if there may be some available. The upper
+        /// limit that autoscaling can scale up to will be max_slots - baseline.
+        /// For example, if max_slots is 1000, baseline is 200 and customer sets
+        /// ScalingMode to AUTOSCALE_ONLY, then autoscalerg will scale up to 800
+        /// slots and no idle slots will be used.
+        ///
+        /// Please note, in this mode, the ignore_idle_slots field must be set to
+        /// true.
+        AutoscaleOnly,
+        /// The reservation will scale up using only idle slots contributed by
+        /// other reservations or from unassigned commitments. If no idle slots are
+        /// available it will not scale up further. If the idle slots which it is
+        /// using are reclaimed by the contributing reservation(s) it may be forced
+        /// to scale down. The max idle slots the reservation can be max_slots -
+        /// baseline capacity. For example, if max_slots is 1000, baseline is 200 and
+        /// customer sets ScalingMode to IDLE_SLOTS_ONLY,
+        ///
+        /// 1. if there are 1000 idle slots available in other reservations, the
+        ///    reservation will scale up to 1000 slots with 200 baseline and 800 idle
+        ///    slots.
+        /// 1. if there are 500 idle slots available in other reservations, the
+        ///    reservation will scale up to 700 slots with 200 baseline and 300 idle
+        ///    slots.
+        ///    Please note, in this mode, the reservation might not be able to scale up
+        ///    to max_slots.
+        ///
+        /// Please note, in this mode, the ignore_idle_slots field must be set to
+        /// false.
+        IdleSlotsOnly,
+        /// The reservation will scale up using all slots available to it. It will
+        /// use idle slots contributed by other reservations or from unassigned
+        /// commitments first. If no idle slots are available it will scale up using
+        /// autoscaling. For example, if max_slots is 1000, baseline is 200 and
+        /// customer sets ScalingMode to ALL_SLOTS,
+        ///
+        /// 1. if there are 800 idle slots available in other reservations, the
+        ///    reservation will scale up to 1000 slots with 200 baseline and 800 idle
+        ///    slots.
+        /// 1. if there are 500 idle slots available in other reservations, the
+        ///    reservation will scale up to 1000 slots with 200 baseline, 500 idle
+        ///    slots and 300 autoscaling slots.
+        /// 1. if there are no idle slots available in other reservations, it will
+        ///    scale up to 1000 slots with 200 baseline and 800 autoscaling slots.
+        ///
+        /// Please note, in this mode, the ignore_idle_slots field must be set to
+        /// false.
+        AllSlots,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ScalingMode::value] or
+        /// [ScalingMode::name].
+        UnknownValue(scaling_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod scaling_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ScalingMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AutoscaleOnly => std::option::Option::Some(1),
+                Self::IdleSlotsOnly => std::option::Option::Some(2),
+                Self::AllSlots => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SCALING_MODE_UNSPECIFIED"),
+                Self::AutoscaleOnly => std::option::Option::Some("AUTOSCALE_ONLY"),
+                Self::IdleSlotsOnly => std::option::Option::Some("IDLE_SLOTS_ONLY"),
+                Self::AllSlots => std::option::Option::Some("ALL_SLOTS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ScalingMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ScalingMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ScalingMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AutoscaleOnly,
+                2 => Self::IdleSlotsOnly,
+                3 => Self::AllSlots,
+                _ => Self::UnknownValue(scaling_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ScalingMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SCALING_MODE_UNSPECIFIED" => Self::Unspecified,
+                "AUTOSCALE_ONLY" => Self::AutoscaleOnly,
+                "IDLE_SLOTS_ONLY" => Self::IdleSlotsOnly,
+                "ALL_SLOTS" => Self::AllSlots,
+                _ => Self::UnknownValue(scaling_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ScalingMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AutoscaleOnly => serializer.serialize_i32(1),
+                Self::IdleSlotsOnly => serializer.serialize_i32(2),
+                Self::AllSlots => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ScalingMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ScalingMode>::new(
+                ".google.cloud.bigquery.reservation.v1.Reservation.ScalingMode",
+            ))
         }
     }
 }

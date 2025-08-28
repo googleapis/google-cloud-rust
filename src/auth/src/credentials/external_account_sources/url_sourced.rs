@@ -42,7 +42,12 @@ impl UrlSourcedCredentials {
         format_source: Option<CredentialSourceFormat>,
     ) -> Self {
         let (format, subject_token_field_name) = format_source
-            .map(|f| (f.format_type, f.subject_token_field_name))
+            .map(|f| {
+                (
+                    f.format_type,
+                    f.subject_token_field_name.unwrap_or_default(),
+                )
+            })
             .unwrap_or(("text".to_string(), String::new()));
         Self {
             url,

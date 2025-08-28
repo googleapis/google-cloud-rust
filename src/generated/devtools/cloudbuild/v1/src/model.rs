@@ -22309,7 +22309,7 @@ pub mod private_pool_v_1_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WorkerConfig {
-        /// Machine type of a worker, such as `e2-medium`.
+        /// Optional. Machine type of a worker, such as `e2-medium`.
         /// See [Worker pool config
         /// file](https://cloud.google.com/build/docs/private-pools/worker-pool-config-file-schema).
         /// If left blank, Cloud Build will use a sensible default.
@@ -22318,9 +22318,13 @@ pub mod private_pool_v_1_config {
         /// Size of the disk attached to the worker, in GB.
         /// See [Worker pool config
         /// file](https://cloud.google.com/build/docs/private-pools/worker-pool-config-file-schema).
-        /// Specify a value of up to 2000. If `0` is specified, Cloud Build will use
+        /// Specify a value of up to 4000. If `0` is specified, Cloud Build will use
         /// a standard disk size.
         pub disk_size_gb: i64,
+
+        /// Optional. Enable nested virtualization on the worker, if supported by the
+        /// machine type. By default, nested virtualization is disabled.
+        pub enable_nested_virtualization: std::option::Option<bool>,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -22344,6 +22348,27 @@ pub mod private_pool_v_1_config {
             self.disk_size_gb = v.into();
             self
         }
+
+        /// Sets the value of [enable_nested_virtualization][crate::model::private_pool_v_1_config::WorkerConfig::enable_nested_virtualization].
+        pub fn set_enable_nested_virtualization<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enable_nested_virtualization = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enable_nested_virtualization][crate::model::private_pool_v_1_config::WorkerConfig::enable_nested_virtualization].
+        pub fn set_or_clear_enable_nested_virtualization<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enable_nested_virtualization = v.map(|x| x.into());
+            self
+        }
     }
 
     impl wkt::message::Message for WorkerConfig {
@@ -22364,6 +22389,7 @@ pub mod private_pool_v_1_config {
             enum __FieldTag {
                 __machine_type,
                 __disk_size_gb,
+                __enable_nested_virtualization,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -22391,6 +22417,12 @@ pub mod private_pool_v_1_config {
                                 "machine_type" => Ok(__FieldTag::__machine_type),
                                 "diskSizeGb" => Ok(__FieldTag::__disk_size_gb),
                                 "disk_size_gb" => Ok(__FieldTag::__disk_size_gb),
+                                "enableNestedVirtualization" => {
+                                    Ok(__FieldTag::__enable_nested_virtualization)
+                                }
+                                "enable_nested_virtualization" => {
+                                    Ok(__FieldTag::__enable_nested_virtualization)
+                                }
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -22446,6 +22478,15 @@ pub mod private_pool_v_1_config {
                                 result.disk_size_gb =
                                     map.next_value::<__With>()?.0.unwrap_or_default();
                             }
+                            __FieldTag::__enable_nested_virtualization => {
+                                if !fields.insert(__FieldTag::__enable_nested_virtualization) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for enable_nested_virtualization",
+                                    ));
+                                }
+                                result.enable_nested_virtualization =
+                                    map.next_value::<std::option::Option<bool>>()?;
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -22484,6 +22525,12 @@ pub mod private_pool_v_1_config {
                 }
                 state.serialize_entry("diskSizeGb", &__With(&self.disk_size_gb))?;
             }
+            if self.enable_nested_virtualization.is_some() {
+                state.serialize_entry(
+                    "enableNestedVirtualization",
+                    &self.enable_nested_virtualization,
+                )?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -22498,6 +22545,10 @@ pub mod private_pool_v_1_config {
             let mut debug_struct = f.debug_struct("WorkerConfig");
             debug_struct.field("machine_type", &self.machine_type);
             debug_struct.field("disk_size_gb", &self.disk_size_gb);
+            debug_struct.field(
+                "enable_nested_virtualization",
+                &self.enable_nested_virtualization,
+            );
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }

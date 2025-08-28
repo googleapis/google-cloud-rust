@@ -15,7 +15,6 @@
 // [START storage_download_encrypted_file]
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::KeyAes256;
-use google_cloud_storage::read_object::ReadObjectResponse;
 
 pub async fn sample(
     client: &Storage,

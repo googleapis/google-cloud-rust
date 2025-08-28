@@ -105,14 +105,22 @@ pub type ClientBuilder =
 
 pub(crate) mod client_builder {
     use super::StorageControl;
+    use std::sync::Arc;
+
     pub struct Factory;
     impl gax::client_builder::internal::ClientFactory for Factory {
         type Client = StorageControl;
         type Credentials = gaxi::options::Credentials;
         async fn build(
             self,
-            config: gaxi::options::ClientConfig,
+            mut config: gaxi::options::ClientConfig,
         ) -> gax::client_builder::Result<Self::Client> {
+            if config.retry_policy.is_none() {
+                config.retry_policy = Some(Arc::new(crate::retry_policy::storage_default()));
+            }
+            if config.backoff_policy.is_none() {
+                config.backoff_policy = Some(Arc::new(crate::backoff_policy::default()));
+            }
             Self::Client::new(config).await
         }
     }

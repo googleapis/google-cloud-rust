@@ -19,7 +19,7 @@ description: The Google Cloud client library for the Service Config API.
 version: 0.1.0
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.9.0
 
 resolution: workspace
 

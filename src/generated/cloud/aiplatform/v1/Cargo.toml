@@ -28,6 +28,7 @@ rust-version.workspace = true
 
 [features]
 default = [
+    "data-foundry-service",
     "dataset-service",
     "deployment-resource-pool-service",
     "endpoint-service",
@@ -61,6 +62,8 @@ default = [
     "vertex-rag-service",
     "vizier-service",
 ]
+# Enables `client::DataFoundryService` and all the types it depends on.
+data-foundry-service = []
 # Enables `client::DatasetService` and all the types it depends on.
 dataset-service = []
 # Enables `client::DeploymentResourcePoolService` and all the types it depends on.

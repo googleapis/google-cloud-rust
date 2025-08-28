@@ -12,16 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub const UNIMPLEMENTED: &str = concat!(
+    "to prevent breaking changes as services gain new RPCs, the stub ",
+    "traits provide default implementations of each method. In the client ",
+    "libraries, all implementations of the traits override all methods. ",
+    "Therefore, this error should not appear in normal code using the ",
+    "client libraries. The only expected context for this error is test ",
+    "code mocking the client libraries. If that is how you got this ",
+    "error, verify that you have mocked all methods used in your test. ",
+    "Otherwise, please open a bug at ",
+    "https://github.com/googleapis/google-cloud-rust/issues"
+);
+
 pub async fn unimplemented_stub<T: Send>() -> gax::Result<gax::response::Response<T>> {
-    unimplemented!(concat!(
-        "to prevent breaking changes as services gain new RPCs, the stub ",
-        "traits provide default implementations of each method. In the client ",
-        "libraries, all implementations of the traits override all methods. ",
-        "Therefore, this error should not appear in normal code using the ",
-        "client libraries. The only expected context for this error is test ",
-        "code mocking the client libraries. If that is how you got this ",
-        "error, verify that you have mocked all methods used in your test. ",
-        "Otherwise, please open a bug at ",
-        "https://github.com/googleapis/google-cloud-rust/issues"
-    ));
+    unimplemented!("{UNIMPLEMENTED}");
 }

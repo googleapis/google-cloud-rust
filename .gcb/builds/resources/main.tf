@@ -58,6 +58,31 @@ resource "google_firestore_database" "default" {
   type        = "FIRESTORE_NATIVE"
 }
 
+# Create a KMS Key Ring and key for the storage sample tests.
+resource "google_kms_key_ring" "us-central1" {
+  name     = "us-central1"
+  location = "us-central1"
+}
+
+# A crypto key for the storage examples.
+resource "google_kms_crypto_key" "storage-examples" {
+  name     = "storage-examples"
+  key_ring = google_kms_key_ring.us-central1.id
+  # Rotate every 10 days
+  rotation_period = "864000s"
+}
+
+# Get the service account for Cloud Storage in the current project.
+data "google_storage_project_service_account" "gcs-account" {
+}
+
+# Grant Google Cloud Storage (in the project) permissions to use the example key.
+resource "google_kms_crypto_key_iam_member" "storage-examples" {
+  crypto_key_id = google_kms_crypto_key.storage-examples.id
+  role          = "roles/cloudkms.cryptoKeyEncrypter"
+  member        = "serviceAccount:${data.google_storage_project_service_account.gcs-account.email_address}"
+}
+
 output "build-cache" {
   value = resource.google_storage_bucket.build-cache.id
 }

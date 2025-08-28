@@ -17,7 +17,9 @@
 use google_cloud_gax as gax;
 
 pub async fn paginator_iterate_pages(project_id: &str) -> crate::Result<()> {
+    // ANCHOR: paginator-use
     use google_cloud_gax::paginator::Paginator as _;
+    // ANCHOR_END: paginator-use
     use google_cloud_gax::retry_policy::AlwaysRetry;
     use google_cloud_gax::retry_policy::RetryPolicyExt;
     use google_cloud_secretmanager_v1 as secret_manager;
@@ -87,9 +89,9 @@ pub async fn paginator_stream_pages(project_id: &str) -> crate::Result<()> {
 }
 
 pub async fn paginator_iterate_items(project_id: &str) -> crate::Result<()> {
-    // ANCHOR: paginator-use
+    // ANCHOR: item-paginator-use
     use google_cloud_gax::paginator::ItemPaginator as _;
-    // ANCHOR_END: paginator-use
+    // ANCHOR_END: item-paginator-use
     use google_cloud_gax::retry_policy::AlwaysRetry;
     use google_cloud_gax::retry_policy::RetryPolicyExt;
     use google_cloud_secretmanager_v1 as secret_manager;
@@ -119,8 +121,10 @@ pub async fn paginator_iterate_items(project_id: &str) -> crate::Result<()> {
 }
 
 pub async fn paginator_stream_items(project_id: &str) -> crate::Result<()> {
+    // ANCHOR: paginator-stream-items-use
     use futures::stream::StreamExt;
     use google_cloud_gax::paginator::ItemPaginator as _;
+    // ANCHOR_END: paginator-stream-items-use
     use google_cloud_gax::retry_policy::AlwaysRetry;
     use google_cloud_gax::retry_policy::RetryPolicyExt;
     use google_cloud_secretmanager_v1 as secret_manager;
