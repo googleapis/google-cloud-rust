@@ -159,14 +159,13 @@ project.
 
 ### One time set up
 
-We use [Secret Manager], [Workflows], [Firestore], and [Speech-to-Text] to run
-integration tests. Follow the [Enable the Secret Manager API] guide to, as it
-says, enable the API and make sure that billing is enabled in your projects. To
-enable the Workflows, Firestore, and Speech-to-Text APIs you can run this
-command:
+We use [Secret Manager], [Workflows], [Firestore], [Speech-to-Text], and [KMS]
+to run integration tests. Follow the [Enable the Secret Manager API] guide to,
+as it says, enable the API and make sure that billing is enabled in your
+projects. To enable the APIs you can run this command:
 
 ```bash
-gcloud services enable workflows.googleapis.com firestore.googleapis.com speech.googleapis.com
+gcloud services enable workflows.googleapis.com firestore.googleapis.com speech.googleapis.com cloudkms.googleapis.com
 ```
 
 Verify this is working with something like:
@@ -221,6 +220,25 @@ gcloud firestore databases describe --format='value(type)'
 # FIRESTORE_NATIVE
 ```
 
+### Create a KMS key ring a crypto key
+
+We use KMS keys with storage. The [Use customer-managed encryption keys] guide
+covers how create and configure a crypto key for use with Cloud Storage. We
+recommend you name the key ring after its location, but feel free to use a
+different naming convention:
+
+```bash
+GOOGLE_CLOUD_PROJECT="$(gcloud config get project)"
+gcloud kms keyrings create us-central1 --location=us-central1
+gcloud kms keys create storage-examples \
+    --keyring=us-central1 \
+    --location=us-central1 \
+    --purpose=encryption \
+    --rotation-period=10d --next-rotation-time=+p10d
+gcloud storage service-agent --project=${GOOGLE_CLOUD_PROJECT} \
+    --authorize-cmek=projects/${GOOGLE_CLOUD_PROJECT}/locations/us-central1/keyRings/us-central1/cryptoKeys/storage-examples
+```
+
 ### Running tests
 
 Use `cargo test` to run the tests. The `run-integration-tests` features enables
@@ -231,6 +249,7 @@ GOOGLE_CLOUD_PROJECT="$(gcloud config get project)"
 env \
     GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
     GOOGLE_CLOUD_RUST_TEST_WORKFLOWS_RUNNER=rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
+    GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING=us-central1 \
     GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} \
   cargo test --features run-integration-tests --package integration-tests --package user-guide-samples
 ```
@@ -334,3 +353,4 @@ git ls-files -z --
 [secret manager]: https://cloud.google.com/secret-manager/
 [speech-to-text]: https://cloud.google.com/speech-to-text
 [workflows]: https://cloud.google.com/workflows/
+[Use customer-managed encryption keys]: https://cloud.google.com/storage/docs/encryption/using-customer-managed-keys
