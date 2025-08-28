@@ -191,6 +191,10 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::add_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running remove_bucket_owner example");
     buckets::remove_bucket_owner::sample(&client, &id, &service_account).await?;
+    tracing::info!("running add_bucket_default_owner example");
+    buckets::add_bucket_default_owner::sample(&client, &id, &service_account).await?;
+    tracing::info!("running remove_bucket_default_owner example");
+    buckets::remove_bucket_default_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running print_bucket_acl_for_user example");
     buckets::print_bucket_acl_for_user::sample(&client, &id).await?;
 
