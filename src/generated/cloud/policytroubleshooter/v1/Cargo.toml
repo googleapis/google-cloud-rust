@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-policytroubleshooter-v1"
-version                = "0.4.4"
+version                = "0.4.5"
 description            = "Google Cloud Client Libraries for Rust - Policy Troubleshooter API"
 edition.workspace      = true
 authors.workspace      = true
