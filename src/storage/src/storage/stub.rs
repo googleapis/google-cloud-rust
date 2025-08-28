@@ -18,6 +18,7 @@ use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::request_options::RequestOptions;
 use crate::streaming_source::{Seek, StreamingSource};
+use gaxi::unimplemented::UNIMPLEMENTED;
 
 /// Defines the trait used to implement [crate::client::Storage].
 ///
@@ -66,15 +67,5 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
 }
 
 async fn unimplemented_stub<T>() -> gax::Result<T> {
-    unimplemented!(concat!(
-        "to prevent breaking changes as services gain new RPCs, the stub ",
-        "traits provide default implementations of each method. In the client ",
-        "libraries, all implementations of the traits override all methods. ",
-        "Therefore, this error should not appear in normal code using the ",
-        "client libraries. The only expected context for this error is test ",
-        "code mocking the client libraries. If that is how you got this ",
-        "error, verify that you have mocked all methods used in your test. ",
-        "Otherwise, please open a bug at ",
-        "https://github.com/googleapis/google-cloud-rust/issues"
-    ));
+    unimplemented!("{UNIMPLEMENTED}");
 }
