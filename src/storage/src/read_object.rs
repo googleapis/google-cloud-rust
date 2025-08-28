@@ -16,6 +16,7 @@
 
 use crate::Result;
 use crate::model_ext::ObjectHighlights;
+use crate::streaming_source::{Payload, StreamingSource};
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
 
@@ -34,6 +35,31 @@ impl ReadObjectResponse {
         T: dynamic::ReadObjectResponse + Send + 'static,
     {
         Self { inner }
+    }
+
+    /// Create a ReadObjectResponse, given a data source.
+    ///
+    /// Use this API to mock the return type of
+    /// [Storage::read_object][crate::client::Storage::read_object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::model_ext::ObjectHighlights;
+    /// # use google_cloud_storage::read_object::ReadObjectResponse;
+    /// let object = ObjectHighlights::default();
+    /// let response = ReadObjectResponse::from_source(object, "payload");
+    /// ```
+    pub fn from_source<T, S>(object: ObjectHighlights, source: T) -> Self
+    where
+        T: Into<Payload<S>> + Send + Sync + 'static,
+        S: StreamingSource + Send + Sync + 'static,
+    {
+        Self {
+            inner: Box::new(FakeReadObjectResponse::<S> {
+                object,
+                source: source.into(),
+            }),
+        }
     }
 
     /// Get the highlights of the object metadata included in the
@@ -106,5 +132,64 @@ pub(crate) mod dynamic {
     pub trait ReadObjectResponse: std::fmt::Debug {
         fn object(&self) -> ObjectHighlights;
         async fn next(&mut self) -> Option<Result<bytes::Bytes>>;
+    }
+}
+
+struct FakeReadObjectResponse<T>
+where
+    T: StreamingSource + Send + Sync + 'static,
+{
+    object: ObjectHighlights,
+    source: Payload<T>,
+}
+
+impl<T> std::fmt::Debug for FakeReadObjectResponse<T>
+where
+    T: StreamingSource + Send + Sync + 'static,
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("FakeReadObjectResponse")
+            .field("object", &self.object)
+            // skip source, as it is not `Debug`
+            .finish()
+    }
+}
+
+#[async_trait::async_trait]
+impl<T> dynamic::ReadObjectResponse for FakeReadObjectResponse<T>
+where
+    T: StreamingSource + Send + Sync + 'static,
+{
+    fn object(&self) -> ObjectHighlights {
+        self.object.clone()
+    }
+
+    async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
+        self.source
+            .next()
+            .await
+            .map(|r| r.map_err(gax::error::Error::io))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn from_source() -> anyhow::Result<()> {
+        const LAZY: &str = "the quick brown fox jumps over the lazy dog";
+        let mut object = ObjectHighlights::default();
+        object.etag = "etag".to_string();
+
+        let mut response = ReadObjectResponse::from_source(object.clone(), LAZY);
+        assert_eq!(&object, &response.object());
+        let mut contents = Vec::new();
+        while let Some(chunk) = response.next().await.transpose()? {
+            contents.extend_from_slice(&chunk);
+        }
+        let contents = bytes::Bytes::from_owner(contents);
+        assert_eq!(contents, LAZY);
+        Ok(())
     }
 }
