@@ -38,13 +38,14 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Publisher: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::Publisher::create_topic].
     fn create_topic(
         &self,
         _req: crate::model::Topic,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Topic>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Topic>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,7 +54,9 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateTopicRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Topic>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Topic>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -62,7 +65,9 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetTopicRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Topic>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Topic>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -71,7 +76,9 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTopicsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListTopicsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListTopicsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -80,7 +87,11 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTopicSubscriptionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListTopicSubscriptionsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListTopicSubscriptionsResponse>,
+        >,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -89,7 +100,9 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTopicSnapshotsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListTopicSnapshotsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListTopicSnapshotsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -107,7 +120,9 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DetachSubscriptionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::DetachSubscriptionResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DetachSubscriptionResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -124,13 +139,14 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Subscriber: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::Subscriber::create_subscription].
     fn create_subscription(
         &self,
         _req: crate::model::Subscription,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Subscription>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Subscription>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -139,7 +155,9 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSubscriptionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Subscription>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Subscription>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -148,7 +166,9 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSubscriptionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Subscription>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Subscription>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -157,7 +177,9 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSubscriptionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSubscriptionsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSubscriptionsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -184,7 +206,9 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Snapshot>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Snapshot>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -193,7 +217,9 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSnapshotsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSnapshotsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSnapshotsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -202,7 +228,9 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Snapshot>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Snapshot>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -211,7 +239,9 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Snapshot>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Snapshot>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -229,7 +259,9 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SeekRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SeekResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SeekResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -246,13 +278,14 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SchemaService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::SchemaService::create_schema].
     fn create_schema(
         &self,
         _req: crate::model::CreateSchemaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Schema>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Schema>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -261,7 +294,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSchemaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Schema>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Schema>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -270,7 +305,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSchemasRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSchemasResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSchemasResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -279,7 +316,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSchemaRevisionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSchemaRevisionsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSchemaRevisionsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -288,7 +327,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CommitSchemaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Schema>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Schema>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -297,7 +338,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RollbackSchemaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Schema>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Schema>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -306,7 +349,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSchemaRevisionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Schema>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Schema>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -324,7 +369,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ValidateSchemaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ValidateSchemaResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ValidateSchemaResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -333,7 +380,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ValidateMessageRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ValidateMessageResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ValidateMessageResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -342,7 +391,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -351,7 +402,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -360,8 +413,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>> + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
-

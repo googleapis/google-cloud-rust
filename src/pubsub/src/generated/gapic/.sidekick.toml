@@ -42,5 +42,6 @@ included-ids = """\
     """
 
 [codec]
-copyright-year = '2025'
-template-override         = 'templates/grpc-client'
+copyright-year        = '2025'
+template-override     = 'templates/http-client'
+package-name-override = 'google-cloud-pubsub'

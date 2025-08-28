@@ -21,7 +21,7 @@ pub mod publisher {
     ///
     /// ```
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub_v1::*;
+    /// # use google_cloud_pubsub::*;
     /// # use builder::publisher::ClientBuilder;
     /// # use client::Publisher;
     /// let builder : ClientBuilder = Publisher::builder();
@@ -39,7 +39,10 @@ pub mod publisher {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Publisher;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -54,8 +57,12 @@ pub mod publisher {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -68,7 +75,7 @@ pub mod publisher {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::publisher::CreateTopic;
     /// # tokio_test::block_on(async {
     ///
@@ -85,10 +92,10 @@ pub mod publisher {
     pub struct CreateTopic(RequestBuilder<crate::model::Topic>);
 
     impl CreateTopic {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -105,7 +112,10 @@ pub mod publisher {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Topic> {
-            (*self.0.stub).create_topic(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_topic(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::Topic::name].
@@ -129,7 +139,8 @@ pub mod publisher {
 
         /// Sets the value of [message_storage_policy][crate::model::Topic::message_storage_policy].
         pub fn set_message_storage_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::MessageStoragePolicy>
+        where
+            T: std::convert::Into<crate::model::MessageStoragePolicy>,
         {
             self.0.request.message_storage_policy = std::option::Option::Some(v.into());
             self
@@ -137,7 +148,8 @@ pub mod publisher {
 
         /// Sets or clears the value of [message_storage_policy][crate::model::Topic::message_storage_policy].
         pub fn set_or_clear_message_storage_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::MessageStoragePolicy>
+        where
+            T: std::convert::Into<crate::model::MessageStoragePolicy>,
         {
             self.0.request.message_storage_policy = v.map(|x| x.into());
             self
@@ -151,7 +163,8 @@ pub mod publisher {
 
         /// Sets the value of [schema_settings][crate::model::Topic::schema_settings].
         pub fn set_schema_settings<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::SchemaSettings>
+        where
+            T: std::convert::Into<crate::model::SchemaSettings>,
         {
             self.0.request.schema_settings = std::option::Option::Some(v.into());
             self
@@ -159,7 +172,8 @@ pub mod publisher {
 
         /// Sets or clears the value of [schema_settings][crate::model::Topic::schema_settings].
         pub fn set_or_clear_schema_settings<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::SchemaSettings>
+        where
+            T: std::convert::Into<crate::model::SchemaSettings>,
         {
             self.0.request.schema_settings = v.map(|x| x.into());
             self
@@ -173,15 +187,20 @@ pub mod publisher {
 
         /// Sets the value of [message_retention_duration][crate::model::Topic::message_retention_duration].
         pub fn set_message_retention_duration<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.message_retention_duration = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [message_retention_duration][crate::model::Topic::message_retention_duration].
-        pub fn set_or_clear_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        pub fn set_or_clear_message_retention_duration<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.message_retention_duration = v.map(|x| x.into());
             self
@@ -195,15 +214,20 @@ pub mod publisher {
 
         /// Sets the value of [ingestion_data_source_settings][crate::model::Topic::ingestion_data_source_settings].
         pub fn set_ingestion_data_source_settings<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::IngestionDataSourceSettings>
+        where
+            T: std::convert::Into<crate::model::IngestionDataSourceSettings>,
         {
             self.0.request.ingestion_data_source_settings = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [ingestion_data_source_settings][crate::model::Topic::ingestion_data_source_settings].
-        pub fn set_or_clear_ingestion_data_source_settings<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::IngestionDataSourceSettings>
+        pub fn set_or_clear_ingestion_data_source_settings<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::IngestionDataSourceSettings>,
         {
             self.0.request.ingestion_data_source_settings = v.map(|x| x.into());
             self
@@ -213,7 +237,7 @@ pub mod publisher {
         pub fn set_message_transforms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::MessageTransform>
+            V: std::convert::Into<crate::model::MessageTransform>,
         {
             use std::iter::Iterator;
             self.0.request.message_transforms = v.into_iter().map(|i| i.into()).collect();
@@ -232,7 +256,7 @@ pub mod publisher {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::publisher::UpdateTopic;
     /// # tokio_test::block_on(async {
     ///
@@ -249,10 +273,10 @@ pub mod publisher {
     pub struct UpdateTopic(RequestBuilder<crate::model::UpdateTopicRequest>);
 
     impl UpdateTopic {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -269,14 +293,18 @@ pub mod publisher {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Topic> {
-            (*self.0.stub).update_topic(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_topic(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::UpdateTopicRequest::topic].
         ///
         /// This is a **required** field for requests.
         pub fn set_topic<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Topic>
+        where
+            T: std::convert::Into<crate::model::Topic>,
         {
             self.0.request.topic = std::option::Option::Some(v.into());
             self
@@ -286,7 +314,8 @@ pub mod publisher {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_topic<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Topic>
+        where
+            T: std::convert::Into<crate::model::Topic>,
         {
             self.0.request.topic = v.map(|x| x.into());
             self
@@ -296,7 +325,8 @@ pub mod publisher {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -306,7 +336,8 @@ pub mod publisher {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -324,7 +355,7 @@ pub mod publisher {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::publisher::GetTopic;
     /// # tokio_test::block_on(async {
     ///
@@ -341,10 +372,10 @@ pub mod publisher {
     pub struct GetTopic(RequestBuilder<crate::model::GetTopicRequest>);
 
     impl GetTopic {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -361,7 +392,10 @@ pub mod publisher {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Topic> {
-            (*self.0.stub).get_topic(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_topic(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::GetTopicRequest::topic].
@@ -384,7 +418,7 @@ pub mod publisher {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::publisher::ListTopics;
     /// # tokio_test::block_on(async {
     /// use gax::paginator::ItemPaginator;
@@ -405,10 +439,10 @@ pub mod publisher {
     pub struct ListTopics(RequestBuilder<crate::model::ListTopicsRequest>);
 
     impl ListTopics {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -425,11 +459,17 @@ pub mod publisher {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTopicsResponse> {
-            (*self.0.stub).list_topics(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_topics(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTopicsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListTopicsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -441,7 +481,10 @@ pub mod publisher {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTopicsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTopicsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -478,7 +521,7 @@ pub mod publisher {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::publisher::ListTopicSubscriptions;
     /// # tokio_test::block_on(async {
     ///
@@ -495,14 +538,17 @@ pub mod publisher {
     pub struct ListTopicSubscriptions(RequestBuilder<crate::model::ListTopicSubscriptionsRequest>);
 
     impl ListTopicSubscriptions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListTopicSubscriptionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListTopicSubscriptionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -515,7 +561,10 @@ pub mod publisher {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTopicSubscriptionsResponse> {
-            (*self.0.stub).list_topic_subscriptions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_topic_subscriptions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::ListTopicSubscriptionsRequest::topic].
@@ -550,7 +599,7 @@ pub mod publisher {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::publisher::ListTopicSnapshots;
     /// # tokio_test::block_on(async {
     ///
@@ -567,14 +616,17 @@ pub mod publisher {
     pub struct ListTopicSnapshots(RequestBuilder<crate::model::ListTopicSnapshotsRequest>);
 
     impl ListTopicSnapshots {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListTopicSnapshotsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListTopicSnapshotsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -587,7 +639,10 @@ pub mod publisher {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTopicSnapshotsResponse> {
-            (*self.0.stub).list_topic_snapshots(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_topic_snapshots(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::ListTopicSnapshotsRequest::topic].
@@ -622,7 +677,7 @@ pub mod publisher {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::publisher::DeleteTopic;
     /// # tokio_test::block_on(async {
     ///
@@ -639,10 +694,10 @@ pub mod publisher {
     pub struct DeleteTopic(RequestBuilder<crate::model::DeleteTopicRequest>);
 
     impl DeleteTopic {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -659,7 +714,10 @@ pub mod publisher {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_topic(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_topic(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::DeleteTopicRequest::topic].
@@ -682,7 +740,7 @@ pub mod publisher {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::publisher::DetachSubscription;
     /// # tokio_test::block_on(async {
     ///
@@ -699,14 +757,17 @@ pub mod publisher {
     pub struct DetachSubscription(RequestBuilder<crate::model::DetachSubscriptionRequest>);
 
     impl DetachSubscription {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DetachSubscriptionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DetachSubscriptionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -719,7 +780,10 @@ pub mod publisher {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DetachSubscriptionResponse> {
-            (*self.0.stub).detach_subscription(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .detach_subscription(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::DetachSubscriptionRequest::subscription].
@@ -737,7 +801,6 @@ pub mod publisher {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod subscriber {
@@ -747,7 +810,7 @@ pub mod subscriber {
     ///
     /// ```
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub_v1::*;
+    /// # use google_cloud_pubsub::*;
     /// # use builder::subscriber::ClientBuilder;
     /// # use client::Subscriber;
     /// let builder : ClientBuilder = Subscriber::builder();
@@ -765,7 +828,10 @@ pub mod subscriber {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Subscriber;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -780,8 +846,12 @@ pub mod subscriber {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -794,7 +864,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::CreateSubscription;
     /// # tokio_test::block_on(async {
     ///
@@ -811,10 +881,10 @@ pub mod subscriber {
     pub struct CreateSubscription(RequestBuilder<crate::model::Subscription>);
 
     impl CreateSubscription {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -831,7 +901,10 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Subscription> {
-            (*self.0.stub).create_subscription(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_subscription(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::Subscription::name].
@@ -852,7 +925,8 @@ pub mod subscriber {
 
         /// Sets the value of [push_config][crate::model::Subscription::push_config].
         pub fn set_push_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PushConfig>
+        where
+            T: std::convert::Into<crate::model::PushConfig>,
         {
             self.0.request.push_config = std::option::Option::Some(v.into());
             self
@@ -860,7 +934,8 @@ pub mod subscriber {
 
         /// Sets or clears the value of [push_config][crate::model::Subscription::push_config].
         pub fn set_or_clear_push_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PushConfig>
+        where
+            T: std::convert::Into<crate::model::PushConfig>,
         {
             self.0.request.push_config = v.map(|x| x.into());
             self
@@ -868,7 +943,8 @@ pub mod subscriber {
 
         /// Sets the value of [bigquery_config][crate::model::Subscription::bigquery_config].
         pub fn set_bigquery_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::BigQueryConfig>
+        where
+            T: std::convert::Into<crate::model::BigQueryConfig>,
         {
             self.0.request.bigquery_config = std::option::Option::Some(v.into());
             self
@@ -876,7 +952,8 @@ pub mod subscriber {
 
         /// Sets or clears the value of [bigquery_config][crate::model::Subscription::bigquery_config].
         pub fn set_or_clear_bigquery_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::BigQueryConfig>
+        where
+            T: std::convert::Into<crate::model::BigQueryConfig>,
         {
             self.0.request.bigquery_config = v.map(|x| x.into());
             self
@@ -884,7 +961,8 @@ pub mod subscriber {
 
         /// Sets the value of [cloud_storage_config][crate::model::Subscription::cloud_storage_config].
         pub fn set_cloud_storage_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::CloudStorageConfig>
+        where
+            T: std::convert::Into<crate::model::CloudStorageConfig>,
         {
             self.0.request.cloud_storage_config = std::option::Option::Some(v.into());
             self
@@ -892,7 +970,8 @@ pub mod subscriber {
 
         /// Sets or clears the value of [cloud_storage_config][crate::model::Subscription::cloud_storage_config].
         pub fn set_or_clear_cloud_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::CloudStorageConfig>
+        where
+            T: std::convert::Into<crate::model::CloudStorageConfig>,
         {
             self.0.request.cloud_storage_config = v.map(|x| x.into());
             self
@@ -912,15 +991,20 @@ pub mod subscriber {
 
         /// Sets the value of [message_retention_duration][crate::model::Subscription::message_retention_duration].
         pub fn set_message_retention_duration<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.message_retention_duration = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [message_retention_duration][crate::model::Subscription::message_retention_duration].
-        pub fn set_or_clear_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        pub fn set_or_clear_message_retention_duration<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.message_retention_duration = v.map(|x| x.into());
             self
@@ -945,7 +1029,8 @@ pub mod subscriber {
 
         /// Sets the value of [expiration_policy][crate::model::Subscription::expiration_policy].
         pub fn set_expiration_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::ExpirationPolicy>
+        where
+            T: std::convert::Into<crate::model::ExpirationPolicy>,
         {
             self.0.request.expiration_policy = std::option::Option::Some(v.into());
             self
@@ -953,7 +1038,8 @@ pub mod subscriber {
 
         /// Sets or clears the value of [expiration_policy][crate::model::Subscription::expiration_policy].
         pub fn set_or_clear_expiration_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::ExpirationPolicy>
+        where
+            T: std::convert::Into<crate::model::ExpirationPolicy>,
         {
             self.0.request.expiration_policy = v.map(|x| x.into());
             self
@@ -967,7 +1053,8 @@ pub mod subscriber {
 
         /// Sets the value of [dead_letter_policy][crate::model::Subscription::dead_letter_policy].
         pub fn set_dead_letter_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::DeadLetterPolicy>
+        where
+            T: std::convert::Into<crate::model::DeadLetterPolicy>,
         {
             self.0.request.dead_letter_policy = std::option::Option::Some(v.into());
             self
@@ -975,7 +1062,8 @@ pub mod subscriber {
 
         /// Sets or clears the value of [dead_letter_policy][crate::model::Subscription::dead_letter_policy].
         pub fn set_or_clear_dead_letter_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::DeadLetterPolicy>
+        where
+            T: std::convert::Into<crate::model::DeadLetterPolicy>,
         {
             self.0.request.dead_letter_policy = v.map(|x| x.into());
             self
@@ -983,7 +1071,8 @@ pub mod subscriber {
 
         /// Sets the value of [retry_policy][crate::model::Subscription::retry_policy].
         pub fn set_retry_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::RetryPolicy>
+        where
+            T: std::convert::Into<crate::model::RetryPolicy>,
         {
             self.0.request.retry_policy = std::option::Option::Some(v.into());
             self
@@ -991,7 +1080,8 @@ pub mod subscriber {
 
         /// Sets or clears the value of [retry_policy][crate::model::Subscription::retry_policy].
         pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::RetryPolicy>
+        where
+            T: std::convert::Into<crate::model::RetryPolicy>,
         {
             self.0.request.retry_policy = v.map(|x| x.into());
             self
@@ -1011,15 +1101,20 @@ pub mod subscriber {
 
         /// Sets the value of [topic_message_retention_duration][crate::model::Subscription::topic_message_retention_duration].
         pub fn set_topic_message_retention_duration<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.topic_message_retention_duration = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [topic_message_retention_duration][crate::model::Subscription::topic_message_retention_duration].
-        pub fn set_or_clear_topic_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::Duration>
+        pub fn set_or_clear_topic_message_retention_duration<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
         {
             self.0.request.topic_message_retention_duration = v.map(|x| x.into());
             self
@@ -1033,15 +1128,20 @@ pub mod subscriber {
 
         /// Sets the value of [analytics_hub_subscription_info][crate::model::Subscription::analytics_hub_subscription_info].
         pub fn set_analytics_hub_subscription_info<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::subscription::AnalyticsHubSubscriptionInfo>
+        where
+            T: std::convert::Into<crate::model::subscription::AnalyticsHubSubscriptionInfo>,
         {
             self.0.request.analytics_hub_subscription_info = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [analytics_hub_subscription_info][crate::model::Subscription::analytics_hub_subscription_info].
-        pub fn set_or_clear_analytics_hub_subscription_info<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::subscription::AnalyticsHubSubscriptionInfo>
+        pub fn set_or_clear_analytics_hub_subscription_info<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::subscription::AnalyticsHubSubscriptionInfo>,
         {
             self.0.request.analytics_hub_subscription_info = v.map(|x| x.into());
             self
@@ -1051,7 +1151,7 @@ pub mod subscriber {
         pub fn set_message_transforms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::MessageTransform>
+            V: std::convert::Into<crate::model::MessageTransform>,
         {
             use std::iter::Iterator;
             self.0.request.message_transforms = v.into_iter().map(|i| i.into()).collect();
@@ -1070,7 +1170,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::GetSubscription;
     /// # tokio_test::block_on(async {
     ///
@@ -1087,10 +1187,10 @@ pub mod subscriber {
     pub struct GetSubscription(RequestBuilder<crate::model::GetSubscriptionRequest>);
 
     impl GetSubscription {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1107,7 +1207,10 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Subscription> {
-            (*self.0.stub).get_subscription(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_subscription(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::GetSubscriptionRequest::subscription].
@@ -1130,7 +1233,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::UpdateSubscription;
     /// # tokio_test::block_on(async {
     ///
@@ -1147,14 +1250,17 @@ pub mod subscriber {
     pub struct UpdateSubscription(RequestBuilder<crate::model::UpdateSubscriptionRequest>);
 
     impl UpdateSubscription {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateSubscriptionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateSubscriptionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1167,14 +1273,18 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Subscription> {
-            (*self.0.stub).update_subscription(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_subscription(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::UpdateSubscriptionRequest::subscription].
         ///
         /// This is a **required** field for requests.
         pub fn set_subscription<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Subscription>
+        where
+            T: std::convert::Into<crate::model::Subscription>,
         {
             self.0.request.subscription = std::option::Option::Some(v.into());
             self
@@ -1184,7 +1294,8 @@ pub mod subscriber {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Subscription>
+        where
+            T: std::convert::Into<crate::model::Subscription>,
         {
             self.0.request.subscription = v.map(|x| x.into());
             self
@@ -1194,7 +1305,8 @@ pub mod subscriber {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1204,7 +1316,8 @@ pub mod subscriber {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1222,7 +1335,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::ListSubscriptions;
     /// # tokio_test::block_on(async {
     /// use gax::paginator::ItemPaginator;
@@ -1243,14 +1356,17 @@ pub mod subscriber {
     pub struct ListSubscriptions(RequestBuilder<crate::model::ListSubscriptionsRequest>);
 
     impl ListSubscriptions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListSubscriptionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListSubscriptionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1263,11 +1379,17 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSubscriptionsResponse> {
-            (*self.0.stub).list_subscriptions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_subscriptions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSubscriptionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListSubscriptionsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1279,7 +1401,10 @@ pub mod subscriber {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSubscriptionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSubscriptionsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1316,7 +1441,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::DeleteSubscription;
     /// # tokio_test::block_on(async {
     ///
@@ -1333,14 +1458,17 @@ pub mod subscriber {
     pub struct DeleteSubscription(RequestBuilder<crate::model::DeleteSubscriptionRequest>);
 
     impl DeleteSubscription {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteSubscriptionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteSubscriptionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1353,7 +1481,10 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_subscription(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_subscription(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::DeleteSubscriptionRequest::subscription].
@@ -1376,7 +1507,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::ModifyPushConfig;
     /// # tokio_test::block_on(async {
     ///
@@ -1393,14 +1524,17 @@ pub mod subscriber {
     pub struct ModifyPushConfig(RequestBuilder<crate::model::ModifyPushConfigRequest>);
 
     impl ModifyPushConfig {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ModifyPushConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ModifyPushConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1413,7 +1547,10 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).modify_push_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .modify_push_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::ModifyPushConfigRequest::subscription].
@@ -1428,7 +1565,8 @@ pub mod subscriber {
         ///
         /// This is a **required** field for requests.
         pub fn set_push_config<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::PushConfig>
+        where
+            T: std::convert::Into<crate::model::PushConfig>,
         {
             self.0.request.push_config = std::option::Option::Some(v.into());
             self
@@ -1438,7 +1576,8 @@ pub mod subscriber {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_push_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::PushConfig>
+        where
+            T: std::convert::Into<crate::model::PushConfig>,
         {
             self.0.request.push_config = v.map(|x| x.into());
             self
@@ -1456,7 +1595,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::GetSnapshot;
     /// # tokio_test::block_on(async {
     ///
@@ -1473,10 +1612,10 @@ pub mod subscriber {
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1493,7 +1632,10 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Snapshot> {
-            (*self.0.stub).get_snapshot(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_snapshot(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [snapshot][crate::model::GetSnapshotRequest::snapshot].
@@ -1516,7 +1658,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::ListSnapshots;
     /// # tokio_test::block_on(async {
     /// use gax::paginator::ItemPaginator;
@@ -1537,10 +1679,10 @@ pub mod subscriber {
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1557,11 +1699,17 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSnapshotsResponse> {
-            (*self.0.stub).list_snapshots(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_snapshots(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSnapshotsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListSnapshotsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1573,7 +1721,10 @@ pub mod subscriber {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSnapshotsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSnapshotsResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1610,7 +1761,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::CreateSnapshot;
     /// # tokio_test::block_on(async {
     ///
@@ -1627,10 +1778,10 @@ pub mod subscriber {
     pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
 
     impl CreateSnapshot {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1647,7 +1798,10 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Snapshot> {
-            (*self.0.stub).create_snapshot(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_snapshot(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CreateSnapshotRequest::name].
@@ -1689,7 +1843,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::UpdateSnapshot;
     /// # tokio_test::block_on(async {
     ///
@@ -1706,10 +1860,10 @@ pub mod subscriber {
     pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
     impl UpdateSnapshot {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1726,14 +1880,18 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Snapshot> {
-            (*self.0.stub).update_snapshot(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update_snapshot(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
         ///
         /// This is a **required** field for requests.
         pub fn set_snapshot<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Snapshot>
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
         {
             self.0.request.snapshot = std::option::Option::Some(v.into());
             self
@@ -1743,7 +1901,8 @@ pub mod subscriber {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Snapshot>
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
         {
             self.0.request.snapshot = v.map(|x| x.into());
             self
@@ -1753,7 +1912,8 @@ pub mod subscriber {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1763,7 +1923,8 @@ pub mod subscriber {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1781,7 +1942,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::DeleteSnapshot;
     /// # tokio_test::block_on(async {
     ///
@@ -1798,10 +1959,10 @@ pub mod subscriber {
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1818,7 +1979,10 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_snapshot(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_snapshot(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [snapshot][crate::model::DeleteSnapshotRequest::snapshot].
@@ -1841,7 +2005,7 @@ pub mod subscriber {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::subscriber::Seek;
     /// # tokio_test::block_on(async {
     ///
@@ -1858,10 +2022,10 @@ pub mod subscriber {
     pub struct Seek(RequestBuilder<crate::model::SeekRequest>);
 
     impl Seek {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1878,7 +2042,10 @@ pub mod subscriber {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SeekResponse> {
-            (*self.0.stub).seek(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .seek(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::SeekRequest::subscription].
@@ -1893,7 +2060,10 @@ pub mod subscriber {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
-        pub fn set_target<T: Into<Option<crate::model::seek_request::Target>>>(mut self, v: T) ->Self {
+        pub fn set_target<T: Into<Option<crate::model::seek_request::Target>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.target = v.into();
             self
         }
@@ -1903,7 +2073,10 @@ pub mod subscriber {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
-        pub fn set_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+        pub fn set_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_time(v);
             self
         }
@@ -1925,7 +2098,6 @@ pub mod subscriber {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod schema_service {
@@ -1935,7 +2107,7 @@ pub mod schema_service {
     ///
     /// ```
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub_v1::*;
+    /// # use google_cloud_pubsub::*;
     /// # use builder::schema_service::ClientBuilder;
     /// # use client::SchemaService;
     /// let builder : ClientBuilder = SchemaService::builder();
@@ -1953,7 +2125,10 @@ pub mod schema_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SchemaService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1968,8 +2143,12 @@ pub mod schema_service {
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1982,7 +2161,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::CreateSchema;
     /// # tokio_test::block_on(async {
     ///
@@ -1999,10 +2178,10 @@ pub mod schema_service {
     pub struct CreateSchema(RequestBuilder<crate::model::CreateSchemaRequest>);
 
     impl CreateSchema {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2019,7 +2198,10 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Schema> {
-            (*self.0.stub).create_schema(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_schema(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSchemaRequest::parent].
@@ -2034,7 +2216,8 @@ pub mod schema_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_schema<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Schema>
+        where
+            T: std::convert::Into<crate::model::Schema>,
         {
             self.0.request.schema = std::option::Option::Some(v.into());
             self
@@ -2044,7 +2227,8 @@ pub mod schema_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Schema>
+        where
+            T: std::convert::Into<crate::model::Schema>,
         {
             self.0.request.schema = v.map(|x| x.into());
             self
@@ -2068,7 +2252,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::GetSchema;
     /// # tokio_test::block_on(async {
     ///
@@ -2085,10 +2269,10 @@ pub mod schema_service {
     pub struct GetSchema(RequestBuilder<crate::model::GetSchemaRequest>);
 
     impl GetSchema {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2105,7 +2289,10 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Schema> {
-            (*self.0.stub).get_schema(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_schema(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaRequest::name].
@@ -2134,7 +2321,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::ListSchemas;
     /// # tokio_test::block_on(async {
     /// use gax::paginator::ItemPaginator;
@@ -2155,10 +2342,10 @@ pub mod schema_service {
     pub struct ListSchemas(RequestBuilder<crate::model::ListSchemasRequest>);
 
     impl ListSchemas {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2175,11 +2362,17 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSchemasResponse> {
-            (*self.0.stub).list_schemas(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_schemas(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSchemasResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListSchemasResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2191,7 +2384,10 @@ pub mod schema_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSchemasResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSchemasResponse, gax::error::Error>
+        {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2234,7 +2430,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::ListSchemaRevisions;
     /// # tokio_test::block_on(async {
     /// use gax::paginator::ItemPaginator;
@@ -2255,14 +2451,17 @@ pub mod schema_service {
     pub struct ListSchemaRevisions(RequestBuilder<crate::model::ListSchemaRevisionsRequest>);
 
     impl ListSchemaRevisions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListSchemaRevisionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::ListSchemaRevisionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2275,11 +2474,17 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSchemaRevisionsResponse> {
-            (*self.0.stub).list_schema_revisions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_schema_revisions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSchemaRevisionsResponse, gax::error::Error> {
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListSchemaRevisionsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2291,7 +2496,12 @@ pub mod schema_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSchemaRevisionsResponse, gax::error::Error> {
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListSchemaRevisionsResponse,
+            gax::error::Error,
+        > {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2334,7 +2544,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::CommitSchema;
     /// # tokio_test::block_on(async {
     ///
@@ -2351,10 +2561,10 @@ pub mod schema_service {
     pub struct CommitSchema(RequestBuilder<crate::model::CommitSchemaRequest>);
 
     impl CommitSchema {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2371,7 +2581,10 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Schema> {
-            (*self.0.stub).commit_schema(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .commit_schema(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CommitSchemaRequest::name].
@@ -2386,7 +2599,8 @@ pub mod schema_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_schema<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Schema>
+        where
+            T: std::convert::Into<crate::model::Schema>,
         {
             self.0.request.schema = std::option::Option::Some(v.into());
             self
@@ -2396,7 +2610,8 @@ pub mod schema_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Schema>
+        where
+            T: std::convert::Into<crate::model::Schema>,
         {
             self.0.request.schema = v.map(|x| x.into());
             self
@@ -2414,7 +2629,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::RollbackSchema;
     /// # tokio_test::block_on(async {
     ///
@@ -2431,10 +2646,10 @@ pub mod schema_service {
     pub struct RollbackSchema(RequestBuilder<crate::model::RollbackSchemaRequest>);
 
     impl RollbackSchema {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2451,7 +2666,10 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Schema> {
-            (*self.0.stub).rollback_schema(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .rollback_schema(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RollbackSchemaRequest::name].
@@ -2482,7 +2700,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::DeleteSchemaRevision;
     /// # tokio_test::block_on(async {
     ///
@@ -2499,14 +2717,17 @@ pub mod schema_service {
     pub struct DeleteSchemaRevision(RequestBuilder<crate::model::DeleteSchemaRevisionRequest>);
 
     impl DeleteSchemaRevision {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteSchemaRevisionRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteSchemaRevisionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2519,7 +2740,10 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Schema> {
-            (*self.0.stub).delete_schema_revision(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_schema_revision(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaRevisionRequest::name].
@@ -2549,7 +2773,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::DeleteSchema;
     /// # tokio_test::block_on(async {
     ///
@@ -2566,10 +2790,10 @@ pub mod schema_service {
     pub struct DeleteSchema(RequestBuilder<crate::model::DeleteSchemaRequest>);
 
     impl DeleteSchema {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2586,7 +2810,10 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).delete_schema(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete_schema(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaRequest::name].
@@ -2609,7 +2836,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::ValidateSchema;
     /// # tokio_test::block_on(async {
     ///
@@ -2626,10 +2853,10 @@ pub mod schema_service {
     pub struct ValidateSchema(RequestBuilder<crate::model::ValidateSchemaRequest>);
 
     impl ValidateSchema {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2646,7 +2873,10 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ValidateSchemaResponse> {
-            (*self.0.stub).validate_schema(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .validate_schema(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ValidateSchemaRequest::parent].
@@ -2661,7 +2891,8 @@ pub mod schema_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_schema<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<crate::model::Schema>
+        where
+            T: std::convert::Into<crate::model::Schema>,
         {
             self.0.request.schema = std::option::Option::Some(v.into());
             self
@@ -2671,7 +2902,8 @@ pub mod schema_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<crate::model::Schema>
+        where
+            T: std::convert::Into<crate::model::Schema>,
         {
             self.0.request.schema = v.map(|x| x.into());
             self
@@ -2689,7 +2921,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::ValidateMessage;
     /// # tokio_test::block_on(async {
     ///
@@ -2706,10 +2938,10 @@ pub mod schema_service {
     pub struct ValidateMessage(RequestBuilder<crate::model::ValidateMessageRequest>);
 
     impl ValidateMessage {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2726,7 +2958,10 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ValidateMessageResponse> {
-            (*self.0.stub).validate_message(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .validate_message(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ValidateMessageRequest::parent].
@@ -2753,7 +2988,12 @@ pub mod schema_service {
         ///
         /// Note that all the setters affecting `schema_spec` are
         /// mutually exclusive.
-        pub fn set_schema_spec<T: Into<Option<crate::model::validate_message_request::SchemaSpec>>>(mut self, v: T) ->Self {
+        pub fn set_schema_spec<
+            T: Into<Option<crate::model::validate_message_request::SchemaSpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.schema_spec = v.into();
             self
         }
@@ -2773,7 +3013,10 @@ pub mod schema_service {
         ///
         /// Note that all the setters affecting `schema_spec` are
         /// mutually exclusive.
-        pub fn set_schema<T: std::convert::Into<std::boxed::Box<crate::model::Schema>>>(mut self, v: T) -> Self {
+        pub fn set_schema<T: std::convert::Into<std::boxed::Box<crate::model::Schema>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_schema(v);
             self
         }
@@ -2790,7 +3033,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
     ///
@@ -2807,10 +3050,10 @@ pub mod schema_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2827,7 +3070,10 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2842,7 +3088,8 @@ pub mod schema_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -2852,7 +3099,8 @@ pub mod schema_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::Policy>
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -2860,7 +3108,8 @@ pub mod schema_service {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2868,7 +3117,8 @@ pub mod schema_service {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<wkt::FieldMask>
+        where
+            T: std::convert::Into<wkt::FieldMask>,
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2886,7 +3136,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
     ///
@@ -2903,10 +3153,10 @@ pub mod schema_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2923,7 +3173,10 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2936,7 +3189,8 @@ pub mod schema_service {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -2944,7 +3198,8 @@ pub mod schema_service {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -2962,7 +3217,7 @@ pub mod schema_service {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_pubsub_v1::builder;
+    /// # use google_cloud_pubsub::builder;
     /// use builder::schema_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
     ///
@@ -2979,14 +3234,17 @@ pub mod schema_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2999,7 +3257,10 @@ pub mod schema_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -3016,7 +3277,7 @@ pub mod schema_service {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -3030,5 +3291,4 @@ pub mod schema_service {
             &mut self.0.options
         }
     }
-
 }
