@@ -20,7 +20,7 @@ use crate::model_ext::KeyAes256;
 use crate::model_ext::ObjectHighlights;
 use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
-use crate::storage::checksum::details::{Checksum, Crc32c, Md5, validate};
+use crate::storage::checksum::details::{Md5, validate};
 use base64::Engine;
 use serde_with::DeserializeAs;
 
@@ -65,7 +65,6 @@ pub struct ReadObject {
     inner: std::sync::Arc<StorageInner>,
     request: crate::model::ReadObjectRequest,
     options: super::request_options::RequestOptions,
-    checksum: Checksum,
 }
 
 impl ReadObject {
@@ -81,10 +80,6 @@ impl ReadObject {
                 .set_bucket(bucket)
                 .set_object(object),
             options,
-            checksum: Checksum {
-                crc32c: Some(Crc32c::default()),
-                md5_hash: None,
-            },
         }
     }
 
@@ -118,7 +113,7 @@ impl ReadObject {
     /// ```
     pub fn compute_md5(self) -> Self {
         let mut this = self;
-        this.checksum.md5_hash = Some(Md5::default());
+        this.options.checksum.md5_hash = Some(Md5::default());
         this
     }
 
@@ -589,7 +584,10 @@ impl ReadObjectResponseImpl {
         let res = inner.chunk().await.map_err(Error::io);
         match res {
             Ok(Some(chunk)) => {
-                self.builder.checksum.update(self.range.start, &chunk);
+                self.builder
+                    .options
+                    .checksum
+                    .update(self.range.start, &chunk);
                 let len = chunk.len() as u64;
                 if self.range.limit < len {
                     return Some(Err(Error::deser(ReadError::LongRead {
@@ -605,7 +603,7 @@ impl ReadObjectResponseImpl {
                 if self.range.limit != 0 {
                     return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
                 }
-                let computed = self.builder.checksum.finalize();
+                let computed = self.builder.options.checksum.finalize();
                 let res = validate(&self.response_checksums, &Some(computed));
                 match res {
                     Err(e) => Some(Err(Error::deser(ReadError::ChecksumMismatch(e)))),
