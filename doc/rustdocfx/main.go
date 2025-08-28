@@ -96,7 +96,7 @@ func main() {
 			file := filepath.Join(*projectRoot, "/target/doc", fileName)
 			rustDocFile, err := os.Open(file)
 			if err != nil {
-				log.Fatalf("Error openning rustdoc file: %w\n", err)
+				log.Fatalf("Error opening rustdoc file: %w\n", err)
 			}
 			defer rustDocFile.Close()
 			jsonBytes, err := io.ReadAll(rustDocFile)
