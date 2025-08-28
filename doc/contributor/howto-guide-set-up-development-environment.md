@@ -159,7 +159,7 @@ project.
 
 ### One time set up
 
-We use [Secret Manager], [Workflows], [Firestore], [Speech-to-Text], and [KMS]
+We use [Secret Manager], [Workflows], [Firestore], [Speech-to-Text], and \[KMS\]
 to run integration tests. Follow the [Enable the Secret Manager API] guide to,
 as it says, enable the API and make sure that billing is enabled in your
 projects. To enable the APIs you can run this command:
@@ -352,5 +352,5 @@ git ls-files -z --
 [mdbook]: https://rust-lang.github.io/mdBook/
 [secret manager]: https://cloud.google.com/secret-manager/
 [speech-to-text]: https://cloud.google.com/speech-to-text
+[use customer-managed encryption keys]: https://cloud.google.com/storage/docs/encryption/using-customer-managed-keys
 [workflows]: https://cloud.google.com/workflows/
-[Use customer-managed encryption keys]: https://cloud.google.com/storage/docs/encryption/using-customer-managed-keys
