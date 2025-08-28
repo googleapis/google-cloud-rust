@@ -191,6 +191,10 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::add_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running remove_bucket_owner example");
     buckets::remove_bucket_owner::sample(&client, &id, &service_account).await?;
+    tracing::info!("running add_bucket_default_owner example");
+    buckets::add_bucket_default_owner::sample(&client, &id, &service_account).await?;
+    tracing::info!("running remove_bucket_default_owner example");
+    buckets::remove_bucket_default_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running print_bucket_acl_for_user example");
     buckets::print_bucket_acl_for_user::sample(&client, &id).await?;
 
@@ -231,6 +235,11 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets.push(id.clone());
     tracing::info!("running create_bucket_hierarchical_namespace example");
     buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket_with_object_retention example");
+    buckets::create_bucket_with_object_retention::sample(&client, &project_id, &id).await?;
 
     // Use a new bucket to avoid clashing policies from the previous examples.
     let id = random_bucket_id();

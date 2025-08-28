@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub mod add_bucket_conditional_iam_binding;
+pub mod add_bucket_default_owner;
 pub mod add_bucket_iam_member;
 pub mod add_bucket_label;
 pub mod add_bucket_owner;
@@ -23,6 +24,7 @@ pub mod create_bucket_class_location;
 pub mod create_bucket_dual_region;
 pub mod create_bucket_hierarchical_namespace;
 pub mod create_bucket_turbo_replication;
+pub mod create_bucket_with_object_retention;
 pub mod define_bucket_website_configuration;
 pub mod delete_bucket;
 pub mod disable_bucket_lifecycle_management;
@@ -45,6 +47,7 @@ pub mod print_bucket_acl;
 pub mod print_bucket_acl_for_user;
 pub mod print_bucket_website_configuration;
 pub mod remove_bucket_conditional_iam_binding;
+pub mod remove_bucket_default_owner;
 pub mod remove_bucket_iam_member;
 pub mod remove_bucket_label;
 pub mod remove_bucket_owner;
