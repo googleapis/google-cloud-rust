@@ -39,7 +39,7 @@ impl ReadObjectResponse {
 
     /// Create a ReadObjectResponse, given a data source.
     ///
-    /// Use this API to mock the return type of
+    /// Use this method to mock the return type of
     /// [Storage::read_object][crate::client::Storage::read_object].
     ///
     /// # Example
