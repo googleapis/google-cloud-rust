@@ -40,6 +40,7 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         unimplemented_stub::<ReadObjectResponse>()
     }
     /// Implements [crate::client::Storage::write_object].
+    #[allow(dead_code)] // TODO(#2041) - implement writes
     fn write_object_buffered<P>(
         &self,
         _payload: P,
@@ -52,6 +53,7 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         unimplemented_stub::<Object>()
     }
     /// Implements [crate::client::Storage::write_object].
+    #[allow(dead_code)] // TODO(#2041) - implement writes
     fn write_object_unbuffered<P>(
         &self,
         _payload: P,
