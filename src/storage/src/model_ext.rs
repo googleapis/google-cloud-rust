@@ -293,12 +293,11 @@ enum Range {
     Segment { offset: u64, limit: u64 },
 }
 
-/// Represents the parameters of a `WriteObject` request
+/// Represents the parameters of a `WriteObject` request for use in mocks
 #[derive(Debug, PartialEq)]
 #[non_exhaustive]
-// TODO(#2041) - make public
 #[allow(dead_code)]
-pub(crate) struct WriteObjectRequest {
+pub struct WriteObjectRequest {
     pub spec: crate::model::WriteObjectSpec,
     pub params: Option<crate::model::CommonObjectRequestParams>,
 }
