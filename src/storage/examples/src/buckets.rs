@@ -42,6 +42,7 @@ pub mod get_bucket_metadata;
 pub mod get_default_event_based_hold;
 pub mod get_public_access_prevention;
 pub mod get_retention_policy;
+pub mod get_requester_pays_status;
 pub mod get_uniform_bucket_level_access;
 pub mod list_buckets;
 pub mod lock_retention_policy;
