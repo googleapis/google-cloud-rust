@@ -22,6 +22,7 @@ use crate::storage::client::{
     Storage,
     tests::{test_builder, test_inner_client},
 };
+use crate::storage::perform_upload::tests::perform_upload;
 use crate::streaming_source::IterSource;
 use crate::streaming_source::SizeHint;
 use gax::retry_policy::RetryPolicyExt;
@@ -231,8 +232,13 @@ fn response_body() -> Value {
 async fn upload_object_bytes() -> Result {
     const PAYLOAD: &str = "hello";
     let inner = test_inner_client(test_builder());
-    let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", PAYLOAD)
-        .build()
+    let builder = WriteObject::new(
+        inner.clone(),
+        "projects/_/buckets/bucket",
+        "object",
+        PAYLOAD,
+    );
+    let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::with_exact(PAYLOAD.len() as u64))
         .await?
         .build()?;
@@ -250,9 +256,14 @@ async fn upload_object_bytes() -> Result {
 #[tokio::test]
 async fn upload_object_metadata() -> Result {
     let inner = test_inner_client(test_builder());
-    let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-        .set_metadata([("k0", "v0"), ("k1", "v1")])
-        .build()
+    let builder = WriteObject::new(
+        inner.clone(),
+        "projects/_/buckets/bucket",
+        "object",
+        "hello",
+    )
+    .set_metadata([("k0", "v0"), ("k1", "v1")]);
+    let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
         .await?
         .build()?;
@@ -278,8 +289,8 @@ async fn upload_object_stream() -> Result {
         .map(|x| bytes::Bytes::from_static(x.as_bytes())),
     );
     let inner = test_inner_client(test_builder());
-    let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", stream)
-        .build()
+    let builder = WriteObject::new(inner.clone(), "projects/_/buckets/bucket", "object", stream);
+    let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
         .await?
         .build()?;
@@ -299,8 +310,13 @@ async fn upload_object_error_credentials() -> Result {
     let inner = test_inner_client(
         test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
     );
-    let _ = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-        .build()
+    let builder = WriteObject::new(
+        inner.clone(),
+        "projects/_/buckets/bucket",
+        "object",
+        "hello",
+    );
+    let _ = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
         .await
         .inspect_err(|e| assert!(e.is_authentication()))
@@ -311,8 +327,8 @@ async fn upload_object_error_credentials() -> Result {
 #[tokio::test]
 async fn upload_object_bad_bucket() -> Result {
     let inner = test_inner_client(test_builder());
-    WriteObject::new(inner, "malformed", "object", "hello")
-        .build()
+    let builder = WriteObject::new(inner.clone(), "malformed", "object", "hello");
+    let _ = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
         .await
         .expect_err("malformed bucket string should error");
@@ -325,9 +341,14 @@ async fn upload_object_headers() -> Result {
     let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
     let inner = test_inner_client(test_builder());
-    let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-        .set_key(KeyAes256::new(&key)?)
-        .build()
+    let builder = WriteObject::new(
+        inner.clone(),
+        "projects/_/buckets/bucket",
+        "object",
+        "hello",
+    )
+    .set_key(KeyAes256::new(&key)?);
+    let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
         .await?
         .build()?;
