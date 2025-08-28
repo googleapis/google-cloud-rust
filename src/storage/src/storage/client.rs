@@ -121,6 +121,20 @@ impl<S> Storage<S>
 where
     S: crate::storage::stub::Storage + 'static,
 {
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub(stub: S) -> Self
+    where
+        S: super::stub::Storage + 'static,
+    {
+        Self {
+            stub: std::sync::Arc::new(stub),
+            options: RequestOptions::new(),
+        }
+    }
+
     /// Write an object using a local buffer.
     ///
     /// If the data source does **not** implement [Seek] the client library must

@@ -14,8 +14,113 @@
 
 #[cfg(test)]
 mod tests {
+    use gax::error::{
+        Error,
+        rpc::{Code, Status},
+    };
+    use gcs::Result;
+    use gcs::model::{Object, ReadObjectRequest};
+    use gcs::model_ext::{ObjectHighlights, WriteObjectRequest};
+    use gcs::read_object::ReadObjectResponse;
+    use gcs::request_options::RequestOptions;
+    use gcs::streaming_source::{BytesSource, Payload, Seek, StreamingSource};
     use google_cloud_storage as gcs;
     use paste::paste;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        Storage {}
+        impl gcs::stub::Storage for Storage {
+            async fn read_object(&self, _req: ReadObjectRequest, _options: RequestOptions) -> Result<ReadObjectResponse>;
+            async fn write_object_buffered<P: StreamingSource + Send + Sync + 'static>(
+                &self,
+                _payload: P,
+                _req: WriteObjectRequest,
+                _options: RequestOptions,
+            ) -> Result<Object>;
+            async fn write_object_unbuffered<P: StreamingSource + Seek + Send + Sync + 'static>(
+                &self,
+                _payload: P,
+                _req: WriteObjectRequest,
+                _options: RequestOptions,
+            ) -> Result<Object>;
+        }
+    }
+
+    #[tokio::test]
+    async fn mock_read_object_fail() {
+        let mut mock = MockStorage::new();
+        mock.expect_read_object()
+            .return_once(|_, _| Err(Error::service(Status::default().set_code(Code::Aborted))));
+        let client = gcs::client::Storage::from_stub(mock);
+        let _ = client
+            .read_object("projects/_/buckets/my-bucket", "my-object")
+            .send()
+            .await
+            .unwrap_err();
+    }
+
+    #[tokio::test]
+    async fn mock_read_object_success() -> anyhow::Result<()> {
+        const LAZY: &str = "the quick brown fox jumps over the lazy dog";
+        let object = {
+            let mut o = ObjectHighlights::default();
+            o.etag = "custom-etag".to_string();
+            o
+        };
+
+        let mut mock = MockStorage::new();
+        mock.expect_read_object().return_once({
+            let o = object.clone();
+            move |_, _| Ok(ReadObjectResponse::from_source(o, LAZY))
+        });
+
+        let client = gcs::client::Storage::from_stub(mock);
+        let mut reader = client
+            .read_object("projects/_/buckets/my-bucket", "my-object")
+            .send()
+            .await?;
+        assert_eq!(&object, &reader.object());
+
+        let mut contents = Vec::new();
+        while let Some(chunk) = reader.next().await.transpose()? {
+            contents.extend_from_slice(&chunk);
+        }
+        let contents = bytes::Bytes::from_owner(contents);
+        assert_eq!(contents, LAZY);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn mock_write_object_buffered() {
+        let mut mock = MockStorage::new();
+        mock.expect_write_object_buffered()
+            .return_once(|_payload: Payload<BytesSource>, _, _| {
+                Err(Error::service(Status::default().set_code(Code::Aborted)))
+            });
+        let client = gcs::client::Storage::from_stub(mock);
+        let _ = client
+            .write_object("projects/_/buckets/my-bucket", "my-object", "hello")
+            .send_buffered()
+            .await
+            .unwrap_err();
+    }
+
+    #[tokio::test]
+    async fn mock_write_object_unbuffered() {
+        let mut mock = MockStorage::new();
+        mock.expect_write_object_unbuffered().return_once(
+            |_payload: Payload<BytesSource>, _, _| {
+                Err(Error::service(Status::default().set_code(Code::Aborted)))
+            },
+        );
+        let client = gcs::client::Storage::from_stub(mock);
+        let _ = client
+            .write_object("projects/_/buckets/my-bucket", "my-object", "hello")
+            .send_unbuffered()
+            .await
+            .unwrap_err();
+    }
 
     #[derive(Debug)]
     struct DefaultStorageControl;
@@ -75,7 +180,6 @@ mod tests {
             $( paste! {
                 #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
                 async fn [<mock_stub_$method>]() {
-                    use gax::error::{Error, rpc::{Code, Status}};
                     let mut mock = MockStorageControl::new();
                     mock.[<expect_$method>]()
                         .times(1)
