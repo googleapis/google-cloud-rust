@@ -21,6 +21,7 @@ use crate::model_ext::ObjectHighlights;
 use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::{Md5, validate};
+use crate::storage::request_options::RequestOptions;
 use base64::Engine;
 use serde_with::DeserializeAs;
 
@@ -64,18 +65,22 @@ use serde_with::DeserializeAs;
 pub struct ReadObject {
     stub: std::sync::Arc<crate::storage::transport::Storage>,
     request: crate::model::ReadObjectRequest,
-    options: super::request_options::RequestOptions,
+    options: RequestOptions,
 }
 
 impl ReadObject {
-    pub(crate) fn new<B, O>(inner: std::sync::Arc<StorageInner>, bucket: B, object: O) -> Self
+    pub(crate) fn new<B, O>(
+        stub: std::sync::Arc<crate::storage::transport::Storage>,
+        bucket: B,
+        object: O,
+        options: RequestOptions,
+    ) -> Self
     where
         B: Into<String>,
         O: Into<String>,
     {
-        let options = inner.options.clone();
         ReadObject {
-            stub: crate::storage::transport::Storage::new(inner),
+            stub,
             request: crate::model::ReadObjectRequest::new()
                 .set_bucket(bucket)
                 .set_object(object),
@@ -362,7 +367,7 @@ impl ReadObject {
 pub(crate) struct Reader {
     pub inner: std::sync::Arc<StorageInner>,
     pub request: crate::model::ReadObjectRequest,
-    pub options: super::request_options::RequestOptions,
+    pub options: RequestOptions,
 }
 
 impl Reader {
@@ -1163,7 +1168,13 @@ mod tests {
     #[tokio::test]
     async fn read_object() -> Result {
         let inner = test_inner_client(test_builder());
-        let builder = ReadObject::new(inner.clone(), "projects/_/buckets/bucket", "object");
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        );
         let request = http_request_builder(inner, builder).await?.build()?;
 
         assert_eq!(request.method(), reqwest::Method::GET);
@@ -1179,7 +1190,13 @@ mod tests {
         let inner = test_inner_client(
             test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
         );
-        let builder = ReadObject::new(inner.clone(), "projects/_/buckets/bucket", "object");
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        );
         let _ = http_request_builder(inner, builder)
             .await
             .inspect_err(|e| assert!(e.is_authentication()))
@@ -1190,7 +1207,8 @@ mod tests {
     #[tokio::test]
     async fn read_object_bad_bucket() -> Result {
         let inner = test_inner_client(test_builder());
-        let builder = ReadObject::new(inner.clone(), "malformed", "object");
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(stub, "malformed", "object", inner.options.clone());
         let _ = http_request_builder(inner, builder)
             .await
             .expect_err("malformed bucket string should error");
@@ -1200,12 +1218,18 @@ mod tests {
     #[tokio::test]
     async fn read_object_query_params() -> Result {
         let inner = test_inner_client(test_builder());
-        let builder = ReadObject::new(inner.clone(), "projects/_/buckets/bucket", "object")
-            .set_generation(5)
-            .set_if_generation_match(10)
-            .set_if_generation_not_match(20)
-            .set_if_metageneration_match(30)
-            .set_if_metageneration_not_match(40);
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .set_generation(5)
+        .set_if_generation_match(10)
+        .set_if_generation_not_match(20)
+        .set_if_metageneration_match(30)
+        .set_if_metageneration_not_match(40);
         let request = http_request_builder(inner, builder).await?.build()?;
 
         assert_eq!(request.method(), reqwest::Method::GET);
@@ -1237,8 +1261,14 @@ mod tests {
 
         // The API takes the unencoded byte array.
         let inner = test_inner_client(test_builder());
-        let builder = ReadObject::new(inner.clone(), "projects/_/buckets/bucket", "object")
-            .set_key(KeyAes256::new(&key)?);
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .set_key(KeyAes256::new(&key)?);
         let request = http_request_builder(inner, builder).await?.build()?;
 
         assert_eq!(request.method(), reqwest::Method::GET);
@@ -1270,8 +1300,14 @@ mod tests {
     #[tokio::test]
     async fn range_header(input: ReadRange, want: Option<&http::HeaderValue>) -> Result {
         let inner = test_inner_client(test_builder());
-        let builder = ReadObject::new(inner.clone(), "projects/_/buckets/bucket", "object")
-            .set_read_range(input.clone());
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .set_read_range(input.clone());
         let request = http_request_builder(inner, builder).await?.build()?;
 
         assert_eq!(request.method(), reqwest::Method::GET);
@@ -1299,7 +1335,13 @@ mod tests {
     #[tokio::test]
     async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
         let inner = test_inner_client(test_builder());
-        let builder = ReadObject::new(inner.clone(), "projects/_/buckets/bucket", name);
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            name,
+            inner.options.clone(),
+        );
         let request = http_request_builder(inner, builder).await?.build()?;
         let got = request.url().path_segments().unwrap().next_back().unwrap();
         assert_eq!(got, want);
