@@ -103,6 +103,7 @@ members = [
   "src/generated/cloud/chronicle/v1",
   "src/generated/cloud/cloudcontrolspartner/v1",
   "src/generated/cloud/clouddms/v1",
+  "src/generated/cloud/cloudsecuritycompliance/v1",
   "src/generated/cloud/commerce/consumer/procurement/v1",
   "src/generated/cloud/common",
   "src/generated/cloud/confidentialcomputing/v1",
