@@ -2,9 +2,12 @@
 
 This tool generates DocFX YAML for Rust crates.
 
-This tool requires cargo nightly build to generate rustdoc json file and [docuploader](https://github.com/googleapis/docuploader) to upload the generated docfx yaml tar file.
+This tool requires cargo nightly build to generate rustdoc json file and
+[docuploader](https://github.com/googleapis/docuploader) to upload the generated
+docfx yaml tar file.
 
 Example usage for all crates:
+
 ```
 rustdocfx -project-root ./../../
 ```
