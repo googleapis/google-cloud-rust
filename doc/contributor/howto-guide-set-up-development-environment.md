@@ -159,7 +159,7 @@ project.
 
 ### One time set up
 
-We use [Secret Manager], [Workflows], [Firestore], [Speech-to-Text], and \[KMS\]
+We use [Secret Manager], [Workflows], [Firestore], [Speech-to-Text], and [KMS]
 to run integration tests. Follow the [Enable the Secret Manager API] guide to,
 as it says, enable the API and make sure that billing is enabled in your
 projects. To enable the APIs you can run this command:
@@ -220,10 +220,10 @@ gcloud firestore databases describe --format='value(type)'
 # FIRESTORE_NATIVE
 ```
 
-### Create a KMS key ring a crypto key
+### Create a KMS key ring and a crypto key
 
 We use KMS keys with storage. The [Use customer-managed encryption keys] guide
-covers how create and configure a crypto key for use with Cloud Storage. We
+covers how to create and configure a crypto key for use with Cloud Storage. We
 recommend you name the key ring after its location, but feel free to use a
 different naming convention:
 
@@ -349,6 +349,7 @@ git ls-files -z --
 [golang-install]: https://go.dev/doc/install
 [google cloud cli]: https://cloud.google.com/cli
 [install terraform]: https://developer.hashicorp.com/terraform/install
+[kms]: https://cloud.google.com/kms/
 [mdbook]: https://rust-lang.github.io/mdBook/
 [secret manager]: https://cloud.google.com/secret-manager/
 [speech-to-text]: https://cloud.google.com/speech-to-text

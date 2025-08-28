@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_set_bucket_default_kms_key]
+// [START storage_delete_bucket_default_kms_key]
 use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::bucket::Encryption;
 use google_cloud_wkt::FieldMask;
@@ -32,9 +32,9 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .send()
         .await?;
     println!(
-        "successfully updated autoclass for bucket {bucket_id}: {:?}",
+        "successfully deleted default kms key for bucket {bucket_id}: {:?}",
         bucket.encryption
     );
     Ok(())
 }
-// [END storage_set_bucket_default_kms_key]
+// [END storage_delete_bucket_default_kms_key]
