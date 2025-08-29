@@ -299,7 +299,7 @@ func (f *function) toString(name string) (string, error) {
 	for i := 0; i < len(f.Generics.Params); i++ {
 		if f.Generics.Params[i].Kind.GenericParamDefType != nil {
 			param := f.Generics.Params[i].Name
-			// Skip as synethic generics are handled in the parameters.
+			// Skip as syntheic generics are handled in the parameters.
 			// See, https://docs.rs/rustdoc-types/latest/rustdoc_types/enum.GenericParamDefKind.html#variant.Type.field.is_synthetic
 			if f.Generics.Params[i].Kind.GenericParamDefType.IsSyntheic {
 				continue
