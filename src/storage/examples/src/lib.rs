@@ -385,7 +385,10 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
 
     tracing::info!("create test objects for the examples");
-    let writers = [
+    // Need a vector to accumulate the data. Using a slice of futures overflows
+    // the stack on macOS.
+    let mut writers = Vec::new();
+    [
         "object-to-download.txt",
         "prefixes/are-not-always/folders-001",
         "prefixes/are-not-always/folders-002",
@@ -394,8 +397,11 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         "prefixes/are-not-always/folders-004/def",
         "object-to-update",
         "deleted-object-name",
+        "compose-source-object-1",
+        "compose-source-object-2",
     ]
-    .map(|name| make_object(&client, &id, name));
+    .into_iter()
+    .for_each(|name| writers.push(make_object(&client, &id, name)));
     let _ = futures::future::join_all(writers)
         .await
         .into_iter()
@@ -438,6 +444,9 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::set_metadata::sample(&control, &id).await?;
     tracing::info!("running delete_file example");
     objects::delete_file::sample(&control, &id).await?;
+
+    tracing::info!("running compose_file example");
+    objects::compose_file::sample(&control, &id).await?;
 
     // Create a folder for the delete_folder example.
     let _ = control
