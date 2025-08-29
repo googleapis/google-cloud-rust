@@ -16,11 +16,10 @@ pub(crate) mod checksum;
 pub(crate) mod client;
 pub(crate) mod perform_upload;
 pub(crate) mod read_object;
-pub(crate) mod request_options;
+pub mod request_options;
 pub mod streaming_source;
-// TODO(#2041) - make the stub public
-#[allow(dead_code)]
-pub(crate) mod stub;
+pub mod stub;
+pub(crate) mod transport;
 pub(crate) mod v1;
 pub(crate) mod write_object;
 

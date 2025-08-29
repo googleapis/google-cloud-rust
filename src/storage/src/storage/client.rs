@@ -86,8 +86,12 @@ use std::sync::Arc;
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
-pub struct Storage {
-    inner: std::sync::Arc<StorageInner>,
+pub struct Storage<S = crate::storage::transport::Storage>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
+    stub: std::sync::Arc<S>,
+    options: RequestOptions,
 }
 
 #[derive(Clone, Debug)]
@@ -111,20 +115,27 @@ impl Storage {
     pub fn builder() -> ClientBuilder {
         ClientBuilder::new()
     }
+}
 
-    /// Write an object using a local buffer.
+impl<S> Storage<S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
+    /// Creates a new client from the provided stub.
     ///
-    /// If the data source does **not** implement [Seek] the client library must
-    /// buffer data sent to the service until the service confirms it has
-    /// persisted the data. This requires more memory in the client, and when
-    /// the buffer grows too large, may require stalling the writer until the
-    /// service can persist the data.
-    ///
-    /// Use this function for data sources representing computations where
-    /// it is expensive or impossible to restart said computation. This function
-    /// is also useful when it is hard or impossible to predict the number of
-    /// bytes emitted by a stream, even if restarting the stream is not too
-    /// expensive.
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub(stub: S) -> Self
+    where
+        S: super::stub::Storage + 'static,
+    {
+        Self {
+            stub: std::sync::Arc::new(stub),
+            options: RequestOptions::new(),
+        }
+    }
+
+    /// Write an object with data from any data source.
     ///
     /// # Example
     /// ```
@@ -150,6 +161,13 @@ impl Storage {
     /// # Ok(()) }
     /// ```
     ///
+    /// You can use many different types as the payload. For example, a string,
+    /// a [bytes::Bytes], a [tokio::fs::File], or a custom type that implements
+    /// the [StreamingSource] trait.
+    ///
+    /// If your data source also implements [Seek], prefer [send_unbuffered()]
+    /// to start the write. Otherwise use [send_buffered()].
+    ///
     /// # Parameters
     /// * `bucket` - the bucket name containing the object. In
     ///   `projects/_/buckets/{bucket_id}` format.
@@ -157,13 +175,22 @@ impl Storage {
     /// * `payload` - the object data.
     ///
     /// [Seek]: crate::streaming_source::Seek
-    pub fn write_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> WriteObject<P>
+    /// [StreamingSource]: crate::streaming_source::StreamingSource
+    /// [send_buffered()]: crate::builder::storage::WriteObject::send_buffered
+    /// [send_unbuffered()]: crate::builder::storage::WriteObject::send_unbuffered
+    pub fn write_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> WriteObject<P, S>
     where
         B: Into<String>,
         O: Into<String>,
         T: Into<Payload<P>>,
     {
-        WriteObject::new(self.inner.clone(), bucket, object, payload)
+        WriteObject::new(
+            self.stub.clone(),
+            bucket,
+            object,
+            payload,
+            self.options.clone(),
+        )
     }
 
     /// Reads the contents of an object.
@@ -188,14 +215,16 @@ impl Storage {
     /// * `bucket` - the bucket name containing the object. In
     ///   `projects/_/buckets/{bucket_id}` format.
     /// * `object` - the object name.
-    pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject
+    pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject<S>
     where
         B: Into<String>,
         O: Into<String>,
     {
-        ReadObject::new(self.inner.clone(), bucket, object)
+        ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
+}
 
+impl Storage {
     pub(crate) fn new(builder: ClientBuilder) -> gax::client_builder::Result<Self> {
         use gax::client_builder::Error;
         let client = reqwest::Client::builder()
@@ -222,7 +251,9 @@ impl Storage {
         builder.credentials = Some(cred);
         builder.endpoint = Some(endpoint);
         let inner = Arc::new(StorageInner::new(client, builder));
-        Ok(Self { inner })
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new(inner);
+        Ok(Self { stub, options })
     }
 }
 

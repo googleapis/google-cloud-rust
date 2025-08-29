@@ -23,3 +23,30 @@
 //! [Pub/Sub].
 //!
 //! [pub/sub]: https://cloud.google.com/pubsub
+
+pub(crate) mod generated;
+
+pub use gax::Result;
+pub use gax::error::Error;
+
+pub use generated::gapic::builder;
+pub use generated::gapic::client;
+pub use generated::gapic::model;
+pub use generated::gapic::stub;
+
+const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";
+
+mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
+            let ac = gaxi::api_header::XGoogApiClient{
+                name:          NAME,
+                version:       VERSION,
+                library_type:  gaxi::api_header::GAPIC,
+            };
+            ac.grpc_header_value()
+        };
+    }
+}

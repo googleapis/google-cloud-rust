@@ -16,13 +16,12 @@
 //!
 //! [write_object()]: crate::storage::client::Storage::write_object()
 
-use super::client::*;
-use super::perform_upload::PerformUpload;
 use super::streaming_source::{Seek, StreamingSource};
 use super::*;
 use crate::model_ext::KeyAes256;
 use crate::storage::checksum::details::update as checksum_update;
 use crate::storage::checksum::details::{Checksum, Md5};
+use crate::storage::request_options::RequestOptions;
 
 /// A request builder for object writes.
 ///
@@ -73,15 +72,20 @@ use crate::storage::checksum::details::{Checksum, Md5};
 ///     Ok(())
 /// }
 /// ```
-pub struct WriteObject<T> {
-    inner: std::sync::Arc<StorageInner>,
-    spec: crate::model::WriteObjectSpec,
-    params: Option<crate::model::CommonObjectRequestParams>,
-    payload: Payload<T>,
-    options: super::request_options::RequestOptions,
+pub struct WriteObject<T, S = crate::storage::transport::Storage>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
+    stub: std::sync::Arc<S>,
+    pub(crate) request: crate::model_ext::WriteObjectRequest,
+    pub(crate) payload: Payload<T>,
+    pub(crate) options: RequestOptions,
 }
 
-impl<T> WriteObject<T> {
+impl<T, S> WriteObject<T, S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
     /// Set a [request precondition] on the object generation to match.
     ///
     /// With this precondition the request fails if the current object
@@ -106,7 +110,7 @@ impl<T> WriteObject<T> {
     where
         V: Into<i64>,
     {
-        self.spec.if_generation_match = Some(v.into());
+        self.request.spec.if_generation_match = Some(v.into());
         self
     }
 
@@ -133,7 +137,7 @@ impl<T> WriteObject<T> {
     where
         V: Into<i64>,
     {
-        self.spec.if_generation_not_match = Some(v.into());
+        self.request.spec.if_generation_not_match = Some(v.into());
         self
     }
 
@@ -161,7 +165,7 @@ impl<T> WriteObject<T> {
     where
         V: Into<i64>,
     {
-        self.spec.if_metageneration_match = Some(v.into());
+        self.request.spec.if_metageneration_match = Some(v.into());
         self
     }
 
@@ -190,7 +194,7 @@ impl<T> WriteObject<T> {
     where
         V: Into<i64>,
     {
-        self.spec.if_metageneration_not_match = Some(v.into());
+        self.request.spec.if_metageneration_not_match = Some(v.into());
         self
     }
 
@@ -554,7 +558,7 @@ impl<T> WriteObject<T> {
     where
         V: Into<String>,
     {
-        self.spec.predefined_acl = v.into();
+        self.request.spec.predefined_acl = v.into();
         self
     }
 
@@ -576,7 +580,7 @@ impl<T> WriteObject<T> {
     /// # Ok(()) }
     /// ```
     pub fn set_key(mut self, v: KeyAes256) -> Self {
-        self.params = Some(v.into());
+        self.request.params = Some(v.into());
         self
     }
 
@@ -772,20 +776,11 @@ impl<T> WriteObject<T> {
     }
 
     fn mut_resource(&mut self) -> &mut crate::model::Object {
-        self.spec
+        self.request
+            .spec
             .resource
             .as_mut()
             .expect("resource field initialized in `new()`")
-    }
-
-    pub(crate) fn build(self) -> PerformUpload<Payload<T>> {
-        PerformUpload::new(
-            self.payload,
-            self.inner,
-            self.spec,
-            self.params,
-            self.options,
-        )
     }
 
     fn set_crc32c<V: Into<u32>>(mut self, v: V) -> Self {
@@ -903,35 +898,38 @@ impl<T> WriteObject<T> {
     }
 
     pub(crate) fn new<B, O, P>(
-        inner: std::sync::Arc<StorageInner>,
+        stub: std::sync::Arc<S>,
         bucket: B,
         object: O,
         payload: P,
+        options: RequestOptions,
     ) -> Self
     where
         B: Into<String>,
         O: Into<String>,
         P: Into<Payload<T>>,
     {
-        let options = inner.options.clone();
         let resource = crate::model::Object::new()
             .set_bucket(bucket)
             .set_name(object);
         WriteObject {
-            inner,
-            spec: crate::model::WriteObjectSpec::new().set_resource(resource),
-            params: None,
+            stub,
+            request: crate::model_ext::WriteObjectRequest {
+                spec: crate::model::WriteObjectSpec::new().set_resource(resource),
+                params: None,
+            },
             payload: payload.into(),
             options,
         }
     }
 }
 
-impl<T> WriteObject<T>
+impl<T, S> WriteObject<T, S>
 where
     T: StreamingSource + Seek + Send + Sync + 'static,
     <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
+    S: crate::storage::stub::Storage + 'static,
 {
     /// A simple upload from a buffer.
     ///
@@ -947,7 +945,9 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_unbuffered(self) -> Result<Object> {
-        self.build().send_unbuffered().await
+        self.stub
+            .write_object_unbuffered(self.payload, self.request, self.options)
+            .await
     }
 
     /// Precompute the payload checksums before uploading the data.
@@ -982,7 +982,7 @@ where
     /// send the checksums at the end of the upload with this API.
     ///
     /// [JSON API]: https://cloud.google.com/storage/docs/json_api
-    pub async fn precompute_checksums(mut self) -> Result<WriteObject<T>> {
+    pub async fn precompute_checksums(mut self) -> Result<Self> {
         let mut offset = 0_u64;
         self.payload.seek(offset).await.map_err(Error::ser)?;
         while let Some(n) = self.payload.next().await.transpose().map_err(Error::ser)? {
@@ -1001,12 +1001,24 @@ where
     }
 }
 
-impl<T> WriteObject<T>
+impl<T, S> WriteObject<T, S>
 where
     T: StreamingSource + Send + Sync + 'static,
     T::Error: std::error::Error + Send + Sync + 'static,
+    S: crate::storage::stub::Storage + 'static,
 {
     /// Upload an object from a streaming source without rewinds.
+    ///
+    /// If the data source does **not** implement [Seek] the client library must
+    /// buffer data sent to the service until the service confirms it has
+    /// persisted the data. This requires more memory in the client, and when
+    /// the buffer grows too large, may require stalling the writer until the
+    /// service can persist the data.
+    ///
+    /// Use this function for data sources where it is expensive or impossible
+    /// to restart the data source. This function is also useful when it is hard
+    /// or impossible to predict the number of bytes emitted by a stream, even
+    /// if restarting the stream is not too expensive.
     ///
     /// # Example
     /// ```
@@ -1020,17 +1032,21 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_buffered(self) -> crate::Result<Object> {
-        self.build().send().await
+        self.stub
+            .write_object_buffered(self.payload, self.request, self.options)
+            .await
     }
 }
 
 // We need `Debug` to use `expect_err()` in `Result<WriteObject, ...>`.
-impl<T> std::fmt::Debug for WriteObject<T> {
+impl<T, S> std::fmt::Debug for WriteObject<T, S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("WriteObject")
-            .field("inner", &self.inner)
-            .field("spec", &self.spec)
-            .field("params", &self.params)
+            .field("stub", &self.stub)
+            .field("request", &self.request)
             // skip payload, as it is not `Debug`
             .field("options", &self.options)
             .finish()
@@ -1041,6 +1057,7 @@ impl<T> std::fmt::Debug for WriteObject<T> {
 mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
+    use crate::client::Storage;
     use crate::model::{ObjectChecksums, WriteObjectSpec};
     use crate::storage::checksum::details::{Crc32c, Md5};
     use crate::streaming_source::tests::MockSeekSource;
@@ -1131,38 +1148,41 @@ mod tests {
     fn upload_object_unbuffered_metadata() -> Result {
         use crate::model::ObjectAccessControl;
         let inner = test_inner_client(test_builder());
-        let mut request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
-            .set_if_generation_match(10)
-            .set_if_generation_not_match(20)
-            .set_if_metageneration_match(30)
-            .set_if_metageneration_not_match(40)
-            .set_predefined_acl("private")
-            .set_acl([ObjectAccessControl::new()
-                .set_entity("allAuthenticatedUsers")
-                .set_role("READER")])
-            .set_cache_control("public; max-age=7200")
-            .set_content_disposition("inline")
-            .set_content_encoding("gzip")
-            .set_content_language("en")
-            .set_content_type("text/plain")
-            .set_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
-            .set_event_based_hold(true)
-            .set_metadata([("k0", "v0"), ("k1", "v1")])
-            .set_retention(
-                crate::model::object::Retention::new()
-                    .set_mode(crate::model::object::retention::Mode::Locked)
-                    .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
-            )
-            .set_storage_class("ARCHIVE")
-            .set_temporary_hold(true)
-            .set_kms_key("test-key")
-            .with_known_crc32c(crc32c::crc32c(b""))
-            .with_known_md5_hash(md5::compute(b"").0);
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new(inner);
+        let mut builder =
+            WriteObject::new(stub, "projects/_/buckets/bucket", "object", "", options)
+                .set_if_generation_match(10)
+                .set_if_generation_not_match(20)
+                .set_if_metageneration_match(30)
+                .set_if_metageneration_not_match(40)
+                .set_predefined_acl("private")
+                .set_acl([ObjectAccessControl::new()
+                    .set_entity("allAuthenticatedUsers")
+                    .set_role("READER")])
+                .set_cache_control("public; max-age=7200")
+                .set_content_disposition("inline")
+                .set_content_encoding("gzip")
+                .set_content_language("en")
+                .set_content_type("text/plain")
+                .set_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
+                .set_event_based_hold(true)
+                .set_metadata([("k0", "v0"), ("k1", "v1")])
+                .set_retention(
+                    crate::model::object::Retention::new()
+                        .set_mode(crate::model::object::retention::Mode::Locked)
+                        .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
+                )
+                .set_storage_class("ARCHIVE")
+                .set_temporary_hold(true)
+                .set_kms_key("test-key")
+                .with_known_crc32c(crc32c::crc32c(b""))
+                .with_known_md5_hash(md5::compute(b"").0);
 
-        let resource = request.spec.resource.take().unwrap();
-        let request = request;
+        let resource = builder.request.spec.resource.take().unwrap();
+        let builder = builder;
         assert_eq!(
-            &request.spec,
+            &builder.request.spec,
             &WriteObjectSpec::new()
                 .set_if_generation_match(10)
                 .set_if_generation_not_match(20)
@@ -1212,11 +1232,19 @@ mod tests {
                 .with_resumable_upload_threshold(123_usize)
                 .with_resumable_upload_buffer_size(234_usize),
         );
-        let request = WriteObject::new(inner.clone(), "projects/_/buckets/bucket", "object", "");
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new(inner);
+        let request = WriteObject::new(
+            stub.clone(),
+            "projects/_/buckets/bucket",
+            "object",
+            "",
+            options.clone(),
+        );
         assert_eq!(request.options.resumable_upload_threshold, 123);
         assert_eq!(request.options.resumable_upload_buffer_size, 234);
 
-        let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
+        let request = WriteObject::new(stub, "projects/_/buckets/bucket", "object", "", options)
             .with_resumable_upload_threshold(345_usize)
             .with_resumable_upload_buffer_size(456_usize);
         assert_eq!(request.options.resumable_upload_threshold, 345);
@@ -1250,7 +1278,10 @@ mod tests {
             crc32c: Some(Crc32c::default()),
             md5_hash: None,
         });
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
         let collected = collect(upload.payload).await?;
         assert_eq!(collected, QUICK.as_bytes());
         Ok(())
@@ -1268,7 +1299,10 @@ mod tests {
             crc32c: Some(Crc32c::default()),
             md5_hash: Some(Md5::default()),
         });
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
         Ok(())
     }
 
@@ -1291,7 +1325,10 @@ mod tests {
         // Note that the checksums do not match the data. This is intentional,
         // we are trying to verify that whatever is provided in with_crc32c()
         // and with_md5() is respected.
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(ck));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(ck)
+        );
 
         Ok(())
     }
@@ -1320,7 +1357,10 @@ mod tests {
             md5_hash: Some(Md5::default()),
         })
         .set_crc32c(ck.crc32c.unwrap());
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
 
         Ok(())
     }
@@ -1345,7 +1385,10 @@ mod tests {
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
         let want = ck.clone();
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
 
         Ok(())
     }
@@ -1374,7 +1417,10 @@ mod tests {
             md5_hash: None,
         })
         .set_md5_hash(ck.md5_hash.clone());
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
 
         Ok(())
     }
@@ -1400,7 +1446,10 @@ mod tests {
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
         let want = ck.clone();
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
 
         Ok(())
     }
@@ -1425,7 +1474,10 @@ mod tests {
         // we are trying to verify that whatever is provided in with_known*()
         // is respected.
         let want = ck.clone();
-        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        assert_eq!(
+            upload.request.spec.resource.and_then(|r| r.checksums),
+            Some(want)
+        );
 
         Ok(())
     }

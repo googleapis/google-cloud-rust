@@ -35,9 +35,10 @@ module "services" {
 
 # Create the resources we will need to run integration tests on.
 module "resources" {
-  source  = "./resources"
-  project = var.project
-  region  = var.region
+  source     = "./resources"
+  project    = var.project
+  region     = var.region
+  depends_on = [module.services]
 }
 
 # Create the service account needed for GCB and grant it the necessary
