@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_delete_file]
+// [START storage_compose_file]
 use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::{Object, compose_object_request::SourceObject};
 
@@ -39,4 +39,4 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
     );
     Ok(())
 }
-// [END storage_delete_file]
+// [END compose_file]
