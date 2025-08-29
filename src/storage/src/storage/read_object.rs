@@ -20,7 +20,8 @@ use crate::model_ext::KeyAes256;
 use crate::model_ext::ObjectHighlights;
 use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
-use crate::storage::checksum::details::{Checksum, Crc32c, Md5, validate};
+use crate::storage::checksum::details::{Md5, validate};
+use crate::storage::request_options::RequestOptions;
 use base64::Engine;
 use serde_with::DeserializeAs;
 
@@ -61,30 +62,35 @@ use serde_with::DeserializeAs;
 /// }
 /// ```
 #[derive(Clone, Debug)]
-pub struct ReadObject {
-    inner: std::sync::Arc<StorageInner>,
+pub struct ReadObject<S = crate::storage::transport::Storage>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
+    stub: std::sync::Arc<S>,
     request: crate::model::ReadObjectRequest,
-    options: super::request_options::RequestOptions,
-    checksum: Checksum,
+    options: RequestOptions,
 }
 
-impl ReadObject {
-    pub(crate) fn new<B, O>(inner: std::sync::Arc<StorageInner>, bucket: B, object: O) -> Self
+impl<S> ReadObject<S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
+    pub(crate) fn new<B, O>(
+        stub: std::sync::Arc<S>,
+        bucket: B,
+        object: O,
+        options: RequestOptions,
+    ) -> Self
     where
         B: Into<String>,
         O: Into<String>,
     {
-        let options = inner.options.clone();
         ReadObject {
-            inner,
+            stub,
             request: crate::model::ReadObjectRequest::new()
                 .set_bucket(bucket)
                 .set_object(object),
             options,
-            checksum: Checksum {
-                crc32c: Some(Crc32c::default()),
-                md5_hash: None,
-            },
         }
     }
 
@@ -118,7 +124,7 @@ impl ReadObject {
     /// ```
     pub fn compute_md5(self) -> Self {
         let mut this = self;
-        this.checksum.md5_hash = Some(Md5::default());
+        this.options.checksum.md5_hash = Some(Md5::default());
         this
     }
 
@@ -357,11 +363,19 @@ impl ReadObject {
 
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
-        let read = self.clone().read().await?;
-        let inner = ReadObjectResponseImpl::new(self, read)?;
-        Ok(ReadObjectResponse::new(Box::new(inner)))
+        self.stub.read_object(self.request, self.options).await
     }
+}
 
+// A convenience struct that saves the request conditions and performs the read.
+#[derive(Clone, Debug)]
+pub(crate) struct Reader {
+    pub inner: std::sync::Arc<StorageInner>,
+    pub request: crate::model::ReadObjectRequest,
+    pub options: RequestOptions,
+}
+
+impl Reader {
     async fn read(self) -> Result<reqwest::Response> {
         let throttler = self.options.retry_throttler.clone();
         let retry = self.options.retry_policy.clone();
@@ -501,26 +515,29 @@ fn headers_to_md5_hash(headers: &http::HeaderMap) -> Vec<u8> {
 
 /// A response to a [Storage::read_object] request.
 #[derive(Debug)]
-struct ReadObjectResponseImpl {
-    inner: Option<reqwest::Response>,
+pub(crate) struct ReadObjectResponseImpl {
+    reader: Reader,
+    response: Option<reqwest::Response>,
     highlights: ObjectHighlights,
     // Fields for tracking the crc checksum checks.
     response_checksums: ObjectChecksums,
     // Fields for resuming a read request.
     range: ReadRange,
     generation: i64,
-    builder: ReadObject,
     resume_count: u32,
 }
 
 impl ReadObjectResponseImpl {
-    fn new(builder: ReadObject, inner: reqwest::Response) -> Result<Self> {
-        let full = builder.request.read_offset == 0 && builder.request.read_limit == 0;
-        let response_checksums = checksums_from_response(full, inner.status(), inner.headers());
-        let range = response_range(&inner).map_err(Error::deser)?;
-        let generation = response_generation(&inner).map_err(Error::deser)?;
+    pub(crate) async fn new(reader: Reader) -> Result<Self> {
+        let response = reader.clone().read().await?;
 
-        let headers = inner.headers();
+        let full = reader.request.read_offset == 0 && reader.request.read_limit == 0;
+        let response_checksums =
+            checksums_from_response(full, response.status(), response.headers());
+        let range = response_range(&response).map_err(Error::deser)?;
+        let generation = response_generation(&response).map_err(Error::deser)?;
+
+        let headers = response.headers();
         let get_as_i64 = |header_name: &str| -> i64 {
             headers
                 .get(header_name)
@@ -553,14 +570,14 @@ impl ReadObjectResponseImpl {
         };
 
         Ok(Self {
-            inner: Some(inner),
+            reader,
+            response: Some(response),
             highlights,
             // Fields for computing checksums.
             response_checksums,
             // Fields for resuming a read request.
             range,
             generation,
-            builder,
             resume_count: 0,
         })
     }
@@ -585,11 +602,14 @@ impl crate::read_object::dynamic::ReadObjectResponse for ReadObjectResponseImpl 
 
 impl ReadObjectResponseImpl {
     async fn next_attempt(&mut self) -> Option<Result<bytes::Bytes>> {
-        let inner = self.inner.as_mut()?;
-        let res = inner.chunk().await.map_err(Error::io);
+        let response = self.response.as_mut()?;
+        let res = response.chunk().await.map_err(Error::io);
         match res {
             Ok(Some(chunk)) => {
-                self.builder.checksum.update(self.range.start, &chunk);
+                self.reader
+                    .options
+                    .checksum
+                    .update(self.range.start, &chunk);
                 let len = chunk.len() as u64;
                 if self.range.limit < len {
                     return Some(Err(Error::deser(ReadError::LongRead {
@@ -605,7 +625,7 @@ impl ReadObjectResponseImpl {
                 if self.range.limit != 0 {
                     return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
                 }
-                let computed = self.builder.checksum.finalize();
+                let computed = self.reader.options.checksum.finalize();
                 let res = validate(&self.response_checksums, &Some(computed));
                 match res {
                     Err(e) => Some(Err(Error::deser(ReadError::ChecksumMismatch(e)))),
@@ -621,11 +641,11 @@ impl ReadObjectResponseImpl {
         use crate::read_resume_policy::{ResumeQuery, ResumeResult};
 
         // The existing read is no longer valid.
-        self.inner = None;
+        self.response = None;
         self.resume_count += 1;
         let query = ResumeQuery::new(self.resume_count);
         match self
-            .builder
+            .reader
             .options
             .read_resume_policy
             .on_error(&query, error)
@@ -634,10 +654,10 @@ impl ReadObjectResponseImpl {
             ResumeResult::Permanent(e) => return Some(Err(e)),
             ResumeResult::Exhausted(e) => return Some(Err(e)),
         };
-        self.builder.request.read_offset = self.range.start as i64;
-        self.builder.request.read_limit = self.range.limit as i64;
-        self.builder.request.generation = self.generation;
-        self.inner = match self.builder.clone().read().await {
+        self.reader.request.read_offset = self.range.start as i64;
+        self.reader.request.read_limit = self.range.limit as i64;
+        self.reader.request.generation = self.generation;
+        self.response = match self.reader.clone().read().await {
             Ok(r) => Some(r),
             Err(e) => return Some(Err(e)),
         };
@@ -761,9 +781,22 @@ mod tests {
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
     use std::error::Error;
+    use std::sync::Arc;
     use test_case::test_case;
 
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    async fn http_request_builder(
+        inner: Arc<StorageInner>,
+        builder: ReadObject,
+    ) -> crate::Result<reqwest::RequestBuilder> {
+        let reader = Reader {
+            inner,
+            request: builder.request,
+            options: builder.options,
+        };
+        reader.http_request_builder().await
+    }
 
     // Verify `read_object()` meets normal Send, Sync, requirements.
     #[tokio::test]
@@ -1140,10 +1173,14 @@ mod tests {
     #[tokio::test]
     async fn read_object() -> Result {
         let inner = test_inner_client(test_builder());
-        let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .http_request_builder()
-            .await?
-            .build()?;
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        );
+        let request = http_request_builder(inner, builder).await?.build()?;
 
         assert_eq!(request.method(), reqwest::Method::GET);
         assert_eq!(
@@ -1158,8 +1195,14 @@ mod tests {
         let inner = test_inner_client(
             test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
         );
-        let _ = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .http_request_builder()
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        );
+        let _ = http_request_builder(inner, builder)
             .await
             .inspect_err(|e| assert!(e.is_authentication()))
             .expect_err("invalid credentials should err");
@@ -1169,8 +1212,9 @@ mod tests {
     #[tokio::test]
     async fn read_object_bad_bucket() -> Result {
         let inner = test_inner_client(test_builder());
-        ReadObject::new(inner, "malformed", "object")
-            .http_request_builder()
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(stub, "malformed", "object", inner.options.clone());
+        let _ = http_request_builder(inner, builder)
             .await
             .expect_err("malformed bucket string should error");
         Ok(())
@@ -1179,15 +1223,19 @@ mod tests {
     #[tokio::test]
     async fn read_object_query_params() -> Result {
         let inner = test_inner_client(test_builder());
-        let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .set_generation(5)
-            .set_if_generation_match(10)
-            .set_if_generation_not_match(20)
-            .set_if_metageneration_match(30)
-            .set_if_metageneration_not_match(40)
-            .http_request_builder()
-            .await?
-            .build()?;
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .set_generation(5)
+        .set_if_generation_match(10)
+        .set_if_generation_not_match(20)
+        .set_if_metageneration_match(30)
+        .set_if_metageneration_not_match(40);
+        let request = http_request_builder(inner, builder).await?.build()?;
 
         assert_eq!(request.method(), reqwest::Method::GET);
         let want_pairs: HashMap<String, String> = [
@@ -1218,11 +1266,15 @@ mod tests {
 
         // The API takes the unencoded byte array.
         let inner = test_inner_client(test_builder());
-        let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .set_key(KeyAes256::new(&key)?)
-            .http_request_builder()
-            .await?
-            .build()?;
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .set_key(KeyAes256::new(&key)?);
+        let request = http_request_builder(inner, builder).await?.build()?;
 
         assert_eq!(request.method(), reqwest::Method::GET);
         assert_eq!(
@@ -1253,11 +1305,15 @@ mod tests {
     #[tokio::test]
     async fn range_header(input: ReadRange, want: Option<&http::HeaderValue>) -> Result {
         let inner = test_inner_client(test_builder());
-        let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
-            .set_read_range(input.clone())
-            .http_request_builder()
-            .await?
-            .build()?;
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .set_read_range(input.clone());
+        let request = http_request_builder(inner, builder).await?.build()?;
 
         assert_eq!(request.method(), reqwest::Method::GET);
         assert_eq!(
@@ -1284,10 +1340,14 @@ mod tests {
     #[tokio::test]
     async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
         let inner = test_inner_client(test_builder());
-        let request = ReadObject::new(inner, "projects/_/buckets/bucket", name)
-            .http_request_builder()
-            .await?
-            .build()?;
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            name,
+            inner.options.clone(),
+        );
+        let request = http_request_builder(inner, builder).await?.build()?;
         let got = request.url().path_segments().unwrap().next_back().unwrap();
         assert_eq!(got, want);
         Ok(())

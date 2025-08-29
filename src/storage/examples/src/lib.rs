@@ -103,6 +103,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let client = control_client().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
     let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
+    let kms_ring = std::env::var("GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING")?;
 
     // We create multiple buckets because there is a rate limit on bucket
     // changes.
@@ -124,6 +125,10 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::change_default_storage_class::sample(&client, &id).await?;
     tracing::info!("running get_bucket_metadata example");
     buckets::get_bucket_metadata::sample(&client, &id).await?;
+    tracing::info!("running add_bucket_label example");
+    buckets::add_bucket_label::sample(&client, &id, "test-label", "test-value").await?;
+    tracing::info!("running remove_bucket_label example");
+    buckets::remove_bucket_label::sample(&client, &id, "test-label").await?;
     tracing::info!("running get_default_event_based_hold example");
     buckets::get_default_event_based_hold::sample(&client, &id).await?;
     tracing::info!("running enable_default_event_based_hold example");
@@ -140,6 +145,12 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::set_public_access_prevention_enforced::sample(&client, &id).await?;
     tracing::info!("running get_public_access_prevention example");
     buckets::get_public_access_prevention::sample(&client, &id).await?;
+    tracing::info!("running enable_uniform_bucket_level_access example");
+    buckets::enable_uniform_bucket_level_access::sample(&client, &id).await?;
+    tracing::info!("running get_uniform_bucket_level_access example");
+    buckets::get_uniform_bucket_level_access::sample(&client, &id).await?;
+    tracing::info!("running disable_uniform_bucket_level_access example");
+    buckets::disable_uniform_bucket_level_access::sample(&client, &id).await?;
     tracing::info!("running view_versioning_status example");
     buckets::view_versioning_status::sample(&client, &id).await?;
     tracing::info!("running enable_versioning example");
@@ -181,6 +192,10 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::add_bucket_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running remove_bucket_owner example");
     buckets::remove_bucket_owner::sample(&client, &id, &service_account).await?;
+    tracing::info!("running add_bucket_default_owner example");
+    buckets::add_bucket_default_owner::sample(&client, &id, &service_account).await?;
+    tracing::info!("running remove_bucket_default_owner example");
+    buckets::remove_bucket_default_owner::sample(&client, &id, &service_account).await?;
     tracing::info!("running print_bucket_acl_for_user example");
     buckets::print_bucket_acl_for_user::sample(&client, &id).await?;
 
@@ -192,6 +207,12 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::set_autoclass::sample(&client, &id).await?;
     tracing::info!("running get_autoclass example");
     buckets::get_autoclass::sample(&client, &id).await?;
+    tracing::info!("running enable_requester_pays example");
+    buckets::enable_requester_pays::sample(&client, &id).await?;
+    tracing::info!("running get_requester_pays_status example");
+    buckets::get_requester_pays_status::sample(&client, &id).await?;
+    tracing::info!("running disable_requester_pays example");
+    buckets::disable_requester_pays::sample(&client, &id).await?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -221,6 +242,11 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets.push(id.clone());
     tracing::info!("running create_bucket_hierarchical_namespace example");
     buckets::create_bucket_hierarchical_namespace::sample(&client, &project_id, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("running create_bucket_with_object_retention example");
+    buckets::create_bucket_with_object_retention::sample(&client, &project_id, &id).await?;
 
     // Use a new bucket to avoid clashing policies from the previous examples.
     let id = random_bucket_id();
@@ -256,6 +282,30 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::remove_bucket_conditional_iam_binding::sample(&client, &id).await?;
     tracing::info!("running view_bucket_iam_members example");
     buckets::view_bucket_iam_members::sample(&client, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("create bucket for KMS tests");
+    let _ = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(&id)
+        .set_bucket(
+            google_cloud_storage::model::Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location("US-CENTRAL1"),
+        )
+        .send()
+        .await?;
+    let kms_key = format!(
+        "projects/{project_id}/locations/us-central1/keyRings/{kms_ring}/cryptoKeys/storage-examples"
+    );
+    tracing::info!("running set_bucket_default_kms_key example");
+    buckets::set_bucket_default_kms_key::sample(&client, &id, &kms_key).await?;
+    tracing::info!("running get_bucket_default_kms_key example");
+    buckets::get_bucket_default_kms_key::sample(&client, &id).await?;
+    tracing::info!("running delete_bucket_default_kms_key example");
+    buckets::delete_bucket_default_kms_key::sample(&client, &id).await?;
 
     Ok(())
 }
@@ -335,7 +385,10 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
 
     tracing::info!("create test objects for the examples");
-    let writers = [
+    // Need a vector to accumulate the data. Using a slice of futures overflows
+    // the stack on macOS.
+    let mut writers = Vec::new();
+    [
         "object-to-download.txt",
         "prefixes/are-not-always/folders-001",
         "prefixes/are-not-always/folders-002",
@@ -344,8 +397,11 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         "prefixes/are-not-always/folders-004/def",
         "object-to-update",
         "deleted-object-name",
+        "compose-source-object-1",
+        "compose-source-object-2",
     ]
-    .map(|name| make_object(&client, &id, name));
+    .into_iter()
+    .for_each(|name| writers.push(make_object(&client, &id, name)));
     let _ = futures::future::join_all(writers)
         .await
         .into_iter()
@@ -388,6 +444,9 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::set_metadata::sample(&control, &id).await?;
     tracing::info!("running delete_file example");
     objects::delete_file::sample(&control, &id).await?;
+
+    tracing::info!("running compose_file example");
+    objects::compose_file::sample(&control, &id).await?;
 
     // Create a folder for the delete_folder example.
     let _ = control

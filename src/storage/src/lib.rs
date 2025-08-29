@@ -41,6 +41,7 @@ pub mod backoff_policy;
 pub mod read_object;
 pub mod read_resume_policy;
 pub mod retry_policy;
+pub use crate::storage::request_options;
 pub use crate::storage::streaming_source;
 
 mod control;
@@ -69,7 +70,10 @@ pub mod error;
 /// The messages and enums that are part of this client library.
 pub use crate::control::model;
 pub mod model_ext;
-pub use crate::control::stub;
+pub mod stub {
+    pub use crate::control::stub::*;
+    pub use crate::storage::stub::*;
+}
 
 #[allow(dead_code)]
 pub(crate) mod generated;

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod compose_file;
 pub mod delete_file;
 pub mod download_byte_range;
 pub mod download_encrypted_file;

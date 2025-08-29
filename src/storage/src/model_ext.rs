@@ -20,7 +20,7 @@ use base64::{Engine, prelude::BASE64_STANDARD};
 use sha2::{Digest, Sha256};
 
 /// ObjectHighlights contains select metadata from a [crate::model::Object].
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectHighlights {
     /// The content generation of this object. Used for object versioning.
@@ -291,6 +291,19 @@ enum Range {
     Offset(u64),
     Tail(u64),
     Segment { offset: u64, limit: u64 },
+}
+
+/// Represents the parameters of a [WriteObject] request.
+///
+/// This type is only used in mocks of the `Storage` client.
+///
+/// [WriteObject]: crate::builder::storage::WriteObject
+#[derive(Debug, PartialEq)]
+#[non_exhaustive]
+#[allow(dead_code)]
+pub struct WriteObjectRequest {
+    pub spec: crate::model::WriteObjectSpec,
+    pub params: Option<crate::model::CommonObjectRequestParams>,
 }
 
 #[cfg(test)]
