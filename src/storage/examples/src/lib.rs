@@ -384,6 +384,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         "prefixes/are-not-always/folders-004/abc",
         "prefixes/are-not-always/folders-004/def",
         "object-to-update",
+        "object-to-read",
         "deleted-object-name",
         "compose-source-object-1",
         "compose-source-object-2",
@@ -436,6 +437,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::list_files_with_prefix::sample(&control, &id).await?;
     tracing::info!("running set_metadata example");
     objects::set_metadata::sample(&control, &id).await?;
+    tracing::info!("running get_metadata example");
+    objects::get_metadata::sample(&control, &id).await?;
     tracing::info!("running set_event_based_hold example");
     objects::set_event_based_hold::sample(&control, &id).await?;
     tracing::info!("running release_event_based_hold example");

@@ -27,6 +27,7 @@ pub mod release_event_based_hold;
 pub mod release_temporary_hold;
 pub mod set_event_based_hold;
 pub mod set_metadata;
+pub mod get_metadata;
 pub mod set_temporary_hold;
 pub mod stream_file_download;
 pub mod stream_file_upload;
