@@ -299,12 +299,16 @@ func (f *function) toString(name string) (string, error) {
 	for i := 0; i < len(f.Generics.Params); i++ {
 		if f.Generics.Params[i].Kind.GenericParamDefType != nil {
 			param := f.Generics.Params[i].Name
+			// Skip as synethic generics are handled in the parameters.
+			// See, https://docs.rs/rustdoc-types/latest/rustdoc_types/enum.GenericParamDefKind.html#variant.Type.field.is_synthetic
 			if f.Generics.Params[i].Kind.GenericParamDefType.IsSyntheic {
-				return "", fmt.Errorf("error, IsSyntheic == true")
+				continue
 			}
 			for j := 0; j < len(f.Generics.Params[i].Kind.GenericParamDefType.Bounds); j++ {
 				if f.Generics.Params[i].Kind.GenericParamDefType.Bounds[j].TraitBound != nil {
 					param = fmt.Sprintf("%s: %s", f.Generics.Params[i].Name, f.Generics.Params[i].Kind.GenericParamDefType.Bounds[j].TraitBound.Trait.toString())
+				} else {
+					return "", fmt.Errorf("unexpected generics bound")
 				}
 			}
 			genericsParams = append(genericsParams, param)
@@ -336,6 +340,32 @@ func (f *function) toString(name string) (string, error) {
 						return "", fmt.Errorf("error Unmarshal resolved_path")
 					}
 					arg = fmt.Sprintf("%s: %s", arg, p.toString())
+				}
+				if g["impl_trait"] != nil {
+					b, err := json.Marshal(g["impl_trait"])
+					if err != nil {
+						return "", fmt.Errorf("error marshaling impl_trait")
+					}
+					var n []genericBound
+					err = json.Unmarshal(b, &n)
+					if err != nil {
+						return "", fmt.Errorf("error Unmarshal impl_trait")
+					}
+					if len(n) == 0 {
+						return "", fmt.Errorf("error, where param impl trait bounds == 0")
+					}
+					bounds := []string{}
+					for j := 0; j < len(n); j++ {
+						if n[j].TraitBound != nil {
+							bound := n[j].TraitBound.Trait.toString()
+							bounds = append(bounds, bound)
+						} else if n[j].Outlives != nil {
+							bounds = append(bounds, *n[j].Outlives)
+						} else {
+							return "", fmt.Errorf("unexpected impl trait bound")
+						}
+					}
+					arg = fmt.Sprintf("%s: impl %s", arg, strings.Join(bounds, " + "))
 				}
 			}
 			args = append(args, arg)
