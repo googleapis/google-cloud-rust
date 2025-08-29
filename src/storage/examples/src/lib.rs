@@ -399,6 +399,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         "deleted-object-name",
         "compose-source-object-1",
         "compose-source-object-2",
+        "update-storage-class",
     ]
     .into_iter()
     .for_each(|name| writers.push(make_object(&client, &id, name)));
@@ -452,7 +453,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::release_temporary_hold::sample(&control, &id).await?;
     tracing::info!("running delete_file example");
     objects::delete_file::sample(&control, &id).await?;
-
+    tracing::info!("running change_file_storage_class example");
+    objects::change_file_storage_class::sample(&control, &id).await?;
     tracing::info!("running compose_file example");
     objects::compose_file::sample(&control, &id).await?;
 
