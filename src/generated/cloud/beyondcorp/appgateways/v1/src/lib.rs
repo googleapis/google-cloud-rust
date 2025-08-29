@@ -16,18 +16,20 @@
 
 //! Google Cloud Client Libraries for Rust - BeyondCorp API
 //!
-//! **FEEDBACK WANTED:** We believe the APIs in this crate are stable, and
-//! do not anticipate any breaking changes are needed. We are looking for
-//! feedback before labeling the APIs "1.0". Changes (even breaking changes)
-//! are still possible, but not expected.
-//!
-//! We also believe the implementation is ready for production, bugs are
-//! still possible, but not expected.
 //!
 //!
 //! This crate contains traits, types, and functions to interact with BeyondCorp API
 //! Most applications will use the structs defined in the [client] module.
-//! More specifically:
+//!
+//!
+//! The client library types and functions are stable and not expected to change.
+//! Please note that Google Cloud services do change from time to time. The client
+//! libraries are designed to preserve backwards compatibility when the service
+//! changes in compatible ways. For example, adding RPCs, or fields to messages
+//! should not introduce breaking changes to the client libraries.
+//!
+//!
+//! # Available Clients
 //!
 //! * [AppGatewaysService](client/struct.AppGatewaysService.html)
 
