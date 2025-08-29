@@ -286,20 +286,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("create bucket for KMS tests");
-    let _ = client
-        .create_bucket()
-        .set_parent("projects/_")
-        .set_bucket_id(&id)
-        .set_bucket(
-            google_cloud_storage::model::Bucket::new()
-                .set_project(format!("projects/{project_id}"))
-                .set_location("US-CENTRAL1"),
-        )
-        .send()
-        .await?;
-    let kms_key = format!(
-        "projects/{project_id}/locations/us-central1/keyRings/{kms_ring}/cryptoKeys/storage-examples"
-    );
+    let kms_key = create_bucket_kms_key(&client, project_id, kms_ring, &id).await?;
     tracing::info!("running set_bucket_default_kms_key example");
     buckets::set_bucket_default_kms_key::sample(&client, &id, &kms_key).await?;
     tracing::info!("running get_bucket_default_kms_key example");
@@ -379,6 +366,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let control = control_client().await?;
     let client = Storage::builder().build().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+    let kms_ring = std::env::var("GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING")?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -467,6 +455,24 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running move_file example");
     objects::move_file::sample(&control, &id, &id).await?;
 
+    // Create a folder for the delete_folder example.
+    let _ = control
+        .create_folder()
+        .set_parent(format!("projects/_/buckets/{id}"))
+        .set_folder_id("deleted-folder-id")
+        .send()
+        .await?;
+
+    tracing::info!("running control::delete_folder example");
+    control::delete_folder::sample(&control, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("create bucket for KMS tests");
+    let kms_key = create_bucket_kms_key(&control, project_id, kms_ring, &id).await?;
+    tracing::info!("running upload_with_kms_key");
+    objects::upload_with_kms_key::sample(&client, &id, file_to_upload_path, &kms_key).await?;
+
     Ok(())
 }
 
@@ -509,6 +515,29 @@ async fn make_object(client: &Storage, bucket_id: &str, name: &str) -> anyhow::R
         .send_buffered()
         .await?;
     Ok(object)
+}
+
+async fn create_bucket_kms_key(
+    client: &StorageControl,
+    project_id: String,
+    kms_ring: String,
+    id: &String,
+) -> Result<String, anyhow::Error> {
+    let _ = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(id)
+        .set_bucket(
+            google_cloud_storage::model::Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location("US-CENTRAL1"),
+        )
+        .send()
+        .await?;
+    let kms_key = format!(
+        "projects/{project_id}/locations/us-central1/keyRings/{kms_ring}/cryptoKeys/storage-examples"
+    );
+    Ok(kms_key)
 }
 
 pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
