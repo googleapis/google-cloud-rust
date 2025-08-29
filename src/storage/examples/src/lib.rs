@@ -400,6 +400,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         "compose-source-object-1",
         "compose-source-object-2",
         "update-storage-class",
+        "object-to-move",
     ]
     .into_iter()
     .for_each(|name| writers.push(make_object(&client, &id, name)));
@@ -462,6 +463,9 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::change_file_storage_class::sample(&control, &id).await?;
     tracing::info!("running compose_file example");
     objects::compose_file::sample(&control, &id).await?;
+
+    tracing::info!("running move_file example");
+    objects::move_file::sample(&control, &id, &id).await?;
 
     Ok(())
 }
