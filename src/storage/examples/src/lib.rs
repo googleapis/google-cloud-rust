@@ -461,17 +461,6 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running compose_file example");
     objects::compose_file::sample(&control, &id).await?;
 
-    // Create a folder for the delete_folder example.
-    let _ = control
-        .create_folder()
-        .set_parent(format!("projects/_/buckets/{id}"))
-        .set_folder_id("deleted-folder-id")
-        .send()
-        .await?;
-
-    tracing::info!("running control::delete_folder example");
-    control::delete_folder::sample(&control, &id).await?;
-
     Ok(())
 }
 
