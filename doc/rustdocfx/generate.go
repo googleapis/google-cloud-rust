@@ -290,26 +290,53 @@ func processImplementation(c *crate, id string, page *docfxManagedReference, par
 
 	for j := 0; j < len(c.Index[id].Inner.Impl.Items); j++ {
 		innerImplItemId := idToString(c.Index[id].Inner.Impl.Items[j])
-		if c.getKind(innerImplItemId) == functionKind {
+		innerImplItemKind := c.getKind(innerImplItemId)
+		switch innerImplItemKind {
+		case functionKind:
 			function, err := newDocfxItemFromFunction(c, parent, innerImplItemId)
 			if err != nil {
-				return fmt.Errorf("error processing trait item with id %s: %w", id, err)
+				return fmt.Errorf("error processing item with id %s: %w", id, err)
 			}
 			function.Type = "implementation"
 			page.appendItem(function)
 
 			reference, err := newDocfxReferenceFromDocfxItem(function, parent)
 			if err != nil {
-				return fmt.Errorf("error processing trait item with id %s: %w", id, err)
+				return fmt.Errorf("error processing item with id %s: %w", id, err)
 			}
 			parent.appendChildren(reference.Uid)
 			page.appendReference(reference)
-			continue
-		} else {
-			return fmt.Errorf("error expected item with id %s to be a function instead of %s", innerImplItemId, c.getKind(innerImplItemId))
+		case assocConstKind:
+			assocConst, err := newDocfxItemFromAssocConst(c, parent, innerImplItemId)
+			if err != nil {
+				return fmt.Errorf("error processing item with id %s: %w", id, err)
+			}
+			page.appendItem(assocConst)
+
+			reference, err := newDocfxReferenceFromDocfxItem(assocConst, parent)
+			if err != nil {
+				return fmt.Errorf("error processing item with id %s: %w", id, err)
+			}
+			parent.appendChildren(reference.Uid)
+			page.appendReference(reference)
+		default:
+			return fmt.Errorf("error expected implementation with id %s to be a function instead of %s", innerImplItemId, innerImplItemKind)
 		}
 	}
 	return nil
+}
+
+func newDocfxItemFromAssocConst(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
+	r := new(docfxItem)
+	r.Name = c.getName(id)
+	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
+	r.Type = "implementation"
+
+	typeString := c.Index[id].Inner.AssocConst.Type.toString()
+	constString := fmt.Sprintf("const %s: %s = %s%s", c.Index[id].Name, typeString, *c.Index[id].Inner.AssocConst.Value, typeString)
+	// TODO: Need to handle special case where value is "_". Generated rustdoc json currently do not handle consts that reference another value.
+	r.Summary = fmt.Sprintf("%#v%#v", constString, c.getDocString(id))
+	return r, nil
 }
 
 func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
@@ -505,6 +532,8 @@ func generate(c *crate, projectRoot string, outDir string) error {
 		case useKind:
 			fallthrough
 		case assocTypeKind:
+			fallthrough
+		case assocConstKind:
 			fallthrough
 		case strippedModuleKind:
 			fallthrough

@@ -90,6 +90,9 @@ func (c *crate) getKind(id string) kind {
 	if c.Index[id].Inner.AssocType != nil {
 		return assocTypeKind
 	}
+	if c.Index[id].Inner.AssocConst != nil {
+		return assocConstKind
+	}
 	return undefinedKind
 }
 
@@ -118,6 +121,7 @@ const (
 	variantKind
 	useKind
 	assocTypeKind
+	assocConstKind
 )
 
 var kindName = map[kind]string{
@@ -135,6 +139,7 @@ var kindName = map[kind]string{
 	variantKind:        "variant",
 	useKind:            "use",
 	assocTypeKind:      "assoc_type",
+	assocConstKind:     "assoc_const",
 }
 
 func (k kind) String() string {
@@ -166,7 +171,8 @@ type itemEnum struct {
 	StructField *typeEnum `json:"struct_field"`
 	Variant     *variant
 	Use         *use
-	AssocType   *assocType `json:"assoc_type"`
+	AssocType   *assocType  `json:"assoc_type"`
+	AssocConst  *assocConst `json:"assoc_const"`
 }
 
 type module struct {
@@ -195,6 +201,11 @@ type use struct {
 
 type assocType struct {
 	// Identionally left blank.
+}
+
+type assocConst struct {
+	Type  typeEnum `json:"type"`
+	Value *string
 }
 
 type functionHeader struct {
@@ -421,11 +432,15 @@ func (path *path) toString() string {
 type typeEnum struct {
 	ResolvedPath path `json:"resolved_path"`
 	Generic      string
+	Primitive    string
 }
 
 func (t *typeEnum) toString() string {
 	if t.Generic != "" {
 		return t.Generic
+	}
+	if t.Primitive != "" {
+		return t.Primitive
 	}
 	return t.ResolvedPath.toString()
 }
