@@ -417,6 +417,11 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running download_byte_range example");
     objects::download_byte_range::sample(&client, &id, "object-to-download.txt", 4, 10).await?;
 
+    tracing::info!("running file_upload_from_memory example");
+    objects::file_upload_from_memory::sample(&client, &id).await?;
+    tracing::info!("running file_download_into_memory example");
+    objects::file_download_into_memory::sample(&client, &id).await?;
+
     tracing::info!("running generate_encryption_key example");
     let csek_key = objects::generate_encryption_key::sample()?;
     tracing::info!("running upload_encrypted_file example");
@@ -430,6 +435,14 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::list_files_with_prefix::sample(&control, &id).await?;
     tracing::info!("running set_metadata example");
     objects::set_metadata::sample(&control, &id).await?;
+    tracing::info!("running set_event_based_hold example");
+    objects::set_event_based_hold::sample(&control, &id).await?;
+    tracing::info!("running release_event_based_hold example");
+    objects::release_event_based_hold::sample(&control, &id).await?;
+    tracing::info!("running set_temporary_hold example");
+    objects::set_temporary_hold::sample(&control, &id).await?;
+    tracing::info!("running release_temporary_hold example");
+    objects::release_temporary_hold::sample(&control, &id).await?;
     tracing::info!("running delete_file example");
     objects::delete_file::sample(&control, &id).await?;
 
