@@ -465,8 +465,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("create bucket for KMS tests");
     let kms_key = create_bucket_kms_key(&control, project_id, kms_ring, &id).await?;
     tracing::info!("running upload_with_kms_key");
-    objects::upload_with_kms_key::sample(&client, &id, "obj.txt", file_to_upload_path, &kms_key)
-        .await?;
+    objects::upload_with_kms_key::sample(&client, &id, file_to_upload_path, &kms_key).await?;
 
     Ok(())
 }

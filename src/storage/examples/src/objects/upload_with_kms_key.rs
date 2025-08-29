@@ -17,19 +17,19 @@ use google_cloud_storage::client::Storage;
 
 pub async fn sample(
     client: &Storage,
-    bucket: &str,
-    object: &str,
+    bucket_id: &str,
     file_path: &str,
     kms_key: &str,
 ) -> Result<(), anyhow::Error> {
+    const NAME: &str = "object-to-upload.txt";
     let payload = tokio::fs::File::open(file_path).await?;
     let _result = client
-        .write_object(format!("projects/_/buckets/{bucket}"), object, payload)
+        .write_object(format!("projects/_/buckets/{bucket_id}"), NAME, payload)
         .set_kms_key(kms_key)
         .send_unbuffered()
         .await?;
 
-    println!("Uploaded {object} to bucket {bucket} with KMS key {kms_key}.");
+    println!("Uploaded {NAME} to bucket {bucket_id} with KMS key {kms_key}.");
     Ok(())
 }
 // [END storage_upload_with_kms_key]
