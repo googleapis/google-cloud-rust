@@ -27,3 +27,34 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
+auth.workspace        = true
+async-trait.workspace = true
+bytes.workspace       = true
+http.workspace        = true
+lazy_static.workspace = true
+prost.workspace       = true
+prost-types.workspace = true
+serde.workspace       = true
+serde_json.workspace  = true
+serde_with.workspace  = true
+tonic.workspace       = true
+tokio                 = { workspace = true, features = ["macros", "rt-multi-thread"] }
+tracing.workspace     = true
+# Local crates
+gax.workspace   = true
+gaxi.workspace  = true
+gtype.workspace = true
+# bigquery_v2.workspace = true
+rpc.workspace = true
+wkt.workspace = true
+thiserror     = { workspace = true }
+chrono        = { workspace = true, features = ["serde"] }
+base64        = { workspace = true }
+
+[dependencies.bigquery_v2]
+package = "google-cloud-bigquery-v2"
+path    = "../generated/cloud/bigquery/v2"
+
+[dev-dependencies]
+tokio-test.workspace = true
+anyhow.workspace     = true

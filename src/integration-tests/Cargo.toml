@@ -40,11 +40,13 @@ longrunning.workspace = true
 lro.workspace         = true
 rand                  = { workspace = true, features = ["thread_rng"] }
 serde_json.workspace  = true
+serde.workspace       = true
 tokio                 = { workspace = true, features = ["process"] }
 tracing.workspace     = true
 tracing-subscriber    = { workspace = true, optional = true, features = ["fmt", "std"] }
 uuid                  = { workspace = true, features = ["std", "v4"] }
 wkt.workspace         = true
+chrono                = { workspace = true, features = ["serde"] }
 
 [dependencies.aiplatform]
 package          = "google-cloud-aiplatform-v1"
@@ -53,6 +55,10 @@ default-features = false
 features         = ["prediction-service"]
 
 [dependencies.bigquery]
+package = "google-cloud-bigquery"
+path    = "../../src/bigquery"
+
+[dependencies.bigquery_admin]
 package = "google-cloud-bigquery-v2"
 path    = "../../src/generated/cloud/bigquery/v2"
 
