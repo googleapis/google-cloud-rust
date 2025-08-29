@@ -412,8 +412,11 @@ func (f *function) toString(name string) (string, error) {
 		whereString = fmt.Sprintf("\nwhere\n%s", strings.Join(wherePredicates, "\n"))
 	}
 
-	returnString := f.Sig.Output.toString()
-	signature := fmt.Sprintf("%s fn %s%s%s -> %s%s", keywords, name, genericsString, argString, returnString, whereString)
+	returnString := ""
+	if f.Sig.Output != nil {
+		returnString = fmt.Sprintf(" -> %s", f.Sig.Output.toString())
+	}
+	signature := fmt.Sprintf("%s fn %s%s%s%s%s", keywords, name, genericsString, argString, returnString, whereString)
 	return signature, nil
 }
 
