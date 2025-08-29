@@ -442,6 +442,14 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::list_files_with_prefix::sample(&control, &id).await?;
     tracing::info!("running set_metadata example");
     objects::set_metadata::sample(&control, &id).await?;
+    tracing::info!("running set_event_based_hold example");
+    objects::set_event_based_hold::sample(&control, &id).await?;
+    tracing::info!("running release_event_based_hold example");
+    objects::release_event_based_hold::sample(&control, &id).await?;
+    tracing::info!("running set_temporary_hold example");
+    objects::set_temporary_hold::sample(&control, &id).await?;
+    tracing::info!("running release_temporary_hold example");
+    objects::release_temporary_hold::sample(&control, &id).await?;
     tracing::info!("running delete_file example");
     objects::delete_file::sample(&control, &id).await?;
 
