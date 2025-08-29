@@ -32,7 +32,7 @@ pub async fn sample(client: &StorageControl, bucket_id: &str, kms_key: &str) -> 
         .send()
         .await?;
     println!(
-        "successfully updated autoclass for bucket {bucket_id}: {:?}",
+        "successfully updated default KMS key for bucket {bucket_id}: {:?}",
         bucket.encryption
     );
     Ok(())
