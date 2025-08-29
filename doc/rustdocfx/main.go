@@ -61,7 +61,7 @@ func main() {
 	// Create a temporary file to store `cargo workspace plan` output.
 	tempFile, err := os.CreateTemp("", "cargo-plan-")
 	if err != nil {
-		log.Fatalf("Unable to create temp file for cargo workspace plan: %w\n", err)
+		log.Fatalf("Unable to create temp file for cargo workspace plan: %v\n", err)
 	}
 	defer os.Remove(tempFile.Name())
 	fmt.Printf("Created tmp file %s for cargo workspace plan\n", tempFile.Name())
@@ -71,18 +71,18 @@ func main() {
 
 	jsonFile, err := os.Open(tempFile.Name())
 	if err != nil {
-		log.Fatalf("Unable to open temp file for cargo workspace plan: %w\n", err)
+		log.Fatalf("Unable to open temp file for cargo workspace plan: %v\n", err)
 	}
 	defer jsonFile.Close()
 
 	byteValue, err := io.ReadAll(jsonFile)
 	if err != nil {
-		log.Fatalf("Unable to read cargo workspace json file: %w\n", err)
+		log.Fatalf("Unable to read cargo workspace json file: %v\n", err)
 	}
 
 	workspaceCrates, err := getWorkspaceCrates(byteValue)
 	if err != nil {
-		log.Fatalf("Error getting workspace crates: %w\n", err)
+		log.Fatalf("Error getting workspace crates: %v\n", err)
 	}
 
 	for i := 0; i < len(workspaceCrates); i++ {
@@ -96,12 +96,12 @@ func main() {
 			file := filepath.Join(*projectRoot, "/target/doc", fileName)
 			rustDocFile, err := os.Open(file)
 			if err != nil {
-				log.Fatalf("Error opening rustdoc file: %w\n", err)
+				log.Fatalf("Error opening rustdoc file: %v\n", err)
 			}
 			defer rustDocFile.Close()
 			jsonBytes, err := io.ReadAll(rustDocFile)
 			if err != nil {
-				log.Fatalf("Error reading rustdoc file: %w\n", err)
+				log.Fatalf("Error reading rustdoc file: %v\n", err)
 			}
 			unmarshalRustdoc(&crate, jsonBytes)
 
@@ -110,11 +110,12 @@ func main() {
 
 			err = generate(&crate, *projectRoot, crateOutDir)
 			if err != nil {
-				log.Fatalf("failed to generate for crate %s: %w", crate.Name, err)
+				log.Fatalf("failed to generate for crate %s: %v\n", crate.Name, err)
 			}
+			fmt.Printf("Generated docfx for crate: %s\n", crate.Name)
 
 			if *upload {
-				fmt.Printf("Uploading crate:%s\n", crate.Name)
+				fmt.Printf("Uploading crate: %s\n", crate.Name)
 				// TODO: Add a flag to specify bucket location.
 				runCmd(nil, "", "docuploader", "upload", "--staging-bucket=docs-staging-v2-dev", fmt.Sprintf("--metadata-file=%s/docs.metadata", crateOutDir), crateOutDir)
 			}

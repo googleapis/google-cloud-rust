@@ -67,6 +67,9 @@ func (c *crate) getKind(id string) kind {
 		if idToString(c.Root) == id {
 			return crateKind
 		}
+		if c.Index[id].Inner.Module.IsStripped {
+			return strippedModuleKind
+		}
 		return moduleKind
 	}
 	if c.Index[id].Inner.Function != nil {
@@ -108,6 +111,7 @@ const (
 	typeAliasKind
 	crateKind
 	moduleKind
+	strippedModuleKind
 	functionKind
 	implKind
 	structFieldKind
@@ -117,19 +121,20 @@ const (
 )
 
 var kindName = map[kind]string{
-	undefinedKind:   "undefined",
-	structKind:      "struct",
-	enumKind:        "enum",
-	traitKind:       "trait",
-	typeAliasKind:   "typealias",
-	crateKind:       "crate",
-	moduleKind:      "module",
-	functionKind:    "function",
-	implKind:        "implementation",
-	structFieldKind: "struct_field",
-	variantKind:     "variant",
-	useKind:         "use",
-	assocTypeKind:   "assoc_type",
+	undefinedKind:      "undefined",
+	structKind:         "struct",
+	enumKind:           "enum",
+	traitKind:          "trait",
+	typeAliasKind:      "typealias",
+	crateKind:          "crate",
+	moduleKind:         "module",
+	strippedModuleKind: "stripped_module",
+	functionKind:       "function",
+	implKind:           "implementation",
+	structFieldKind:    "struct_field",
+	variantKind:        "variant",
+	useKind:            "use",
+	assocTypeKind:      "assoc_type",
 }
 
 func (k kind) String() string {
@@ -165,8 +170,9 @@ type itemEnum struct {
 }
 
 type module struct {
-	IsCrate bool
-	Items   []Id
+	IsCrate    bool
+	Items      []Id
+	IsStripped bool `json:"is_stripped"`
 }
 
 type trait struct {

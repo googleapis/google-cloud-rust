@@ -127,19 +127,27 @@ func processTrait(c *crate, id string, page *docfxManagedReference, parent *docf
 	for i := 0; i < len(c.Index[id].Inner.Trait.Items); i++ {
 		// This assumes the inner trait items are all functions. Validation and error checking is needed.
 		referenceId := idToString(c.Index[id].Inner.Trait.Items[i])
-		if c.getKind(referenceId) == functionKind {
+		kind := c.getKind(referenceId)
+		switch kind {
+		case functionKind:
 			function, err := newDocfxItemFromFunction(c, parent, referenceId)
 			if err != nil {
-				return fmt.Errorf("error processing trait item with id %s:%w", id, err)
+				return fmt.Errorf("error processing trait item with id %s: %w", id, err)
 			}
 			function.Type = "providedmethod"
 			page.appendItem(function)
 
-			reference, _ := newDocfxReferenceFromDocfxItem(function, parent)
+			reference, err := newDocfxReferenceFromDocfxItem(function, parent)
+			if err != nil {
+				return fmt.Errorf("error processing trait item with id %s: %w", id, err)
+			}
 			parent.appendChildren(reference.Uid)
 			page.appendReference(reference)
-		} else {
-			return fmt.Errorf("error expected trait item with id %s to be a function instead of %s", referenceId, c.getKind(referenceId))
+		case assocTypeKind:
+			// TODO: Add associated types.
+			continue
+		default:
+			return fmt.Errorf("error expected trait item with id %s to be a function instead of %s", referenceId, kind)
 		}
 	}
 	return nil
@@ -174,17 +182,23 @@ func processStruct(c *crate, id string, page *docfxManagedReference, parent *doc
 		isNonExhaustive := isNonExhaustive(c.Index[id].Attrs)
 		for i := 0; i < len(c.Index[id].Inner.Struct.Kind.Plain.Fields); i++ {
 			fieldId := idToString(c.Index[id].Inner.Struct.Kind.Plain.Fields[i])
-			field, _ := newDocfxItemFromField(c, parent, fieldId)
+			field, err := newDocfxItemFromField(c, parent, fieldId)
+			if err != nil {
+				return fmt.Errorf("error processing struct item with id %s: %w", id, err)
+			}
 			if isNonExhaustive {
 				// TODO: Change to fieldnonexhaustive when https://github.com/googleapis/doc-pipeline/pull/698 is merged/pushed.
 				// field.Type = "fieldnonexhaustive"
 				field.Type = "enumvariantnonexhaustive"
 			} else {
-				return fmt.Errorf("error processing struct item with id %s, expecting field %s to be non-exhaustive", id, fieldId)
+				field.Type = "field"
 			}
 			page.appendItem(field)
 
-			reference, _ := newDocfxReferenceFromDocfxItem(field, parent)
+			reference, err := newDocfxReferenceFromDocfxItem(field, parent)
+			if err != nil {
+				return fmt.Errorf("error processing struct item with id %s: %w", id, err)
+			}
 			parent.appendChildren(reference.Uid)
 			page.appendReference(reference)
 		}
@@ -194,7 +208,7 @@ func processStruct(c *crate, id string, page *docfxManagedReference, parent *doc
 			// TODO: This assumes the inner struct impls are all impls. Validation and error checking is needed.
 			err := processImplementation(c, referenceId, page, parent)
 			if err != nil {
-				return fmt.Errorf("error processing struct item with id %s:%w", id, err)
+				return fmt.Errorf("error processing struct item with id %s: %w", id, err)
 			}
 		}
 	}
@@ -228,7 +242,10 @@ func processEnum(c *crate, id string, page *docfxManagedReference, parent *docfx
 	for i := 0; i < len(c.Index[id].Inner.Enum.Variants); i++ {
 		variantId := idToString(c.Index[id].Inner.Enum.Variants[i])
 
-		enumVariant, _ := newDocfxItemFromEnumVariant(c, parent, variantId)
+		enumVariant, err := newDocfxItemFromEnumVariant(c, parent, variantId)
+		if err != nil {
+			return fmt.Errorf("error processing enum item with id %s: %w", id, err)
+		}
 		if isNonExhaustive {
 			enumVariant.Type = "enumvariantnonexhaustive"
 		} else {
@@ -236,7 +253,10 @@ func processEnum(c *crate, id string, page *docfxManagedReference, parent *docfx
 		}
 		page.appendItem(enumVariant)
 
-		reference, _ := newDocfxReferenceFromDocfxItem(enumVariant, parent)
+		reference, err := newDocfxReferenceFromDocfxItem(enumVariant, parent)
+		if err != nil {
+			return fmt.Errorf("error processing enum item with id %s: %w", id, err)
+		}
 		parent.appendChildren(reference.Uid)
 		page.appendReference(reference)
 	}
@@ -246,7 +266,7 @@ func processEnum(c *crate, id string, page *docfxManagedReference, parent *docfx
 		referenceId := idToString(c.Index[id].Inner.Enum.Impls[i])
 		err := processImplementation(c, referenceId, page, parent)
 		if err != nil {
-			return fmt.Errorf("error processing enum item with id %s:%w", id, err)
+			return fmt.Errorf("error processing enum item with id %s: %w", id, err)
 		}
 	}
 	return nil
@@ -273,12 +293,15 @@ func processImplementation(c *crate, id string, page *docfxManagedReference, par
 		if c.getKind(innerImplItemId) == functionKind {
 			function, err := newDocfxItemFromFunction(c, parent, innerImplItemId)
 			if err != nil {
-				return fmt.Errorf("error processing trait item with id %s:%w", id, err)
+				return fmt.Errorf("error processing trait item with id %s: %w", id, err)
 			}
 			function.Type = "implementation"
 			page.appendItem(function)
 
-			reference, _ := newDocfxReferenceFromDocfxItem(function, parent)
+			reference, err := newDocfxReferenceFromDocfxItem(function, parent)
+			if err != nil {
+				return fmt.Errorf("error processing trait item with id %s: %w", id, err)
+			}
 			parent.appendChildren(reference.Uid)
 			page.appendReference(reference)
 			continue
@@ -296,7 +319,7 @@ func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxIte
 
 	functionSignature, err := c.Index[id].Inner.Function.toString(c.getName(id))
 	if err != nil {
-		return r, fmt.Errorf("error generating function signature for id %s:%w", id, err)
+		return r, fmt.Errorf("error generating function signature for id %s: %w", id, err)
 	}
 
 	// Type is explicitly not set as this function is used for multiple doc pipeline types.
@@ -337,6 +360,9 @@ func newDocfxItemFromField(c *crate, parent *docfxItem, id string) (*docfxItem, 
 
 func newDocfxReferenceFromDocfxItem(item, parent *docfxItem) (*docfxReference, error) {
 	reference := new(docfxReference)
+	if item == nil {
+		return nil, fmt.Errorf("expecting item != nil")
+	}
 	reference.Uid = item.Uid
 	reference.Name = item.Name
 	reference.IsExternal = false
@@ -374,56 +400,43 @@ func (toc *docfxTableOfContent) appendItem(item docfxTableOfContent) error {
 }
 
 func newDocfxManagedReference(c *crate, id string) (*docfxManagedReference, error) {
-	var errs []error
-
 	r := new(docfxManagedReference)
 
 	parent, err := newDocfxItem(c, id)
 	if err != nil {
-		errs = append(errs, err)
+		return nil, fmt.Errorf("error constructing page for %s: %w", id, err)
 	}
 
 	reference, err := newDocfxReferenceFromDocfxItem(parent, nil)
 	if err != nil {
-		errs = append(errs, err)
+		return nil, fmt.Errorf("error constructing page for %s: %w", id, err)
 	}
 	r.appendReference(reference)
 
-	switch c.getKind(id) {
+	kind := c.getKind(id)
+	switch kind {
 	case traitKind:
-		err := processTrait(c, id, r, parent)
-		if err != nil {
-			errs = append(errs, err)
-		}
+		err = processTrait(c, id, r, parent)
 	case crateKind:
 		fallthrough
 	case moduleKind:
-		err := processModule(c, id, r, parent)
-		if err != nil {
-			errs = append(errs, err)
-		}
+		err = processModule(c, id, r, parent)
 	case structKind:
-		err := processStruct(c, id, r, parent)
-		if err != nil {
-			errs = append(errs, err)
-		}
+		err = processStruct(c, id, r, parent)
 	case typeAliasKind:
-		err := processTypeAlias(c, id, r, parent)
-		if err != nil {
-			errs = append(errs, err)
-		}
+		err = processTypeAlias(c, id, r, parent)
 	case enumKind:
-		err := processEnum(c, id, r, parent)
-		if err != nil {
-			errs = append(errs, err)
-		}
+		err = processEnum(c, id, r, parent)
 	default:
-		errs = append(errs, fmt.Errorf("unexpected kind for id %s", id))
+		err = fmt.Errorf("unexpected kind for id %s", id)
+	}
+	if err != nil {
+		return nil, fmt.Errorf("error constructing %s page for %s: %w", kind, id, err)
 	}
 
-	r.prependItem(parent)
-	if len(errs) > 0 {
-		return nil, fmt.Errorf("errors constructing page for %s: %w", id, errors.Join(errs...))
+	err = r.prependItem(parent)
+	if err != nil {
+		return nil, fmt.Errorf("error constructing page for %s: %w", id, err)
 	}
 	return r, nil
 }
@@ -493,8 +506,10 @@ func generate(c *crate, projectRoot string, outDir string) error {
 			fallthrough
 		case assocTypeKind:
 			fallthrough
+		case strippedModuleKind:
+			fallthrough
 		case implKind:
-			// We do not generate a page these kinds as they are used as inner items in other pages.
+			// We do not generate a page these kinds as they are stripped or are used as inner items in other pages.
 			continue
 		case undefinedKind:
 			fallthrough
@@ -514,7 +529,7 @@ func generate(c *crate, projectRoot string, outDir string) error {
 	}
 
 	if len(errs) > 0 {
-		return fmt.Errorf("errors generating docfx yml files for %s: %w", c.Name, errors.Join(errs...))
+		return fmt.Errorf("errors generating docfx yml files: %w", errors.Join(errs...))
 	}
 	return nil
 }
