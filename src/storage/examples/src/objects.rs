@@ -23,6 +23,7 @@ pub mod file_upload_from_memory;
 pub mod generate_encryption_key;
 pub mod list_files;
 pub mod list_files_with_prefix;
+pub mod move_file;
 pub mod release_event_based_hold;
 pub mod release_temporary_hold;
 pub mod set_event_based_hold;
