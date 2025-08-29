@@ -39,4 +39,4 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
     );
     Ok(())
 }
-// [END compose_file]
+// [END storage_compose_file]
