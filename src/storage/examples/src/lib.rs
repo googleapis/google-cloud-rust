@@ -429,6 +429,11 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running download_byte_range example");
     objects::download_byte_range::sample(&client, &id, "object-to-download.txt", 4, 10).await?;
 
+    tracing::info!("running file_upload_from_memory example");
+    objects::file_upload_from_memory::sample(&client, &id).await?;
+    tracing::info!("running file_download_into_memory example");
+    objects::file_download_into_memory::sample(&client, &id).await?;
+
     tracing::info!("running generate_encryption_key example");
     let csek_key = objects::generate_encryption_key::sample()?;
     tracing::info!("running upload_encrypted_file example");
