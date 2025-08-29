@@ -395,6 +395,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         "prefixes/are-not-always/folders-003",
         "prefixes/are-not-always/folders-004/abc",
         "prefixes/are-not-always/folders-004/def",
+        "object-to-copy",
         "object-to-update",
         "deleted-object-name",
         "compose-source-object-1",
@@ -458,6 +459,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::release_temporary_hold::sample(&control, &id).await?;
     tracing::info!("running delete_file example");
     objects::delete_file::sample(&control, &id).await?;
+    tracing::info!("running copy_file example");
+    objects::copy_file::sample(&control, &id, &id).await?;
     tracing::info!("running change_file_storage_class example");
     objects::change_file_storage_class::sample(&control, &id).await?;
     tracing::info!("running compose_file example");

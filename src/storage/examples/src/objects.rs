@@ -14,6 +14,7 @@
 
 pub mod change_file_storage_class;
 pub mod compose_file;
+pub mod copy_file;
 pub mod delete_file;
 pub mod download_byte_range;
 pub mod download_encrypted_file;
