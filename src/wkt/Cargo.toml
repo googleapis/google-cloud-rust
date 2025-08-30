@@ -19,7 +19,7 @@ name        = "google-cloud-wkt"
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
 #         https://github.com/googleapis/google-cloud-rust/issues/3265
-version = "0.5.4"
+version = "1.0.0"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true
