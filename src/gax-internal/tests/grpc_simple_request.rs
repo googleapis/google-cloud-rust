@@ -55,7 +55,7 @@ mod tests {
     async fn override_endpoint() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
-        let client = builder("unused")
+        let client = builder("https://test-only.googleapis.com")
             .with_endpoint(endpoint)
             .with_credentials(test_credentials())
             .build()

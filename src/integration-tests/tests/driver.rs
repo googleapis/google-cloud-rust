@@ -105,6 +105,7 @@ mod driver {
 
     #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
     #[test_case(StorageControl::builder().with_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with alternative endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_control_buckets(
         builder: storage::builder::storage_control::ClientBuilder,
@@ -115,6 +116,7 @@ mod driver {
     }
 
     #[test_case(Storage::builder(); "default")]
+    #[test_case(Storage::builder().with_endpoint("https://www.googleapis.com"); "with alternative endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects(
         builder: storage::builder::storage::ClientBuilder,
