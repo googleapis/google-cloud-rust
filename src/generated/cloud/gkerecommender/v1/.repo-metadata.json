@@ -1,0 +1,11 @@
+{
+    "api_id": "gkerecommender.googleapis.com",
+    "api_shortname": "gkerecommender",
+    "client_documentation": "https://docs.rs/google-cloud-gkerecommender-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "GKE Recommender API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
