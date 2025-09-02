@@ -16,7 +16,6 @@
 
 //! Google Cloud Client Libraries for Rust - GKE Recommender API
 //!
-//!
 //! **FEEDBACK WANTED:** We believe the APIs in this crate are stable, and
 //! do not anticipate any breaking changes are needed. We are looking for
 //! feedback before labeling the APIs "1.0". Changes (even breaking changes)
@@ -26,12 +25,9 @@
 //! still possible, but not expected.
 //!
 //!
-//!
 //! This crate contains traits, types, and functions to interact with GKE Recommender API
 //! Most applications will use the structs defined in the [client] module.
-//!
-//!
-//! # Available Clients
+//! More specifically:
 //!
 //! * [GkeInferenceQuickstart](client/struct.GkeInferenceQuickstart.html)
 
