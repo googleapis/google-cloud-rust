@@ -77,7 +77,7 @@ impl ExponentialBackoffBuilder {
         self
     }
 
-    /// Change the initial delay.
+    /// Change the maximum delay.
     pub fn with_maximum_delay<V: Into<Duration>>(mut self, v: V) -> Self {
         self.maximum_delay = v.into();
         self

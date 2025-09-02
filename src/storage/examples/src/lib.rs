@@ -549,6 +549,10 @@ pub async fn run_client_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     tracing::info!("running set_client_endpoint example");
     client::set_client_endpoint::sample(&id).await?;
+
+    tracing::info!("running storage_configure_retries example");
+    client::configure_retries::sample(&id).await?;
+
     Ok(())
 }
 
