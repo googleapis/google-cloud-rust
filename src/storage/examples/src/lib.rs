@@ -24,7 +24,11 @@ use google_cloud_gax::{
     retry_state::RetryState,
 };
 use google_cloud_storage::client::{Storage, StorageControl};
-use google_cloud_storage::model::Object;
+use google_cloud_storage::model::bucket::{
+    iam_config::UniformBucketLevelAccess,
+    {HierarchicalNamespace, IamConfig},
+};
+use google_cloud_storage::model::{Bucket, Object};
 use google_cloud_storage::retry_policy::RetryableErrors;
 use rand::{Rng, distr::Distribution};
 use std::time::Duration;
@@ -32,11 +36,6 @@ use std::time::Duration;
 pub const BUCKET_ID_LENGTH: usize = 63;
 
 pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
-    use google_cloud_storage::model::{
-        Bucket,
-        bucket::iam_config::UniformBucketLevelAccess,
-        bucket::{HierarchicalNamespace, IamConfig},
-    };
     let _guard = {
         use tracing_subscriber::fmt::format::FmtSpan;
         let subscriber = tracing_subscriber::fmt()
@@ -49,7 +48,7 @@ pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::R
     };
 
     let client = control_client().await?;
-    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -102,7 +101,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     };
 
     let client = control_client().await?;
-    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
     let kms_ring = std::env::var("GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING")?;
 
@@ -311,7 +310,7 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
     };
 
     let client = control_client().await?;
-    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -366,7 +365,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     let control = control_client().await?;
     let client = Storage::builder().build().await?;
-    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+    let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
     let kms_ring = std::env::var("GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING")?;
 
     let id = random_bucket_id();
@@ -479,9 +479,32 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("create bucket for KMS examples");
-    let kms_key = create_bucket_kms_key(&control, project_id, kms_ring, &id).await?;
+    let kms_key = create_bucket_kms_key(&control, project_id.clone(), kms_ring, &id).await?;
     tracing::info!("running upload_with_kms_key example");
     objects::upload_with_kms_key::sample(&client, &id, file_to_upload_path, &kms_key).await?;
+
+    tracing::info!("create bucket for object ACL examples");
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    let _ = control
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(id.clone())
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(false),
+                )),
+        )
+        .send()
+        .await?;
+    tracing::info!("create test object for object ACL examples");
+    let _ = make_object(&client, &id, "object-to-update").await;
+    tracing::info!("running add_file_owner example");
+    objects::add_file_owner::sample(&control, &id, &service_account).await?;
+    tracing::info!("running remove_file_owner example");
+    objects::remove_file_owner::sample(&control, &id, &service_account).await?;
 
     Ok(())
 }
@@ -501,7 +524,7 @@ pub async fn run_client_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     let control = control_client().await?;
     let client = Storage::builder().build().await?;
-    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
 
     let id = random_bucket_id();
     buckets.push(id.clone());

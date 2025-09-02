@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod add_file_owner;
 pub mod change_file_storage_class;
 pub mod compose_file;
 pub mod copy_file;
@@ -28,6 +29,7 @@ pub mod list_files_with_prefix;
 pub mod move_file;
 pub mod release_event_based_hold;
 pub mod release_temporary_hold;
+pub mod remove_file_owner;
 pub mod rotate_encryption_key;
 pub mod set_event_based_hold;
 pub mod set_metadata;
