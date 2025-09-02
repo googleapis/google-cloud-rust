@@ -395,6 +395,7 @@ func (f *function) toString(name string) (string, error) {
 			bounds := []string{}
 			for j := 0; j < len(f.Generics.WherePredicate[i].BoundPredicate.Bounds); j++ {
 				if f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].TraitBound != nil {
+					// TODO(NOW): Refactor to TraitBound toString().
 					bound := f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].TraitBound.Trait.toString()
 					bounds = append(bounds, bound)
 				} else if f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].Outlives != nil {
@@ -436,6 +437,7 @@ type typeEnum struct {
 	ResolvedPath path `json:"resolved_path"`
 	Generic      string
 	Primitive    string
+	Tuple        []typeEnum
 }
 
 func (t *typeEnum) toString() string {
@@ -444,6 +446,14 @@ func (t *typeEnum) toString() string {
 	}
 	if t.Primitive != "" {
 		return t.Primitive
+	}
+	if len(t.Tuple) > 0 {
+		elements := []string{}
+		for i := 0; i < len(t.Tuple); i++ {
+			element := t.Tuple[i].toString()
+			elements = append(elements, element)
+		}
+		return fmt.Sprintf("(%s)", strings.Join(elements, ", "))
 	}
 	return t.ResolvedPath.toString()
 }
