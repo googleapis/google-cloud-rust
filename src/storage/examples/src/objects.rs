@@ -28,6 +28,7 @@ pub mod list_files_with_prefix;
 pub mod move_file;
 pub mod release_event_based_hold;
 pub mod release_temporary_hold;
+pub mod rotate_encryption_key;
 pub mod set_event_based_hold;
 pub mod set_metadata;
 pub mod set_temporary_hold;
