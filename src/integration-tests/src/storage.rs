@@ -128,7 +128,6 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     let (control, bucket) = create_test_bucket().await?;
 
     let client = builder.build().await?;
-
     tracing::info!("testing insert_object()");
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let insert = client
