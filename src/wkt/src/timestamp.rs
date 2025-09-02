@@ -300,11 +300,9 @@ impl TryFrom<time::OffsetDateTime> for Timestamp {
     type Error = TimestampError;
 
     fn try_from(value: time::OffsetDateTime) -> Result<Self, Self::Error> {
-        use time::convert::{Nanosecond, Second};
-
+        const SCALE: i128 = 1_000_000_000_i128;
         let seconds = value.unix_timestamp();
-        let nanos = (value.unix_timestamp_nanos()
-            - seconds as i128 * Nanosecond::per(Second) as i128) as i32;
+        let nanos = (value.unix_timestamp_nanos() - seconds as i128 * SCALE) as i32;
         Self::new(seconds, nanos)
     }
 }
