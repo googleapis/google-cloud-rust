@@ -2734,6 +2734,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-gkerecommender-v1"
+version = "0.4.5"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-grafeas-v1"
 version = "0.4.5"
 dependencies = [
