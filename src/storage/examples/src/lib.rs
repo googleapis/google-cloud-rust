@@ -431,27 +431,6 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running file_download_into_memory example");
     objects::file_download_into_memory::sample(&client, &id).await?;
 
-    tracing::info!("running generate_encryption_key example");
-    let csek_key = objects::generate_encryption_key::sample()?;
-    tracing::info!("running upload_encrypted_file example");
-    objects::upload_encrypted_file::sample(&client, &id, "csek_file.txt", csek_key.clone()).await?;
-    tracing::info!("running download_encrypted_file example");
-    objects::download_encrypted_file::sample(&client, &id, "csek_file.txt", csek_key.clone())
-        .await?;
-    tracing::info!("running rotate_encryption_key example");
-    let new_csek_key = objects::generate_encryption_key::sample()?;
-    objects::rotate_encryption_key::sample(
-        &control,
-        &id,
-        "csek_file.txt",
-        csek_key.clone(),
-        new_csek_key.clone(),
-    )
-    .await?;
-    tracing::info!("running download_encrypted_file example with new key");
-    objects::download_encrypted_file::sample(&client, &id, "csek_file.txt", new_csek_key.clone())
-        .await?;
-
     tracing::info!("running list_files example");
     objects::list_files::sample(&control, &id).await?;
     tracing::info!("running list_files_with_prefix example");
@@ -494,6 +473,30 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let kms_key = create_bucket_kms_key(&control, project_id.clone(), kms_ring, &id).await?;
     tracing::info!("running upload_with_kms_key example");
     objects::upload_with_kms_key::sample(&client, &id, file_to_upload_path, &kms_key).await?;
+
+    tracing::info!("running generate_encryption_key example");
+    let csek_key = objects::generate_encryption_key::sample()?;
+    tracing::info!("running upload_encrypted_file example");
+    objects::upload_encrypted_file::sample(&client, &id, "csek_file.txt", csek_key.clone()).await?;
+    tracing::info!("running download_encrypted_file example");
+    objects::download_encrypted_file::sample(&client, &id, "csek_file.txt", csek_key.clone())
+        .await?;
+    tracing::info!("running rotate_encryption_key example");
+    let new_csek_key = objects::generate_encryption_key::sample()?;
+    objects::rotate_encryption_key::sample(
+        &control,
+        &id,
+        "csek_file.txt",
+        csek_key.clone(),
+        new_csek_key.clone(),
+    )
+    .await?;
+    tracing::info!("running download_encrypted_file example with new key");
+    objects::download_encrypted_file::sample(&client, &id, "csek_file.txt", new_csek_key.clone())
+        .await?;
+    tracing::info!("running object_csek_to_cmek example");
+    objects::object_csek_to_cmek::sample(&control, &id, "csek_file.txt", new_csek_key, &kms_key)
+        .await?;
 
     tracing::info!("create bucket for object ACL examples");
     let id = random_bucket_id();
