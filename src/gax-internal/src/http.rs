@@ -23,7 +23,8 @@ use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErro
 use gax::response::{Parts, Response};
 use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
-use http::{Extensions, Method};
+use http::{Extensions, Method, Uri};
+use std::str::FromStr;
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -32,6 +33,7 @@ pub struct ReqwestClient {
     inner: reqwest::Client,
     cred: Credentials,
     endpoint: String,
+    host: String,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
@@ -46,6 +48,12 @@ impl ReqwestClient {
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
         let inner = reqwest::Client::new();
+        let uri = Uri::from_str(default_endpoint).map_err(BuilderError::transport)?;
+        let host = uri
+            .authority()
+            .ok_or_else(|| BuilderError::transport("missing authority in default endpoint"))?
+            .host()
+            .to_string();
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.to_string());
@@ -53,6 +61,7 @@ impl ReqwestClient {
             inner,
             cred,
             endpoint,
+            host,
             retry_policy: config.retry_policy.unwrap_or_else(|| {
                 Arc::new(
                     RetryAip194Strict
@@ -90,6 +99,7 @@ impl ReqwestClient {
                 reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
             );
         }
+        builder = builder.header(reqwest::header::HOST, &self.host);
         if let Some(body) = body {
             builder = builder.json(&body);
         }

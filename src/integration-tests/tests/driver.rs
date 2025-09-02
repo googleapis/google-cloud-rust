@@ -50,6 +50,7 @@ mod driver {
     #[test_case(sm::client::SecretManagerService::builder(); "default")]
     #[test_case(sm::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
     #[test_case(sm::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(sm::client::SecretManagerService::builder().with_endpoint("https://www.googleapis.com"); "with alternative endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_secretmanager_protobuf(
         builder: sm::builder::secret_manager_service::ClientBuilder,
