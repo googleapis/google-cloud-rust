@@ -13,6 +13,7 @@
 // limitations under the License.
 
 mod buckets;
+mod client;
 mod control;
 mod objects;
 mod quickstart;
@@ -474,11 +475,39 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     let id = random_bucket_id();
     buckets.push(id.clone());
-    tracing::info!("create bucket for KMS tests");
+    tracing::info!("create bucket for KMS examples");
     let kms_key = create_bucket_kms_key(&control, project_id, kms_ring, &id).await?;
-    tracing::info!("running upload_with_kms_key");
+    tracing::info!("running upload_with_kms_key example");
     objects::upload_with_kms_key::sample(&client, &id, file_to_upload_path, &kms_key).await?;
 
+    Ok(())
+}
+
+pub async fn run_client_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .with_max_level(tracing::Level::TRACE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let control = control_client().await?;
+    let client = Storage::builder().build().await?;
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
+    tracing::info!("create bucket for client examples");
+    buckets::create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
+    make_object(&client, &id, "hello-world.txt").await?;
+
+    tracing::info!("running set_client_endpoint example");
+    client::set_client_endpoint::sample(&id).await?;
     Ok(())
 }
 
