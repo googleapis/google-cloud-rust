@@ -22,9 +22,9 @@ use std::time::Duration;
 pub async fn sample(bucket_id: &str) -> anyhow::Result<()> {
     // Retries all operations for up to 5 minutes, including any backoff time.
     let retry_policy = RetryableErrors.with_time_limit(Duration::from_secs(60 * 5));
-    // On error, it backs off for a random delay between [1, 3] seconds, then [3,
-    // 9] seconds, then [9, 27] seconds, etc. The backoff time never grows larger
-    // than 1 minute.
+    // On error, it backs off for a random delay between [0, 1] seconds, then
+    // [0, 3] seconds, then [0, 9] seconds, etc. The backoff time never grows
+    // larger than 1 minute.
     let backoff_policy = ExponentialBackoffBuilder::new()
         .with_initial_delay(Duration::from_secs(1))
         .with_maximum_delay(Duration::from_secs(60))
@@ -46,9 +46,9 @@ pub async fn sample(bucket_id: &str) -> anyhow::Result<()> {
 
     // Retries all operations for up to 5 attempts.
     let retry_policy = RetryableErrors.with_attempt_limit(5);
-    // On error, it backs off for a random delay between [1, 3] seconds, then [3,
-    // 9] seconds, then [9, 27] seconds, etc. The backoff time never grows larger
-    // than 1 minute.
+    // On error, it backs off for a random delay between [0, 1] seconds, then
+    // [0, 3] seconds, then [0, 9] seconds, etc. The backoff time never grows
+    // larger than 1 minute.
     let backoff_policy = ExponentialBackoffBuilder::new()
         .with_initial_delay(Duration::from_secs(1))
         .with_maximum_delay(Duration::from_secs(60))
