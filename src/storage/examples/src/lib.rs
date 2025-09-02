@@ -399,6 +399,10 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         .await
         .into_iter()
         .collect::<anyhow::Result<Vec<_>>>()?;
+    // We need to remember the metadata for these objects, so we create them
+    // outside of the loop.
+    let archived_copy = make_object(&client, &id, "object-generation-to-copy").await?;
+    let archived_delete = make_object(&client, &id, "object-generation-to-delete").await?;
 
     tracing::info!("running stream_file_upload example");
     objects::stream_file_upload::sample(&client, &id).await?;
@@ -452,6 +456,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::list_files::sample(&control, &id).await?;
     tracing::info!("running list_files_with_prefix example");
     objects::list_files_with_prefix::sample(&control, &id).await?;
+    tracing::info!("running list_file_archived_generations example");
+    objects::list_file_archived_generations::sample(&control, &id).await?;
     tracing::info!("running set_metadata example");
     objects::set_metadata::sample(&control, &id).await?;
     tracing::info!("running get_metadata example");
@@ -466,8 +472,14 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::release_temporary_hold::sample(&control, &id).await?;
     tracing::info!("running delete_file example");
     objects::delete_file::sample(&control, &id).await?;
+    tracing::info!("running delete_file_archived_generation example");
+    objects::delete_file_archived_generation::sample(&control, &id, archived_delete.generation)
+        .await?;
     tracing::info!("running copy_file example");
     objects::copy_file::sample(&control, &id, &id).await?;
+    tracing::info!("running copy_file_archived_generation example");
+    objects::copy_file_archived_generation::sample(&control, &id, &id, archived_copy.generation)
+        .await?;
     tracing::info!("running change_file_storage_class example");
     objects::change_file_storage_class::sample(&control, &id).await?;
     tracing::info!("running compose_file example");
