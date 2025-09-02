@@ -30,6 +30,7 @@ pub mod list_file_archived_generations;
 pub mod list_files;
 pub mod list_files_with_prefix;
 pub mod move_file;
+pub mod object_csek_to_cmek;
 pub mod release_event_based_hold;
 pub mod release_temporary_hold;
 pub mod remove_file_owner;
