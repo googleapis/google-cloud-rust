@@ -378,6 +378,18 @@ func (f *function) toString(name string) (string, error) {
 					}
 					arg = fmt.Sprintf("%s: impl %s", arg, strings.Join(bounds, " + "))
 				}
+				if g["borrowed_ref"] != nil {
+					b, err := json.Marshal(g["borrowed_ref"])
+					if err != nil {
+						return "", fmt.Errorf("error marshaling borrowed_ref")
+					}
+					var n BorrowedRef
+					err = json.Unmarshal(b, &n)
+					if err != nil {
+						return "", fmt.Errorf("error Unmarshal borrowed_ref")
+					}
+					arg = n.toString()
+				}
 			}
 			args = append(args, arg)
 		}
@@ -438,6 +450,7 @@ type typeEnum struct {
 	Generic      string
 	Primitive    string
 	Tuple        []typeEnum
+	BorrowedRef  *BorrowedRef `json:"borrowed_ref"`
 }
 
 func (t *typeEnum) toString() string {
@@ -456,6 +469,24 @@ func (t *typeEnum) toString() string {
 		return fmt.Sprintf("(%s)", strings.Join(elements, ", "))
 	}
 	return t.ResolvedPath.toString()
+}
+
+type BorrowedRef struct {
+	Lifetime  *string
+	IsMutable bool `json:"is_mutable"`
+	Type      typeEnum
+}
+
+func (t *BorrowedRef) toString() string {
+	if t == nil {
+		return ""
+	}
+	ret := ""
+	// TODO: Lifetime
+	if t.IsMutable {
+		ret = "&mut "
+	}
+	return ret + t.Type.toString()
 }
 
 type functionSignature struct {
