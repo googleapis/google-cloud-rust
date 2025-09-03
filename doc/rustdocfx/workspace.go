@@ -334,6 +334,7 @@ func (f *function) toString(name string) (string, error) {
 		if s, ok := f.Sig.Inputs[i][0].(string); ok {
 			arg := s
 			if g, ok := f.Sig.Inputs[i][1].(map[string]interface{}); ok {
+				// TODO: Refactor with typeEnum toString().
 				if _, ok := g["generic"]; ok {
 					// generic "Self" are not listed.
 					if g["generic"] != "Self" {
@@ -383,7 +384,7 @@ func (f *function) toString(name string) (string, error) {
 					if err != nil {
 						return "", fmt.Errorf("error marshaling borrowed_ref")
 					}
-					var n BorrowedRef
+					var n borrowedRef
 					err = json.Unmarshal(b, &n)
 					if err != nil {
 						return "", fmt.Errorf("error Unmarshal borrowed_ref")
@@ -450,7 +451,8 @@ type typeEnum struct {
 	Generic      string
 	Primitive    string
 	Tuple        []typeEnum
-	BorrowedRef  *BorrowedRef `json:"borrowed_ref"`
+	BorrowedRef  *borrowedRef   `json:"borrowed_ref"`
+	ImplTrait    []genericBound `json:"impl_trait"`
 }
 
 func (t *typeEnum) toString() string {
@@ -468,25 +470,40 @@ func (t *typeEnum) toString() string {
 		}
 		return fmt.Sprintf("(%s)", strings.Join(elements, ", "))
 	}
+	if t.BorrowedRef != nil {
+		return t.BorrowedRef.toString()
+	}
+	if len(t.ImplTrait) > 0 {
+		bounds := []string{}
+		for i := 0; i < len(t.ImplTrait); i++ {
+			if t.ImplTrait[i].TraitBound != nil {
+				bound := t.ImplTrait[i].TraitBound.Trait.toString()
+				bounds = append(bounds, bound)
+			} else if t.ImplTrait[i].Outlives != nil {
+				bounds = append(bounds, *t.ImplTrait[i].Outlives)
+			}
+		}
+		return fmt.Sprintf("impl %s", strings.Join(bounds, " + "))
+	}
 	return t.ResolvedPath.toString()
 }
 
-type BorrowedRef struct {
+type borrowedRef struct {
 	Lifetime  *string
 	IsMutable bool `json:"is_mutable"`
 	Type      typeEnum
 }
 
-func (t *BorrowedRef) toString() string {
+func (t *borrowedRef) toString() string {
 	if t == nil {
 		return ""
 	}
-	ret := ""
-	// TODO: Lifetime
+	// TODO: Error check for lifetime.
 	if t.IsMutable {
-		ret = "&mut "
+		return fmt.Sprintf("&mut %s", t.Type.toString())
+	} else {
+		return fmt.Sprintf("&%s", t.Type.toString())
 	}
-	return ret + t.Type.toString()
 }
 
 type functionSignature struct {
