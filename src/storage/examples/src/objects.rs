@@ -25,6 +25,7 @@ pub mod download_file;
 pub mod file_download_into_memory;
 pub mod file_upload_from_memory;
 pub mod generate_encryption_key;
+pub mod get_kms_key;
 pub mod get_metadata;
 pub mod list_file_archived_generations;
 pub mod list_files;

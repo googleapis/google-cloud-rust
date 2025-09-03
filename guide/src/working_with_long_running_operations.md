@@ -17,46 +17,48 @@ limitations under the License.
 # Working with long-running operations
 
 Occasionally, an API may need to expose a method that takes a significant amount
-of time to complete. In these situations, it is often a poor user experience to
-simply block while the task runs; rather, it is better to return some kind of
-promise to the user and allow the user to check back in later.
+of time to complete. In these situations, it's often a poor user experience to
+simply block while the task runs. It's usually better to return some kind of
+promise to the user and allow the user to check back later.
 
 The Google Cloud Client Libraries for Rust provide helpers to work with these
-long-running operations (LROs). This guide will show you how to start LROs and
-wait for their completion.
+long-running operations (LROs). This guide shows you how to start LROs and wait
+for their completion.
 
 ## Prerequisites
 
 The guide uses the [Speech-To-Text V2] service to keep the code snippets
 concrete. The same ideas work for any other service using LROs.
 
-We recommend you first follow one of the service guides, such as
-[Transcribe speech to text by using the command line]. These guides will cover
+We recommend that you first follow one of the service guides, such as
+[Transcribe speech to text by using the command line]. These guides cover
 critical topics such as ensuring your project has the API enabled, your account
 has the right permissions, and how to set up billing for your project (if
 needed). Skipping the service guides may result in problems that are hard to
 diagnose.
 
+For complete setup instructions for the Rust libraries, see
+[Setting up your development environment].
+
 ## Dependencies
 
-As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
-file. We use:
+Declare Google Cloud dependencies in your `Cargo.toml` file:
 
 ```shell
-cargo add google-cloud-speech-v1 google-cloud-lro
+cargo add google-cloud-speech-v2 google-cloud-lro google-cloud-longrunning
 ```
 
-And:
+You'll also need several `tokio` features:
 
-```toml
-cargo add tokio --features full,macro
+```shell
+cargo add tokio --features full,macros
 ```
 
 ## Starting a long-running operation
 
-To start a long-running operation first initialize a client as
-[usual](./initialize_a_client.md) and then make the RPC. But first, add some use
-declarations to avoid the long package names:
+To start a long-running operation, you'll
+[initialize a client](./initialize_a_client.md) and then make the RPC. But
+first, add some use declarations to avoid the long package names:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:use}}
@@ -68,12 +70,13 @@ Now create the client:
 {{#include ../samples/src/lro.rs:client}}
 ```
 
-We will use [batch recognize] in this example. While this is designed for long
+You'll use [batch recognize] for this example. While this is designed for long
 audio files, it works well with small files too.
 
-In Rust, each request is represented by a method that returns a request builder.
-First, call the right method on the client to create the request builder. We
-will use the default [recognizer] (`_`) in the `global` region.
+In the Rust client libraries, each request is represented by a method that
+returns a request builder. First, call the right method on the client to create
+the request builder. You'll use the default [recognizer] (`_`) in the `global`
+region.
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:request-builder}}
@@ -98,21 +101,21 @@ and some other default configuration:
 {{#include ../samples/src/lro.rs:configuration}}
 ```
 
-Then make the request and wait for [Operation][longrunning::model::operation] to
-be returned. This `Operation` acts as the promise to the result of the
+Make the request and wait for an [Operation][longrunning::model::operation] to
+be returned. This `Operation` acts as a promise for the result of the
 long-running request:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:send}}
 ```
 
-Finally, we need to poll this promise until it completes:
+Finally, poll the promise until it completes:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:call-manual}}
 ```
 
-We will examine the `manual_poll_lro()` function in the
+You'll examine the `manually_poll_lro()` function in the
 [Manually polling a long-running operation] section.
 
 You can find the
@@ -121,35 +124,35 @@ below.
 
 ## Automatically polling a long-running operation
 
-Spoiler, preparing the request will be identical to how we started a
-long-running operation. The difference will come at the end, where instead of
-sending the request to get the `Operation` promise:
+To configure automatic polling, you prepare the request just like you did to
+start a long-running operation. The difference comes at the end, where instead
+of sending the request to get the `Operation` promise:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:send}}
 ```
 
-... we create a `Poller` and wait until it is done:
+... you create a `Poller` and wait until it is done:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:automatic-poller-until-done}}
 ```
 
-Let's review the code step-by-step, without spoilers this time.
+Let's review the code step-by-step.
 
-First, we introduce the trait in scope via a `use` declaration:
+First, introduce the trait in scope via a `use` declaration:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:automatic-use}}
 ```
 
-Then we initialize the client and prepare the request as before:
+Then initialize the client and prepare the request as before:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:automatic-prepare}}
 ```
 
-And then we poll until the operation is completed and print the result:
+And then poll until the operation is completed and print the result:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:automatic-print}}
@@ -192,14 +195,15 @@ You can find the
 
 ## Manually polling a long-running operation
 
-In general, we recommend you use the previous two approaches in your
-application. Manually polling a long-running operation can be quite tedious, and
-it is easy to get the types involved wrong. If you do need to manually poll a
-long-running operation this guide will walk you through the required steps. You
-may want to read the [Operation][longrunning::model::operation] message
-reference documentation, as some of the fields and types are used below.
+In general, we recommend that you use the previous two approaches in your
+application. Alternatively, you can manually poll a long-running operation, but
+this can be quite tedious, and it is easy to get the types wrong. If you do need
+to manually poll a long-running operation, this section walks you through the
+required steps. You may want to read the
+[Operation][longrunning::model::operation] message reference documentation, as
+some of the fields and types are used below.
 
-Recall that we started the long-running operation using the client:
+Recall that you started the long-running operation using the client:
 
 ```rust,ignore
     let mut operation = client
@@ -209,8 +213,8 @@ Recall that we started the long-running operation using the client:
         .await?;
 ```
 
-We are going to start a loop to poll the `operation`, and we need to check if
-the operation completed immediately, this is rare but does happen. The `done`
+You are going to start a loop to poll the `operation`, and you need to check if
+the operation completed immediately (this is rare but does happen). The `done`
 field indicates if the operation completed:
 
 ```rust,ignore
@@ -220,14 +224,15 @@ field indicates if the operation completed:
 In most cases, if the operation is done it contains a result. However, the field
 is optional because the service could return `done` as true and no result: maybe
 the operation deletes resources and a successful completion has no return value.
-In our example, with the Speech-to-Text service, we treat this as an error:
+In this example using the Speech-to-Text service, you can treat this as an
+error:
 
 ```rust,ignore
 {{#rustdoc_include ../samples/src/lro.rs:manual-match-none}}
 ```
 
 Starting a long-running operation successfully does not guarantee that it will
-complete successfully. The result may be an error or a valid response. We need
+complete successfully. The result may be an error or a valid response. You need
 to check for both. First check for errors:
 
 ```rust,ignore
@@ -235,7 +240,7 @@ to check for both. First check for errors:
 ```
 
 The error type is a [Status][rpc::model::status] message type. This does **not**
-implement the standard `Error` interface, you need to manually convert that to a
+implement the standard `Error` interface. You need to manually convert it to a
 valid error. You can use [Error::service] to perform this conversion.
 
 Assuming the result is successful, you need to extract the response type. You
@@ -270,24 +275,31 @@ this metadata:
 
 As the operation has not completed, you need to wait before polling again.
 Consider adjusting the polling period, maybe using a form of truncated
-[exponential backoff]. In this example we simply poll every 500ms:
+[exponential backoff]. This example simply polls every 500ms:
 
 ```rust,ignore
 {{#rustdoc_include ../samples/src/lro.rs:manual-backoff}}
 ```
 
-And then poll the operation to get its new status:
+Then you can poll the operation to get its new status:
 
 ```rust,ignore
 {{#rustdoc_include ../samples/src/lro.rs:manual-poll-again}}
 ```
 
-For simplicity, we have chosen to ignore all errors. In your application you may
+For simplicity, the example ignores all errors. In your application you may
 choose to treat only a subset of the errors as non-recoverable, and may want to
 limit the number of polling attempts if these fail.
 
 You can find the
 [full function](#manually-polling-a-long-running-operation-complete-code) below.
+
+## What's next
+
+- To learn about customizing error handling and backoff periods for LROs, see
+  [Configuring polling policies](/configuring_polling_policies.md).
+- To learn how to simulate LROs in your unit tests, see
+  [How to write tests for long-running operations](/mocking_lros.md).
 
 ## Starting a long-running operation: complete code
 
@@ -313,13 +325,6 @@ You can find the
 {{#rustdoc_include ../samples/src/lro.rs:manual}}
 ```
 
-## What's Next
-
-- [Configuring polling policies](/configuring_polling_policies.md) describes how
-  to customize error handling and backoff periods for LROs.
-- [How to write tests for long-running operations](/mocking_lros.md) describes
-  how to simulate LROs in your unit tests.
-
 [batch recognize]: https://cloud.google.com/speech-to-text/v2/docs/batch-recognize
 [configuring polling policies]: ./configuring_polling_policies.md
 [error::service]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/error/struct.Error.html
@@ -328,6 +333,7 @@ You can find the
 [manually polling a long-running operation]: #manually-polling-a-long-running-operation
 [recognizer]: https://cloud.google.com/speech-to-text/v2/docs/recognizers
 [rpc::model::status]: https://docs.rs/google-cloud-rpc/latest/google_cloud_rpc/model/struct.Status.html
+[setting up your development environment]: setting_up_your_development_environment.md
 [short model]: https://cloud.google.com/speech-to-text/v2/docs/transcription-model
 [speech-to-text v2]: https://cloud.google.com/speech-to-text/v2
 [transcribe speech to text by using the command line]: https://cloud.google.com/speech-to-text/v2/docs/transcribe-api
