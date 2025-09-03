@@ -403,6 +403,46 @@ impl TryFrom<&String> for Timestamp {
     }
 }
 
+/// Converts from [std::time::SystemTime] to [Timestamp].
+///
+/// This conversion may fail if the [std::time::SystemTime] value is out of
+/// range.
+///
+/// # Example
+/// ```
+/// # use std::time::SystemTime;
+/// # use google_cloud_wkt::{Timestamp, TimestampError};
+/// let ts = Timestamp::try_from(SystemTime::now())?;
+/// println!("now={ts:?}");
+/// # Ok::<(), anyhow::Error>(())
+/// ```
+impl TryFrom<std::time::SystemTime> for Timestamp {
+    type Error = TimestampError;
+    fn try_from(value: std::time::SystemTime) -> Result<Self, Self::Error> {
+        match value.duration_since(std::time::SystemTime::UNIX_EPOCH) {
+            Ok(d) => {
+                let s = d.as_secs();
+                if s > (i64::MAX as u64) {
+                    return Err(TimestampError::OutOfRange);
+                }
+                Timestamp::new(s as i64, d.subsec_nanos() as i32)
+            }
+            Err(e) => {
+                // The error case essentially gives us a negative duration.
+                let d = e.duration();
+                let s = d.as_secs();
+                if s > (i64::MAX as u64) {
+                    return Err(TimestampError::OutOfRange);
+                }
+                Ok(Timestamp::clamp(
+                    d.as_secs() as i64 * -1,
+                    d.subsec_nanos() as i32 * -1,
+                ))
+            }
+        }
+    }
+}
+
 /// Converts from [chrono::DateTime] to [Timestamp].
 ///
 /// This conversion may fail if the [chrono::DateTime] value is out of range.
@@ -444,6 +484,41 @@ impl TryFrom<Timestamp> for chrono::DateTime<chrono::Utc> {
     fn try_from(value: Timestamp) -> Result<Self, Self::Error> {
         let ts = chrono::DateTime::from_timestamp(value.seconds, 0).unwrap();
         Ok(ts + chrono::Duration::nanoseconds(value.nanos as i64))
+    }
+}
+
+/// Converts from [Timestamp] to [std::time::SystemTime].
+///
+/// This conversion may fail if the [std::time::SystemTime] value is out of
+/// range.
+///
+/// # Example
+/// ```
+/// # use std::time::SystemTime;
+/// # use google_cloud_wkt::{Timestamp, TimestampError};
+/// let ts = Timestamp::new(0, 0)?;
+/// let epoch = SystemTime::try_from(ts)?;
+/// assert_eq!(epoch, SystemTime::UNIX_EPOCH);
+/// # Ok::<(), anyhow::Error>(())
+/// ```
+impl TryFrom<Timestamp> for std::time::SystemTime {
+    type Error = TimestampError;
+    fn try_from(value: Timestamp) -> Result<std::time::SystemTime, Self::Error> {
+        let mut ts = std::time::SystemTime::UNIX_EPOCH;
+        let s = value.seconds();
+        if s >= 0 {
+            let d = std::time::Duration::from_secs(s as u64);
+            ts = ts
+                .checked_add(d)
+                .ok_or_else(|| TimestampError::OutOfRange)?;
+        } else {
+            let d = std::time::Duration::from_secs(-s as u64);
+            ts = ts
+                .checked_sub(d)
+                .ok_or_else(|| TimestampError::OutOfRange)?;
+        }
+        let d = std::time::Duration::from_nanos(value.nanos() as u64);
+        ts.checked_add(d).ok_or_else(|| TimestampError::OutOfRange)
     }
 }
 
@@ -720,6 +795,39 @@ mod tests {
         let ts = Timestamp::new(123, 456789012)?;
         let got = chrono::DateTime::try_from(ts)?;
         let want = chrono::DateTime::from_timestamp(123, 456789012).unwrap();
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
+    fn convert_from_std_time() -> Result {
+        let now = std::time::SystemTime::now();
+        let want = now.duration_since(std::time::SystemTime::UNIX_EPOCH)?;
+
+        let wkt = Timestamp::try_from(now)?;
+        assert_eq!(wkt.seconds(), want.as_secs() as i64);
+        assert_eq!(wkt.nanos(), want.subsec_nanos() as i32);
+        Ok(())
+    }
+
+    #[test]
+    fn convert_to_std_time() -> Result {
+        let ts = Timestamp::clamp(123, 456789012);
+        let got = std::time::SystemTime::try_from(ts)?;
+        let want = std::time::SystemTime::UNIX_EPOCH
+            .checked_add(std::time::Duration::from_secs(123))
+            .unwrap()
+            .checked_add(std::time::Duration::from_nanos(456789012))
+            .unwrap();
+        assert_eq!(got, want);
+
+        let ts = Timestamp::clamp(-123, -456789012);
+        let got = std::time::SystemTime::try_from(ts)?;
+        let want = std::time::SystemTime::UNIX_EPOCH
+            .checked_sub(std::time::Duration::from_secs(123))
+            .unwrap()
+            .checked_sub(std::time::Duration::from_nanos(456789012))
+            .unwrap();
         assert_eq!(got, want);
         Ok(())
     }
