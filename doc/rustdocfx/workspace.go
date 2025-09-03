@@ -503,7 +503,7 @@ func (t *borrowedRef) toString() string {
 	if t.IsMutable {
 		ret = fmt.Sprintf("&mut %s", t.Type.toString())
 	} else {
-		ret = fmt.Sprintf("&%s", ret+t.Type.toString())
+		ret = fmt.Sprintf("&%s", t.Type.toString())
 	}
 	return ret
 }
