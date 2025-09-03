@@ -37,3 +37,6 @@ cobertura.xml
 # Ignore cargo-mutants directories.
 mutants.out/
 mutants.out.old/
+
+# The rustdocfx tool generates many files in this directory.
+docfx/
