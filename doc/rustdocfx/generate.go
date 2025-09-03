@@ -219,8 +219,12 @@ func processTypeAlias(c *crate, id string, page *docfxManagedReference, parent *
 	if c.Index[id].Inner.TypeAlias != nil {
 		// Generates a type alias doc string in the following format:
 		// pub type LhsIdentifier = RhsIdentifier<Args>
-		LhsIdentifier := c.Index[id].Name
-		typeAliasString := fmt.Sprintf("pub type %s = %s;", LhsIdentifier, c.Index[id].Inner.TypeAlias.Type.ResolvedPath.toString())
+		lhsIdentifier := c.Index[id].Name
+		rhs, err := c.Index[id].Inner.TypeAlias.Type.ResolvedPath.toString()
+		if err != nil {
+			return fmt.Errorf("error processing type alias item with id %s: %w", id, err)
+		}
+		typeAliasString := fmt.Sprintf("pub type %s = %s;", lhsIdentifier, rhs)
 		// TODO: Create code block in the item Summary for the type alias string.
 		parent.Summary = fmt.Sprintf("%#v", typeAliasString+"\n"+c.Index[id].Docs)
 	}
@@ -322,7 +326,10 @@ func newDocfxItemFromAssocConst(c *crate, parent *docfxItem, id string) (*docfxI
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
 	r.Type = "implementation"
 
-	typeString := c.Index[id].Inner.AssocConst.Type.toString()
+	typeString, err := c.Index[id].Inner.AssocConst.Type.toString()
+	if err != nil {
+		return r, fmt.Errorf("error generating associated const with id %s: %w", id, err)
+	}
 	constString := fmt.Sprintf("const %s: %s = %s%s", c.Index[id].Name, typeString, *c.Index[id].Inner.AssocConst.Value, typeString)
 	// TODO: Need to handle special case where value is "_". Generated rustdoc json currently do not handle consts that reference another value.
 	r.Summary = fmt.Sprintf("%#v%#v", constString, c.getDocString(id))
