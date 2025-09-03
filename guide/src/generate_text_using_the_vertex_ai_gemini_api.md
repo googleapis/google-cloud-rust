@@ -34,8 +34,8 @@ need:
 cargo add google-cloud-aiplatform-v1 --no-default-features --features prediction-service
 ```
 
-If you are using cloud shell (or have limited disk space), you might see a
-"no space left on device" error. Run the following to remove build artifacts:
+If you are using cloud shell (or have limited disk space), you might see a "no
+space left on device" error. Run the following to remove build artifacts:
 
 ```shell
 cargo clean
@@ -137,8 +137,8 @@ ______________________________________________________________________
 {{#include ../samples/src/gemini.rs:prompt-and-image}}
 ```
 
-Note: These code samples return `crate::Result<()>` for the sake of brevity.
-You will need to change the return type to
+Note: These code samples return `crate::Result<()>` for the sake of brevity. You
+will need to change the return type to
 `std::result::Result<(), Box<dyn std::error::Error>>` since your project
 structure is likely different from that of the samples.
 
