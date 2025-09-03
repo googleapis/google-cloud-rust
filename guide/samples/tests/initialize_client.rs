@@ -44,6 +44,13 @@ pub async fn initialize_client(project_id: &str) -> Result {
 
     Ok(())
 }
+
+#[tokio::main]
+async fn main() -> Result {
+    let project_id = std::env::args().nth(1).unwrap();
+
+    initialize_client(&project_id).await
+}
 // [END test_only_snippet] ANCHOR_END: all
 
 #[cfg(all(test, feature = "run-integration-tests"))]
