@@ -498,14 +498,12 @@ func (t *borrowedRef) toString() string {
 	if t == nil {
 		return ""
 	}
-	ret := ""
 	// TODO: Error check for lifetime.
 	if t.IsMutable {
-		ret = fmt.Sprintf("&mut %s", t.Type.toString())
+		return fmt.Sprintf("&mut %s", t.Type.toString())
 	} else {
-		ret = fmt.Sprintf("&%s", t.Type.toString())
+		return fmt.Sprintf("&%s", t.Type.toString())
 	}
-	return ret
 }
 
 type functionSignature struct {
