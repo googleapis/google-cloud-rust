@@ -28,7 +28,7 @@ use google_cloud_storage::model::bucket::{
     iam_config::UniformBucketLevelAccess,
     {HierarchicalNamespace, IamConfig},
 };
-use google_cloud_storage::model::{Bucket, Object, ObjectAccessControl};
+use google_cloud_storage::model::{Bucket, Object};
 use google_cloud_storage::retry_policy::RetryableErrors;
 use rand::{Rng, distr::Distribution};
 use std::time::Duration;
