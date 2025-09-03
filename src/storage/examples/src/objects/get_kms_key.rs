@@ -23,10 +23,9 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .set_object(NAME)
         .send()
         .await?;
-    let kms_key = object.kms_key;
     println!(
-        "successfully read object {NAME} kms key in bucket {bucket_id}: {}",
-        kms_key
+        "Object {NAME} in bucket {bucket_id} has KMS key: {}",
+        object.kms_key
     );
     Ok(())
 }
