@@ -16,7 +16,7 @@
 use google_cloud_storage::client::StorageControl;
 
 pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
-    const NAME: &str = "object-with-acl";
+    const NAME: &str = "object-to-read";
     let object = client
         .get_object()
         .set_bucket(format!("projects/_/buckets/{bucket_id}"))
