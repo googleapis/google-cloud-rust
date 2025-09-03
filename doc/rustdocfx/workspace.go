@@ -553,7 +553,7 @@ func (t *borrowedRef) toString() (string, error) {
 		lifetime = *t.Lifetime + " "
 	}
 	if t.IsMutable {
-		return fmt.Sprintf("&mut %s%s", lifetime, typeString), nil
+		return fmt.Sprintf("&%smut %s", lifetime, typeString), nil
 	} else {
 		return fmt.Sprintf("&%s%s", lifetime, typeString), nil
 	}
