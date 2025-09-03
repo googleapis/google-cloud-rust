@@ -52,11 +52,9 @@ func main() {
 
 	crates := flag.Args()
 
-	// TODO: Preflight checks for:
-	// cargo workspaces
-	// cargo rustdoc
-	// docuploader
-	// Failfast if not installed.
+	if err := preFlightTests(*upload); err != nil {
+		log.Fatal(err)
+	}
 
 	// Create a temporary file to store `cargo workspace plan` output.
 	tempFile, err := os.CreateTemp("", "cargo-plan-")
