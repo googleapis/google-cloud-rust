@@ -441,6 +441,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::set_metadata::sample(&control, &id).await?;
     tracing::info!("running get_metadata example");
     objects::get_metadata::sample(&control, &id).await?;
+    tracing::info!("running print_file_acl example");
+    objects::print_file_acl::sample(&control, &id).await?;
     tracing::info!("running set_event_based_hold example");
     objects::set_event_based_hold::sample(&control, &id).await?;
     tracing::info!("running release_event_based_hold example");
@@ -516,9 +518,6 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         .await?;
     tracing::info!("create test object for object ACL examples");
     let _ = make_object(&client, &id, "object-to-update").await;
-    let _ = make_object_with_acl(&client, &id, "object-with-acl").await;
-    tracing::info!("running print_file_acl example");
-    objects::print_file_acl::sample(&control, &id).await?;
     tracing::info!("running add_file_owner example");
     objects::add_file_owner::sample(&control, &id, &service_account).await?;
     tracing::info!("running remove_file_owner example");
@@ -595,29 +594,6 @@ async fn make_object(client: &Storage, bucket_id: &str, name: &str) -> anyhow::R
     let object = client
         .write_object(format!("projects/_/buckets/{bucket_id}"), name, VEXING)
         .set_if_generation_match(0)
-        .send_buffered()
-        .await?;
-    Ok(object)
-}
-
-async fn make_object_with_acl(
-    client: &Storage,
-    bucket_id: &str,
-    name: &str,
-) -> anyhow::Result<Object> {
-    const VEXING: &str = "how vexingly quick daft zebras jump\n";
-    let mut acl = vec![];
-    acl.push(
-        ObjectAccessControl::new()
-            .set_entity("allAuthenticatedUsers")
-            .set_role("READER"),
-    );
-    acl.push(ObjectAccessControl::new().set_entity("user-rust_sdk"));
-
-    let object = client
-        .write_object(format!("projects/_/buckets/{bucket_id}"), name, VEXING)
-        .set_if_generation_match(0)
-        .set_acl(acl)
         .send_buffered()
         .await?;
     Ok(object)

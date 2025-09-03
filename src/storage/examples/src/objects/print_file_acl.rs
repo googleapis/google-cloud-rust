@@ -24,10 +24,9 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .send()
         .await?;
 
-    let object_acl = object.acl;
     println!(
         "Object {NAME} in bucket {bucket_id} has the following ACL: {:?}",
-        object_acl
+        object.acl
     );
     Ok(())
 }
