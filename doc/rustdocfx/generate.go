@@ -461,15 +461,7 @@ func newDocfxManagedReference(c *crate, id string) (*docfxManagedReference, erro
 func generate(c *crate, projectRoot string, outDir string) error {
 	var errs []error
 
-	m, err := newDocfxMetadata(c)
-	if err != nil {
-		errs = append(errs, err)
-	}
-	s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/docs.metadata.mustache"), m)
-	if err != nil {
-		errs = append(errs, err)
-	}
-	if err := os.WriteFile(filepath.Join(outDir, "docs.metadata"), []byte(s), 0666); err != nil {
+	if err := renderMetadata(c, projectRoot, outDir); err != nil {
 		errs = append(errs, err)
 	}
 
@@ -539,7 +531,7 @@ func generate(c *crate, projectRoot string, outDir string) error {
 
 	// Sort the toc before rendering.
 	sort.SliceStable(toc.Items, func(i, j int) bool { return toc.Items[i].Name < toc.Items[j].Name })
-	s, err = mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/toc.yml.mustache"), toc)
+	s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/toc.yml.mustache"), toc)
 	if err != nil {
 		errs = append(errs, err)
 	}
