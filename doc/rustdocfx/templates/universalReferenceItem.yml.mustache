@@ -1,0 +1,37 @@
+- uid: {{Uid}}
+{{#Name}}
+  name: {{Name}}
+{{/Name}}
+  langs:
+  - rust
+{{#Type}}
+  type: {{Type}}
+{{/Type}}
+{{#HasChildren}}
+  children:
+{{#Children}}
+  - {{.}}
+{{/Children}}
+{{/HasChildren}}
+{{#Syntax}}
+  syntax:
+    {{#Syntax.Content}}
+    content: {{Syntax.Content}}
+    {{/Syntax.Content}}
+  {{#HasParameters}}
+    parameters:
+    {{#Parameters}}
+      {{> parameter.yml}}
+    {{/Parameters}}
+    {{/HasParameters}}
+    {{#HasReturns}}
+    returns:
+    {{#Returns}}
+      {{> parameter.yml}}
+    {{/Returns}}
+    {{/HasReturns}}
+{{/Syntax}}
+{{#Summary}}
+  summary: |
+    {{Summary}}
+{{/Summary}}
