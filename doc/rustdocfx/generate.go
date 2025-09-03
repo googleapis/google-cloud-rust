@@ -307,18 +307,8 @@ func processImplementation(c *crate, id string, page *docfxManagedReference, par
 			parent.appendChildren(reference.Uid)
 			page.appendReference(reference)
 		case assocConstKind:
-			assocConst, err := newDocfxItemFromAssocConst(c, parent, innerImplItemId)
-			if err != nil {
-				return fmt.Errorf("error processing item with id %s: %w", id, err)
-			}
-			page.appendItem(assocConst)
-
-			reference, err := newDocfxReferenceFromDocfxItem(assocConst, parent)
-			if err != nil {
-				return fmt.Errorf("error processing item with id %s: %w", id, err)
-			}
-			parent.appendChildren(reference.Uid)
-			page.appendReference(reference)
+			// TODO: Add associated types.
+			continue
 		default:
 			return fmt.Errorf("error expected implementation with id %s to be a function instead of %s", innerImplItemId, innerImplItemKind)
 		}
