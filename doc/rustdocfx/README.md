@@ -8,13 +8,13 @@ docfx yaml tar file.
 
 Example usage for all crates:
 
-```
+```bash
 rustdocfx -project-root ./../../
 ```
 
 Example usage for a single crate:
 
-```
+```bash
 rustdocfx -project-root ./../../ google-cloud-secretmanager-v1
 ```
 
