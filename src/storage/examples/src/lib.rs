@@ -441,6 +441,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::set_metadata::sample(&control, &id).await?;
     tracing::info!("running get_metadata example");
     objects::get_metadata::sample(&control, &id).await?;
+    tracing::info!("running get_kms_key example");
+    objects::get_kms_key::sample(&control, &id).await?;
     tracing::info!("running set_event_based_hold example");
     objects::set_event_based_hold::sample(&control, &id).await?;
     tracing::info!("running release_event_based_hold example");
