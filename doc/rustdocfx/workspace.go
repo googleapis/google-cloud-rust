@@ -298,7 +298,7 @@ func (f *function) toString(name string) (string, error) {
 		return "", fmt.Errorf("error, IsUnsafe == true")
 	}
 	if f.Header.IsAsync {
-		keywords = "async "
+		keywords = "async"
 	}
 	if f.Sig.IsCVariadic {
 		// We do not yet handle c variadic functions.
@@ -317,9 +317,13 @@ func (f *function) toString(name string) (string, error) {
 			}
 			for j := 0; j < len(f.Generics.Params[i].Kind.GenericParamDefType.Bounds); j++ {
 				if f.Generics.Params[i].Kind.GenericParamDefType.Bounds[j].TraitBound != nil {
-					param = fmt.Sprintf("%s: %s", f.Generics.Params[i].Name, f.Generics.Params[i].Kind.GenericParamDefType.Bounds[j].TraitBound.Trait.toString())
+					traitBoundString, err := f.Generics.Params[i].Kind.GenericParamDefType.Bounds[j].TraitBound.Trait.toString()
+					if err != nil {
+						return "", fmt.Errorf("error generics generation: %w", err)
+					}
+					param = fmt.Sprintf("%s: %s", f.Generics.Params[i].Name, traitBoundString)
 				} else {
-					return "", fmt.Errorf("unexpected generics bound")
+					return "", fmt.Errorf("unexpected generics generation")
 				}
 			}
 			genericsParams = append(genericsParams, param)
@@ -341,6 +345,9 @@ func (f *function) toString(name string) (string, error) {
 						arg = fmt.Sprintf("%s: %s", arg, g["generic"])
 					}
 				}
+				if g["primitive"] != nil {
+					arg = fmt.Sprintf("%s: %s", arg, g["primitive"])
+				}
 				if g["resolved_path"] != nil {
 					b, err := json.Marshal(g["resolved_path"])
 					if err != nil {
@@ -351,7 +358,11 @@ func (f *function) toString(name string) (string, error) {
 					if err != nil {
 						return "", fmt.Errorf("error Unmarshal resolved_path")
 					}
-					arg = fmt.Sprintf("%s: %s", arg, p.toString())
+					argString, err := p.toString()
+					if err != nil {
+						return "", fmt.Errorf("error arg generation: %w", err)
+					}
+					arg = fmt.Sprintf("%s: %s", arg, argString)
 				}
 				if g["impl_trait"] != nil {
 					b, err := json.Marshal(g["impl_trait"])
@@ -369,7 +380,10 @@ func (f *function) toString(name string) (string, error) {
 					bounds := []string{}
 					for j := 0; j < len(n); j++ {
 						if n[j].TraitBound != nil {
-							bound := n[j].TraitBound.Trait.toString()
+							bound, err := n[j].TraitBound.Trait.toString()
+							if err != nil {
+								return "", fmt.Errorf("error arg generation: %w", err)
+							}
 							bounds = append(bounds, bound)
 						} else if n[j].Outlives != nil {
 							bounds = append(bounds, *n[j].Outlives)
@@ -389,7 +403,11 @@ func (f *function) toString(name string) (string, error) {
 					if err != nil {
 						return "", fmt.Errorf("error Unmarshal borrowed_ref")
 					}
-					arg = n.toString()
+					argString, err := n.toString()
+					if err != nil {
+						return "", fmt.Errorf("error arg generation: %w", err)
+					}
+					arg = fmt.Sprintf("%s: %s", arg, argString)
 				}
 			}
 			args = append(args, arg)
@@ -401,7 +419,10 @@ func (f *function) toString(name string) (string, error) {
 	wherePredicates := []string{}
 	for i := 0; i < len(f.Generics.WherePredicate); i++ {
 		if f.Generics.WherePredicate[i].BoundPredicate != nil {
-			typeString := f.Generics.WherePredicate[i].BoundPredicate.Type.toString()
+			typeString, err := f.Generics.WherePredicate[i].BoundPredicate.Type.toString()
+			if err != nil {
+				return "", fmt.Errorf("error where predicate generation: %w", err)
+			}
 			if len(f.Generics.WherePredicate[i].BoundPredicate.Bounds) == 0 {
 				return "", fmt.Errorf("error, where predicate bound == 0")
 			}
@@ -409,7 +430,10 @@ func (f *function) toString(name string) (string, error) {
 			for j := 0; j < len(f.Generics.WherePredicate[i].BoundPredicate.Bounds); j++ {
 				if f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].TraitBound != nil {
 					// TODO(NOW): Refactor to TraitBound toString().
-					bound := f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].TraitBound.Trait.toString()
+					bound, err := f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].TraitBound.Trait.toString()
+					if err != nil {
+						return "", fmt.Errorf("error where predicate generation: %w", err)
+					}
 					bounds = append(bounds, bound)
 				} else if f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].Outlives != nil {
 					bounds = append(bounds, *f.Generics.WherePredicate[i].BoundPredicate.Bounds[j].Outlives)
@@ -428,22 +452,30 @@ func (f *function) toString(name string) (string, error) {
 
 	returnString := ""
 	if f.Sig.Output != nil {
-		returnString = fmt.Sprintf(" -> %s", f.Sig.Output.toString())
+		output, err := f.Sig.Output.toString()
+		if err != nil {
+			return "", fmt.Errorf("error return generation: %w", err)
+		}
+		returnString = fmt.Sprintf(" -> %s", output)
 	}
 	signature := fmt.Sprintf("%s fn %s%s%s%s%s", keywords, name, genericsString, argString, returnString, whereString)
 	return signature, nil
 }
 
-func (path *path) toString() string {
+func (path *path) toString() (string, error) {
 	argString := ""
 	args := []string{}
 	for i := 0; i < len(path.Args.AngleBracketed.Args); i++ {
-		args = append(args, path.Args.AngleBracketed.Args[i].Type.toString())
+		arg, err := path.Args.AngleBracketed.Args[i].Type.toString()
+		if err != nil {
+			return "", fmt.Errorf("path.toString error: %w", err)
+		}
+		args = append(args, arg)
 	}
 	if len(args) > 0 {
 		argString = fmt.Sprintf("<%s>", strings.Join(args, ", "))
 	}
-	return fmt.Sprintf("%s%s", path.Path, argString)
+	return fmt.Sprintf("%s%s", path.Path, argString), nil
 }
 
 type typeEnum struct {
@@ -455,37 +487,51 @@ type typeEnum struct {
 	ImplTrait    []genericBound `json:"impl_trait"`
 }
 
-func (t *typeEnum) toString() string {
+func (t *typeEnum) toString() (string, error) {
 	if t.Generic != "" {
-		return t.Generic
+		return t.Generic, nil
 	}
 	if t.Primitive != "" {
-		return t.Primitive
+		return t.Primitive, nil
 	}
 	if len(t.Tuple) > 0 {
 		elements := []string{}
 		for i := 0; i < len(t.Tuple); i++ {
-			element := t.Tuple[i].toString()
+			element, err := t.Tuple[i].toString()
+			if err != nil {
+				return "", fmt.Errorf("error typeEnum.toString: %w", err)
+			}
 			elements = append(elements, element)
 		}
-		return fmt.Sprintf("(%s)", strings.Join(elements, ", "))
+		return fmt.Sprintf("(%s)", strings.Join(elements, ", ")), nil
 	}
 	if t.BorrowedRef != nil {
-		return t.BorrowedRef.toString()
+		borrowedRefString, err := t.BorrowedRef.toString()
+		if err != nil {
+			return "", fmt.Errorf("error typeEnum.toString: %w", err)
+		}
+		return borrowedRefString, nil
 	}
 	if len(t.ImplTrait) > 0 {
 		bounds := []string{}
 		for i := 0; i < len(t.ImplTrait); i++ {
 			if t.ImplTrait[i].TraitBound != nil {
-				bound := t.ImplTrait[i].TraitBound.Trait.toString()
+				bound, err := t.ImplTrait[i].TraitBound.Trait.toString()
+				if err != nil {
+					return "", fmt.Errorf("error typeEnum.toString: %w", err)
+				}
 				bounds = append(bounds, bound)
 			} else if t.ImplTrait[i].Outlives != nil {
 				bounds = append(bounds, *t.ImplTrait[i].Outlives)
 			}
 		}
-		return fmt.Sprintf("impl %s", strings.Join(bounds, " + "))
+		return fmt.Sprintf("impl %s", strings.Join(bounds, " + ")), nil
 	}
-	return t.ResolvedPath.toString()
+	resolvedPathString, err := t.ResolvedPath.toString()
+	if err != nil {
+		return "", fmt.Errorf("error typeEnum.toString: %w", err)
+	}
+	return resolvedPathString, nil
 }
 
 type borrowedRef struct {
@@ -494,15 +540,22 @@ type borrowedRef struct {
 	Type      typeEnum
 }
 
-func (t *borrowedRef) toString() string {
+func (t *borrowedRef) toString() (string, error) {
 	if t == nil {
-		return ""
+		return "", fmt.Errorf("error borrowRef.toString: unexpected nil")
 	}
-	// TODO: Error check for lifetime.
+	typeString, err := t.Type.toString()
+	if err != nil {
+		return "", fmt.Errorf("error borrowRef.toString: %w", err)
+	}
+	lifetime := ""
+	if t.Lifetime != nil {
+		lifetime = *t.Lifetime + " "
+	}
 	if t.IsMutable {
-		return fmt.Sprintf("&mut %s", t.Type.toString())
+		return fmt.Sprintf("&mut %s%s", lifetime, typeString), nil
 	} else {
-		return fmt.Sprintf("&%s", t.Type.toString())
+		return fmt.Sprintf("&%s%s", lifetime, typeString), nil
 	}
 }
 
