@@ -12,45 +12,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// A simple end-to-end example showing an API call to the
-/// `google_cloud_language_v2` package with authentication via
+/// A simple end-to-end example showing an API call through to the
+/// `google_cloud_ai_generativelanguage_v1` package with authentication via
 /// `package:googleapis_auth`.
 library;
 
 import 'dart:io';
 
-import 'package:google_cloud_language_v2/language.dart';
+import 'package:google_cloud_ai_generativelanguage_v1/generativelanguage.dart';
 import 'package:google_cloud_rpc/rpc.dart';
 import 'package:googleapis_auth/auth_io.dart' as auth;
 
 void main(List<String> args) async {
-  if (args.isEmpty) {
-    print('usage: dart bin/language_api.dart <api-key>');
+  if (args.length != 2) {
+    print('usage: dart bin/generative_api.dart <api-key> <prompt>');
     exit(1);
   }
 
   final apiKey = args[0];
+  final prompt = args[1];
 
   final client = auth.clientViaApiKey(apiKey);
-  final service = LanguageService(client: client);
-  final document = Document(
-    content: 'Hello, world!',
-    type: Document_Type.plainText,
+  final service = GenerativeService(client: client);
+  final request = GenerateContentRequest(
+    model: 'models/gemini-2.5-flash',
+    contents: [
+      Content(parts: [Part(text: prompt)]),
+    ],
   );
 
   try {
-    final result = await service.analyzeSentiment(
-      AnalyzeSentimentRequest(document: document),
-    );
-
-    print('result: $result');
-    print('documentSentiment: ${result.documentSentiment}');
-
-    for (final sentence in result.sentences!) {
-      print('');
-      print('sentence:');
-      print('  text: ${sentence.text}');
-      print('  sentiment: ${sentence.sentiment}');
+    final result = await service.generateContent(request);
+    final textResponse = result.candidates?[0].content?.parts?[0].text;
+    if (textResponse == null) {
+      print('<No textual response>');
+    } else {
+      print(textResponse);
     }
   } on Status catch (error) {
     print('error: $error');
