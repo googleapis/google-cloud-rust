@@ -21,16 +21,20 @@ import (
 	"github.com/cbroglie/mustache"
 )
 
-func renderMetadata(c *crate, projectRoot, outDir string) error {
+func renderMetadata(c *crate, outDir string) error {
 	m, err := newDocfxMetadata(c)
 	if err != nil {
 		return err
 	}
-	s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/docs.metadata.mustache"), m)
+	contents, err := templatesProvider("docs.metadata.mustache")
 	if err != nil {
 		return err
 	}
-	if err := os.WriteFile(filepath.Join(outDir, "docs.metadata"), []byte(s), 0666); err != nil {
+	output, err := mustache.RenderPartials(contents, &mustacheProvider{}, m)
+	if err != nil {
+		return err
+	}
+	if err := os.WriteFile(filepath.Join(outDir, "docs.metadata"), []byte(output), 0644); err != nil {
 		return err
 	}
 	return nil

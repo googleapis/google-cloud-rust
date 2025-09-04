@@ -33,7 +33,7 @@ func TestRenderMetadata(t *testing.T) {
 		},
 	}
 	outDir := t.TempDir()
-	if err := renderMetadata(input, "../..", outDir); err != nil {
+	if err := renderMetadata(input, outDir); err != nil {
 		t.Fatal(err)
 	}
 	contents, err := os.ReadFile(ospath.Join(outDir, "docs.metadata"))

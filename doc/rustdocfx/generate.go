@@ -466,10 +466,10 @@ func newDocfxManagedReference(c *crate, id string) (*docfxManagedReference, erro
 	return r, nil
 }
 
-func generate(c *crate, projectRoot string, outDir string) error {
+func generate(c *crate, outDir string) error {
 	var errs []error
 
-	if err := renderMetadata(c, projectRoot, outDir); err != nil {
+	if err := renderMetadata(c, outDir); err != nil {
 		errs = append(errs, err)
 	}
 
