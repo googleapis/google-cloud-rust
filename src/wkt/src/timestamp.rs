@@ -422,7 +422,7 @@ impl TryFrom<std::time::SystemTime> for Timestamp {
         match value.duration_since(std::time::SystemTime::UNIX_EPOCH) {
             Ok(d) => {
                 let s = d.as_secs();
-                if s > (i64::MAX as u64) {
+                if s > i64::MAX as u64 {
                     return Err(TimestampError::OutOfRange);
                 }
                 Timestamp::new(s as i64, d.subsec_nanos() as i32)
@@ -431,13 +431,16 @@ impl TryFrom<std::time::SystemTime> for Timestamp {
                 // The error case essentially gives us a negative duration.
                 let d = e.duration();
                 let s = d.as_secs();
-                if s > (i64::MAX as u64) {
+                // We might add 1 to s later, but recall that `-i64::MIN == i64::MAX + 1`
+                if s > i64::MAX as u64 {
                     return Err(TimestampError::OutOfRange);
                 }
-                Ok(Timestamp::clamp(
-                    d.as_secs() as i64 * -1,
-                    d.subsec_nanos() as i32 * -1,
-                ))
+                let seconds = -(s as i64);
+                let nanos = d.subsec_nanos() as i32;
+                if nanos > 0 {
+                    return Timestamp::new(seconds - 1, Self::NS - nanos);
+                }
+                Timestamp::new(seconds, 0)
             }
         }
     }
@@ -504,19 +507,18 @@ impl TryFrom<Timestamp> for chrono::DateTime<chrono::Utc> {
 impl TryFrom<Timestamp> for std::time::SystemTime {
     type Error = TimestampError;
     fn try_from(value: Timestamp) -> Result<std::time::SystemTime, Self::Error> {
-        let mut ts = std::time::SystemTime::UNIX_EPOCH;
         let s = value.seconds();
-        if s >= 0 {
+        let ts = if s >= 0 {
             let d = std::time::Duration::from_secs(s as u64);
-            ts = ts
+            std::time::SystemTime::UNIX_EPOCH
                 .checked_add(d)
-                .ok_or_else(|| TimestampError::OutOfRange)?;
+                .ok_or_else(|| TimestampError::OutOfRange)?
         } else {
             let d = std::time::Duration::from_secs(-s as u64);
-            ts = ts
+            std::time::SystemTime::UNIX_EPOCH
                 .checked_sub(d)
-                .ok_or_else(|| TimestampError::OutOfRange)?;
-        }
+                .ok_or_else(|| TimestampError::OutOfRange)?
+        };
         let d = std::time::Duration::from_nanos(value.nanos() as u64);
         ts.checked_add(d).ok_or_else(|| TimestampError::OutOfRange)
     }
@@ -807,26 +809,35 @@ mod tests {
         let wkt = Timestamp::try_from(now)?;
         assert_eq!(wkt.seconds(), want.as_secs() as i64);
         assert_eq!(wkt.nanos(), want.subsec_nanos() as i32);
+
+        let past = std::time::SystemTime::UNIX_EPOCH
+            .checked_sub(std::time::Duration::from_secs(123))
+            .unwrap()
+            .checked_sub(std::time::Duration::from_nanos(100))
+            .unwrap();
+        let wkt = Timestamp::try_from(past)?;
+        assert_eq!(wkt.seconds(), -124);
+        assert_eq!(wkt.nanos(), Timestamp::NS - 100);
         Ok(())
     }
 
     #[test]
     fn convert_to_std_time() -> Result {
-        let ts = Timestamp::clamp(123, 456789012);
+        let ts = Timestamp::clamp(123, 456789000);
         let got = std::time::SystemTime::try_from(ts)?;
         let want = std::time::SystemTime::UNIX_EPOCH
             .checked_add(std::time::Duration::from_secs(123))
             .unwrap()
-            .checked_add(std::time::Duration::from_nanos(456789012))
+            .checked_add(std::time::Duration::from_nanos(456789000))
             .unwrap();
         assert_eq!(got, want);
 
-        let ts = Timestamp::clamp(-123, -456789012);
+        let ts = Timestamp::clamp(-123, -456789000);
         let got = std::time::SystemTime::try_from(ts)?;
         let want = std::time::SystemTime::UNIX_EPOCH
             .checked_sub(std::time::Duration::from_secs(123))
             .unwrap()
-            .checked_sub(std::time::Duration::from_nanos(456789012))
+            .checked_sub(std::time::Duration::from_nanos(456789000))
             .unwrap();
         assert_eq!(got, want);
         Ok(())
