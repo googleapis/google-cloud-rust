@@ -13,19 +13,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-- uid: {{Uid}}
-{{#Name}}
-  name: {{Name}}
-{{/Name}}
-{{#FullName}}
-  fullName: {{FullName}}
-{{/FullName}}
-{{#Parent}}
-  parent: {{Parent}}
-{{/Parent}}
-{{#isExternal}}
-  isExternal: true
-{{/isExternal}}
-{{^isExternal}}
-  isExternal: false
-{{/isExternal}}
+"{{PkgName}}": [
+    {
+      "PkgName":      "{{PkgName}}",
+      "Language":     "Rust",
+      "DocsURL":      "https://docs.rs/{{PkgName}}/{{Version}}",
+      "APIShortname": "{{APIShortName}}",
+      "Product":      "{{Product}}"
+    }
+]{{^Last}},{{/Last}}

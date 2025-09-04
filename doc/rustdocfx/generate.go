@@ -17,13 +17,9 @@ package main
 import (
 	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
 	"slices"
-	"sort"
+	"strings"
 	"time"
-
-	"github.com/cbroglie/mustache"
 )
 
 type docfxMetadata struct {
@@ -76,6 +72,10 @@ type docfxItem struct {
 	HasChildren bool
 	Children    []string
 	Syntax      docfxSyntax
+}
+
+func (item docfxItem) SummaryLines() []string {
+	return strings.Split(item.Summary, "\n")
 }
 
 type docfxSyntax struct {
@@ -219,8 +219,12 @@ func processTypeAlias(c *crate, id string, page *docfxManagedReference, parent *
 	if c.Index[id].Inner.TypeAlias != nil {
 		// Generates a type alias doc string in the following format:
 		// pub type LhsIdentifier = RhsIdentifier<Args>
-		LhsIdentifier := c.Index[id].Name
-		typeAliasString := fmt.Sprintf("pub type %s = %s;", LhsIdentifier, c.Index[id].Inner.TypeAlias.Type.ResolvedPath.toString())
+		lhsIdentifier := c.Index[id].Name
+		rhs, err := c.Index[id].Inner.TypeAlias.Type.ResolvedPath.toString()
+		if err != nil {
+			return fmt.Errorf("error processing type alias item with id %s: %w", id, err)
+		}
+		typeAliasString := fmt.Sprintf("pub type %s = %s;", lhsIdentifier, rhs)
 		// TODO: Create code block in the item Summary for the type alias string.
 		parent.Summary = fmt.Sprintf("%#v", typeAliasString+"\n"+c.Index[id].Docs)
 	}
@@ -322,7 +326,10 @@ func newDocfxItemFromAssocConst(c *crate, parent *docfxItem, id string) (*docfxI
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
 	r.Type = "implementation"
 
-	typeString := c.Index[id].Inner.AssocConst.Type.toString()
+	typeString, err := c.Index[id].Inner.AssocConst.Type.toString()
+	if err != nil {
+		return r, fmt.Errorf("error generating associated const with id %s: %w", id, err)
+	}
 	constString := fmt.Sprintf("const %s: %s = %s%s", c.Index[id].Name, typeString, *c.Index[id].Inner.AssocConst.Value, typeString)
 	// TODO: Need to handle special case where value is "_". Generated rustdoc json currently do not handle consts that reference another value.
 	r.Summary = fmt.Sprintf("%#v%#v", constString, c.getDocString(id))
@@ -404,16 +411,17 @@ type docfxReference struct {
 
 // Based off https://dotnet.github.io/docfx/docs/table-of-contents.html#reference-tocs
 type docfxTableOfContent struct {
-	Name     string
-	Uid      string
-	HasItems bool
-	Items    []docfxTableOfContent
+	Name  string
+	Uid   string
+	Items []docfxTableOfContent
 }
 
-func (toc *docfxTableOfContent) appendItem(item docfxTableOfContent) error {
-	toc.HasItems = true
+func (toc docfxTableOfContent) HasItems() bool {
+	return len(toc.Items) != 0
+}
+
+func (toc *docfxTableOfContent) appendItem(item docfxTableOfContent) {
 	toc.Items = append(toc.Items, item)
-	return nil
 }
 
 func newDocfxManagedReference(c *crate, id string) (*docfxManagedReference, error) {
@@ -473,7 +481,8 @@ func generate(c *crate, projectRoot string, outDir string) error {
 	toc := docfxTableOfContent{Name: c.getRootName(), Uid: rootUid}
 
 	for id := range c.Index {
-		switch c.getKind(id) {
+		kind := c.getKind(id)
+		switch kind {
 		case crateKind:
 			fallthrough
 		case traitKind:
@@ -485,23 +494,12 @@ func generate(c *crate, projectRoot string, outDir string) error {
 		case typeAliasKind:
 			fallthrough
 		case moduleKind:
-			r, err := newDocfxManagedReference(c, id)
+			uid, err := renderReference(c, id, outDir)
 			if err != nil {
 				errs = append(errs, err)
+				continue
 			}
-
-			s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/universalReference.yml.mustache"), r)
-			if err != nil {
-				errs = append(errs, err)
-			}
-			uid, err := c.getDocfxUid(id)
-			if err != nil {
-				errs = append(errs, err)
-			}
-			if err := os.WriteFile(filepath.Join(outDir, fmt.Sprintf("%s.yml", uid)), []byte(s), 0666); err != nil {
-				errs = append(errs, err)
-			}
-			if c.getKind(id) == moduleKind {
+			if kind == moduleKind || kind == crateKind {
 				tocItem := docfxTableOfContent{Name: c.getName(id), Uid: uid}
 				toc.appendItem(tocItem)
 			}
@@ -525,17 +523,11 @@ func generate(c *crate, projectRoot string, outDir string) error {
 		case undefinedKind:
 			fallthrough
 		default:
-			errs = append(errs, fmt.Errorf("unexpected item kind, %s, for id %s", c.getKind(id), id))
+			errs = append(errs, fmt.Errorf("unexpected item kind, %s, for id %s", kind, id))
 		}
 	}
 
-	// Sort the toc before rendering.
-	sort.SliceStable(toc.Items, func(i, j int) bool { return toc.Items[i].Name < toc.Items[j].Name })
-	s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/toc.yml.mustache"), toc)
-	if err != nil {
-		errs = append(errs, err)
-	}
-	if err := os.WriteFile(filepath.Join(outDir, "toc.yml"), []byte(s), 0666); err != nil {
+	if err := renderTOC(toc, outDir); err != nil {
 		errs = append(errs, err)
 	}
 

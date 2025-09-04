@@ -17,9 +17,15 @@ limitations under the License.
   {{#Name}}
   name: {{Name}}
   {{/Name}}
-  {{#HasItems}}
-  items:
-  {{#Items}}
-  {{> tocItem.yml}}
-  {{/Items}}
-  {{/HasItems}}
+  {{#FullName}}
+  fullName: {{FullName}}
+  {{/FullName}}
+  {{#Parent}}
+  parent: {{Parent}}
+  {{/Parent}}
+  {{#isExternal}}
+  isExternal: true
+  {{/isExternal}}
+  {{^isExternal}}
+  isExternal: false
+  {{/isExternal}}
