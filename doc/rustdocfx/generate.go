@@ -17,14 +17,9 @@ package main
 import (
 	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
 	"slices"
-	"sort"
 	"strings"
 	"time"
-
-	"github.com/cbroglie/mustache"
 )
 
 type docfxMetadata struct {
@@ -416,16 +411,17 @@ type docfxReference struct {
 
 // Based off https://dotnet.github.io/docfx/docs/table-of-contents.html#reference-tocs
 type docfxTableOfContent struct {
-	Name     string
-	Uid      string
-	HasItems bool
-	Items    []docfxTableOfContent
+	Name  string
+	Uid   string
+	Items []docfxTableOfContent
 }
 
-func (toc *docfxTableOfContent) appendItem(item docfxTableOfContent) error {
-	toc.HasItems = true
+func (toc docfxTableOfContent) HasItems() bool {
+	return len(toc.Items) != 0
+}
+
+func (toc *docfxTableOfContent) appendItem(item docfxTableOfContent) {
 	toc.Items = append(toc.Items, item)
-	return nil
 }
 
 func newDocfxManagedReference(c *crate, id string) (*docfxManagedReference, error) {
@@ -531,21 +527,7 @@ func generate(c *crate, projectRoot string, outDir string) error {
 		}
 	}
 
-	// Sort the toc before rendering.
-	sort.SliceStable(toc.Items, func(i, j int) bool {
-		// Always put the crate as the first item.
-		if strings.HasPrefix(toc.Items[i].Uid, "crate.") {
-			return true
-		} else if strings.HasPrefix(toc.Items[j].Uid, "crate.") {
-			return false
-		}
-		return toc.Items[i].Name < toc.Items[j].Name
-	})
-	s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/toc.yml.mustache"), toc)
-	if err != nil {
-		errs = append(errs, err)
-	}
-	if err := os.WriteFile(filepath.Join(outDir, "toc.yml"), []byte(s), 0666); err != nil {
+	if err := renderTOC(toc, outDir); err != nil {
 		errs = append(errs, err)
 	}
 
