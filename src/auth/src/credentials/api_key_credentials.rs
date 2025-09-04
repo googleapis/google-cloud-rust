@@ -58,7 +58,6 @@ where
     T: CachedTokenProvider,
 {
     token_provider: T,
-    quota_project_id: Option<String>,
 }
 
 /// A builder for creating credentials that authenticate using an [API key].
@@ -75,7 +74,6 @@ where
 #[derive(Debug)]
 pub struct Builder {
     api_key: String,
-    quota_project_id: Option<String>,
 }
 
 impl Builder {
@@ -92,30 +90,7 @@ impl Builder {
     pub fn new<T: Into<String>>(api_key: T) -> Self {
         Self {
             api_key: api_key.into(),
-            quota_project_id: None,
         }
-    }
-
-    /// Sets the [quota project] for these credentials.
-    ///
-    /// In some services, you can use an account in one project for authentication
-    /// and authorization, and charge the usage to a different project. This requires
-    /// that the user has `serviceusage.services.use` permissions on the quota project.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_auth::credentials::api_key_credentials::Builder;
-    /// # tokio_test::block_on(async {
-    /// let credentials = Builder::new("my-api-key")
-    ///     .with_quota_project_id("my-project")
-    ///     .build();
-    /// # });
-    /// ```
-    ///
-    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
-    pub fn with_quota_project_id<T: Into<String>>(mut self, quota_project_id: T) -> Self {
-        self.quota_project_id = Some(quota_project_id.into());
-        self
     }
 
     fn build_token_provider(self) -> ApiKeyTokenProvider {
@@ -126,12 +101,9 @@ impl Builder {
 
     /// Returns a [Credentials] instance with the configured settings.
     pub fn build(self) -> Credentials {
-        let quota_project_id = self.quota_project_id.clone();
-
         Credentials {
             inner: Arc::new(ApiKeyCredentials {
                 token_provider: TokenCache::new(self.build_token_provider()),
-                quota_project_id,
             }),
         }
     }
@@ -144,14 +116,13 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let cached_token = self.token_provider.token(extensions).await?;
-        build_cacheable_api_key_headers(&cached_token, &self.quota_project_id)
+        build_cacheable_api_key_headers(&cached_token)
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::get_headers_from_cache;
     use http::HeaderValue;
     use scoped_env::ScopedEnv;
@@ -193,26 +164,6 @@ mod tests {
         assert_eq!(headers.len(), 1, "{headers:?}");
         assert_eq!(value, HeaderValue::from_static("test-api-key"));
         assert!(value.is_sensitive());
-        Ok(())
-    }
-
-    #[tokio::test]
-    #[serial_test::serial]
-    async fn create_api_key_credentials_with_options() -> TestResult {
-        let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
-
-        let creds = Builder::new("test-api-key")
-            .with_quota_project_id("qp-option")
-            .build();
-        let headers = get_headers_from_cache(creds.headers(Extensions::new()).await.unwrap())?;
-        let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
-        let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
-
-        assert_eq!(headers.len(), 2, "{headers:?}");
-        assert_eq!(api_key, HeaderValue::from_static("test-api-key"));
-        assert!(api_key.is_sensitive());
-        assert_eq!(quota_project, HeaderValue::from_static("qp-option"));
-        assert!(!quota_project.is_sensitive());
         Ok(())
     }
 
