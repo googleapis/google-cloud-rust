@@ -79,6 +79,10 @@ type docfxItem struct {
 	Syntax      docfxSyntax
 }
 
+func (item docfxItem) SummaryLines() []string {
+	return strings.Split(item.Summary, "\n")
+}
+
 type docfxSyntax struct {
 	Content       string
 	HasParameters bool
@@ -494,21 +498,10 @@ func generate(c *crate, projectRoot string, outDir string) error {
 		case typeAliasKind:
 			fallthrough
 		case moduleKind:
-			r, err := newDocfxManagedReference(c, id)
+			uid, err := renderReference(c, id, outDir)
 			if err != nil {
 				errs = append(errs, err)
-			}
-
-			s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/universalReference.yml.mustache"), r)
-			if err != nil {
-				errs = append(errs, err)
-			}
-			uid, err := c.getDocfxUid(id)
-			if err != nil {
-				errs = append(errs, err)
-			}
-			if err := os.WriteFile(filepath.Join(outDir, fmt.Sprintf("%s.yml", uid)), []byte(s), 0666); err != nil {
-				errs = append(errs, err)
+				continue
 			}
 			if kind == moduleKind || kind == crateKind {
 				tocItem := docfxTableOfContent{Name: c.getName(id), Uid: uid}
