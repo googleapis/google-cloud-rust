@@ -240,22 +240,22 @@ jobs:
         run: rustup show active-toolchain -v
       - run: |
           set -e
-          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-wkt
-          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-api
-          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-rpc
-          cargo semver-checks --all-features --baseline-version 0.24.0 -p google-cloud-gax
-          cargo semver-checks --all-features --baseline-version 0.23.0 -p google-cloud-auth
-          cargo semver-checks --all-features --baseline-version 0.6.0 -p google-cloud-gax-internal
-          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-type
-          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-iam-v1
-          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-location
-          cargo semver-checks --all-features --baseline-version 0.26.0 -p google-cloud-longrunning
-          cargo semver-checks --all-features --baseline-version 0.4.0 -p google-cloud-lro
-          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-kms-v1
-          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-language-v2
-          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-secretmanager-v1
-          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-speech-v2
-          cargo semver-checks --all-features --baseline-version 0.25.0 -p google-cloud-storage
+          cargo semver-checks --all-features -p google-cloud-wkt
+          cargo semver-checks --all-features -p google-cloud-api
+          cargo semver-checks --all-features -p google-cloud-rpc
+          cargo semver-checks --all-features -p google-cloud-gax
+          cargo semver-checks --all-features -p google-cloud-auth
+          cargo semver-checks --all-features -p google-cloud-gax-internal
+          cargo semver-checks --all-features -p google-cloud-type
+          cargo semver-checks --all-features -p google-cloud-iam-v1
+          cargo semver-checks --all-features -p google-cloud-location
+          cargo semver-checks --all-features -p google-cloud-longrunning
+          cargo semver-checks --all-features -p google-cloud-lro
+          cargo semver-checks --all-features -p google-cloud-kms-v1
+          cargo semver-checks --all-features -p google-cloud-language-v2
+          cargo semver-checks --all-features -p google-cloud-secretmanager-v1
+          cargo semver-checks --all-features -p google-cloud-speech-v2
+          cargo semver-checks --all-features -p google-cloud-storage
 
   showcase:
     runs-on: ubuntu-24.04
