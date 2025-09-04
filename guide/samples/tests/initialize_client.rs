@@ -13,9 +13,7 @@
 // limitations under the License.
 
 // [START test_only_snippet] ANCHOR: all
-pub type Result = std::result::Result<(), Box<dyn std::error::Error>>;
-
-pub async fn initialize_client(project_id: &str) -> Result {
+pub async fn initialize_client(project_id: &str) -> anyhow::Result<()> {
     // [START test_only] ANCHOR: use
     use google_cloud_secretmanager_v1::client::SecretManagerService;
     // [END test_only] ANCHOR_END: use
@@ -46,7 +44,7 @@ pub async fn initialize_client(project_id: &str) -> Result {
 }
 
 #[tokio::main]
-async fn main() -> Result {
+async fn main() -> anyhow::Result<()> {
     let project_id = std::env::args().nth(1).unwrap();
 
     initialize_client(&project_id).await
