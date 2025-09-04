@@ -21,6 +21,7 @@ import (
 	"path/filepath"
 	"slices"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/cbroglie/mustache"
@@ -480,7 +481,8 @@ func generate(c *crate, projectRoot string, outDir string) error {
 	toc := docfxTableOfContent{Name: c.getRootName(), Uid: rootUid}
 
 	for id := range c.Index {
-		switch c.getKind(id) {
+		kind := c.getKind(id)
+		switch kind {
 		case crateKind:
 			fallthrough
 		case traitKind:
@@ -508,7 +510,7 @@ func generate(c *crate, projectRoot string, outDir string) error {
 			if err := os.WriteFile(filepath.Join(outDir, fmt.Sprintf("%s.yml", uid)), []byte(s), 0666); err != nil {
 				errs = append(errs, err)
 			}
-			if c.getKind(id) == moduleKind {
+			if kind == moduleKind || kind == crateKind {
 				tocItem := docfxTableOfContent{Name: c.getName(id), Uid: uid}
 				toc.appendItem(tocItem)
 			}
@@ -532,12 +534,20 @@ func generate(c *crate, projectRoot string, outDir string) error {
 		case undefinedKind:
 			fallthrough
 		default:
-			errs = append(errs, fmt.Errorf("unexpected item kind, %s, for id %s", c.getKind(id), id))
+			errs = append(errs, fmt.Errorf("unexpected item kind, %s, for id %s", kind, id))
 		}
 	}
 
 	// Sort the toc before rendering.
-	sort.SliceStable(toc.Items, func(i, j int) bool { return toc.Items[i].Name < toc.Items[j].Name })
+	sort.SliceStable(toc.Items, func(i, j int) bool {
+		// Always put the crate as the first item.
+		if strings.HasPrefix(toc.Items[i].Uid, "crate.") {
+			return true
+		} else if strings.HasPrefix(toc.Items[j].Uid, "crate.") {
+			return false
+		}
+		return toc.Items[i].Name < toc.Items[j].Name
+	})
 	s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/toc.yml.mustache"), toc)
 	if err != nil {
 		errs = append(errs, err)
