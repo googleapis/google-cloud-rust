@@ -226,7 +226,7 @@ func processTypeAlias(c *crate, id string, page *docfxManagedReference, parent *
 		}
 		typeAliasString := fmt.Sprintf("pub type %s = %s;", lhsIdentifier, rhs)
 		// TODO: Create code block in the item Summary for the type alias string.
-		parent.Summary = fmt.Sprintf("%#v", typeAliasString+"\n"+c.Index[id].Docs)
+		parent.Summary = fmt.Sprintf("%s\n\n%s", typeAliasString, c.Index[id].Docs)
 	}
 	return nil
 }
@@ -332,7 +332,7 @@ func newDocfxItemFromAssocConst(c *crate, parent *docfxItem, id string) (*docfxI
 	}
 	constString := fmt.Sprintf("const %s: %s = %s%s", c.Index[id].Name, typeString, *c.Index[id].Inner.AssocConst.Value, typeString)
 	// TODO: Need to handle special case where value is "_". Generated rustdoc json currently do not handle consts that reference another value.
-	r.Summary = fmt.Sprintf("%#v%#v", constString, c.getDocString(id))
+	r.Summary = fmt.Sprintf("%s\n\n%s", constString, c.getDocString(id))
 	return r, nil
 }
 
@@ -347,7 +347,7 @@ func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxIte
 	}
 
 	// Type is explicitly not set as this function is used for multiple doc pipeline types.
-	r.Summary = fmt.Sprintf("%#v%#v", functionSignature, c.getDocString(id))
+	r.Summary = fmt.Sprintf("```rust\n%s\n```\n\n%s", functionSignature, c.getDocString(id))
 	return r, nil
 }
 
