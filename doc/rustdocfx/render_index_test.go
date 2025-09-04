@@ -17,7 +17,7 @@ package main
 import (
 	"encoding/json"
 	"os"
-	ospath "path"
+	fspath "path"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -51,7 +51,7 @@ func TestRenderIndex(t *testing.T) {
 	if err := renderIndex(input, outDir); err != nil {
 		t.Fatal(err)
 	}
-	contents, err := os.ReadFile(ospath.Join(outDir, "_libraries.json"))
+	contents, err := os.ReadFile(fspath.Join(outDir, "_libraries.json"))
 	if err != nil {
 		t.Fatal(err)
 	}

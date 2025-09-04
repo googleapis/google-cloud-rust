@@ -21,6 +21,7 @@ import (
 	"path/filepath"
 	"slices"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/cbroglie/mustache"
@@ -76,6 +77,10 @@ type docfxItem struct {
 	HasChildren bool
 	Children    []string
 	Syntax      docfxSyntax
+}
+
+func (item docfxItem) SummaryLines() []string {
+	return strings.Split(item.Summary, "\n")
 }
 
 type docfxSyntax struct {
@@ -492,21 +497,10 @@ func generate(c *crate, projectRoot string, outDir string) error {
 		case typeAliasKind:
 			fallthrough
 		case moduleKind:
-			r, err := newDocfxManagedReference(c, id)
+			uid, err := renderReference(c, id, outDir)
 			if err != nil {
 				errs = append(errs, err)
-			}
-
-			s, err := mustache.RenderFile(filepath.Join(projectRoot, "doc/rustdocfx/templates/universalReference.yml.mustache"), r)
-			if err != nil {
-				errs = append(errs, err)
-			}
-			uid, err := c.getDocfxUid(id)
-			if err != nil {
-				errs = append(errs, err)
-			}
-			if err := os.WriteFile(filepath.Join(outDir, fmt.Sprintf("%s.yml", uid)), []byte(s), 0666); err != nil {
-				errs = append(errs, err)
+				continue
 			}
 			if c.getKind(id) == moduleKind {
 				tocItem := docfxTableOfContent{Name: c.getName(id), Uid: uid}

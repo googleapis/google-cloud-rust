@@ -101,7 +101,7 @@ func (c *crate) getName(id string) string {
 }
 
 func (c *crate) getDocString(id string) string {
-	return fmt.Sprintf("%#v", c.Index[id].Docs)
+	return c.Index[id].Docs
 }
 
 type kind int
