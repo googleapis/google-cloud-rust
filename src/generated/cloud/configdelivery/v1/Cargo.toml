@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-configdelivery-v1"
-version                = "0.4.5"
+version                = "0.5.0"
 description            = "Google Cloud Client Libraries for Rust - Config Delivery API"
 edition.workspace      = true
 authors.workspace      = true

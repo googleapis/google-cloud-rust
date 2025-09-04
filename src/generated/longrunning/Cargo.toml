@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-longrunning"
-version                = "0.25.5"
+version                = "0.26.0"
 description            = "Google Cloud Client Libraries for Rust - Long Running Operations API"
 edition.workspace      = true
 authors.workspace      = true
