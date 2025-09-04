@@ -2630,6 +2630,7 @@ dependencies = [
  "tokio",
  "tonic",
  "tonic-prost",
+ "tracing",
 ]
 
 [[package]]

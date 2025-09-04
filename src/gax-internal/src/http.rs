@@ -27,6 +27,7 @@ use http::{Extensions, Method, Uri};
 use std::str::FromStr;
 use std::sync::Arc;
 use std::time::Duration;
+use tracing::info_span;
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
@@ -34,6 +35,9 @@ pub struct ReqwestClient {
     cred: Credentials,
     endpoint: String,
     host: String,
+    artifact: String,
+    version: String,
+    name: String,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
@@ -45,6 +49,16 @@ impl ReqwestClient {
     pub async fn new(
         config: crate::options::ClientConfig,
         default_endpoint: &str,
+    ) -> gax::client_builder::Result<Self> {
+        Self::new2(config, default_endpoint, "", "", "").await
+    }
+
+    pub async fn new2(
+        config: crate::options::ClientConfig,
+        default_endpoint: &str,
+        artifact: &str,
+        version: &str,
+        name: &str,
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
         let inner = reqwest::Client::new();
@@ -62,6 +76,9 @@ impl ReqwestClient {
             cred,
             endpoint,
             host,
+            artifact: artifact.to_string(),
+            version: version.to_string(),
+            name: name.to_string(),
             retry_policy: config.retry_policy.unwrap_or_else(|| {
                 Arc::new(
                     RetryAip194Strict
@@ -87,11 +104,12 @@ impl ReqwestClient {
             .request(method, format!("{}{path}", &self.endpoint))
     }
 
-    pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned + Default>(
+    pub async fn execute2<I: serde::ser::Serialize, O: serde::de::DeserializeOwned + Default>(
         &self,
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
         options: gax::options::RequestOptions,
+        template: String,
     ) -> Result<Response<O>> {
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
@@ -103,7 +121,16 @@ impl ReqwestClient {
         if let Some(body) = body {
             builder = builder.json(&body);
         }
-        self.retry_loop::<O>(builder, options).await
+        self.retry_loop::<O>(builder, options, template).await
+    }
+
+    pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned + Default>(
+        &self,
+        builder: reqwest::RequestBuilder,
+        body: Option<I>,
+        options: gax::options::RequestOptions,
+    ) -> Result<Response<O>> {
+        self.execute2(builder, body, options, String::new()).await
     }
 
     async fn make_credentials(
@@ -121,6 +148,7 @@ impl ReqwestClient {
         &self,
         builder: reqwest::RequestBuilder,
         options: gax::options::RequestOptions,
+        template: String,
     ) -> Result<Response<O>> {
         let idempotent = options.idempotent().unwrap_or(false);
         let throttler = self.get_retry_throttler(&options);
@@ -131,7 +159,8 @@ impl ReqwestClient {
             let builder = builder
                 .try_clone()
                 .expect("client libraries only create builders where `try_clone()` succeeds");
-            this.request_attempt(builder, &options, d).await
+            this.request_attempt(builder, &options, d, template.clone())
+                .await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
         gax::retry_loop_internal::retry_loop(inner, sleep, idempotent, throttler, retry, backoff)
@@ -143,6 +172,7 @@ impl ReqwestClient {
         mut builder: reqwest::RequestBuilder,
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
+        template: String,
     ) -> Result<Response<O>> {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
@@ -155,7 +185,7 @@ impl ReqwestClient {
         let (client, request) = builder.build_split();
         let request = request.map_err(Self::map_send_error)?;
         let response = self
-            .instrument_and_send(client, request)
+            .instrument_and_send(client, request, template)
             .await
             .map_err(Self::map_send_error)?;
         if !response.status().is_success() {
@@ -170,9 +200,78 @@ impl ReqwestClient {
         &self,
         client: reqwest::Client,
         request: reqwest::Request,
+        template: String,
     ) -> reqwest::Result<reqwest::Response> {
-        // TODO(#3239): add instrumentation.
-        client.execute(request).await
+        let span = info_span!(
+            "http_request_attempt",
+            "rpc.system" = "http",
+            // OTel semantic convention requirements for http.
+            "otel.name" = tracing::field::Empty, // deferred.
+            "otel.kind" = "Client",
+            "otel.status" = "Unset",
+            "otel.status_message" = tracing::field::Empty, // TODO.
+            "http.request.method" = request.method().as_str(),
+            "server.address" = tracing::field::Empty, // deferred.
+            "server.port" = tracing::field::Empty,    // deferred.
+            "url.full" = tracing::field::Empty,       // deferred.
+            // OTel semantic convention requirements for responses and errors.
+            "http.response.status_code" = tracing::field::Empty, // response.
+            "error.type" = tracing::field::Empty,                // response.
+            // Extra info per GCP spec.
+            "url.domain" = self.host,
+            "url.template" = template,
+            "gcp-e.client.service" = self.name,
+            "gcp-e.client.version" = self.version,
+            "gcp-e.client.repo" = "googleapis/google-cloud-rust",
+            "gcp-e.client.artifact" = self.artifact,
+            "gcp-e.resource.name" = tracing::field::Empty,
+        );
+
+        // Conditionally required, but not recorded by this library:
+        // http.request.method_original
+        // network.protocol.name
+
+        if !span.is_disabled() {
+            // record expensive things here.
+            request
+                .url()
+                .host_str()
+                .map(|s| span.record("server.address", s.to_string()));
+
+            request
+                .url()
+                .port_or_known_default()
+                .map(|p| span.record("server.port", p));
+
+            let method = request.method().as_str();
+            span.record("otel.name", format!("{} {}", method, template));
+
+            // TODO: scrub credentials.
+            span.record("url.full", request.url().to_string());
+        }
+
+        use tracing::Instrument as _;
+        let span_for_block = span.clone(); // cheap.
+        async move {
+            client
+                .execute(request)
+                .await
+                .inspect(|r| {
+                    let code = r.status().as_u16();
+                    span_for_block.record("http.response.status_code", code);
+                    if !r.status().is_success() {
+                        span_for_block.record("error.type", format!("{}00", code / 100));
+                        span_for_block.record("otel.status", "Error");
+                    }
+                })
+                .inspect_err(|e| {
+                    // TODO: implement versions with no `code`.
+                    span_for_block.record("error.type", "no code");
+                    span_for_block.record("otel.status", "Error");
+                })
+        }
+        .instrument(span)
+        .await
     }
 
     fn map_send_error(err: reqwest::Error) -> Error {
