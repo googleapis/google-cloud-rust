@@ -83,13 +83,15 @@ func main() {
 		log.Fatalf("Error getting workspace crates: %v\n", err)
 	}
 
-	for i := 0; i < len(workspaceCrates); i++ {
-		// TODO: Allow for regex on crate names instead.
-		if !slices.Contains(crateDenyList, workspaceCrates[i].Name) && (len(crates) == 0 || slices.Contains(crates, workspaceCrates[i].Name)) {
-			crate := workspaceCrates[i]
+	if err := renderIndex(workspaceCrates, filepath.Join(*projectRoot, *out)); err != nil {
+		log.Fatal(err)
+	}
 
-			runCmd(nil, *projectRoot, "cargo", "+nightly", "-Z", "unstable-options", "rustdoc", "--output-format=json", fmt.Sprintf("--manifest-path=%s/Cargo.toml", workspaceCrates[i].Location))
-			// cargo names are snake case while cargo rustdoc output files are kebob case.
+	for i, crate := range workspaceCrates {
+		// TODO: Allow for regex on crate names instead.
+		if !slices.Contains(crateDenyList, crate.Name) && (len(crates) == 0 || slices.Contains(crates, crate.Name)) {
+			runCmd(nil, *projectRoot, "cargo", "+nightly", "-Z", "unstable-options", "rustdoc", "--output-format=json", "--package", crate.Name)
+			// cargo names are snake case while cargo rustdoc output files are kebab case.
 			fileName := fmt.Sprintf("%s.json", strings.ReplaceAll(workspaceCrates[i].Name, "-", "_"))
 			file := filepath.Join(*projectRoot, "/target/doc", fileName)
 			rustDocFile, err := os.Open(file)
