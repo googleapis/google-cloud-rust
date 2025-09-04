@@ -233,7 +233,7 @@ jobs:
           set -e
           rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
           rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          cargo install cargo-minimal-versions cargo-hack@0.6.37 cargo-minimal-versions@0.1.31 --locked
+          cargo install --locked cargo-semver-checks@0.42.0
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version
@@ -241,20 +241,20 @@ jobs:
       - run: |
           set -e
           cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-wkt
-          cargo semver-checks --all-features --baseline-version 0.4.4 -p google-cloud-api
-          cargo semver-checks --all-features --baseline-version 0.4.4 -p google-cloud-rpc
+          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-api
+          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-rpc
           cargo semver-checks --all-features --baseline-version 0.24.0 -p google-cloud-gax
-          cargo semver-checks --all-features --baseline-version 0.22.0 -p google-cloud-auth
-          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-gax-internal
-          cargo semver-checks --all-features --baseline-version 0.4.0 -p google-cloud-type
-          cargo semver-checks --all-features --baseline-version 0.4.0 -p google-cloud-iam-v1
-          cargo semver-checks --all-features --baseline-version 0.4.0 -p google-cloud-location
-          cargo semver-checks --all-features --baseline-version 0.25.0 -p google-cloud-longrunning
-          cargo semver-checks --all-features --baseline-version 0.3.0 -p google-cloud-lro
-          cargo semver-checks --all-features --baseline-version 0.4.0 -p google-cloud-kms-v1
-          cargo semver-checks --all-features --baseline-version 0.4.0 -p google-cloud-language-v2
-          cargo semver-checks --all-features --baseline-version 0.4.0 -p google-cloud-secretmanager-v1
-          cargo semver-checks --all-features --baseline-version 0.4.0 -p google-cloud-speech-v2
+          cargo semver-checks --all-features --baseline-version 0.23.0 -p google-cloud-auth
+          cargo semver-checks --all-features --baseline-version 0.6.0 -p google-cloud-gax-internal
+          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-type
+          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-iam-v1
+          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-location
+          cargo semver-checks --all-features --baseline-version 0.26.0 -p google-cloud-longrunning
+          cargo semver-checks --all-features --baseline-version 0.4.0 -p google-cloud-lro
+          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-kms-v1
+          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-language-v2
+          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-secretmanager-v1
+          cargo semver-checks --all-features --baseline-version 0.5.0 -p google-cloud-speech-v2
           cargo semver-checks --all-features --baseline-version 0.25.0 -p google-cloud-storage
 
   showcase:
