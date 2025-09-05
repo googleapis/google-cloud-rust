@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-vmmigration-v1"
-version                = "0.5.0"
+version                = "1.0.0"
 description            = "Google Cloud Client Libraries for Rust - VM Migration API"
 edition.workspace      = true
 authors.workspace      = true
