@@ -26,7 +26,6 @@ mod tests {
     use google_cloud_auth::credentials::EntityTag;
     use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
     use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
-    use google_cloud_auth::credentials::testing::test_credentials;
     use google_cloud_auth::credentials::user_account::Builder as UserAccountCredentialBuilder;
     use google_cloud_auth::credentials::{
         Builder as AccessTokenCredentialBuilder, CacheableResource, Credentials,
@@ -492,23 +491,6 @@ mod tests {
         };
         assert_eq!(creds.universe_domain().await.unwrap(), universe_domain);
 
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn testing_credentials() -> Result<()> {
-        let creds = test_credentials();
-        let cached_headers = creds.headers(Extensions::new()).await?;
-        match cached_headers {
-            CacheableResource::New { entity_tag, data } => {
-                assert_eq!(entity_tag, EntityTag::default());
-                assert!(data.is_empty());
-            }
-            CacheableResource::NotModified => {
-                unreachable!("Expecting a header to be present");
-            }
-        };
-        assert_eq!(creds.universe_domain().await, None);
         Ok(())
     }
 

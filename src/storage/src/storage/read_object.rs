@@ -777,6 +777,7 @@ mod tests {
     use super::*;
     use crate::error::ChecksumMismatch;
     use crate::model_ext::{KeyAes256, ReadRange, tests::create_key_helper};
+    use auth::credentials::anonymous::Builder as Anonymous;
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
@@ -802,7 +803,7 @@ mod tests {
     #[tokio::test]
     async fn test_read_is_send_and_static() -> Result {
         let client = Storage::builder()
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
@@ -840,7 +841,7 @@ mod tests {
 
         let client = Storage::builder()
             .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let mut reader = client
@@ -887,7 +888,7 @@ mod tests {
         let endpoint = server.url("");
         let client = Storage::builder()
             .with_endpoint(endpoint.to_string())
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let reader = client
@@ -928,7 +929,7 @@ mod tests {
 
         let client = Storage::builder()
             .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let response = client
@@ -971,7 +972,7 @@ mod tests {
 
         let client = Storage::builder()
             .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
@@ -1008,7 +1009,7 @@ mod tests {
 
         let client = Storage::builder()
             .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let err = client
@@ -1044,7 +1045,7 @@ mod tests {
 
         let client = Storage::builder()
             .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let mut response = client
@@ -1140,7 +1141,7 @@ mod tests {
 
         let client = Storage::builder()
             .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let mut response = client

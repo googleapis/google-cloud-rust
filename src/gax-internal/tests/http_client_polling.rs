@@ -18,6 +18,10 @@ mod tests {
 
     type TestResult = Result<(), Box<dyn std::error::Error>>;
 
+    fn test_credentials() -> auth::credentials::Credentials {
+        auth::credentials::anonymous::Builder::new().build()
+    }
+
     /// A test policy, the only interesting bit is the name, which is included
     /// in debug messages and used in the tests.
     #[derive(Debug)]
@@ -48,7 +52,7 @@ mod tests {
     async fn default_polling_policies() -> TestResult {
         let (endpoint, _server) = echo_server::start().await?;
         let client = echo_server::builder(endpoint)
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(test_credentials())
             .build()
             .await?;
 
@@ -64,7 +68,7 @@ mod tests {
     async fn client_config_polling_policies() -> TestResult {
         let (endpoint, _server) = echo_server::start().await?;
         let client = echo_server::builder(endpoint)
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(test_credentials())
             .with_polling_error_policy(TestErrorPolicy {
                 _name: "client-polling-error".to_string(),
             })
@@ -89,7 +93,7 @@ mod tests {
     async fn request_options_polling_policies() -> TestResult {
         let (endpoint, _server) = echo_server::start().await?;
         let client = echo_server::builder(endpoint)
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(test_credentials())
             .with_polling_error_policy(TestErrorPolicy {
                 _name: "client-polling-error".to_string(),
             })

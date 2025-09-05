@@ -28,7 +28,7 @@ mod tests {
 
     async fn new_client(endpoint: String) -> Result<client::Client> {
         let client = client::Client::builder()
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(auth::credentials::anonymous::Builder::new().build())
             .with_endpoint(endpoint)
             .build()
             .await?;

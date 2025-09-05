@@ -1061,6 +1061,7 @@ mod tests {
     use crate::model::{ObjectChecksums, WriteObjectSpec};
     use crate::storage::checksum::details::{Crc32c, Md5};
     use crate::streaming_source::tests::MockSeekSource;
+    use auth::credentials::anonymous::Builder as Anonymous;
     use std::error::Error as _;
     use std::io::{Error as IoError, ErrorKind};
 
@@ -1085,7 +1086,7 @@ mod tests {
         }
 
         let client = Storage::builder()
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let _ = client.write_object("projects/_/buckets/test-bucket", "test-object", Source);
@@ -1105,7 +1106,7 @@ mod tests {
         }
 
         let client = Storage::builder()
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let _ = client.write_object("projects/_/buckets/test-bucket", "test-object", Source);
@@ -1116,7 +1117,7 @@ mod tests {
     #[tokio::test]
     async fn test_upload_is_send_and_static() -> Result {
         let client = Storage::builder()
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 

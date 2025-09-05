@@ -18,7 +18,7 @@ use showcase::model::*;
 pub async fn run() -> Result<()> {
     let client = showcase::client::Identity::builder()
         .with_endpoint("http://localhost:7469")
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(auth::credentials::anonymous::Builder::new().build())
         .with_retry_policy(gax::retry_policy::NeverRetry)
         .with_tracing()
         .build()

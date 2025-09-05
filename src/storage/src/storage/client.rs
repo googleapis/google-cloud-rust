@@ -647,7 +647,7 @@ pub(crate) mod tests {
 
     pub(crate) fn test_builder() -> ClientBuilder {
         ClientBuilder::new()
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(auth::credentials::anonymous::Builder::new().build())
             .with_endpoint("http://private.googleapis.com")
             .with_backoff_policy(
                 gax::exponential_backoff::ExponentialBackoffBuilder::new()

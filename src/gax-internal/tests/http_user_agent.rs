@@ -19,11 +19,15 @@ mod tests {
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
+    fn test_credentials() -> auth::credentials::Credentials {
+        auth::credentials::anonymous::Builder::new().build()
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_user_agent() -> Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
         let client = echo_server::builder(endpoint)
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(test_credentials())
             .build()
             .await?;
 
@@ -42,7 +46,7 @@ mod tests {
     async fn test_user_agent_with_prefix() -> Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
         let client = echo_server::builder(endpoint)
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(test_credentials())
             .build()
             .await?;
 

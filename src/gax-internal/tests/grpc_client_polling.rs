@@ -14,11 +14,14 @@
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
-    use auth::credentials::testing::test_credentials;
     use gax::polling_state::PollingState;
     use grpc_server::{builder, start_echo_server};
 
     type TestResult = Result<(), Box<dyn std::error::Error>>;
+
+    fn test_credentials() -> auth::credentials::Credentials {
+        auth::credentials::anonymous::Builder::new().build()
+    }
 
     /// A test policy, the only interesting bit is the name, which is included
     /// in debug messages and used in the tests.
@@ -90,7 +93,7 @@ mod tests {
     async fn request_options_polling_policies() -> TestResult {
         let (endpoint, _server) = start_echo_server().await?;
         let client = builder(endpoint)
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(test_credentials())
             .with_polling_error_policy(TestErrorPolicy {
                 _name: "client-polling-error".to_string(),
             })

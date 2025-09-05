@@ -350,7 +350,7 @@ async fn source_next_error() -> Result {
 
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(auth::credentials::anonymous::Builder::new().build())
         .build()
         .await?;
     use crate::streaming_source::tests::MockSimpleSource;

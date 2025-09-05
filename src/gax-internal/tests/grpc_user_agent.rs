@@ -18,11 +18,15 @@ mod test {
     use google_cloud_gax_internal::grpc;
     use grpc_server::{builder, google, start_echo_server};
 
+    fn test_credentials() -> auth::credentials::Credentials {
+        auth::credentials::anonymous::Builder::new().build()
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_user_agent() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let client = builder(endpoint)
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(test_credentials())
             .build()
             .await?;
 

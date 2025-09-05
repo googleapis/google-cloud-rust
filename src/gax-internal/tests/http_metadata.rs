@@ -59,8 +59,9 @@ mod tests {
     }
 
     fn test_config() -> ClientConfig {
+        let cred = auth::credentials::anonymous::Builder::new().build();
         ClientConfig {
-            cred: auth::credentials::testing::test_credentials().into(),
+            cred: cred.into(),
             ..Default::default()
         }
     }
