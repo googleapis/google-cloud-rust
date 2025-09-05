@@ -34,11 +34,10 @@ func TestRenderReferenceCrate(t *testing.T) {
 	outDir := t.TempDir()
 	wantUid := "crate.google_cloud_security_publicca_v1"
 	id := findIdByUid(t, input, wantUid)
-	uid, err := renderReference(input, id, outDir)
-	if err != nil {
+	if err := renderReference(input, id, outDir); err != nil {
 		t.Fatal(err)
 	}
-	contents, err := os.ReadFile(fspath.Join(outDir, fmt.Sprintf("%s.yml", uid)))
+	contents, err := os.ReadFile(fspath.Join(outDir, fmt.Sprintf("%s.yml", wantUid)))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -66,7 +65,7 @@ func TestRenderReferenceFunction(t *testing.T) {
 	outDir := t.TempDir()
 	wantUid := "struct.google_cloud_security_publicca_v1.client.PublicCertificateAuthorityService"
 	id := findIdByUid(t, input, wantUid)
-	if _, err := renderReference(input, id, outDir); err != nil {
+	if err := renderReference(input, id, outDir); err != nil {
 		t.Fatal(err)
 	}
 	contents, err := os.ReadFile(fspath.Join(outDir, fmt.Sprintf("%s.yml", wantUid)))
@@ -102,7 +101,7 @@ func TestRenderReferenceFields(t *testing.T) {
 	outDir := t.TempDir()
 	wantUid := "struct.google_cloud_security_publicca_v1.model.ExternalAccountKey"
 	id := findIdByUid(t, input, wantUid)
-	if _, err := renderReference(input, id, outDir); err != nil {
+	if err := renderReference(input, id, outDir); err != nil {
 		t.Fatal(err)
 	}
 	contents, err := os.ReadFile(fspath.Join(outDir, fmt.Sprintf("%s.yml", wantUid)))

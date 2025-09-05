@@ -27,13 +27,13 @@ func TestRenderToc(t *testing.T) {
 	input := docfxTableOfContent{
 		Name: "test-only-root-name",
 		Uid:  "00010",
-		Items: []docfxTableOfContent{
+		Items: []*docfxTableOfContent{
 			{Name: "module-b", Uid: "module.b"},
 			{Name: "test-only-root-name", Uid: "crate.test-only-root"},
 			{
 				Name: "module-a",
 				Uid:  "module.a",
-				Items: []docfxTableOfContent{
+				Items: []*docfxTableOfContent{
 					{Name: "submodule-z", Uid: "module.z"},
 					{Name: "submodule-y", Uid: "module.y"},
 				},
@@ -41,7 +41,7 @@ func TestRenderToc(t *testing.T) {
 		},
 	}
 	outDir := t.TempDir()
-	if err := renderTOC(input, outDir); err != nil {
+	if err := renderTOC(&input, outDir); err != nil {
 		t.Fatal(err)
 	}
 	contents, err := os.ReadFile(fspath.Join(outDir, "toc.yml"))
@@ -66,6 +66,47 @@ func TestRenderToc(t *testing.T) {
 		"  - uid: module.b",
 		"    name: module-b",
 		"",
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatched summary lines in generated YAML (-want +got):\n%s", diff)
+	}
+
+}
+
+func TestRenderTocNestedModules(t *testing.T) {
+	input, err := testDataPublicCA()
+	if err != nil {
+		t.Fatal(err)
+	}
+	outDir := t.TempDir()
+	toc, err := computeTOC(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := renderTOC(toc, outDir); err != nil {
+		t.Fatal(err)
+	}
+	contents, err := os.ReadFile(fspath.Join(outDir, "toc.yml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := strings.Split(string(contents), "\n")
+	want := []string{
+		"### YamlMime:TableOfContent",
+		"- uid: crate.google_cloud_security_publicca_v1",
+		"  name: google_cloud_security_publicca_v1",
+		"  items:",
+		"  - uid: module.google_cloud_security_publicca_v1.builder",
+		"    name: builder",
+		"    items:",
+		"    - uid: module.google_cloud_security_publicca_v1.builder.public_certificate_authority_service",
+		"      name: public_certificate_authority_service",
+		"  - uid: module.google_cloud_security_publicca_v1.client",
+		"    name: client",
+		"  - uid: module.google_cloud_security_publicca_v1.model",
+		"    name: model",
+		"  - uid: module.google_cloud_security_publicca_v1.stub",
+		"    name: stub", "",
 	}
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatched summary lines in generated YAML (-want +got):\n%s", diff)
