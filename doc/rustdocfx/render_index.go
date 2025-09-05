@@ -86,7 +86,7 @@ func renderIndex(crates []crate, outDir string) error {
 	if err != nil {
 		return err
 	}
-	os.MkdirAll(outDir, 0755) // ignore errors
+	_ = os.MkdirAll(outDir, 0755) // ignore errors
 	if err := os.WriteFile(filepath.Join(outDir, "_libraries.json"), []byte(output), 0644); err != nil {
 		return err
 	}

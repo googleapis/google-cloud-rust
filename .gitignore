@@ -33,6 +33,7 @@ terraform.tfstate
 
 # Ignore code coverage output files.
 cobertura.xml
+coverage.out
 
 # Ignore cargo-mutants directories.
 mutants.out/

@@ -41,8 +41,8 @@ import (
 	"strings"
 )
 
-// Temporarily disable generation for certain crates.
-var crateDenyList = []string{"gcp-sdk", "google-cloud-base"}
+// crateDenyList enumerates the crates which do not get documents at cloud.google.com
+var crateDenyList = []string{"gcp-sdk", "google-cloud-base", "google-cloud-gax-internal"}
 
 func main() {
 	out := flag.String("out", "docfx", "Output directory within project-root (default docfx)")
@@ -61,19 +61,15 @@ func main() {
 	if err != nil {
 		log.Fatalf("Unable to create temp file for cargo workspace plan: %v\n", err)
 	}
-	defer os.Remove(tempFile.Name())
+	defer func() { _ = os.Remove(tempFile.Name()) }()
 	fmt.Printf("Created tmp file %s for cargo workspace plan\n", tempFile.Name())
 
-	runCmd(tempFile, *projectRoot, "cargo", "workspaces", "plan", "--json")
+	if err := runCmd(tempFile, *projectRoot, "cargo", "workspaces", "plan", "--json"); err != nil {
+		log.Fatalf("Unable to get package list: %v", err)
+	}
 	fmt.Printf("using cargo workspace plan for crates\n")
 
-	jsonFile, err := os.Open(tempFile.Name())
-	if err != nil {
-		log.Fatalf("Unable to open temp file for cargo workspace plan: %v\n", err)
-	}
-	defer jsonFile.Close()
-
-	byteValue, err := io.ReadAll(jsonFile)
+	byteValue, err := os.ReadFile(tempFile.Name())
 	if err != nil {
 		log.Fatalf("Unable to read cargo workspace json file: %v\n", err)
 	}
@@ -90,23 +86,21 @@ func main() {
 	for i, crate := range workspaceCrates {
 		// TODO: Allow for regex on crate names instead.
 		if !slices.Contains(crateDenyList, crate.Name) && (len(crates) == 0 || slices.Contains(crates, crate.Name)) {
-			runCmd(nil, *projectRoot, "cargo", "+nightly", "-Z", "unstable-options", "rustdoc", "--output-format=json", "--package", crate.Name)
+			if err := runCmd(nil, *projectRoot, "cargo", "+nightly", "-Z", "unstable-options", "rustdoc", "--output-format=json", "--package", crate.Name); err != nil {
+				fmt.Printf("Error in cargo rustdoc command: %v", err)
+				continue
+			}
 			// cargo names are snake case while cargo rustdoc output files are kebab case.
 			fileName := fmt.Sprintf("%s.json", strings.ReplaceAll(workspaceCrates[i].Name, "-", "_"))
 			file := filepath.Join(*projectRoot, "/target/doc", fileName)
-			rustDocFile, err := os.Open(file)
-			if err != nil {
-				log.Fatalf("Error opening rustdoc file: %v\n", err)
-			}
-			defer rustDocFile.Close()
-			jsonBytes, err := io.ReadAll(rustDocFile)
+			jsonBytes, err := os.ReadFile(file)
 			if err != nil {
 				log.Fatalf("Error reading rustdoc file: %v\n", err)
 			}
 			unmarshalRustdoc(&crate, jsonBytes)
 
 			crateOutDir := filepath.Join(*projectRoot, *out, crate.Name)
-			os.MkdirAll(crateOutDir, 0777) // Ignore errors
+			_ = os.MkdirAll(crateOutDir, 0777) // Ignore errors
 
 			err = generate(&crate, crateOutDir)
 			if err != nil {
@@ -117,7 +111,9 @@ func main() {
 			if *upload {
 				fmt.Printf("Uploading crate: %s\n", crate.Name)
 				// TODO: Add a flag to specify bucket location.
-				runCmd(nil, "", "docuploader", "upload", "--staging-bucket=docs-staging-v2-dev", fmt.Sprintf("--metadata-file=%s/docs.metadata", crateOutDir), crateOutDir)
+				if err := runCmd(nil, "", "docuploader", "upload", "--staging-bucket=docs-staging-v2-dev", fmt.Sprintf("--metadata-file=%s/docs.metadata", crateOutDir), crateOutDir); err != nil {
+					fmt.Printf("error uploading files: %v\n", err)
+				}
 			}
 		}
 	}
