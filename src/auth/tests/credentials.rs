@@ -515,15 +515,12 @@ mod tests {
     #[tokio::test]
     async fn get_mds_credentials_from_builder() -> Result<()> {
         let test_quota_project = "test-quota-project";
-        let test_universe_domain = "test-universe-domain";
         let mdcs = MdsBuilder::default()
             .with_quota_project_id(test_quota_project)
-            .with_universe_domain(test_universe_domain)
             .build()?;
         let fmt = format!("{mdcs:?}");
         assert!(fmt.contains("MDSCredentials"));
         assert!(fmt.contains(test_quota_project));
-        assert!(fmt.contains(test_universe_domain));
         Ok(())
     }
 

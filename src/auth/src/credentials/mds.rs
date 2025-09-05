@@ -75,7 +75,7 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{CacheableResource, Credentials, DEFAULT_UNIVERSE_DOMAIN};
+use crate::credentials::{CacheableResource, Credentials};
 use crate::errors::CredentialsError;
 use crate::headers_util::build_cacheable_headers;
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
@@ -114,7 +114,6 @@ where
     T: CachedTokenProvider,
 {
     quota_project_id: Option<String>,
-    universe_domain: Option<String>,
     token_provider: T,
 }
 
@@ -134,7 +133,6 @@ pub struct Builder {
     endpoint: Option<String>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
-    universe_domain: Option<String>,
     created_by_adc: bool,
     retry_builder: RetryTokenProviderBuilder,
 }
@@ -169,17 +167,6 @@ impl Builder {
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
-        self
-    }
-
-    /// Sets the universe domain for this credentials.
-    ///
-    /// Client libraries use `universe_domain` to determine
-    /// the API endpoints to use for making requests.
-    /// If not set, then credentials use `${service}.googleapis.com`,
-    /// otherwise they use `${service}.${universe_domain}.
-    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
-        self.universe_domain = Some(universe_domain.into());
         self
     }
 
@@ -304,7 +291,6 @@ impl Builder {
     pub fn build(self) -> BuildResult<Credentials> {
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
-            universe_domain: self.universe_domain.clone(),
             token_provider: TokenCache::new(self.build_token_provider()),
         };
         Ok(Credentials {
@@ -321,13 +307,6 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let cached_token = self.token_provider.token(extensions).await?;
         build_cacheable_headers(&cached_token, &self.quota_project_id)
-    }
-
-    async fn universe_domain(&self) -> Option<String> {
-        if self.universe_domain.is_some() {
-            return self.universe_domain.clone();
-        }
-        return Some(DEFAULT_UNIVERSE_DOMAIN.to_string());
     }
 }
 
@@ -421,6 +400,7 @@ impl TokenProvider for MDSAccessTokenProvider {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
         find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
@@ -550,7 +530,6 @@ mod tests {
 
         let mdsc = MDSCredentials {
             quota_project_id: None,
-            universe_domain: None,
             token_provider: TokenCache::new(mock),
         };
 
@@ -585,7 +564,6 @@ mod tests {
 
         let mdsc = MDSCredentials {
             quota_project_id: None,
-            universe_domain: None,
             token_provider: TokenCache::new(mock),
         };
         assert!(mdsc.headers(Extensions::new()).await.is_err());
@@ -983,20 +961,6 @@ mod tests {
     async fn get_default_universe_domain_success() -> TestResult {
         let universe_domain_response = Builder::default().build()?.universe_domain().await.unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn get_custom_universe_domain_success() -> TestResult {
-        let universe_domain = "test-universe";
-        let universe_domain_response = Builder::default()
-            .with_universe_domain(universe_domain)
-            .build()?
-            .universe_domain()
-            .await
-            .unwrap();
-        assert_eq!(universe_domain_response, universe_domain);
-
         Ok(())
     }
 }

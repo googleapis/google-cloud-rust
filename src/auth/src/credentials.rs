@@ -32,6 +32,8 @@ pub mod service_account;
 pub mod subject_token;
 pub mod user_account;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
+
+#[cfg(test)]
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 /// Represents an Entity Tag for a [CacheableResource].
