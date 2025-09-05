@@ -147,7 +147,7 @@ func testDataPublicCA() (*crate, error) {
 		return nil, err
 	}
 	crate := new(crate)
-	// Our parser cannot handle certain attributes
-	json.Unmarshal(contents, &crate) // ignore errors
+	// Our parser cannot handle certain attributes, we ignore errors for now
+	_ = json.Unmarshal(contents, &crate)
 	return crate, nil
 }

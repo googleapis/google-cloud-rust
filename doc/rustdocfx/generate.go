@@ -46,22 +46,19 @@ type docfxManagedReference struct {
 	References    []docfxReference
 }
 
-func (mangedReference *docfxManagedReference) appendItem(item *docfxItem) error {
+func (mangedReference *docfxManagedReference) appendItem(item *docfxItem) {
 	mangedReference.HasItems = true
 	mangedReference.Items = append(mangedReference.Items, *item)
-	return nil
 }
 
-func (mangedReference *docfxManagedReference) prependItem(item *docfxItem) error {
+func (mangedReference *docfxManagedReference) prependItem(item *docfxItem) {
 	mangedReference.HasItems = true
 	mangedReference.Items = append([]docfxItem{*item}, mangedReference.Items...)
-	return nil
 }
 
-func (mangedReference *docfxManagedReference) appendReference(reference *docfxReference) error {
+func (mangedReference *docfxManagedReference) appendReference(reference *docfxReference) {
 	mangedReference.HasReferences = true
 	mangedReference.References = append(mangedReference.References, *reference)
-	return nil
 }
 
 type docfxItem struct {
@@ -84,18 +81,6 @@ type docfxSyntax struct {
 	Parameters    []docfxParameter
 	HasReturns    bool
 	Returns       []docfxParameter
-}
-
-func (syntax *docfxSyntax) appendParameter(parameter *docfxParameter) error {
-	syntax.HasParameters = true
-	syntax.Parameters = append(syntax.Parameters, *parameter)
-	return nil
-}
-
-func (syntax *docfxSyntax) appendReturn(returnValue *docfxParameter) error {
-	syntax.HasReturns = true
-	syntax.Returns = append(syntax.Returns, *returnValue)
-	return nil
 }
 
 type docfxParameter struct {
@@ -320,22 +305,6 @@ func processImplementation(c *crate, id string, page *docfxManagedReference, par
 	return nil
 }
 
-func newDocfxItemFromAssocConst(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
-	r := new(docfxItem)
-	r.Name = c.getName(id)
-	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
-	r.Type = "implementation"
-
-	typeString, err := c.Index[id].Inner.AssocConst.Type.toString()
-	if err != nil {
-		return r, fmt.Errorf("error generating associated const with id %s: %w", id, err)
-	}
-	constString := fmt.Sprintf("const %s: %s = %s%s", c.Index[id].Name, typeString, *c.Index[id].Inner.AssocConst.Value, typeString)
-	// TODO: Need to handle special case where value is "_". Generated rustdoc json currently do not handle consts that reference another value.
-	r.Summary = fmt.Sprintf("%s\n\n%s", constString, c.getDocString(id))
-	return r, nil
-}
-
 func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
 	r := new(docfxItem)
 	r.Name = c.getName(id)
@@ -348,20 +317,6 @@ func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxIte
 
 	// Type is explicitly not set as this function is used for multiple doc pipeline types.
 	r.Summary = fmt.Sprintf("```rust\n%s\n```\n\n%s", functionSignature, c.getDocString(id))
-	return r, nil
-}
-
-func newDocfxItemFromImpl(c *crate, parent *docfxItem, id string) (*docfxItem, error) {
-	r := new(docfxItem)
-	name := c.Index[id].Inner.Impl.Trait.Path
-
-	r.Name = name
-	r.Summary = fmt.Sprintf("impl %s for %s", name, parent.Name)
-	r.Uid = parent.Uid + "." + name
-	if c.Index[id].Inner.Impl.IsNegative {
-		// TODO: Update the name when the implementation is negative as r.Name cannot start with '!'
-		r.Summary = fmt.Sprintf("impl !%s for %s", name, parent.Name)
-	}
 	return r, nil
 }
 
@@ -396,10 +351,9 @@ func newDocfxReferenceFromDocfxItem(item, parent *docfxItem) (*docfxReference, e
 	return reference, nil
 }
 
-func (item *docfxItem) appendChildren(uid string) error {
+func (item *docfxItem) appendChildren(uid string) {
 	item.HasChildren = true
 	item.Children = append(item.Children, uid)
-	return nil
 }
 
 type docfxReference struct {
@@ -409,6 +363,8 @@ type docfxReference struct {
 	Parent     string
 }
 
+// docfxTableOfContent is a context for mustache templates in `_toc.yaml` files.
+//
 // Based off https://dotnet.github.io/docfx/docs/table-of-contents.html#reference-tocs
 type docfxTableOfContent struct {
 	Name  string
@@ -459,10 +415,7 @@ func newDocfxManagedReference(c *crate, id string) (*docfxManagedReference, erro
 		return nil, fmt.Errorf("error constructing %s page for %s: %w", kind, id, err)
 	}
 
-	err = r.prependItem(parent)
-	if err != nil {
-		return nil, fmt.Errorf("error constructing page for %s: %w", id, err)
-	}
+	r.prependItem(parent)
 	return r, nil
 }
 

@@ -20,4 +20,6 @@ rustdocfx -project-root ./../../ google-cloud-secretmanager-v1
 
 ## Testing
 
-TODO: Add golden files
+```bash
+go test ./doc/rustdocfx/... ./tools/golints/...
+```

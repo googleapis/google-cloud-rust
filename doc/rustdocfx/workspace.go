@@ -587,7 +587,7 @@ func getWorkspaceCrates(jsonBytes []byte) ([]crate, error) {
 }
 
 func unmarshalRustdoc(crate *crate, jsonBytes []byte) {
-	json.Unmarshal(jsonBytes, &crate)
+	_ = json.Unmarshal(jsonBytes, &crate)
 }
 
 func idToString(id Id) string {
