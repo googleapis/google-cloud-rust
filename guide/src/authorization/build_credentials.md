@@ -23,9 +23,7 @@ automatically locate credentials based on the execution environment. This is the
 recommended approach for most applications.
 
 ```rust
-// ANCHOR: ADC
-let credentials = Builder::default().build()?;
-// ANCHOR_END: ADC
+{{#rustdoc_include ../../samples/tests/auth.rs:ADC}}
 ```
 
 ## Service Account Impersonation
@@ -41,11 +39,5 @@ the service account to impersonate is provided via the
 `impersonate_service_account_email` variable in the example below.
 
 ```rust
-// ANCHOR: service-account-impersonation
-let source_credentials = Builder::default().build()?;
-let credentials =
-    impersonated::Builder::from_source_credentials(source_credentials)
-        .with_target_principal(impersonate_service_account_email)
-        .build()?;
-// ANCHOR_END: service-account-impersonation
+{{#rustdoc_include ../../samples/tests/auth.rs:service-account-impersonation}}
 ```
