@@ -108,7 +108,7 @@ func main() {
 			crateOutDir := filepath.Join(*projectRoot, *out, crate.Name)
 			os.MkdirAll(crateOutDir, 0777) // Ignore errors
 
-			err = generate(&crate, *projectRoot, crateOutDir)
+			err = generate(&crate, crateOutDir)
 			if err != nil {
 				log.Fatalf("failed to generate for crate %s: %v\n", crate.Name, err)
 			}
