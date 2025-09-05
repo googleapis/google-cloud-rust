@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-bigquery-reservation-v1"
-version                = "0.5.0"
+version                = "1.0.0"
 description            = "Google Cloud Client Libraries for Rust - BigQuery Reservation API"
 edition.workspace      = true
 authors.workspace      = true

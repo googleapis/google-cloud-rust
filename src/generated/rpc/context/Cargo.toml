@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-rpc-context"
-version                = "0.5.0"
+version                = "1.0.0"
 description            = "Google Cloud Client Libraries for Rust - RPC Audit and Logging Attributes"
 edition.workspace      = true
 authors.workspace      = true
