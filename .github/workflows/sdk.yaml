@@ -216,6 +216,47 @@ jobs:
           cargo minimal-versions test --package google-cloud-gax
           cargo minimal-versions test --package google-cloud-wkt
 
+  semver-checks:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['rust:current']
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          cargo install --locked cargo-semver-checks@0.42.0
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - run: |
+          set -e
+          cargo semver-checks --all-features -p google-cloud-wkt
+          cargo semver-checks --all-features -p google-cloud-api
+          cargo semver-checks --all-features -p google-cloud-rpc
+          cargo semver-checks --all-features -p google-cloud-gax
+          cargo semver-checks --all-features -p google-cloud-auth
+          cargo semver-checks --all-features -p google-cloud-gax-internal
+          cargo semver-checks --all-features -p google-cloud-type
+          cargo semver-checks --all-features -p google-cloud-iam-v1
+          cargo semver-checks --all-features -p google-cloud-location
+          cargo semver-checks --all-features -p google-cloud-longrunning
+          cargo semver-checks --all-features -p google-cloud-lro
+          cargo semver-checks --all-features -p google-cloud-kms-v1
+          cargo semver-checks --all-features -p google-cloud-language-v2
+          cargo semver-checks --all-features -p google-cloud-secretmanager-v1
+          cargo semver-checks --all-features -p google-cloud-speech-v2
+          cargo semver-checks --all-features -p google-cloud-storage
+
   showcase:
     runs-on: ubuntu-24.04
     strategy:
@@ -401,7 +442,7 @@ jobs:
           sudo unzip -x /tmp/protoc.zip
           protoc --version
       - name: Regenerate all the code
-        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.2-0.20250827183345-8f409cc46adc refreshall -project-root .
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.2-0.20250827183345-8f409cc46adc refreshall
       - run: cargo fmt
         # If there is any difference between the generated code and the
         # committed code that is an error. All the inputs should be pinned,

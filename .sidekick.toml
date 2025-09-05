@@ -41,7 +41,7 @@ conformance-sha256          = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2
 [codec]
 # The default version for all crates. This can be overridden in the crate's
 # `.sidekick.toml` file.
-version = "0.4.5"
+version = "0.5.0"
 # The default release level for all crates.
 release-level = "preview"
 # Disable a number of warnings.
