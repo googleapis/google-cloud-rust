@@ -18,6 +18,7 @@
 mod tests {
     use google_cloud_gax::backoff_policy::*;
     use google_cloud_gax::exponential_backoff::*;
+    use google_cloud_gax::retry_state::RetryState;
     use std::time::Duration;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -26,13 +27,18 @@ mod tests {
         // Verify the calls work from outside the crate. The functionality is
         // verified in the unit tests.
         let policy = ExponentialBackoff::default();
-        let now = std::time::Instant::now();
-        assert!(policy.on_failure(now, 1) > Duration::ZERO, "{policy:?}");
+        assert!(
+            policy.on_failure(&RetryState::new(true).set_attempt_count(1_u32)) > Duration::ZERO,
+            "{policy:?}"
+        );
 
         let policy = ExponentialBackoffBuilder::new().build()?;
         let _ = format!("{policy:?}");
         let policy = ExponentialBackoffBuilder::new().build()?;
-        assert!(policy.on_failure(now, 1) > Duration::ZERO, "{policy:?}");
+        assert!(
+            policy.on_failure(&RetryState::new(true).set_attempt_count(1_u32)) > Duration::ZERO,
+            "{policy:?}"
+        );
         let _ = BackoffPolicyArg::from(policy);
 
         let policy = ExponentialBackoffBuilder::new().clamp();

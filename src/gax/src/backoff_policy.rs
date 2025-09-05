@@ -54,6 +54,7 @@
 //! [Exponential backoff]: https://en.wikipedia.org/wiki/Exponential_backoff
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
+use crate::retry_state::RetryState;
 use std::sync::Arc;
 
 /// Defines the trait implemented by all backoff strategies.
@@ -65,8 +66,7 @@ pub trait BackoffPolicy: Send + Sync + std::fmt::Debug {
     /// * `attempt_count` - the number of attempts. This method is always called
     ///   after the first attempt.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32)
-    -> std::time::Duration;
+    fn on_failure(&self, state: &RetryState) -> std::time::Duration;
 }
 
 /// A helper type to use [BackoffPolicy] in client and request options.

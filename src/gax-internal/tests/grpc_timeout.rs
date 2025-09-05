@@ -18,6 +18,7 @@ mod tests {
     use auth::credentials::testing::test_credentials;
     use gax::options::*;
     use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    use gax::retry_state::RetryState;
     use gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
     use google_cloud_gax_internal::grpc;
     use grpc_server::{builder, google, start_echo_server};
@@ -138,14 +139,10 @@ mod tests {
         }
 
         impl gax::backoff_policy::BackoffPolicy for TestBackoffPolicy {
-            fn on_failure(
-                &self,
-                loop_start: std::time::Instant,
-                attempt_count: u32,
-            ) -> std::time::Duration {
-                if attempt_count == 1 {
+            fn on_failure(&self, state: &RetryState) -> std::time::Duration {
+                if state.attempt_count == 1 {
                     *self.elapsed_on_failure.lock().unwrap() =
-                        Some(tokio::time::Instant::now().into_std() - loop_start);
+                        Some(tokio::time::Instant::now().into_std() - state.start);
                 }
 
                 std::time::Duration::ZERO

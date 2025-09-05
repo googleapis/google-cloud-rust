@@ -87,7 +87,7 @@ where
                     }
                     ThrottleResult::Continue(e) => e,
                 };
-                let delay = backoff_policy.on_failure(loop_start, attempt_count);
+                let delay = backoff_policy.on_failure(&state);
                 attempt = RetryLoopAttempt::Retry(attempt_count, delay, error);
                 continue;
             }
@@ -104,7 +104,7 @@ where
             }
             Err(e) => {
                 let flow = retry_policy.on_error(&state, e);
-                let delay = backoff_policy.on_failure(loop_start, attempt_count);
+                let delay = backoff_policy.on_failure(&state);
                 retry_throttler
                     .lock()
                     .expect("retry throttler lock is poisoned")
@@ -943,7 +943,7 @@ mod tests {
         #[derive(Debug)]
         BackoffPolicy {}
         impl BackoffPolicy for BackoffPolicy {
-            fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> Duration;
+            fn on_failure(&self, state: &RetryState) -> Duration;
         }
     }
 
