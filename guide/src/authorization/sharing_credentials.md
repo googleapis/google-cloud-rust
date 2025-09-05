@@ -13,9 +13,13 @@ limitations under the License.
 
 # Sharing Credentials
 
-In concurrent applications, it is often necessary to share credentials across multiple asynchronous tasks or threads.
+In concurrent applications, it is often necessary to share credentials across
+multiple asynchronous tasks or threads.
 
-The guide shows you how to construct the `Credentials` object and then clone it for each concurrent task. The `Credentials` object is designed for efficient cloning and handles the background refreshing of authentication tokens automatically.
+The guide shows you how to construct the `Credentials` object and then clone it
+for each concurrent task. The `Credentials` object is designed for efficient
+cloning and handles the background refreshing of authentication tokens
+automatically.
 
 ```rust
 let credentials = Builder::default().build()?;
@@ -24,4 +28,7 @@ tokio::spawn(async move {
 });
 ```
 
-Cloning the `Credentials` object is more performant than repeatedly creating new credentials, as it avoids the overhead associated with credential construction. This approach also ensures consistency and simplifies credential management within the application.
+Cloning the `Credentials` object is more performant than repeatedly creating new
+credentials, as it avoids the overhead associated with credential construction.
+This approach also ensures consistency and simplifies credential management
+within the application.
