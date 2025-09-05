@@ -18,9 +18,9 @@ use std::time::Instant;
 
 /// The input into a retry policy query.
 ///
-/// On an error, the client library queries the retry policy as to whether it
+/// On an error, the client library queries the polling policy as to whether it
 /// should make a new attempt. The client library provides an instance of this
-/// type to the retry policy.
+/// type to this policy.
 ///
 /// This struct may gain new fields in future versions of the client libraries.
 #[derive(Clone, Debug)]
