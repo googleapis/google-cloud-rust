@@ -13,11 +13,14 @@ limitations under the License.
 
 # Build Credentials
 
-This document outlines the methods for building credentials to authenticate with Google Cloud APIs.
+This document outlines the methods for building credentials to authenticate with
+Google Cloud APIs.
 
 ## Application Default Credentials
 
-Application Default Credentials (ADC) provide a mechanism for applications to automatically locate credentials based on the execution environment. This is the recommended approach for most applications.
+Application Default Credentials (ADC) provide a mechanism for applications to
+automatically locate credentials based on the execution environment. This is the
+recommended approach for most applications.
 
 ```rust
 // ANCHOR: ADC
@@ -27,9 +30,15 @@ let credentials = Builder::default().build()?;
 
 ## Service Account Impersonation
 
-Service account impersonation enables a service account to assume the identity and permissions of another service account. This is a common practice for implementing the principle of least privilege by granting temporary, limited access to resources.
+Service account impersonation enables a service account to assume the identity
+and permissions of another service account. This is a common practice for
+implementing the principle of least privilege by granting temporary, limited
+access to resources.
 
-To utilize service account impersonation, a source credential (e.g., from ADC) and the email address of the target service account are required. The email of the service account to impersonate is provided via the `impersonate_service_account_email` variable in the example below.
+To utilize service account impersonation, a source credential (e.g., from ADC)
+and the email address of the target service account are required. The email of
+the service account to impersonate is provided via the
+`impersonate_service_account_email` variable in the example below.
 
 ```rust
 // ANCHOR: service-account-impersonation

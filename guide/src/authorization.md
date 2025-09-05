@@ -16,8 +16,6 @@ limitations under the License.
 
 # Authorization
 
-This section covers how to handle authorization with Google Cloud services. The client library automatically creates default credentials for you. 
-This guide shows you how to share `Credentials` object across your codebase.
-
-[billing enabled]: https://cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project
-[google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
+This section covers how to handle authorization with Google Cloud services. The
+client library automatically creates default credentials for you. This guide
+shows you how to share `Credentials` object across your codebase.
