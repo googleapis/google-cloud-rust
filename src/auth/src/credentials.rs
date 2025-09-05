@@ -22,6 +22,7 @@ use std::future::Future;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 
+pub mod anonymous;
 pub mod api_key_credentials;
 pub mod external_account;
 pub(crate) mod external_account_sources;
