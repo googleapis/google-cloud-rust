@@ -20,6 +20,7 @@ environment:
 
 workspace:
   - examples
+  - generated/google_cloud_ai_generativelanguage_v1
   - generated/google_cloud_api
   - generated/google_cloud_common
   - generated/google_cloud_functions_v2

@@ -12,21 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: examples
-description: Various examples of Google Cloud client usage.
+[general]
+specification-source = 'google/ai/generativelanguage/v1'
+service-config = 'google/ai/generativelanguage/v1/generativelanguage_v1.yaml'
 
-publish_to: none
-
-environment:
-  sdk: ^3.9.0
-
-resolution: workspace
-
-dependencies:
-  google_cloud_ai_generativelanguage_v1: any
-  google_cloud_language_v2: any
-  google_cloud_rpc: any
-  googleapis_auth: ^2.0.0
-
-dev_dependencies:
-  lints: ^5.0.0
+[codec]
+copyright-year = '2025'
