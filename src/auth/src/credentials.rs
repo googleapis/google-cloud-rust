@@ -576,38 +576,12 @@ fn adc_well_known_path() -> Option<String> {
 #[cfg_attr(test, mutants::skip)]
 #[doc(hidden)]
 pub mod testing {
-    use super::{CacheableResource, EntityTag};
+    use super::CacheableResource;
     use crate::Result;
     use crate::credentials::Credentials;
     use crate::credentials::dynamic::CredentialsProvider;
     use http::{Extensions, HeaderMap};
     use std::sync::Arc;
-
-    /// A simple credentials implementation to use in tests where authentication does not matter.
-    ///
-    /// Always returns a "Bearer" token, with "test-only-token" as the value.
-    pub fn test_credentials() -> Credentials {
-        Credentials {
-            inner: Arc::from(TestCredentials {}),
-        }
-    }
-
-    #[derive(Debug)]
-    struct TestCredentials;
-
-    #[async_trait::async_trait]
-    impl CredentialsProvider for TestCredentials {
-        async fn headers(&self, _extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
-            Ok(CacheableResource::New {
-                entity_tag: EntityTag::default(),
-                data: HeaderMap::new(),
-            })
-        }
-
-        async fn universe_domain(&self) -> Option<String> {
-            None
-        }
-    }
 
     /// A simple credentials implementation to use in tests.
     ///

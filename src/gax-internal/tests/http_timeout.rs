@@ -249,7 +249,7 @@ mod tests {
 
     fn test_config() -> ClientConfig {
         ClientConfig {
-            cred: auth::credentials::testing::test_credentials().into(),
+            cred: auth::credentials::anonymous::Builder::new().build().into(),
             ..Default::default()
         }
     }

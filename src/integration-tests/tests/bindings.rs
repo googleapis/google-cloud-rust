@@ -71,7 +71,7 @@ mod bindings {
     impl TestService {
         pub async fn new() -> Self {
             let config = gaxi::options::ClientConfig {
-                cred: auth::credentials::testing::test_credentials().into(),
+                cred: auth::credentials::anonymous::Builder::new().build().into(),
                 ..Default::default()
             };
             let inner = gaxi::http::ReqwestClient::new(config, "https://test.googleapis.com")

@@ -15,7 +15,6 @@
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
     use anyhow::Result;
-    use auth::credentials::testing::test_credentials;
     use gax::options::*;
     use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     use gax::retry_state::RetryState;
@@ -24,6 +23,10 @@ mod tests {
     use grpc_server::{builder, google, start_echo_server};
     use std::sync::{Arc, Mutex};
     use std::time::Duration;
+
+    fn test_credentials() -> auth::credentials::Credentials {
+        auth::credentials::anonymous::Builder::new().build()
+    }
 
     #[tokio::test(start_paused = true)]
     async fn test_no_timeout() -> Result<()> {
