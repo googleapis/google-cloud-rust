@@ -22,7 +22,7 @@ cloning and handles the background refreshing of authentication tokens
 automatically.
 
 ```rust
-let credentials = Builder::default().build()?;
+let credentials = todo!();
 tokio::spawn(async move {
     do_some_work_with_apis(credentials.clone(), endpoint, ...).await;
 });
