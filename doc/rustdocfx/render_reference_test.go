@@ -74,7 +74,7 @@ func TestRenderReferenceFunction(t *testing.T) {
 		t.Fatal(err)
 	}
 	lines := strings.Split(string(contents), "\n")
-	// Find the section for the `buildder()` function
+	// Find the section for the `builder()` function
 	functionStart := fmt.Sprintf("- uid: %s.builder", wantUid)
 	idx := slices.Index(lines, functionStart)
 	if idx == -1 {
@@ -134,9 +134,6 @@ func findIdByUid(t *testing.T, crate *crate, uid string) string {
 		if got, err := crate.getDocfxUid(id); err == nil {
 			if got == uid {
 				return id
-			}
-			if strings.HasSuffix(got, ".Result") {
-				fmt.Printf(" %s -> %s\n", id, uid)
 			}
 		}
 	}
