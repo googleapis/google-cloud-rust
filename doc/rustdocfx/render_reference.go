@@ -23,26 +23,26 @@ import (
 )
 
 // renderReference renders a rustdoc element as a docfx universal reference.
-func renderReference(crate *crate, id, outDir string) (string, error) {
+func renderReference(crate *crate, id, outDir string) error {
 	reference, err := newDocfxManagedReference(crate, id)
 	if err != nil {
-		return "", err
+		return err
 	}
 	contents, err := templatesProvider("universalReference.yml.mustache")
 	if err != nil {
-		return "", err
+		return err
 	}
 	output, err := mustache.RenderPartials(contents, &mustacheProvider{}, reference)
 	if err != nil {
-		return "", err
+		return err
 	}
 	uid, err := crate.getDocfxUid(id)
 	if err != nil {
-		return "", err
+		return err
 	}
 	outputFile := filepath.Join(outDir, fmt.Sprintf("%s.yml", uid))
 	if err := os.WriteFile(outputFile, []byte(output), 0644); err != nil {
-		return "", err
+		return err
 	}
-	return uid, nil
+	return nil
 }

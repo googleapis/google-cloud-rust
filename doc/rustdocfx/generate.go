@@ -369,14 +369,14 @@ type docfxReference struct {
 type docfxTableOfContent struct {
 	Name  string
 	Uid   string
-	Items []docfxTableOfContent
+	Items []*docfxTableOfContent
 }
 
 func (toc docfxTableOfContent) HasItems() bool {
 	return len(toc.Items) != 0
 }
 
-func (toc *docfxTableOfContent) appendItem(item docfxTableOfContent) {
+func (toc *docfxTableOfContent) appendItem(item *docfxTableOfContent) {
 	toc.Items = append(toc.Items, item)
 }
 
@@ -426,13 +426,6 @@ func generate(c *crate, outDir string) error {
 		errs = append(errs, err)
 	}
 
-	rootId := idToString(c.Root)
-	rootUid, err := c.getDocfxUid(rootId)
-	if err != nil {
-		errs = append(errs, err)
-	}
-	toc := docfxTableOfContent{Name: c.getRootName(), Uid: rootUid}
-
 	for id := range c.Index {
 		kind := c.getKind(id)
 		switch kind {
@@ -447,14 +440,9 @@ func generate(c *crate, outDir string) error {
 		case typeAliasKind:
 			fallthrough
 		case moduleKind:
-			uid, err := renderReference(c, id, outDir)
-			if err != nil {
+			if err := renderReference(c, id, outDir); err != nil {
 				errs = append(errs, err)
 				continue
-			}
-			if kind == moduleKind || kind == crateKind {
-				tocItem := docfxTableOfContent{Name: c.getName(id), Uid: uid}
-				toc.appendItem(tocItem)
 			}
 		case functionKind:
 			fallthrough
@@ -480,7 +468,11 @@ func generate(c *crate, outDir string) error {
 		}
 	}
 
-	if err := renderTOC(toc, outDir); err != nil {
+	if toc, err := computeTOC(c); err == nil {
+		if err := renderTOC(toc, outDir); err != nil {
+			errs = append(errs, err)
+		}
+	} else {
 		errs = append(errs, err)
 	}
 
