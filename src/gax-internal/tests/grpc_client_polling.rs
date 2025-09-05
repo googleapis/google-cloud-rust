@@ -15,6 +15,7 @@
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
     use auth::credentials::testing::test_credentials;
+    use gax::polling_state::PollingState;
     use grpc_server::{builder, start_echo_server};
 
     type TestResult = Result<(), Box<dyn std::error::Error>>;
@@ -28,8 +29,7 @@ mod tests {
     impl gax::polling_error_policy::PollingErrorPolicy for TestErrorPolicy {
         fn on_error(
             &self,
-            _loop_start: std::time::Instant,
-            _attempt_count: u32,
+            _state: &PollingState,
             error: gax::error::Error,
         ) -> gax::retry_result::RetryResult {
             gax::retry_result::RetryResult::Continue(error)
@@ -41,11 +41,7 @@ mod tests {
         pub _name: String,
     }
     impl gax::polling_backoff_policy::PollingBackoffPolicy for TestBackoffPolicy {
-        fn wait_period(
-            &self,
-            _loop_start: std::time::Instant,
-            _attempt_count: u32,
-        ) -> std::time::Duration {
+        fn wait_period(&self, _state: &PollingState) -> std::time::Duration {
             std::time::Duration::from_millis(1)
         }
     }

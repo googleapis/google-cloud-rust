@@ -20,6 +20,7 @@
 //! [BackoffPolicy]: crate::backoff_policy::BackoffPolicy
 //! [PollingBackoffPolicy]: crate::polling_backoff_policy::PollingBackoffPolicy
 
+use crate::polling_state::PollingState;
 use crate::retry_state::RetryState;
 use std::time::Duration;
 
@@ -222,12 +223,8 @@ impl Default for ExponentialBackoff {
 }
 
 impl crate::polling_backoff_policy::PollingBackoffPolicy for ExponentialBackoff {
-    fn wait_period(
-        &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-    ) -> std::time::Duration {
-        self.delay(loop_start, attempt_count)
+    fn wait_period(&self, state: &PollingState) -> std::time::Duration {
+        self.delay(state.start, state.attempt_count)
     }
 }
 
@@ -390,11 +387,22 @@ mod tests {
             .build()
             .expect("should succeed with the hard-coded test values");
 
-        let now = std::time::Instant::now();
-        assert_eq!(b.wait_period(now, 1), Duration::from_secs(1));
-        assert_eq!(b.wait_period(now, 2), Duration::from_secs(2));
-        assert_eq!(b.wait_period(now, 3), Duration::from_secs(4));
-        assert_eq!(b.wait_period(now, 4), Duration::from_secs(4));
+        assert_eq!(
+            b.wait_period(&PollingState::default().set_attempt_count(1_u32)),
+            Duration::from_secs(1)
+        );
+        assert_eq!(
+            b.wait_period(&PollingState::default().set_attempt_count(2_u32)),
+            Duration::from_secs(2)
+        );
+        assert_eq!(
+            b.wait_period(&PollingState::default().set_attempt_count(3_u32)),
+            Duration::from_secs(4)
+        );
+        assert_eq!(
+            b.wait_period(&PollingState::default().set_attempt_count(4_u32)),
+            Duration::from_secs(4)
+        );
     }
 
     #[test]

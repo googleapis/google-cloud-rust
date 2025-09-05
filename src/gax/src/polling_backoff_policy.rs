@@ -52,6 +52,7 @@
 //!
 //! [Exponential backoff]: https://en.wikipedia.org/wiki/Exponential_backoff
 
+use crate::polling_state::PollingState;
 use std::sync::Arc;
 
 /// Defines the trait implemented by all backoff strategies.
@@ -59,15 +60,9 @@ pub trait PollingBackoffPolicy: Send + Sync + std::fmt::Debug {
     /// Returns the backoff delay on a failure.
     ///
     /// # Parameters
-    /// * `loop_start` - when the polling loop started.
-    /// * `attempt_count` - the number of poll queries. This method is always
-    ///   called after the first attempt.
+    /// * `state` - the current state of the polling loop.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    fn wait_period(
-        &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-    ) -> std::time::Duration;
+    fn wait_period(&self, state: &PollingState) -> std::time::Duration;
 }
 
 /// A helper type to use [PollingBackoffPolicy] in client and request options.

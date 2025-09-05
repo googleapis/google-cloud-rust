@@ -14,6 +14,8 @@
 
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
+    use gax::polling_state::PollingState;
+
     type TestResult = Result<(), Box<dyn std::error::Error>>;
 
     /// A test policy, the only interesting bit is the name, which is included
@@ -25,8 +27,7 @@ mod tests {
     impl gax::polling_error_policy::PollingErrorPolicy for TestErrorPolicy {
         fn on_error(
             &self,
-            _loop_start: std::time::Instant,
-            _attempt_count: u32,
+            _state: &PollingState,
             error: gax::error::Error,
         ) -> gax::retry_result::RetryResult {
             gax::retry_result::RetryResult::Continue(error)
@@ -38,11 +39,7 @@ mod tests {
         pub _name: String,
     }
     impl gax::polling_backoff_policy::PollingBackoffPolicy for TestBackoffPolicy {
-        fn wait_period(
-            &self,
-            _loop_start: std::time::Instant,
-            _attempt_count: u32,
-        ) -> std::time::Duration {
+        fn wait_period(&self, _state: &PollingState) -> std::time::Duration {
             std::time::Duration::from_millis(1)
         }
     }

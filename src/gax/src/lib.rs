@@ -50,6 +50,7 @@ pub mod exponential_backoff;
 pub mod options;
 pub mod polling_backoff_policy;
 pub mod polling_error_policy;
+pub mod polling_state;
 pub mod retry_policy;
 pub mod retry_result;
 pub mod retry_state;
