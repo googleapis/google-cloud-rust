@@ -19,8 +19,8 @@
 //! use any types contained within.
 
 use super::{Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Result};
+use gax::polling_state::PollingState;
 use std::sync::Arc;
-use std::time::Instant;
 
 pub type Operation<R, M> = super::details::Operation<R, M>;
 
@@ -226,8 +226,7 @@ where
     start: Option<S>,
     query: Q,
     operation: Option<String>,
-    loop_start: Instant,
-    attempt_count: u32,
+    state: PollingState,
 }
 
 impl<ResponseType, MetadataType, S, SF, Q, QF> PollerImpl<ResponseType, MetadataType, S, SF, Q, QF>
@@ -253,8 +252,7 @@ where
             start: Some(start),
             query,
             operation: None,
-            loop_start: Instant::now(),
-            attempt_count: 0,
+            state: PollingState::default(),
         }
     }
 }
@@ -283,15 +281,10 @@ where
             return Some(poll);
         }
         if let Some(name) = self.operation.take() {
-            self.attempt_count += 1;
+            self.state.attempt_count += 1;
             let result = (self.query)(name.clone()).await;
-            let (op, poll) = super::details::handle_poll(
-                self.error_policy.clone(),
-                self.loop_start,
-                self.attempt_count,
-                name,
-                result,
-            );
+            let (op, poll) =
+                super::details::handle_poll(self.error_policy.clone(), &self.state, name, result);
             self.operation = op;
             return Some(poll);
         }
@@ -299,8 +292,7 @@ where
     }
 
     async fn until_done(mut self) -> Result<ResponseType> {
-        let loop_start = std::time::Instant::now();
-        let mut attempt_count = 0;
+        let mut state = PollingState::default();
         while let Some(p) = self.poll().await {
             match p {
                 // Return, the operation completed or the polling policy is
@@ -313,8 +305,8 @@ where
                 // error is recoverable.
                 PollingResult::PollingError(_) => (),
             }
-            attempt_count += 1;
-            tokio::time::sleep(self.backoff_policy.wait_period(loop_start, attempt_count)).await;
+            state.attempt_count += 1;
+            tokio::time::sleep(self.backoff_policy.wait_period(&state)).await;
         }
         // We can only get here if `poll()` returns `None`, but it only returns
         // `None` after it returned `Polling::Completed` and therefore this is

@@ -12,45 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Defines types to query retry policies.
+//! Defines types to query polling policies.
 
 use std::time::Instant;
 
-/// The input into a retry policy query.
+/// The input into a polling policy query.
 ///
-/// On an error, the client library queries the retry policy as to whether it
+/// On an error, the client library queries the polling policy as to whether it
 /// should make a new attempt. The client library provides an instance of this
-/// type to the retry policy.
+/// type to this policy.
 ///
 /// This struct may gain new fields in future versions of the client libraries.
 #[derive(Clone, Debug)]
 #[non_exhaustive]
-pub struct RetryState {
-    /// If true, the request is idempotent and it is safe to retry.
-    ///
-    /// Some policies retry non-idempotent operations because they are safe for
-    /// a given configuration of the service or client.
-    pub idempotent: bool,
-
-    /// The start time for this retry loop.
+pub struct PollingState {
+    /// The start time for this polling loop.
     pub start: Instant,
 
-    /// The number of times the request has been attempted.
+    /// The number of times the operation has been polled.
     pub attempt_count: u32,
 }
 
-impl RetryState {
-    /// Create a new instance.
-    pub fn new(idempotent: bool) -> Self {
-        Self::default().set_idempotent(idempotent)
-    }
-
-    /// Update the idempotency.
-    pub fn set_idempotent(mut self, v: bool) -> Self {
-        self.idempotent = v;
-        self
-    }
-
+impl PollingState {
     /// Update the start time, useful in mocks.
     pub fn set_start<T: Into<Instant>>(mut self, v: T) -> Self {
         self.start = v.into();
@@ -64,11 +47,10 @@ impl RetryState {
     }
 }
 
-impl std::default::Default for RetryState {
+impl std::default::Default for PollingState {
     fn default() -> Self {
         Self {
             start: Instant::now(),
-            idempotent: false,
             attempt_count: 0,
         }
     }
