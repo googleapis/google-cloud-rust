@@ -16,7 +16,7 @@
 
 use std::time::Instant;
 
-/// The input into a retry policy query.
+/// The input into a polling policy query.
 ///
 /// On an error, the client library queries the polling policy as to whether it
 /// should make a new attempt. The client library provides an instance of this
@@ -26,10 +26,10 @@ use std::time::Instant;
 #[derive(Clone, Debug)]
 #[non_exhaustive]
 pub struct PollingState {
-    /// The start time for this retry loop.
+    /// The start time for this polling loop.
     pub start: Instant,
 
-    /// The number of times the read request has been interrupted already.
+    /// The number of times the operation has been polled.
     pub attempt_count: u32,
 }
 

@@ -35,7 +35,7 @@ pub struct RetryState {
     /// The start time for this retry loop.
     pub start: Instant,
 
-    /// The number of times the read request has been interrupted already.
+    /// The number of times the request has been attempted.
     pub attempt_count: u32,
 }
 
