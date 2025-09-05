@@ -20,6 +20,7 @@
 //! [BackoffPolicy]: crate::backoff_policy::BackoffPolicy
 //! [PollingBackoffPolicy]: crate::polling_backoff_policy::PollingBackoffPolicy
 
+use crate::retry_state::RetryState;
 use std::time::Duration;
 
 /// The error type for exponential backoff creation.
@@ -96,16 +97,16 @@ impl ExponentialBackoffBuilder {
     /// # use google_cloud_gax::exponential_backoff::Error;
     /// # use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     /// # use google_cloud_gax::backoff_policy::BackoffPolicy;
+    /// # use google_cloud_gax::retry_state::RetryState;
     /// use std::time::Duration;
-    /// use std::time::Instant;
     /// let backoff = ExponentialBackoffBuilder::new()
     ///     .with_initial_delay(Duration::from_secs(5))
     ///     .with_maximum_delay(Duration::from_secs(50))
     ///     .with_scaling(2.0)
     ///     .build()?;
-    /// let p = backoff.on_failure(Instant::now(), 1);
+    /// let p = backoff.on_failure(&RetryState::new(true));
     /// assert!(p <= Duration::from_secs(5));
-    /// let p = backoff.on_failure(Instant::now(), 2);
+    /// let p = backoff.on_failure(&RetryState::new(true).set_attempt_count(2_u32));
     /// assert!(p <= Duration::from_secs(10));
     /// # Ok::<(), Error>(())
     /// ```
@@ -150,10 +151,10 @@ impl ExponentialBackoffBuilder {
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     /// # use google_cloud_gax::backoff_policy::BackoffPolicy;
+    /// # use google_cloud_gax::retry_state::RetryState;
     /// use std::time::Duration;
-    /// use std::time::Instant;
     /// let mut backoff = ExponentialBackoffBuilder::new().clamp();
-    /// assert!(backoff.on_failure(Instant::now(), 1) > Duration::ZERO);
+    /// assert!(backoff.on_failure(&RetryState::new(true)) > Duration::ZERO);
     /// ```
     pub fn clamp(self) -> ExponentialBackoff {
         let scaling = self.scaling.clamp(1.0, 32.0);
@@ -202,11 +203,10 @@ impl ExponentialBackoff {
 
     fn delay_with_jitter(
         &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
+        state: &RetryState,
         rng: &mut impl rand::Rng,
     ) -> std::time::Duration {
-        let delay = self.delay(loop_start, attempt_count);
+        let delay = self.delay(state.start, state.attempt_count);
         rng.random_range(Duration::ZERO..=delay)
     }
 }
@@ -232,12 +232,8 @@ impl crate::polling_backoff_policy::PollingBackoffPolicy for ExponentialBackoff 
 }
 
 impl crate::backoff_policy::BackoffPolicy for ExponentialBackoff {
-    fn on_failure(
-        &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-    ) -> std::time::Duration {
-        self.delay_with_jitter(loop_start, attempt_count, &mut rand::rng())
+    fn on_failure(&self, state: &RetryState) -> std::time::Duration {
+        self.delay_with_jitter(state, &mut rand::rng())
     }
 }
 
@@ -349,19 +345,21 @@ mod tests {
             .build()
             .expect("should succeed with the hard-coded test values");
 
-        let now = std::time::Instant::now();
         let mut rng = MockRng::new(1);
-        assert_eq!(b.delay_with_jitter(now, 1, &mut rng), Duration::ZERO);
+        assert_eq!(
+            b.delay_with_jitter(&RetryState::new(true).set_attempt_count(1_u32), &mut rng),
+            Duration::ZERO
+        );
 
         let mut rng = MockRng::new(u64::MAX / 2);
         assert_eq!(
-            b.delay_with_jitter(now, 2, &mut rng),
+            b.delay_with_jitter(&RetryState::new(true).set_attempt_count(2_u32), &mut rng),
             Duration::from_secs(5)
         );
 
         let mut rng = MockRng::new(u64::MAX);
         assert_eq!(
-            b.delay_with_jitter(now, 3, &mut rng),
+            b.delay_with_jitter(&RetryState::new(true).set_attempt_count(3_u32), &mut rng),
             Duration::from_secs(10)
         );
     }
@@ -408,28 +406,27 @@ mod tests {
             .build()
             .expect("should succeed with the hard-coded test values");
 
-        let now = std::time::Instant::now();
         let mut rng = MockRng::new(u64::MAX);
         assert_eq!(
-            b.delay_with_jitter(now, 1, &mut rng),
+            b.delay_with_jitter(&RetryState::new(true).set_attempt_count(1_u32), &mut rng),
             Duration::from_secs(1)
         );
 
         let mut rng = MockRng::new(u64::MAX);
         assert_eq!(
-            b.delay_with_jitter(now, 2, &mut rng),
+            b.delay_with_jitter(&RetryState::new(true).set_attempt_count(2_u32), &mut rng),
             Duration::from_secs(2)
         );
 
         let mut rng = MockRng::new(u64::MAX);
         assert_eq!(
-            b.delay_with_jitter(now, 3, &mut rng),
+            b.delay_with_jitter(&RetryState::new(true).set_attempt_count(3_u32), &mut rng),
             Duration::from_secs(4)
         );
 
         let mut rng = MockRng::new(u64::MAX);
         assert_eq!(
-            b.delay_with_jitter(now, 4, &mut rng),
+            b.delay_with_jitter(&RetryState::new(true).set_attempt_count(4_u32), &mut rng),
             Duration::from_secs(4)
         );
     }
@@ -444,16 +441,15 @@ mod tests {
             .build()
             .expect("should succeed with the hard-coded test values");
 
-        let now = std::time::Instant::now();
-        let d = b.on_failure(now, 1);
+        let d = b.on_failure(&RetryState::new(true).set_attempt_count(1_u32));
         assert!(Duration::ZERO <= d && d <= Duration::from_secs(1), "{d:?}");
-        let d = b.on_failure(now, 2);
+        let d = b.on_failure(&RetryState::new(true).set_attempt_count(2_u32));
         assert!(Duration::ZERO <= d && d <= Duration::from_secs(2), "{d:?}");
-        let d = b.on_failure(now, 3);
+        let d = b.on_failure(&RetryState::new(true).set_attempt_count(3_u32));
         assert!(Duration::ZERO <= d && d <= Duration::from_secs(4), "{d:?}");
-        let d = b.on_failure(now, 4);
+        let d = b.on_failure(&RetryState::new(true).set_attempt_count(4_u32));
         assert!(Duration::ZERO <= d && d <= Duration::from_secs(4), "{d:?}");
-        let d = b.on_failure(now, 5);
+        let d = b.on_failure(&RetryState::new(true).set_attempt_count(5_u32));
         assert!(Duration::ZERO <= d && d <= Duration::from_secs(4), "{d:?}");
     }
 
@@ -461,15 +457,21 @@ mod tests {
     fn default() {
         let b = ExponentialBackoff::default();
 
-        let now = std::time::Instant::now();
         let mut rng = MockRng::new(u64::MAX);
-        let next = 2 * b.delay_with_jitter(now, 1, &mut rng);
+        let next =
+            2 * b.delay_with_jitter(&RetryState::new(true).set_attempt_count(1_u32), &mut rng);
 
         let mut rng = MockRng::new(u64::MAX);
-        assert_eq!(b.delay_with_jitter(now, 2, &mut rng), next);
+        assert_eq!(
+            b.delay_with_jitter(&RetryState::new(true).set_attempt_count(2_u32), &mut rng),
+            next
+        );
         let next = 2 * next;
 
         let mut rng = MockRng::new(u64::MAX);
-        assert_eq!(b.delay_with_jitter(now, 3, &mut rng), next);
+        assert_eq!(
+            b.delay_with_jitter(&RetryState::new(true).set_attempt_count(3_u32), &mut rng),
+            next
+        );
     }
 }

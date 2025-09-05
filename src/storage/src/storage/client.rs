@@ -689,7 +689,7 @@ pub(crate) mod tests {
         pub BackoffPolicy {}
 
         impl gax::backoff_policy::BackoffPolicy for BackoffPolicy {
-            fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
+            fn on_failure(&self, state: &RetryState) -> std::time::Duration;
         }
     }
 

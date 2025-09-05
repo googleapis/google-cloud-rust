@@ -679,11 +679,7 @@ pub(crate) mod tests {
         #[derive(Debug)]
         pub BackoffPolicy {}
         impl BackoffPolicy for BackoffPolicy {
-            fn on_failure(
-                &self,
-                loop_start: std::time::Instant,
-                attempt_count: u32,
-            ) -> std::time::Duration;
+            fn on_failure(&self, state: &RetryState) -> std::time::Duration;
         }
     }
 

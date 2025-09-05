@@ -33,19 +33,19 @@ pub fn default() -> impl BackoffPolicy {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use gax::retry_state::RetryState;
 
     #[test]
     fn default() {
-        let now = std::time::Instant::now() - Duration::from_millis(100);
         let policy = super::default();
 
-        let delay = policy.on_failure(now, 1);
+        let delay = policy.on_failure(&RetryState::new(true).set_attempt_count(1_u32));
         assert!(
             delay <= Duration::from_secs(1),
             "{delay:?}, policy={policy:?}"
         );
 
-        let delay = policy.on_failure(now, 2);
+        let delay = policy.on_failure(&RetryState::new(true).set_attempt_count(2_u32));
         assert!(
             delay <= Duration::from_secs(2),
             "{delay:?}, policy={policy:?}"

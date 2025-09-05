@@ -198,11 +198,7 @@ mod tests {
     }
 
     impl BackoffPolicy for TestBackoffPolicy {
-        fn on_failure(
-            &self,
-            _loop_start: std::time::Instant,
-            _attempt_count: u32,
-        ) -> std::time::Duration {
+        fn on_failure(&self, _state: &RetryState) -> std::time::Duration {
             self.was_called.store(true, Ordering::SeqCst);
             std::time::Duration::from_millis(1)
         }
