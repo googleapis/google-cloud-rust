@@ -241,16 +241,15 @@ jobs:
             src/generated/longrunning
           )
           git fetch origin main
-          cat >major-break.awk <<_EOF_
+          cat >major-break.awk <<'_EOF_'
             function v(s) {
                 s = substr(s, 2, length(s)-2);
                 return s
             }
-            /^\\+version/ { new = v($2) }
-            /^\\-version/ { old = v($2) }
+            /^\+version/ { new = v($2) }
+            /^\-version/ { old = v($2) }
             END {
                 if (new == "" || old == "") {
-                  printf("cannot find version diff new=%s old=%s\n", new, old)
                   exit 1
                 }
                 split(old, a, ".")
