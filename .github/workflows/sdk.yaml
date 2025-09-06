@@ -266,7 +266,7 @@ jobs:
                     printf("minor version mismatch on 0.x series: new=%s old=%s\n", new, old)
                     exit 0
                 }
-                printf("versions match, no break between %s and %s\n", old, new)
+                printf("major versions match: old=%s, new=%s\n", old, new)
                 exit 1
             }
           _EOF_
