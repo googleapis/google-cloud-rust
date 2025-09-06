@@ -248,20 +248,23 @@ jobs:
             /^\+version/ { new = v($2) }
             /^\-version/ { old = v($2) }
             END {
-                split(new, b, "."); split(old, a, ".");
+                split(old, a, ".")
+                split(new, b, ".")
                 if (a[1] != b[1]) {
-                    printf("major version mismatch: new=%s old=%s\n", new, old);
+                    printf("major version mismatch: new=%s old=%s\n", new, old)
                     exit 0
                 }
                 if (a[1] == "0" && b[1] == "0" && a[2] != b[2]) {
-                    printf("minor version mismatch on 0.x series: new=%s old=%s\n", new, old);
+                    printf("minor version mismatch on 0.x series: new=%s old=%s\n", new, old)
                     exit 0
                 }
+                printf("versions match, no break between %$s and %s\n", old, new)
                 exit 1
             }
           _EOF_
           for name in "${dirs[@]}"; do
             echo DEBUG name = $name
+            git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk || true
             if git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk; then
               echo DEBUG name mismatched = $name
               cat <<_EOF_
