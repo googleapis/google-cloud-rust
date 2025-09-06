@@ -19,7 +19,39 @@ limitations under the License.
   {{/Name}}
   {{#HasItems}}
   items:
-  {{#Items}}
-  {{> tocItem}}
-  {{/Items}}
+  {{#HasModules}}
+  - name: Modules
+    items:
+    {{#Modules}}
+    {{> tocItem}}
+    {{/Modules}}
+  {{/HasModules}}
+  {{#HasTraits}}
+  - name: Traits
+    items:
+    {{#Traits}}
+    {{> tocItem}}
+    {{/Traits}}
+  {{/HasTraits}}
+  {{#HasStructs}}
+  - name: Structs
+    items:
+    {{#Structs}}
+    {{> tocItem}}
+    {{/Structs}}
+  {{/HasStructs}}
+  {{#HasEnums}}
+  - name: Enums
+    items:
+    {{#Enums}}
+    {{> tocItem}}
+    {{/Enums}}
+  {{/HasEnums}}
+  {{#HasAliases}}
+  - name: Type Aliases
+    items:
+    {{#Aliases}}
+    {{> tocItem}}
+    {{/Aliases}}
+  {{/HasAliases}}
   {{/HasItems}}
