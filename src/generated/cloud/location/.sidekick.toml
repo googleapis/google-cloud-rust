@@ -17,5 +17,9 @@ specification-source = 'google/cloud/location'
 service-config = 'google/cloud/location/cloud.yaml'
 
 [codec]
+# ATTENTION: if you change the major version, remember to change the major
+#     version of all downstream dependencies. For details see:
+#         https://github.com/googleapis/google-cloud-rust/issues/3237
+#         https://github.com/googleapis/google-cloud-rust/issues/3265
 copyright-year = '2024'
 'package:location' = 'ignore=true'

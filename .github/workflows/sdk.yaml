@@ -228,6 +228,61 @@ jobs:
           path: |
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Check for major breaks in key libraries
+        # TODO(#3265) - replace with a standard tool or a program in Go or Rust.
+        run: |
+          set -e
+          if [[ '${{ contains(github.event.pull_request.labels.*.name, 'rust: no-semver-checks') }}' == 'true' ]]; then
+            exit 0
+          fi
+          dirs=(
+            src/wkt
+            src/gax
+            src/lro
+            src/auth
+            src/generated/cloud/location
+            src/generated/iam/v1
+            src/generated/longrunning
+          )
+          git fetch origin main
+          cat >major-break.awk <<'_EOF_'
+            function v(s) {
+                s = substr(s, 2, length(s)-2);
+                return s
+            }
+            /^\+version/ { new = v($2) }
+            /^\-version/ { old = v($2) }
+            END {
+                if (new == "" || old == "") {
+                  exit 1
+                }
+                split(old, a, ".")
+                split(new, b, ".")
+                if (a[1] != b[1]) {
+                    printf("major version mismatch: new=%s old=%s\n", new, old)
+                    exit 0
+                }
+                if (a[1] == "0" && b[1] == "0" && a[2] != b[2]) {
+                    printf("minor version mismatch on 0.x series: new=%s old=%s\n", new, old)
+                    exit 0
+                }
+                printf("major versions match: old=%s, new=%s\n", old, new)
+                exit 1
+            }
+          _EOF_
+          set +e
+          for name in "${dirs[@]}"; do
+            if git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk; then
+              cat <<_EOF_
+          The major version (or minor for a 0.x series) of a critical package
+          (located in ${name}) is changing. The types from this package are part
+          of the public API for many other packages. You need to bump the
+          version of all downstream packages and then disable this check using
+          the `rust: no-semver-checks` github label.
+          _EOF_
+              exit 1
+            fi
+          done
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
