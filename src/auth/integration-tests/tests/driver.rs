@@ -24,6 +24,12 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
+    async fn run_service_account_with_audience() -> anyhow::Result<()> {
+        auth_integration_tests::service_account_with_audience().await
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
     async fn run_impersonated() -> anyhow::Result<()> {
         auth_integration_tests::impersonated().await
     }
