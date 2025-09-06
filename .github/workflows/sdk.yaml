@@ -249,7 +249,7 @@ jobs:
             /^\-version/ { old = v($2) }
             END {
                 if (new == "" || old == "") {
-                  printf("cannot find version diff\n")
+                  printf("cannot find version diff new=%s old=%s\n", new, old)
                   exit 1
                 }
                 split(old, a, ".")
@@ -268,10 +268,11 @@ jobs:
           _EOF_
           set +e
           for name in "${dirs[@]}"; do
-            echo DEBUG name = $name
+            echo DEBUG name = $name =============
             git diff origin/main..HEAD -- "${name}/Cargo.toml"
+            echo DEBUG name = $name =======================
             git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk
-            echo DEBUG === $?
+            echo DEBUG $name === $? =======================
             if git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk; then
               echo DEBUG name mismatched = $name
               cat <<_EOF_
