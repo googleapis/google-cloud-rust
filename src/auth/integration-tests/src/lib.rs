@@ -112,7 +112,11 @@ pub async fn service_account_with_audience() -> anyhow::Result<()> {
 
     // Create credentials for the principal under test, but with an audience.
     let creds = ServiceAccountCredentialsBuilder::new(sa_json)
-        .with_access_specifier(auth::credentials::service_account::AccessSpecifier::from_audience("https://secretmanager.googleapis.com/"))
+        .with_access_specifier(
+            auth::credentials::service_account::AccessSpecifier::from_audience(
+                "https://secretmanager.googleapis.com/",
+            ),
+        )
         .build()?;
 
     // Construct a new SecretManager client using the credentials.
