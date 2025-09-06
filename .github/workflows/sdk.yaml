@@ -228,7 +228,8 @@ jobs:
           path: |
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
-      - run: |
+      - name: Check for major breaks in key libraries
+        run: |
           set -e
           dirs=(
             src/wkt
@@ -268,6 +269,8 @@ jobs:
           _EOF_
           set +e
           for name in "${dirs[@]}"; do
+            echo DEBUG name = $name =============
+            cat major-break.awk
             echo DEBUG name = $name =============
             git diff origin/main..HEAD -- "${name}/Cargo.toml"
             echo DEBUG name = $name =======================
