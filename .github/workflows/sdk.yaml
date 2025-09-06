@@ -231,7 +231,7 @@ jobs:
       - name: Check for major breaks in key libraries
         run: |
           set -e
-          echo contains = '${{ contains(github.event.pull_request.labels.*.name, 'rust: no-semver-checks') }}'
+          echo contains = '${{ contains(github.event.pull_request.labels.*.name, 'rust: no-semver-checks') }}' ==
           if [[ '${{ contains(github.event.pull_request.labels.*.name, 'rust: no-semver-checks') }}' == 'true' ]]; then
             exit 0
           fi
