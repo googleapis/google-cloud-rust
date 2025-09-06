@@ -240,6 +240,32 @@ jobs:
         run: rustup show active-toolchain -v
       - run: |
           set -e
+          dirs=(
+            src/wkt
+            src/gax
+            src/lro
+            src/auth
+            src/generated/cloud/location
+            src/generated/iam/v1
+            src/generated/longrunning
+          )
+          git fetch origin main
+          echo DEBUG DEBUG
+          git diff origin/main..HEAD
+          echo DEBUG DEBUG
+          for name in "${dirs[@]}"; do
+            if git diff origin/main..HEAD -- "${name}/Cargo.toml" | grep -q version; then
+              cat <<_EOF_
+          The version of a critical package (located in ${name}) is changing.
+          The types from this package are part of the public API for many other
+          packages. If this is a major change, you need to bump the version of
+          all downstream packages and then disable this check using the TBD
+          github label.
+          _EOF_
+            fi
+          done
+      - run: |
+          set -e
           cargo semver-checks --all-features -p google-cloud-wkt
           cargo semver-checks --all-features -p google-cloud-api
           cargo semver-checks --all-features -p google-cloud-rpc
