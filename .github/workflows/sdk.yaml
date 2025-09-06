@@ -229,6 +229,7 @@ jobs:
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
       - name: Check for major breaks in key libraries
+        # TODO(#3265) - replace with a standard tool or a program in Go or Rust.
         run: |
           set -e
           echo contains = '${{ contains(github.event.pull_request.labels.*.name, 'rust: no-semver-checks') }}' ==
