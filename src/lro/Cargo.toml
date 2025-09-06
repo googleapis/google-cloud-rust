@@ -19,7 +19,7 @@ name        = "google-cloud-lro"
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
 #         https://github.com/googleapis/google-cloud-rust/issues/3265
-version     = "0.4.0"
+version = "0.4.0"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true
