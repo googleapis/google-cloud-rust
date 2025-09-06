@@ -229,9 +229,11 @@ jobs:
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
       - name: Check for major breaks in key libraries
-        if: ${{ ! contains(github.event.pull_request.labels.*.name, 'rust: no-semver-checks') }}
         run: |
           set -e
+          if [[ ${{ ! contains(github.event.pull_request.labels.*.name, 'rust: no-semver-checks') }} == "true" ]]; then
+            exit 0
+          fi
           dirs=(
             src/wkt
             src/gax
