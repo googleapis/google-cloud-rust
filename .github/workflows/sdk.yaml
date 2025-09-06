@@ -248,6 +248,9 @@ jobs:
             /^\+version/ { new = v($2) }
             /^\-version/ { old = v($2) }
             END {
+                if (new == "" || old == "") {
+                  exit 1
+                }
                 split(old, a, ".")
                 split(new, b, ".")
                 if (a[1] != b[1]) {
