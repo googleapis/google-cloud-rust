@@ -240,9 +240,6 @@ jobs:
             src/generated/longrunning
           )
           git fetch origin main
-          echo DEBUG DEBUG
-          git diff origin/main..HEAD
-          echo DEBUG DEBUG
           cat >major-break.awk <<_EOF_
             function v(s) {
                 s = substr(s, 2, length(s)-2);
@@ -264,7 +261,9 @@ jobs:
             }
           _EOF_
           for name in "${dirs[@]}"; do
+            echo DEBUG name = $name
             if git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk; then
+              echo DEBUG name mismatched = $name
               cat <<_EOF_
           The major version (or minor for a 0.x series) of a critical package
           (located in ${name}) is changing. The types from this package are part
@@ -274,7 +273,7 @@ jobs:
           _EOF_
             fi
           done
-          echo DEBUG DEBUG
+          echo DEBUG DEBUG EOF
           exit 1
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
