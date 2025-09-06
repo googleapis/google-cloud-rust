@@ -266,8 +266,10 @@ jobs:
                 exit 1
             }
           _EOF_
+          set +e
           for name in "${dirs[@]}"; do
             echo DEBUG name = $name
+            git diff origin/main..HEAD -- "${name}/Cargo.toml"
             git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk
             echo DEBUG === $?
             if git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk; then
