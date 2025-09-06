@@ -243,7 +243,7 @@ jobs:
           echo DEBUG DEBUG
           git diff origin/main..HEAD
           echo DEBUG DEBUG
-          cat >version.awk <<_EOF_
+          cat >major-break.awk <<_EOF_
             function v(s) {
                 s = substr(s, 2, length(s)-2);
                 return s
@@ -252,22 +252,19 @@ jobs:
             /^\-version/ { old = v($2) }
             END {
                 split(new, b, "."); split(old, a, ".");
-                if (a[1] == b[1] && a[2] == b[2]) {
-                    exit 0
-                }
                 if (a[1] != b[1]) {
                     printf("major version mismatch: new=%s old=%s\n", new, old);
-                    exit 1
+                    exit 0
                 }
-                if (a[1] == "0" && b[1] == "0") {
+                if (a[1] == "0" && b[1] == "0" && a[2] != b[2]) {
                     printf("minor version mismatch on 0.x series: new=%s old=%s\n", new, old);
-                    exit 1
+                    exit 0
                 }
-                exit 0
+                exit 1
             }
           _EOF_
           for name in "${dirs[@]}"; do
-            if git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f version.awk; then
+            if git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk; then
               cat <<_EOF_
           The major version (or minor for a 0.x series) of a critical package
           (located in ${name}) is changing. The types from this package are part
