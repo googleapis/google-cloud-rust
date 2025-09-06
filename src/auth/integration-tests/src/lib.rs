@@ -87,6 +87,61 @@ pub async fn service_account() -> anyhow::Result<()> {
     Ok(())
 }
 
+pub async fn service_account_with_audience() -> anyhow::Result<()> {
+    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+
+    // Create a SecretManager client. When running on GCB, this loads MDS
+    // credentials for our `integration-test-runner` service account.
+    let client = SecretManagerService::builder().build().await?;
+
+    // Load the ADC json for the principal under test, in this case, a
+    // service account.
+    let response = client
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/test-sa-creds-json/versions/latest"
+        ))
+        .send()
+        .await?;
+    let sa_json = response
+        .payload
+        .expect("missing payload in test-sa-creds-json response")
+        .data;
+
+    let sa_json: serde_json::Value = serde_json::from_slice(&sa_json)?;
+
+    // Create credentials for the principal under test, but with an audience.
+    let creds = ServiceAccountCredentialsBuilder::new(sa_json)
+        .with_access_specifier(
+            auth::credentials::service_account::AccessSpecifier::from_audience(
+                "https://secretmanager.googleapis.com/",
+            ),
+        )
+        .build()?;
+
+    // Construct a new SecretManager client using the credentials.
+    let client = SecretManagerService::builder()
+        .with_credentials(creds)
+        .build()
+        .await?;
+
+    // Access a secret, which only this principal has permissions to do.
+    let response = client
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/test-sa-creds-secret/versions/latest"
+        ))
+        .send()
+        .await?;
+    let secret = response
+        .payload
+        .expect("missing payload in test-sa-creds-secret response")
+        .data;
+    assert_eq!(secret, "service_account");
+
+    Ok(())
+}
+
 pub async fn impersonated() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
 
