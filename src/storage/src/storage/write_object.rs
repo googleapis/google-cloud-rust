@@ -1085,7 +1085,10 @@ mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
     use crate::client::Storage;
-    use crate::model::{ObjectChecksums, WriteObjectSpec};
+    use crate::model::{
+        CommonObjectRequestParams, ObjectChecksums, ObjectContexts, ObjectCustomContextPayload,
+        WriteObjectSpec,
+    };
     use crate::storage::checksum::details::{Crc32c, Md5};
     use crate::streaming_source::tests::MockSeekSource;
     use auth::credentials::anonymous::Builder as Anonymous;
@@ -1173,11 +1176,12 @@ mod tests {
     }
 
     #[test]
-    fn upload_object_unbuffered_metadata() -> Result {
+    fn write_object_metadata() -> Result {
         use crate::model::ObjectAccessControl;
         let inner = test_inner_client(test_builder());
         let options = inner.options.clone();
         let stub = crate::storage::transport::Storage::new(inner);
+        let key = KeyAes256::new(&[0x42; 32]).expect("hard-coded key is not an error");
         let mut builder =
             WriteObject::new(stub, "projects/_/buckets/bucket", "object", "", options)
                 .set_if_generation_match(10)
@@ -1193,8 +1197,13 @@ mod tests {
                 .set_content_encoding("gzip")
                 .set_content_language("en")
                 .set_content_type("text/plain")
+                .set_contexts(ObjectContexts::new().set_custom([(
+                    "context-key",
+                    ObjectCustomContextPayload::new().set_value("context-value"),
+                )]))
                 .set_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
                 .set_event_based_hold(true)
+                .set_key(key.clone())
                 .set_metadata([("k0", "v0"), ("k1", "v1")])
                 .set_retention(
                     crate::model::object::Retention::new()
@@ -1220,6 +1229,11 @@ mod tests {
         );
 
         assert_eq!(
+            &builder.request.params,
+            &Some(CommonObjectRequestParams::from(key))
+        );
+
+        assert_eq!(
             resource,
             Object::new()
                 .set_name("object")
@@ -1232,6 +1246,10 @@ mod tests {
                 .set_content_encoding("gzip")
                 .set_content_language("en")
                 .set_content_type("text/plain")
+                .set_contexts(ObjectContexts::new().set_custom([(
+                    "context-key",
+                    ObjectCustomContextPayload::new().set_value("context-value"),
+                )]))
                 .set_checksums(
                     crate::model::ObjectChecksums::new()
                         .set_crc32c(crc32c::crc32c(b""))
