@@ -77,5 +77,9 @@ jobs:
         run: |
           git ls-files -z -- '*.tf' ':!:testdata/**' ':!:**/generated/**' | \
             xargs -0 terraform fmt
+      - name: Fix Proto files Formatting
+        run: |
+          git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' | \
+            xargs -0 -r -P "$(nproc)" -n 50 clang-format -i
       - name: Check for changes
         run: git diff --exit-code
