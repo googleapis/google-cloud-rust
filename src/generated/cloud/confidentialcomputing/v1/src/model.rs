@@ -479,8 +479,8 @@ impl std::fmt::Debug for CreateChallengeRequest {
     }
 }
 
-/// A request for an OIDC token, providing all the necessary information needed
-/// for this service to verify the platform state of the requestor.
+/// A request for an attestation token, providing all the necessary information
+/// needed for this service to verify the platform state of the requestor.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyAttestationRequest {
@@ -1461,7 +1461,7 @@ impl std::fmt::Debug for SevSnpAttestation {
 }
 
 /// A response once an attestation has been successfully verified, containing a
-/// signed OIDC token.
+/// signed attestation token.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyAttestationResponse {
@@ -1853,8 +1853,7 @@ impl TokenOptions {
     /// holds a different branch.
     pub fn aws_principal_tags_options(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::token_options::AwsPrincipalTagsOptions>>
-    {
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AwsPrincipalTagsOptions>> {
         #[allow(unreachable_patterns)]
         self.token_type_options.as_ref().and_then(|v| match v {
             crate::model::token_options::TokenTypeOptions::AwsPrincipalTagsOptions(v) => {
@@ -1870,7 +1869,7 @@ impl TokenOptions {
     /// Note that all the setters affecting `token_type_options` are
     /// mutually exclusive.
     pub fn set_aws_principal_tags_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::token_options::AwsPrincipalTagsOptions>>,
+        T: std::convert::Into<std::boxed::Box<crate::model::AwsPrincipalTagsOptions>>,
     >(
         mut self,
         v: T,
@@ -1970,7 +1969,7 @@ impl<'de> serde::de::Deserialize<'de> for TokenOptions {
                             }
                             result.token_type_options = std::option::Option::Some(
                                 crate::model::token_options::TokenTypeOptions::AwsPrincipalTagsOptions(
-                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::token_options::AwsPrincipalTagsOptions>>>()?.unwrap_or_default()
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::AwsPrincipalTagsOptions>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -2065,54 +2064,217 @@ pub mod token_options {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Token options that only apply to the AWS Principal Tags token type.
+    /// An optional additional configuration per token type.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TokenTypeOptions {
+        /// Optional. Options for AWS token type.
+        AwsPrincipalTagsOptions(std::boxed::Box<crate::model::AwsPrincipalTagsOptions>),
+    }
+}
+
+/// Token options that only apply to the AWS Principal Tags token type.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AwsPrincipalTagsOptions {
+    /// Optional. Principal tags to allow in the token.
+    pub allowed_principal_tags:
+        std::option::Option<crate::model::aws_principal_tags_options::AllowedPrincipalTags>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AwsPrincipalTagsOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [allowed_principal_tags][crate::model::AwsPrincipalTagsOptions::allowed_principal_tags].
+    pub fn set_allowed_principal_tags<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::aws_principal_tags_options::AllowedPrincipalTags>,
+    {
+        self.allowed_principal_tags = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [allowed_principal_tags][crate::model::AwsPrincipalTagsOptions::allowed_principal_tags].
+    pub fn set_or_clear_allowed_principal_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::aws_principal_tags_options::AllowedPrincipalTags>,
+    {
+        self.allowed_principal_tags = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AwsPrincipalTagsOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.confidentialcomputing.v1.AwsPrincipalTagsOptions"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AwsPrincipalTagsOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __allowed_principal_tags,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AwsPrincipalTagsOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "allowedPrincipalTags" => Ok(__FieldTag::__allowed_principal_tags),
+                            "allowed_principal_tags" => Ok(__FieldTag::__allowed_principal_tags),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AwsPrincipalTagsOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AwsPrincipalTagsOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__allowed_principal_tags => {
+                            if !fields.insert(__FieldTag::__allowed_principal_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allowed_principal_tags",
+                                ));
+                            }
+                            result.allowed_principal_tags = map.next_value::<std::option::Option<
+                                crate::model::aws_principal_tags_options::AllowedPrincipalTags,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AwsPrincipalTagsOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.allowed_principal_tags.is_some() {
+            state.serialize_entry("allowedPrincipalTags", &self.allowed_principal_tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for AwsPrincipalTagsOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsPrincipalTagsOptions");
+        debug_struct.field("allowed_principal_tags", &self.allowed_principal_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [AwsPrincipalTagsOptions].
+pub mod aws_principal_tags_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Allowed principal tags is used to define what principal tags will be
+    /// placed in the token.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
-    pub struct AwsPrincipalTagsOptions {
-        /// Optional. Principal tags to allow in the token.
-        pub allowed_principal_tags: std::option::Option<
-            crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags,
-        >,
+    pub struct AllowedPrincipalTags {
+
+        /// Optional. Container image signatures allowed in the token.
+        pub container_image_signatures: std::option::Option<crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    impl AwsPrincipalTagsOptions {
+    impl AllowedPrincipalTags {
         pub fn new() -> Self {
             std::default::Default::default()
         }
 
-        /// Sets the value of [allowed_principal_tags][crate::model::token_options::AwsPrincipalTagsOptions::allowed_principal_tags].
-        pub fn set_allowed_principal_tags<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags,
-                >,
+        /// Sets the value of [container_image_signatures][crate::model::aws_principal_tags_options::AllowedPrincipalTags::container_image_signatures].
+        pub fn set_container_image_signatures<T>(mut self, v: T) -> Self
+        where T: std::convert::Into<crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>
         {
-            self.allowed_principal_tags = std::option::Option::Some(v.into());
+            self.container_image_signatures = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [allowed_principal_tags][crate::model::token_options::AwsPrincipalTagsOptions::allowed_principal_tags].
-        pub fn set_or_clear_allowed_principal_tags<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags,
-                >,
+        /// Sets or clears the value of [container_image_signatures][crate::model::aws_principal_tags_options::AllowedPrincipalTags::container_image_signatures].
+        pub fn set_or_clear_container_image_signatures<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>
         {
-            self.allowed_principal_tags = v.map(|x| x.into());
+            self.container_image_signatures = v.map(|x| x.into());
             self
         }
     }
 
-    impl wkt::message::Message for AwsPrincipalTagsOptions {
+    impl wkt::message::Message for AllowedPrincipalTags {
         fn typename() -> &'static str {
-            "type.googleapis.com/google.cloud.confidentialcomputing.v1.TokenOptions.AwsPrincipalTagsOptions"
+            "type.googleapis.com/google.cloud.confidentialcomputing.v1.AwsPrincipalTagsOptions.AllowedPrincipalTags"
         }
     }
 
     #[doc(hidden)]
-    impl<'de> serde::de::Deserialize<'de> for AwsPrincipalTagsOptions {
+    impl<'de> serde::de::Deserialize<'de> for AllowedPrincipalTags {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
             D: serde::Deserializer<'de>,
@@ -2121,7 +2283,7 @@ pub mod token_options {
             #[doc(hidden)]
             #[derive(PartialEq, Eq, Hash)]
             enum __FieldTag {
-                __allowed_principal_tags,
+                __container_image_signatures,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2136,7 +2298,7 @@ pub mod token_options {
                             &self,
                             formatter: &mut std::fmt::Formatter,
                         ) -> std::fmt::Result {
-                            formatter.write_str("a field name for AwsPrincipalTagsOptions")
+                            formatter.write_str("a field name for AllowedPrincipalTags")
                         }
                         fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
                         where
@@ -2145,9 +2307,11 @@ pub mod token_options {
                             use std::result::Result::Ok;
                             use std::string::ToString;
                             match value {
-                                "allowedPrincipalTags" => Ok(__FieldTag::__allowed_principal_tags),
-                                "allowed_principal_tags" => {
-                                    Ok(__FieldTag::__allowed_principal_tags)
+                                "containerImageSignatures" => {
+                                    Ok(__FieldTag::__container_image_signatures)
+                                }
+                                "container_image_signatures" => {
+                                    Ok(__FieldTag::__container_image_signatures)
                                 }
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
@@ -2158,9 +2322,9 @@ pub mod token_options {
             }
             struct Visitor;
             impl<'de> serde::de::Visitor<'de> for Visitor {
-                type Value = AwsPrincipalTagsOptions;
+                type Value = AllowedPrincipalTags;
                 fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                    formatter.write_str("struct AwsPrincipalTagsOptions")
+                    formatter.write_str("struct AllowedPrincipalTags")
                 }
                 fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
                 where
@@ -2174,13 +2338,13 @@ pub mod token_options {
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
                         #[allow(clippy::match_single_binding)]
                         match tag {
-                            __FieldTag::__allowed_principal_tags => {
-                                if !fields.insert(__FieldTag::__allowed_principal_tags) {
+                            __FieldTag::__container_image_signatures => {
+                                if !fields.insert(__FieldTag::__container_image_signatures) {
                                     return std::result::Result::Err(A::Error::duplicate_field(
-                                        "multiple values for allowed_principal_tags",
+                                        "multiple values for container_image_signatures",
                                     ));
                                 }
-                                result.allowed_principal_tags = map.next_value::<std::option::Option<crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags>>()?
+                                result.container_image_signatures = map.next_value::<std::option::Option<crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>>()?
                                     ;
                             }
                             __FieldTag::Unknown(key) => {
@@ -2197,7 +2361,7 @@ pub mod token_options {
     }
 
     #[doc(hidden)]
-    impl serde::ser::Serialize for AwsPrincipalTagsOptions {
+    impl serde::ser::Serialize for AllowedPrincipalTags {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
             S: serde::ser::Serializer,
@@ -2206,8 +2370,11 @@ pub mod token_options {
             #[allow(unused_imports)]
             use std::option::Option::Some;
             let mut state = serializer.serialize_map(std::option::Option::None)?;
-            if self.allowed_principal_tags.is_some() {
-                state.serialize_entry("allowedPrincipalTags", &self.allowed_principal_tags)?;
+            if self.container_image_signatures.is_some() {
+                state.serialize_entry(
+                    "containerImageSignatures",
+                    &self.container_image_signatures,
+                )?;
             }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
@@ -2218,10 +2385,13 @@ pub mod token_options {
         }
     }
 
-    impl std::fmt::Debug for AwsPrincipalTagsOptions {
+    impl std::fmt::Debug for AllowedPrincipalTags {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            let mut debug_struct = f.debug_struct("AwsPrincipalTagsOptions");
-            debug_struct.field("allowed_principal_tags", &self.allowed_principal_tags);
+            let mut debug_struct = f.debug_struct("AllowedPrincipalTags");
+            debug_struct.field(
+                "container_image_signatures",
+                &self.container_image_signatures,
+            );
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2229,53 +2399,49 @@ pub mod token_options {
         }
     }
 
-    /// Defines additional types related to [AwsPrincipalTagsOptions].
-    pub mod aws_principal_tags_options {
+    /// Defines additional types related to [AllowedPrincipalTags].
+    pub mod allowed_principal_tags {
         #[allow(unused_imports)]
         use super::*;
 
-        /// Allowed principal tags is used to define what principal tags will be
-        /// placed in the token.
+        /// Allowed Container Image Signatures. Key IDs are required to allow
+        /// this claim to fit within the narrow AWS IAM restrictions.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
-        pub struct AllowedPrincipalTags {
-
-            /// Optional. Container image signatures allowed in the token.
-            pub container_image_signatures: std::option::Option<crate::model::token_options::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>,
+        pub struct ContainerImageSignatures {
+            /// Optional. List of key ids to filter into the Principal tags. Only keys
+            /// that have been validated and added to the token will be filtered into
+            /// principal tags. Unrecognized key ids will be ignored.
+            pub key_ids: std::vec::Vec<std::string::String>,
 
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
-        impl AllowedPrincipalTags {
+        impl ContainerImageSignatures {
             pub fn new() -> Self {
                 std::default::Default::default()
             }
 
-            /// Sets the value of [container_image_signatures][crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags::container_image_signatures].
-            pub fn set_container_image_signatures<T>(mut self, v: T) -> Self
-            where T: std::convert::Into<crate::model::token_options::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>
+            /// Sets the value of [key_ids][crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures::key_ids].
+            pub fn set_key_ids<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
             {
-                self.container_image_signatures = std::option::Option::Some(v.into());
-                self
-            }
-
-            /// Sets or clears the value of [container_image_signatures][crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags::container_image_signatures].
-            pub fn set_or_clear_container_image_signatures<T>(mut self, v: std::option::Option<T>) -> Self
-            where T: std::convert::Into<crate::model::token_options::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>
-            {
-                self.container_image_signatures = v.map(|x| x.into());
+                use std::iter::Iterator;
+                self.key_ids = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
 
-        impl wkt::message::Message for AllowedPrincipalTags {
+        impl wkt::message::Message for ContainerImageSignatures {
             fn typename() -> &'static str {
-                "type.googleapis.com/google.cloud.confidentialcomputing.v1.TokenOptions.AwsPrincipalTagsOptions.AllowedPrincipalTags"
+                "type.googleapis.com/google.cloud.confidentialcomputing.v1.AwsPrincipalTagsOptions.AllowedPrincipalTags.ContainerImageSignatures"
             }
         }
 
         #[doc(hidden)]
-        impl<'de> serde::de::Deserialize<'de> for AllowedPrincipalTags {
+        impl<'de> serde::de::Deserialize<'de> for ContainerImageSignatures {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
                 D: serde::Deserializer<'de>,
@@ -2284,7 +2450,7 @@ pub mod token_options {
                 #[doc(hidden)]
                 #[derive(PartialEq, Eq, Hash)]
                 enum __FieldTag {
-                    __container_image_signatures,
+                    __key_ids,
                     Unknown(std::string::String),
                 }
                 impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2299,7 +2465,7 @@ pub mod token_options {
                                 &self,
                                 formatter: &mut std::fmt::Formatter,
                             ) -> std::fmt::Result {
-                                formatter.write_str("a field name for AllowedPrincipalTags")
+                                formatter.write_str("a field name for ContainerImageSignatures")
                             }
                             fn visit_str<E>(
                                 self,
@@ -2311,12 +2477,8 @@ pub mod token_options {
                                 use std::result::Result::Ok;
                                 use std::string::ToString;
                                 match value {
-                                    "containerImageSignatures" => {
-                                        Ok(__FieldTag::__container_image_signatures)
-                                    }
-                                    "container_image_signatures" => {
-                                        Ok(__FieldTag::__container_image_signatures)
-                                    }
+                                    "keyIds" => Ok(__FieldTag::__key_ids),
+                                    "key_ids" => Ok(__FieldTag::__key_ids),
                                     _ => Ok(__FieldTag::Unknown(value.to_string())),
                                 }
                             }
@@ -2326,9 +2488,9 @@ pub mod token_options {
                 }
                 struct Visitor;
                 impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = AllowedPrincipalTags;
+                    type Value = ContainerImageSignatures;
                     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("struct AllowedPrincipalTags")
+                        formatter.write_str("struct ContainerImageSignatures")
                     }
                     fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
                     where
@@ -2342,16 +2504,15 @@ pub mod token_options {
                         while let Some(tag) = map.next_key::<__FieldTag>()? {
                             #[allow(clippy::match_single_binding)]
                             match tag {
-                                __FieldTag::__container_image_signatures => {
-                                    if !fields.insert(__FieldTag::__container_image_signatures) {
+                                __FieldTag::__key_ids => {
+                                    if !fields.insert(__FieldTag::__key_ids) {
                                         return std::result::Result::Err(
                                             A::Error::duplicate_field(
-                                                "multiple values for container_image_signatures",
+                                                "multiple values for key_ids",
                                             ),
                                         );
                                     }
-                                    result.container_image_signatures = map.next_value::<std::option::Option<crate::model::token_options::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>>()?
-                                        ;
+                                    result.key_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                                 }
                                 __FieldTag::Unknown(key) => {
                                     let value = map.next_value::<serde_json::Value>()?;
@@ -2367,7 +2528,7 @@ pub mod token_options {
         }
 
         #[doc(hidden)]
-        impl serde::ser::Serialize for AllowedPrincipalTags {
+        impl serde::ser::Serialize for ContainerImageSignatures {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
                 S: serde::ser::Serializer,
@@ -2376,11 +2537,8 @@ pub mod token_options {
                 #[allow(unused_imports)]
                 use std::option::Option::Some;
                 let mut state = serializer.serialize_map(std::option::Option::None)?;
-                if self.container_image_signatures.is_some() {
-                    state.serialize_entry(
-                        "containerImageSignatures",
-                        &self.container_image_signatures,
-                    )?;
+                if !self.key_ids.is_empty() {
+                    state.serialize_entry("keyIds", &self.key_ids)?;
                 }
                 if !self._unknown_fields.is_empty() {
                     for (key, value) in self._unknown_fields.iter() {
@@ -2391,201 +2549,16 @@ pub mod token_options {
             }
         }
 
-        impl std::fmt::Debug for AllowedPrincipalTags {
+        impl std::fmt::Debug for ContainerImageSignatures {
             fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                let mut debug_struct = f.debug_struct("AllowedPrincipalTags");
-                debug_struct.field(
-                    "container_image_signatures",
-                    &self.container_image_signatures,
-                );
+                let mut debug_struct = f.debug_struct("ContainerImageSignatures");
+                debug_struct.field("key_ids", &self.key_ids);
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
                 debug_struct.finish()
             }
         }
-
-        /// Defines additional types related to [AllowedPrincipalTags].
-        pub mod allowed_principal_tags {
-            #[allow(unused_imports)]
-            use super::*;
-
-            /// Allowed Container Image Signatures. Key IDs are required to allow this
-            /// claim to fit within the narrow AWS IAM restrictions.
-            #[derive(Clone, Default, PartialEq)]
-            #[non_exhaustive]
-            pub struct ContainerImageSignatures {
-                /// Optional. List of key ids to filter into the Principal tags. Only
-                /// keys that have been validated and added to the token will be filtered
-                /// into principal tags. Unrecognized key ids will be ignored.
-                pub key_ids: std::vec::Vec<std::string::String>,
-
-                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-            }
-
-            impl ContainerImageSignatures {
-                pub fn new() -> Self {
-                    std::default::Default::default()
-                }
-
-                /// Sets the value of [key_ids][crate::model::token_options::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures::key_ids].
-                pub fn set_key_ids<T, V>(mut self, v: T) -> Self
-                where
-                    T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>,
-                {
-                    use std::iter::Iterator;
-                    self.key_ids = v.into_iter().map(|i| i.into()).collect();
-                    self
-                }
-            }
-
-            impl wkt::message::Message for ContainerImageSignatures {
-                fn typename() -> &'static str {
-                    "type.googleapis.com/google.cloud.confidentialcomputing.v1.TokenOptions.AwsPrincipalTagsOptions.AllowedPrincipalTags.ContainerImageSignatures"
-                }
-            }
-
-            #[doc(hidden)]
-            impl<'de> serde::de::Deserialize<'de> for ContainerImageSignatures {
-                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-                where
-                    D: serde::Deserializer<'de>,
-                {
-                    #[allow(non_camel_case_types)]
-                    #[doc(hidden)]
-                    #[derive(PartialEq, Eq, Hash)]
-                    enum __FieldTag {
-                        __key_ids,
-                        Unknown(std::string::String),
-                    }
-                    impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-                        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-                        where
-                            D: serde::Deserializer<'de>,
-                        {
-                            struct Visitor;
-                            impl<'de> serde::de::Visitor<'de> for Visitor {
-                                type Value = __FieldTag;
-                                fn expecting(
-                                    &self,
-                                    formatter: &mut std::fmt::Formatter,
-                                ) -> std::fmt::Result {
-                                    formatter.write_str("a field name for ContainerImageSignatures")
-                                }
-                                fn visit_str<E>(
-                                    self,
-                                    value: &str,
-                                ) -> std::result::Result<Self::Value, E>
-                                where
-                                    E: serde::de::Error,
-                                {
-                                    use std::result::Result::Ok;
-                                    use std::string::ToString;
-                                    match value {
-                                        "keyIds" => Ok(__FieldTag::__key_ids),
-                                        "key_ids" => Ok(__FieldTag::__key_ids),
-                                        _ => Ok(__FieldTag::Unknown(value.to_string())),
-                                    }
-                                }
-                            }
-                            deserializer.deserialize_identifier(Visitor)
-                        }
-                    }
-                    struct Visitor;
-                    impl<'de> serde::de::Visitor<'de> for Visitor {
-                        type Value = ContainerImageSignatures;
-                        fn expecting(
-                            &self,
-                            formatter: &mut std::fmt::Formatter,
-                        ) -> std::fmt::Result {
-                            formatter.write_str("struct ContainerImageSignatures")
-                        }
-                        fn visit_map<A>(
-                            self,
-                            mut map: A,
-                        ) -> std::result::Result<Self::Value, A::Error>
-                        where
-                            A: serde::de::MapAccess<'de>,
-                        {
-                            #[allow(unused_imports)]
-                            use serde::de::Error;
-                            use std::option::Option::Some;
-                            let mut fields = std::collections::HashSet::new();
-                            let mut result = Self::Value::new();
-                            while let Some(tag) = map.next_key::<__FieldTag>()? {
-                                #[allow(clippy::match_single_binding)]
-                                match tag {
-                                    __FieldTag::__key_ids => {
-                                        if !fields.insert(__FieldTag::__key_ids) {
-                                            return std::result::Result::Err(
-                                                A::Error::duplicate_field(
-                                                    "multiple values for key_ids",
-                                                ),
-                                            );
-                                        }
-                                        result.key_ids =
-                                            map.next_value::<std::option::Option<
-                                                std::vec::Vec<std::string::String>,
-                                            >>()?
-                                            .unwrap_or_default();
-                                    }
-                                    __FieldTag::Unknown(key) => {
-                                        let value = map.next_value::<serde_json::Value>()?;
-                                        result._unknown_fields.insert(key, value);
-                                    }
-                                }
-                            }
-                            std::result::Result::Ok(result)
-                        }
-                    }
-                    deserializer.deserialize_any(Visitor)
-                }
-            }
-
-            #[doc(hidden)]
-            impl serde::ser::Serialize for ContainerImageSignatures {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    use serde::ser::SerializeMap;
-                    #[allow(unused_imports)]
-                    use std::option::Option::Some;
-                    let mut state = serializer.serialize_map(std::option::Option::None)?;
-                    if !self.key_ids.is_empty() {
-                        state.serialize_entry("keyIds", &self.key_ids)?;
-                    }
-                    if !self._unknown_fields.is_empty() {
-                        for (key, value) in self._unknown_fields.iter() {
-                            state.serialize_entry(key, &value)?;
-                        }
-                    }
-                    state.end()
-                }
-            }
-
-            impl std::fmt::Debug for ContainerImageSignatures {
-                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                    let mut debug_struct = f.debug_struct("ContainerImageSignatures");
-                    debug_struct.field("key_ids", &self.key_ids);
-                    if !self._unknown_fields.is_empty() {
-                        debug_struct.field("_unknown_fields", &self._unknown_fields);
-                    }
-                    debug_struct.finish()
-                }
-            }
-        }
-    }
-
-    /// An optional additional configuration per token type.
-    #[derive(Clone, Debug, PartialEq)]
-    #[non_exhaustive]
-    pub enum TokenTypeOptions {
-        /// Optional. Options for the Limited AWS token type.
-        AwsPrincipalTagsOptions(
-            std::boxed::Box<crate::model::token_options::AwsPrincipalTagsOptions>,
-        ),
     }
 }
 
@@ -3866,6 +3839,1563 @@ impl std::fmt::Debug for ContainerImageSignature {
     }
 }
 
+/// A request for an attestation token, providing all the necessary information
+/// needed for this service to verify the platform state of the requestor.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VerifyConfidentialSpaceRequest {
+    /// Required. The name of the Challenge whose nonce was used to generate the
+    /// attestation, in the format `projects/*/locations/*/challenges/*`. The
+    /// provided Challenge will be consumed, and cannot be used again.
+    pub challenge: std::string::String,
+
+    /// Optional. Credentials used to populate the "emails" claim in the
+    /// claims_token. If not present, token will not contain the "emails" claim.
+    pub gcp_credentials: std::option::Option<crate::model::GcpCredentials>,
+
+    /// Optional. A list of signed entities containing container image signatures
+    /// that can be used for server-side signature verification.
+    pub signed_entities: std::vec::Vec<crate::model::SignedEntity>,
+
+    /// Optional. Information about the associated Compute Engine instance.
+    /// Required for td_ccel requests only - tpm_attestation requests will provide
+    /// this information in the attestation.
+    pub gce_shielded_identity: std::option::Option<crate::model::GceShieldedIdentity>,
+
+    /// Optional. A collection of fields that modify the token output.
+    pub options: std::option::Option<
+        crate::model::verify_confidential_space_request::ConfidentialSpaceOptions,
+    >,
+
+    /// Required. A tee attestation report, used to populate hardware rooted
+    /// claims.
+    pub tee_attestation:
+        std::option::Option<crate::model::verify_confidential_space_request::TeeAttestation>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VerifyConfidentialSpaceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [challenge][crate::model::VerifyConfidentialSpaceRequest::challenge].
+    pub fn set_challenge<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.challenge = v.into();
+        self
+    }
+
+    /// Sets the value of [gcp_credentials][crate::model::VerifyConfidentialSpaceRequest::gcp_credentials].
+    pub fn set_gcp_credentials<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcpCredentials>,
+    {
+        self.gcp_credentials = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcp_credentials][crate::model::VerifyConfidentialSpaceRequest::gcp_credentials].
+    pub fn set_or_clear_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcpCredentials>,
+    {
+        self.gcp_credentials = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [signed_entities][crate::model::VerifyConfidentialSpaceRequest::signed_entities].
+    pub fn set_signed_entities<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SignedEntity>,
+    {
+        use std::iter::Iterator;
+        self.signed_entities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [gce_shielded_identity][crate::model::VerifyConfidentialSpaceRequest::gce_shielded_identity].
+    pub fn set_gce_shielded_identity<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GceShieldedIdentity>,
+    {
+        self.gce_shielded_identity = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gce_shielded_identity][crate::model::VerifyConfidentialSpaceRequest::gce_shielded_identity].
+    pub fn set_or_clear_gce_shielded_identity<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GceShieldedIdentity>,
+    {
+        self.gce_shielded_identity = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [options][crate::model::VerifyConfidentialSpaceRequest::options].
+    pub fn set_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::verify_confidential_space_request::ConfidentialSpaceOptions,
+            >,
+    {
+        self.options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [options][crate::model::VerifyConfidentialSpaceRequest::options].
+    pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::verify_confidential_space_request::ConfidentialSpaceOptions,
+            >,
+    {
+        self.options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [tee_attestation][crate::model::VerifyConfidentialSpaceRequest::tee_attestation].
+    ///
+    /// Note that all the setters affecting `tee_attestation` are mutually
+    /// exclusive.
+    pub fn set_tee_attestation<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::verify_confidential_space_request::TeeAttestation,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tee_attestation = v.into();
+        self
+    }
+
+    /// The value of [tee_attestation][crate::model::VerifyConfidentialSpaceRequest::tee_attestation]
+    /// if it holds a `TdCcel`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn td_ccel(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TdxCcelAttestation>> {
+        #[allow(unreachable_patterns)]
+        self.tee_attestation.as_ref().and_then(|v| match v {
+            crate::model::verify_confidential_space_request::TeeAttestation::TdCcel(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [tee_attestation][crate::model::VerifyConfidentialSpaceRequest::tee_attestation]
+    /// to hold a `TdCcel`.
+    ///
+    /// Note that all the setters affecting `tee_attestation` are
+    /// mutually exclusive.
+    pub fn set_td_ccel<T: std::convert::Into<std::boxed::Box<crate::model::TdxCcelAttestation>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tee_attestation = std::option::Option::Some(
+            crate::model::verify_confidential_space_request::TeeAttestation::TdCcel(v.into()),
+        );
+        self
+    }
+
+    /// The value of [tee_attestation][crate::model::VerifyConfidentialSpaceRequest::tee_attestation]
+    /// if it holds a `TpmAttestation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tpm_attestation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TpmAttestation>> {
+        #[allow(unreachable_patterns)]
+        self.tee_attestation.as_ref().and_then(|v| match v {
+            crate::model::verify_confidential_space_request::TeeAttestation::TpmAttestation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [tee_attestation][crate::model::VerifyConfidentialSpaceRequest::tee_attestation]
+    /// to hold a `TpmAttestation`.
+    ///
+    /// Note that all the setters affecting `tee_attestation` are
+    /// mutually exclusive.
+    pub fn set_tpm_attestation<
+        T: std::convert::Into<std::boxed::Box<crate::model::TpmAttestation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tee_attestation = std::option::Option::Some(
+            crate::model::verify_confidential_space_request::TeeAttestation::TpmAttestation(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for VerifyConfidentialSpaceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.confidentialcomputing.v1.VerifyConfidentialSpaceRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for VerifyConfidentialSpaceRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __td_ccel,
+            __tpm_attestation,
+            __challenge,
+            __gcp_credentials,
+            __signed_entities,
+            __gce_shielded_identity,
+            __options,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VerifyConfidentialSpaceRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "tdCcel" => Ok(__FieldTag::__td_ccel),
+                            "td_ccel" => Ok(__FieldTag::__td_ccel),
+                            "tpmAttestation" => Ok(__FieldTag::__tpm_attestation),
+                            "tpm_attestation" => Ok(__FieldTag::__tpm_attestation),
+                            "challenge" => Ok(__FieldTag::__challenge),
+                            "gcpCredentials" => Ok(__FieldTag::__gcp_credentials),
+                            "gcp_credentials" => Ok(__FieldTag::__gcp_credentials),
+                            "signedEntities" => Ok(__FieldTag::__signed_entities),
+                            "signed_entities" => Ok(__FieldTag::__signed_entities),
+                            "gceShieldedIdentity" => Ok(__FieldTag::__gce_shielded_identity),
+                            "gce_shielded_identity" => Ok(__FieldTag::__gce_shielded_identity),
+                            "options" => Ok(__FieldTag::__options),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = VerifyConfidentialSpaceRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VerifyConfidentialSpaceRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__td_ccel => {
+                            if !fields.insert(__FieldTag::__td_ccel) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for td_ccel",
+                                ));
+                            }
+                            if result.tee_attestation.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `tee_attestation`, a oneof with full ID .google.cloud.confidentialcomputing.v1.VerifyConfidentialSpaceRequest.td_ccel, latest field was tdCcel",
+                                ));
+                            }
+                            result.tee_attestation = std::option::Option::Some(
+                                crate::model::verify_confidential_space_request::TeeAttestation::TdCcel(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::TdxCcelAttestation>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__tpm_attestation => {
+                            if !fields.insert(__FieldTag::__tpm_attestation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tpm_attestation",
+                                ));
+                            }
+                            if result.tee_attestation.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `tee_attestation`, a oneof with full ID .google.cloud.confidentialcomputing.v1.VerifyConfidentialSpaceRequest.tpm_attestation, latest field was tpmAttestation",
+                                ));
+                            }
+                            result.tee_attestation = std::option::Option::Some(
+                                crate::model::verify_confidential_space_request::TeeAttestation::TpmAttestation(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::TpmAttestation>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__challenge => {
+                            if !fields.insert(__FieldTag::__challenge) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for challenge",
+                                ));
+                            }
+                            result.challenge = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__gcp_credentials => {
+                            if !fields.insert(__FieldTag::__gcp_credentials) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcp_credentials",
+                                ));
+                            }
+                            result.gcp_credentials = map
+                                .next_value::<std::option::Option<crate::model::GcpCredentials>>(
+                                )?;
+                        }
+                        __FieldTag::__signed_entities => {
+                            if !fields.insert(__FieldTag::__signed_entities) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for signed_entities",
+                                ));
+                            }
+                            result.signed_entities = map.next_value::<std::option::Option<std::vec::Vec<crate::model::SignedEntity>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__gce_shielded_identity => {
+                            if !fields.insert(__FieldTag::__gce_shielded_identity) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gce_shielded_identity",
+                                ));
+                            }
+                            result.gce_shielded_identity = map.next_value::<std::option::Option<crate::model::GceShieldedIdentity>>()?
+                                ;
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options = map.next_value::<std::option::Option<crate::model::verify_confidential_space_request::ConfidentialSpaceOptions>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for VerifyConfidentialSpaceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.td_ccel() {
+            state.serialize_entry("tdCcel", value)?;
+        }
+        if let Some(value) = self.tpm_attestation() {
+            state.serialize_entry("tpmAttestation", value)?;
+        }
+        if !self.challenge.is_empty() {
+            state.serialize_entry("challenge", &self.challenge)?;
+        }
+        if self.gcp_credentials.is_some() {
+            state.serialize_entry("gcpCredentials", &self.gcp_credentials)?;
+        }
+        if !self.signed_entities.is_empty() {
+            state.serialize_entry("signedEntities", &self.signed_entities)?;
+        }
+        if self.gce_shielded_identity.is_some() {
+            state.serialize_entry("gceShieldedIdentity", &self.gce_shielded_identity)?;
+        }
+        if self.options.is_some() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for VerifyConfidentialSpaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VerifyConfidentialSpaceRequest");
+        debug_struct.field("challenge", &self.challenge);
+        debug_struct.field("gcp_credentials", &self.gcp_credentials);
+        debug_struct.field("signed_entities", &self.signed_entities);
+        debug_struct.field("gce_shielded_identity", &self.gce_shielded_identity);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("tee_attestation", &self.tee_attestation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [VerifyConfidentialSpaceRequest].
+pub mod verify_confidential_space_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Token options for Confidential Space attestation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConfidentialSpaceOptions {
+
+        /// Optional. Optional string to issue the token with a custom audience
+        /// claim. Required if custom nonces are specified.
+        pub audience: std::string::String,
+
+        /// Optional. Optional specification for token claims profile.
+        pub token_profile: crate::model::TokenProfile,
+
+        /// Optional. Optional parameter to place one or more nonces in the eat_nonce
+        /// claim in the output token. The minimum size for JSON-encoded EATs is 10
+        /// bytes and the maximum size is 74 bytes.
+        pub nonce: std::vec::Vec<std::string::String>,
+
+        /// Optional. Optional specification for how to sign the attestation token.
+        /// Defaults to SIGNATURE_TYPE_OIDC if unspecified.
+        pub signature_type: crate::model::SignatureType,
+
+        /// An optional additional configuration per token type.
+        pub token_profile_options: std::option::Option<crate::model::verify_confidential_space_request::confidential_space_options::TokenProfileOptions>,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ConfidentialSpaceOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [audience][crate::model::verify_confidential_space_request::ConfidentialSpaceOptions::audience].
+        pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.audience = v.into();
+            self
+        }
+
+        /// Sets the value of [token_profile][crate::model::verify_confidential_space_request::ConfidentialSpaceOptions::token_profile].
+        pub fn set_token_profile<T: std::convert::Into<crate::model::TokenProfile>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.token_profile = v.into();
+            self
+        }
+
+        /// Sets the value of [nonce][crate::model::verify_confidential_space_request::ConfidentialSpaceOptions::nonce].
+        pub fn set_nonce<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.nonce = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [signature_type][crate::model::verify_confidential_space_request::ConfidentialSpaceOptions::signature_type].
+        pub fn set_signature_type<T: std::convert::Into<crate::model::SignatureType>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.signature_type = v.into();
+            self
+        }
+
+        /// Sets the value of [token_profile_options][crate::model::verify_confidential_space_request::ConfidentialSpaceOptions::token_profile_options].
+        ///
+        /// Note that all the setters affecting `token_profile_options` are mutually
+        /// exclusive.
+        pub fn set_token_profile_options<T: std::convert::Into<std::option::Option<crate::model::verify_confidential_space_request::confidential_space_options::TokenProfileOptions>>>(mut self, v: T) -> Self
+        {
+            self.token_profile_options = v.into();
+            self
+        }
+
+        /// The value of [token_profile_options][crate::model::verify_confidential_space_request::ConfidentialSpaceOptions::token_profile_options]
+        /// if it holds a `AwsPrincipalTagsOptions`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn aws_principal_tags_options(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::AwsPrincipalTagsOptions>> {
+            #[allow(unreachable_patterns)]
+            self.token_profile_options.as_ref().and_then(|v| match v {
+                crate::model::verify_confidential_space_request::confidential_space_options::TokenProfileOptions::AwsPrincipalTagsOptions(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [token_profile_options][crate::model::verify_confidential_space_request::ConfidentialSpaceOptions::token_profile_options]
+        /// to hold a `AwsPrincipalTagsOptions`.
+        ///
+        /// Note that all the setters affecting `token_profile_options` are
+        /// mutually exclusive.
+        pub fn set_aws_principal_tags_options<
+            T: std::convert::Into<std::boxed::Box<crate::model::AwsPrincipalTagsOptions>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.token_profile_options = std::option::Option::Some(
+                crate::model::verify_confidential_space_request::confidential_space_options::TokenProfileOptions::AwsPrincipalTagsOptions(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for ConfidentialSpaceOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.confidentialcomputing.v1.VerifyConfidentialSpaceRequest.ConfidentialSpaceOptions"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ConfidentialSpaceOptions {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __aws_principal_tags_options,
+                __audience,
+                __token_profile,
+                __nonce,
+                __signature_type,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ConfidentialSpaceOptions")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "awsPrincipalTagsOptions" => {
+                                    Ok(__FieldTag::__aws_principal_tags_options)
+                                }
+                                "aws_principal_tags_options" => {
+                                    Ok(__FieldTag::__aws_principal_tags_options)
+                                }
+                                "audience" => Ok(__FieldTag::__audience),
+                                "tokenProfile" => Ok(__FieldTag::__token_profile),
+                                "token_profile" => Ok(__FieldTag::__token_profile),
+                                "nonce" => Ok(__FieldTag::__nonce),
+                                "signatureType" => Ok(__FieldTag::__signature_type),
+                                "signature_type" => Ok(__FieldTag::__signature_type),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ConfidentialSpaceOptions;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ConfidentialSpaceOptions")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__aws_principal_tags_options => {
+                                if !fields.insert(__FieldTag::__aws_principal_tags_options) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for aws_principal_tags_options",
+                                    ));
+                                }
+                                if result.token_profile_options.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `token_profile_options`, a oneof with full ID .google.cloud.confidentialcomputing.v1.VerifyConfidentialSpaceRequest.ConfidentialSpaceOptions.aws_principal_tags_options, latest field was awsPrincipalTagsOptions",
+                                    ));
+                                }
+                                result.token_profile_options = std::option::Option::Some(
+                                    crate::model::verify_confidential_space_request::confidential_space_options::TokenProfileOptions::AwsPrincipalTagsOptions(
+                                        map.next_value::<std::option::Option<std::boxed::Box<crate::model::AwsPrincipalTagsOptions>>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__audience => {
+                                if !fields.insert(__FieldTag::__audience) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for audience",
+                                    ));
+                                }
+                                result.audience = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__token_profile => {
+                                if !fields.insert(__FieldTag::__token_profile) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for token_profile",
+                                    ));
+                                }
+                                result.token_profile = map
+                                    .next_value::<std::option::Option<crate::model::TokenProfile>>(
+                                    )?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__nonce => {
+                                if !fields.insert(__FieldTag::__nonce) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for nonce",
+                                    ));
+                                }
+                                result.nonce = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__signature_type => {
+                                if !fields.insert(__FieldTag::__signature_type) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for signature_type",
+                                    ));
+                                }
+                                result.signature_type = map
+                                    .next_value::<std::option::Option<crate::model::SignatureType>>(
+                                    )?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ConfidentialSpaceOptions {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if let Some(value) = self.aws_principal_tags_options() {
+                state.serialize_entry("awsPrincipalTagsOptions", value)?;
+            }
+            if !self.audience.is_empty() {
+                state.serialize_entry("audience", &self.audience)?;
+            }
+            if !wkt::internal::is_default(&self.token_profile) {
+                state.serialize_entry("tokenProfile", &self.token_profile)?;
+            }
+            if !self.nonce.is_empty() {
+                state.serialize_entry("nonce", &self.nonce)?;
+            }
+            if !wkt::internal::is_default(&self.signature_type) {
+                state.serialize_entry("signatureType", &self.signature_type)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ConfidentialSpaceOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConfidentialSpaceOptions");
+            debug_struct.field("audience", &self.audience);
+            debug_struct.field("token_profile", &self.token_profile);
+            debug_struct.field("nonce", &self.nonce);
+            debug_struct.field("signature_type", &self.signature_type);
+            debug_struct.field("token_profile_options", &self.token_profile_options);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Defines additional types related to [ConfidentialSpaceOptions].
+    pub mod confidential_space_options {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// An optional additional configuration per token type.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum TokenProfileOptions {
+            /// Optional. Options for the AWS token type.
+            AwsPrincipalTagsOptions(std::boxed::Box<crate::model::AwsPrincipalTagsOptions>),
+        }
+    }
+
+    /// Required. A tee attestation report, used to populate hardware rooted
+    /// claims.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TeeAttestation {
+        /// Input only. A TDX with CCEL and RTMR Attestation Quote.
+        TdCcel(std::boxed::Box<crate::model::TdxCcelAttestation>),
+        /// Input only. The TPM-specific data provided by the attesting platform,
+        /// used to populate any of the claims regarding platform state.
+        TpmAttestation(std::boxed::Box<crate::model::TpmAttestation>),
+    }
+}
+
+/// GceShieldedIdentity contains information about a Compute Engine instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GceShieldedIdentity {
+    /// Optional. DER-encoded X.509 certificate of the Attestation Key (otherwise
+    /// known as an AK or a TPM restricted signing key) used to generate the
+    /// quotes.
+    pub ak_cert: ::bytes::Bytes,
+
+    /// Optional. List of DER-encoded X.509 certificates which, together with the
+    /// ak_cert, chain back to a trusted Root Certificate.
+    pub ak_cert_chain: std::vec::Vec<::bytes::Bytes>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GceShieldedIdentity {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ak_cert][crate::model::GceShieldedIdentity::ak_cert].
+    pub fn set_ak_cert<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.ak_cert = v.into();
+        self
+    }
+
+    /// Sets the value of [ak_cert_chain][crate::model::GceShieldedIdentity::ak_cert_chain].
+    pub fn set_ak_cert_chain<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<::bytes::Bytes>,
+    {
+        use std::iter::Iterator;
+        self.ak_cert_chain = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for GceShieldedIdentity {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.confidentialcomputing.v1.GceShieldedIdentity"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GceShieldedIdentity {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __ak_cert,
+            __ak_cert_chain,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GceShieldedIdentity")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "akCert" => Ok(__FieldTag::__ak_cert),
+                            "ak_cert" => Ok(__FieldTag::__ak_cert),
+                            "akCertChain" => Ok(__FieldTag::__ak_cert_chain),
+                            "ak_cert_chain" => Ok(__FieldTag::__ak_cert_chain),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GceShieldedIdentity;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GceShieldedIdentity")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__ak_cert => {
+                            if !fields.insert(__FieldTag::__ak_cert) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ak_cert",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.ak_cert = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__ak_cert_chain => {
+                            if !fields.insert(__FieldTag::__ak_cert_chain) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ak_cert_chain",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::vec::Vec<::bytes::Bytes>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::vec::Vec<serde_with::base64::Base64>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.ak_cert_chain =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GceShieldedIdentity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ak_cert.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("akCert", &__With(&self.ak_cert))?;
+        }
+        if !self.ak_cert_chain.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<::bytes::Bytes>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("akCertChain", &__With(&self.ak_cert_chain))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for GceShieldedIdentity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GceShieldedIdentity");
+        debug_struct.field("ak_cert", &self.ak_cert);
+        debug_struct.field("ak_cert_chain", &self.ak_cert_chain);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// VerifyConfidentialSpaceResponse is returned once a Confidential Space
+/// attestation has been successfully verified, containing a signed token.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VerifyConfidentialSpaceResponse {
+    /// Output only. The attestation token issued by this service. It contains
+    /// specific platform claims based on the contents of the provided attestation.
+    pub attestation_token: std::string::String,
+
+    /// Output only. A list of messages that carry the partial error details
+    /// related to VerifyConfidentialSpace. This field is populated by errors
+    /// during container image signature verification, which may reflect problems
+    /// in the provided image signatures. This does not block the issuing of an
+    /// attestation token, but the token will not contain claims for the failed
+    /// image signatures.
+    pub partial_errors: std::vec::Vec<rpc::model::Status>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VerifyConfidentialSpaceResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [attestation_token][crate::model::VerifyConfidentialSpaceResponse::attestation_token].
+    pub fn set_attestation_token<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.attestation_token = v.into();
+        self
+    }
+
+    /// Sets the value of [partial_errors][crate::model::VerifyConfidentialSpaceResponse::partial_errors].
+    pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<rpc::model::Status>,
+    {
+        use std::iter::Iterator;
+        self.partial_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for VerifyConfidentialSpaceResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.confidentialcomputing.v1.VerifyConfidentialSpaceResponse"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for VerifyConfidentialSpaceResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __attestation_token,
+            __partial_errors,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VerifyConfidentialSpaceResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "attestationToken" => Ok(__FieldTag::__attestation_token),
+                            "attestation_token" => Ok(__FieldTag::__attestation_token),
+                            "partialErrors" => Ok(__FieldTag::__partial_errors),
+                            "partial_errors" => Ok(__FieldTag::__partial_errors),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = VerifyConfidentialSpaceResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VerifyConfidentialSpaceResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__attestation_token => {
+                            if !fields.insert(__FieldTag::__attestation_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attestation_token",
+                                ));
+                            }
+                            result.attestation_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__partial_errors => {
+                            if !fields.insert(__FieldTag::__partial_errors) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for partial_errors",
+                                ));
+                            }
+                            result.partial_errors = map.next_value::<std::option::Option<std::vec::Vec<rpc::model::Status>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for VerifyConfidentialSpaceResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.attestation_token.is_empty() {
+            state.serialize_entry("attestationToken", &self.attestation_token)?;
+        }
+        if !self.partial_errors.is_empty() {
+            state.serialize_entry("partialErrors", &self.partial_errors)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for VerifyConfidentialSpaceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VerifyConfidentialSpaceResponse");
+        debug_struct.field("attestation_token", &self.attestation_token);
+        debug_struct.field("partial_errors", &self.partial_errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// A request for an attestation token, providing all the necessary information
+/// needed for this service to verify Confidential GKE platform state of the
+/// requestor.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VerifyConfidentialGkeRequest {
+    /// Required. The name of the Challenge whose nonce was used to generate the
+    /// attestation, in the format projects/*/locations/*/challenges/*. The
+    /// provided Challenge will be consumed, and cannot be used again.
+    pub challenge: std::string::String,
+
+    /// Required. A tee attestation report, used to populate hardware rooted
+    /// claims.
+    pub tee_attestation:
+        std::option::Option<crate::model::verify_confidential_gke_request::TeeAttestation>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VerifyConfidentialGkeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [challenge][crate::model::VerifyConfidentialGkeRequest::challenge].
+    pub fn set_challenge<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.challenge = v.into();
+        self
+    }
+
+    /// Sets the value of [tee_attestation][crate::model::VerifyConfidentialGkeRequest::tee_attestation].
+    ///
+    /// Note that all the setters affecting `tee_attestation` are mutually
+    /// exclusive.
+    pub fn set_tee_attestation<
+        T: std::convert::Into<
+                std::option::Option<crate::model::verify_confidential_gke_request::TeeAttestation>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tee_attestation = v.into();
+        self
+    }
+
+    /// The value of [tee_attestation][crate::model::VerifyConfidentialGkeRequest::tee_attestation]
+    /// if it holds a `TpmAttestation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tpm_attestation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TpmAttestation>> {
+        #[allow(unreachable_patterns)]
+        self.tee_attestation.as_ref().and_then(|v| match v {
+            crate::model::verify_confidential_gke_request::TeeAttestation::TpmAttestation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [tee_attestation][crate::model::VerifyConfidentialGkeRequest::tee_attestation]
+    /// to hold a `TpmAttestation`.
+    ///
+    /// Note that all the setters affecting `tee_attestation` are
+    /// mutually exclusive.
+    pub fn set_tpm_attestation<
+        T: std::convert::Into<std::boxed::Box<crate::model::TpmAttestation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tee_attestation = std::option::Option::Some(
+            crate::model::verify_confidential_gke_request::TeeAttestation::TpmAttestation(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for VerifyConfidentialGkeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.confidentialcomputing.v1.VerifyConfidentialGkeRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for VerifyConfidentialGkeRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __tpm_attestation,
+            __challenge,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VerifyConfidentialGkeRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "tpmAttestation" => Ok(__FieldTag::__tpm_attestation),
+                            "tpm_attestation" => Ok(__FieldTag::__tpm_attestation),
+                            "challenge" => Ok(__FieldTag::__challenge),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = VerifyConfidentialGkeRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VerifyConfidentialGkeRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__tpm_attestation => {
+                            if !fields.insert(__FieldTag::__tpm_attestation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tpm_attestation",
+                                ));
+                            }
+                            if result.tee_attestation.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `tee_attestation`, a oneof with full ID .google.cloud.confidentialcomputing.v1.VerifyConfidentialGkeRequest.tpm_attestation, latest field was tpmAttestation",
+                                ));
+                            }
+                            result.tee_attestation = std::option::Option::Some(
+                                crate::model::verify_confidential_gke_request::TeeAttestation::TpmAttestation(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::TpmAttestation>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__challenge => {
+                            if !fields.insert(__FieldTag::__challenge) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for challenge",
+                                ));
+                            }
+                            result.challenge = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for VerifyConfidentialGkeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.tpm_attestation() {
+            state.serialize_entry("tpmAttestation", value)?;
+        }
+        if !self.challenge.is_empty() {
+            state.serialize_entry("challenge", &self.challenge)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for VerifyConfidentialGkeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VerifyConfidentialGkeRequest");
+        debug_struct.field("challenge", &self.challenge);
+        debug_struct.field("tee_attestation", &self.tee_attestation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [VerifyConfidentialGkeRequest].
+pub mod verify_confidential_gke_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Required. A tee attestation report, used to populate hardware rooted
+    /// claims.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TeeAttestation {
+        /// The TPM-specific data provided by the attesting platform, used to
+        /// populate any of the claims regarding platform state.
+        TpmAttestation(std::boxed::Box<crate::model::TpmAttestation>),
+    }
+}
+
+/// VerifyConfidentialGkeResponse response is returened once a Confidential GKE
+/// attestation has been successfully verified, containing a signed OIDC token.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VerifyConfidentialGkeResponse {
+    /// Output only. The attestation token issued by this service for Confidential
+    /// GKE. It contains specific platform claims based on the contents of the
+    /// provided attestation.
+    pub attestation_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VerifyConfidentialGkeResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [attestation_token][crate::model::VerifyConfidentialGkeResponse::attestation_token].
+    pub fn set_attestation_token<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.attestation_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for VerifyConfidentialGkeResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.confidentialcomputing.v1.VerifyConfidentialGkeResponse"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for VerifyConfidentialGkeResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __attestation_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VerifyConfidentialGkeResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "attestationToken" => Ok(__FieldTag::__attestation_token),
+                            "attestation_token" => Ok(__FieldTag::__attestation_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = VerifyConfidentialGkeResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VerifyConfidentialGkeResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__attestation_token => {
+                            if !fields.insert(__FieldTag::__attestation_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attestation_token",
+                                ));
+                            }
+                            result.attestation_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for VerifyConfidentialGkeResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.attestation_token.is_empty() {
+            state.serialize_entry("attestationToken", &self.attestation_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for VerifyConfidentialGkeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VerifyConfidentialGkeResponse");
+        debug_struct.field("attestation_token", &self.attestation_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SigningAlgorithm enumerates all the supported signing algorithms.
 ///
 /// # Working with unknown values
@@ -4148,6 +5678,270 @@ impl<'de> serde::de::Deserialize<'de> for TokenType {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<TokenType>::new(
             ".google.cloud.confidentialcomputing.v1.TokenType",
+        ))
+    }
+}
+
+/// SignatureType enumerates supported signature types for attestation tokens.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SignatureType {
+    /// Unspecified signature type.
+    Unspecified,
+    /// Google OIDC signature.
+    Oidc,
+    /// Public Key Infrastructure (PKI) signature.
+    Pki,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SignatureType::value] or
+    /// [SignatureType::name].
+    UnknownValue(signature_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod signature_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SignatureType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Oidc => std::option::Option::Some(1),
+            Self::Pki => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SIGNATURE_TYPE_UNSPECIFIED"),
+            Self::Oidc => std::option::Option::Some("SIGNATURE_TYPE_OIDC"),
+            Self::Pki => std::option::Option::Some("SIGNATURE_TYPE_PKI"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for SignatureType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SignatureType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SignatureType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Oidc,
+            2 => Self::Pki,
+            _ => Self::UnknownValue(signature_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SignatureType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SIGNATURE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "SIGNATURE_TYPE_OIDC" => Self::Oidc,
+            "SIGNATURE_TYPE_PKI" => Self::Pki,
+            _ => Self::UnknownValue(signature_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SignatureType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Oidc => serializer.serialize_i32(1),
+            Self::Pki => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SignatureType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SignatureType>::new(
+            ".google.cloud.confidentialcomputing.v1.SignatureType",
+        ))
+    }
+}
+
+/// TokenProfile enumerates the supported token claims profiles.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum TokenProfile {
+    /// Unspecified token profile.
+    Unspecified,
+    /// EAT claims.
+    DefaultEat,
+    /// AWS Principal Tags claims.
+    Aws,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [TokenProfile::value] or
+    /// [TokenProfile::name].
+    UnknownValue(token_profile::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod token_profile {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl TokenProfile {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::DefaultEat => std::option::Option::Some(1),
+            Self::Aws => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("TOKEN_PROFILE_UNSPECIFIED"),
+            Self::DefaultEat => std::option::Option::Some("TOKEN_PROFILE_DEFAULT_EAT"),
+            Self::Aws => std::option::Option::Some("TOKEN_PROFILE_AWS"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for TokenProfile {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for TokenProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for TokenProfile {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::DefaultEat,
+            2 => Self::Aws,
+            _ => Self::UnknownValue(token_profile::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for TokenProfile {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "TOKEN_PROFILE_UNSPECIFIED" => Self::Unspecified,
+            "TOKEN_PROFILE_DEFAULT_EAT" => Self::DefaultEat,
+            "TOKEN_PROFILE_AWS" => Self::Aws,
+            _ => Self::UnknownValue(token_profile::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for TokenProfile {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::DefaultEat => serializer.serialize_i32(1),
+            Self::Aws => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TokenProfile {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<TokenProfile>::new(
+            ".google.cloud.confidentialcomputing.v1.TokenProfile",
         ))
     }
 }

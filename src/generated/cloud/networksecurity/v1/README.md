@@ -14,10 +14,14 @@ still possible, but not expected.
 
 The main types to work with this crate are the clients:
 
+- [AddressGroupService]
+- [OrganizationAddressGroupService]
 - [NetworkSecurity]
 
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-networksecurity-v1/latest/google-cloud-networksecurity-v1)
 
+[AddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/latest/google_cloud_networksecurity_v1/client/struct.AddressGroupService.html
+[OrganizationAddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/latest/google_cloud_networksecurity_v1/client/struct.OrganizationAddressGroupService.html
 [NetworkSecurity]: https://docs.rs/google-cloud-networksecurity-v1/latest/google_cloud_networksecurity_v1/client/struct.NetworkSecurity.html

@@ -142,6 +142,9 @@ pub struct Deployment {
     /// limitations.
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. This field specifies the provider configurations.
+    pub provider_config: std::option::Option<crate::model::ProviderConfig>,
+
     /// Blueprint to deploy.
     pub blueprint: std::option::Option<crate::model::deployment::Blueprint>,
 
@@ -410,6 +413,24 @@ impl Deployment {
         self
     }
 
+    /// Sets the value of [provider_config][crate::model::Deployment::provider_config].
+    pub fn set_provider_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProviderConfig>,
+    {
+        self.provider_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [provider_config][crate::model::Deployment::provider_config].
+    pub fn set_or_clear_provider_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProviderConfig>,
+    {
+        self.provider_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [blueprint][crate::model::Deployment::blueprint].
     ///
     /// Note that all the setters affecting `blueprint` are mutually
@@ -496,6 +517,7 @@ impl<'de> serde::de::Deserialize<'de> for Deployment {
             __tf_version,
             __quota_validation,
             __annotations,
+            __provider_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -562,6 +584,8 @@ impl<'de> serde::de::Deserialize<'de> for Deployment {
                             "quotaValidation" => Ok(__FieldTag::__quota_validation),
                             "quota_validation" => Ok(__FieldTag::__quota_validation),
                             "annotations" => Ok(__FieldTag::__annotations),
+                            "providerConfig" => Ok(__FieldTag::__provider_config),
+                            "provider_config" => Ok(__FieldTag::__provider_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -828,6 +852,16 @@ impl<'de> serde::de::Deserialize<'de> for Deployment {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__provider_config => {
+                            if !fields.insert(__FieldTag::__provider_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for provider_config",
+                                ));
+                            }
+                            result.provider_config = map
+                                .next_value::<std::option::Option<crate::model::ProviderConfig>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -920,6 +954,9 @@ impl serde::ser::Serialize for Deployment {
         if !self.annotations.is_empty() {
             state.serialize_entry("annotations", &self.annotations)?;
         }
+        if self.provider_config.is_some() {
+            state.serialize_entry("providerConfig", &self.provider_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -954,6 +991,7 @@ impl std::fmt::Debug for Deployment {
         debug_struct.field("tf_version", &self.tf_version);
         debug_struct.field("quota_validation", &self.quota_validation);
         debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("provider_config", &self.provider_config);
         debug_struct.field("blueprint", &self.blueprint);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -5014,6 +5052,9 @@ pub struct Revision {
     /// applies.
     pub quota_validation: crate::model::QuotaValidation,
 
+    /// Output only. This field specifies the provider configurations.
+    pub provider_config: std::option::Option<crate::model::ProviderConfig>,
+
     /// Blueprint that was deployed.
     pub blueprint: std::option::Option<crate::model::revision::Blueprint>,
 
@@ -5195,6 +5236,24 @@ impl Revision {
         self
     }
 
+    /// Sets the value of [provider_config][crate::model::Revision::provider_config].
+    pub fn set_provider_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProviderConfig>,
+    {
+        self.provider_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [provider_config][crate::model::Revision::provider_config].
+    pub fn set_or_clear_provider_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProviderConfig>,
+    {
+        self.provider_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [blueprint][crate::model::Revision::blueprint].
     ///
     /// Note that all the setters affecting `blueprint` are mutually
@@ -5278,6 +5337,7 @@ impl<'de> serde::de::Deserialize<'de> for Revision {
             __tf_version,
             __quota_validation_results,
             __quota_validation,
+            __provider_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5339,6 +5399,8 @@ impl<'de> serde::de::Deserialize<'de> for Revision {
                             }
                             "quotaValidation" => Ok(__FieldTag::__quota_validation),
                             "quota_validation" => Ok(__FieldTag::__quota_validation),
+                            "providerConfig" => Ok(__FieldTag::__provider_config),
+                            "provider_config" => Ok(__FieldTag::__provider_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5572,6 +5634,16 @@ impl<'de> serde::de::Deserialize<'de> for Revision {
                                 .next_value::<std::option::Option<crate::model::QuotaValidation>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__provider_config => {
+                            if !fields.insert(__FieldTag::__provider_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for provider_config",
+                                ));
+                            }
+                            result.provider_config = map
+                                .next_value::<std::option::Option<crate::model::ProviderConfig>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5655,6 +5727,9 @@ impl serde::ser::Serialize for Revision {
         if !wkt::internal::is_default(&self.quota_validation) {
             state.serialize_entry("quotaValidation", &self.quota_validation)?;
         }
+        if self.provider_config.is_some() {
+            state.serialize_entry("providerConfig", &self.provider_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -5686,6 +5761,7 @@ impl std::fmt::Debug for Revision {
         debug_struct.field("tf_version", &self.tf_version);
         debug_struct.field("quota_validation_results", &self.quota_validation_results);
         debug_struct.field("quota_validation", &self.quota_validation);
+        debug_struct.field("provider_config", &self.provider_config);
         debug_struct.field("blueprint", &self.blueprint);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -10347,6 +10423,9 @@ pub struct Preview {
     /// limitations.
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. This field specifies the provider configurations.
+    pub provider_config: std::option::Option<crate::model::ProviderConfig>,
+
     /// Blueprint to preview.
     pub blueprint: std::option::Option<crate::model::preview::Blueprint>,
 
@@ -10567,6 +10646,24 @@ impl Preview {
         self
     }
 
+    /// Sets the value of [provider_config][crate::model::Preview::provider_config].
+    pub fn set_provider_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ProviderConfig>,
+    {
+        self.provider_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [provider_config][crate::model::Preview::provider_config].
+    pub fn set_or_clear_provider_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ProviderConfig>,
+    {
+        self.provider_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [blueprint][crate::model::Preview::blueprint].
     ///
     /// Note that all the setters affecting `blueprint` are mutually
@@ -10648,6 +10745,7 @@ impl<'de> serde::de::Deserialize<'de> for Preview {
             __tf_version,
             __tf_version_constraint,
             __annotations,
+            __provider_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10701,6 +10799,8 @@ impl<'de> serde::de::Deserialize<'de> for Preview {
                             "tfVersionConstraint" => Ok(__FieldTag::__tf_version_constraint),
                             "tf_version_constraint" => Ok(__FieldTag::__tf_version_constraint),
                             "annotations" => Ok(__FieldTag::__annotations),
+                            "providerConfig" => Ok(__FieldTag::__provider_config),
+                            "provider_config" => Ok(__FieldTag::__provider_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10939,6 +11039,16 @@ impl<'de> serde::de::Deserialize<'de> for Preview {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__provider_config => {
+                            if !fields.insert(__FieldTag::__provider_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for provider_config",
+                                ));
+                            }
+                            result.provider_config = map
+                                .next_value::<std::option::Option<crate::model::ProviderConfig>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -11022,6 +11132,9 @@ impl serde::ser::Serialize for Preview {
         if !self.annotations.is_empty() {
             state.serialize_entry("annotations", &self.annotations)?;
         }
+        if self.provider_config.is_some() {
+            state.serialize_entry("providerConfig", &self.provider_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -11053,6 +11166,7 @@ impl std::fmt::Debug for Preview {
         debug_struct.field("tf_version", &self.tf_version);
         debug_struct.field("tf_version_constraint", &self.tf_version_constraint);
         debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("provider_config", &self.provider_config);
         debug_struct.field("blueprint", &self.blueprint);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -17646,6 +17760,291 @@ impl std::fmt::Debug for GetResourceDriftRequest {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
+    }
+}
+
+/// ProviderConfig contains the provider configurations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProviderConfig {
+    /// Optional. ProviderSource specifies the source type of the provider.
+    pub source_type: std::option::Option<crate::model::provider_config::ProviderSource>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ProviderConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [source_type][crate::model::ProviderConfig::source_type].
+    pub fn set_source_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::provider_config::ProviderSource>,
+    {
+        self.source_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_type][crate::model::ProviderConfig::source_type].
+    pub fn set_or_clear_source_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::provider_config::ProviderSource>,
+    {
+        self.source_type = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ProviderConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.ProviderConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ProviderConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __source_type,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ProviderConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "sourceType" => Ok(__FieldTag::__source_type),
+                            "source_type" => Ok(__FieldTag::__source_type),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ProviderConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ProviderConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__source_type => {
+                            if !fields.insert(__FieldTag::__source_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for source_type",
+                                ));
+                            }
+                            result.source_type = map.next_value::<std::option::Option<
+                                crate::model::provider_config::ProviderSource,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ProviderConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.source_type.is_some() {
+            state.serialize_entry("sourceType", &self.source_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ProviderConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProviderConfig");
+        debug_struct.field("source_type", &self.source_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [ProviderConfig].
+pub mod provider_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// ProviderSource represents the source type of the provider.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProviderSource {
+        /// Unspecified source type, default to public sources.
+        Unspecified,
+        /// Service maintained provider source type.
+        ServiceMaintained,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProviderSource::value] or
+        /// [ProviderSource::name].
+        UnknownValue(provider_source::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod provider_source {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ProviderSource {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ServiceMaintained => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROVIDER_SOURCE_UNSPECIFIED"),
+                Self::ServiceMaintained => std::option::Option::Some("SERVICE_MAINTAINED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ProviderSource {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ProviderSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ProviderSource {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ServiceMaintained,
+                _ => Self::UnknownValue(provider_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ProviderSource {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROVIDER_SOURCE_UNSPECIFIED" => Self::Unspecified,
+                "SERVICE_MAINTAINED" => Self::ServiceMaintained,
+                _ => Self::UnknownValue(provider_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ProviderSource {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ServiceMaintained => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ProviderSource {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProviderSource>::new(
+                ".google.cloud.config.v1.ProviderConfig.ProviderSource",
+            ))
+        }
     }
 }
 

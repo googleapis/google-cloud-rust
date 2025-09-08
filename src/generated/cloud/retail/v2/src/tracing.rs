@@ -378,6 +378,47 @@ where
     }
 }
 
+/// Implements a [ConversationalSearchService](super::stub::ConversationalSearchService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct ConversationalSearchService<T>
+where
+    T: super::stub::ConversationalSearchService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> ConversationalSearchService<T>
+where
+    T: super::stub::ConversationalSearchService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::ConversationalSearchService for ConversationalSearchService<T>
+where
+    T: super::stub::ConversationalSearchService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        self.inner.list_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+}
+
 /// Implements a [GenerativeQuestionService](super::stub::GenerativeQuestionService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct GenerativeQuestionService<T>

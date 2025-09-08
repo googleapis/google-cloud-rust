@@ -278,6 +278,81 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::AnalyticsHubService::create_query_template].
+    fn create_query_template(
+        &self,
+        _req: crate::model::CreateQueryTemplateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::QueryTemplate>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AnalyticsHubService::get_query_template].
+    fn get_query_template(
+        &self,
+        _req: crate::model::GetQueryTemplateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::QueryTemplate>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AnalyticsHubService::list_query_templates].
+    fn list_query_templates(
+        &self,
+        _req: crate::model::ListQueryTemplatesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListQueryTemplatesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AnalyticsHubService::update_query_template].
+    fn update_query_template(
+        &self,
+        _req: crate::model::UpdateQueryTemplateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::QueryTemplate>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AnalyticsHubService::delete_query_template].
+    fn delete_query_template(
+        &self,
+        _req: crate::model::DeleteQueryTemplateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AnalyticsHubService::submit_query_template].
+    fn submit_query_template(
+        &self,
+        _req: crate::model::SubmitQueryTemplateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::QueryTemplate>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AnalyticsHubService::approve_query_template].
+    fn approve_query_template(
+        &self,
+        _req: crate::model::ApproveQueryTemplateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::QueryTemplate>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::AnalyticsHubService::get_operation].
     fn get_operation(
         &self,

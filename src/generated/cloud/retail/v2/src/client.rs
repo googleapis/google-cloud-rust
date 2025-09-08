@@ -749,6 +749,131 @@ impl ControlService {
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_retail_v2::client::ConversationalSearchService;
+/// let client = ConversationalSearchService::builder().build().await?;
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for retail conversational search.
+///
+/// This feature is only available for users who have Retail Conversational
+/// Search enabled. Enable Retail Conversational Search on Cloud Console
+/// before using this feature.
+///
+/// # Configuration
+///
+/// To configure `ConversationalSearchService` use the `with_*` methods in the type returned
+/// by [builder()][ConversationalSearchService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://retail.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::conversational_search_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::conversational_search_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ConversationalSearchService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `ConversationalSearchService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct ConversationalSearchService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ConversationalSearchService>,
+}
+
+impl ConversationalSearchService {
+    /// Returns a builder for [ConversationalSearchService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_retail_v2::client::ConversationalSearchService;
+    /// let client = ConversationalSearchService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::conversational_search_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::conversational_search_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::ConversationalSearchService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::ConversationalSearchService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ConversationalSearchService> {
+        super::transport::ConversationalSearchService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ConversationalSearchService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ConversationalSearchService::new)
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::conversational_search_service::ListOperations {
+        super::builder::conversational_search_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::conversational_search_service::GetOperation {
+        super::builder::conversational_search_service::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Vertex AI Search for commerce API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
 /// let client = GenerativeQuestionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.

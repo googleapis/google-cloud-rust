@@ -513,6 +513,2247 @@ impl std::fmt::Debug for DataExchange {
     }
 }
 
+/// A query template is a container for sharing table-valued functions defined by
+/// contributors in a data clean room.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryTemplate {
+    /// Output only. The resource name of the QueryTemplate.
+    /// e.g. `projects/myproject/locations/us/dataExchanges/123/queryTemplates/456`
+    pub name: std::string::String,
+
+    /// Required. Human-readable display name of the QueryTemplate. The display
+    /// name must contain only Unicode letters, numbers (0-9), underscores (_),
+    /// dashes (-), spaces ( ), ampersands (&) and can't start or end with spaces.
+    /// Default value is an empty string. Max length: 63 bytes.
+    pub display_name: std::string::String,
+
+    /// Optional. Short description of the QueryTemplate. The description must not
+    /// contain Unicode non-characters and C0 and C1 control codes except tabs
+    /// (HT), new lines (LF), carriage returns (CR), and page breaks (FF). Default
+    /// value is an empty string. Max length: 2000 bytes.
+    pub description: std::string::String,
+
+    /// Optional. Will be deprecated.
+    /// Email or URL of the primary point of contact of the QueryTemplate.
+    /// Max Length: 1000 bytes.
+    pub proposer: std::string::String,
+
+    /// Optional. Email or URL of the primary point of contact of the
+    /// QueryTemplate. Max Length: 1000 bytes.
+    pub primary_contact: std::string::String,
+
+    /// Optional. Documentation describing the QueryTemplate.
+    pub documentation: std::string::String,
+
+    /// Output only. The QueryTemplate lifecycle state.
+    pub state: crate::model::query_template::State,
+
+    /// Optional. The routine associated with the QueryTemplate.
+    pub routine: std::option::Option<crate::model::Routine>,
+
+    /// Output only. Timestamp when the QueryTemplate was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Timestamp when the QueryTemplate was last modified.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryTemplate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::QueryTemplate::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::QueryTemplate::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::QueryTemplate::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [proposer][crate::model::QueryTemplate::proposer].
+    pub fn set_proposer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.proposer = v.into();
+        self
+    }
+
+    /// Sets the value of [primary_contact][crate::model::QueryTemplate::primary_contact].
+    pub fn set_primary_contact<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.primary_contact = v.into();
+        self
+    }
+
+    /// Sets the value of [documentation][crate::model::QueryTemplate::documentation].
+    pub fn set_documentation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.documentation = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::QueryTemplate::state].
+    pub fn set_state<T: std::convert::Into<crate::model::query_template::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [routine][crate::model::QueryTemplate::routine].
+    pub fn set_routine<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Routine>,
+    {
+        self.routine = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [routine][crate::model::QueryTemplate::routine].
+    pub fn set_or_clear_routine<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Routine>,
+    {
+        self.routine = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::QueryTemplate::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::QueryTemplate::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::QueryTemplate::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::QueryTemplate::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for QueryTemplate {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.QueryTemplate"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for QueryTemplate {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __display_name,
+            __description,
+            __proposer,
+            __primary_contact,
+            __documentation,
+            __state,
+            __routine,
+            __create_time,
+            __update_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for QueryTemplate")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "description" => Ok(__FieldTag::__description),
+                            "proposer" => Ok(__FieldTag::__proposer),
+                            "primaryContact" => Ok(__FieldTag::__primary_contact),
+                            "primary_contact" => Ok(__FieldTag::__primary_contact),
+                            "documentation" => Ok(__FieldTag::__documentation),
+                            "state" => Ok(__FieldTag::__state),
+                            "routine" => Ok(__FieldTag::__routine),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = QueryTemplate;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct QueryTemplate")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__proposer => {
+                            if !fields.insert(__FieldTag::__proposer) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for proposer",
+                                ));
+                            }
+                            result.proposer = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__primary_contact => {
+                            if !fields.insert(__FieldTag::__primary_contact) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for primary_contact",
+                                ));
+                            }
+                            result.primary_contact = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__documentation => {
+                            if !fields.insert(__FieldTag::__documentation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for documentation",
+                                ));
+                            }
+                            result.documentation = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map.next_value::<std::option::Option<crate::model::query_template::State>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__routine => {
+                            if !fields.insert(__FieldTag::__routine) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for routine",
+                                ));
+                            }
+                            result.routine =
+                                map.next_value::<std::option::Option<crate::model::Routine>>()?;
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for QueryTemplate {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.proposer.is_empty() {
+            state.serialize_entry("proposer", &self.proposer)?;
+        }
+        if !self.primary_contact.is_empty() {
+            state.serialize_entry("primaryContact", &self.primary_contact)?;
+        }
+        if !self.documentation.is_empty() {
+            state.serialize_entry("documentation", &self.documentation)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.routine.is_some() {
+            state.serialize_entry("routine", &self.routine)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for QueryTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryTemplate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("proposer", &self.proposer);
+        debug_struct.field("primary_contact", &self.primary_contact);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("routine", &self.routine);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [QueryTemplate].
+pub mod query_template {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The QueryTemplate lifecycle state.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// The QueryTemplate is in draft state.
+        Drafted,
+        /// The QueryTemplate is in pending state.
+        Pending,
+        /// The QueryTemplate is in deleted state.
+        Deleted,
+        /// The QueryTemplate is in approved state.
+        Approved,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Drafted => std::option::Option::Some(1),
+                Self::Pending => std::option::Option::Some(2),
+                Self::Deleted => std::option::Option::Some(3),
+                Self::Approved => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Drafted => std::option::Option::Some("DRAFTED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::Approved => std::option::Option::Some("APPROVED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Drafted,
+                2 => Self::Pending,
+                3 => Self::Deleted,
+                4 => Self::Approved,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "DRAFTED" => Self::Drafted,
+                "PENDING" => Self::Pending,
+                "DELETED" => Self::Deleted,
+                "APPROVED" => Self::Approved,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Drafted => serializer.serialize_i32(1),
+                Self::Pending => serializer.serialize_i32(2),
+                Self::Deleted => serializer.serialize_i32(3),
+                Self::Approved => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.bigquery.analyticshub.v1.QueryTemplate.State",
+            ))
+        }
+    }
+}
+
+/// Represents a bigquery routine.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Routine {
+    /// Required. The type of routine.
+    pub routine_type: crate::model::routine::RoutineType,
+
+    /// Optional. The definition body of the routine.
+    pub definition_body: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Routine {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [routine_type][crate::model::Routine::routine_type].
+    pub fn set_routine_type<T: std::convert::Into<crate::model::routine::RoutineType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.routine_type = v.into();
+        self
+    }
+
+    /// Sets the value of [definition_body][crate::model::Routine::definition_body].
+    pub fn set_definition_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.definition_body = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Routine {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.Routine"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Routine {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __routine_type,
+            __definition_body,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Routine")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "routineType" => Ok(__FieldTag::__routine_type),
+                            "routine_type" => Ok(__FieldTag::__routine_type),
+                            "definitionBody" => Ok(__FieldTag::__definition_body),
+                            "definition_body" => Ok(__FieldTag::__definition_body),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Routine;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Routine")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__routine_type => {
+                            if !fields.insert(__FieldTag::__routine_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for routine_type",
+                                ));
+                            }
+                            result.routine_type = map.next_value::<std::option::Option<crate::model::routine::RoutineType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__definition_body => {
+                            if !fields.insert(__FieldTag::__definition_body) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for definition_body",
+                                ));
+                            }
+                            result.definition_body = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Routine {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.routine_type) {
+            state.serialize_entry("routineType", &self.routine_type)?;
+        }
+        if !self.definition_body.is_empty() {
+            state.serialize_entry("definitionBody", &self.definition_body)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for Routine {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Routine");
+        debug_struct.field("routine_type", &self.routine_type);
+        debug_struct.field("definition_body", &self.definition_body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [Routine].
+pub mod routine {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the type of a given routine.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RoutineType {
+        /// Default value.
+        Unspecified,
+        /// Non-built-in persistent TVF.
+        TableValuedFunction,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RoutineType::value] or
+        /// [RoutineType::name].
+        UnknownValue(routine_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod routine_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RoutineType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::TableValuedFunction => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ROUTINE_TYPE_UNSPECIFIED"),
+                Self::TableValuedFunction => std::option::Option::Some("TABLE_VALUED_FUNCTION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RoutineType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RoutineType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RoutineType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::TableValuedFunction,
+                _ => Self::UnknownValue(routine_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RoutineType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ROUTINE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "TABLE_VALUED_FUNCTION" => Self::TableValuedFunction,
+                _ => Self::UnknownValue(routine_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RoutineType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::TableValuedFunction => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RoutineType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RoutineType>::new(
+                ".google.cloud.bigquery.analyticshub.v1.Routine.RoutineType",
+            ))
+        }
+    }
+}
+
+/// Message for creating a QueryTemplate.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateQueryTemplateRequest {
+    /// Required. The parent resource path of the QueryTemplate.
+    /// e.g.
+    /// `projects/myproject/locations/us/dataExchanges/123/queryTemplates/myQueryTemplate`.
+    pub parent: std::string::String,
+
+    /// Required. The ID of the QueryTemplate to create.
+    /// Must contain only Unicode letters, numbers (0-9), underscores (_).
+    /// Max length: 100 bytes.
+    pub query_template_id: std::string::String,
+
+    /// Required. The QueryTemplate to create.
+    pub query_template: std::option::Option<crate::model::QueryTemplate>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateQueryTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateQueryTemplateRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [query_template_id][crate::model::CreateQueryTemplateRequest::query_template_id].
+    pub fn set_query_template_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query_template_id = v.into();
+        self
+    }
+
+    /// Sets the value of [query_template][crate::model::CreateQueryTemplateRequest::query_template].
+    pub fn set_query_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::QueryTemplate>,
+    {
+        self.query_template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [query_template][crate::model::CreateQueryTemplateRequest::query_template].
+    pub fn set_or_clear_query_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::QueryTemplate>,
+    {
+        self.query_template = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateQueryTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.CreateQueryTemplateRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateQueryTemplateRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __query_template_id,
+            __query_template,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateQueryTemplateRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "queryTemplateId" => Ok(__FieldTag::__query_template_id),
+                            "query_template_id" => Ok(__FieldTag::__query_template_id),
+                            "queryTemplate" => Ok(__FieldTag::__query_template),
+                            "query_template" => Ok(__FieldTag::__query_template),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateQueryTemplateRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateQueryTemplateRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__query_template_id => {
+                            if !fields.insert(__FieldTag::__query_template_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query_template_id",
+                                ));
+                            }
+                            result.query_template_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__query_template => {
+                            if !fields.insert(__FieldTag::__query_template) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query_template",
+                                ));
+                            }
+                            result.query_template = map
+                                .next_value::<std::option::Option<crate::model::QueryTemplate>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateQueryTemplateRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.query_template_id.is_empty() {
+            state.serialize_entry("queryTemplateId", &self.query_template_id)?;
+        }
+        if self.query_template.is_some() {
+            state.serialize_entry("queryTemplate", &self.query_template)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CreateQueryTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateQueryTemplateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("query_template_id", &self.query_template_id);
+        debug_struct.field("query_template", &self.query_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Message for creating a QueryTemplate.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetQueryTemplateRequest {
+    /// Required. The parent resource path of the QueryTemplate.
+    /// e.g.
+    /// `projects/myproject/locations/us/dataExchanges/123/queryTemplates/myqueryTemplate`.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetQueryTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetQueryTemplateRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetQueryTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.GetQueryTemplateRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetQueryTemplateRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetQueryTemplateRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetQueryTemplateRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetQueryTemplateRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetQueryTemplateRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for GetQueryTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetQueryTemplateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Message for requesting the list of QueryTemplates.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListQueryTemplatesRequest {
+    /// Required. The parent resource path of the QueryTemplates.
+    /// e.g. `projects/myproject/locations/us/dataExchanges/123`.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of results to return in a single response
+    /// page. Leverage the page tokens to iterate through the entire collection.
+    pub page_size: i32,
+
+    /// Optional. Page token, returned by a previous call, to request the next page
+    /// of results.
+    pub page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListQueryTemplatesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListQueryTemplatesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListQueryTemplatesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListQueryTemplatesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListQueryTemplatesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.ListQueryTemplatesRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListQueryTemplatesRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListQueryTemplatesRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListQueryTemplatesRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListQueryTemplatesRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListQueryTemplatesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListQueryTemplatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListQueryTemplatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Message for response to the list of QueryTemplates.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListQueryTemplatesResponse {
+    /// The list of QueryTemplates.
+    pub query_templates: std::vec::Vec<crate::model::QueryTemplate>,
+
+    /// A token to request the next page of results.
+    pub next_page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListQueryTemplatesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [query_templates][crate::model::ListQueryTemplatesResponse::query_templates].
+    pub fn set_query_templates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QueryTemplate>,
+    {
+        use std::iter::Iterator;
+        self.query_templates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListQueryTemplatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListQueryTemplatesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.ListQueryTemplatesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListQueryTemplatesResponse {
+    type PageItem = crate::model::QueryTemplate;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.query_templates
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListQueryTemplatesResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __query_templates,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListQueryTemplatesResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "queryTemplates" => Ok(__FieldTag::__query_templates),
+                            "query_templates" => Ok(__FieldTag::__query_templates),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListQueryTemplatesResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListQueryTemplatesResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__query_templates => {
+                            if !fields.insert(__FieldTag::__query_templates) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query_templates",
+                                ));
+                            }
+                            result.query_templates = map.next_value::<std::option::Option<std::vec::Vec<crate::model::QueryTemplate>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListQueryTemplatesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.query_templates.is_empty() {
+            state.serialize_entry("queryTemplates", &self.query_templates)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListQueryTemplatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListQueryTemplatesResponse");
+        debug_struct.field("query_templates", &self.query_templates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Message for updating a QueryTemplate.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateQueryTemplateRequest {
+    /// Optional. Field mask specifies the fields to update in the query template
+    /// resource. The fields specified in the `updateMask` are relative to the
+    /// resource and are not a full request.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The QueryTemplate to update.
+    pub query_template: std::option::Option<crate::model::QueryTemplate>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateQueryTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateQueryTemplateRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateQueryTemplateRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [query_template][crate::model::UpdateQueryTemplateRequest::query_template].
+    pub fn set_query_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::QueryTemplate>,
+    {
+        self.query_template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [query_template][crate::model::UpdateQueryTemplateRequest::query_template].
+    pub fn set_or_clear_query_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::QueryTemplate>,
+    {
+        self.query_template = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateQueryTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.UpdateQueryTemplateRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateQueryTemplateRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __update_mask,
+            __query_template,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateQueryTemplateRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            "queryTemplate" => Ok(__FieldTag::__query_template),
+                            "query_template" => Ok(__FieldTag::__query_template),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateQueryTemplateRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateQueryTemplateRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::__query_template => {
+                            if !fields.insert(__FieldTag::__query_template) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query_template",
+                                ));
+                            }
+                            result.query_template = map
+                                .next_value::<std::option::Option<crate::model::QueryTemplate>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateQueryTemplateRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if self.query_template.is_some() {
+            state.serialize_entry("queryTemplate", &self.query_template)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateQueryTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateQueryTemplateRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("query_template", &self.query_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Message for deleting a QueryTemplate.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteQueryTemplateRequest {
+    /// Required. The resource path of the QueryTemplate.
+    /// e.g.
+    /// `projects/myproject/locations/us/dataExchanges/123/queryTemplates/myqueryTemplate`.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteQueryTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteQueryTemplateRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteQueryTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.DeleteQueryTemplateRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteQueryTemplateRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteQueryTemplateRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteQueryTemplateRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteQueryTemplateRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteQueryTemplateRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteQueryTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteQueryTemplateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Message for submitting a QueryTemplate.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SubmitQueryTemplateRequest {
+    /// Required. The resource path of the QueryTemplate.
+    /// e.g.
+    /// `projects/myproject/locations/us/dataExchanges/123/queryTemplates/myqueryTemplate`.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SubmitQueryTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SubmitQueryTemplateRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SubmitQueryTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.SubmitQueryTemplateRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SubmitQueryTemplateRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SubmitQueryTemplateRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SubmitQueryTemplateRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SubmitQueryTemplateRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SubmitQueryTemplateRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for SubmitQueryTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubmitQueryTemplateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Message for approving a QueryTemplate.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ApproveQueryTemplateRequest {
+    /// Required. The resource path of the QueryTemplate.
+    /// e.g.
+    /// `projects/myproject/locations/us/dataExchanges/123/queryTemplates/myqueryTemplate`.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ApproveQueryTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ApproveQueryTemplateRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ApproveQueryTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.ApproveQueryTemplateRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ApproveQueryTemplateRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ApproveQueryTemplateRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ApproveQueryTemplateRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ApproveQueryTemplateRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ApproveQueryTemplateRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ApproveQueryTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApproveQueryTemplateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sharing environment is a behavior model for sharing data within a
 /// data exchange. This option is configurable for a data exchange.
 #[derive(Clone, Default, PartialEq)]
@@ -1663,6 +3904,11 @@ pub struct DestinationDataset {
     /// locations.
     pub location: std::string::String,
 
+    /// Optional. The geographic locations where the dataset should be replicated.
+    /// See [BigQuery locations](https://cloud.google.com/bigquery/docs/locations)
+    /// for supported locations.
+    pub replica_locations: std::vec::Vec<std::string::String>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1742,6 +3988,17 @@ impl DestinationDataset {
         self.location = v.into();
         self
     }
+
+    /// Sets the value of [replica_locations][crate::model::DestinationDataset::replica_locations].
+    pub fn set_replica_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.replica_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for DestinationDataset {
@@ -1765,6 +4022,7 @@ impl<'de> serde::de::Deserialize<'de> for DestinationDataset {
             __description,
             __labels,
             __location,
+            __replica_locations,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1792,6 +4050,8 @@ impl<'de> serde::de::Deserialize<'de> for DestinationDataset {
                             "description" => Ok(__FieldTag::__description),
                             "labels" => Ok(__FieldTag::__labels),
                             "location" => Ok(__FieldTag::__location),
+                            "replicaLocations" => Ok(__FieldTag::__replica_locations),
+                            "replica_locations" => Ok(__FieldTag::__replica_locations),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1869,6 +4129,14 @@ impl<'de> serde::de::Deserialize<'de> for DestinationDataset {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__replica_locations => {
+                            if !fields.insert(__FieldTag::__replica_locations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for replica_locations",
+                                ));
+                            }
+                            result.replica_locations = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1907,6 +4175,9 @@ impl serde::ser::Serialize for DestinationDataset {
         if !self.location.is_empty() {
             state.serialize_entry("location", &self.location)?;
         }
+        if !self.replica_locations.is_empty() {
+            state.serialize_entry("replicaLocations", &self.replica_locations)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1924,6 +4195,7 @@ impl std::fmt::Debug for DestinationDataset {
         debug_struct.field("description", &self.description);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("location", &self.location);
+        debug_struct.field("replica_locations", &self.replica_locations);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2127,7 +4399,7 @@ pub struct Listing {
     /// Optional. Details of the data provider who owns the source data.
     pub data_provider: std::option::Option<crate::model::DataProvider>,
 
-    /// Optional. Categories of the listing. Up to two categories are allowed.
+    /// Optional. Categories of the listing. Up to five categories are allowed.
     pub categories: std::vec::Vec<crate::model::listing::Category>,
 
     /// Optional. Details of the publisher who owns the listing and who can share
@@ -2946,6 +5218,17 @@ pub mod listing {
             crate::model::listing::big_query_dataset_source::RestrictedExportPolicy,
         >,
 
+        /// Optional. A list of regions where the publisher has created shared
+        /// dataset replicas.
+        pub replica_locations: std::vec::Vec<std::string::String>,
+
+        /// Output only. Server-owned effective state of replicas.
+        /// Contains both primary and secondary replicas.
+        /// Each replica includes a system-computed (output-only) state and primary
+        /// designation.
+        pub effective_replicas:
+            std::vec::Vec<crate::model::listing::big_query_dataset_source::Replica>,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -2994,6 +5277,28 @@ pub mod listing {
             self.restricted_export_policy = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [replica_locations][crate::model::listing::BigQueryDatasetSource::replica_locations].
+        pub fn set_replica_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.replica_locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [effective_replicas][crate::model::listing::BigQueryDatasetSource::effective_replicas].
+        pub fn set_effective_replicas<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::listing::big_query_dataset_source::Replica>,
+        {
+            use std::iter::Iterator;
+            self.effective_replicas = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
     }
 
     impl wkt::message::Message for BigQueryDatasetSource {
@@ -3015,6 +5320,8 @@ pub mod listing {
                 __dataset,
                 __selected_resources,
                 __restricted_export_policy,
+                __replica_locations,
+                __effective_replicas,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3047,6 +5354,10 @@ pub mod listing {
                                 "restricted_export_policy" => {
                                     Ok(__FieldTag::__restricted_export_policy)
                                 }
+                                "replicaLocations" => Ok(__FieldTag::__replica_locations),
+                                "replica_locations" => Ok(__FieldTag::__replica_locations),
+                                "effectiveReplicas" => Ok(__FieldTag::__effective_replicas),
+                                "effective_replicas" => Ok(__FieldTag::__effective_replicas),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -3099,6 +5410,22 @@ pub mod listing {
                                 result.restricted_export_policy = map.next_value::<std::option::Option<crate::model::listing::big_query_dataset_source::RestrictedExportPolicy>>()?
                                     ;
                             }
+                            __FieldTag::__replica_locations => {
+                                if !fields.insert(__FieldTag::__replica_locations) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for replica_locations",
+                                    ));
+                                }
+                                result.replica_locations = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__effective_replicas => {
+                                if !fields.insert(__FieldTag::__effective_replicas) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for effective_replicas",
+                                    ));
+                                }
+                                result.effective_replicas = map.next_value::<std::option::Option<std::vec::Vec<crate::model::listing::big_query_dataset_source::Replica>>>()?.unwrap_or_default();
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -3131,6 +5458,12 @@ pub mod listing {
             if self.restricted_export_policy.is_some() {
                 state.serialize_entry("restrictedExportPolicy", &self.restricted_export_policy)?;
             }
+            if !self.replica_locations.is_empty() {
+                state.serialize_entry("replicaLocations", &self.replica_locations)?;
+            }
+            if !self.effective_replicas.is_empty() {
+                state.serialize_entry("effectiveReplicas", &self.effective_replicas)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -3146,6 +5479,8 @@ pub mod listing {
             debug_struct.field("dataset", &self.dataset);
             debug_struct.field("selected_resources", &self.selected_resources);
             debug_struct.field("restricted_export_policy", &self.restricted_export_policy);
+            debug_struct.field("replica_locations", &self.replica_locations);
+            debug_struct.field("effective_replicas", &self.effective_replicas);
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3674,6 +6009,511 @@ pub mod listing {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
                 debug_struct.finish()
+            }
+        }
+
+        /// Represents the state of a replica of a shared dataset.
+        /// It includes the geographic location of the replica and
+        /// system-computed, output-only fields indicating its replication state and
+        /// whether it is the primary replica.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Replica {
+            /// Output only. The geographic location where the replica resides. See
+            /// [BigQuery locations](https://cloud.google.com/bigquery/docs/locations)
+            /// for supported locations. Eg. "us-central1".
+            pub location: std::string::String,
+
+            /// Output only. Assigned by Analytics Hub based on real BigQuery
+            /// replication state.
+            pub replica_state:
+                crate::model::listing::big_query_dataset_source::replica::ReplicaState,
+
+            /// Output only. Indicates that this replica is the primary replica.
+            pub primary_state: std::option::Option<
+                crate::model::listing::big_query_dataset_source::replica::PrimaryState,
+            >,
+
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Replica {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [location][crate::model::listing::big_query_dataset_source::Replica::location].
+            pub fn set_location<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.location = v.into();
+                self
+            }
+
+            /// Sets the value of [replica_state][crate::model::listing::big_query_dataset_source::Replica::replica_state].
+            pub fn set_replica_state<
+                T: std::convert::Into<
+                        crate::model::listing::big_query_dataset_source::replica::ReplicaState,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.replica_state = v.into();
+                self
+            }
+
+            /// Sets the value of [primary_state][crate::model::listing::big_query_dataset_source::Replica::primary_state].
+            pub fn set_primary_state<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::listing::big_query_dataset_source::replica::PrimaryState,
+                    >,
+            {
+                self.primary_state = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [primary_state][crate::model::listing::big_query_dataset_source::Replica::primary_state].
+            pub fn set_or_clear_primary_state<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::listing::big_query_dataset_source::replica::PrimaryState,
+                    >,
+            {
+                self.primary_state = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for Replica {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.Listing.BigQueryDatasetSource.Replica"
+            }
+        }
+
+        #[doc(hidden)]
+        impl<'de> serde::de::Deserialize<'de> for Replica {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                #[allow(non_camel_case_types)]
+                #[doc(hidden)]
+                #[derive(PartialEq, Eq, Hash)]
+                enum __FieldTag {
+                    __location,
+                    __replica_state,
+                    __primary_state,
+                    Unknown(std::string::String),
+                }
+                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        struct Visitor;
+                        impl<'de> serde::de::Visitor<'de> for Visitor {
+                            type Value = __FieldTag;
+                            fn expecting(
+                                &self,
+                                formatter: &mut std::fmt::Formatter,
+                            ) -> std::fmt::Result {
+                                formatter.write_str("a field name for Replica")
+                            }
+                            fn visit_str<E>(
+                                self,
+                                value: &str,
+                            ) -> std::result::Result<Self::Value, E>
+                            where
+                                E: serde::de::Error,
+                            {
+                                use std::result::Result::Ok;
+                                use std::string::ToString;
+                                match value {
+                                    "location" => Ok(__FieldTag::__location),
+                                    "replicaState" => Ok(__FieldTag::__replica_state),
+                                    "replica_state" => Ok(__FieldTag::__replica_state),
+                                    "primaryState" => Ok(__FieldTag::__primary_state),
+                                    "primary_state" => Ok(__FieldTag::__primary_state),
+                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
+                                }
+                            }
+                        }
+                        deserializer.deserialize_identifier(Visitor)
+                    }
+                }
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = Replica;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("struct Replica")
+                    }
+                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                    where
+                        A: serde::de::MapAccess<'de>,
+                    {
+                        #[allow(unused_imports)]
+                        use serde::de::Error;
+                        use std::option::Option::Some;
+                        let mut fields = std::collections::HashSet::new();
+                        let mut result = Self::Value::new();
+                        while let Some(tag) = map.next_key::<__FieldTag>()? {
+                            #[allow(clippy::match_single_binding)]
+                            match tag {
+                                __FieldTag::__location => {
+                                    if !fields.insert(__FieldTag::__location) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for location",
+                                            ),
+                                        );
+                                    }
+                                    result.location = map
+                                        .next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default();
+                                }
+                                __FieldTag::__replica_state => {
+                                    if !fields.insert(__FieldTag::__replica_state) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for replica_state",
+                                            ),
+                                        );
+                                    }
+                                    result.replica_state = map.next_value::<std::option::Option<crate::model::listing::big_query_dataset_source::replica::ReplicaState>>()?.unwrap_or_default();
+                                }
+                                __FieldTag::__primary_state => {
+                                    if !fields.insert(__FieldTag::__primary_state) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for primary_state",
+                                            ),
+                                        );
+                                    }
+                                    result.primary_state = map.next_value::<std::option::Option<crate::model::listing::big_query_dataset_source::replica::PrimaryState>>()?
+                                        ;
+                                }
+                                __FieldTag::Unknown(key) => {
+                                    let value = map.next_value::<serde_json::Value>()?;
+                                    result._unknown_fields.insert(key, value);
+                                }
+                            }
+                        }
+                        std::result::Result::Ok(result)
+                    }
+                }
+                deserializer.deserialize_any(Visitor)
+            }
+        }
+
+        #[doc(hidden)]
+        impl serde::ser::Serialize for Replica {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                use serde::ser::SerializeMap;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
+                let mut state = serializer.serialize_map(std::option::Option::None)?;
+                if !self.location.is_empty() {
+                    state.serialize_entry("location", &self.location)?;
+                }
+                if !wkt::internal::is_default(&self.replica_state) {
+                    state.serialize_entry("replicaState", &self.replica_state)?;
+                }
+                if self.primary_state.is_some() {
+                    state.serialize_entry("primaryState", &self.primary_state)?;
+                }
+                if !self._unknown_fields.is_empty() {
+                    for (key, value) in self._unknown_fields.iter() {
+                        state.serialize_entry(key, &value)?;
+                    }
+                }
+                state.end()
+            }
+        }
+
+        impl std::fmt::Debug for Replica {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Replica");
+                debug_struct.field("location", &self.location);
+                debug_struct.field("replica_state", &self.replica_state);
+                debug_struct.field("primary_state", &self.primary_state);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
+        /// Defines additional types related to [Replica].
+        pub mod replica {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Replica state of the shared dataset.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum ReplicaState {
+                /// Default value. This value is unused.
+                Unspecified,
+                /// The replica is backfilled and ready to use.
+                ReadyToUse,
+                /// The replica is unavailable, does not exist, or has not been
+                /// backfilled yet.
+                Unavailable,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [ReplicaState::value] or
+                /// [ReplicaState::name].
+                UnknownValue(replica_state::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod replica_state {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl ReplicaState {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::ReadyToUse => std::option::Option::Some(1),
+                        Self::Unavailable => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some("REPLICA_STATE_UNSPECIFIED"),
+                        Self::ReadyToUse => std::option::Option::Some("READY_TO_USE"),
+                        Self::Unavailable => std::option::Option::Some("UNAVAILABLE"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for ReplicaState {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for ReplicaState {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for ReplicaState {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::ReadyToUse,
+                        2 => Self::Unavailable,
+                        _ => Self::UnknownValue(replica_state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for ReplicaState {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "REPLICA_STATE_UNSPECIFIED" => Self::Unspecified,
+                        "READY_TO_USE" => Self::ReadyToUse,
+                        "UNAVAILABLE" => Self::Unavailable,
+                        _ => Self::UnknownValue(replica_state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for ReplicaState {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::ReadyToUse => serializer.serialize_i32(1),
+                        Self::Unavailable => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for ReplicaState {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReplicaState>::new(
+                        ".google.cloud.bigquery.analyticshub.v1.Listing.BigQueryDatasetSource.Replica.ReplicaState"))
+                }
+            }
+
+            /// Primary state of the replica. Set only for the primary replica.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum PrimaryState {
+                /// Default value. This value is unused.
+                Unspecified,
+                /// The replica is the primary replica.
+                PrimaryReplica,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [PrimaryState::value] or
+                /// [PrimaryState::name].
+                UnknownValue(primary_state::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod primary_state {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl PrimaryState {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::PrimaryReplica => std::option::Option::Some(1),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some("PRIMARY_STATE_UNSPECIFIED"),
+                        Self::PrimaryReplica => std::option::Option::Some("PRIMARY_REPLICA"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for PrimaryState {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for PrimaryState {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for PrimaryState {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::PrimaryReplica,
+                        _ => Self::UnknownValue(primary_state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for PrimaryState {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "PRIMARY_STATE_UNSPECIFIED" => Self::Unspecified,
+                        "PRIMARY_REPLICA" => Self::PrimaryReplica,
+                        _ => Self::UnknownValue(primary_state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for PrimaryState {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::PrimaryReplica => serializer.serialize_i32(1),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for PrimaryState {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<PrimaryState>::new(
+                        ".google.cloud.bigquery.analyticshub.v1.Listing.BigQueryDatasetSource.Replica.PrimaryState"))
+                }
             }
         }
     }
@@ -4741,6 +7581,7 @@ pub mod listing {
         ScienceAndResearch,
         TransportationAndLogistics,
         TravelAndTourism,
+        GoogleEarthEngine,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Category::value] or
@@ -4783,6 +7624,7 @@ pub mod listing {
                 Self::ScienceAndResearch => std::option::Option::Some(17),
                 Self::TransportationAndLogistics => std::option::Option::Some(18),
                 Self::TravelAndTourism => std::option::Option::Some(19),
+                Self::GoogleEarthEngine => std::option::Option::Some(20),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -4823,6 +7665,9 @@ pub mod listing {
                     std::option::Option::Some("CATEGORY_TRANSPORTATION_AND_LOGISTICS")
                 }
                 Self::TravelAndTourism => std::option::Option::Some("CATEGORY_TRAVEL_AND_TOURISM"),
+                Self::GoogleEarthEngine => {
+                    std::option::Option::Some("CATEGORY_GOOGLE_EARTH_ENGINE")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -4864,6 +7709,7 @@ pub mod listing {
                 17 => Self::ScienceAndResearch,
                 18 => Self::TransportationAndLogistics,
                 19 => Self::TravelAndTourism,
+                20 => Self::GoogleEarthEngine,
                 _ => Self::UnknownValue(category::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -4895,6 +7741,7 @@ pub mod listing {
                 "CATEGORY_SCIENCE_AND_RESEARCH" => Self::ScienceAndResearch,
                 "CATEGORY_TRANSPORTATION_AND_LOGISTICS" => Self::TransportationAndLogistics,
                 "CATEGORY_TRAVEL_AND_TOURISM" => Self::TravelAndTourism,
+                "CATEGORY_GOOGLE_EARTH_ENGINE" => Self::GoogleEarthEngine,
                 _ => Self::UnknownValue(category::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -4928,6 +7775,7 @@ pub mod listing {
                 Self::ScienceAndResearch => serializer.serialize_i32(17),
                 Self::TransportationAndLogistics => serializer.serialize_i32(18),
                 Self::TravelAndTourism => serializer.serialize_i32(19),
+                Self::GoogleEarthEngine => serializer.serialize_i32(20),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

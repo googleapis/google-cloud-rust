@@ -6529,22 +6529,22 @@ pub mod backup_vault {
         pub backup_minimum_enforced_retention_days: i32,
 
         /// Optional. Indicates if the daily backups are immutable.
-        /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
+        /// At least one of daily_backup_immutable, weekly_backup_immutable,
         /// monthly_backup_immutable and manual_backup_immutable must be true.
         pub daily_backup_immutable: bool,
 
         /// Optional. Indicates if the weekly backups are immutable.
-        /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
+        /// At least one of daily_backup_immutable, weekly_backup_immutable,
         /// monthly_backup_immutable and manual_backup_immutable must be true.
         pub weekly_backup_immutable: bool,
 
         /// Optional. Indicates if the monthly backups are immutable.
-        /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
+        /// At least one of daily_backup_immutable, weekly_backup_immutable,
         /// monthly_backup_immutable and manual_backup_immutable must be true.
         pub monthly_backup_immutable: bool,
 
         /// Optional. Indicates if the manual backups are immutable.
-        /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
+        /// At least one of daily_backup_immutable, weekly_backup_immutable,
         /// monthly_backup_immutable and manual_backup_immutable must be true.
         pub manual_backup_immutable: bool,
 
@@ -8615,6 +8615,9 @@ pub struct LocationMetadata {
     /// Output only. Supported flex performance in a location.
     pub supported_flex_performance: std::vec::Vec<crate::model::FlexPerformance>,
 
+    /// Output only. Indicates if the location has VCP support.
+    pub has_vcp: bool,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8644,6 +8647,12 @@ impl LocationMetadata {
         self.supported_flex_performance = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [has_vcp][crate::model::LocationMetadata::has_vcp].
+    pub fn set_has_vcp<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.has_vcp = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for LocationMetadata {
@@ -8664,6 +8673,7 @@ impl<'de> serde::de::Deserialize<'de> for LocationMetadata {
         enum __FieldTag {
             __supported_service_levels,
             __supported_flex_performance,
+            __has_vcp,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8694,6 +8704,8 @@ impl<'de> serde::de::Deserialize<'de> for LocationMetadata {
                             "supported_flex_performance" => {
                                 Ok(__FieldTag::__supported_flex_performance)
                             }
+                            "hasVcp" => Ok(__FieldTag::__has_vcp),
+                            "has_vcp" => Ok(__FieldTag::__has_vcp),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8739,6 +8751,16 @@ impl<'de> serde::de::Deserialize<'de> for LocationMetadata {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__has_vcp => {
+                            if !fields.insert(__FieldTag::__has_vcp) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for has_vcp",
+                                ));
+                            }
+                            result.has_vcp = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -8768,6 +8790,9 @@ impl serde::ser::Serialize for LocationMetadata {
         if !self.supported_flex_performance.is_empty() {
             state.serialize_entry("supportedFlexPerformance", &self.supported_flex_performance)?;
         }
+        if !wkt::internal::is_default(&self.has_vcp) {
+            state.serialize_entry("hasVcp", &self.has_vcp)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -8785,6 +8810,151 @@ impl std::fmt::Debug for LocationMetadata {
             "supported_flex_performance",
             &self.supported_flex_performance,
         );
+        debug_struct.field("has_vcp", &self.has_vcp);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// UserCommands contains the commands to be executed by the customer.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UserCommands {
+    /// Output only. List of commands to be executed by the customer.
+    pub commands: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UserCommands {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [commands][crate::model::UserCommands::commands].
+    pub fn set_commands<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.commands = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for UserCommands {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.UserCommands"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UserCommands {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __commands,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UserCommands")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "commands" => Ok(__FieldTag::__commands),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UserCommands;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UserCommands")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__commands => {
+                            if !fields.insert(__FieldTag::__commands) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for commands",
+                                ));
+                            }
+                            result.commands = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UserCommands {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.commands.is_empty() {
+            state.serialize_entry("commands", &self.commands)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for UserCommands {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserCommands");
+        debug_struct.field("commands", &self.commands);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13386,6 +13556,10 @@ pub struct Replication {
     /// Output only. Type of the hybrid replication.
     pub hybrid_replication_type: crate::model::replication::HybridReplicationType,
 
+    /// Output only. Copy pastable snapmirror commands to be executed on onprem
+    /// cluster by the customer.
+    pub hybrid_replication_user_commands: std::option::Option<crate::model::UserCommands>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -13601,6 +13775,27 @@ impl Replication {
         self.hybrid_replication_type = v.into();
         self
     }
+
+    /// Sets the value of [hybrid_replication_user_commands][crate::model::Replication::hybrid_replication_user_commands].
+    pub fn set_hybrid_replication_user_commands<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UserCommands>,
+    {
+        self.hybrid_replication_user_commands = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [hybrid_replication_user_commands][crate::model::Replication::hybrid_replication_user_commands].
+    pub fn set_or_clear_hybrid_replication_user_commands<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::UserCommands>,
+    {
+        self.hybrid_replication_user_commands = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Replication {
@@ -13636,6 +13831,7 @@ impl<'de> serde::de::Deserialize<'de> for Replication {
             __hybrid_peering_details,
             __cluster_location,
             __hybrid_replication_type,
+            __hybrid_replication_user_commands,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13688,6 +13884,12 @@ impl<'de> serde::de::Deserialize<'de> for Replication {
                             "cluster_location" => Ok(__FieldTag::__cluster_location),
                             "hybridReplicationType" => Ok(__FieldTag::__hybrid_replication_type),
                             "hybrid_replication_type" => Ok(__FieldTag::__hybrid_replication_type),
+                            "hybridReplicationUserCommands" => {
+                                Ok(__FieldTag::__hybrid_replication_user_commands)
+                            }
+                            "hybrid_replication_user_commands" => {
+                                Ok(__FieldTag::__hybrid_replication_user_commands)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -13879,6 +14081,15 @@ impl<'de> serde::de::Deserialize<'de> for Replication {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__hybrid_replication_user_commands => {
+                            if !fields.insert(__FieldTag::__hybrid_replication_user_commands) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for hybrid_replication_user_commands",
+                                ));
+                            }
+                            result.hybrid_replication_user_commands = map
+                                .next_value::<std::option::Option<crate::model::UserCommands>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -13956,6 +14167,12 @@ impl serde::ser::Serialize for Replication {
         if !wkt::internal::is_default(&self.hybrid_replication_type) {
             state.serialize_entry("hybridReplicationType", &self.hybrid_replication_type)?;
         }
+        if self.hybrid_replication_user_commands.is_some() {
+            state.serialize_entry(
+                "hybridReplicationUserCommands",
+                &self.hybrid_replication_user_commands,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -13988,6 +14205,10 @@ impl std::fmt::Debug for Replication {
         debug_struct.field("hybrid_peering_details", &self.hybrid_peering_details);
         debug_struct.field("cluster_location", &self.cluster_location);
         debug_struct.field("hybrid_replication_type", &self.hybrid_replication_type);
+        debug_struct.field(
+            "hybrid_replication_user_commands",
+            &self.hybrid_replication_user_commands,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14035,6 +14256,11 @@ pub mod replication {
         PendingClusterPeering,
         /// Replication is waiting for SVM peering to be established.
         PendingSvmPeering,
+        /// Replication is waiting for Commands to be executed on Onprem ONTAP.
+        PendingRemoteResync,
+        /// Onprem ONTAP is destination and Replication can only be managed from
+        /// Onprem.
+        ExternallyManagedReplication,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -14065,6 +14291,8 @@ pub mod replication {
                 Self::Error => std::option::Option::Some(6),
                 Self::PendingClusterPeering => std::option::Option::Some(8),
                 Self::PendingSvmPeering => std::option::Option::Some(9),
+                Self::PendingRemoteResync => std::option::Option::Some(10),
+                Self::ExternallyManagedReplication => std::option::Option::Some(11),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -14083,6 +14311,10 @@ pub mod replication {
                 Self::Error => std::option::Option::Some("ERROR"),
                 Self::PendingClusterPeering => std::option::Option::Some("PENDING_CLUSTER_PEERING"),
                 Self::PendingSvmPeering => std::option::Option::Some("PENDING_SVM_PEERING"),
+                Self::PendingRemoteResync => std::option::Option::Some("PENDING_REMOTE_RESYNC"),
+                Self::ExternallyManagedReplication => {
+                    std::option::Option::Some("EXTERNALLY_MANAGED_REPLICATION")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -14112,6 +14344,8 @@ pub mod replication {
                 6 => Self::Error,
                 8 => Self::PendingClusterPeering,
                 9 => Self::PendingSvmPeering,
+                10 => Self::PendingRemoteResync,
+                11 => Self::ExternallyManagedReplication,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -14131,6 +14365,8 @@ pub mod replication {
                 "ERROR" => Self::Error,
                 "PENDING_CLUSTER_PEERING" => Self::PendingClusterPeering,
                 "PENDING_SVM_PEERING" => Self::PendingSvmPeering,
+                "PENDING_REMOTE_RESYNC" => Self::PendingRemoteResync,
+                "EXTERNALLY_MANAGED_REPLICATION" => Self::ExternallyManagedReplication,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -14152,6 +14388,8 @@ pub mod replication {
                 Self::Error => serializer.serialize_i32(6),
                 Self::PendingClusterPeering => serializer.serialize_i32(8),
                 Self::PendingSvmPeering => serializer.serialize_i32(9),
+                Self::PendingRemoteResync => serializer.serialize_i32(10),
+                Self::ExternallyManagedReplication => serializer.serialize_i32(11),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -14476,6 +14714,10 @@ pub mod replication {
         BaselineTransferring,
         /// Replication is aborted.
         Aborted,
+        /// Replication is being managed from Onprem ONTAP.
+        ExternallyManaged,
+        /// Peering is yet to be established.
+        PendingPeering,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [MirrorState::value] or
@@ -14505,6 +14747,8 @@ pub mod replication {
                 Self::Transferring => std::option::Option::Some(4),
                 Self::BaselineTransferring => std::option::Option::Some(5),
                 Self::Aborted => std::option::Option::Some(6),
+                Self::ExternallyManaged => std::option::Option::Some(7),
+                Self::PendingPeering => std::option::Option::Some(8),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -14522,6 +14766,8 @@ pub mod replication {
                 Self::Transferring => std::option::Option::Some("TRANSFERRING"),
                 Self::BaselineTransferring => std::option::Option::Some("BASELINE_TRANSFERRING"),
                 Self::Aborted => std::option::Option::Some("ABORTED"),
+                Self::ExternallyManaged => std::option::Option::Some("EXTERNALLY_MANAGED"),
+                Self::PendingPeering => std::option::Option::Some("PENDING_PEERING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -14550,6 +14796,8 @@ pub mod replication {
                 4 => Self::Transferring,
                 5 => Self::BaselineTransferring,
                 6 => Self::Aborted,
+                7 => Self::ExternallyManaged,
+                8 => Self::PendingPeering,
                 _ => Self::UnknownValue(mirror_state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -14568,6 +14816,8 @@ pub mod replication {
                 "TRANSFERRING" => Self::Transferring,
                 "BASELINE_TRANSFERRING" => Self::BaselineTransferring,
                 "ABORTED" => Self::Aborted,
+                "EXTERNALLY_MANAGED" => Self::ExternallyManaged,
+                "PENDING_PEERING" => Self::PendingPeering,
                 _ => Self::UnknownValue(mirror_state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -14588,6 +14838,8 @@ pub mod replication {
                 Self::Transferring => serializer.serialize_i32(4),
                 Self::BaselineTransferring => serializer.serialize_i32(5),
                 Self::Aborted => serializer.serialize_i32(6),
+                Self::ExternallyManaged => serializer.serialize_i32(7),
+                Self::PendingPeering => serializer.serialize_i32(8),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -14628,6 +14880,12 @@ pub mod replication {
         Migration,
         /// Hybrid replication type for continuous replication.
         ContinuousReplication,
+        /// New field for reversible OnPrem replication, to be used for data
+        /// protection.
+        OnpremReplication,
+        /// Hybrid replication type for incremental Transfer in the reverse direction
+        /// (GCNV is source and Onprem is destination)
+        ReverseOnpremReplication,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [HybridReplicationType::value] or
@@ -14653,6 +14911,8 @@ pub mod replication {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Migration => std::option::Option::Some(1),
                 Self::ContinuousReplication => std::option::Option::Some(2),
+                Self::OnpremReplication => std::option::Option::Some(3),
+                Self::ReverseOnpremReplication => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -14668,6 +14928,10 @@ pub mod replication {
                 }
                 Self::Migration => std::option::Option::Some("MIGRATION"),
                 Self::ContinuousReplication => std::option::Option::Some("CONTINUOUS_REPLICATION"),
+                Self::OnpremReplication => std::option::Option::Some("ONPREM_REPLICATION"),
+                Self::ReverseOnpremReplication => {
+                    std::option::Option::Some("REVERSE_ONPREM_REPLICATION")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -14692,6 +14956,8 @@ pub mod replication {
                 0 => Self::Unspecified,
                 1 => Self::Migration,
                 2 => Self::ContinuousReplication,
+                3 => Self::OnpremReplication,
+                4 => Self::ReverseOnpremReplication,
                 _ => Self::UnknownValue(hybrid_replication_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -14706,6 +14972,8 @@ pub mod replication {
                 "HYBRID_REPLICATION_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "MIGRATION" => Self::Migration,
                 "CONTINUOUS_REPLICATION" => Self::ContinuousReplication,
+                "ONPREM_REPLICATION" => Self::OnpremReplication,
+                "REVERSE_ONPREM_REPLICATION" => Self::ReverseOnpremReplication,
                 _ => Self::UnknownValue(hybrid_replication_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -14722,6 +14990,8 @@ pub mod replication {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Migration => serializer.serialize_i32(1),
                 Self::ContinuousReplication => serializer.serialize_i32(2),
+                Self::OnpremReplication => serializer.serialize_i32(3),
+                Self::ReverseOnpremReplication => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -14743,30 +15013,31 @@ pub mod replication {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HybridPeeringDetails {
-    /// Optional. IP address of the subnet.
+    /// Output only. IP address of the subnet.
     pub subnet_ip: std::string::String,
 
-    /// Optional. Copy-paste-able commands to be used on user's ONTAP to accept
+    /// Output only. Copy-paste-able commands to be used on user's ONTAP to accept
     /// peering requests.
     pub command: std::string::String,
 
-    /// Optional. Expiration time for the peering command to be executed on user's
-    /// ONTAP.
+    /// Output only. Expiration time for the peering command to be executed on
+    /// user's ONTAP.
     pub command_expiry_time: std::option::Option<wkt::Timestamp>,
 
-    /// Optional. Temporary passphrase generated to accept cluster peering command.
+    /// Output only. Temporary passphrase generated to accept cluster peering
+    /// command.
     pub passphrase: std::string::String,
 
-    /// Optional. Name of the user's local source volume to be peered with the
+    /// Output only. Name of the user's local source volume to be peered with the
     /// destination volume.
     pub peer_volume_name: std::string::String,
 
-    /// Optional. Name of the user's local source cluster to be peered with the
+    /// Output only. Name of the user's local source cluster to be peered with the
     /// destination cluster.
     pub peer_cluster_name: std::string::String,
 
-    /// Optional. Name of the user's local source vserver svm to be peered with the
-    /// destination vserver svm.
+    /// Output only. Name of the user's local source vserver svm to be peered with
+    /// the destination vserver svm.
     pub peer_svm_name: std::string::String,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -20393,12 +20664,38 @@ pub struct StoragePool {
     /// (Hyperdisk) By default set to false
     pub custom_performance_enabled: bool,
 
-    /// Optional. Custom Performance Total Throughput of the pool (in MiB/s)
+    /// Optional. Custom Performance Total Throughput of the pool (in MiBps)
     pub total_throughput_mibps: i64,
 
     /// Optional. Custom Performance Total IOPS of the pool
-    /// If not provided, it will be calculated based on the total_throughput_mibps
+    /// if not provided, it will be calculated based on the total_throughput_mibps
     pub total_iops: i64,
+
+    /// Optional. Total hot tier capacity for the Storage Pool. It is applicable
+    /// only to Flex service level. It should be less than the minimum storage pool
+    /// size and cannot be more than the current storage pool size. It cannot be
+    /// decreased once set.
+    pub hot_tier_size_gib: i64,
+
+    /// Optional. Flag indicating that the hot-tier threshold will be
+    /// auto-increased by 10% of the hot-tier when it hits 100%. Default is true.
+    /// The increment will kick in only if the new size after increment is
+    /// still less than or equal to storage pool size.
+    pub enable_hot_tier_auto_resize: std::option::Option<bool>,
+
+    /// Optional. QoS (Quality of Service) Type of the storage pool
+    pub qos_type: crate::model::QosType,
+
+    /// Output only. Available throughput of the storage pool (in MiB/s).
+    pub available_throughput_mibps: f64,
+
+    /// Output only. Total cold tier data rounded down to the nearest GiB used by
+    /// the storage pool.
+    pub cold_tier_size_used_gib: i64,
+
+    /// Output only. Total hot tier data rounded down to the nearest GiB used by
+    /// the storage pool.
+    pub hot_tier_size_used_gib: i64,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -20601,6 +20898,54 @@ impl StoragePool {
         self.total_iops = v.into();
         self
     }
+
+    /// Sets the value of [hot_tier_size_gib][crate::model::StoragePool::hot_tier_size_gib].
+    pub fn set_hot_tier_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.hot_tier_size_gib = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_hot_tier_auto_resize][crate::model::StoragePool::enable_hot_tier_auto_resize].
+    pub fn set_enable_hot_tier_auto_resize<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_hot_tier_auto_resize = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_hot_tier_auto_resize][crate::model::StoragePool::enable_hot_tier_auto_resize].
+    pub fn set_or_clear_enable_hot_tier_auto_resize<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_hot_tier_auto_resize = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [qos_type][crate::model::StoragePool::qos_type].
+    pub fn set_qos_type<T: std::convert::Into<crate::model::QosType>>(mut self, v: T) -> Self {
+        self.qos_type = v.into();
+        self
+    }
+
+    /// Sets the value of [available_throughput_mibps][crate::model::StoragePool::available_throughput_mibps].
+    pub fn set_available_throughput_mibps<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.available_throughput_mibps = v.into();
+        self
+    }
+
+    /// Sets the value of [cold_tier_size_used_gib][crate::model::StoragePool::cold_tier_size_used_gib].
+    pub fn set_cold_tier_size_used_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.cold_tier_size_used_gib = v.into();
+        self
+    }
+
+    /// Sets the value of [hot_tier_size_used_gib][crate::model::StoragePool::hot_tier_size_used_gib].
+    pub fn set_hot_tier_size_used_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.hot_tier_size_used_gib = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for StoragePool {
@@ -20644,6 +20989,12 @@ impl<'de> serde::de::Deserialize<'de> for StoragePool {
             __custom_performance_enabled,
             __total_throughput_mibps,
             __total_iops,
+            __hot_tier_size_gib,
+            __enable_hot_tier_auto_resize,
+            __qos_type,
+            __available_throughput_mibps,
+            __cold_tier_size_used_gib,
+            __hot_tier_size_used_gib,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -20712,6 +21063,26 @@ impl<'de> serde::de::Deserialize<'de> for StoragePool {
                             "total_throughput_mibps" => Ok(__FieldTag::__total_throughput_mibps),
                             "totalIops" => Ok(__FieldTag::__total_iops),
                             "total_iops" => Ok(__FieldTag::__total_iops),
+                            "hotTierSizeGib" => Ok(__FieldTag::__hot_tier_size_gib),
+                            "hot_tier_size_gib" => Ok(__FieldTag::__hot_tier_size_gib),
+                            "enableHotTierAutoResize" => {
+                                Ok(__FieldTag::__enable_hot_tier_auto_resize)
+                            }
+                            "enable_hot_tier_auto_resize" => {
+                                Ok(__FieldTag::__enable_hot_tier_auto_resize)
+                            }
+                            "qosType" => Ok(__FieldTag::__qos_type),
+                            "qos_type" => Ok(__FieldTag::__qos_type),
+                            "availableThroughputMibps" => {
+                                Ok(__FieldTag::__available_throughput_mibps)
+                            }
+                            "available_throughput_mibps" => {
+                                Ok(__FieldTag::__available_throughput_mibps)
+                            }
+                            "coldTierSizeUsedGib" => Ok(__FieldTag::__cold_tier_size_used_gib),
+                            "cold_tier_size_used_gib" => Ok(__FieldTag::__cold_tier_size_used_gib),
+                            "hotTierSizeUsedGib" => Ok(__FieldTag::__hot_tier_size_used_gib),
+                            "hot_tier_size_used_gib" => Ok(__FieldTag::__hot_tier_size_used_gib),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -21035,6 +21406,105 @@ impl<'de> serde::de::Deserialize<'de> for StoragePool {
                             }
                             result.total_iops = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
+                        __FieldTag::__hot_tier_size_gib => {
+                            if !fields.insert(__FieldTag::__hot_tier_size_gib) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for hot_tier_size_gib",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.hot_tier_size_gib =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__enable_hot_tier_auto_resize => {
+                            if !fields.insert(__FieldTag::__enable_hot_tier_auto_resize) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_hot_tier_auto_resize",
+                                ));
+                            }
+                            result.enable_hot_tier_auto_resize =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__qos_type => {
+                            if !fields.insert(__FieldTag::__qos_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for qos_type",
+                                ));
+                            }
+                            result.qos_type = map
+                                .next_value::<std::option::Option<crate::model::QosType>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__available_throughput_mibps => {
+                            if !fields.insert(__FieldTag::__available_throughput_mibps) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for available_throughput_mibps",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.available_throughput_mibps =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__cold_tier_size_used_gib => {
+                            if !fields.insert(__FieldTag::__cold_tier_size_used_gib) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cold_tier_size_used_gib",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cold_tier_size_used_gib =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__hot_tier_size_used_gib => {
+                            if !fields.insert(__FieldTag::__hot_tier_size_used_gib) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for hot_tier_size_used_gib",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.hot_tier_size_used_gib =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -21181,6 +21651,66 @@ impl serde::ser::Serialize for StoragePool {
             }
             state.serialize_entry("totalIops", &__With(&self.total_iops))?;
         }
+        if !wkt::internal::is_default(&self.hot_tier_size_gib) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("hotTierSizeGib", &__With(&self.hot_tier_size_gib))?;
+        }
+        if self.enable_hot_tier_auto_resize.is_some() {
+            state.serialize_entry("enableHotTierAutoResize", &self.enable_hot_tier_auto_resize)?;
+        }
+        if !wkt::internal::is_default(&self.qos_type) {
+            state.serialize_entry("qosType", &self.qos_type)?;
+        }
+        if !wkt::internal::is_default(&self.available_throughput_mibps) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "availableThroughputMibps",
+                &__With(&self.available_throughput_mibps),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.cold_tier_size_used_gib) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "coldTierSizeUsedGib",
+                &__With(&self.cold_tier_size_used_gib),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.hot_tier_size_used_gib) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("hotTierSizeUsedGib", &__With(&self.hot_tier_size_used_gib))?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -21221,6 +21751,18 @@ impl std::fmt::Debug for StoragePool {
         );
         debug_struct.field("total_throughput_mibps", &self.total_throughput_mibps);
         debug_struct.field("total_iops", &self.total_iops);
+        debug_struct.field("hot_tier_size_gib", &self.hot_tier_size_gib);
+        debug_struct.field(
+            "enable_hot_tier_auto_resize",
+            &self.enable_hot_tier_auto_resize,
+        );
+        debug_struct.field("qos_type", &self.qos_type);
+        debug_struct.field(
+            "available_throughput_mibps",
+            &self.available_throughput_mibps,
+        );
+        debug_struct.field("cold_tier_size_used_gib", &self.cold_tier_size_used_gib);
+        debug_struct.field("hot_tier_size_used_gib", &self.hot_tier_size_used_gib);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -23047,12 +23589,20 @@ pub struct Volume {
     /// Output only. Specifies the active zone for regional volume.
     pub zone: std::string::String,
 
-    /// Output only. Size of the volume cold tier data in GiB.
+    /// Output only. Size of the volume cold tier data rounded down to the nearest
+    /// GiB.
     pub cold_tier_size_gib: i64,
 
     /// Optional. The Hybrid Replication parameters for the volume.
     pub hybrid_replication_parameters:
         std::option::Option<crate::model::HybridReplicationParameters>,
+
+    /// Optional. Throughput of the volume (in MiB/s)
+    pub throughput_mibps: f64,
+
+    /// Output only. Total hot tier data rounded down to the nearest GiB used by
+    /// the Volume. This field is only used for flex Service Level
+    pub hot_tier_size_used_gib: i64,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -23417,6 +23967,18 @@ impl Volume {
         self.hybrid_replication_parameters = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [throughput_mibps][crate::model::Volume::throughput_mibps].
+    pub fn set_throughput_mibps<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.throughput_mibps = v.into();
+        self
+    }
+
+    /// Sets the value of [hot_tier_size_used_gib][crate::model::Volume::hot_tier_size_used_gib].
+    pub fn set_hot_tier_size_used_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.hot_tier_size_used_gib = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Volume {
@@ -23473,6 +24035,8 @@ impl<'de> serde::de::Deserialize<'de> for Volume {
             __zone,
             __cold_tier_size_gib,
             __hybrid_replication_parameters,
+            __throughput_mibps,
+            __hot_tier_size_used_gib,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -23566,6 +24130,10 @@ impl<'de> serde::de::Deserialize<'de> for Volume {
                             "hybrid_replication_parameters" => {
                                 Ok(__FieldTag::__hybrid_replication_parameters)
                             }
+                            "throughputMibps" => Ok(__FieldTag::__throughput_mibps),
+                            "throughput_mibps" => Ok(__FieldTag::__throughput_mibps),
+                            "hotTierSizeUsedGib" => Ok(__FieldTag::__hot_tier_size_used_gib),
+                            "hot_tier_size_used_gib" => Ok(__FieldTag::__hot_tier_size_used_gib),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -24004,6 +24572,46 @@ impl<'de> serde::de::Deserialize<'de> for Volume {
                             result.hybrid_replication_parameters = map.next_value::<std::option::Option<crate::model::HybridReplicationParameters>>()?
                                 ;
                         }
+                        __FieldTag::__throughput_mibps => {
+                            if !fields.insert(__FieldTag::__throughput_mibps) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for throughput_mibps",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.throughput_mibps =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__hot_tier_size_used_gib => {
+                            if !fields.insert(__FieldTag::__hot_tier_size_used_gib) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for hot_tier_size_used_gib",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.hot_tier_size_used_gib =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -24180,6 +24788,30 @@ impl serde::ser::Serialize for Volume {
                 &self.hybrid_replication_parameters,
             )?;
         }
+        if !wkt::internal::is_default(&self.throughput_mibps) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("throughputMibps", &__With(&self.throughput_mibps))?;
+        }
+        if !wkt::internal::is_default(&self.hot_tier_size_used_gib) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("hotTierSizeUsedGib", &__With(&self.hot_tier_size_used_gib))?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -24233,6 +24865,8 @@ impl std::fmt::Debug for Volume {
             "hybrid_replication_parameters",
             &self.hybrid_replication_parameters,
         );
+        debug_struct.field("throughput_mibps", &self.throughput_mibps);
+        debug_struct.field("hot_tier_size_used_gib", &self.hot_tier_size_used_gib);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -27369,6 +28003,10 @@ pub struct TieringPolicy {
     /// eligible for tiering, can be range from 2-183. Default is 31.
     pub cooling_threshold_days: std::option::Option<i32>,
 
+    /// Optional. Flag indicating that the hot tier bypass mode is enabled. Default
+    /// is false. This is only applicable to Flex service level.
+    pub hot_tier_bypass_mode_enabled: std::option::Option<bool>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -27412,6 +28050,24 @@ impl TieringPolicy {
         self.cooling_threshold_days = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [hot_tier_bypass_mode_enabled][crate::model::TieringPolicy::hot_tier_bypass_mode_enabled].
+    pub fn set_hot_tier_bypass_mode_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.hot_tier_bypass_mode_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [hot_tier_bypass_mode_enabled][crate::model::TieringPolicy::hot_tier_bypass_mode_enabled].
+    pub fn set_or_clear_hot_tier_bypass_mode_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.hot_tier_bypass_mode_enabled = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for TieringPolicy {
@@ -27432,6 +28088,7 @@ impl<'de> serde::de::Deserialize<'de> for TieringPolicy {
         enum __FieldTag {
             __tier_action,
             __cooling_threshold_days,
+            __hot_tier_bypass_mode_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -27456,6 +28113,12 @@ impl<'de> serde::de::Deserialize<'de> for TieringPolicy {
                             "tier_action" => Ok(__FieldTag::__tier_action),
                             "coolingThresholdDays" => Ok(__FieldTag::__cooling_threshold_days),
                             "cooling_threshold_days" => Ok(__FieldTag::__cooling_threshold_days),
+                            "hotTierBypassModeEnabled" => {
+                                Ok(__FieldTag::__hot_tier_bypass_mode_enabled)
+                            }
+                            "hot_tier_bypass_mode_enabled" => {
+                                Ok(__FieldTag::__hot_tier_bypass_mode_enabled)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -27509,6 +28172,15 @@ impl<'de> serde::de::Deserialize<'de> for TieringPolicy {
                             }
                             result.cooling_threshold_days = map.next_value::<__With>()?.0;
                         }
+                        __FieldTag::__hot_tier_bypass_mode_enabled => {
+                            if !fields.insert(__FieldTag::__hot_tier_bypass_mode_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for hot_tier_bypass_mode_enabled",
+                                ));
+                            }
+                            result.hot_tier_bypass_mode_enabled =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -27552,6 +28224,12 @@ impl serde::ser::Serialize for TieringPolicy {
                 &__With(&self.cooling_threshold_days),
             )?;
         }
+        if self.hot_tier_bypass_mode_enabled.is_some() {
+            state.serialize_entry(
+                "hotTierBypassModeEnabled",
+                &self.hot_tier_bypass_mode_enabled,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -27566,6 +28244,10 @@ impl std::fmt::Debug for TieringPolicy {
         let mut debug_struct = f.debug_struct("TieringPolicy");
         debug_struct.field("tier_action", &self.tier_action);
         debug_struct.field("cooling_threshold_days", &self.cooling_threshold_days);
+        debug_struct.field(
+            "hot_tier_bypass_mode_enabled",
+            &self.hot_tier_bypass_mode_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -27744,6 +28426,16 @@ pub struct HybridReplicationParameters {
     /// Optional. Labels to be added to the replication as the key value pairs.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. Replication Schedule for the replication created.
+    pub replication_schedule: crate::model::HybridReplicationSchedule,
+
+    /// Optional. Type of the hybrid replication.
+    pub hybrid_replication_type:
+        crate::model::hybrid_replication_parameters::VolumeHybridReplicationType,
+
+    /// Optional. Constituent volume count for large volume.
+    pub large_volume_constituent_count: i32,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -27819,6 +28511,36 @@ impl HybridReplicationParameters {
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [replication_schedule][crate::model::HybridReplicationParameters::replication_schedule].
+    pub fn set_replication_schedule<
+        T: std::convert::Into<crate::model::HybridReplicationSchedule>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.replication_schedule = v.into();
+        self
+    }
+
+    /// Sets the value of [hybrid_replication_type][crate::model::HybridReplicationParameters::hybrid_replication_type].
+    pub fn set_hybrid_replication_type<
+        T: std::convert::Into<
+                crate::model::hybrid_replication_parameters::VolumeHybridReplicationType,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.hybrid_replication_type = v.into();
+        self
+    }
+
+    /// Sets the value of [large_volume_constituent_count][crate::model::HybridReplicationParameters::large_volume_constituent_count].
+    pub fn set_large_volume_constituent_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.large_volume_constituent_count = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for HybridReplicationParameters {
@@ -27845,6 +28567,9 @@ impl<'de> serde::de::Deserialize<'de> for HybridReplicationParameters {
             __cluster_location,
             __description,
             __labels,
+            __replication_schedule,
+            __hybrid_replication_type,
+            __large_volume_constituent_count,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -27878,6 +28603,16 @@ impl<'de> serde::de::Deserialize<'de> for HybridReplicationParameters {
                             "cluster_location" => Ok(__FieldTag::__cluster_location),
                             "description" => Ok(__FieldTag::__description),
                             "labels" => Ok(__FieldTag::__labels),
+                            "replicationSchedule" => Ok(__FieldTag::__replication_schedule),
+                            "replication_schedule" => Ok(__FieldTag::__replication_schedule),
+                            "hybridReplicationType" => Ok(__FieldTag::__hybrid_replication_type),
+                            "hybrid_replication_type" => Ok(__FieldTag::__hybrid_replication_type),
+                            "largeVolumeConstituentCount" => {
+                                Ok(__FieldTag::__large_volume_constituent_count)
+                            }
+                            "large_volume_constituent_count" => {
+                                Ok(__FieldTag::__large_volume_constituent_count)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -27986,6 +28721,42 @@ impl<'de> serde::de::Deserialize<'de> for HybridReplicationParameters {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__replication_schedule => {
+                            if !fields.insert(__FieldTag::__replication_schedule) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for replication_schedule",
+                                ));
+                            }
+                            result.replication_schedule = map.next_value::<std::option::Option<crate::model::HybridReplicationSchedule>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__hybrid_replication_type => {
+                            if !fields.insert(__FieldTag::__hybrid_replication_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for hybrid_replication_type",
+                                ));
+                            }
+                            result.hybrid_replication_type = map.next_value::<std::option::Option<crate::model::hybrid_replication_parameters::VolumeHybridReplicationType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__large_volume_constituent_count => {
+                            if !fields.insert(__FieldTag::__large_volume_constituent_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for large_volume_constituent_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.large_volume_constituent_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -28033,6 +28804,27 @@ impl serde::ser::Serialize for HybridReplicationParameters {
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
         }
+        if !wkt::internal::is_default(&self.replication_schedule) {
+            state.serialize_entry("replicationSchedule", &self.replication_schedule)?;
+        }
+        if !wkt::internal::is_default(&self.hybrid_replication_type) {
+            state.serialize_entry("hybridReplicationType", &self.hybrid_replication_type)?;
+        }
+        if !wkt::internal::is_default(&self.large_volume_constituent_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "largeVolumeConstituentCount",
+                &__With(&self.large_volume_constituent_count),
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -28053,10 +28845,173 @@ impl std::fmt::Debug for HybridReplicationParameters {
         debug_struct.field("cluster_location", &self.cluster_location);
         debug_struct.field("description", &self.description);
         debug_struct.field("labels", &self.labels);
+        debug_struct.field("replication_schedule", &self.replication_schedule);
+        debug_struct.field("hybrid_replication_type", &self.hybrid_replication_type);
+        debug_struct.field(
+            "large_volume_constituent_count",
+            &self.large_volume_constituent_count,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [HybridReplicationParameters].
+pub mod hybrid_replication_parameters {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Type of the volume's hybrid replication.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VolumeHybridReplicationType {
+        /// Unspecified hybrid replication type.
+        Unspecified,
+        /// Hybrid replication type for migration.
+        Migration,
+        /// Hybrid replication type for continuous replication.
+        ContinuousReplication,
+        /// New field for reversible OnPrem replication, to be used for data
+        /// protection.
+        OnpremReplication,
+        /// New field for reversible OnPrem replication, to be used for data
+        /// protection.
+        ReverseOnpremReplication,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VolumeHybridReplicationType::value] or
+        /// [VolumeHybridReplicationType::name].
+        UnknownValue(volume_hybrid_replication_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod volume_hybrid_replication_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl VolumeHybridReplicationType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Migration => std::option::Option::Some(1),
+                Self::ContinuousReplication => std::option::Option::Some(2),
+                Self::OnpremReplication => std::option::Option::Some(3),
+                Self::ReverseOnpremReplication => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("VOLUME_HYBRID_REPLICATION_TYPE_UNSPECIFIED")
+                }
+                Self::Migration => std::option::Option::Some("MIGRATION"),
+                Self::ContinuousReplication => std::option::Option::Some("CONTINUOUS_REPLICATION"),
+                Self::OnpremReplication => std::option::Option::Some("ONPREM_REPLICATION"),
+                Self::ReverseOnpremReplication => {
+                    std::option::Option::Some("REVERSE_ONPREM_REPLICATION")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for VolumeHybridReplicationType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for VolumeHybridReplicationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for VolumeHybridReplicationType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Migration,
+                2 => Self::ContinuousReplication,
+                3 => Self::OnpremReplication,
+                4 => Self::ReverseOnpremReplication,
+                _ => Self::UnknownValue(volume_hybrid_replication_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for VolumeHybridReplicationType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VOLUME_HYBRID_REPLICATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "MIGRATION" => Self::Migration,
+                "CONTINUOUS_REPLICATION" => Self::ContinuousReplication,
+                "ONPREM_REPLICATION" => Self::OnpremReplication,
+                "REVERSE_ONPREM_REPLICATION" => Self::ReverseOnpremReplication,
+                _ => Self::UnknownValue(volume_hybrid_replication_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for VolumeHybridReplicationType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Migration => serializer.serialize_i32(1),
+                Self::ContinuousReplication => serializer.serialize_i32(2),
+                Self::OnpremReplication => serializer.serialize_i32(3),
+                Self::ReverseOnpremReplication => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VolumeHybridReplicationType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<VolumeHybridReplicationType>::new(
+                ".google.cloud.netapp.v1.HybridReplicationParameters.VolumeHybridReplicationType"))
+        }
     }
 }
 
@@ -28591,6 +29546,283 @@ impl<'de> serde::de::Deserialize<'de> for DirectoryServiceType {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DirectoryServiceType>::new(
             ".google.cloud.netapp.v1.DirectoryServiceType",
+        ))
+    }
+}
+
+/// Schedule for Hybrid Replication.
+/// New enum values may be added in future to support different frequency of
+/// replication.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum HybridReplicationSchedule {
+    /// Unspecified HybridReplicationSchedule
+    Unspecified,
+    /// Replication happens once every 10 minutes.
+    Every10Minutes,
+    /// Replication happens once every hour.
+    Hourly,
+    /// Replication happens once every day.
+    Daily,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [HybridReplicationSchedule::value] or
+    /// [HybridReplicationSchedule::name].
+    UnknownValue(hybrid_replication_schedule::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod hybrid_replication_schedule {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl HybridReplicationSchedule {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Every10Minutes => std::option::Option::Some(1),
+            Self::Hourly => std::option::Option::Some(2),
+            Self::Daily => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => {
+                std::option::Option::Some("HYBRID_REPLICATION_SCHEDULE_UNSPECIFIED")
+            }
+            Self::Every10Minutes => std::option::Option::Some("EVERY_10_MINUTES"),
+            Self::Hourly => std::option::Option::Some("HOURLY"),
+            Self::Daily => std::option::Option::Some("DAILY"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for HybridReplicationSchedule {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for HybridReplicationSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for HybridReplicationSchedule {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Every10Minutes,
+            2 => Self::Hourly,
+            3 => Self::Daily,
+            _ => Self::UnknownValue(hybrid_replication_schedule::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for HybridReplicationSchedule {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "HYBRID_REPLICATION_SCHEDULE_UNSPECIFIED" => Self::Unspecified,
+            "EVERY_10_MINUTES" => Self::Every10Minutes,
+            "HOURLY" => Self::Hourly,
+            "DAILY" => Self::Daily,
+            _ => Self::UnknownValue(hybrid_replication_schedule::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for HybridReplicationSchedule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Every10Minutes => serializer.serialize_i32(1),
+            Self::Hourly => serializer.serialize_i32(2),
+            Self::Daily => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for HybridReplicationSchedule {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(
+            wkt::internal::EnumVisitor::<HybridReplicationSchedule>::new(
+                ".google.cloud.netapp.v1.HybridReplicationSchedule",
+            ),
+        )
+    }
+}
+
+/// QoS (Quality of Service) Types of the storage pool
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum QosType {
+    /// Unspecified QoS Type
+    Unspecified,
+    /// QoS Type is Auto
+    Auto,
+    /// QoS Type is Manual
+    Manual,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [QosType::value] or
+    /// [QosType::name].
+    UnknownValue(qos_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod qos_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl QosType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Auto => std::option::Option::Some(1),
+            Self::Manual => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("QOS_TYPE_UNSPECIFIED"),
+            Self::Auto => std::option::Option::Some("AUTO"),
+            Self::Manual => std::option::Option::Some("MANUAL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for QosType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for QosType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for QosType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Auto,
+            2 => Self::Manual,
+            _ => Self::UnknownValue(qos_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for QosType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "QOS_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "AUTO" => Self::Auto,
+            "MANUAL" => Self::Manual,
+            _ => Self::UnknownValue(qos_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for QosType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Auto => serializer.serialize_i32(1),
+            Self::Manual => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for QosType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<QosType>::new(
+            ".google.cloud.netapp.v1.QosType",
         ))
     }
 }

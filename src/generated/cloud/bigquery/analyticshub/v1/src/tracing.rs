@@ -239,6 +239,69 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn create_query_template(
+        &self,
+        req: crate::model::CreateQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::QueryTemplate>> {
+        self.inner.create_query_template(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_query_template(
+        &self,
+        req: crate::model::GetQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::QueryTemplate>> {
+        self.inner.get_query_template(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_query_templates(
+        &self,
+        req: crate::model::ListQueryTemplatesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListQueryTemplatesResponse>> {
+        self.inner.list_query_templates(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_query_template(
+        &self,
+        req: crate::model::UpdateQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::QueryTemplate>> {
+        self.inner.update_query_template(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_query_template(
+        &self,
+        req: crate::model::DeleteQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_query_template(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn submit_query_template(
+        &self,
+        req: crate::model::SubmitQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::QueryTemplate>> {
+        self.inner.submit_query_template(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn approve_query_template(
+        &self,
+        req: crate::model::ApproveQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::QueryTemplate>> {
+        self.inner.approve_query_template(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
