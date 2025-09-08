@@ -110,7 +110,6 @@ func main() {
 
 			if *upload != "" {
 				fmt.Printf("Uploading crate: %s\n", crate.Name)
-				fmt.Printf("CHUONGPH: staging bucket: %s\n", fmt.Sprintf("--staging-bucket=%s", *upload))
 				if err := runCmd(nil, "", "docuploader", "upload", fmt.Sprintf("--staging-bucket=%s", *upload), "--destination-prefix=docfx", fmt.Sprintf("--metadata-file=%s/docs.metadata", crateOutDir), crateOutDir); err != nil {
 					fmt.Printf("error uploading files: %v\n", err)
 				}
