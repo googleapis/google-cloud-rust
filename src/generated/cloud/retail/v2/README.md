@@ -10,6 +10,13 @@ are still possible, but not expected.
 We also believe the implementation is ready for production, bugs are
 still possible, but not expected.
 
+**WARNING:** some RPCs have no corresponding Rust function to call them.
+Typically these are streaming RPCs. We expect adding these RPCs in a
+way that does not break the existing APIs or changes their behavior in a
+significant way. We do anticipate a number of new crate dependencies
+will be required. If you need these RPCs please open an issue in our
+GitHub repository.
+
 Vertex AI Search for commerce API is made up of Retail Search, Browse and
 Recommendations. These discovery AI solutions help you implement
 personalized search, browse and recommendations, based on machine learning
@@ -23,6 +30,7 @@ The main types to work with this crate are the clients:
 - [CatalogService]
 - [CompletionService]
 - [ControlService]
+- [ConversationalSearchService]
 - [GenerativeQuestionService]
 - [ModelService]
 - [PredictionService]
@@ -39,6 +47,7 @@ The main types to work with this crate are the clients:
 [CatalogService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.CatalogService.html
 [CompletionService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.CompletionService.html
 [ControlService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.ControlService.html
+[ConversationalSearchService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.ConversationalSearchService.html
 [GenerativeQuestionService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.GenerativeQuestionService.html
 [ModelService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.ModelService.html
 [PredictionService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.PredictionService.html

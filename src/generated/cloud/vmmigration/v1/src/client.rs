@@ -182,6 +182,16 @@ impl VmMigration {
         super::builder::vm_migration::FetchInventory::new(self.inner.clone())
     }
 
+    /// List remote source's inventory of storage resources.
+    /// The remote source is another cloud vendor (e.g. AWS, Azure).
+    /// The inventory describes the list of existing storage resources in that
+    /// source. Note that this operation lists the resources on the remote source,
+    /// as opposed to listing the MigratingVms resources in the vmmigration
+    /// service.
+    pub fn fetch_storage_inventory(&self) -> super::builder::vm_migration::FetchStorageInventory {
+        super::builder::vm_migration::FetchStorageInventory::new(self.inner.clone())
+    }
+
     /// Lists Utilization Reports of the given Source.
     pub fn list_utilization_reports(&self) -> super::builder::vm_migration::ListUtilizationReports {
         super::builder::vm_migration::ListUtilizationReports::new(self.inner.clone())
@@ -410,6 +420,21 @@ impl VmMigration {
         super::builder::vm_migration::FinalizeMigration::new(self.inner.clone())
     }
 
+    /// Extend the migrating VM time to live.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn extend_migration(&self) -> super::builder::vm_migration::ExtendMigration {
+        super::builder::vm_migration::ExtendMigration::new(self.inner.clone())
+    }
+
     /// Initiates a Clone of a specific migrating VM.
     ///
     /// # Long running operations
@@ -440,7 +465,8 @@ impl VmMigration {
         super::builder::vm_migration::CancelCloneJob::new(self.inner.clone())
     }
 
-    /// Lists CloneJobs of a given migrating VM.
+    /// Lists the CloneJobs of a migrating VM. Only 25 most recent CloneJobs are
+    /// listed.
     pub fn list_clone_jobs(&self) -> super::builder::vm_migration::ListCloneJobs {
         super::builder::vm_migration::ListCloneJobs::new(self.inner.clone())
     }
@@ -482,7 +508,8 @@ impl VmMigration {
         super::builder::vm_migration::CancelCutoverJob::new(self.inner.clone())
     }
 
-    /// Lists CutoverJobs of a given migrating VM.
+    /// Lists the CutoverJobs of a migrating VM. Only 25 most recent CutoverJobs
+    /// are listed.
     pub fn list_cutover_jobs(&self) -> super::builder::vm_migration::ListCutoverJobs {
         super::builder::vm_migration::ListCutoverJobs::new(self.inner.clone())
     }
@@ -655,6 +682,164 @@ impl VmMigration {
     /// Gets details of a single ReplicationCycle.
     pub fn get_replication_cycle(&self) -> super::builder::vm_migration::GetReplicationCycle {
         super::builder::vm_migration::GetReplicationCycle::new(self.inner.clone())
+    }
+
+    /// Lists ImageImports in a given project.
+    pub fn list_image_imports(&self) -> super::builder::vm_migration::ListImageImports {
+        super::builder::vm_migration::ListImageImports::new(self.inner.clone())
+    }
+
+    /// Gets details of a single ImageImport.
+    pub fn get_image_import(&self) -> super::builder::vm_migration::GetImageImport {
+        super::builder::vm_migration::GetImageImport::new(self.inner.clone())
+    }
+
+    /// Creates a new ImageImport in a given project.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_image_import(&self) -> super::builder::vm_migration::CreateImageImport {
+        super::builder::vm_migration::CreateImageImport::new(self.inner.clone())
+    }
+
+    /// Deletes a single ImageImport.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_image_import(&self) -> super::builder::vm_migration::DeleteImageImport {
+        super::builder::vm_migration::DeleteImageImport::new(self.inner.clone())
+    }
+
+    /// Lists ImageImportJobs in a given project.
+    pub fn list_image_import_jobs(&self) -> super::builder::vm_migration::ListImageImportJobs {
+        super::builder::vm_migration::ListImageImportJobs::new(self.inner.clone())
+    }
+
+    /// Gets details of a single ImageImportJob.
+    pub fn get_image_import_job(&self) -> super::builder::vm_migration::GetImageImportJob {
+        super::builder::vm_migration::GetImageImportJob::new(self.inner.clone())
+    }
+
+    /// Initiates the cancellation of a running clone job.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn cancel_image_import_job(&self) -> super::builder::vm_migration::CancelImageImportJob {
+        super::builder::vm_migration::CancelImageImportJob::new(self.inner.clone())
+    }
+
+    /// Creates a new disk migration job in a given Source.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_disk_migration_job(
+        &self,
+    ) -> super::builder::vm_migration::CreateDiskMigrationJob {
+        super::builder::vm_migration::CreateDiskMigrationJob::new(self.inner.clone())
+    }
+
+    /// Lists DiskMigrationJobs in a given Source.
+    pub fn list_disk_migration_jobs(&self) -> super::builder::vm_migration::ListDiskMigrationJobs {
+        super::builder::vm_migration::ListDiskMigrationJobs::new(self.inner.clone())
+    }
+
+    /// Gets details of a single DiskMigrationJob.
+    pub fn get_disk_migration_job(&self) -> super::builder::vm_migration::GetDiskMigrationJob {
+        super::builder::vm_migration::GetDiskMigrationJob::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single DiskMigrationJob.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_disk_migration_job(
+        &self,
+    ) -> super::builder::vm_migration::UpdateDiskMigrationJob {
+        super::builder::vm_migration::UpdateDiskMigrationJob::new(self.inner.clone())
+    }
+
+    /// Deletes a single DiskMigrationJob.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_disk_migration_job(
+        &self,
+    ) -> super::builder::vm_migration::DeleteDiskMigrationJob {
+        super::builder::vm_migration::DeleteDiskMigrationJob::new(self.inner.clone())
+    }
+
+    /// Runs the disk migration job.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn run_disk_migration_job(&self) -> super::builder::vm_migration::RunDiskMigrationJob {
+        super::builder::vm_migration::RunDiskMigrationJob::new(self.inner.clone())
+    }
+
+    /// Cancels the disk migration job.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn cancel_disk_migration_job(
+        &self,
+    ) -> super::builder::vm_migration::CancelDiskMigrationJob {
+        super::builder::vm_migration::CancelDiskMigrationJob::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.

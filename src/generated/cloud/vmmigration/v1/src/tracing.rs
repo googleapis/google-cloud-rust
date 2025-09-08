@@ -92,6 +92,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn fetch_storage_inventory(
+        &self,
+        req: crate::model::FetchStorageInventoryRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchStorageInventoryResponse>> {
+        self.inner.fetch_storage_inventory(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_utilization_reports(
         &self,
         req: crate::model::ListUtilizationReportsRequest,
@@ -251,6 +260,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.finalize_migration(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn extend_migration(
+        &self,
+        req: crate::model::ExtendMigrationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.extend_migration(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -449,6 +467,132 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ReplicationCycle>> {
         self.inner.get_replication_cycle(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_image_imports(
+        &self,
+        req: crate::model::ListImageImportsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListImageImportsResponse>> {
+        self.inner.list_image_imports(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_image_import(
+        &self,
+        req: crate::model::GetImageImportRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ImageImport>> {
+        self.inner.get_image_import(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_image_import(
+        &self,
+        req: crate::model::CreateImageImportRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_image_import(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_image_import(
+        &self,
+        req: crate::model::DeleteImageImportRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_image_import(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_image_import_jobs(
+        &self,
+        req: crate::model::ListImageImportJobsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListImageImportJobsResponse>> {
+        self.inner.list_image_import_jobs(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_image_import_job(
+        &self,
+        req: crate::model::GetImageImportJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ImageImportJob>> {
+        self.inner.get_image_import_job(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn cancel_image_import_job(
+        &self,
+        req: crate::model::CancelImageImportJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.cancel_image_import_job(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_disk_migration_job(
+        &self,
+        req: crate::model::CreateDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_disk_migration_job(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_disk_migration_jobs(
+        &self,
+        req: crate::model::ListDiskMigrationJobsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDiskMigrationJobsResponse>> {
+        self.inner.list_disk_migration_jobs(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_disk_migration_job(
+        &self,
+        req: crate::model::GetDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::DiskMigrationJob>> {
+        self.inner.get_disk_migration_job(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_disk_migration_job(
+        &self,
+        req: crate::model::UpdateDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_disk_migration_job(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_disk_migration_job(
+        &self,
+        req: crate::model::DeleteDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_disk_migration_job(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn run_disk_migration_job(
+        &self,
+        req: crate::model::RunDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.run_disk_migration_job(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn cancel_disk_migration_job(
+        &self,
+        req: crate::model::CancelDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.cancel_disk_migration_job(req, options).await
     }
 
     #[tracing::instrument(ret)]

@@ -21,6 +21,629 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+/// let client = AddressGroupService::builder().build().await?;
+/// // use `client` to make requests to the Network Security API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// AddressGroup is a resource that manages a collection of IP or Domain Names,
+/// it can be used in Firewall Policy to represent allow or deny traffic from
+/// all the IP or Domain Names from the Address Group.
+///
+/// # Configuration
+///
+/// To configure `AddressGroupService` use the `with_*` methods in the type returned
+/// by [builder()][AddressGroupService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networksecurity.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::address_group_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::address_group_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `AddressGroupService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `AddressGroupService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct AddressGroupService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::AddressGroupService>,
+}
+
+impl AddressGroupService {
+    /// Returns a builder for [AddressGroupService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// let client = AddressGroupService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::address_group_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::address_group_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::AddressGroupService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AddressGroupService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AddressGroupService> {
+        super::transport::AddressGroupService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::AddressGroupService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AddressGroupService::new)
+    }
+
+    /// Lists address groups in a given project and location.
+    pub fn list_address_groups(&self) -> super::builder::address_group_service::ListAddressGroups {
+        super::builder::address_group_service::ListAddressGroups::new(self.inner.clone())
+    }
+
+    /// Gets details of a single address group.
+    pub fn get_address_group(&self) -> super::builder::address_group_service::GetAddressGroup {
+        super::builder::address_group_service::GetAddressGroup::new(self.inner.clone())
+    }
+
+    /// Creates a new address group in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_address_group(
+        &self,
+    ) -> super::builder::address_group_service::CreateAddressGroup {
+        super::builder::address_group_service::CreateAddressGroup::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single address group.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_address_group(
+        &self,
+    ) -> super::builder::address_group_service::UpdateAddressGroup {
+        super::builder::address_group_service::UpdateAddressGroup::new(self.inner.clone())
+    }
+
+    /// Adds items to an address group.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn add_address_group_items(
+        &self,
+    ) -> super::builder::address_group_service::AddAddressGroupItems {
+        super::builder::address_group_service::AddAddressGroupItems::new(self.inner.clone())
+    }
+
+    /// Removes items from an address group.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn remove_address_group_items(
+        &self,
+    ) -> super::builder::address_group_service::RemoveAddressGroupItems {
+        super::builder::address_group_service::RemoveAddressGroupItems::new(self.inner.clone())
+    }
+
+    /// Clones items from one address group to another.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn clone_address_group_items(
+        &self,
+    ) -> super::builder::address_group_service::CloneAddressGroupItems {
+        super::builder::address_group_service::CloneAddressGroupItems::new(self.inner.clone())
+    }
+
+    /// Deletes a single address group.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_address_group(
+        &self,
+    ) -> super::builder::address_group_service::DeleteAddressGroup {
+        super::builder::address_group_service::DeleteAddressGroup::new(self.inner.clone())
+    }
+
+    /// Lists references of an address group.
+    pub fn list_address_group_references(
+        &self,
+    ) -> super::builder::address_group_service::ListAddressGroupReferences {
+        super::builder::address_group_service::ListAddressGroupReferences::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::address_group_service::ListLocations {
+        super::builder::address_group_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::address_group_service::GetLocation {
+        super::builder::address_group_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    pub fn set_iam_policy(&self) -> super::builder::address_group_service::SetIamPolicy {
+        super::builder::address_group_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    pub fn get_iam_policy(&self) -> super::builder::address_group_service::GetIamPolicy {
+        super::builder::address_group_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::address_group_service::TestIamPermissions {
+        super::builder::address_group_service::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::address_group_service::ListOperations {
+        super::builder::address_group_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::address_group_service::GetOperation {
+        super::builder::address_group_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(&self) -> super::builder::address_group_service::DeleteOperation {
+        super::builder::address_group_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::address_group_service::CancelOperation {
+        super::builder::address_group_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Network Security API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+/// let client = OrganizationAddressGroupService::builder().build().await?;
+/// // use `client` to make requests to the Network Security API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Organization AddressGroup is created under organization. Requests against
+/// Organization AddressGroup will use project from request credential for
+/// activation/quota/visibility check.
+///
+/// # Configuration
+///
+/// To configure `OrganizationAddressGroupService` use the `with_*` methods in the type returned
+/// by [builder()][OrganizationAddressGroupService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networksecurity.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::organization_address_group_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::organization_address_group_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `OrganizationAddressGroupService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `OrganizationAddressGroupService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct OrganizationAddressGroupService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::OrganizationAddressGroupService>,
+}
+
+impl OrganizationAddressGroupService {
+    /// Returns a builder for [OrganizationAddressGroupService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// let client = OrganizationAddressGroupService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::organization_address_group_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::organization_address_group_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::OrganizationAddressGroupService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::OrganizationAddressGroupService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::OrganizationAddressGroupService> {
+        super::transport::OrganizationAddressGroupService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::OrganizationAddressGroupService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::OrganizationAddressGroupService::new)
+    }
+
+    /// Lists address groups in a given project and location.
+    pub fn list_address_groups(
+        &self,
+    ) -> super::builder::organization_address_group_service::ListAddressGroups {
+        super::builder::organization_address_group_service::ListAddressGroups::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets details of a single address group.
+    pub fn get_address_group(
+        &self,
+    ) -> super::builder::organization_address_group_service::GetAddressGroup {
+        super::builder::organization_address_group_service::GetAddressGroup::new(self.inner.clone())
+    }
+
+    /// Creates a new address group in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_address_group(
+        &self,
+    ) -> super::builder::organization_address_group_service::CreateAddressGroup {
+        super::builder::organization_address_group_service::CreateAddressGroup::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Updates parameters of an address group.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_address_group(
+        &self,
+    ) -> super::builder::organization_address_group_service::UpdateAddressGroup {
+        super::builder::organization_address_group_service::UpdateAddressGroup::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Adds items to an address group.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn add_address_group_items(
+        &self,
+    ) -> super::builder::organization_address_group_service::AddAddressGroupItems {
+        super::builder::organization_address_group_service::AddAddressGroupItems::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Removes items from an address group.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn remove_address_group_items(
+        &self,
+    ) -> super::builder::organization_address_group_service::RemoveAddressGroupItems {
+        super::builder::organization_address_group_service::RemoveAddressGroupItems::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Clones items from one address group to another.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn clone_address_group_items(
+        &self,
+    ) -> super::builder::organization_address_group_service::CloneAddressGroupItems {
+        super::builder::organization_address_group_service::CloneAddressGroupItems::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes an address group.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_address_group(
+        &self,
+    ) -> super::builder::organization_address_group_service::DeleteAddressGroup {
+        super::builder::organization_address_group_service::DeleteAddressGroup::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists references of an address group.
+    pub fn list_address_group_references(
+        &self,
+    ) -> super::builder::organization_address_group_service::ListAddressGroupReferences {
+        super::builder::organization_address_group_service::ListAddressGroupReferences::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(
+        &self,
+    ) -> super::builder::organization_address_group_service::ListLocations {
+        super::builder::organization_address_group_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::organization_address_group_service::GetLocation {
+        super::builder::organization_address_group_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    pub fn set_iam_policy(
+        &self,
+    ) -> super::builder::organization_address_group_service::SetIamPolicy {
+        super::builder::organization_address_group_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    pub fn get_iam_policy(
+        &self,
+    ) -> super::builder::organization_address_group_service::GetIamPolicy {
+        super::builder::organization_address_group_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::organization_address_group_service::TestIamPermissions {
+        super::builder::organization_address_group_service::TestIamPermissions::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(
+        &self,
+    ) -> super::builder::organization_address_group_service::ListOperations {
+        super::builder::organization_address_group_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(
+        &self,
+    ) -> super::builder::organization_address_group_service::GetOperation {
+        super::builder::organization_address_group_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(
+        &self,
+    ) -> super::builder::organization_address_group_service::DeleteOperation {
+        super::builder::organization_address_group_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(
+        &self,
+    ) -> super::builder::organization_address_group_service::CancelOperation {
+        super::builder::organization_address_group_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Network Security API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
 /// let client = NetworkSecurity::builder().build().await?;
 /// // use `client` to make requests to the Network Security API.

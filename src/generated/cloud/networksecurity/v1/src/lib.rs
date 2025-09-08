@@ -29,6 +29,8 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
+//! * [AddressGroupService](client/struct.AddressGroupService.html)
+//! * [OrganizationAddressGroupService](client/struct.OrganizationAddressGroupService.html)
 //! * [NetworkSecurity](client/struct.NetworkSecurity.html)
 
 /// The messages and enums that are part of this client library.

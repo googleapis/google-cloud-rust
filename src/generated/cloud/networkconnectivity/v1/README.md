@@ -17,6 +17,7 @@ This API enables connectivity with and between Google Cloud resources.
 The main types to work with this crate are the clients:
 
 - [CrossNetworkAutomationService]
+- [DataTransferService]
 - [HubService]
 - [InternalRangeService]
 - [PolicyBasedRoutingService]
@@ -26,6 +27,7 @@ The main types to work with this crate are the clients:
 - Read the [crate's documentation](https://docs.rs/google-cloud-networkconnectivity-v1/latest/google-cloud-networkconnectivity-v1)
 
 [CrossNetworkAutomationService]: https://docs.rs/google-cloud-networkconnectivity-v1/latest/google_cloud_networkconnectivity_v1/client/struct.CrossNetworkAutomationService.html
+[DataTransferService]: https://docs.rs/google-cloud-networkconnectivity-v1/latest/google_cloud_networkconnectivity_v1/client/struct.DataTransferService.html
 [HubService]: https://docs.rs/google-cloud-networkconnectivity-v1/latest/google_cloud_networkconnectivity_v1/client/struct.HubService.html
 [InternalRangeService]: https://docs.rs/google-cloud-networkconnectivity-v1/latest/google_cloud_networkconnectivity_v1/client/struct.InternalRangeService.html
 [PolicyBasedRoutingService]: https://docs.rs/google-cloud-networkconnectivity-v1/latest/google_cloud_networkconnectivity_v1/client/struct.PolicyBasedRoutingService.html

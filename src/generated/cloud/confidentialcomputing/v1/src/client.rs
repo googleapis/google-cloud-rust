@@ -126,9 +126,26 @@ impl ConfidentialComputing {
         super::builder::confidential_computing::CreateChallenge::new(self.inner.clone())
     }
 
-    /// Verifies the provided attestation info, returning a signed OIDC token.
+    /// Verifies the provided attestation info, returning a signed attestation
+    /// token.
     pub fn verify_attestation(&self) -> super::builder::confidential_computing::VerifyAttestation {
         super::builder::confidential_computing::VerifyAttestation::new(self.inner.clone())
+    }
+
+    /// Verifies whether the provided attestation info is valid, returning a signed
+    /// attestation token if so.
+    pub fn verify_confidential_space(
+        &self,
+    ) -> super::builder::confidential_computing::VerifyConfidentialSpace {
+        super::builder::confidential_computing::VerifyConfidentialSpace::new(self.inner.clone())
+    }
+
+    /// Verifies the provided Confidential GKE attestation info, returning a signed
+    /// OIDC token.
+    pub fn verify_confidential_gke(
+        &self,
+    ) -> super::builder::confidential_computing::VerifyConfidentialGke {
+        super::builder::confidential_computing::VerifyConfidentialGke::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.

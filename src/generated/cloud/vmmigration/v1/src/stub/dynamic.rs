@@ -53,6 +53,12 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::FetchInventoryResponse>>;
 
+    async fn fetch_storage_inventory(
+        &self,
+        req: crate::model::FetchStorageInventoryRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::FetchStorageInventoryResponse>>;
+
     async fn list_utilization_reports(
         &self,
         req: crate::model::ListUtilizationReportsRequest,
@@ -158,6 +164,12 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
     async fn finalize_migration(
         &self,
         req: crate::model::FinalizeMigrationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn extend_migration(
+        &self,
+        req: crate::model::ExtendMigrationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
@@ -293,6 +305,90 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ReplicationCycle>>;
 
+    async fn list_image_imports(
+        &self,
+        req: crate::model::ListImageImportsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListImageImportsResponse>>;
+
+    async fn get_image_import(
+        &self,
+        req: crate::model::GetImageImportRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ImageImport>>;
+
+    async fn create_image_import(
+        &self,
+        req: crate::model::CreateImageImportRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_image_import(
+        &self,
+        req: crate::model::DeleteImageImportRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_image_import_jobs(
+        &self,
+        req: crate::model::ListImageImportJobsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListImageImportJobsResponse>>;
+
+    async fn get_image_import_job(
+        &self,
+        req: crate::model::GetImageImportJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ImageImportJob>>;
+
+    async fn cancel_image_import_job(
+        &self,
+        req: crate::model::CancelImageImportJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn create_disk_migration_job(
+        &self,
+        req: crate::model::CreateDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_disk_migration_jobs(
+        &self,
+        req: crate::model::ListDiskMigrationJobsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiskMigrationJobsResponse>>;
+
+    async fn get_disk_migration_job(
+        &self,
+        req: crate::model::GetDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DiskMigrationJob>>;
+
+    async fn update_disk_migration_job(
+        &self,
+        req: crate::model::UpdateDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_disk_migration_job(
+        &self,
+        req: crate::model::DeleteDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn run_disk_migration_job(
+        &self,
+        req: crate::model::RunDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn cancel_disk_migration_job(
+        &self,
+        req: crate::model::CancelDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -395,6 +491,15 @@ impl<T: super::VmMigration> VmMigration for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::FetchInventoryResponse>> {
         T::fetch_inventory(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn fetch_storage_inventory(
+        &self,
+        req: crate::model::FetchStorageInventoryRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::FetchStorageInventoryResponse>> {
+        T::fetch_storage_inventory(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -558,6 +663,15 @@ impl<T: super::VmMigration> VmMigration for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::finalize_migration(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn extend_migration(
+        &self,
+        req: crate::model::ExtendMigrationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::extend_migration(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -756,6 +870,132 @@ impl<T: super::VmMigration> VmMigration for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ReplicationCycle>> {
         T::get_replication_cycle(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_image_imports(
+        &self,
+        req: crate::model::ListImageImportsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListImageImportsResponse>> {
+        T::list_image_imports(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_image_import(
+        &self,
+        req: crate::model::GetImageImportRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ImageImport>> {
+        T::get_image_import(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_image_import(
+        &self,
+        req: crate::model::CreateImageImportRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_image_import(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_image_import(
+        &self,
+        req: crate::model::DeleteImageImportRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_image_import(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_image_import_jobs(
+        &self,
+        req: crate::model::ListImageImportJobsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListImageImportJobsResponse>> {
+        T::list_image_import_jobs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_image_import_job(
+        &self,
+        req: crate::model::GetImageImportJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ImageImportJob>> {
+        T::get_image_import_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_image_import_job(
+        &self,
+        req: crate::model::CancelImageImportJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::cancel_image_import_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_disk_migration_job(
+        &self,
+        req: crate::model::CreateDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_disk_migration_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_disk_migration_jobs(
+        &self,
+        req: crate::model::ListDiskMigrationJobsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiskMigrationJobsResponse>> {
+        T::list_disk_migration_jobs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_disk_migration_job(
+        &self,
+        req: crate::model::GetDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DiskMigrationJob>> {
+        T::get_disk_migration_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_disk_migration_job(
+        &self,
+        req: crate::model::UpdateDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_disk_migration_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_disk_migration_job(
+        &self,
+        req: crate::model::DeleteDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_disk_migration_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn run_disk_migration_job(
+        &self,
+        req: crate::model::RunDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::run_disk_migration_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_disk_migration_job(
+        &self,
+        req: crate::model::CancelDiskMigrationJobRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::cancel_disk_migration_job(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

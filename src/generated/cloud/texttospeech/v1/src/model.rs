@@ -1890,6 +1890,12 @@ pub mod multi_speaker_markup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesisInput {
+    /// This system instruction is supported only for controllable/promptable voice
+    /// models. If this system instruction is used, we pass the unedited text to
+    /// Gemini-TTS. Otherwise, a default system instruction is used. AI Studio
+    /// calls this system instruction, Style Instructions.
+    pub prompt: std::option::Option<std::string::String>,
+
     /// Optional. The pronunciation customizations are applied to the input. If
     /// this is set, the input is synthesized using the given pronunciation
     /// customizations.
@@ -1911,6 +1917,24 @@ pub struct SynthesisInput {
 impl SynthesisInput {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [prompt][crate::model::SynthesisInput::prompt].
+    pub fn set_prompt<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.prompt = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [prompt][crate::model::SynthesisInput::prompt].
+    pub fn set_or_clear_prompt<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.prompt = v.map(|x| x.into());
+        self
     }
 
     /// Sets the value of [custom_pronunciations][crate::model::SynthesisInput::custom_pronunciations].
@@ -2064,6 +2088,7 @@ impl<'de> serde::de::Deserialize<'de> for SynthesisInput {
             __markup,
             __ssml,
             __multi_speaker_markup,
+            __prompt,
             __custom_pronunciations,
             Unknown(std::string::String),
         }
@@ -2090,6 +2115,7 @@ impl<'de> serde::de::Deserialize<'de> for SynthesisInput {
                             "ssml" => Ok(__FieldTag::__ssml),
                             "multiSpeakerMarkup" => Ok(__FieldTag::__multi_speaker_markup),
                             "multi_speaker_markup" => Ok(__FieldTag::__multi_speaker_markup),
+                            "prompt" => Ok(__FieldTag::__prompt),
                             "customPronunciations" => Ok(__FieldTag::__custom_pronunciations),
                             "custom_pronunciations" => Ok(__FieldTag::__custom_pronunciations),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -2191,6 +2217,15 @@ impl<'de> serde::de::Deserialize<'de> for SynthesisInput {
                                 ),
                             );
                         }
+                        __FieldTag::__prompt => {
+                            if !fields.insert(__FieldTag::__prompt) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for prompt",
+                                ));
+                            }
+                            result.prompt =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
                         __FieldTag::__custom_pronunciations => {
                             if !fields.insert(__FieldTag::__custom_pronunciations) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -2235,6 +2270,9 @@ impl serde::ser::Serialize for SynthesisInput {
         if let Some(value) = self.multi_speaker_markup() {
             state.serialize_entry("multiSpeakerMarkup", value)?;
         }
+        if self.prompt.is_some() {
+            state.serialize_entry("prompt", &self.prompt)?;
+        }
         if self.custom_pronunciations.is_some() {
             state.serialize_entry("customPronunciations", &self.custom_pronunciations)?;
         }
@@ -2250,6 +2288,7 @@ impl serde::ser::Serialize for SynthesisInput {
 impl std::fmt::Debug for SynthesisInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesisInput");
+        debug_struct.field("prompt", &self.prompt);
         debug_struct.field("custom_pronunciations", &self.custom_pronunciations);
         debug_struct.field("input_source", &self.input_source);
         if !self._unknown_fields.is_empty() {

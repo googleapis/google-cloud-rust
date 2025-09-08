@@ -30,6 +30,7 @@
 //! More specifically:
 //!
 //! * [CrossNetworkAutomationService](client/struct.CrossNetworkAutomationService.html)
+//! * [DataTransferService](client/struct.DataTransferService.html)
 //! * [HubService](client/struct.HubService.html)
 //! * [InternalRangeService](client/struct.InternalRangeService.html)
 //! * [PolicyBasedRoutingService](client/struct.PolicyBasedRoutingService.html)

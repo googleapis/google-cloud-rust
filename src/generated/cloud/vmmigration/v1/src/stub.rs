@@ -104,6 +104,19 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::VmMigration::fetch_storage_inventory].
+    fn fetch_storage_inventory(
+        &self,
+        _req: crate::model::FetchStorageInventoryRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::FetchStorageInventoryResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::VmMigration::list_utilization_reports].
     fn list_utilization_reports(
         &self,
@@ -299,6 +312,17 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
     fn finalize_migration(
         &self,
         _req: crate::model::FinalizeMigrationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::extend_migration].
+    fn extend_migration(
+        &self,
+        _req: crate::model::ExtendMigrationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
@@ -546,6 +570,162 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReplicationCycle>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::list_image_imports].
+    fn list_image_imports(
+        &self,
+        _req: crate::model::ListImageImportsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListImageImportsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::get_image_import].
+    fn get_image_import(
+        &self,
+        _req: crate::model::GetImageImportRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ImageImport>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::create_image_import].
+    fn create_image_import(
+        &self,
+        _req: crate::model::CreateImageImportRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::delete_image_import].
+    fn delete_image_import(
+        &self,
+        _req: crate::model::DeleteImageImportRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::list_image_import_jobs].
+    fn list_image_import_jobs(
+        &self,
+        _req: crate::model::ListImageImportJobsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListImageImportJobsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::get_image_import_job].
+    fn get_image_import_job(
+        &self,
+        _req: crate::model::GetImageImportJobRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ImageImportJob>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::cancel_image_import_job].
+    fn cancel_image_import_job(
+        &self,
+        _req: crate::model::CancelImageImportJobRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::create_disk_migration_job].
+    fn create_disk_migration_job(
+        &self,
+        _req: crate::model::CreateDiskMigrationJobRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::list_disk_migration_jobs].
+    fn list_disk_migration_jobs(
+        &self,
+        _req: crate::model::ListDiskMigrationJobsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListDiskMigrationJobsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::get_disk_migration_job].
+    fn get_disk_migration_job(
+        &self,
+        _req: crate::model::GetDiskMigrationJobRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DiskMigrationJob>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::update_disk_migration_job].
+    fn update_disk_migration_job(
+        &self,
+        _req: crate::model::UpdateDiskMigrationJobRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::delete_disk_migration_job].
+    fn delete_disk_migration_job(
+        &self,
+        _req: crate::model::DeleteDiskMigrationJobRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::run_disk_migration_job].
+    fn run_disk_migration_job(
+        &self,
+        _req: crate::model::RunDiskMigrationJobRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VmMigration::cancel_disk_migration_job].
+    fn cancel_disk_migration_job(
+        &self,
+        _req: crate::model::CancelDiskMigrationJobRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

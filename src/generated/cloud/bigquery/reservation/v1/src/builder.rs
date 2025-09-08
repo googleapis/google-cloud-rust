@@ -547,6 +547,12 @@ pub mod reservation_service {
             self.0.request.name = v.into();
             self
         }
+
+        /// Sets the value of [failover_mode][crate::model::FailoverReservationRequest::failover_mode].
+        pub fn set_failover_mode<T: Into<crate::model::FailoverMode>>(mut self, v: T) -> Self {
+            self.0.request.failover_mode = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]

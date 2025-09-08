@@ -499,6 +499,44 @@ impl<T: super::ControlService> ControlService for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::ConversationalSearchService].
+#[async_trait::async_trait]
+pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+}
+
+/// All implementations of [super::ConversationalSearchService] also implement [ConversationalSearchService].
+#[async_trait::async_trait]
+impl<T: super::ConversationalSearchService> ConversationalSearchService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::GenerativeQuestionService].
 #[async_trait::async_trait]
 pub trait GenerativeQuestionService: std::fmt::Debug + Send + Sync {

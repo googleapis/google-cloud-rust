@@ -56,6 +56,24 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn verify_confidential_space(
+        &self,
+        req: crate::model::VerifyConfidentialSpaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::VerifyConfidentialSpaceResponse>> {
+        self.inner.verify_confidential_space(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn verify_confidential_gke(
+        &self,
+        req: crate::model::VerifyConfidentialGkeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::VerifyConfidentialGkeResponse>> {
+        self.inner.verify_confidential_gke(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

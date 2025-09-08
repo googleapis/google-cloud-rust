@@ -25,6 +25,14 @@
 //! still possible, but not expected.
 //!
 //!
+//! **WARNING:** some RPCs have no corresponding Rust function to call them.
+//! Typically these are streaming RPCs. We expect adding these RPCs in a
+//! way that does not break the existing APIs or changes their behavior in a
+//! significant way. We do anticipate a number of new crate dependencies
+//! will be required. If you need these RPCs please open an issue in our
+//! GitHub repository.
+//!
+//!
 //! This crate contains traits, types, and functions to interact with Vertex AI Search for commerce API
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
@@ -33,6 +41,7 @@
 //! * [CatalogService](client/struct.CatalogService.html)
 //! * [CompletionService](client/struct.CompletionService.html)
 //! * [ControlService](client/struct.ControlService.html)
+//! * [ConversationalSearchService](client/struct.ConversationalSearchService.html)
 //! * [GenerativeQuestionService](client/struct.GenerativeQuestionService.html)
 //! * [ModelService](client/struct.ModelService.html)
 //! * [PredictionService](client/struct.PredictionService.html)

@@ -987,6 +987,13 @@ pub mod reservation {
         /// that was successfully replicated to the secondary.
         pub last_replication_time: std::option::Option<wkt::Timestamp>,
 
+        /// Output only. The time at which a soft failover for the reservation and
+        /// its associated datasets was initiated. After this field is set, all
+        /// subsequent changes to the reservation will be rejected unless a hard
+        /// failover overrides this operation. This field will be cleared once the
+        /// failover is complete.
+        pub soft_failover_start_time: std::option::Option<wkt::Timestamp>,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -1048,6 +1055,24 @@ pub mod reservation {
             self.last_replication_time = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [soft_failover_start_time][crate::model::reservation::ReplicationStatus::soft_failover_start_time].
+        pub fn set_soft_failover_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.soft_failover_start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [soft_failover_start_time][crate::model::reservation::ReplicationStatus::soft_failover_start_time].
+        pub fn set_or_clear_soft_failover_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.soft_failover_start_time = v.map(|x| x.into());
+            self
+        }
     }
 
     impl wkt::message::Message for ReplicationStatus {
@@ -1069,6 +1094,7 @@ pub mod reservation {
                 __error,
                 __last_error_time,
                 __last_replication_time,
+                __soft_failover_start_time,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1097,6 +1123,12 @@ pub mod reservation {
                                 "last_error_time" => Ok(__FieldTag::__last_error_time),
                                 "lastReplicationTime" => Ok(__FieldTag::__last_replication_time),
                                 "last_replication_time" => Ok(__FieldTag::__last_replication_time),
+                                "softFailoverStartTime" => {
+                                    Ok(__FieldTag::__soft_failover_start_time)
+                                }
+                                "soft_failover_start_time" => {
+                                    Ok(__FieldTag::__soft_failover_start_time)
+                                }
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -1149,6 +1181,15 @@ pub mod reservation {
                                 result.last_replication_time =
                                     map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                             }
+                            __FieldTag::__soft_failover_start_time => {
+                                if !fields.insert(__FieldTag::__soft_failover_start_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for soft_failover_start_time",
+                                    ));
+                                }
+                                result.soft_failover_start_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -1181,6 +1222,9 @@ pub mod reservation {
             if self.last_replication_time.is_some() {
                 state.serialize_entry("lastReplicationTime", &self.last_replication_time)?;
             }
+            if self.soft_failover_start_time.is_some() {
+                state.serialize_entry("softFailoverStartTime", &self.soft_failover_start_time)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -1196,6 +1240,7 @@ pub mod reservation {
             debug_struct.field("error", &self.error);
             debug_struct.field("last_error_time", &self.last_error_time);
             debug_struct.field("last_replication_time", &self.last_replication_time);
+            debug_struct.field("soft_failover_start_time", &self.soft_failover_start_time);
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3335,6 +3380,11 @@ pub struct FailoverReservationRequest {
     /// `projects/myproject/locations/US/reservations/team1-prod`
     pub name: std::string::String,
 
+    /// Optional. A parameter that determines how writes that are pending
+    /// replication are handled after a failover is initiated. If not specified,
+    /// HARD failover mode is used by default.
+    pub failover_mode: crate::model::FailoverMode,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3346,6 +3396,15 @@ impl FailoverReservationRequest {
     /// Sets the value of [name][crate::model::FailoverReservationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [failover_mode][crate::model::FailoverReservationRequest::failover_mode].
+    pub fn set_failover_mode<T: std::convert::Into<crate::model::FailoverMode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.failover_mode = v.into();
         self
     }
 }
@@ -3367,6 +3426,7 @@ impl<'de> serde::de::Deserialize<'de> for FailoverReservationRequest {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __name,
+            __failover_mode,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3388,6 +3448,8 @@ impl<'de> serde::de::Deserialize<'de> for FailoverReservationRequest {
                         use std::string::ToString;
                         match value {
                             "name" => Ok(__FieldTag::__name),
+                            "failoverMode" => Ok(__FieldTag::__failover_mode),
+                            "failover_mode" => Ok(__FieldTag::__failover_mode),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3423,6 +3485,16 @@ impl<'de> serde::de::Deserialize<'de> for FailoverReservationRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__failover_mode => {
+                            if !fields.insert(__FieldTag::__failover_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for failover_mode",
+                                ));
+                            }
+                            result.failover_mode = map
+                                .next_value::<std::option::Option<crate::model::FailoverMode>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3449,6 +3521,9 @@ impl serde::ser::Serialize for FailoverReservationRequest {
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
         }
+        if !wkt::internal::is_default(&self.failover_mode) {
+            state.serialize_entry("failoverMode", &self.failover_mode)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3462,6 +3537,7 @@ impl std::fmt::Debug for FailoverReservationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FailoverReservationRequest");
         debug_struct.field("name", &self.name);
+        debug_struct.field("failover_mode", &self.failover_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8722,6 +8798,144 @@ impl<'de> serde::de::Deserialize<'de> for Edition {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Edition>::new(
             ".google.cloud.bigquery.reservation.v1.Edition",
+        ))
+    }
+}
+
+/// The failover mode when a user initiates a failover on a reservation
+/// determines how writes that arepending replication are handled after the
+/// failover is initiated.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FailoverMode {
+    /// Invalid value.
+    Unspecified,
+    /// When customers initiate a soft failover, BigQuery will wait until all
+    /// committed writes are replicated to the secondary. This mode requires both
+    /// regions to be available for the failover to succeed and prevents data loss.
+    Soft,
+    /// When customers initiate a hard failover, BigQuery will not wait until all
+    /// committed writes are replicated to the secondary. There can be data loss
+    /// for hard failover.
+    Hard,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FailoverMode::value] or
+    /// [FailoverMode::name].
+    UnknownValue(failover_mode::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod failover_mode {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FailoverMode {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Soft => std::option::Option::Some(1),
+            Self::Hard => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FAILOVER_MODE_UNSPECIFIED"),
+            Self::Soft => std::option::Option::Some("SOFT"),
+            Self::Hard => std::option::Option::Some("HARD"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FailoverMode {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FailoverMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FailoverMode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Soft,
+            2 => Self::Hard,
+            _ => Self::UnknownValue(failover_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FailoverMode {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FAILOVER_MODE_UNSPECIFIED" => Self::Unspecified,
+            "SOFT" => Self::Soft,
+            "HARD" => Self::Hard,
+            _ => Self::UnknownValue(failover_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FailoverMode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Soft => serializer.serialize_i32(1),
+            Self::Hard => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FailoverMode {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailoverMode>::new(
+            ".google.cloud.bigquery.reservation.v1.FailoverMode",
         ))
     }
 }

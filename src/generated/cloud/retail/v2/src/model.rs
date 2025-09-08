@@ -16568,6 +16568,3070 @@ impl std::fmt::Debug for ListControlsResponse {
     }
 }
 
+/// Request message for
+/// [ConversationalSearchService.ConversationalSearch][google.cloud.retail.v2.ConversationalSearchService.ConversationalSearch]
+/// method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ConversationalSearchRequest {
+    /// Required. The resource name of the search engine placement, such as
+    /// `projects/*/locations/global/catalogs/default_catalog/placements/default_search`
+    /// or
+    /// `projects/*/locations/global/catalogs/default_catalog/servingConfigs/default_serving_config`
+    /// This field is used to identify the serving config name and the set
+    /// of models that will be used to make the search.
+    pub placement: std::string::String,
+
+    /// Required. The branch resource name, such as
+    /// `projects/*/locations/global/catalogs/default_catalog/branches/0`.
+    ///
+    /// Use "default_branch" as the branch ID or leave this field empty, to search
+    /// products under the default branch.
+    pub branch: std::string::String,
+
+    /// Optional. Raw search query to be searched for.
+    ///
+    /// If this field is empty, the request is considered a category browsing
+    /// request.
+    pub query: std::string::String,
+
+    /// Optional. The categories associated with a category page. Must be set for
+    /// category navigation queries to achieve good search quality. The format
+    /// should be the same as
+    /// [UserEvent.page_categories][google.cloud.retail.v2.UserEvent.page_categories];
+    ///
+    /// To represent full path of category, use '>' sign to separate different
+    /// hierarchies. If '>' is part of the category name, replace it with
+    /// other character(s).
+    ///
+    /// Category pages include special pages such as sales or promotions. For
+    /// instance, a special sale page may have the category hierarchy:
+    /// "pageCategories" : ["Sales > 2017 Black Friday Deals"].
+    ///
+    /// [google.cloud.retail.v2.UserEvent.page_categories]: crate::model::UserEvent::page_categories
+    pub page_categories: std::vec::Vec<std::string::String>,
+
+    /// Optional. This field specifies the conversation id, which maintains the
+    /// state of the conversation between client side and server side. Use the
+    /// value from the previous
+    /// [ConversationalSearchResponse.conversation_id][google.cloud.retail.v2.ConversationalSearchResponse.conversation_id].
+    /// For the initial request, this should be empty.
+    ///
+    /// [google.cloud.retail.v2.ConversationalSearchResponse.conversation_id]: crate::model::ConversationalSearchResponse::conversation_id
+    pub conversation_id: std::string::String,
+
+    /// Optional. Search parameters.
+    pub search_params:
+        std::option::Option<crate::model::conversational_search_request::SearchParams>,
+
+    /// Required. A unique identifier for tracking visitors. For example, this
+    /// could be implemented with an HTTP cookie, which should be able to uniquely
+    /// identify a visitor on a single device. This unique identifier should not
+    /// change if the visitor logs in or out of the website.
+    ///
+    /// This should be the same identifier as
+    /// [UserEvent.visitor_id][google.cloud.retail.v2.UserEvent.visitor_id].
+    ///
+    /// The field must be a UTF-8 encoded string with a length limit of 128
+    /// characters. Otherwise, an INVALID_ARGUMENT error is returned.
+    ///
+    /// [google.cloud.retail.v2.UserEvent.visitor_id]: crate::model::UserEvent::visitor_id
+    pub visitor_id: std::string::String,
+
+    /// Optional. User information.
+    pub user_info: std::option::Option<crate::model::UserInfo>,
+
+    /// Optional. This field specifies all conversational filtering related
+    /// parameters.
+    pub conversational_filtering_spec: std::option::Option<
+        crate::model::conversational_search_request::ConversationalFilteringSpec,
+    >,
+
+    /// Optional. The user labels applied to a resource must meet the following
+    /// requirements:
+    ///
+    /// * Each resource can have multiple labels, up to a maximum of 64.
+    /// * Each label must be a key-value pair.
+    /// * Keys have a minimum length of 1 character and a maximum length of 63
+    ///   characters and cannot be empty. Values can be empty and have a maximum
+    ///   length of 63 characters.
+    /// * Keys and values can contain only lowercase letters, numeric characters,
+    ///   underscores, and dashes. All characters must use UTF-8 encoding, and
+    ///   international characters are allowed.
+    /// * The key portion of a label must be unique. However, you can use the same
+    ///   key with multiple resources.
+    /// * Keys must start with a lowercase letter or international character.
+    ///
+    /// See [Google Cloud
+    /// Document](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements)
+    /// for more details.
+    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. The safety settings to be applied to the generated content.
+    pub safety_settings: std::vec::Vec<crate::model::SafetySetting>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ConversationalSearchRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [placement][crate::model::ConversationalSearchRequest::placement].
+    pub fn set_placement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.placement = v.into();
+        self
+    }
+
+    /// Sets the value of [branch][crate::model::ConversationalSearchRequest::branch].
+    pub fn set_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.branch = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::ConversationalSearchRequest::query].
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [page_categories][crate::model::ConversationalSearchRequest::page_categories].
+    pub fn set_page_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.page_categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [conversation_id][crate::model::ConversationalSearchRequest::conversation_id].
+    pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.conversation_id = v.into();
+        self
+    }
+
+    /// Sets the value of [search_params][crate::model::ConversationalSearchRequest::search_params].
+    pub fn set_search_params<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::conversational_search_request::SearchParams>,
+    {
+        self.search_params = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [search_params][crate::model::ConversationalSearchRequest::search_params].
+    pub fn set_or_clear_search_params<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::conversational_search_request::SearchParams>,
+    {
+        self.search_params = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [visitor_id][crate::model::ConversationalSearchRequest::visitor_id].
+    pub fn set_visitor_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.visitor_id = v.into();
+        self
+    }
+
+    /// Sets the value of [user_info][crate::model::ConversationalSearchRequest::user_info].
+    pub fn set_user_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UserInfo>,
+    {
+        self.user_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [user_info][crate::model::ConversationalSearchRequest::user_info].
+    pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UserInfo>,
+    {
+        self.user_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [conversational_filtering_spec][crate::model::ConversationalSearchRequest::conversational_filtering_spec].
+    pub fn set_conversational_filtering_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::conversational_search_request::ConversationalFilteringSpec,
+            >,
+    {
+        self.conversational_filtering_spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [conversational_filtering_spec][crate::model::ConversationalSearchRequest::conversational_filtering_spec].
+    pub fn set_or_clear_conversational_filtering_spec<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::conversational_search_request::ConversationalFilteringSpec,
+            >,
+    {
+        self.conversational_filtering_spec = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [user_labels][crate::model::ConversationalSearchRequest::user_labels].
+    pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [safety_settings][crate::model::ConversationalSearchRequest::safety_settings].
+    pub fn set_safety_settings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SafetySetting>,
+    {
+        use std::iter::Iterator;
+        self.safety_settings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ConversationalSearchRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.retail.v2.ConversationalSearchRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ConversationalSearchRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __placement,
+            __branch,
+            __query,
+            __page_categories,
+            __conversation_id,
+            __search_params,
+            __visitor_id,
+            __user_info,
+            __conversational_filtering_spec,
+            __user_labels,
+            __safety_settings,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ConversationalSearchRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "placement" => Ok(__FieldTag::__placement),
+                            "branch" => Ok(__FieldTag::__branch),
+                            "query" => Ok(__FieldTag::__query),
+                            "pageCategories" => Ok(__FieldTag::__page_categories),
+                            "page_categories" => Ok(__FieldTag::__page_categories),
+                            "conversationId" => Ok(__FieldTag::__conversation_id),
+                            "conversation_id" => Ok(__FieldTag::__conversation_id),
+                            "searchParams" => Ok(__FieldTag::__search_params),
+                            "search_params" => Ok(__FieldTag::__search_params),
+                            "visitorId" => Ok(__FieldTag::__visitor_id),
+                            "visitor_id" => Ok(__FieldTag::__visitor_id),
+                            "userInfo" => Ok(__FieldTag::__user_info),
+                            "user_info" => Ok(__FieldTag::__user_info),
+                            "conversationalFilteringSpec" => {
+                                Ok(__FieldTag::__conversational_filtering_spec)
+                            }
+                            "conversational_filtering_spec" => {
+                                Ok(__FieldTag::__conversational_filtering_spec)
+                            }
+                            "userLabels" => Ok(__FieldTag::__user_labels),
+                            "user_labels" => Ok(__FieldTag::__user_labels),
+                            "safetySettings" => Ok(__FieldTag::__safety_settings),
+                            "safety_settings" => Ok(__FieldTag::__safety_settings),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ConversationalSearchRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ConversationalSearchRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__placement => {
+                            if !fields.insert(__FieldTag::__placement) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for placement",
+                                ));
+                            }
+                            result.placement = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__branch => {
+                            if !fields.insert(__FieldTag::__branch) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for branch",
+                                ));
+                            }
+                            result.branch = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__query => {
+                            if !fields.insert(__FieldTag::__query) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query",
+                                ));
+                            }
+                            result.query = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_categories => {
+                            if !fields.insert(__FieldTag::__page_categories) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_categories",
+                                ));
+                            }
+                            result.page_categories = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__conversation_id => {
+                            if !fields.insert(__FieldTag::__conversation_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for conversation_id",
+                                ));
+                            }
+                            result.conversation_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__search_params => {
+                            if !fields.insert(__FieldTag::__search_params) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for search_params",
+                                ));
+                            }
+                            result.search_params = map.next_value::<std::option::Option<
+                                crate::model::conversational_search_request::SearchParams,
+                            >>()?;
+                        }
+                        __FieldTag::__visitor_id => {
+                            if !fields.insert(__FieldTag::__visitor_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for visitor_id",
+                                ));
+                            }
+                            result.visitor_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__user_info => {
+                            if !fields.insert(__FieldTag::__user_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_info",
+                                ));
+                            }
+                            result.user_info =
+                                map.next_value::<std::option::Option<crate::model::UserInfo>>()?;
+                        }
+                        __FieldTag::__conversational_filtering_spec => {
+                            if !fields.insert(__FieldTag::__conversational_filtering_spec) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for conversational_filtering_spec",
+                                ));
+                            }
+                            result.conversational_filtering_spec = map.next_value::<std::option::Option<crate::model::conversational_search_request::ConversationalFilteringSpec>>()?
+                                ;
+                        }
+                        __FieldTag::__user_labels => {
+                            if !fields.insert(__FieldTag::__user_labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_labels",
+                                ));
+                            }
+                            result.user_labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__safety_settings => {
+                            if !fields.insert(__FieldTag::__safety_settings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for safety_settings",
+                                ));
+                            }
+                            result.safety_settings = map.next_value::<std::option::Option<std::vec::Vec<crate::model::SafetySetting>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ConversationalSearchRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.placement.is_empty() {
+            state.serialize_entry("placement", &self.placement)?;
+        }
+        if !self.branch.is_empty() {
+            state.serialize_entry("branch", &self.branch)?;
+        }
+        if !self.query.is_empty() {
+            state.serialize_entry("query", &self.query)?;
+        }
+        if !self.page_categories.is_empty() {
+            state.serialize_entry("pageCategories", &self.page_categories)?;
+        }
+        if !self.conversation_id.is_empty() {
+            state.serialize_entry("conversationId", &self.conversation_id)?;
+        }
+        if self.search_params.is_some() {
+            state.serialize_entry("searchParams", &self.search_params)?;
+        }
+        if !self.visitor_id.is_empty() {
+            state.serialize_entry("visitorId", &self.visitor_id)?;
+        }
+        if self.user_info.is_some() {
+            state.serialize_entry("userInfo", &self.user_info)?;
+        }
+        if self.conversational_filtering_spec.is_some() {
+            state.serialize_entry(
+                "conversationalFilteringSpec",
+                &self.conversational_filtering_spec,
+            )?;
+        }
+        if !self.user_labels.is_empty() {
+            state.serialize_entry("userLabels", &self.user_labels)?;
+        }
+        if !self.safety_settings.is_empty() {
+            state.serialize_entry("safetySettings", &self.safety_settings)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ConversationalSearchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConversationalSearchRequest");
+        debug_struct.field("placement", &self.placement);
+        debug_struct.field("branch", &self.branch);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("page_categories", &self.page_categories);
+        debug_struct.field("conversation_id", &self.conversation_id);
+        debug_struct.field("search_params", &self.search_params);
+        debug_struct.field("visitor_id", &self.visitor_id);
+        debug_struct.field("user_info", &self.user_info);
+        debug_struct.field(
+            "conversational_filtering_spec",
+            &self.conversational_filtering_spec,
+        );
+        debug_struct.field("user_labels", &self.user_labels);
+        debug_struct.field("safety_settings", &self.safety_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [ConversationalSearchRequest].
+pub mod conversational_search_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Search parameters.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SearchParams {
+        /// Optional. The filter string to restrict search results.
+        ///
+        /// The syntax of the filter string is the same as
+        /// [SearchRequest.filter][google.cloud.retail.v2.SearchRequest.filter].
+        ///
+        /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
+        pub filter: std::string::String,
+
+        /// Optional. The canonical filter string to restrict search results.
+        ///
+        /// The syntax of the canonical filter string is the same as
+        /// [SearchRequest.canonical_filter][google.cloud.retail.v2.SearchRequest.canonical_filter].
+        ///
+        /// [google.cloud.retail.v2.SearchRequest.canonical_filter]: crate::model::SearchRequest::canonical_filter
+        pub canonical_filter: std::string::String,
+
+        /// Optional. The sort string to specify the sorting of search results.
+        ///
+        /// The syntax of the sort string is the same as
+        /// [SearchRequest.sort][].
+        pub sort_by: std::string::String,
+
+        /// Optional. The boost spec to specify the boosting of search results.
+        ///
+        /// The syntax of the boost spec is the same as
+        /// [SearchRequest.boost_spec][google.cloud.retail.v2.SearchRequest.boost_spec].
+        ///
+        /// [google.cloud.retail.v2.SearchRequest.boost_spec]: crate::model::SearchRequest::boost_spec
+        pub boost_spec: std::option::Option<crate::model::search_request::BoostSpec>,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SearchParams {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [filter][crate::model::conversational_search_request::SearchParams::filter].
+        pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [canonical_filter][crate::model::conversational_search_request::SearchParams::canonical_filter].
+        pub fn set_canonical_filter<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.canonical_filter = v.into();
+            self
+        }
+
+        /// Sets the value of [sort_by][crate::model::conversational_search_request::SearchParams::sort_by].
+        pub fn set_sort_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.sort_by = v.into();
+            self
+        }
+
+        /// Sets the value of [boost_spec][crate::model::conversational_search_request::SearchParams::boost_spec].
+        pub fn set_boost_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::BoostSpec>,
+        {
+            self.boost_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [boost_spec][crate::model::conversational_search_request::SearchParams::boost_spec].
+        pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::BoostSpec>,
+        {
+            self.boost_spec = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for SearchParams {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.retail.v2.ConversationalSearchRequest.SearchParams"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for SearchParams {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __filter,
+                __canonical_filter,
+                __sort_by,
+                __boost_spec,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for SearchParams")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "filter" => Ok(__FieldTag::__filter),
+                                "canonicalFilter" => Ok(__FieldTag::__canonical_filter),
+                                "canonical_filter" => Ok(__FieldTag::__canonical_filter),
+                                "sortBy" => Ok(__FieldTag::__sort_by),
+                                "sort_by" => Ok(__FieldTag::__sort_by),
+                                "boostSpec" => Ok(__FieldTag::__boost_spec),
+                                "boost_spec" => Ok(__FieldTag::__boost_spec),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = SearchParams;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct SearchParams")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__filter => {
+                                if !fields.insert(__FieldTag::__filter) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for filter",
+                                    ));
+                                }
+                                result.filter = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__canonical_filter => {
+                                if !fields.insert(__FieldTag::__canonical_filter) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for canonical_filter",
+                                    ));
+                                }
+                                result.canonical_filter = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__sort_by => {
+                                if !fields.insert(__FieldTag::__sort_by) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for sort_by",
+                                    ));
+                                }
+                                result.sort_by = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__boost_spec => {
+                                if !fields.insert(__FieldTag::__boost_spec) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for boost_spec",
+                                    ));
+                                }
+                                result.boost_spec =
+                                    map.next_value::<std::option::Option<
+                                        crate::model::search_request::BoostSpec,
+                                    >>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for SearchParams {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.filter.is_empty() {
+                state.serialize_entry("filter", &self.filter)?;
+            }
+            if !self.canonical_filter.is_empty() {
+                state.serialize_entry("canonicalFilter", &self.canonical_filter)?;
+            }
+            if !self.sort_by.is_empty() {
+                state.serialize_entry("sortBy", &self.sort_by)?;
+            }
+            if self.boost_spec.is_some() {
+                state.serialize_entry("boostSpec", &self.boost_spec)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for SearchParams {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SearchParams");
+            debug_struct.field("filter", &self.filter);
+            debug_struct.field("canonical_filter", &self.canonical_filter);
+            debug_struct.field("sort_by", &self.sort_by);
+            debug_struct.field("boost_spec", &self.boost_spec);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// This field specifies the current user answer during the conversational
+    /// filtering search. This can be either user selected from suggested answers
+    /// or user input plain text.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct UserAnswer {
+        /// This field specifies the type of user answer.
+        pub r#type:
+            std::option::Option<crate::model::conversational_search_request::user_answer::Type>,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl UserAnswer {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [r#type][crate::model::conversational_search_request::UserAnswer::type].
+        ///
+        /// Note that all the setters affecting `r#type` are mutually
+        /// exclusive.
+        pub fn set_type<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::conversational_search_request::user_answer::Type,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = v.into();
+            self
+        }
+
+        /// The value of [r#type][crate::model::conversational_search_request::UserAnswer::r#type]
+        /// if it holds a `TextAnswer`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn text_answer(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.r#type.as_ref().and_then(|v| match v {
+                crate::model::conversational_search_request::user_answer::Type::TextAnswer(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [r#type][crate::model::conversational_search_request::UserAnswer::r#type]
+        /// to hold a `TextAnswer`.
+        ///
+        /// Note that all the setters affecting `r#type` are
+        /// mutually exclusive.
+        pub fn set_text_answer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.r#type = std::option::Option::Some(
+                crate::model::conversational_search_request::user_answer::Type::TextAnswer(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [r#type][crate::model::conversational_search_request::UserAnswer::r#type]
+        /// if it holds a `SelectedAnswer`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn selected_answer(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::conversational_search_request::user_answer::SelectedAnswer,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.r#type.as_ref().and_then(|v| match v {
+                crate::model::conversational_search_request::user_answer::Type::SelectedAnswer(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [r#type][crate::model::conversational_search_request::UserAnswer::r#type]
+        /// to hold a `SelectedAnswer`.
+        ///
+        /// Note that all the setters affecting `r#type` are
+        /// mutually exclusive.
+        pub fn set_selected_answer<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::conversational_search_request::user_answer::SelectedAnswer,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = std::option::Option::Some(
+                crate::model::conversational_search_request::user_answer::Type::SelectedAnswer(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for UserAnswer {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.retail.v2.ConversationalSearchRequest.UserAnswer"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for UserAnswer {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __text_answer,
+                __selected_answer,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for UserAnswer")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "textAnswer" => Ok(__FieldTag::__text_answer),
+                                "text_answer" => Ok(__FieldTag::__text_answer),
+                                "selectedAnswer" => Ok(__FieldTag::__selected_answer),
+                                "selected_answer" => Ok(__FieldTag::__selected_answer),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = UserAnswer;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct UserAnswer")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__text_answer => {
+                                if !fields.insert(__FieldTag::__text_answer) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for text_answer",
+                                    ));
+                                }
+                                if result.r#type.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `r#type`, a oneof with full ID .google.cloud.retail.v2.ConversationalSearchRequest.UserAnswer.text_answer, latest field was textAnswer",
+                                    ));
+                                }
+                                result.r#type = std::option::Option::Some(
+                                    crate::model::conversational_search_request::user_answer::Type::TextAnswer(
+                                        map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__selected_answer => {
+                                if !fields.insert(__FieldTag::__selected_answer) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for selected_answer",
+                                    ));
+                                }
+                                if result.r#type.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `r#type`, a oneof with full ID .google.cloud.retail.v2.ConversationalSearchRequest.UserAnswer.selected_answer, latest field was selectedAnswer",
+                                    ));
+                                }
+                                result.r#type = std::option::Option::Some(
+                                    crate::model::conversational_search_request::user_answer::Type::SelectedAnswer(
+                                        map.next_value::<std::option::Option<std::boxed::Box<crate::model::conversational_search_request::user_answer::SelectedAnswer>>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for UserAnswer {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if let Some(value) = self.text_answer() {
+                state.serialize_entry("textAnswer", value)?;
+            }
+            if let Some(value) = self.selected_answer() {
+                state.serialize_entry("selectedAnswer", value)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for UserAnswer {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UserAnswer");
+            debug_struct.field("r#type", &self.r#type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Defines additional types related to [UserAnswer].
+    pub mod user_answer {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// This field specifies the selected answers during the conversational
+        /// search.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct SelectedAnswer {
+            /// Optional. This field specifies the selected answer which is a attribute
+            /// key-value.
+            pub product_attribute_value: std::option::Option<crate::model::ProductAttributeValue>,
+
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl SelectedAnswer {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [product_attribute_value][crate::model::conversational_search_request::user_answer::SelectedAnswer::product_attribute_value].
+            pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            {
+                self.product_attribute_value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [product_attribute_value][crate::model::conversational_search_request::user_answer::SelectedAnswer::product_attribute_value].
+            pub fn set_or_clear_product_attribute_value<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
+            where
+                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            {
+                self.product_attribute_value = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for SelectedAnswer {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.retail.v2.ConversationalSearchRequest.UserAnswer.SelectedAnswer"
+            }
+        }
+
+        #[doc(hidden)]
+        impl<'de> serde::de::Deserialize<'de> for SelectedAnswer {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                #[allow(non_camel_case_types)]
+                #[doc(hidden)]
+                #[derive(PartialEq, Eq, Hash)]
+                enum __FieldTag {
+                    __product_attribute_value,
+                    Unknown(std::string::String),
+                }
+                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        struct Visitor;
+                        impl<'de> serde::de::Visitor<'de> for Visitor {
+                            type Value = __FieldTag;
+                            fn expecting(
+                                &self,
+                                formatter: &mut std::fmt::Formatter,
+                            ) -> std::fmt::Result {
+                                formatter.write_str("a field name for SelectedAnswer")
+                            }
+                            fn visit_str<E>(
+                                self,
+                                value: &str,
+                            ) -> std::result::Result<Self::Value, E>
+                            where
+                                E: serde::de::Error,
+                            {
+                                use std::result::Result::Ok;
+                                use std::string::ToString;
+                                match value {
+                                    "productAttributeValue" => {
+                                        Ok(__FieldTag::__product_attribute_value)
+                                    }
+                                    "product_attribute_value" => {
+                                        Ok(__FieldTag::__product_attribute_value)
+                                    }
+                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
+                                }
+                            }
+                        }
+                        deserializer.deserialize_identifier(Visitor)
+                    }
+                }
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = SelectedAnswer;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("struct SelectedAnswer")
+                    }
+                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                    where
+                        A: serde::de::MapAccess<'de>,
+                    {
+                        #[allow(unused_imports)]
+                        use serde::de::Error;
+                        use std::option::Option::Some;
+                        let mut fields = std::collections::HashSet::new();
+                        let mut result = Self::Value::new();
+                        while let Some(tag) = map.next_key::<__FieldTag>()? {
+                            #[allow(clippy::match_single_binding)]
+                            match tag {
+                                __FieldTag::__product_attribute_value => {
+                                    if !fields.insert(__FieldTag::__product_attribute_value) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for product_attribute_value",
+                                            ),
+                                        );
+                                    }
+                                    result.product_attribute_value =
+                                        map.next_value::<std::option::Option<
+                                            crate::model::ProductAttributeValue,
+                                        >>()?;
+                                }
+                                __FieldTag::Unknown(key) => {
+                                    let value = map.next_value::<serde_json::Value>()?;
+                                    result._unknown_fields.insert(key, value);
+                                }
+                            }
+                        }
+                        std::result::Result::Ok(result)
+                    }
+                }
+                deserializer.deserialize_any(Visitor)
+            }
+        }
+
+        #[doc(hidden)]
+        impl serde::ser::Serialize for SelectedAnswer {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                use serde::ser::SerializeMap;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
+                let mut state = serializer.serialize_map(std::option::Option::None)?;
+                if self.product_attribute_value.is_some() {
+                    state
+                        .serialize_entry("productAttributeValue", &self.product_attribute_value)?;
+                }
+                if !self._unknown_fields.is_empty() {
+                    for (key, value) in self._unknown_fields.iter() {
+                        state.serialize_entry(key, &value)?;
+                    }
+                }
+                state.end()
+            }
+        }
+
+        impl std::fmt::Debug for SelectedAnswer {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("SelectedAnswer");
+                debug_struct.field("product_attribute_value", &self.product_attribute_value);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
+        /// This field specifies the type of user answer.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
+            /// This field specifies the incremental input text from the user during
+            /// the conversational search.
+            TextAnswer(std::string::String),
+            /// Optional. This field specifies the selected answer during the
+            /// conversational search. This should be a subset of
+            /// [ConversationalSearchResponse.followup_question.suggested_answers][].
+            SelectedAnswer(
+                std::boxed::Box<
+                    crate::model::conversational_search_request::user_answer::SelectedAnswer,
+                >,
+            ),
+        }
+    }
+
+    /// This field specifies all conversational filtering related parameters
+    /// addition to conversational retail search.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConversationalFilteringSpec {
+        /// Optional. This field is deprecated. Please use
+        /// [ConversationalFilteringSpec.conversational_filtering_mode][google.cloud.retail.v2.ConversationalSearchRequest.ConversationalFilteringSpec.conversational_filtering_mode]
+        /// instead.
+        ///
+        /// [google.cloud.retail.v2.ConversationalSearchRequest.ConversationalFilteringSpec.conversational_filtering_mode]: crate::model::conversational_search_request::ConversationalFilteringSpec::conversational_filtering_mode
+        #[deprecated]
+        pub enable_conversational_filtering: bool,
+
+        /// Optional. This field specifies the current user answer during the
+        /// conversational filtering search. It can be either user selected from
+        /// suggested answers or user input plain text.
+        pub user_answer:
+            std::option::Option<crate::model::conversational_search_request::UserAnswer>,
+
+        /// Optional. Mode to control Conversational Filtering.
+        /// Defaults to
+        /// [Mode.DISABLED][google.cloud.retail.v2.ConversationalSearchRequest.ConversationalFilteringSpec.Mode.DISABLED]
+        /// if it's unset.
+        ///
+        /// [google.cloud.retail.v2.ConversationalSearchRequest.ConversationalFilteringSpec.Mode.DISABLED]: crate::model::conversational_search_request::conversational_filtering_spec::Mode::Disabled
+        pub conversational_filtering_mode:
+            crate::model::conversational_search_request::conversational_filtering_spec::Mode,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ConversationalFilteringSpec {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enable_conversational_filtering][crate::model::conversational_search_request::ConversationalFilteringSpec::enable_conversational_filtering].
+        #[deprecated]
+        pub fn set_enable_conversational_filtering<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.enable_conversational_filtering = v.into();
+            self
+        }
+
+        /// Sets the value of [user_answer][crate::model::conversational_search_request::ConversationalFilteringSpec::user_answer].
+        pub fn set_user_answer<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::conversational_search_request::UserAnswer>,
+        {
+            self.user_answer = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_answer][crate::model::conversational_search_request::ConversationalFilteringSpec::user_answer].
+        pub fn set_or_clear_user_answer<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::conversational_search_request::UserAnswer>,
+        {
+            self.user_answer = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [conversational_filtering_mode][crate::model::conversational_search_request::ConversationalFilteringSpec::conversational_filtering_mode].
+        pub fn set_conversational_filtering_mode<T: std::convert::Into<crate::model::conversational_search_request::conversational_filtering_spec::Mode>>(mut self, v: T) -> Self{
+            self.conversational_filtering_mode = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ConversationalFilteringSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.retail.v2.ConversationalSearchRequest.ConversationalFilteringSpec"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ConversationalFilteringSpec {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __enable_conversational_filtering,
+                __user_answer,
+                __conversational_filtering_mode,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ConversationalFilteringSpec")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "enableConversationalFiltering" => {
+                                    Ok(__FieldTag::__enable_conversational_filtering)
+                                }
+                                "enable_conversational_filtering" => {
+                                    Ok(__FieldTag::__enable_conversational_filtering)
+                                }
+                                "userAnswer" => Ok(__FieldTag::__user_answer),
+                                "user_answer" => Ok(__FieldTag::__user_answer),
+                                "conversationalFilteringMode" => {
+                                    Ok(__FieldTag::__conversational_filtering_mode)
+                                }
+                                "conversational_filtering_mode" => {
+                                    Ok(__FieldTag::__conversational_filtering_mode)
+                                }
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ConversationalFilteringSpec;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ConversationalFilteringSpec")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__enable_conversational_filtering => {
+                                if !fields.insert(__FieldTag::__enable_conversational_filtering) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for enable_conversational_filtering",
+                                    ));
+                                }
+                                result.enable_conversational_filtering = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__user_answer => {
+                                if !fields.insert(__FieldTag::__user_answer) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for user_answer",
+                                    ));
+                                }
+                                result.user_answer = map.next_value::<std::option::Option<
+                                    crate::model::conversational_search_request::UserAnswer,
+                                >>()?;
+                            }
+                            __FieldTag::__conversational_filtering_mode => {
+                                if !fields.insert(__FieldTag::__conversational_filtering_mode) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for conversational_filtering_mode",
+                                    ));
+                                }
+                                result.conversational_filtering_mode = map.next_value::<std::option::Option<crate::model::conversational_search_request::conversational_filtering_spec::Mode>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ConversationalFilteringSpec {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.enable_conversational_filtering) {
+                state.serialize_entry(
+                    "enableConversationalFiltering",
+                    &self.enable_conversational_filtering,
+                )?;
+            }
+            if self.user_answer.is_some() {
+                state.serialize_entry("userAnswer", &self.user_answer)?;
+            }
+            if !wkt::internal::is_default(&self.conversational_filtering_mode) {
+                state.serialize_entry(
+                    "conversationalFilteringMode",
+                    &self.conversational_filtering_mode,
+                )?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ConversationalFilteringSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConversationalFilteringSpec");
+            debug_struct.field(
+                "enable_conversational_filtering",
+                &self.enable_conversational_filtering,
+            );
+            debug_struct.field("user_answer", &self.user_answer);
+            debug_struct.field(
+                "conversational_filtering_mode",
+                &self.conversational_filtering_mode,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Defines additional types related to [ConversationalFilteringSpec].
+    pub mod conversational_filtering_spec {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Enum to control Conversational Filtering mode.
+        /// A single conversation session including multiple turns supports modes for
+        /// Conversational Search OR Conversational Filtering without
+        /// Conversational Search, but not both.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Mode {
+            /// Default value.
+            Unspecified,
+            /// Disables Conversational Filtering when using Conversational Search.
+            Disabled,
+            /// Enables Conversational Filtering when using Conversational Search.
+            Enabled,
+            /// Enables Conversational Filtering without Conversational Search.
+            ConversationalFilterOnly,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Mode::value] or
+            /// [Mode::name].
+            UnknownValue(mode::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod mode {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Mode {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Disabled => std::option::Option::Some(1),
+                    Self::Enabled => std::option::Option::Some(2),
+                    Self::ConversationalFilterOnly => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                    Self::Disabled => std::option::Option::Some("DISABLED"),
+                    Self::Enabled => std::option::Option::Some("ENABLED"),
+                    Self::ConversationalFilterOnly => {
+                        std::option::Option::Some("CONVERSATIONAL_FILTER_ONLY")
+                    }
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Mode {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Mode {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Mode {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Disabled,
+                    2 => Self::Enabled,
+                    3 => Self::ConversationalFilterOnly,
+                    _ => Self::UnknownValue(mode::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Mode {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "MODE_UNSPECIFIED" => Self::Unspecified,
+                    "DISABLED" => Self::Disabled,
+                    "ENABLED" => Self::Enabled,
+                    "CONVERSATIONAL_FILTER_ONLY" => Self::ConversationalFilterOnly,
+                    _ => Self::UnknownValue(mode::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Mode {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Disabled => serializer.serialize_i32(1),
+                    Self::Enabled => serializer.serialize_i32(2),
+                    Self::ConversationalFilterOnly => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Mode {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                    ".google.cloud.retail.v2.ConversationalSearchRequest.ConversationalFilteringSpec.Mode"))
+            }
+        }
+    }
+}
+
+/// Response message for
+/// [ConversationalSearchService.ConversationalSearch][google.cloud.retail.v2.ConversationalSearchService.ConversationalSearch]
+/// method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ConversationalSearchResponse {
+    /// The types Retail classifies the search query as.
+    ///
+    /// Supported values are:
+    ///
+    /// - "ORDER_SUPPORT"
+    /// - "SIMPLE_PRODUCT_SEARCH"
+    /// - "INTENT_REFINEMENT"
+    /// - "PRODUCT_DETAILS"
+    /// - "PRODUCT_COMPARISON"
+    /// - "DEALS_AND_COUPONS"
+    /// - "STORE_RELEVANT"
+    /// - "BLOCKLISTED"
+    /// - "BEST_PRODUCT"
+    /// - "RETAIL_SUPPORT"
+    /// - "DISABLED"
+    pub user_query_types: std::vec::Vec<std::string::String>,
+
+    /// The conversational answer-based text response generated by the Server.
+    pub conversational_text_response: std::string::String,
+
+    /// The conversational followup question generated for Intent refinement.
+    pub followup_question:
+        std::option::Option<crate::model::conversational_search_response::FollowupQuestion>,
+
+    /// Conversation UUID. This field will be stored in client side storage to
+    /// maintain the conversation session with server and will be used for next
+    /// search request's
+    /// [ConversationalSearchRequest.conversation_id][google.cloud.retail.v2.ConversationalSearchRequest.conversation_id]
+    /// to restore conversation state in server.
+    ///
+    /// [google.cloud.retail.v2.ConversationalSearchRequest.conversation_id]: crate::model::ConversationalSearchRequest::conversation_id
+    pub conversation_id: std::string::String,
+
+    /// The proposed refined search queries. They can be used to fetch the relevant
+    /// search results. When using CONVERSATIONAL_FILTER_ONLY mode, the
+    /// refined_query from search response will be populated here.
+    pub refined_search: std::vec::Vec<crate::model::conversational_search_response::RefinedSearch>,
+
+    /// This field specifies all related information that is needed on client
+    /// side for UI rendering of conversational filtering search.
+    pub conversational_filtering_result: std::option::Option<
+        crate::model::conversational_search_response::ConversationalFilteringResult,
+    >,
+
+    /// Output only. The state of the response generation.
+    pub state: crate::model::conversational_search_response::State,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ConversationalSearchResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [user_query_types][crate::model::ConversationalSearchResponse::user_query_types].
+    pub fn set_user_query_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.user_query_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [conversational_text_response][crate::model::ConversationalSearchResponse::conversational_text_response].
+    pub fn set_conversational_text_response<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.conversational_text_response = v.into();
+        self
+    }
+
+    /// Sets the value of [followup_question][crate::model::ConversationalSearchResponse::followup_question].
+    pub fn set_followup_question<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
+    {
+        self.followup_question = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [followup_question][crate::model::ConversationalSearchResponse::followup_question].
+    pub fn set_or_clear_followup_question<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
+    {
+        self.followup_question = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [conversation_id][crate::model::ConversationalSearchResponse::conversation_id].
+    pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.conversation_id = v.into();
+        self
+    }
+
+    /// Sets the value of [refined_search][crate::model::ConversationalSearchResponse::refined_search].
+    pub fn set_refined_search<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::conversational_search_response::RefinedSearch>,
+    {
+        use std::iter::Iterator;
+        self.refined_search = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [conversational_filtering_result][crate::model::ConversationalSearchResponse::conversational_filtering_result].
+    pub fn set_conversational_filtering_result<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::conversational_search_response::ConversationalFilteringResult,
+            >,
+    {
+        self.conversational_filtering_result = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [conversational_filtering_result][crate::model::ConversationalSearchResponse::conversational_filtering_result].
+    pub fn set_or_clear_conversational_filtering_result<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::conversational_search_response::ConversationalFilteringResult,
+            >,
+    {
+        self.conversational_filtering_result = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::ConversationalSearchResponse::state].
+    pub fn set_state<T: std::convert::Into<crate::model::conversational_search_response::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ConversationalSearchResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.retail.v2.ConversationalSearchResponse"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ConversationalSearchResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __user_query_types,
+            __conversational_text_response,
+            __followup_question,
+            __conversation_id,
+            __refined_search,
+            __conversational_filtering_result,
+            __state,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ConversationalSearchResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "userQueryTypes" => Ok(__FieldTag::__user_query_types),
+                            "user_query_types" => Ok(__FieldTag::__user_query_types),
+                            "conversationalTextResponse" => {
+                                Ok(__FieldTag::__conversational_text_response)
+                            }
+                            "conversational_text_response" => {
+                                Ok(__FieldTag::__conversational_text_response)
+                            }
+                            "followupQuestion" => Ok(__FieldTag::__followup_question),
+                            "followup_question" => Ok(__FieldTag::__followup_question),
+                            "conversationId" => Ok(__FieldTag::__conversation_id),
+                            "conversation_id" => Ok(__FieldTag::__conversation_id),
+                            "refinedSearch" => Ok(__FieldTag::__refined_search),
+                            "refined_search" => Ok(__FieldTag::__refined_search),
+                            "conversationalFilteringResult" => {
+                                Ok(__FieldTag::__conversational_filtering_result)
+                            }
+                            "conversational_filtering_result" => {
+                                Ok(__FieldTag::__conversational_filtering_result)
+                            }
+                            "state" => Ok(__FieldTag::__state),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ConversationalSearchResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ConversationalSearchResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__user_query_types => {
+                            if !fields.insert(__FieldTag::__user_query_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_query_types",
+                                ));
+                            }
+                            result.user_query_types = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__conversational_text_response => {
+                            if !fields.insert(__FieldTag::__conversational_text_response) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for conversational_text_response",
+                                ));
+                            }
+                            result.conversational_text_response = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__followup_question => {
+                            if !fields.insert(__FieldTag::__followup_question) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for followup_question",
+                                ));
+                            }
+                            result.followup_question = map.next_value::<std::option::Option<
+                                crate::model::conversational_search_response::FollowupQuestion,
+                            >>()?;
+                        }
+                        __FieldTag::__conversation_id => {
+                            if !fields.insert(__FieldTag::__conversation_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for conversation_id",
+                                ));
+                            }
+                            result.conversation_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__refined_search => {
+                            if !fields.insert(__FieldTag::__refined_search) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for refined_search",
+                                ));
+                            }
+                            result.refined_search = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::conversational_search_response::RefinedSearch,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__conversational_filtering_result => {
+                            if !fields.insert(__FieldTag::__conversational_filtering_result) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for conversational_filtering_result",
+                                ));
+                            }
+                            result.conversational_filtering_result = map.next_value::<std::option::Option<crate::model::conversational_search_response::ConversationalFilteringResult>>()?
+                                ;
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map
+                                .next_value::<std::option::Option<
+                                    crate::model::conversational_search_response::State,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ConversationalSearchResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.user_query_types.is_empty() {
+            state.serialize_entry("userQueryTypes", &self.user_query_types)?;
+        }
+        if !self.conversational_text_response.is_empty() {
+            state.serialize_entry(
+                "conversationalTextResponse",
+                &self.conversational_text_response,
+            )?;
+        }
+        if self.followup_question.is_some() {
+            state.serialize_entry("followupQuestion", &self.followup_question)?;
+        }
+        if !self.conversation_id.is_empty() {
+            state.serialize_entry("conversationId", &self.conversation_id)?;
+        }
+        if !self.refined_search.is_empty() {
+            state.serialize_entry("refinedSearch", &self.refined_search)?;
+        }
+        if self.conversational_filtering_result.is_some() {
+            state.serialize_entry(
+                "conversationalFilteringResult",
+                &self.conversational_filtering_result,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ConversationalSearchResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConversationalSearchResponse");
+        debug_struct.field("user_query_types", &self.user_query_types);
+        debug_struct.field(
+            "conversational_text_response",
+            &self.conversational_text_response,
+        );
+        debug_struct.field("followup_question", &self.followup_question);
+        debug_struct.field("conversation_id", &self.conversation_id);
+        debug_struct.field("refined_search", &self.refined_search);
+        debug_struct.field(
+            "conversational_filtering_result",
+            &self.conversational_filtering_result,
+        );
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [ConversationalSearchResponse].
+pub mod conversational_search_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The conversational followup question generated for Intent refinement.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct FollowupQuestion {
+        /// The conversational followup question generated for Intent refinement.
+        pub followup_question: std::string::String,
+
+        /// The answer options provided to client for the follow-up question.
+        pub suggested_answers: std::vec::Vec<
+            crate::model::conversational_search_response::followup_question::SuggestedAnswer,
+        >,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl FollowupQuestion {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [followup_question][crate::model::conversational_search_response::FollowupQuestion::followup_question].
+        pub fn set_followup_question<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.followup_question = v.into();
+            self
+        }
+
+        /// Sets the value of [suggested_answers][crate::model::conversational_search_response::FollowupQuestion::suggested_answers].
+        pub fn set_suggested_answers<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::conversational_search_response::followup_question::SuggestedAnswer>
+        {
+            use std::iter::Iterator;
+            self.suggested_answers = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for FollowupQuestion {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.retail.v2.ConversationalSearchResponse.FollowupQuestion"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for FollowupQuestion {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __followup_question,
+                __suggested_answers,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for FollowupQuestion")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "followupQuestion" => Ok(__FieldTag::__followup_question),
+                                "followup_question" => Ok(__FieldTag::__followup_question),
+                                "suggestedAnswers" => Ok(__FieldTag::__suggested_answers),
+                                "suggested_answers" => Ok(__FieldTag::__suggested_answers),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = FollowupQuestion;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct FollowupQuestion")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__followup_question => {
+                                if !fields.insert(__FieldTag::__followup_question) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for followup_question",
+                                    ));
+                                }
+                                result.followup_question = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__suggested_answers => {
+                                if !fields.insert(__FieldTag::__suggested_answers) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for suggested_answers",
+                                    ));
+                                }
+                                result.suggested_answers = map.next_value::<std::option::Option<std::vec::Vec<crate::model::conversational_search_response::followup_question::SuggestedAnswer>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for FollowupQuestion {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.followup_question.is_empty() {
+                state.serialize_entry("followupQuestion", &self.followup_question)?;
+            }
+            if !self.suggested_answers.is_empty() {
+                state.serialize_entry("suggestedAnswers", &self.suggested_answers)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for FollowupQuestion {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FollowupQuestion");
+            debug_struct.field("followup_question", &self.followup_question);
+            debug_struct.field("suggested_answers", &self.suggested_answers);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Defines additional types related to [FollowupQuestion].
+    pub mod followup_question {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Suggested answers to the follow-up question.
+        /// If it's numerical attribute, only ProductAttributeInterval will be set.
+        /// If it's textual attribute, only productAttributeValue will be set.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct SuggestedAnswer {
+            /// Product attribute value, including an attribute key and an
+            /// attribute value. Other types can be added here in the future.
+            pub product_attribute_value: std::option::Option<crate::model::ProductAttributeValue>,
+
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl SuggestedAnswer {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [product_attribute_value][crate::model::conversational_search_response::followup_question::SuggestedAnswer::product_attribute_value].
+            pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            {
+                self.product_attribute_value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [product_attribute_value][crate::model::conversational_search_response::followup_question::SuggestedAnswer::product_attribute_value].
+            pub fn set_or_clear_product_attribute_value<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
+            where
+                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            {
+                self.product_attribute_value = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for SuggestedAnswer {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.retail.v2.ConversationalSearchResponse.FollowupQuestion.SuggestedAnswer"
+            }
+        }
+
+        #[doc(hidden)]
+        impl<'de> serde::de::Deserialize<'de> for SuggestedAnswer {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                #[allow(non_camel_case_types)]
+                #[doc(hidden)]
+                #[derive(PartialEq, Eq, Hash)]
+                enum __FieldTag {
+                    __product_attribute_value,
+                    Unknown(std::string::String),
+                }
+                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        struct Visitor;
+                        impl<'de> serde::de::Visitor<'de> for Visitor {
+                            type Value = __FieldTag;
+                            fn expecting(
+                                &self,
+                                formatter: &mut std::fmt::Formatter,
+                            ) -> std::fmt::Result {
+                                formatter.write_str("a field name for SuggestedAnswer")
+                            }
+                            fn visit_str<E>(
+                                self,
+                                value: &str,
+                            ) -> std::result::Result<Self::Value, E>
+                            where
+                                E: serde::de::Error,
+                            {
+                                use std::result::Result::Ok;
+                                use std::string::ToString;
+                                match value {
+                                    "productAttributeValue" => {
+                                        Ok(__FieldTag::__product_attribute_value)
+                                    }
+                                    "product_attribute_value" => {
+                                        Ok(__FieldTag::__product_attribute_value)
+                                    }
+                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
+                                }
+                            }
+                        }
+                        deserializer.deserialize_identifier(Visitor)
+                    }
+                }
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = SuggestedAnswer;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("struct SuggestedAnswer")
+                    }
+                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                    where
+                        A: serde::de::MapAccess<'de>,
+                    {
+                        #[allow(unused_imports)]
+                        use serde::de::Error;
+                        use std::option::Option::Some;
+                        let mut fields = std::collections::HashSet::new();
+                        let mut result = Self::Value::new();
+                        while let Some(tag) = map.next_key::<__FieldTag>()? {
+                            #[allow(clippy::match_single_binding)]
+                            match tag {
+                                __FieldTag::__product_attribute_value => {
+                                    if !fields.insert(__FieldTag::__product_attribute_value) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for product_attribute_value",
+                                            ),
+                                        );
+                                    }
+                                    result.product_attribute_value =
+                                        map.next_value::<std::option::Option<
+                                            crate::model::ProductAttributeValue,
+                                        >>()?;
+                                }
+                                __FieldTag::Unknown(key) => {
+                                    let value = map.next_value::<serde_json::Value>()?;
+                                    result._unknown_fields.insert(key, value);
+                                }
+                            }
+                        }
+                        std::result::Result::Ok(result)
+                    }
+                }
+                deserializer.deserialize_any(Visitor)
+            }
+        }
+
+        #[doc(hidden)]
+        impl serde::ser::Serialize for SuggestedAnswer {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                use serde::ser::SerializeMap;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
+                let mut state = serializer.serialize_map(std::option::Option::None)?;
+                if self.product_attribute_value.is_some() {
+                    state
+                        .serialize_entry("productAttributeValue", &self.product_attribute_value)?;
+                }
+                if !self._unknown_fields.is_empty() {
+                    for (key, value) in self._unknown_fields.iter() {
+                        state.serialize_entry(key, &value)?;
+                    }
+                }
+                state.end()
+            }
+        }
+
+        impl std::fmt::Debug for SuggestedAnswer {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("SuggestedAnswer");
+                debug_struct.field("product_attribute_value", &self.product_attribute_value);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+    }
+
+    /// The proposed refined search for intent-refinement/bundled shopping
+    /// conversation. When using CONVERSATIONAL_FILTER_ONLY mode, the
+    /// refined_query from search response will be populated here.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RefinedSearch {
+        /// The query to be used for search.
+        pub query: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RefinedSearch {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [query][crate::model::conversational_search_response::RefinedSearch::query].
+        pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.query = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RefinedSearch {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.retail.v2.ConversationalSearchResponse.RefinedSearch"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for RefinedSearch {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __query,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for RefinedSearch")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "query" => Ok(__FieldTag::__query),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = RefinedSearch;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct RefinedSearch")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__query => {
+                                if !fields.insert(__FieldTag::__query) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for query",
+                                    ));
+                                }
+                                result.query = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for RefinedSearch {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.query.is_empty() {
+                state.serialize_entry("query", &self.query)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for RefinedSearch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RefinedSearch");
+            debug_struct.field("query", &self.query);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// This field specifies all related information that is needed on client
+    /// side for UI rendering of conversational filtering search.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConversationalFilteringResult {
+
+        /// The conversational filtering question.
+        pub followup_question: std::option::Option<crate::model::conversational_search_response::FollowupQuestion>,
+
+        /// This is the incremental additional filters implied from the current
+        /// user answer. User should add the suggested addition filters to the
+        /// previous [ConversationalSearchRequest.search_params.filter][] and
+        /// [SearchRequest.filter][google.cloud.retail.v2.SearchRequest.filter],  and
+        /// use the merged filter in the follow up requests.
+        ///
+        /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
+        pub additional_filter: std::option::Option<crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter>,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ConversationalFilteringResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [followup_question][crate::model::conversational_search_response::ConversationalFilteringResult::followup_question].
+        pub fn set_followup_question<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
+        {
+            self.followup_question = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [followup_question][crate::model::conversational_search_response::ConversationalFilteringResult::followup_question].
+        pub fn set_or_clear_followup_question<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
+        {
+            self.followup_question = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [additional_filter][crate::model::conversational_search_response::ConversationalFilteringResult::additional_filter].
+        pub fn set_additional_filter<T>(mut self, v: T) -> Self
+        where T: std::convert::Into<crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter>
+        {
+            self.additional_filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [additional_filter][crate::model::conversational_search_response::ConversationalFilteringResult::additional_filter].
+        pub fn set_or_clear_additional_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter>
+        {
+            self.additional_filter = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for ConversationalFilteringResult {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.retail.v2.ConversationalSearchResponse.ConversationalFilteringResult"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ConversationalFilteringResult {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __followup_question,
+                __additional_filter,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ConversationalFilteringResult")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "followupQuestion" => Ok(__FieldTag::__followup_question),
+                                "followup_question" => Ok(__FieldTag::__followup_question),
+                                "additionalFilter" => Ok(__FieldTag::__additional_filter),
+                                "additional_filter" => Ok(__FieldTag::__additional_filter),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ConversationalFilteringResult;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ConversationalFilteringResult")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__followup_question => {
+                                if !fields.insert(__FieldTag::__followup_question) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for followup_question",
+                                    ));
+                                }
+                                result.followup_question = map.next_value::<std::option::Option<
+                                    crate::model::conversational_search_response::FollowupQuestion,
+                                >>(
+                                )?;
+                            }
+                            __FieldTag::__additional_filter => {
+                                if !fields.insert(__FieldTag::__additional_filter) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for additional_filter",
+                                    ));
+                                }
+                                result.additional_filter = map.next_value::<std::option::Option<crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter>>()?
+                                    ;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ConversationalFilteringResult {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.followup_question.is_some() {
+                state.serialize_entry("followupQuestion", &self.followup_question)?;
+            }
+            if self.additional_filter.is_some() {
+                state.serialize_entry("additionalFilter", &self.additional_filter)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ConversationalFilteringResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConversationalFilteringResult");
+            debug_struct.field("followup_question", &self.followup_question);
+            debug_struct.field("additional_filter", &self.additional_filter);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Defines additional types related to [ConversationalFilteringResult].
+    pub mod conversational_filtering_result {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Additional filter that client side need to apply.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct AdditionalFilter {
+            /// Product attribute value, including an attribute key and an
+            /// attribute value. Other types can be added here in the future.
+            pub product_attribute_value: std::option::Option<crate::model::ProductAttributeValue>,
+
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl AdditionalFilter {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [product_attribute_value][crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter::product_attribute_value].
+            pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            {
+                self.product_attribute_value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [product_attribute_value][crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter::product_attribute_value].
+            pub fn set_or_clear_product_attribute_value<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
+            where
+                T: std::convert::Into<crate::model::ProductAttributeValue>,
+            {
+                self.product_attribute_value = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for AdditionalFilter {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.retail.v2.ConversationalSearchResponse.ConversationalFilteringResult.AdditionalFilter"
+            }
+        }
+
+        #[doc(hidden)]
+        impl<'de> serde::de::Deserialize<'de> for AdditionalFilter {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                #[allow(non_camel_case_types)]
+                #[doc(hidden)]
+                #[derive(PartialEq, Eq, Hash)]
+                enum __FieldTag {
+                    __product_attribute_value,
+                    Unknown(std::string::String),
+                }
+                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        struct Visitor;
+                        impl<'de> serde::de::Visitor<'de> for Visitor {
+                            type Value = __FieldTag;
+                            fn expecting(
+                                &self,
+                                formatter: &mut std::fmt::Formatter,
+                            ) -> std::fmt::Result {
+                                formatter.write_str("a field name for AdditionalFilter")
+                            }
+                            fn visit_str<E>(
+                                self,
+                                value: &str,
+                            ) -> std::result::Result<Self::Value, E>
+                            where
+                                E: serde::de::Error,
+                            {
+                                use std::result::Result::Ok;
+                                use std::string::ToString;
+                                match value {
+                                    "productAttributeValue" => {
+                                        Ok(__FieldTag::__product_attribute_value)
+                                    }
+                                    "product_attribute_value" => {
+                                        Ok(__FieldTag::__product_attribute_value)
+                                    }
+                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
+                                }
+                            }
+                        }
+                        deserializer.deserialize_identifier(Visitor)
+                    }
+                }
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = AdditionalFilter;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("struct AdditionalFilter")
+                    }
+                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                    where
+                        A: serde::de::MapAccess<'de>,
+                    {
+                        #[allow(unused_imports)]
+                        use serde::de::Error;
+                        use std::option::Option::Some;
+                        let mut fields = std::collections::HashSet::new();
+                        let mut result = Self::Value::new();
+                        while let Some(tag) = map.next_key::<__FieldTag>()? {
+                            #[allow(clippy::match_single_binding)]
+                            match tag {
+                                __FieldTag::__product_attribute_value => {
+                                    if !fields.insert(__FieldTag::__product_attribute_value) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for product_attribute_value",
+                                            ),
+                                        );
+                                    }
+                                    result.product_attribute_value =
+                                        map.next_value::<std::option::Option<
+                                            crate::model::ProductAttributeValue,
+                                        >>()?;
+                                }
+                                __FieldTag::Unknown(key) => {
+                                    let value = map.next_value::<serde_json::Value>()?;
+                                    result._unknown_fields.insert(key, value);
+                                }
+                            }
+                        }
+                        std::result::Result::Ok(result)
+                    }
+                }
+                deserializer.deserialize_any(Visitor)
+            }
+        }
+
+        #[doc(hidden)]
+        impl serde::ser::Serialize for AdditionalFilter {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                use serde::ser::SerializeMap;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
+                let mut state = serializer.serialize_map(std::option::Option::None)?;
+                if self.product_attribute_value.is_some() {
+                    state
+                        .serialize_entry("productAttributeValue", &self.product_attribute_value)?;
+                }
+                if !self._unknown_fields.is_empty() {
+                    for (key, value) in self._unknown_fields.iter() {
+                        state.serialize_entry(key, &value)?;
+                    }
+                }
+                state.end()
+            }
+        }
+
+        impl std::fmt::Debug for AdditionalFilter {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AdditionalFilter");
+                debug_struct.field("product_attribute_value", &self.product_attribute_value);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+    }
+
+    /// The state of the response generation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Unknown.
+        Unspecified,
+        /// Response generation is being streamed.
+        Streaming,
+        /// Response generation has succeeded.
+        Succeeded,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Streaming => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Streaming => std::option::Option::Some("STREAMING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Streaming,
+                2 => Self::Succeeded,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "STREAMING" => Self::Streaming,
+                "SUCCEEDED" => Self::Succeeded,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Streaming => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.retail.v2.ConversationalSearchResponse.State",
+            ))
+        }
+    }
+}
+
 /// The output configuration setting.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -36464,6 +39528,501 @@ impl std::fmt::Debug for PurgeUserEventsResponse {
     }
 }
 
+/// Safety settings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SafetySetting {
+    /// Harm category.
+    pub category: crate::model::HarmCategory,
+
+    /// The harm block threshold.
+    pub threshold: crate::model::safety_setting::HarmBlockThreshold,
+
+    /// Optional. Specify if the threshold is used for probability or severity
+    /// score. If not specified, the threshold is used for probability score.
+    pub method: crate::model::safety_setting::HarmBlockMethod,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SafetySetting {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [category][crate::model::SafetySetting::category].
+    pub fn set_category<T: std::convert::Into<crate::model::HarmCategory>>(mut self, v: T) -> Self {
+        self.category = v.into();
+        self
+    }
+
+    /// Sets the value of [threshold][crate::model::SafetySetting::threshold].
+    pub fn set_threshold<
+        T: std::convert::Into<crate::model::safety_setting::HarmBlockThreshold>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.threshold = v.into();
+        self
+    }
+
+    /// Sets the value of [method][crate::model::SafetySetting::method].
+    pub fn set_method<T: std::convert::Into<crate::model::safety_setting::HarmBlockMethod>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.method = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SafetySetting {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.retail.v2.SafetySetting"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SafetySetting {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __category,
+            __threshold,
+            __method,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SafetySetting")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "category" => Ok(__FieldTag::__category),
+                            "threshold" => Ok(__FieldTag::__threshold),
+                            "method" => Ok(__FieldTag::__method),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SafetySetting;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SafetySetting")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__category => {
+                            if !fields.insert(__FieldTag::__category) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for category",
+                                ));
+                            }
+                            result.category = map
+                                .next_value::<std::option::Option<crate::model::HarmCategory>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__threshold => {
+                            if !fields.insert(__FieldTag::__threshold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threshold",
+                                ));
+                            }
+                            result.threshold = map
+                                .next_value::<std::option::Option<
+                                    crate::model::safety_setting::HarmBlockThreshold,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__method => {
+                            if !fields.insert(__FieldTag::__method) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for method",
+                                ));
+                            }
+                            result.method =
+                                map.next_value::<std::option::Option<
+                                    crate::model::safety_setting::HarmBlockMethod,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SafetySetting {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.category) {
+            state.serialize_entry("category", &self.category)?;
+        }
+        if !wkt::internal::is_default(&self.threshold) {
+            state.serialize_entry("threshold", &self.threshold)?;
+        }
+        if !wkt::internal::is_default(&self.method) {
+            state.serialize_entry("method", &self.method)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for SafetySetting {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SafetySetting");
+        debug_struct.field("category", &self.category);
+        debug_struct.field("threshold", &self.threshold);
+        debug_struct.field("method", &self.method);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [SafetySetting].
+pub mod safety_setting {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Probability based thresholds levels for blocking.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum HarmBlockThreshold {
+        /// Unspecified harm block threshold.
+        Unspecified,
+        /// Block low threshold and above (i.e. block more).
+        BlockLowAndAbove,
+        /// Block medium threshold and above.
+        BlockMediumAndAbove,
+        /// Block only high threshold (i.e. block less).
+        BlockOnlyHigh,
+        /// Block none.
+        BlockNone,
+        /// Turn off the safety filter.
+        Off,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [HarmBlockThreshold::value] or
+        /// [HarmBlockThreshold::name].
+        UnknownValue(harm_block_threshold::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod harm_block_threshold {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl HarmBlockThreshold {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::BlockLowAndAbove => std::option::Option::Some(1),
+                Self::BlockMediumAndAbove => std::option::Option::Some(2),
+                Self::BlockOnlyHigh => std::option::Option::Some(3),
+                Self::BlockNone => std::option::Option::Some(4),
+                Self::Off => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("HARM_BLOCK_THRESHOLD_UNSPECIFIED"),
+                Self::BlockLowAndAbove => std::option::Option::Some("BLOCK_LOW_AND_ABOVE"),
+                Self::BlockMediumAndAbove => std::option::Option::Some("BLOCK_MEDIUM_AND_ABOVE"),
+                Self::BlockOnlyHigh => std::option::Option::Some("BLOCK_ONLY_HIGH"),
+                Self::BlockNone => std::option::Option::Some("BLOCK_NONE"),
+                Self::Off => std::option::Option::Some("OFF"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for HarmBlockThreshold {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for HarmBlockThreshold {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for HarmBlockThreshold {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::BlockLowAndAbove,
+                2 => Self::BlockMediumAndAbove,
+                3 => Self::BlockOnlyHigh,
+                4 => Self::BlockNone,
+                5 => Self::Off,
+                _ => Self::UnknownValue(harm_block_threshold::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for HarmBlockThreshold {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HARM_BLOCK_THRESHOLD_UNSPECIFIED" => Self::Unspecified,
+                "BLOCK_LOW_AND_ABOVE" => Self::BlockLowAndAbove,
+                "BLOCK_MEDIUM_AND_ABOVE" => Self::BlockMediumAndAbove,
+                "BLOCK_ONLY_HIGH" => Self::BlockOnlyHigh,
+                "BLOCK_NONE" => Self::BlockNone,
+                "OFF" => Self::Off,
+                _ => Self::UnknownValue(harm_block_threshold::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for HarmBlockThreshold {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::BlockLowAndAbove => serializer.serialize_i32(1),
+                Self::BlockMediumAndAbove => serializer.serialize_i32(2),
+                Self::BlockOnlyHigh => serializer.serialize_i32(3),
+                Self::BlockNone => serializer.serialize_i32(4),
+                Self::Off => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for HarmBlockThreshold {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<HarmBlockThreshold>::new(
+                ".google.cloud.retail.v2.SafetySetting.HarmBlockThreshold",
+            ))
+        }
+    }
+
+    /// Probability vs severity.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum HarmBlockMethod {
+        /// The harm block method is unspecified.
+        Unspecified,
+        /// The harm block method uses both probability and severity scores.
+        Severity,
+        /// The harm block method uses the probability score.
+        Probability,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [HarmBlockMethod::value] or
+        /// [HarmBlockMethod::name].
+        UnknownValue(harm_block_method::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod harm_block_method {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl HarmBlockMethod {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Severity => std::option::Option::Some(1),
+                Self::Probability => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("HARM_BLOCK_METHOD_UNSPECIFIED"),
+                Self::Severity => std::option::Option::Some("SEVERITY"),
+                Self::Probability => std::option::Option::Some("PROBABILITY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for HarmBlockMethod {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for HarmBlockMethod {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for HarmBlockMethod {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Severity,
+                2 => Self::Probability,
+                _ => Self::UnknownValue(harm_block_method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for HarmBlockMethod {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HARM_BLOCK_METHOD_UNSPECIFIED" => Self::Unspecified,
+                "SEVERITY" => Self::Severity,
+                "PROBABILITY" => Self::Probability,
+                _ => Self::UnknownValue(harm_block_method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for HarmBlockMethod {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Severity => serializer.serialize_i32(1),
+                Self::Probability => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for HarmBlockMethod {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<HarmBlockMethod>::new(
+                ".google.cloud.retail.v2.SafetySetting.HarmBlockMethod",
+            ))
+        }
+    }
+}
+
 /// Product attribute which structured by an attribute name and value. This
 /// structure is used in conversational search filters and answers. For example,
 /// if we have `name=color` and `value=red`, this means that the color is `red`.
@@ -51260,6 +54819,159 @@ impl<'de> serde::de::Deserialize<'de> for SearchSolutionUseCase {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SearchSolutionUseCase>::new(
             ".google.cloud.retail.v2.SearchSolutionUseCase",
+        ))
+    }
+}
+
+/// Harm categories that will block the content.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum HarmCategory {
+    /// The harm category is unspecified.
+    Unspecified,
+    /// The harm category is hate speech.
+    HateSpeech,
+    /// The harm category is dangerous content.
+    DangerousContent,
+    /// The harm category is harassment.
+    Harassment,
+    /// The harm category is sexually explicit content.
+    SexuallyExplicit,
+    /// The harm category is civic integrity.
+    CivicIntegrity,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [HarmCategory::value] or
+    /// [HarmCategory::name].
+    UnknownValue(harm_category::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod harm_category {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl HarmCategory {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::HateSpeech => std::option::Option::Some(1),
+            Self::DangerousContent => std::option::Option::Some(2),
+            Self::Harassment => std::option::Option::Some(3),
+            Self::SexuallyExplicit => std::option::Option::Some(4),
+            Self::CivicIntegrity => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("HARM_CATEGORY_UNSPECIFIED"),
+            Self::HateSpeech => std::option::Option::Some("HARM_CATEGORY_HATE_SPEECH"),
+            Self::DangerousContent => std::option::Option::Some("HARM_CATEGORY_DANGEROUS_CONTENT"),
+            Self::Harassment => std::option::Option::Some("HARM_CATEGORY_HARASSMENT"),
+            Self::SexuallyExplicit => std::option::Option::Some("HARM_CATEGORY_SEXUALLY_EXPLICIT"),
+            Self::CivicIntegrity => std::option::Option::Some("HARM_CATEGORY_CIVIC_INTEGRITY"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for HarmCategory {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for HarmCategory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for HarmCategory {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::HateSpeech,
+            2 => Self::DangerousContent,
+            3 => Self::Harassment,
+            4 => Self::SexuallyExplicit,
+            5 => Self::CivicIntegrity,
+            _ => Self::UnknownValue(harm_category::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for HarmCategory {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "HARM_CATEGORY_UNSPECIFIED" => Self::Unspecified,
+            "HARM_CATEGORY_HATE_SPEECH" => Self::HateSpeech,
+            "HARM_CATEGORY_DANGEROUS_CONTENT" => Self::DangerousContent,
+            "HARM_CATEGORY_HARASSMENT" => Self::Harassment,
+            "HARM_CATEGORY_SEXUALLY_EXPLICIT" => Self::SexuallyExplicit,
+            "HARM_CATEGORY_CIVIC_INTEGRITY" => Self::CivicIntegrity,
+            _ => Self::UnknownValue(harm_category::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for HarmCategory {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::HateSpeech => serializer.serialize_i32(1),
+            Self::DangerousContent => serializer.serialize_i32(2),
+            Self::Harassment => serializer.serialize_i32(3),
+            Self::SexuallyExplicit => serializer.serialize_i32(4),
+            Self::CivicIntegrity => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for HarmCategory {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<HarmCategory>::new(
+            ".google.cloud.retail.v2.HarmCategory",
         ))
     }
 }
