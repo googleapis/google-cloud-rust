@@ -21,51 +21,51 @@ import "google/protobuf/wrappers.proto";
 
 // A message with several interesting `oneof` fields.
 message MessageWithOneOf {
-    oneof single_string {
-        string string_contents = 1;
-    }
-    oneof two_strings {
-        string string_contents_one = 2;
-        string string_contents_two = 3;
-    }
-    oneof one_message {
-        Message message_value = 4;
-    }
-    oneof mixed {
-        Message another_message = 5;
-        string string = 6;
-        google.protobuf.Duration duration = 7;
-    }
+  oneof single_string {
+    string string_contents = 1;
+  }
+  oneof two_strings {
+    string string_contents_one = 2;
+    string string_contents_two = 3;
+  }
+  oneof one_message {
+    Message message_value = 4;
+  }
+  oneof mixed {
+    Message another_message = 5;
+    string string = 6;
+    google.protobuf.Duration duration = 7;
+  }
 
-    message Message {
-        string parent = 1;
-    }
+  message Message {
+    string parent = 1;
+  }
 }
 
 // A message with a more complex `oneof` field.
 message MessageWithComplexOneOf {
-    oneof complex {
-        google.protobuf.NullValue null = 1;
-        bool bool_value = 2;
-        bytes bytes_value = 3;
-        string string_value = 4;
-        float float_value = 5;
-        double double_value = 6;
-        int32 int32 = 7;
-        int64 int64 = 8;
-        TestEnum enum = 9;
-        Inner inner = 10;
-        google.protobuf.Duration duration = 11;
-        google.protobuf.Value value = 12;
-        google.protobuf.DoubleValue optional_double = 13;
-    }
+  oneof complex {
+    google.protobuf.NullValue null = 1;
+    bool bool_value = 2;
+    bytes bytes_value = 3;
+    string string_value = 4;
+    float float_value = 5;
+    double double_value = 6;
+    int32 int32 = 7;
+    int64 int64 = 8;
+    TestEnum enum = 9;
+    Inner inner = 10;
+    google.protobuf.Duration duration = 11;
+    google.protobuf.Value value = 12;
+    google.protobuf.DoubleValue optional_double = 13;
+  }
 
-    enum TestEnum {
-        TEST_ENUM_UNSPECIFIED = 0;
-        BLACK = 1;
-    }
+  enum TestEnum {
+    TEST_ENUM_UNSPECIFIED = 0;
+    BLACK = 1;
+  }
 
-    message Inner {
-        repeated string strings = 1;
-    }
+  message Inner {
+    repeated string strings = 1;
+  }
 }

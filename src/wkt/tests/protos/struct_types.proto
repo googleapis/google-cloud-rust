@@ -19,48 +19,48 @@ import "google/protobuf/struct.proto";
 
 // A test message for Value.
 message MessageWithValue {
-    // A singular field.
-    google.protobuf.Value singular = 1;
-    // An optional field.
-    optional google.protobuf.Value optional = 2;
-    // A repeated field.
-    repeated google.protobuf.Value repeated = 3;
-    // A map field, messages cannot be keys.
-    map<string, google.protobuf.Value> map = 4;
+  // A singular field.
+  google.protobuf.Value singular = 1;
+  // An optional field.
+  optional google.protobuf.Value optional = 2;
+  // A repeated field.
+  repeated google.protobuf.Value repeated = 3;
+  // A map field, messages cannot be keys.
+  map<string, google.protobuf.Value> map = 4;
 }
 
 // A test message for Struct.
 message MessageWithStruct {
-    // A singular field.
-    google.protobuf.Struct singular = 1;
-    // An optional field.
-    optional google.protobuf.Struct optional = 2;
-    // A repeated field.
-    repeated google.protobuf.Struct repeated = 3;
-    // A map field, messages cannot be keys.
-    map<string, google.protobuf.Struct> map = 4;
+  // A singular field.
+  google.protobuf.Struct singular = 1;
+  // An optional field.
+  optional google.protobuf.Struct optional = 2;
+  // A repeated field.
+  repeated google.protobuf.Struct repeated = 3;
+  // A map field, messages cannot be keys.
+  map<string, google.protobuf.Struct> map = 4;
 }
 
 // A test message for ListValue.
 message MessageWithListValue {
-    // A singular field.
-    google.protobuf.ListValue singular = 1;
-    // An optional field.
-    optional google.protobuf.ListValue optional = 2;
-    // A repeated field.
-    repeated google.protobuf.ListValue repeated = 3;
-    // A map field, messages cannot be keys.
-    map<string, google.protobuf.ListValue> map = 4;
+  // A singular field.
+  google.protobuf.ListValue singular = 1;
+  // An optional field.
+  optional google.protobuf.ListValue optional = 2;
+  // A repeated field.
+  repeated google.protobuf.ListValue repeated = 3;
+  // A map field, messages cannot be keys.
+  map<string, google.protobuf.ListValue> map = 4;
 }
 
 // A test message for NullValue.
 message MessageWithNullValue {
-    // A singular field.
-    google.protobuf.NullValue singular = 1;
-    // An optional field.
-    optional google.protobuf.NullValue optional = 2;
-    // A repeated field.
-    repeated google.protobuf.NullValue repeated = 3;
-    // A map field, messages cannot be keys.
-    map<string, google.protobuf.NullValue> map = 4;
+  // A singular field.
+  google.protobuf.NullValue singular = 1;
+  // An optional field.
+  optional google.protobuf.NullValue optional = 2;
+  // A repeated field.
+  repeated google.protobuf.NullValue repeated = 3;
+  // A map field, messages cannot be keys.
+  map<string, google.protobuf.NullValue> map = 4;
 }

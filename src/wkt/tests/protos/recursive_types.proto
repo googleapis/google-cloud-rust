@@ -17,23 +17,23 @@ package google.rust.sdk.test;
 
 // A test message for FieldMask.
 message MessageWithRecursion {
-    message Level0 {
-        Level1 level_1 = 1;
-        NonRecursive side = 2;
-    }
-    message Level1 {
-        MessageWithRecursion recurse = 1;
-    }
-    message NonRecursive {
-        string value = 1; 
-    }
+  message Level0 {
+    Level1 level_1 = 1;
+    NonRecursive side = 2;
+  }
+  message Level1 {
+    MessageWithRecursion recurse = 1;
+  }
+  message NonRecursive {
+    string value = 1;
+  }
 
-    // A singular field.
-    Level0 singular = 1;
-    // An optional field.
-    optional Level0 optional = 2;
-    // A repeated field.
-    repeated Level0 repeated = 3;
-    // A map field, messages cannot be keys.
-    map<string, Level0> map = 4;
+  // A singular field.
+  Level0 singular = 1;
+  // An optional field.
+  optional Level0 optional = 2;
+  // A repeated field.
+  repeated Level0 repeated = 3;
+  // A map field, messages cannot be keys.
+  map<string, Level0> map = 4;
 }

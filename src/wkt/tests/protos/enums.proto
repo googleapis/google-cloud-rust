@@ -17,24 +17,24 @@ package google.rust.sdk.test;
 
 // A test message for `enum` fields.
 message MessageWithEnum {
-    // A singular field.
-    TestEnum singular = 1;
-    // An optional field.
-    optional TestEnum optional = 2;
-    // A repeated field.
-    repeated TestEnum repeated = 3;
-    // A map field, enums cannot be keys. We only need to test them as values.
-    map<string, TestEnum> map = 4;
+  // A singular field.
+  TestEnum singular = 1;
+  // An optional field.
+  optional TestEnum optional = 2;
+  // A repeated field.
+  repeated TestEnum repeated = 3;
+  // A map field, enums cannot be keys. We only need to test them as values.
+  map<string, TestEnum> map = 4;
 
-    // The enum type
-    enum TestEnum {
-        // Open enums require a default value of `0`.
-        TEST_ENUM_UNSPECIFIED = 0;
-        // A test value.
-        RED = 1;
-        // A test value.
-        GREEN = 2;
-        // A test value.
-        BLUE = 3;
-    }
+  // The enum type
+  enum TestEnum {
+    // Open enums require a default value of `0`.
+    TEST_ENUM_UNSPECIFIED = 0;
+    // A test value.
+    RED = 1;
+    // A test value.
+    GREEN = 2;
+    // A test value.
+    BLUE = 3;
+  }
 }
