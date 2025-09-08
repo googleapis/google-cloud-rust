@@ -47,7 +47,7 @@ var crateDenyList = []string{"gcp-sdk", "google-cloud-base", "google-cloud-gax-i
 func main() {
 	out := flag.String("out", "docfx", "Output directory within project-root (default docfx)")
 	projectRoot := flag.String("project-root", "", "Top level directory of googleapis/google-cloud-rust")
-	upload := flag.Bool("upload", false, "Upload generated docfx using docuploader")
+	upload := flag.String("staging-bucket", "", "Upload the generated docfx to the gcs bucket using docuploader")
 	flag.Parse()
 
 	crates := flag.Args()
@@ -108,10 +108,10 @@ func main() {
 			}
 			fmt.Printf("Generated docfx for crate: %s\n", crate.Name)
 
-			if *upload {
+			if *upload != "" {
 				fmt.Printf("Uploading crate: %s\n", crate.Name)
-				// TODO: Add a flag to specify bucket location.
-				if err := runCmd(nil, "", "docuploader", "upload", "--staging-bucket=docs-staging-v2-dev", fmt.Sprintf("--metadata-file=%s/docs.metadata", crateOutDir), crateOutDir); err != nil {
+				fmt.Printf("CHUONGPH: staging bucket: %s\n", fmt.Sprintf("--staging-bucket=%s", *upload))
+				if err := runCmd(nil, "", "docuploader", "upload", fmt.Sprintf("--staging-bucket=%s", *upload), "--destination-prefix=docfx", fmt.Sprintf("--metadata-file=%s/docs.metadata", crateOutDir), crateOutDir); err != nil {
 					fmt.Printf("error uploading files: %v\n", err)
 				}
 			}

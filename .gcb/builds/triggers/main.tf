@@ -34,9 +34,14 @@ locals {
   # connection and just record it here.
   gcb_secret_name = "projects/${var.project}/secrets/github-github-oauthtoken-319d75/versions/latest"
 
-  # Add to this list of you want to have more triggers.
-  builds = {
+  # Add to these lists of you want to have more triggers.
+  pr_builds = {
     integration = {}
+  }
+
+  pm_builds = {
+    integration = {}
+    referenceupload = {}
   }
 }
 
@@ -67,7 +72,7 @@ resource "google_cloudbuildv2_repository" "main" {
 }
 
 resource "google_cloudbuild_trigger" "pull-request" {
-  for_each = tomap(local.builds)
+  for_each = tomap(local.pr_builds)
   location = var.region
   name     = "gcb-pr-${each.key}"
   filename = ".gcb/${each.key}.yaml"
@@ -87,7 +92,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
 }
 
 resource "google_cloudbuild_trigger" "post-merge" {
-  for_each = tomap(local.builds)
+  for_each = tomap(local.pm_builds)
   location = var.region
   name     = "gcb-pm-${each.key}"
   filename = ".gcb/${each.key}.yaml"
