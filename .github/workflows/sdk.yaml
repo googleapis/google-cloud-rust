@@ -23,7 +23,7 @@ on:
     types: [published]
 env:
   GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.89", "rust:nightly": "nightly" }'
-  GHA_GO_VERSIONS: '{ "go:current": "1.23.8" }'
+  GHA_GO_VERSIONS: '{ "go:current": "1.24.4" }'
 jobs:
   build:
     strategy:
