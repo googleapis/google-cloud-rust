@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[allow(dead_code)]
 pub mod add_file_owner;
 pub mod change_file_storage_class;
 pub mod compose_file;
@@ -38,6 +39,7 @@ pub mod print_file_acl;
 pub mod print_file_acl_for_user;
 pub mod release_event_based_hold;
 pub mod release_temporary_hold;
+#[allow(dead_code)]
 pub mod remove_file_owner;
 pub mod rotate_encryption_key;
 pub mod set_event_based_hold;
