@@ -21,13 +21,7 @@ import (
 )
 
 // preFlightTests() verifies all the required commands are available.
-func preFlightTests(upload bool) error {
-
-	// TODO: Preflight checks for:
-	// cargo workspaces
-	// cargo rustdoc
-	// docuploader
-	// Failfast if not installed.
+func preFlightTests(upload string) error {
 	if err := testExternalCommand("cargo", "--version"); err != nil {
 		return fmt.Errorf("got an error trying to run `cargo --version`, the instructions on https://www.rust-lang.org/learn/get-started may solve this problem: %w", err)
 	}
@@ -40,7 +34,7 @@ func preFlightTests(upload bool) error {
 	if err := testExternalCommand("cargo", "workspaces", "--version"); err != nil {
 		return fmt.Errorf("got an error trying to run `cargo workspaces --version`, run `cargo install --locked cargo-workspaces` to solve this problem: %w", err)
 	}
-	if !upload {
+	if upload == "" {
 		return nil
 	}
 	if err := testExternalCommand("docuploader", "--version"); err != nil {
