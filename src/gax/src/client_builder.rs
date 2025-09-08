@@ -413,6 +413,7 @@ pub mod internal {
     /// override the default endpoint, the default authentication credentials,
     /// the retry policies, and/or other behaviors of the client.
     #[derive(Clone, Debug)]
+    #[non_exhaustive]
     pub struct ClientConfig<Cr> {
         pub endpoint: Option<String>,
         pub cred: Option<Cr>,
