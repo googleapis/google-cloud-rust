@@ -41,10 +41,9 @@ mod tests {
         let _e = ScopedEnv::remove(LOGGING_VAR);
         let config = ClientConfig::default();
         assert!(!tracing_enabled(&config), "expected tracing to be disabled");
-        let config = ClientConfig {
-            tracing: true,
-            ..ClientConfig::default()
-        };
+        let mut config = ClientConfig::default();
+        config.tracing = true;
+        let config = config;
         assert!(tracing_enabled(&config), "expected tracing to be enabled");
 
         let _e = ScopedEnv::set(LOGGING_VAR, "true");
