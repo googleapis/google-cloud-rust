@@ -29,6 +29,6 @@ jobs:
       - name: Fix Proto files Formatting
         run: |
           git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' | \
-            xargs -0 -r -P "$(nproc)" -n 50 clang-format
+            xargs -0 -r -P "$(nproc)" -n 50 clang-format -i
       - name: Detect Changes
         run: git diff --exit-code
