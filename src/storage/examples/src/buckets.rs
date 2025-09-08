@@ -32,6 +32,7 @@ pub mod delete_bucket;
 pub mod delete_bucket_default_kms_key;
 pub mod disable_bucket_lifecycle_management;
 pub mod disable_default_event_based_hold;
+#[allow(dead_code)]
 pub mod disable_requester_pays;
 #[allow(dead_code)]
 pub mod disable_uniform_bucket_level_access;
@@ -46,6 +47,7 @@ pub mod get_bucket_default_kms_key;
 pub mod get_bucket_metadata;
 pub mod get_default_event_based_hold;
 pub mod get_public_access_prevention;
+#[allow(dead_code)]
 pub mod get_requester_pays_status;
 pub mod get_retention_policy;
 pub mod get_uniform_bucket_level_access;
