@@ -290,7 +290,7 @@ async-trait        = { default-features = false, version = "0.1" }
 base64             = { default-features = false, version = "0.22", features = ["std"] }
 bon                = { default-features = false, version = "3" }
 bytes              = { default-features = false, version = "1.10", features = ["serde"] }
-chrono             = { default-features = false, version = "0.4.41" }
+chrono             = { default-features = false, version = "0.4.42" }
 crc32c             = { default-features = false, version = "0.6.8" }
 futures            = { default-features = false, version = "0.3" }
 http               = { default-features = false, version = "1", features = ["std"] }
