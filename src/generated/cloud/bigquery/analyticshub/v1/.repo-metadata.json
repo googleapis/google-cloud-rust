@@ -6,6 +6,6 @@
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name_pretty": "Analytics Hub API",
-    "release_level": "preview",
+    "release_level": "GA",
     "repo": "googleapis/google-cloud-rust"
 }

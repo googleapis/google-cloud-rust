@@ -57,7 +57,7 @@ jobs:
       # the inputs should be pinned, including the generator version and the
       # googleapis SHA.
       - name: Regenerate existing clients
-        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.2-0.20250827183345-8f409cc46adc refreshall -project-root dart
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.2-0.20250830151723-9e1450d49ba2 refreshall -project-root dart
       - run: git diff --exit-code
 
   validate-packages:
