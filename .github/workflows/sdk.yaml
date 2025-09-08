@@ -335,7 +335,7 @@ jobs:
       - name: Display rustc version
         run: rustup show active-toolchain -v
       - name: Setup Go ${{ matrix.go-version }}
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: ${{ fromJson(env.GHA_GO_VERSIONS)[matrix.go-version] }}
       - run: |
@@ -486,7 +486,7 @@ jobs:
       - name: Display rustc version
         run: rustup show active-toolchain -v
       - name: Setup Go ${{ matrix.go-version }}
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: ${{ fromJson(env.GHA_GO_VERSIONS)[matrix.go-version] }}
       - name: Install protoc
