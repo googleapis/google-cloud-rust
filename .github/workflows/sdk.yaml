@@ -278,7 +278,7 @@ jobs:
           (located in ${name}) is changing. The types from this package are part
           of the public API for many other packages. You need to bump the
           version of all downstream packages and then disable this check using
-          the `rust: no-semver-checks` github label.
+          the 'rust: no-semver-checks' github label.
           _EOF_
               exit 1
             fi
