@@ -9629,8 +9629,8 @@ pub struct MessageWithBytesValue {
     /// A repeated field.
     pub repeated: std::vec::Vec<wkt::BytesValue>,
 
-    /// A map field, google.protobuf.BytesValue cannot be keys, so we only need to test them as
-    /// values.
+    /// A map field, google.protobuf.BytesValue cannot be keys, so we only need to
+    /// test them as values.
     pub map: std::collections::HashMap<std::string::String, wkt::BytesValue>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
