@@ -40,7 +40,7 @@ locals {
   }
 
   pm_builds = {
-    integration = {}
+    integration     = {}
     referenceupload = {}
   }
 }
