@@ -195,7 +195,7 @@ func TestRenderToc(t *testing.T) {
 		"          name: TraitB",
 		"",
 	}
-	if diff := cmp.Diff(got, want); diff != "" {
+	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatched summary lines in generated YAML (-want +got):\n%s", diff)
 	}
 
