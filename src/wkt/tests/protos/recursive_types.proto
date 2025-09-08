@@ -21,12 +21,8 @@ message MessageWithRecursion {
     Level1 level_1 = 1;
     NonRecursive side = 2;
   }
-  message Level1 {
-    MessageWithRecursion recurse = 1;
-  }
-  message NonRecursive {
-    string value = 1;
-  }
+  message Level1 { MessageWithRecursion recurse = 1; }
+  message NonRecursive { string value = 1; }
 
   // A singular field.
   Level0 singular = 1;

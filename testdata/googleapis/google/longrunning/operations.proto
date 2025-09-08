@@ -59,7 +59,7 @@ service Operations {
   // server doesn't support this method, it returns `UNIMPLEMENTED`.
   rpc ListOperations(ListOperationsRequest) returns (ListOperationsResponse) {
     option (google.api.http) = {
-      get: "/v1/{name=operations}"
+      get : "/v1/{name=operations}"
     };
     option (google.api.method_signature) = "name,filter";
   }
@@ -69,7 +69,7 @@ service Operations {
   // service.
   rpc GetOperation(GetOperationRequest) returns (Operation) {
     option (google.api.http) = {
-      get: "/v1/{name=operations/**}"
+      get : "/v1/{name=operations/**}"
     };
     option (google.api.method_signature) = "name";
   }
@@ -80,7 +80,7 @@ service Operations {
   // `google.rpc.Code.UNIMPLEMENTED`.
   rpc DeleteOperation(DeleteOperationRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1/{name=operations/**}"
+      delete : "/v1/{name=operations/**}"
     };
     option (google.api.method_signature) = "name";
   }
@@ -98,8 +98,8 @@ service Operations {
   // `Code.CANCELLED`.
   rpc CancelOperation(CancelOperationRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      post: "/v1/{name=operations/**}:cancel"
-      body: "*"
+      post : "/v1/{name=operations/**}:cancel"
+      body : "*"
     };
     option (google.api.method_signature) = "name";
   }

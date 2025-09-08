@@ -39,17 +39,17 @@ option ruby_package = "Google::Cloud::SecretManager::V1";
 // the secret data.
 message Secret {
   option (google.api.resource) = {
-    type: "secretmanager.googleapis.com/Secret"
-    pattern: "projects/{project}/secrets/{secret}"
-    pattern: "projects/{project}/locations/{location}/secrets/{secret}"
-    plural: "secrets"
-    singular: "secret"
+    type : "secretmanager.googleapis.com/Secret"
+    pattern : "projects/{project}/secrets/{secret}"
+    pattern : "projects/{project}/locations/{location}/secrets/{secret}"
+    plural : "secrets"
+    singular : "secret"
   };
 
   // Output only. The resource name of the
   // [Secret][google.cloud.secretmanager.v1.Secret] in the format
   // `projects/*/secrets/*`.
-  string name = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string name = 1 [ (google.api.field_behavior) = OUTPUT_ONLY ];
 
   // Optional. Immutable. The replication policy of the secret data attached to
   // the [Secret][google.cloud.secretmanager.v1.Secret].
@@ -63,7 +63,7 @@ message Secret {
   // Output only. The time at which the
   // [Secret][google.cloud.secretmanager.v1.Secret] was created.
   google.protobuf.Timestamp create_time = 3
-      [(google.api.field_behavior) = OUTPUT_ONLY];
+      [ (google.api.field_behavior) = OUTPUT_ONLY ];
 
   // The labels assigned to this Secret.
   //
@@ -80,7 +80,7 @@ message Secret {
 
   // Optional. A list of up to 10 Pub/Sub topics to which messages are published
   // when control plane operations are called on the secret or its versions.
-  repeated Topic topics = 5 [(google.api.field_behavior) = OPTIONAL];
+  repeated Topic topics = 5 [ (google.api.field_behavior) = OPTIONAL ];
 
   // Expiration policy attached to the
   // [Secret][google.cloud.secretmanager.v1.Secret]. If specified the
@@ -98,21 +98,22 @@ message Secret {
     // [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to expire.
     // This is always provided on output, regardless of what was sent on input.
     google.protobuf.Timestamp expire_time = 6
-        [(google.api.field_behavior) = OPTIONAL];
+        [ (google.api.field_behavior) = OPTIONAL ];
 
     // Input only. The TTL for the
     // [Secret][google.cloud.secretmanager.v1.Secret].
-    google.protobuf.Duration ttl = 7 [(google.api.field_behavior) = INPUT_ONLY];
+    google.protobuf.Duration ttl = 7
+        [ (google.api.field_behavior) = INPUT_ONLY ];
   }
 
   // Optional. Etag of the currently stored
   // [Secret][google.cloud.secretmanager.v1.Secret].
-  string etag = 8 [(google.api.field_behavior) = OPTIONAL];
+  string etag = 8 [ (google.api.field_behavior) = OPTIONAL ];
 
   // Optional. Rotation policy attached to the
   // [Secret][google.cloud.secretmanager.v1.Secret]. May be excluded if there is
   // no rotation policy.
-  Rotation rotation = 9 [(google.api.field_behavior) = OPTIONAL];
+  Rotation rotation = 9 [ (google.api.field_behavior) = OPTIONAL ];
 
   // Optional. Mapping from version alias to version name.
   //
@@ -126,7 +127,7 @@ message Secret {
   // UpdateSecret. Access by alias is only be supported on
   // GetSecretVersion and AccessSecretVersion.
   map<string, int64> version_aliases = 11
-      [(google.api.field_behavior) = OPTIONAL];
+      [ (google.api.field_behavior) = OPTIONAL ];
 
   // Optional. Custom metadata about the secret.
   //
@@ -140,7 +141,8 @@ message Secret {
   // alphanumerics in between these symbols.
   //
   // The total size of annotation keys and values must be less than 16KiB.
-  map<string, string> annotations = 13 [(google.api.field_behavior) = OPTIONAL];
+  map<string, string> annotations = 13
+      [ (google.api.field_behavior) = OPTIONAL ];
 
   // Optional. Secret Version TTL after destruction request
   //
@@ -149,7 +151,7 @@ message Secret {
   // on calling destroy instead the version goes to a disabled state and
   // destruction happens after the TTL expires.
   google.protobuf.Duration version_destroy_ttl = 14
-      [(google.api.field_behavior) = OPTIONAL];
+      [ (google.api.field_behavior) = OPTIONAL ];
 
   // Optional. The customer-managed encryption configuration of the Regionalised
   // Secrets. If no configuration is provided, Google-managed default encryption
@@ -161,17 +163,18 @@ message Secret {
   // afterwards. They do not apply retroactively to existing
   // [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
   CustomerManagedEncryption customer_managed_encryption = 15
-      [(google.api.field_behavior) = OPTIONAL];
+      [ (google.api.field_behavior) = OPTIONAL ];
 }
 
 // A secret version resource in the Secret Manager API.
 message SecretVersion {
   option (google.api.resource) = {
-    type: "secretmanager.googleapis.com/SecretVersion"
-    pattern: "projects/{project}/secrets/{secret}/versions/{secret_version}"
-    pattern: "projects/{project}/locations/{location}/secrets/{secret}/versions/{secret_version}"
-    plural: "secretVersions"
-    singular: "secretVersion"
+    type : "secretmanager.googleapis.com/SecretVersion"
+    pattern : "projects/{project}/secrets/{secret}/versions/{secret_version}"
+    pattern : "projects/{project}/locations/{location}/secrets/{secret}/"
+              "versions/{secret_version}"
+    plural : "secretVersions"
+    singular : "secretVersion"
   };
 
   // The state of a
@@ -205,12 +208,12 @@ message SecretVersion {
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] IDs in a
   // [Secret][google.cloud.secretmanager.v1.Secret] start at 1 and are
   // incremented for each subsequent version of the secret.
-  string name = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string name = 1 [ (google.api.field_behavior) = OUTPUT_ONLY ];
 
   // Output only. The time at which the
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was created.
   google.protobuf.Timestamp create_time = 2
-      [(google.api.field_behavior) = OUTPUT_ONLY];
+      [ (google.api.field_behavior) = OUTPUT_ONLY ];
 
   // Output only. The time this
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was destroyed.
@@ -218,11 +221,11 @@ message SecretVersion {
   // is
   // [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED].
   google.protobuf.Timestamp destroy_time = 3
-      [(google.api.field_behavior) = OUTPUT_ONLY];
+      [ (google.api.field_behavior) = OUTPUT_ONLY ];
 
   // Output only. The current state of the
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  State state = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
+  State state = 4 [ (google.api.field_behavior) = OUTPUT_ONLY ];
 
   // The replication status of the
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -230,7 +233,7 @@ message SecretVersion {
 
   // Output only. Etag of the currently stored
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  string etag = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string etag = 6 [ (google.api.field_behavior) = OUTPUT_ONLY ];
 
   // Output only. True if payload checksum specified in
   // [SecretPayload][google.cloud.secretmanager.v1.SecretPayload] object has
@@ -239,7 +242,7 @@ message SecretVersion {
   // on
   // [SecretManagerService.AddSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion].
   bool client_specified_payload_checksum = 7
-      [(google.api.field_behavior) = OUTPUT_ONLY];
+      [ (google.api.field_behavior) = OUTPUT_ONLY ];
 
   // Optional. Output only. Scheduled destroy time for secret version.
   // This is a part of the Delayed secret version destroy feature. For a
@@ -248,14 +251,14 @@ message SecretVersion {
   // destruction. The version is destroyed only after the
   // `scheduled_destroy_time`.
   google.protobuf.Timestamp scheduled_destroy_time = 8
-      [(google.api.field_behavior) = OUTPUT_ONLY];
+      [ (google.api.field_behavior) = OUTPUT_ONLY ];
 
   // Output only. The customer-managed encryption status of the
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
   // populated if customer-managed encryption is used and
   // [Secret][google.cloud.secretmanager.v1.Secret] is a Regionalised Secret.
   CustomerManagedEncryptionStatus customer_managed_encryption = 9
-      [(google.api.field_behavior) = OUTPUT_ONLY];
+      [ (google.api.field_behavior) = OUTPUT_ONLY ];
 }
 
 // A policy that defines the replication and encryption configuration of data.
@@ -274,7 +277,7 @@ message Replication {
     // afterwards. They do not apply retroactively to existing
     // [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
     CustomerManagedEncryption customer_managed_encryption = 1
-        [(google.api.field_behavior) = OPTIONAL];
+        [ (google.api.field_behavior) = OPTIONAL ];
   }
 
   // A replication policy that replicates the
@@ -298,14 +301,14 @@ message Replication {
       // afterwards. They do not apply retroactively to existing
       // [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
       CustomerManagedEncryption customer_managed_encryption = 2
-          [(google.api.field_behavior) = OPTIONAL];
+          [ (google.api.field_behavior) = OPTIONAL ];
     }
 
     // Required. The list of Replicas for this
     // [Secret][google.cloud.secretmanager.v1.Secret].
     //
     // Cannot be empty.
-    repeated Replica replicas = 1 [(google.api.field_behavior) = REQUIRED];
+    repeated Replica replicas = 1 [ (google.api.field_behavior) = REQUIRED ];
   }
 
   // The replication policy for this secret.
@@ -336,7 +339,7 @@ message CustomerManagedEncryption {
   // replication policy type, Cloud KMS CryptoKeys must reside in `global`.
   //
   // The expected format is `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
-  string kms_key_name = 1 [(google.api.field_behavior) = REQUIRED];
+  string kms_key_name = 1 [ (google.api.field_behavior) = REQUIRED ];
 }
 
 // The replication status of a
@@ -353,7 +356,7 @@ message ReplicationStatus {
     // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
     // populated if customer-managed encryption is used.
     CustomerManagedEncryptionStatus customer_managed_encryption = 1
-        [(google.api.field_behavior) = OUTPUT_ONLY];
+        [ (google.api.field_behavior) = OUTPUT_ONLY ];
   }
 
   // The replication status of a
@@ -368,19 +371,19 @@ message ReplicationStatus {
     message ReplicaStatus {
       // Output only. The canonical ID of the replica location.
       // For example: `"us-east1"`.
-      string location = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+      string location = 1 [ (google.api.field_behavior) = OUTPUT_ONLY ];
 
       // Output only. The customer-managed encryption status of the
       // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
       // populated if customer-managed encryption is used.
       CustomerManagedEncryptionStatus customer_managed_encryption = 2
-          [(google.api.field_behavior) = OUTPUT_ONLY];
+          [ (google.api.field_behavior) = OUTPUT_ONLY ];
     }
 
     // Output only. The list of replica statuses for the
     // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     repeated ReplicaStatus replicas = 1
-        [(google.api.field_behavior) = OUTPUT_ONLY];
+        [ (google.api.field_behavior) = OUTPUT_ONLY ];
   }
 
   // The replication status of the
@@ -411,15 +414,15 @@ message CustomerManagedEncryptionStatus {
   // Required. The resource name of the Cloud KMS CryptoKeyVersion used to
   // encrypt the secret payload, in the following format:
   // `projects/*/locations/*/keyRings/*/cryptoKeys/*/versions/*`.
-  string kms_key_version_name = 1 [(google.api.field_behavior) = REQUIRED];
+  string kms_key_version_name = 1 [ (google.api.field_behavior) = REQUIRED ];
 }
 
 // A Pub/Sub topic which Secret Manager will publish to when control plane
 // events occur on this secret.
 message Topic {
   option (google.api.resource) = {
-    type: "pubsub.googleapis.com/Topic"
-    pattern: "projects/{project}/topics/{topic}"
+    type : "pubsub.googleapis.com/Topic"
+    pattern : "projects/{project}/topics/{topic}"
   };
 
   // Required. The resource name of the Pub/Sub topic that will be published to,
@@ -427,7 +430,7 @@ message Topic {
   // the Secret Manager service agent must have the `pubsub.topic.publish`
   // permission on the topic. The Pub/Sub Publisher role
   // (`roles/pubsub.publisher`) includes this permission.
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [ (google.api.field_behavior) = REQUIRED ];
 }
 
 // The rotation time and period for a
@@ -446,7 +449,7 @@ message Rotation {
   // [rotation_period][google.cloud.secretmanager.v1.Rotation.rotation_period]
   // is set.
   google.protobuf.Timestamp next_rotation_time = 1
-      [(google.api.field_behavior) = OPTIONAL];
+      [ (google.api.field_behavior) = OPTIONAL ];
 
   // Input only. The Duration between rotation notifications. Must be in seconds
   // and at least 3600s (1h) and at most 3153600000s (100 years).
@@ -460,7 +463,7 @@ message Rotation {
   // will be advanced by this period when the service automatically sends
   // rotation notifications.
   google.protobuf.Duration rotation_period = 2
-      [(google.api.field_behavior) = INPUT_ONLY];
+      [ (google.api.field_behavior) = INPUT_ONLY ];
 }
 
 // A secret payload resource in the Secret Manager API. This contains the
@@ -486,5 +489,5 @@ message SecretPayload {
   // The CRC32C value is encoded as a Int64 for compatibility, and can be
   // safely downconverted to uint32 in languages that support this type.
   // https://cloud.google.com/apis/design/design_patterns#integer_types
-  optional int64 data_crc32c = 2 [(google.api.field_behavior) = OPTIONAL];
+  optional int64 data_crc32c = 2 [ (google.api.field_behavior) = OPTIONAL ];
 }

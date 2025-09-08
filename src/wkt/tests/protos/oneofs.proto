@@ -21,25 +21,19 @@ import "google/protobuf/wrappers.proto";
 
 // A message with several interesting `oneof` fields.
 message MessageWithOneOf {
-  oneof single_string {
-    string string_contents = 1;
-  }
+  oneof single_string { string string_contents = 1; }
   oneof two_strings {
     string string_contents_one = 2;
     string string_contents_two = 3;
   }
-  oneof one_message {
-    Message message_value = 4;
-  }
+  oneof one_message { Message message_value = 4; }
   oneof mixed {
     Message another_message = 5;
     string string = 6;
     google.protobuf.Duration duration = 7;
   }
 
-  message Message {
-    string parent = 1;
-  }
+  message Message { string parent = 1; }
 }
 
 // A message with a more complex `oneof` field.
@@ -65,7 +59,5 @@ message MessageWithComplexOneOf {
     BLACK = 1;
   }
 
-  message Inner {
-    repeated string strings = 1;
-  }
+  message Inner { repeated string strings = 1; }
 }

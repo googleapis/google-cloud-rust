@@ -65,8 +65,8 @@ service IAMPolicy {
   // Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
   rpc SetIamPolicy(SetIamPolicyRequest) returns (Policy) {
     option (google.api.http) = {
-      post: "/v1/{resource=**}:setIamPolicy"
-      body: "*"
+      post : "/v1/{resource=**}:setIamPolicy"
+      body : "*"
     };
   }
 
@@ -75,8 +75,8 @@ service IAMPolicy {
   // set.
   rpc GetIamPolicy(GetIamPolicyRequest) returns (Policy) {
     option (google.api.http) = {
-      post: "/v1/{resource=**}:getIamPolicy"
-      body: "*"
+      post : "/v1/{resource=**}:getIamPolicy"
+      body : "*"
     };
   }
 
@@ -90,8 +90,8 @@ service IAMPolicy {
   rpc TestIamPermissions(TestIamPermissionsRequest)
       returns (TestIamPermissionsResponse) {
     option (google.api.http) = {
-      post: "/v1/{resource=**}:testIamPermissions"
-      body: "*"
+      post : "/v1/{resource=**}:testIamPermissions"
+      body : "*"
     };
   }
 }
@@ -109,7 +109,7 @@ message SetIamPolicyRequest {
   // the policy is limited to a few 10s of KB. An empty policy is a
   // valid policy but certain Cloud Platform services (such as Projects)
   // might reject them.
-  Policy policy = 2 [(google.api.field_behavior) = REQUIRED];
+  Policy policy = 2 [ (google.api.field_behavior) = REQUIRED ];
 
   // OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only
   // the fields in the mask will be modified. If no mask is provided, the
@@ -146,7 +146,7 @@ message TestIamPermissionsRequest {
   // wildcards (such as '*' or 'storage.*') are not allowed. For more
   // information see
   // [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
-  repeated string permissions = 2 [(google.api.field_behavior) = REQUIRED];
+  repeated string permissions = 2 [ (google.api.field_behavior) = REQUIRED ];
 }
 
 // Response message for `TestIamPermissions` method.

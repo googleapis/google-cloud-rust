@@ -37,16 +37,16 @@ service Locations {
   // Lists information about the supported locations for this service.
   rpc ListLocations(ListLocationsRequest) returns (ListLocationsResponse) {
     option (google.api.http) = {
-      get: "/v1/{name=locations}"
-      additional_bindings { get: "/v1/{name=projects/*}/locations" }
+      get : "/v1/{name=locations}"
+      additional_bindings {get : "/v1/{name=projects/*}/locations"}
     };
   }
 
   // Gets information about a location.
   rpc GetLocation(GetLocationRequest) returns (Location) {
     option (google.api.http) = {
-      get: "/v1/{name=locations/*}"
-      additional_bindings { get: "/v1/{name=projects/*/locations/*}" }
+      get : "/v1/{name=locations/*}"
+      additional_bindings {get : "/v1/{name=projects/*/locations/*}"}
     };
   }
 }
