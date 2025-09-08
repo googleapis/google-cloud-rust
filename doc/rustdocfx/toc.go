@@ -16,6 +16,7 @@ package main
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 )
 
@@ -108,16 +109,16 @@ func computeTOC(crate *crate) (*docfxTableOfContent, error) {
 	for id := range crate.Index {
 		kind := crate.getKind(id)
 		switch kind {
+		case crateKind:
+			// There is only one crate per package and it is handled outside
+			// this loop.
+			continue
 		case moduleKind:
 			parent, entry, err := insertItem(id)
 			if err != nil {
 				return nil, err
 			}
 			parent.Modules = append(parent.Modules, entry)
-		case crateKind:
-			// There is only one crate per package and it is handled outside
-			// this loop.
-			continue
 		case traitKind:
 			parent, entry, err := insertItem(id)
 			if err != nil {
@@ -151,6 +152,17 @@ func computeTOC(crate *crate) (*docfxTableOfContent, error) {
 		default:
 			return nil, fmt.Errorf("unexpected item kind, %s, for id %s", kind, id)
 		}
+	}
+	// Sort each entry so they are stable and easier to navigate.
+	less := func(a, b *docfxTableOfContent) int {
+		return strings.Compare(a.Name, b.Name)
+	}
+	for _, entry := range items {
+		slices.SortStableFunc(entry.Modules, less)
+		slices.SortStableFunc(entry.Traits, less)
+		slices.SortStableFunc(entry.Structs, less)
+		slices.SortStableFunc(entry.Enums, less)
+		slices.SortStableFunc(entry.Aliases, less)
 	}
 	return toc, nil
 }

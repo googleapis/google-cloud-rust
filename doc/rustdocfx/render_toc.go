@@ -17,21 +17,11 @@ package main
 import (
 	"os"
 	"path/filepath"
-	"slices"
-	"strings"
 
 	"github.com/cbroglie/mustache"
 )
 
 func renderTOC(toc *docfxTableOfContent, outDir string) error {
-	// Sort the toc before rendering.
-	less := func(a, b *docfxTableOfContent) int {
-		return strings.Compare(a.Name, b.Name)
-	}
-	slices.SortStableFunc(toc.Modules, less)
-	slices.SortStableFunc(toc.Structs, less)
-	slices.SortStableFunc(toc.Enums, less)
-	slices.SortStableFunc(toc.Aliases, less)
 	contents, err := templatesProvider("toc.yml.mustache")
 	if err != nil {
 		return err

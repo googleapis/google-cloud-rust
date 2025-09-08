@@ -53,27 +53,11 @@ func TestRenderToc(t *testing.T) {
 				},
 			},
 			{
-				Name: "module-only-modules",
-				Uid:  "module-only-modules",
-				Modules: []*docfxTableOfContent{
-					{Name: "module-c", Uid: "module-c"},
-					{Name: "module-d", Uid: "module-d"},
-				},
-			},
-			{
-				Name: "module-only-traits",
-				Uid:  "module-only-traits",
-				Traits: []*docfxTableOfContent{
-					{Name: "TraitA", Uid: "trait-a"},
-					{Name: "TraitB", Uid: "trait-b"},
-				},
-			},
-			{
-				Name: "module-only-structs",
-				Uid:  "module-only-structs",
-				Structs: []*docfxTableOfContent{
-					{Name: "StructA", Uid: "struct-a"},
-					{Name: "StructB", Uid: "struct-b"},
+				Name: "module-only-alias",
+				Uid:  "module-only-alias",
+				Aliases: []*docfxTableOfContent{
+					{Name: "AliasA", Uid: "alias-a"},
+					{Name: "AliasB", Uid: "alias-b"},
 				},
 			},
 			{
@@ -85,11 +69,27 @@ func TestRenderToc(t *testing.T) {
 				},
 			},
 			{
-				Name: "module-only-alias",
-				Uid:  "module-only-alias",
-				Aliases: []*docfxTableOfContent{
-					{Name: "AliasA", Uid: "alias-a"},
-					{Name: "AliasB", Uid: "alias-b"},
+				Name: "module-only-modules",
+				Uid:  "module-only-modules",
+				Modules: []*docfxTableOfContent{
+					{Name: "module-c", Uid: "module-c"},
+					{Name: "module-d", Uid: "module-d"},
+				},
+			},
+			{
+				Name: "module-only-structs",
+				Uid:  "module-only-structs",
+				Structs: []*docfxTableOfContent{
+					{Name: "StructA", Uid: "struct-a"},
+					{Name: "StructB", Uid: "struct-b"},
+				},
+			},
+			{
+				Name: "module-only-traits",
+				Uid:  "module-only-traits",
+				Traits: []*docfxTableOfContent{
+					{Name: "TraitA", Uid: "trait-a"},
+					{Name: "TraitB", Uid: "trait-b"},
 				},
 			},
 		},
@@ -143,6 +143,7 @@ func TestRenderToc(t *testing.T) {
 		"          name: AliasA",
 		"        - uid: alias-b",
 		"          name: AliasB",
+
 		"    - uid: module-only-alias",
 		"      name: module-only-alias",
 		"      items:",
@@ -152,6 +153,7 @@ func TestRenderToc(t *testing.T) {
 		"          name: AliasA",
 		"        - uid: alias-b",
 		"          name: AliasB",
+
 		"    - uid: module-only-enums",
 		"      name: module-only-enums",
 		"      items:",
@@ -161,6 +163,7 @@ func TestRenderToc(t *testing.T) {
 		"          name: EnumA",
 		"        - uid: enum-b",
 		"          name: EnumB",
+
 		"    - uid: module-only-modules",
 		"      name: module-only-modules",
 		"      items:",
@@ -170,6 +173,7 @@ func TestRenderToc(t *testing.T) {
 		"          name: module-c",
 		"        - uid: module-d",
 		"          name: module-d",
+
 		"    - uid: module-only-structs",
 		"      name: module-only-structs",
 		"      items:",
@@ -179,6 +183,7 @@ func TestRenderToc(t *testing.T) {
 		"          name: StructA",
 		"        - uid: struct-b",
 		"          name: StructB",
+
 		"    - uid: module-only-traits",
 		"      name: module-only-traits",
 		"      items:",
@@ -190,7 +195,7 @@ func TestRenderToc(t *testing.T) {
 		"          name: TraitB",
 		"",
 	}
-	if diff := cmp.Diff(want, got); diff != "" {
+	if diff := cmp.Diff(got, want); diff != "" {
 		t.Errorf("mismatched summary lines in generated YAML (-want +got):\n%s", diff)
 	}
 
