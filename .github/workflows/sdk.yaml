@@ -408,6 +408,13 @@ jobs:
       - name: Display rustc version
         run: rustup show active-toolchain -v
       - run: cargo doc --workspace
+        if: matrix.rust-version == 'rust:current'
+        env:
+          RUSTDOCFLAGS: "-D warnings"
+      - run: cargo doc
+        # The nightly builds are slow for some reason, so we run a smaller set
+        # of documents for them. We expect these will catch most problems.
+        if: matrix.rust-version == 'rust:nightly'
         env:
           RUSTDOCFLAGS: "-D warnings"
       - run: cargo doc --package google-cloud-gax
@@ -416,11 +423,12 @@ jobs:
       - run: mdbook build guide
       - run: mdbook test guide
       - name: Upload user guide
-        if: ${{ matrix.rust-version == 'rust:current' }}
+        if: matrix.rust-version == 'rust:current'
         id: deployment
         uses: actions/upload-pages-artifact@v4 # or specific "vX.X.X" version tag for this action
         with:
           path: guide/book/
+
   deploy:
     if: github.event_name == 'release'
     runs-on: ubuntu-24.04
