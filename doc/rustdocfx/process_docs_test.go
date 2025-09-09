@@ -30,6 +30,6 @@ More text`
 		t.Fatal(err)
 	}
 	if diff := cmp.Diff(want, got); diff != "" {
-		t.Errorf("mismatch in processDocString for paragrapsh (-want, +got)\n:%s", diff)
+		t.Errorf("mismatch in processDocString for paragraphs (-want, +got)\n:%s", diff)
 	}
 }
