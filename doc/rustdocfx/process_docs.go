@@ -88,7 +88,7 @@ func processDocString(contents string) (string, error) {
 			if entering {
 				fmt.Printf("\n\nKind: %d", node.Kind())
 				node.Dump(documentationBytes, 2)
-				return ast.WalkStop, fmt.Errorf("Encountered unknown NodeKind: %s", node.Kind().String())
+				return ast.WalkStop, fmt.Errorf("encountered unknown NodeKind: %s", node.Kind().String())
 			}
 		}
 		return ast.WalkContinue, nil
