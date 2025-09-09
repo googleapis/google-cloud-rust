@@ -100,8 +100,8 @@ func (c *crate) getName(id string) string {
 	return c.Index[id].Name
 }
 
-func (c *crate) getDocString(id string) string {
-	return c.Index[id].Docs
+func (c *crate) getDocString(id string) (string, error) {
+	return c.Index[id].Docs, nil
 }
 
 type kind int
