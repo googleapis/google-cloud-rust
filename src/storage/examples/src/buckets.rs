@@ -29,6 +29,7 @@ pub mod create_bucket_turbo_replication;
 pub mod create_bucket_with_object_retention;
 pub mod define_bucket_website_configuration;
 pub mod delete_bucket;
+#[allow(dead_code)]
 pub mod delete_bucket_default_kms_key;
 pub mod disable_bucket_lifecycle_management;
 pub mod disable_default_event_based_hold;
@@ -43,6 +44,7 @@ pub mod enable_requester_pays;
 pub mod enable_uniform_bucket_level_access;
 pub mod enable_versioning;
 pub mod get_autoclass;
+#[allow(dead_code)]
 pub mod get_bucket_default_kms_key;
 pub mod get_bucket_metadata;
 pub mod get_default_event_based_hold;
@@ -66,6 +68,7 @@ pub mod remove_bucket_owner;
 pub mod remove_cors_configuration;
 pub mod remove_retention_policy;
 pub mod set_autoclass;
+#[allow(dead_code)]
 pub mod set_bucket_default_kms_key;
 #[allow(dead_code)]
 pub mod set_bucket_public_iam;
