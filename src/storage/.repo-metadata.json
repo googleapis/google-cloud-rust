@@ -6,7 +6,7 @@
     "language": "rust",
     "library_type": "GAPIC_COMBO",
     "name_pretty": "Cloud Storage API",
-    "release_level": "GA",
+    "release_level": "stable",
     "repo": "googleapis/google-cloud-rust",
     "product_documentation": "https://cloud.google.com/storage/docs",
     "issue_tracker": "https://issuetracker.google.com/savedsearches/559782"

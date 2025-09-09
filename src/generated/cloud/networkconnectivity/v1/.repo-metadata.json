@@ -6,6 +6,6 @@
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name_pretty": "Network Connectivity API",
-    "release_level": "GA",
+    "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }
