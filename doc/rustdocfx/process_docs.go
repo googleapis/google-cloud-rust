@@ -80,7 +80,7 @@ func processDocString(contents string) (string, error) {
 				for i := 0; i < node.Lines().Len(); i++ {
 					line := node.Lines().At(i)
 					line_str := string(line.Value(documentationBytes))
-                                        add_line(line_str)
+					add_line(line_str)
 				}
 			}
 			return ast.WalkSkipChildren, nil
