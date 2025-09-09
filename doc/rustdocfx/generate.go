@@ -363,23 +363,6 @@ type docfxReference struct {
 	Parent     string
 }
 
-// docfxTableOfContent is a context for mustache templates in `_toc.yaml` files.
-//
-// Based off https://dotnet.github.io/docfx/docs/table-of-contents.html#reference-tocs
-type docfxTableOfContent struct {
-	Name  string
-	Uid   string
-	Items []*docfxTableOfContent
-}
-
-func (toc docfxTableOfContent) HasItems() bool {
-	return len(toc.Items) != 0
-}
-
-func (toc *docfxTableOfContent) appendItem(item *docfxTableOfContent) {
-	toc.Items = append(toc.Items, item)
-}
-
 func newDocfxManagedReference(c *crate, id string) (*docfxManagedReference, error) {
 	r := new(docfxManagedReference)
 
