@@ -42,7 +42,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v6
         with:
-          go-version: 1.24.4
+          go-version: 1.25.0
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
         with:
