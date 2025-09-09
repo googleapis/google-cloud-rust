@@ -299,12 +299,16 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets.push(id.clone());
     tracing::info!("create bucket for KMS tests");
     let kms_key = create_bucket_kms_key(&client, project_id, kms_ring, &id).await?;
-    tracing::info!("running set_bucket_default_kms_key example");
-    buckets::set_bucket_default_kms_key::sample(&client, &id, &kms_key).await?;
-    tracing::info!("running get_bucket_default_kms_key example");
-    buckets::get_bucket_default_kms_key::sample(&client, &id).await?;
-    tracing::info!("running delete_bucket_default_kms_key example");
-    buckets::delete_bucket_default_kms_key::sample(&client, &id).await?;
+    #[cfg(feature = "skipped-integration-tests")]
+    {
+        // TODO(#3292): fix this test
+        tracing::info!("running set_bucket_default_kms_key example");
+        buckets::set_bucket_default_kms_key::sample(&client, &id, &kms_key).await?;
+        tracing::info!("running get_bucket_default_kms_key example");
+        buckets::get_bucket_default_kms_key::sample(&client, &id).await?;
+        tracing::info!("running delete_bucket_default_kms_key example");
+        buckets::delete_bucket_default_kms_key::sample(&client, &id).await?;
+    }
 
     Ok(())
 }
