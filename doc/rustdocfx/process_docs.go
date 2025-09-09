@@ -41,17 +41,38 @@ func processDocString(contents string) (string, error) {
 	documentationBytes := []byte(contents)
 	doc := md.Parser().Parse(text.NewReader(documentationBytes))
 
-	// A flag for when we need an extra line break between blocks.
+	// We store the state in a stack. This allows for backtracking as we
+	// walk the AST.
+	//
+	// We push states as we enter nodes, and pop states as we exit them.
+	states := []State{{}}
+	// Additionally, we have a global flag for when we should print the
+	// marker for a list item.
+	print_marker := false
+	// And a flag for when we need an extra line break between blocks.
 	print_previous_blank := false
 
 	// Write a new line, given the current state.
 	add_line := func(l string) {
-		results = append(results, l)
+		state := states[len(states)-1]
+		if print_marker {
+			spaces := strings.Repeat(" ", state.Indent-len(state.Marker))
+			results = append(results, fmt.Sprintf("%s%s%s", spaces, state.Marker, l))
+		} else {
+			spaces := strings.Repeat(" ", state.Indent)
+			results = append(results, fmt.Sprintf("%s%s", spaces, l))
+		}
+		// Avoid printing extra markers in the case of multi-line or
+		// multi-paragraph list items.
+		print_marker = false
 		// We wrote something. Accept an extra line break between blocks.
 		print_previous_blank = true
 	}
 
 	err := ast.Walk(doc, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
+		// A copy of the current state
+		state := states[len(states)-1]
+
 		// First handle blank lines between blocks
 		switch node.Kind() {
 		case ast.KindCodeBlock,
@@ -84,6 +105,25 @@ func processDocString(contents string) (string, error) {
 				}
 			}
 			return ast.WalkSkipChildren, nil
+		case ast.KindList:
+			if entering {
+				list := node.(*ast.List)
+				marker := string(list.Marker)
+				if list.IsOrdered() {
+					marker = "1."
+				}
+				state.Marker = marker + " "
+				// It is simpler to set the indent now. Note that we never
+				// count past 1, so the marker is not increasing in length.
+				state.Indent += len(state.Marker)
+				states = append(states, state)
+			} else {
+				states = states[:len(states)-1]
+			}
+		case ast.KindListItem:
+			// Restore the marker, which might have been cleared if the
+			// item has multi-line text blocks.
+			print_marker = true
 		default:
 			if entering {
 				fmt.Printf("\n\nKind: %d", node.Kind())

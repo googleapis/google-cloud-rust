@@ -33,3 +33,30 @@ More text`
 		t.Errorf("mismatch in processDocString for paragraphs (-want, +got)\n:%s", diff)
 	}
 }
+
+func TestPreserveLists(t *testing.T) {
+	input := `Leading text
+
+- an unordered list
+  - with a nested item
+    - and another nested item
+  - and an item with text that
+    continues onto an extra line
+- we should preserve this list
+
+1. an ordered list
+1. with an item
+
+   that has a second paragraph
+1. we should preserve this list
+
+More text`
+	want := input
+	got, err := processDocString(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in processDocString for lists (-want, +got)\n:%s", diff)
+	}
+}
