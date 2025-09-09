@@ -103,6 +103,8 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let client = control_client().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
+    #[cfg(feature = "skipped-integration-tests")]
+    // TODO(#3292): fix tests that use kms_ring.
     let kms_ring = std::env::var("GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING")?;
 
     // We create multiple buckets because there is a rate limit on bucket
@@ -149,8 +151,12 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::enable_uniform_bucket_level_access::sample(&client, &id).await?;
     tracing::info!("running get_uniform_bucket_level_access example");
     buckets::get_uniform_bucket_level_access::sample(&client, &id).await?;
-    tracing::info!("running disable_uniform_bucket_level_access example");
-    buckets::disable_uniform_bucket_level_access::sample(&client, &id).await?;
+    #[cfg(feature = "skipped-integration-tests")]
+    {
+        // TODO(#3289): reenable tests that need UBLA disabled.
+        tracing::info!("running disable_uniform_bucket_level_access example");
+        buckets::disable_uniform_bucket_level_access::sample(&client, &id).await?;
+    }
     tracing::info!("running view_versioning_status example");
     buckets::view_versioning_status::sample(&client, &id).await?;
     tracing::info!("running enable_versioning example");
@@ -188,14 +194,18 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::lock_retention_policy::sample(&client, &id).await?;
     tracing::info!("running print_bucket_acl example");
     buckets::print_bucket_acl::sample(&client, &id).await?;
-    tracing::info!("running add_bucket_owner example");
-    buckets::add_bucket_owner::sample(&client, &id, &service_account).await?;
-    tracing::info!("running remove_bucket_owner example");
-    buckets::remove_bucket_owner::sample(&client, &id, &service_account).await?;
-    tracing::info!("running add_bucket_default_owner example");
-    buckets::add_bucket_default_owner::sample(&client, &id, &service_account).await?;
-    tracing::info!("running remove_bucket_default_owner example");
-    buckets::remove_bucket_default_owner::sample(&client, &id, &service_account).await?;
+    #[cfg(feature = "skipped-integration-tests")]
+    {
+        // TODO(#3289): reenable tests that need UBLA disabled.
+        tracing::info!("running add_bucket_owner example");
+        buckets::add_bucket_owner::sample(&client, &id, &service_account).await?;
+        tracing::info!("running remove_bucket_owner example");
+        buckets::remove_bucket_owner::sample(&client, &id, &service_account).await?;
+        tracing::info!("running add_bucket_default_owner example");
+        buckets::add_bucket_default_owner::sample(&client, &id, &service_account).await?;
+        tracing::info!("running remove_bucket_default_owner example");
+        buckets::remove_bucket_default_owner::sample(&client, &id, &service_account).await?;
+    }
     tracing::info!("running print_bucket_acl_for_user example");
     buckets::print_bucket_acl_for_user::sample(&client, &id).await?;
 
@@ -209,10 +219,14 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::get_autoclass::sample(&client, &id).await?;
     tracing::info!("running enable_requester_pays example");
     buckets::enable_requester_pays::sample(&client, &id).await?;
-    tracing::info!("running get_requester_pays_status example");
-    buckets::get_requester_pays_status::sample(&client, &id).await?;
-    tracing::info!("running disable_requester_pays example");
-    buckets::disable_requester_pays::sample(&client, &id).await?;
+    #[cfg(feature = "skipped-integration-tests")]
+    {
+        // TODO(#3291): fix these samples to provide user project.
+        tracing::info!("running get_requester_pays_status example");
+        buckets::get_requester_pays_status::sample(&client, &id).await?;
+        tracing::info!("running disable_requester_pays example");
+        buckets::disable_requester_pays::sample(&client, &id).await?;
+    }
 
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -283,16 +297,20 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running view_bucket_iam_members example");
     buckets::view_bucket_iam_members::sample(&client, &id).await?;
 
-    let id = random_bucket_id();
-    buckets.push(id.clone());
-    tracing::info!("create bucket for KMS tests");
-    let kms_key = create_bucket_kms_key(&client, project_id, kms_ring, &id).await?;
-    tracing::info!("running set_bucket_default_kms_key example");
-    buckets::set_bucket_default_kms_key::sample(&client, &id, &kms_key).await?;
-    tracing::info!("running get_bucket_default_kms_key example");
-    buckets::get_bucket_default_kms_key::sample(&client, &id).await?;
-    tracing::info!("running delete_bucket_default_kms_key example");
-    buckets::delete_bucket_default_kms_key::sample(&client, &id).await?;
+    #[cfg(feature = "skipped-integration-tests")]
+    {
+        let id = random_bucket_id();
+        buckets.push(id.clone());
+        tracing::info!("create bucket for KMS tests");
+        let kms_key = create_bucket_kms_key(&client, project_id, kms_ring, &id).await?;
+        // TODO(#3292): fix this test
+        tracing::info!("running set_bucket_default_kms_key example");
+        buckets::set_bucket_default_kms_key::sample(&client, &id, &kms_key).await?;
+        tracing::info!("running get_bucket_default_kms_key example");
+        buckets::get_bucket_default_kms_key::sample(&client, &id).await?;
+        tracing::info!("running delete_bucket_default_kms_key example");
+        buckets::delete_bucket_default_kms_key::sample(&client, &id).await?;
+    }
 
     Ok(())
 }
@@ -366,6 +384,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let control = control_client().await?;
     let client = Storage::builder().build().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+    #[cfg(feature = "skipped-integration-tests")]
+    // TODO(#3289): reenable tests that need UBLA disabled.
     let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
     let kms_ring = std::env::var("GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING")?;
 
@@ -512,29 +532,32 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::object_csek_to_cmek::sample(&control, &id, "csek_file.txt", new_csek_key, &kms_key)
         .await?;
 
-    tracing::info!("create bucket for object ACL examples");
-    let id = random_bucket_id();
-    buckets.push(id.clone());
-    let _ = control
-        .create_bucket()
-        .set_parent("projects/_")
-        .set_bucket_id(id.clone())
-        .set_bucket(
-            Bucket::new()
-                .set_project(format!("projects/{project_id}"))
-                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
-                    UniformBucketLevelAccess::new().set_enabled(false),
-                )),
-        )
-        .send()
-        .await?;
-    tracing::info!("create test object for object ACL examples");
-    let _ = make_object(&client, &id, "object-to-update").await;
-    tracing::info!("running add_file_owner example");
-    objects::add_file_owner::sample(&control, &id, &service_account).await?;
-    tracing::info!("running remove_file_owner example");
-    objects::remove_file_owner::sample(&control, &id, &service_account).await?;
-
+    #[cfg(feature = "skipped-integration-tests")]
+    {
+        // TODO(#3289): reenable tests that need UBLA disabled.
+        tracing::info!("create bucket for object ACL examples");
+        let id = random_bucket_id();
+        buckets.push(id.clone());
+        let _ = control
+            .create_bucket()
+            .set_parent("projects/_")
+            .set_bucket_id(id.clone())
+            .set_bucket(
+                Bucket::new()
+                    .set_project(format!("projects/{project_id}"))
+                    .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                        UniformBucketLevelAccess::new().set_enabled(false),
+                    )),
+            )
+            .send()
+            .await?;
+        tracing::info!("create test object for object ACL examples");
+        let _ = make_object(&client, &id, "object-to-update").await;
+        tracing::info!("running add_file_owner example");
+        objects::add_file_owner::sample(&control, &id, &service_account).await?;
+        tracing::info!("running remove_file_owner example");
+        objects::remove_file_owner::sample(&control, &id, &service_account).await?;
+    }
     Ok(())
 }
 
