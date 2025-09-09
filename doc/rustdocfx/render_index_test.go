@@ -67,7 +67,7 @@ func TestRenderIndex(t *testing.T) {
 		{
 			PkgName:      "google-cloud-storage",
 			Language:     "Rust",
-			DocsUrl:      "https://docs.rs/google-cloud-storage/1.2.3",
+			DocsUrl:      "https://docs.rs/google-cloud-storage/latest",
 			APIShortName: "storage",
 			Product:      "Cloud Storage API",
 		},
