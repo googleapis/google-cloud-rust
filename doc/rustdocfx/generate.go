@@ -100,7 +100,10 @@ func newDocfxItem(c *crate, id string) (*docfxItem, error) {
 	}
 	r.Uid = uid
 	r.Type = c.getKind(id).String()
-	r.Summary = c.getDocString(id)
+	r.Summary, err = c.getDocString(id)
+	if err != nil {
+		errs = append(errs, err)
+	}
 
 	if len(errs) > 0 {
 		return nil, fmt.Errorf("errors creating new DocfxItem docfx yml files for id %s: %w", id, errors.Join(errs...))
@@ -211,7 +214,11 @@ func processTypeAlias(c *crate, id string, page *docfxManagedReference, parent *
 		}
 		typeAliasString := fmt.Sprintf("pub type %s = %s;", lhsIdentifier, rhs)
 		// TODO: Create code block in the item Summary for the type alias string.
-		parent.Summary = fmt.Sprintf("%s\n\n%s", typeAliasString, c.Index[id].Docs)
+		comments, err := c.getDocString(id)
+		if err != nil {
+			return err
+		}
+		parent.Summary = fmt.Sprintf("%s\n\n%s", typeAliasString, comments)
 	}
 	return nil
 }
@@ -316,7 +323,11 @@ func newDocfxItemFromFunction(c *crate, parent *docfxItem, id string) (*docfxIte
 	}
 
 	// Type is explicitly not set as this function is used for multiple doc pipeline types.
-	r.Summary = fmt.Sprintf("```rust\n%s\n```\n\n%s", functionSignature, c.getDocString(id))
+	comments, err := c.getDocString(id)
+	if err != nil {
+		return nil, err
+	}
+	r.Summary = fmt.Sprintf("```rust\n%s\n```\n\n%s", functionSignature, comments)
 	return r, nil
 }
 
@@ -324,7 +335,11 @@ func newDocfxItemFromEnumVariant(c *crate, parent *docfxItem, id string) (*docfx
 	r := new(docfxItem)
 	r.Name = c.getName(id)
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
-	r.Summary = c.getDocString(id)
+	comments, err := c.getDocString(id)
+	if err != nil {
+		return nil, err
+	}
+	r.Summary = comments
 	return r, nil
 }
 
@@ -333,7 +348,11 @@ func newDocfxItemFromField(c *crate, parent *docfxItem, id string) (*docfxItem, 
 	// TODO: Add the field type to Name.
 	r.Name = c.getName(id)
 	r.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, id)
-	r.Summary = c.getDocString(id)
+	comments, err := c.getDocString(id)
+	if err != nil {
+		return nil, err
+	}
+	r.Summary = comments
 	return r, nil
 }
 
