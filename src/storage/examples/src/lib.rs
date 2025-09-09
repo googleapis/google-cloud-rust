@@ -104,10 +104,9 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
     #[cfg(feature = "skipped-integration-tests")]
-    {
-        // TODO(#3292): fix tests that use kms_ring.
-        let kms_ring = std::env::var("GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING")?;
-    }
+    // TODO(#3292): fix tests that use kms_ring.
+    let kms_ring = std::env::var("GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING")?;
+
     // We create multiple buckets because there is a rate limit on bucket
     // changes.
     let id = random_bucket_id();
@@ -386,10 +385,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let client = Storage::builder().build().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     #[cfg(feature = "skipped-integration-tests")]
-    {
-        // TODO(#3289): reenable tests that need UBLA disabled.
-        let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
-    }
+    // TODO(#3289): reenable tests that need UBLA disabled.
+    let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
     let kms_ring = std::env::var("GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING")?;
 
     let id = random_bucket_id();
