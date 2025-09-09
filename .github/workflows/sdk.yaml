@@ -417,9 +417,6 @@ jobs:
         if: matrix.rust-version == 'rust:nightly'
         env:
           RUSTDOCFLAGS: "-D warnings"
-      - run: cargo doc --package google-cloud-gax
-        env:
-          RUSTDOCFLAGS: "-D warnings"
       - run: mdbook build guide
       - run: mdbook test guide
       - name: Upload user guide
