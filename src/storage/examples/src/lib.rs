@@ -103,8 +103,11 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let client = control_client().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let service_account = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
-    let kms_ring = std::env::var("GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING")?;
-
+    #[cfg(feature = "skipped-integration-tests")]
+    {
+        // TODO(#3292): fix tests that use kms_ring.
+        let kms_ring = std::env::var("GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING")?;
+    }
     // We create multiple buckets because there is a rate limit on bucket
     // changes.
     let id = random_bucket_id();
