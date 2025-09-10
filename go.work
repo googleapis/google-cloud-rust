@@ -14,3 +14,4 @@
 go 1.24.4
 
 use ./tools
+use ./tools/cmd/docfx
