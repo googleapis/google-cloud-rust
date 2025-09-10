@@ -106,6 +106,47 @@ func processDocString(contents string) (string, error) {
 				}
 			}
 			return ast.WalkSkipChildren, nil
+		case ast.KindFencedCodeBlock:
+			if entering {
+				lang := "rust"
+				fcb := node.(*ast.FencedCodeBlock)
+				if fcb.Info != nil {
+					info := string(fcb.Info.Value(documentationBytes))
+					if info != "no_run" {
+						// "no_run" is a tag for not running Rust code.
+						lang = info
+					}
+				}
+				add_line("```" + lang)
+				for i := 0; i < fcb.Lines().Len(); i++ {
+					line := fcb.Lines().At(i)
+					line_str := string(line.Value(documentationBytes))
+					trimmed := strings.TrimLeftFunc(line_str, unicode.IsSpace)
+					if (lang == "rust" || lang == "rs") && len(trimmed) > 0 && trimmed[0] == '#' {
+						// Filter out code lines starting with a '#'
+						continue
+					}
+					add_line(line_str)
+				}
+			} else {
+				add_line("```")
+			}
+		case ast.KindHeading:
+			if entering {
+				heading := node.(*ast.Heading)
+				state.Marker = strings.Repeat("#", heading.Level) + " "
+				state.Indent += len(state.Marker)
+				print_marker = true
+				states = append(states, state)
+				for i := 0; i < node.Lines().Len(); i++ {
+					line := node.Lines().At(i)
+					line_str := string(line.Value(documentationBytes))
+					add_line(line_str)
+				}
+			} else {
+				states = states[:len(states)-1]
+			}
+			return ast.WalkSkipChildren, nil
 		case ast.KindList:
 			if entering {
 				list := node.(*ast.List)

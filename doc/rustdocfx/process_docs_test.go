@@ -85,3 +85,59 @@ More text`
 		t.Errorf("mismatch in processDocString for lists (-want, +got)\n:%s", diff)
 	}
 }
+
+func TestFilterCodeBlockComments(t *testing.T) {
+	input := `Leading text
+
+# Header, outside a code block
+
+` + "```" + `
+# use hidden::code::inside_a_code_block;
+let visible_code = true;
+    # use hidden::code::indented;
+let foo = 1; # Visible inline comments
+# use more::hidden::code;
+` + "```" + `
+
+` + "```norust" + `
+# This is a comment from the protos. We should keep it.
+` + "```" + `
+
+## Example
+
+` + "```no_run" + `
+let visible_code = true;
+# panic!("more hidden code");
+` + "```" + `
+
+More text`
+
+	want := `Leading text
+
+# Header, outside a code block
+
+` + "```rust" + `
+let visible_code = true;
+let foo = 1; # Visible inline comments
+` + "```" + `
+
+` + "```norust" + `
+# This is a comment from the protos. We should keep it.
+` + "```" + `
+
+## Example
+
+` + "```rust" + `
+let visible_code = true;
+` + "```" + `
+
+More text`
+
+	got, err := processDocString(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in processDocString for fenced code blocks (-want, +got)\n:%s", diff)
+	}
+}
