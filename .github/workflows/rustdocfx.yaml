@@ -35,7 +35,5 @@ jobs:
         run: |
           set -e
           go install golang.org/x/tools/cmd/goimports@latest
-      - name: Run Lints
-        run: go test -race ./tools/...
-      - name: Run tests
-        run: go test -race -coverprofile=coverage.out -covermode=atomic ./tools/...
+      - name: Run tests and lints
+        run: go test -race -coverprofile=coverage.out -covermode=atomic ./tools/... ./tools/cmd/docfx/...

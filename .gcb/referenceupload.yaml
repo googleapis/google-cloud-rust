@@ -46,5 +46,4 @@ steps:
       tar -C /usr/local -xzf ./go1.25.1.linux-amd64.tar.gz
       export PATH=$PATH:/usr/local/go/bin
       cargo install --locked cargo-workspaces
-      go build ./doc/rustdocfx/
-      ./rustdocfx -project-root ./ -staging-bucket ${STAGING_BUCKET}
+      go run ./tools/cmd/docfx -project-root . -staging-bucket ${STAGING_BUCKET}

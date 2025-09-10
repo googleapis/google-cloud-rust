@@ -38,12 +38,12 @@ func TestRenderIndex(t *testing.T) {
 		{
 			Name:     "google-cloud-iam-v1",
 			Version:  "1.0.2",
-			Location: "../../src/generated/iam/v1",
+			Location: "../../../src/generated/iam/v1",
 		},
 		{
 			Name:     "google-cloud-storage",
 			Version:  "1.2.3",
-			Location: "../../src/storage",
+			Location: "../../../src/storage",
 		},
 	}
 
