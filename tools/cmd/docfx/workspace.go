@@ -21,6 +21,7 @@ import (
 	"strings"
 )
 
+// Id represents an identifier in the rustdoc documentation.
 type Id = uint32
 
 type crate struct {
@@ -142,6 +143,7 @@ var kindName = map[kind]string{
 	assocConstKind:     "assoc_const",
 }
 
+// String returns the string representation of a `kind` constant.
 func (k kind) String() string {
 	return kindName[k]
 }
@@ -225,10 +227,10 @@ type genericParamDef struct {
 }
 
 type wherePredicate struct {
-	BoundPredicate *BoundPredicate `json:"bound_predicate"`
+	BoundPredicate *boundPredicate `json:"bound_predicate"`
 }
 
-type BoundPredicate struct {
+type boundPredicate struct {
 	Type   typeEnum `json:"type"`
 	Bounds []genericBound
 }

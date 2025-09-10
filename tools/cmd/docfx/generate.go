@@ -71,6 +71,8 @@ type docfxItem struct {
 	Syntax      docfxSyntax
 }
 
+// SummaryLines splits the summary by lines so the mustache templates can
+// properly indent each line.
 func (item docfxItem) SummaryLines() []string {
 	return strings.Split(item.Summary, "\n")
 }

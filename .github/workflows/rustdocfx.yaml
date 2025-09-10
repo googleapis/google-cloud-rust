@@ -38,4 +38,4 @@ jobs:
       - name: Run Lints
         run: go test -race ./tools/golints
       - name: Run tests
-        run: go test -race -coverprofile=coverage.out -covermode=atomic ./doc/rustdocfx
+        run: go test -race -coverprofile=coverage.out -covermode=atomic ./tools/...
