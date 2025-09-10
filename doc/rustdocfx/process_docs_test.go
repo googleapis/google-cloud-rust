@@ -34,6 +34,18 @@ More text`
 	}
 }
 
+func TestPreserveHTML(t *testing.T) {
+	input := "Google APIs eXtensions for Rust.\n\nThis crate contains a number of types and functions used in the\nimplementation of the Google Cloud Client Libraries for Rust.\n\n<div class=\"warning\">\nAll the types, traits, and functions defined in any module with `internal`\nin its name are <b>not</b> intended for general use. Such symbols will\nremain unstable for the foreseeable future, even if used in stable SDKs.\nWe (the Google Cloud Client Libraries for Rust team) control both and will\nchange both if needed.\n</div>"
+	want := input
+	got, err := processDocString(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in processDocString for lists (-want, +got)\n:%s", diff)
+	}
+}
+
 func TestPreserveLinks(t *testing.T) {
 	input := `[This is a link](www.example.com).
 

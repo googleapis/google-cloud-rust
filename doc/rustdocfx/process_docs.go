@@ -78,6 +78,7 @@ func processDocString(contents string) (string, error) {
 		switch node.Kind() {
 		case ast.KindCodeBlock,
 			ast.KindFencedCodeBlock,
+			ast.KindHTMLBlock,
 			ast.KindHeading,
 			ast.KindList,
 			ast.KindListItem,
@@ -93,8 +94,9 @@ func processDocString(contents string) (string, error) {
 		switch node.Kind() {
 		case ast.KindDocument:
 			// The root block. There is nothing to render.
-		case ast.KindTextBlock,
-			ast.KindParagraph:
+		case ast.KindHTMLBlock,
+			ast.KindParagraph,
+			ast.KindTextBlock:
 			// We will dump the contents from these blocks, skipping
 			// any children. This saves us from having to parse all
 			// inline blocks, e.g. an **emphasis** block.
