@@ -34,6 +34,31 @@ More text`
 	}
 }
 
+func TestPreserveLinks(t *testing.T) {
+	input := `[This is a link](www.example.com).
+
+And here is a [reference link] in the middle of text.
+
+And here is [another link][].
+
+And this is [a link with a title][title].
+
+And this is [a link with a title][but-its-different].
+
+[another link]: www.another-link.com
+[but-its-different]: www.different.com
+[reference link]: www.reference-link.com
+[title]: www.title.com`
+	want := input
+	got, err := processDocString(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in processDocString for links (-want, +got)\n:%s", diff)
+	}
+}
+
 func TestPreserveLists(t *testing.T) {
 	input := `Leading text
 

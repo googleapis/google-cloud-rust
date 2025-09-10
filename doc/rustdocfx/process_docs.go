@@ -16,6 +16,7 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 	"unicode"
 
@@ -142,5 +143,21 @@ func processDocString(contents string) (string, error) {
 		// manually. So we trim any extra space on the right.
 		results[i] = strings.TrimRightFunc(line, unicode.IsSpace)
 	}
+
+	// Append reference links. These are skipped by the AST.
+	results = append(results, referenceLinks(contents)...)
 	return strings.Join(results, "\n"), nil
+}
+
+var referenceLinkMatcher = regexp.MustCompile(`^\[([^\]]+)\]:\s*(.*)$`)
+
+func referenceLinks(contents string) []string {
+	var results []string
+	lines := strings.Split(contents, "\n")
+	for _, line := range lines {
+		if len(referenceLinkMatcher.FindStringSubmatch(line)) > 0 {
+			results = append(results, line)
+		}
+	}
+	return results
 }
