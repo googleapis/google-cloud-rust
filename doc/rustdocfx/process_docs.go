@@ -168,6 +168,19 @@ func processDocString(contents string) (string, error) {
 			// Restore the marker, which might have been cleared if the
 			// item has multi-line text blocks.
 			print_marker = true
+		case ast.KindCodeBlock:
+			// https://spec.commonmark.org/0.31.2/#indented-code-block
+			if entering {
+				state.Indent += 4
+				states = append(states, state)
+				for i := 0; i < node.Lines().Len(); i++ {
+					line := node.Lines().At(i)
+					line_str := string(line.Value(documentationBytes))
+					add_line(line_str)
+				}
+			} else {
+				states = states[:len(states)-1]
+			}
 		default:
 			if entering {
 				fmt.Printf("\n\nKind: %d", node.Kind())

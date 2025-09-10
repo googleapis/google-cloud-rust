@@ -98,6 +98,27 @@ More text`
 	}
 }
 
+func TestPreserveCodeBlocks(t *testing.T) {
+	input := `Leading text
+
+    An old-school code block.
+    These are represented by
+    lines of text with at least
+    4 leading whitespaces.
+        The lines are allowed
+      to be indented.
+
+More text`
+	want := input
+	got, err := processDocString(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in processDocString for code blocks (-want, +got)\n:%s", diff)
+	}
+}
+
 func TestFilterCodeBlockComments(t *testing.T) {
 	input := `Leading text
 
