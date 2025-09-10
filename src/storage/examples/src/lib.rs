@@ -494,6 +494,14 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running move_file example");
     objects::move_file::sample(&control, &id, &id).await?;
 
+    #[cfg(feature = "skipped-integration-tests")]
+    {
+        // Skip, the internal Google policies prevent granting public access to
+        // any buckets in our test projects.
+        tracing::info!("running make_public example");
+        objects::make_public::sample(&control, &id).await?;
+    }
+
     tracing::info!("running set_object_contexts example");
     objects::set_object_contexts::sample(&control, &id).await?;
     tracing::info!("running list_object_contexts example");
