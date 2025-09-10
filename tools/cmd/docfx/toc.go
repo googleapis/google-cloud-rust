@@ -33,26 +33,38 @@ type docfxTableOfContent struct {
 	Aliases []*docfxTableOfContent
 }
 
+// HasModules returns true if the TOC has modules, the mustache templates use
+// this to avoid empty sections.
 func (toc *docfxTableOfContent) HasModules() bool {
 	return len(toc.Modules) != 0
 }
 
+// HasTraits returns true if the TOC has traits, the mustache templates use
+// this to avoid empty sections.
 func (toc *docfxTableOfContent) HasTraits() bool {
 	return len(toc.Traits) != 0
 }
 
+// HasStructs returns true if the TOC has structs, the mustache templates use
+// this to avoid empty sections.
 func (toc *docfxTableOfContent) HasStructs() bool {
 	return len(toc.Structs) != 0
 }
 
+// HasEnums returns true if the TOC has enums, the mustache templates use
+// this to avoid empty sections.
 func (toc *docfxTableOfContent) HasEnums() bool {
 	return len(toc.Enums) != 0
 }
 
+// HasAliases returns true if the TOC has aliases, the mustache templates use
+// this to avoid empty sections.
 func (toc *docfxTableOfContent) HasAliases() bool {
 	return len(toc.Aliases) != 0
 }
 
+// HasItems returns true if the TOC has any kind of item, the mustache templates
+// use this to avoid empty sections.
 func (toc *docfxTableOfContent) HasItems() bool {
 	return toc.HasModules() || toc.HasTraits() || toc.HasStructs() || toc.HasEnums() || toc.HasAliases()
 }

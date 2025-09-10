@@ -26,7 +26,7 @@ import (
 	"github.com/yuin/goldmark/text"
 )
 
-type State struct {
+type state struct {
 	Indent int
 	Marker string
 }
@@ -46,7 +46,7 @@ func processDocString(contents string) (string, error) {
 	// walk the AST.
 	//
 	// We push states as we enter nodes, and pop states as we exit them.
-	states := []State{{}}
+	states := []state{{}}
 	// Additionally, we have a global flag for when we should print the
 	// marker for a list item.
 	print_marker := false

@@ -22,28 +22,17 @@ import (
 	"go/token"
 	"os"
 	"os/exec"
-	fspath "path"
 	"path/filepath"
 	"strings"
 	"testing"
 )
 
-const (
-	topDir       = "../.."
-	docfxDir     = "./doc/rustdocfx"
-	docfxPattern = "./doc/rustdocfx/..."
-)
-
-var (
-	docfxRelativeDir = fspath.Join(topDir, docfxDir)
-)
-
 func TestGolangCILint(t *testing.T) {
-	rungo(t, "run", "github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest", "run", docfxRelativeDir)
+	rungo(t, "run", "github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest", "run", ".")
 }
 
 func TestGoImports(t *testing.T) {
-	cmd := exec.Command("go", "-C", topDir, "run", "golang.org/x/tools/cmd/goimports@latest", "-d", docfxDir)
+	cmd := exec.Command("go", "run", "golang.org/x/tools/cmd/goimports@latest", "-d", ".")
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &out
@@ -57,19 +46,15 @@ func TestGoImports(t *testing.T) {
 }
 
 func TestGoModTidy(t *testing.T) {
-	rungo(t, "-C", docfxRelativeDir, "mod", "tidy", "-diff")
+	rungo(t, "mod", "tidy", "-diff")
 }
 
 func TestGovulncheck(t *testing.T) {
-	rungo(t, "-C", docfxRelativeDir, "run", "golang.org/x/vuln/cmd/govulncheck@latest")
+	rungo(t, "run", "golang.org/x/vuln/cmd/govulncheck@latest")
 }
 
 func TestGodocLint(t *testing.T) {
-	rungo(t, "-C", topDir, "run", "github.com/godoc-lint/godoc-lint/cmd/godoclint@v0.3.0", docfxPattern)
-}
-
-func TestCoverage(t *testing.T) {
-	rungo(t, "-C", topDir, "test", "-coverprofile=coverage.out", docfxPattern)
+	rungo(t, "run", "github.com/godoc-lint/godoc-lint/cmd/godoclint@v0.3.0", "./...")
 }
 
 func rungo(t *testing.T, args ...string) {
