@@ -47,6 +47,7 @@ pub mod rotate_encryption_key;
 pub mod set_event_based_hold;
 pub mod set_metadata;
 pub mod set_object_contexts;
+pub mod set_object_retention_policy;
 pub mod set_temporary_hold;
 pub mod stream_file_download;
 pub mod stream_file_upload;

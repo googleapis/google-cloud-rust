@@ -25,6 +25,7 @@ use google_cloud_gax::{
 };
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::bucket::{
+    ObjectRetention,
     iam_config::UniformBucketLevelAccess,
     {HierarchicalNamespace, IamConfig},
 };
@@ -474,7 +475,6 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::change_file_storage_class::sample(&control, &id).await?;
     tracing::info!("running compose_file example");
     objects::compose_file::sample(&control, &id).await?;
-
     tracing::info!("running move_file example");
     objects::move_file::sample(&control, &id, &id).await?;
 
@@ -524,7 +524,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::object_csek_to_cmek::sample(&control, &id, "csek_file.txt", new_csek_key, &kms_key)
         .await?;
 
-    tracing::info!("create bucket for object ACL examples");
+    tracing::info!("create bucket for object ACL, retention examples");
     let id = random_bucket_id();
     buckets.push(id.clone());
     let _ = control
@@ -536,7 +536,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
                 .set_project(format!("projects/{project_id}"))
                 .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
                     UniformBucketLevelAccess::new().set_enabled(false),
-                )),
+                ))
+                .set_object_retention(ObjectRetention::new().set_enabled(true)),
         )
         .send()
         .await?;
@@ -546,6 +547,9 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::add_file_owner::sample(&control, &id, &service_account).await?;
     tracing::info!("running remove_file_owner example");
     objects::remove_file_owner::sample(&control, &id, &service_account).await?;
+    tracing::info!("running set_object_retention_policy example");
+    objects::set_object_retention_policy::sample(&control, &id).await?;
+
     Ok(())
 }
 
