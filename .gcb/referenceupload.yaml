@@ -37,8 +37,7 @@ steps:
       #!/usr/bin/env bash
       set -e
       apt-get update
-      yes Y | apt-get install python3-pip
-      yes Y | apt-get install virtualenv python3-venv
+      apt-get install -y python3-pip virtualenv python3-venv
       python3 -m venv .venv
       source .venv/bin/activate
       pip install gcp-docuploader
