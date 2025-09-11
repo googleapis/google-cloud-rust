@@ -15,6 +15,12 @@
 # Rust places its build artifacts in target/ directories.
 /target/
 
+
+# There are artifacts from generating code via Prost+Tonic. We do not want to
+# save these.
+**/generated/protos/**/target/
+**/generated/protos/**/Cargo.lock
+
 # We use a few Python tools for development [^1]. Reserve `.env/` to install
 # these tools in a local Python virtual environment.
 /.venv/
