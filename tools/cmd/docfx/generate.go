@@ -210,17 +210,16 @@ func processTypeAlias(c *crate, id string, page *docfxManagedReference, parent *
 		// Generates a type alias doc string in the following format:
 		// pub type LhsIdentifier = RhsIdentifier<Args>
 		lhsIdentifier := c.Index[id].Name
-		rhs, err := c.Index[id].Inner.TypeAlias.Type.ResolvedPath.toString()
+		rhs, err := c.Index[id].Inner.TypeAlias.Type.toString()
 		if err != nil {
 			return fmt.Errorf("error processing type alias item with id %s: %w", id, err)
 		}
 		typeAliasString := fmt.Sprintf("pub type %s = %s;", lhsIdentifier, rhs)
-		// TODO: Create code block in the item Summary for the type alias string.
 		comments, err := c.getDocString(id)
 		if err != nil {
 			return err
 		}
-		parent.Summary = fmt.Sprintf("%s\n\n%s", typeAliasString, comments)
+		parent.Summary = fmt.Sprintf("```rust\n%s\n```\n\n%s", typeAliasString, comments)
 	}
 	return nil
 }
