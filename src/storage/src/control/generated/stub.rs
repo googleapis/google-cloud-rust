@@ -79,39 +79,6 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [crate::client::StorageControl::get_iam_policy].
-    fn get_iam_policy(
-        &self,
-        _req: iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [crate::client::StorageControl::set_iam_policy].
-    fn set_iam_policy(
-        &self,
-        _req: iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [crate::client::StorageControl::test_iam_permissions].
-    fn test_iam_permissions(
-        &self,
-        _req: iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [crate::client::StorageControl::update_bucket].
     fn update_bucket(
         &self,
@@ -458,6 +425,39 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [crate::client::StorageControl::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: iam_v1::model::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [crate::client::StorageControl::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: iam_v1::model::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [crate::client::StorageControl::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: iam_v1::model::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [crate::client::StorageControl::get_operation].
     fn get_operation(
         &self,
@@ -520,36 +520,6 @@ where
         Output = crate::Result<gax::response::Response<crate::model::Bucket>>,
     > + Send {
         T::lock_bucket_retention_policy(self, req, options)
-    }
-
-    fn get_iam_policy(
-        &self,
-        req: iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
-        T::get_iam_policy(self, req, options)
-    }
-
-    fn set_iam_policy(
-        &self,
-        req: iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
-    > + Send {
-        T::set_iam_policy(self, req, options)
-    }
-
-    fn test_iam_permissions(
-        &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-    > + Send {
-        T::test_iam_permissions(self, req, options)
     }
 
     fn update_bucket(
@@ -869,6 +839,36 @@ where
         Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
     > + Send {
         T::update_organization_intelligence_config(self, req, options)
+    }
+
+    fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        T::get_iam_policy(self, req, options)
+    }
+
+    fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        T::set_iam_policy(self, req, options)
+    }
+
+    fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        T::test_iam_permissions(self, req, options)
     }
 
     fn get_operation(

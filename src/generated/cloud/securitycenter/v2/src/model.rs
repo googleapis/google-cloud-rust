@@ -1305,6 +1305,10 @@ pub mod ai_model {
         VertexAi,
         /// Google Kubernetes Engine.
         Gke,
+        /// Google Compute Engine.
+        Gce,
+        /// Fine tuned model.
+        FineTunedModel,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [DeploymentPlatform::value] or
@@ -1330,6 +1334,8 @@ pub mod ai_model {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::VertexAi => std::option::Option::Some(1),
                 Self::Gke => std::option::Option::Some(2),
+                Self::Gce => std::option::Option::Some(3),
+                Self::FineTunedModel => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -1343,6 +1349,8 @@ pub mod ai_model {
                 Self::Unspecified => std::option::Option::Some("DEPLOYMENT_PLATFORM_UNSPECIFIED"),
                 Self::VertexAi => std::option::Option::Some("VERTEX_AI"),
                 Self::Gke => std::option::Option::Some("GKE"),
+                Self::Gce => std::option::Option::Some("GCE"),
+                Self::FineTunedModel => std::option::Option::Some("FINE_TUNED_MODEL"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1367,6 +1375,8 @@ pub mod ai_model {
                 0 => Self::Unspecified,
                 1 => Self::VertexAi,
                 2 => Self::Gke,
+                3 => Self::Gce,
+                4 => Self::FineTunedModel,
                 _ => Self::UnknownValue(deployment_platform::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1381,6 +1391,8 @@ pub mod ai_model {
                 "DEPLOYMENT_PLATFORM_UNSPECIFIED" => Self::Unspecified,
                 "VERTEX_AI" => Self::VertexAi,
                 "GKE" => Self::Gke,
+                "GCE" => Self::Gce,
+                "FINE_TUNED_MODEL" => Self::FineTunedModel,
                 _ => Self::UnknownValue(deployment_platform::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1397,6 +1409,8 @@ pub mod ai_model {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::VertexAi => serializer.serialize_i32(1),
                 Self::Gke => serializer.serialize_i32(2),
+                Self::Gce => serializer.serialize_i32(3),
+                Self::FineTunedModel => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

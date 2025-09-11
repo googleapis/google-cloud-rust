@@ -6243,6 +6243,15 @@ pub mod crypto_key {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.KeyManagementService.MacSign]: crate::client::KeyManagementService::mac_sign
         Mac,
+        /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
+        /// with
+        /// [GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey]
+        /// and [Decapsulate][google.cloud.kms.v1.KeyManagementService.Decapsulate].
+        ///
+        /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+        /// [google.cloud.kms.v1.KeyManagementService.Decapsulate]: crate::client::KeyManagementService::decapsulate
+        /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
+        KeyEncapsulation,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [CryptoKeyPurpose::value] or
@@ -6271,6 +6280,7 @@ pub mod crypto_key {
                 Self::AsymmetricDecrypt => std::option::Option::Some(6),
                 Self::RawEncryptDecrypt => std::option::Option::Some(7),
                 Self::Mac => std::option::Option::Some(9),
+                Self::KeyEncapsulation => std::option::Option::Some(10),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -6287,6 +6297,7 @@ pub mod crypto_key {
                 Self::AsymmetricDecrypt => std::option::Option::Some("ASYMMETRIC_DECRYPT"),
                 Self::RawEncryptDecrypt => std::option::Option::Some("RAW_ENCRYPT_DECRYPT"),
                 Self::Mac => std::option::Option::Some("MAC"),
+                Self::KeyEncapsulation => std::option::Option::Some("KEY_ENCAPSULATION"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -6314,6 +6325,7 @@ pub mod crypto_key {
                 6 => Self::AsymmetricDecrypt,
                 7 => Self::RawEncryptDecrypt,
                 9 => Self::Mac,
+                10 => Self::KeyEncapsulation,
                 _ => Self::UnknownValue(crypto_key_purpose::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -6331,6 +6343,7 @@ pub mod crypto_key {
                 "ASYMMETRIC_DECRYPT" => Self::AsymmetricDecrypt,
                 "RAW_ENCRYPT_DECRYPT" => Self::RawEncryptDecrypt,
                 "MAC" => Self::Mac,
+                "KEY_ENCAPSULATION" => Self::KeyEncapsulation,
                 _ => Self::UnknownValue(crypto_key_purpose::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -6350,6 +6363,7 @@ pub mod crypto_key {
                 Self::AsymmetricDecrypt => serializer.serialize_i32(6),
                 Self::RawEncryptDecrypt => serializer.serialize_i32(7),
                 Self::Mac => serializer.serialize_i32(9),
+                Self::KeyEncapsulation => serializer.serialize_i32(10),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -8100,6 +8114,13 @@ pub mod crypto_key_version {
         HmacSha224,
         /// Algorithm representing symmetric encryption by an external key manager.
         ExternalSymmetricEncryption,
+        /// ML-KEM-768 (FIPS 203)
+        MlKem768,
+        /// ML-KEM-1024 (FIPS 203)
+        MlKem1024,
+        /// X-Wing hybrid KEM combining ML-KEM-768 with X25519 following
+        /// datatracker.ietf.org/doc/draft-connolly-cfrg-xwing-kem/.
+        KemXwing,
         /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
         /// security level 3. Randomized version.
         PqSignMlDsa65,
@@ -8164,6 +8185,9 @@ pub mod crypto_key_version {
                 Self::HmacSha512 => std::option::Option::Some(35),
                 Self::HmacSha224 => std::option::Option::Some(36),
                 Self::ExternalSymmetricEncryption => std::option::Option::Some(18),
+                Self::MlKem768 => std::option::Option::Some(47),
+                Self::MlKem1024 => std::option::Option::Some(48),
+                Self::KemXwing => std::option::Option::Some(63),
                 Self::PqSignMlDsa65 => std::option::Option::Some(56),
                 Self::PqSignSlhDsaSha2128S => std::option::Option::Some(57),
                 Self::UnknownValue(u) => u.0.value(),
@@ -8242,6 +8266,9 @@ pub mod crypto_key_version {
                 Self::ExternalSymmetricEncryption => {
                     std::option::Option::Some("EXTERNAL_SYMMETRIC_ENCRYPTION")
                 }
+                Self::MlKem768 => std::option::Option::Some("ML_KEM_768"),
+                Self::MlKem1024 => std::option::Option::Some("ML_KEM_1024"),
+                Self::KemXwing => std::option::Option::Some("KEM_XWING"),
                 Self::PqSignMlDsa65 => std::option::Option::Some("PQ_SIGN_ML_DSA_65"),
                 Self::PqSignSlhDsaSha2128S => {
                     std::option::Option::Some("PQ_SIGN_SLH_DSA_SHA2_128S")
@@ -8303,8 +8330,11 @@ pub mod crypto_key_version {
                 43 => Self::Aes256Cbc,
                 44 => Self::Aes128Ctr,
                 45 => Self::Aes256Ctr,
+                47 => Self::MlKem768,
+                48 => Self::MlKem1024,
                 56 => Self::PqSignMlDsa65,
                 57 => Self::PqSignSlhDsaSha2128S,
+                63 => Self::KemXwing,
                 _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -8352,6 +8382,9 @@ pub mod crypto_key_version {
                 "HMAC_SHA512" => Self::HmacSha512,
                 "HMAC_SHA224" => Self::HmacSha224,
                 "EXTERNAL_SYMMETRIC_ENCRYPTION" => Self::ExternalSymmetricEncryption,
+                "ML_KEM_768" => Self::MlKem768,
+                "ML_KEM_1024" => Self::MlKem1024,
+                "KEM_XWING" => Self::KemXwing,
                 "PQ_SIGN_ML_DSA_65" => Self::PqSignMlDsa65,
                 "PQ_SIGN_SLH_DSA_SHA2_128S" => Self::PqSignSlhDsaSha2128S,
                 _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
@@ -8403,6 +8436,9 @@ pub mod crypto_key_version {
                 Self::HmacSha512 => serializer.serialize_i32(35),
                 Self::HmacSha224 => serializer.serialize_i32(36),
                 Self::ExternalSymmetricEncryption => serializer.serialize_i32(18),
+                Self::MlKem768 => serializer.serialize_i32(47),
+                Self::MlKem1024 => serializer.serialize_i32(48),
+                Self::KemXwing => serializer.serialize_i32(63),
                 Self::PqSignMlDsa65 => serializer.serialize_i32(56),
                 Self::PqSignSlhDsaSha2128S => serializer.serialize_i32(57),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
@@ -9500,10 +9536,16 @@ pub mod public_key {
         /// and [Textual Encoding of Subject Public Key Info]
         /// (<https://tools.ietf.org/html/rfc7468#section-13>) for more information.
         Pem,
+        /// The returned public key will be encoded in DER format (the
+        /// PrivateKeyInfo structure from RFC 5208).
+        Der,
         /// This is supported only for PQC algorithms.
         /// The key material is returned in the format defined by NIST PQC
         /// standards (FIPS 203, FIPS 204, and FIPS 205).
         NistPqc,
+        /// The returned public key is in raw bytes format defined in its standard
+        /// <https://datatracker.ietf.org/doc/draft-connolly-cfrg-xwing-kem>.
+        XwingRawBytes,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [PublicKeyFormat::value] or
@@ -9528,7 +9570,9 @@ pub mod public_key {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Pem => std::option::Option::Some(1),
+                Self::Der => std::option::Option::Some(2),
                 Self::NistPqc => std::option::Option::Some(3),
+                Self::XwingRawBytes => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -9541,7 +9585,9 @@ pub mod public_key {
             match self {
                 Self::Unspecified => std::option::Option::Some("PUBLIC_KEY_FORMAT_UNSPECIFIED"),
                 Self::Pem => std::option::Option::Some("PEM"),
+                Self::Der => std::option::Option::Some("DER"),
                 Self::NistPqc => std::option::Option::Some("NIST_PQC"),
+                Self::XwingRawBytes => std::option::Option::Some("XWING_RAW_BYTES"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -9565,7 +9611,9 @@ pub mod public_key {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Pem,
+                2 => Self::Der,
                 3 => Self::NistPqc,
+                4 => Self::XwingRawBytes,
                 _ => Self::UnknownValue(public_key_format::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -9579,7 +9627,9 @@ pub mod public_key {
             match value {
                 "PUBLIC_KEY_FORMAT_UNSPECIFIED" => Self::Unspecified,
                 "PEM" => Self::Pem,
+                "DER" => Self::Der,
                 "NIST_PQC" => Self::NistPqc,
+                "XWING_RAW_BYTES" => Self::XwingRawBytes,
                 _ => Self::UnknownValue(public_key_format::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -9595,7 +9645,9 @@ pub mod public_key {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Pem => serializer.serialize_i32(1),
+                Self::Der => serializer.serialize_i32(2),
                 Self::NistPqc => serializer.serialize_i32(3),
+                Self::XwingRawBytes => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -19639,6 +19691,281 @@ impl std::fmt::Debug for MacVerifyRequest {
 }
 
 /// Request message for
+/// [KeyManagementService.Decapsulate][google.cloud.kms.v1.KeyManagementService.Decapsulate].
+///
+/// [google.cloud.kms.v1.KeyManagementService.Decapsulate]: crate::client::KeyManagementService::decapsulate
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DecapsulateRequest {
+    /// Required. The resource name of the
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to use for
+    /// decapsulation.
+    ///
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    pub name: std::string::String,
+
+    /// Required. The ciphertext produced from encapsulation with the
+    /// named [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] public
+    /// key(s).
+    ///
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    pub ciphertext: ::bytes::Bytes,
+
+    /// Optional. A CRC32C checksum of the
+    /// [DecapsulateRequest.ciphertext][google.cloud.kms.v1.DecapsulateRequest.ciphertext].
+    /// If specified,
+    /// [KeyManagementService][google.cloud.kms.v1.KeyManagementService] will
+    /// verify the integrity of the received
+    /// [DecapsulateRequest.ciphertext][google.cloud.kms.v1.DecapsulateRequest.ciphertext]
+    /// using this checksum.
+    /// [KeyManagementService][google.cloud.kms.v1.KeyManagementService] will
+    /// report an error if the checksum verification fails. If you receive a
+    /// checksum error, your client should verify that
+    /// CRC32C([DecapsulateRequest.ciphertext][google.cloud.kms.v1.DecapsulateRequest.ciphertext])
+    /// is equal to
+    /// [DecapsulateRequest.ciphertext_crc32c][google.cloud.kms.v1.DecapsulateRequest.ciphertext_crc32c],
+    /// and if so, perform a limited number of retries. A persistent mismatch may
+    /// indicate an issue in your computation of the CRC32C checksum. Note: This
+    /// field is defined as int64 for reasons of compatibility across different
+    /// languages. However, it is a non-negative integer, which will never exceed
+    /// 2^32-1, and can be safely downconverted to uint32 in languages that support
+    /// this type.
+    ///
+    /// [google.cloud.kms.v1.DecapsulateRequest.ciphertext]: crate::model::DecapsulateRequest::ciphertext
+    /// [google.cloud.kms.v1.DecapsulateRequest.ciphertext_crc32c]: crate::model::DecapsulateRequest::ciphertext_crc32c
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
+    pub ciphertext_crc32c: std::option::Option<wkt::Int64Value>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DecapsulateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DecapsulateRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [ciphertext][crate::model::DecapsulateRequest::ciphertext].
+    pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.ciphertext = v.into();
+        self
+    }
+
+    /// Sets the value of [ciphertext_crc32c][crate::model::DecapsulateRequest::ciphertext_crc32c].
+    pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ciphertext_crc32c][crate::model::DecapsulateRequest::ciphertext_crc32c].
+    pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.ciphertext_crc32c = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DecapsulateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.DecapsulateRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DecapsulateRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __ciphertext,
+            __ciphertext_crc32c,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DecapsulateRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "ciphertext" => Ok(__FieldTag::__ciphertext),
+                            "ciphertextCrc32c" => Ok(__FieldTag::__ciphertext_crc32c),
+                            "ciphertext_crc32c" => Ok(__FieldTag::__ciphertext_crc32c),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DecapsulateRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DecapsulateRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ciphertext => {
+                            if !fields.insert(__FieldTag::__ciphertext) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ciphertext",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.ciphertext = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__ciphertext_crc32c => {
+                            if !fields.insert(__FieldTag::__ciphertext_crc32c) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ciphertext_crc32c",
+                                ));
+                            }
+                            struct __With(std::option::Option<wkt::Int64Value>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.ciphertext_crc32c = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DecapsulateRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.ciphertext.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("ciphertext", &__With(&self.ciphertext))?;
+        }
+        if self.ciphertext_crc32c.is_some() {
+            struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("ciphertextCrc32c", &__With(&self.ciphertext_crc32c))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DecapsulateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DecapsulateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ciphertext", &self.ciphertext);
+        debug_struct.field("ciphertext_crc32c", &self.ciphertext_crc32c);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Request message for
 /// [KeyManagementService.GenerateRandomBytes][google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes]: crate::client::KeyManagementService::generate_random_bytes
@@ -22996,6 +23323,363 @@ impl std::fmt::Debug for MacVerifyResponse {
         debug_struct.field(
             "verified_success_integrity",
             &self.verified_success_integrity,
+        );
+        debug_struct.field("protection_level", &self.protection_level);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Response message for
+/// [KeyManagementService.Decapsulate][google.cloud.kms.v1.KeyManagementService.Decapsulate].
+///
+/// [google.cloud.kms.v1.KeyManagementService.Decapsulate]: crate::client::KeyManagementService::decapsulate
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DecapsulateResponse {
+    /// The resource name of the
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] used for
+    /// decapsulation. Check this field to verify that the intended resource was
+    /// used for decapsulation.
+    ///
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    pub name: std::string::String,
+
+    /// The decapsulated shared_secret originally encapsulated with the matching
+    /// public key.
+    pub shared_secret: ::bytes::Bytes,
+
+    /// Integrity verification field. A CRC32C checksum of the returned
+    /// [DecapsulateResponse.shared_secret][google.cloud.kms.v1.DecapsulateResponse.shared_secret].
+    /// An integrity check of
+    /// [DecapsulateResponse.shared_secret][google.cloud.kms.v1.DecapsulateResponse.shared_secret]
+    /// can be performed by computing the CRC32C checksum of
+    /// [DecapsulateResponse.shared_secret][google.cloud.kms.v1.DecapsulateResponse.shared_secret]
+    /// and comparing your results to this field. Discard the response in case of
+    /// non-matching checksum values, and perform a limited number of retries. A
+    /// persistent mismatch may indicate an issue in your computation of the CRC32C
+    /// checksum. Note: receiving this response message indicates that
+    /// [KeyManagementService][google.cloud.kms.v1.KeyManagementService] is able to
+    /// successfully decrypt the
+    /// [ciphertext][google.cloud.kms.v1.DecapsulateRequest.ciphertext]. Note: This
+    /// field is defined as int64 for reasons of compatibility across different
+    /// languages. However, it is a non-negative integer, which will never exceed
+    /// 2^32-1, and can be safely downconverted to uint32 in languages that support
+    /// this type.
+    ///
+    /// [google.cloud.kms.v1.DecapsulateRequest.ciphertext]: crate::model::DecapsulateRequest::ciphertext
+    /// [google.cloud.kms.v1.DecapsulateResponse.shared_secret]: crate::model::DecapsulateResponse::shared_secret
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
+    pub shared_secret_crc32c: std::option::Option<i64>,
+
+    /// Integrity verification field. A flag indicating whether
+    /// [DecapsulateRequest.ciphertext_crc32c][google.cloud.kms.v1.DecapsulateRequest.ciphertext_crc32c]
+    /// was received by
+    /// [KeyManagementService][google.cloud.kms.v1.KeyManagementService] and used
+    /// for the integrity verification of the
+    /// [ciphertext][google.cloud.kms.v1.DecapsulateRequest.ciphertext]. A false
+    /// value of this field indicates either that
+    /// [DecapsulateRequest.ciphertext_crc32c][google.cloud.kms.v1.DecapsulateRequest.ciphertext_crc32c]
+    /// was left unset or that it was not delivered to
+    /// [KeyManagementService][google.cloud.kms.v1.KeyManagementService]. If you've
+    /// set
+    /// [DecapsulateRequest.ciphertext_crc32c][google.cloud.kms.v1.DecapsulateRequest.ciphertext_crc32c]
+    /// but this field is still false, discard the response and perform a limited
+    /// number of retries.
+    ///
+    /// [google.cloud.kms.v1.DecapsulateRequest.ciphertext]: crate::model::DecapsulateRequest::ciphertext
+    /// [google.cloud.kms.v1.DecapsulateRequest.ciphertext_crc32c]: crate::model::DecapsulateRequest::ciphertext_crc32c
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
+    pub verified_ciphertext_crc32c: bool,
+
+    /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] used in
+    /// decapsulation.
+    ///
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    pub protection_level: crate::model::ProtectionLevel,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DecapsulateResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DecapsulateResponse::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [shared_secret][crate::model::DecapsulateResponse::shared_secret].
+    pub fn set_shared_secret<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.shared_secret = v.into();
+        self
+    }
+
+    /// Sets the value of [shared_secret_crc32c][crate::model::DecapsulateResponse::shared_secret_crc32c].
+    pub fn set_shared_secret_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.shared_secret_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [shared_secret_crc32c][crate::model::DecapsulateResponse::shared_secret_crc32c].
+    pub fn set_or_clear_shared_secret_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.shared_secret_crc32c = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [verified_ciphertext_crc32c][crate::model::DecapsulateResponse::verified_ciphertext_crc32c].
+    pub fn set_verified_ciphertext_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.verified_ciphertext_crc32c = v.into();
+        self
+    }
+
+    /// Sets the value of [protection_level][crate::model::DecapsulateResponse::protection_level].
+    pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.protection_level = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DecapsulateResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.DecapsulateResponse"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DecapsulateResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __shared_secret,
+            __shared_secret_crc32c,
+            __verified_ciphertext_crc32c,
+            __protection_level,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DecapsulateResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "sharedSecret" => Ok(__FieldTag::__shared_secret),
+                            "shared_secret" => Ok(__FieldTag::__shared_secret),
+                            "sharedSecretCrc32c" => Ok(__FieldTag::__shared_secret_crc32c),
+                            "shared_secret_crc32c" => Ok(__FieldTag::__shared_secret_crc32c),
+                            "verifiedCiphertextCrc32c" => {
+                                Ok(__FieldTag::__verified_ciphertext_crc32c)
+                            }
+                            "verified_ciphertext_crc32c" => {
+                                Ok(__FieldTag::__verified_ciphertext_crc32c)
+                            }
+                            "protectionLevel" => Ok(__FieldTag::__protection_level),
+                            "protection_level" => Ok(__FieldTag::__protection_level),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DecapsulateResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DecapsulateResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__shared_secret => {
+                            if !fields.insert(__FieldTag::__shared_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shared_secret",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.shared_secret =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__shared_secret_crc32c => {
+                            if !fields.insert(__FieldTag::__shared_secret_crc32c) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shared_secret_crc32c",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.shared_secret_crc32c = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__verified_ciphertext_crc32c => {
+                            if !fields.insert(__FieldTag::__verified_ciphertext_crc32c) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for verified_ciphertext_crc32c",
+                                ));
+                            }
+                            result.verified_ciphertext_crc32c = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__protection_level => {
+                            if !fields.insert(__FieldTag::__protection_level) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for protection_level",
+                                ));
+                            }
+                            result.protection_level = map
+                                .next_value::<std::option::Option<crate::model::ProtectionLevel>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DecapsulateResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.shared_secret.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("sharedSecret", &__With(&self.shared_secret))?;
+        }
+        if self.shared_secret_crc32c.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("sharedSecretCrc32c", &__With(&self.shared_secret_crc32c))?;
+        }
+        if !wkt::internal::is_default(&self.verified_ciphertext_crc32c) {
+            state.serialize_entry("verifiedCiphertextCrc32c", &self.verified_ciphertext_crc32c)?;
+        }
+        if !wkt::internal::is_default(&self.protection_level) {
+            state.serialize_entry("protectionLevel", &self.protection_level)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DecapsulateResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DecapsulateResponse");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("shared_secret", &self.shared_secret);
+        debug_struct.field("shared_secret_crc32c", &self.shared_secret_crc32c);
+        debug_struct.field(
+            "verified_ciphertext_crc32c",
+            &self.verified_ciphertext_crc32c,
         );
         debug_struct.field("protection_level", &self.protection_level);
         if !self._unknown_fields.is_empty() {

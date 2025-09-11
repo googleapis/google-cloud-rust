@@ -31,6 +31,7 @@
 //!
 //! # Available Clients
 //!
+//! * [BusinessGlossaryService](client/struct.BusinessGlossaryService.html)
 //! * [CatalogService](client/struct.CatalogService.html)
 //! * [CmekService](client/struct.CmekService.html)
 //! * [ContentService](client/struct.ContentService.html)

@@ -693,6 +693,12 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::MacVerifyResponse>>;
 
+    async fn decapsulate(
+        &self,
+        req: crate::model::DecapsulateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DecapsulateResponse>>;
+
     async fn generate_random_bytes(
         &self,
         req: crate::model::GenerateRandomBytesRequest,
@@ -980,6 +986,15 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::MacVerifyResponse>> {
         T::mac_verify(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn decapsulate(
+        &self,
+        req: crate::model::DecapsulateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DecapsulateResponse>> {
+        T::decapsulate(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

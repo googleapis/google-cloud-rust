@@ -33,6 +33,9 @@
 //!
 //! * [ApiHub](client/struct.ApiHub.html)
 //! * [ApiHubDependencies](client/struct.ApiHubDependencies.html)
+//! * [ApiHubCollect](client/struct.ApiHubCollect.html)
+//! * [ApiHubCurate](client/struct.ApiHubCurate.html)
+//! * [ApiHubDiscovery](client/struct.ApiHubDiscovery.html)
 //! * [HostProjectRegistrationService](client/struct.HostProjectRegistrationService.html)
 //! * [LintingService](client/struct.LintingService.html)
 //! * [ApiHubPlugin](client/struct.ApiHubPlugin.html)

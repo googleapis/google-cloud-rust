@@ -11502,6 +11502,23 @@ pub mod search_service {
             self.0.request.relevance_score_spec = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [ranking_expression][crate::model::SearchRequest::ranking_expression].
+        pub fn set_ranking_expression<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.ranking_expression = v.into();
+            self
+        }
+
+        /// Sets the value of [ranking_expression_backend][crate::model::SearchRequest::ranking_expression_backend].
+        pub fn set_ranking_expression_backend<
+            T: Into<crate::model::search_request::RankingExpressionBackend>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.ranking_expression_backend = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -11904,6 +11921,23 @@ pub mod search_service {
             T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
         {
             self.0.request.relevance_score_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [ranking_expression][crate::model::SearchRequest::ranking_expression].
+        pub fn set_ranking_expression<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.ranking_expression = v.into();
+            self
+        }
+
+        /// Sets the value of [ranking_expression_backend][crate::model::SearchRequest::ranking_expression_backend].
+        pub fn set_ranking_expression_backend<
+            T: Into<crate::model::search_request::RankingExpressionBackend>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.ranking_expression_backend = v.into();
             self
         }
     }
