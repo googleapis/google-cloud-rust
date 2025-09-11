@@ -13,6 +13,7 @@
 // limitations under the License.
 
 // [START storage_copy_file]
+use google_cloud_storage::builder_ext::RewriteObjectExt;
 use google_cloud_storage::client::StorageControl;
 
 pub async fn sample(
@@ -22,23 +23,14 @@ pub async fn sample(
 ) -> anyhow::Result<()> {
     const SOURCE_NAME: &str = "object-to-copy";
     const DEST_NAME: &str = "copied-object";
-    let mut builder = client
+    let copied = client
         .rewrite_object()
         .set_source_bucket(format!("projects/_/buckets/{source_bucket_id}"))
         .set_source_object(SOURCE_NAME)
         .set_destination_bucket(format!("projects/_/buckets/{dest_bucket_id}"))
-        .set_destination_name(DEST_NAME);
-
-    // For more details on this loop, see the "Rewriting objects" section of the
-    // user guide:
-    // https://googleapis.github.io/google-cloud-rust/storage/rewrite_object.html
-    let copied = loop {
-        let resp = builder.clone().send().await?;
-        if resp.done {
-            break resp.resource;
-        }
-        builder = builder.set_rewrite_token(resp.rewrite_token);
-    };
+        .set_destination_name(DEST_NAME)
+        .rewrite_until_done()
+        .await?;
     println!(
         "successfully copied {source_bucket_id}/{SOURCE_NAME} to {dest_bucket_id}/{DEST_NAME}: {copied:?}"
     );

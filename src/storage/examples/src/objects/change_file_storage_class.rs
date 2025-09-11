@@ -13,12 +13,13 @@
 // limitations under the License.
 
 // [START storage_change_file_storage_class]
+use google_cloud_storage::builder_ext::RewriteObjectExt;
 use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::Object;
 
 pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<()> {
     const NAME: &str = "update-storage-class";
-    let mut builder = client
+    let updated = client
         .rewrite_object()
         .set_source_bucket(format!("projects/_/buckets/{bucket_id}"))
         .set_source_object(NAME)
@@ -26,18 +27,9 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
         .set_destination_name(NAME)
         // For other valid storage classes, refer to the documentation:
         // https://cloud.google.com/storage/docs/storage-classes
-        .set_destination(Object::new().set_storage_class("NEARLINE"));
-
-    // For more details on this loop, see the "Rewriting objects" section of the
-    // user guide:
-    // https://googleapis.github.io/google-cloud-rust/storage/rewrite_object.html
-    let updated = loop {
-        let resp = builder.clone().send().await?;
-        if resp.done {
-            break resp.resource;
-        }
-        builder = builder.set_rewrite_token(resp.rewrite_token);
-    };
+        .set_destination(Object::new().set_storage_class("NEARLINE"))
+        .rewrite_until_done()
+        .await?;
     println!(
         "successfully updated storage class for object {NAME} in bucket {bucket_id}: {updated:?}"
     );
