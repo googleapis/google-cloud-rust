@@ -83,7 +83,7 @@ func TestRenderReferenceFunction(t *testing.T) {
 	idx = slices.Index(lines, "  summary: |")
 	want := []string{
 		"    ```rust",
-		"     fn builder() -> super::builder::public_certificate_authority_service::ClientBuilder",
+		"    fn builder() -> super::builder::public_certificate_authority_service::ClientBuilder",
 		"    ```",
 		"    ",
 		"    Returns a builder for [PublicCertificateAuthorityService].",

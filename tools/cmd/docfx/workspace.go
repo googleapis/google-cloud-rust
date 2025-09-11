@@ -300,7 +300,7 @@ func (f *function) toString(name string) (string, error) {
 		return "", fmt.Errorf("error, IsUnsafe == true")
 	}
 	if f.Header.IsAsync {
-		keywords = "async"
+		keywords = "async "
 	}
 	if f.Sig.IsCVariadic {
 		// We do not yet handle c variadic functions.
@@ -460,7 +460,7 @@ func (f *function) toString(name string) (string, error) {
 		}
 		returnString = fmt.Sprintf(" -> %s", output)
 	}
-	signature := fmt.Sprintf("%s fn %s%s%s%s%s", keywords, name, genericsString, argString, returnString, whereString)
+	signature := fmt.Sprintf("%sfn %s%s%s%s%s", keywords, name, genericsString, argString, returnString, whereString)
 	return signature, nil
 }
 
