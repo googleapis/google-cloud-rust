@@ -205,6 +205,17 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ApiHub::create_api_operation].
+    fn create_api_operation(
+        &self,
+        _req: crate::model::CreateApiOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ApiOperation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ApiHub::get_api_operation].
     fn get_api_operation(
         &self,
@@ -224,6 +235,26 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListApiOperationsResponse>>,
     > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHub::update_api_operation].
+    fn update_api_operation(
+        &self,
+        _req: crate::model::UpdateApiOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ApiOperation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHub::delete_api_operation].
+    fn delete_api_operation(
+        &self,
+        _req: crate::model::DeleteApiOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -599,6 +630,365 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::ApiHubCollect].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::ApiHubCollect`.  In other use-cases, application developers only
+/// use `client::ApiHubCollect` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait ApiHubCollect: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ApiHubCollect::collect_api_data].
+    fn collect_api_data(
+        &self,
+        _req: crate::model::CollectApiDataRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCollect::list_locations].
+    fn list_locations(
+        &self,
+        _req: location::model::ListLocationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCollect::get_location].
+    fn get_location(
+        &self,
+        _req: location::model::GetLocationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCollect::list_operations].
+    fn list_operations(
+        &self,
+        _req: longrunning::model::ListOperationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCollect::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCollect::delete_operation].
+    fn delete_operation(
+        &self,
+        _req: longrunning::model::DeleteOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCollect::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: longrunning::model::CancelOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
+/// Defines the trait used to implement [super::client::ApiHubCurate].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::ApiHubCurate`.  In other use-cases, application developers only
+/// use `client::ApiHubCurate` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait ApiHubCurate: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ApiHubCurate::create_curation].
+    fn create_curation(
+        &self,
+        _req: crate::model::CreateCurationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Curation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCurate::get_curation].
+    fn get_curation(
+        &self,
+        _req: crate::model::GetCurationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Curation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCurate::list_curations].
+    fn list_curations(
+        &self,
+        _req: crate::model::ListCurationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListCurationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCurate::update_curation].
+    fn update_curation(
+        &self,
+        _req: crate::model::UpdateCurationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Curation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCurate::delete_curation].
+    fn delete_curation(
+        &self,
+        _req: crate::model::DeleteCurationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCurate::list_locations].
+    fn list_locations(
+        &self,
+        _req: location::model::ListLocationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCurate::get_location].
+    fn get_location(
+        &self,
+        _req: location::model::GetLocationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCurate::list_operations].
+    fn list_operations(
+        &self,
+        _req: longrunning::model::ListOperationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCurate::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCurate::delete_operation].
+    fn delete_operation(
+        &self,
+        _req: longrunning::model::DeleteOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubCurate::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: longrunning::model::CancelOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::ApiHubDiscovery].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::ApiHubDiscovery`.  In other use-cases, application developers only
+/// use `client::ApiHubDiscovery` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait ApiHubDiscovery: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ApiHubDiscovery::list_discovered_api_observations].
+    fn list_discovered_api_observations(
+        &self,
+        _req: crate::model::ListDiscoveredApiObservationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListDiscoveredApiObservationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubDiscovery::get_discovered_api_observation].
+    fn get_discovered_api_observation(
+        &self,
+        _req: crate::model::GetDiscoveredApiObservationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DiscoveredApiObservation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubDiscovery::list_discovered_api_operations].
+    fn list_discovered_api_operations(
+        &self,
+        _req: crate::model::ListDiscoveredApiOperationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListDiscoveredApiOperationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubDiscovery::get_discovered_api_operation].
+    fn get_discovered_api_operation(
+        &self,
+        _req: crate::model::GetDiscoveredApiOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DiscoveredApiOperation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubDiscovery::list_locations].
+    fn list_locations(
+        &self,
+        _req: location::model::ListLocationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubDiscovery::get_location].
+    fn get_location(
+        &self,
+        _req: location::model::GetLocationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubDiscovery::list_operations].
+    fn list_operations(
+        &self,
+        _req: longrunning::model::ListOperationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubDiscovery::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubDiscovery::delete_operation].
+    fn delete_operation(
+        &self,
+        _req: longrunning::model::DeleteOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubDiscovery::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: longrunning::model::CancelOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::HostProjectRegistrationService].
 ///
 /// Application developers may need to implement this trait to mock
@@ -871,6 +1261,127 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ApiHubPlugin::create_plugin].
+    fn create_plugin(
+        &self,
+        _req: crate::model::CreatePluginRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Plugin>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubPlugin::list_plugins].
+    fn list_plugins(
+        &self,
+        _req: crate::model::ListPluginsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListPluginsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubPlugin::delete_plugin].
+    fn delete_plugin(
+        &self,
+        _req: crate::model::DeletePluginRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubPlugin::create_plugin_instance].
+    fn create_plugin_instance(
+        &self,
+        _req: crate::model::CreatePluginInstanceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubPlugin::execute_plugin_instance_action].
+    fn execute_plugin_instance_action(
+        &self,
+        _req: crate::model::ExecutePluginInstanceActionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubPlugin::get_plugin_instance].
+    fn get_plugin_instance(
+        &self,
+        _req: crate::model::GetPluginInstanceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PluginInstance>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubPlugin::list_plugin_instances].
+    fn list_plugin_instances(
+        &self,
+        _req: crate::model::ListPluginInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListPluginInstancesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubPlugin::enable_plugin_instance_action].
+    fn enable_plugin_instance_action(
+        &self,
+        _req: crate::model::EnablePluginInstanceActionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubPlugin::disable_plugin_instance_action].
+    fn disable_plugin_instance_action(
+        &self,
+        _req: crate::model::DisablePluginInstanceActionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubPlugin::update_plugin_instance].
+    fn update_plugin_instance(
+        &self,
+        _req: crate::model::UpdatePluginInstanceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PluginInstance>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ApiHubPlugin::delete_plugin_instance].
+    fn delete_plugin_instance(
+        &self,
+        _req: crate::model::DeletePluginInstanceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ApiHubPlugin::list_locations].
     fn list_locations(
         &self,
@@ -932,6 +1443,28 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
 /// Defines the trait used to implement [super::client::Provisioning].
@@ -950,6 +1483,17 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
     fn create_api_hub_instance(
         &self,
         _req: crate::model::CreateApiHubInstanceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Provisioning::delete_api_hub_instance].
+    fn delete_api_hub_instance(
+        &self,
+        _req: crate::model::DeleteApiHubInstanceRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,

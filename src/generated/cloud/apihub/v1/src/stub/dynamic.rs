@@ -113,6 +113,12 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
 
+    async fn create_api_operation(
+        &self,
+        req: crate::model::CreateApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ApiOperation>>;
+
     async fn get_api_operation(
         &self,
         req: crate::model::GetApiOperationRequest,
@@ -124,6 +130,18 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         req: crate::model::ListApiOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListApiOperationsResponse>>;
+
+    async fn update_api_operation(
+        &self,
+        req: crate::model::UpdateApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ApiOperation>>;
+
+    async fn delete_api_operation(
+        &self,
+        req: crate::model::DeleteApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_definition(
         &self,
@@ -412,6 +430,15 @@ impl<T: super::ApiHub> ApiHub for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn create_api_operation(
+        &self,
+        req: crate::model::CreateApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ApiOperation>> {
+        T::create_api_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn get_api_operation(
         &self,
         req: crate::model::GetApiOperationRequest,
@@ -427,6 +454,24 @@ impl<T: super::ApiHub> ApiHub for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListApiOperationsResponse>> {
         T::list_api_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_api_operation(
+        &self,
+        req: crate::model::UpdateApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ApiOperation>> {
+        T::update_api_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_api_operation(
+        &self,
+        req: crate::model::DeleteApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_api_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -810,6 +855,476 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::ApiHubCollect].
+#[async_trait::async_trait]
+pub trait ApiHubCollect: std::fmt::Debug + Send + Sync {
+    async fn collect_api_data(
+        &self,
+        req: crate::model::CollectApiDataRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::ApiHubCollect] also implement [ApiHubCollect].
+#[async_trait::async_trait]
+impl<T: super::ApiHubCollect> ApiHubCollect for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn collect_api_data(
+        &self,
+        req: crate::model::CollectApiDataRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::collect_api_data(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+        T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::cancel_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::ApiHubCurate].
+#[async_trait::async_trait]
+pub trait ApiHubCurate: std::fmt::Debug + Send + Sync {
+    async fn create_curation(
+        &self,
+        req: crate::model::CreateCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Curation>>;
+
+    async fn get_curation(
+        &self,
+        req: crate::model::GetCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Curation>>;
+
+    async fn list_curations(
+        &self,
+        req: crate::model::ListCurationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListCurationsResponse>>;
+
+    async fn update_curation(
+        &self,
+        req: crate::model::UpdateCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Curation>>;
+
+    async fn delete_curation(
+        &self,
+        req: crate::model::DeleteCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+}
+
+/// All implementations of [super::ApiHubCurate] also implement [ApiHubCurate].
+#[async_trait::async_trait]
+impl<T: super::ApiHubCurate> ApiHubCurate for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_curation(
+        &self,
+        req: crate::model::CreateCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Curation>> {
+        T::create_curation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_curation(
+        &self,
+        req: crate::model::GetCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Curation>> {
+        T::get_curation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_curations(
+        &self,
+        req: crate::model::ListCurationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListCurationsResponse>> {
+        T::list_curations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_curation(
+        &self,
+        req: crate::model::UpdateCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Curation>> {
+        T::update_curation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_curation(
+        &self,
+        req: crate::model::DeleteCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_curation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+        T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::cancel_operation(self, req, options).await
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::ApiHubDiscovery].
+#[async_trait::async_trait]
+pub trait ApiHubDiscovery: std::fmt::Debug + Send + Sync {
+    async fn list_discovered_api_observations(
+        &self,
+        req: crate::model::ListDiscoveredApiObservationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiObservationsResponse>>;
+
+    async fn get_discovered_api_observation(
+        &self,
+        req: crate::model::GetDiscoveredApiObservationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredApiObservation>>;
+
+    async fn list_discovered_api_operations(
+        &self,
+        req: crate::model::ListDiscoveredApiOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiOperationsResponse>>;
+
+    async fn get_discovered_api_operation(
+        &self,
+        req: crate::model::GetDiscoveredApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredApiOperation>>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+}
+
+/// All implementations of [super::ApiHubDiscovery] also implement [ApiHubDiscovery].
+#[async_trait::async_trait]
+impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_discovered_api_observations(
+        &self,
+        req: crate::model::ListDiscoveredApiObservationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiObservationsResponse>>
+    {
+        T::list_discovered_api_observations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_discovered_api_observation(
+        &self,
+        req: crate::model::GetDiscoveredApiObservationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredApiObservation>> {
+        T::get_discovered_api_observation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_discovered_api_operations(
+        &self,
+        req: crate::model::ListDiscoveredApiOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiOperationsResponse>>
+    {
+        T::list_discovered_api_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_discovered_api_operation(
+        &self,
+        req: crate::model::GetDiscoveredApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredApiOperation>> {
+        T::get_discovered_api_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+        T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::cancel_operation(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::HostProjectRegistrationService].
 #[async_trait::async_trait]
 pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
@@ -1133,6 +1648,72 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Plugin>>;
 
+    async fn create_plugin(
+        &self,
+        req: crate::model::CreatePluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Plugin>>;
+
+    async fn list_plugins(
+        &self,
+        req: crate::model::ListPluginsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPluginsResponse>>;
+
+    async fn delete_plugin(
+        &self,
+        req: crate::model::DeletePluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn create_plugin_instance(
+        &self,
+        req: crate::model::CreatePluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn execute_plugin_instance_action(
+        &self,
+        req: crate::model::ExecutePluginInstanceActionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn get_plugin_instance(
+        &self,
+        req: crate::model::GetPluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PluginInstance>>;
+
+    async fn list_plugin_instances(
+        &self,
+        req: crate::model::ListPluginInstancesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPluginInstancesResponse>>;
+
+    async fn enable_plugin_instance_action(
+        &self,
+        req: crate::model::EnablePluginInstanceActionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn disable_plugin_instance_action(
+        &self,
+        req: crate::model::DisablePluginInstanceActionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_plugin_instance(
+        &self,
+        req: crate::model::UpdatePluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PluginInstance>>;
+
+    async fn delete_plugin_instance(
+        &self,
+        req: crate::model::DeletePluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -1168,6 +1749,16 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ApiHubPlugin] also implement [ApiHubPlugin].
@@ -1198,6 +1789,105 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Plugin>> {
         T::disable_plugin(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_plugin(
+        &self,
+        req: crate::model::CreatePluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Plugin>> {
+        T::create_plugin(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_plugins(
+        &self,
+        req: crate::model::ListPluginsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPluginsResponse>> {
+        T::list_plugins(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_plugin(
+        &self,
+        req: crate::model::DeletePluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_plugin(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_plugin_instance(
+        &self,
+        req: crate::model::CreatePluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_plugin_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn execute_plugin_instance_action(
+        &self,
+        req: crate::model::ExecutePluginInstanceActionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::execute_plugin_instance_action(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_plugin_instance(
+        &self,
+        req: crate::model::GetPluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PluginInstance>> {
+        T::get_plugin_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_plugin_instances(
+        &self,
+        req: crate::model::ListPluginInstancesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPluginInstancesResponse>> {
+        T::list_plugin_instances(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn enable_plugin_instance_action(
+        &self,
+        req: crate::model::EnablePluginInstanceActionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::enable_plugin_instance_action(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn disable_plugin_instance_action(
+        &self,
+        req: crate::model::DisablePluginInstanceActionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::disable_plugin_instance_action(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_plugin_instance(
+        &self,
+        req: crate::model::UpdatePluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PluginInstance>> {
+        T::update_plugin_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_plugin_instance(
+        &self,
+        req: crate::model::DeletePluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_plugin_instance(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1253,6 +1943,20 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::Provisioning].
@@ -1261,6 +1965,12 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
     async fn create_api_hub_instance(
         &self,
         req: crate::model::CreateApiHubInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_api_hub_instance(
+        &self,
+        req: crate::model::DeleteApiHubInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
@@ -1333,6 +2043,15 @@ impl<T: super::Provisioning> Provisioning for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_api_hub_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_api_hub_instance(
+        &self,
+        req: crate::model::DeleteApiHubInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_api_hub_instance(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -1091,6 +1091,19 @@ impl KeyManagementService {
         super::builder::key_management_service::MacVerify::new(self.inner.clone())
     }
 
+    /// Decapsulates data that was encapsulated with a public key retrieved from
+    /// [GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey]
+    /// corresponding to a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]
+    /// with [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose]
+    /// KEY_ENCAPSULATION.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
+    pub fn decapsulate(&self) -> super::builder::key_management_service::Decapsulate {
+        super::builder::key_management_service::Decapsulate::new(self.inner.clone())
+    }
+
     /// Generate random bytes using the Cloud KMS randomness source in the provided
     /// location.
     pub fn generate_random_bytes(

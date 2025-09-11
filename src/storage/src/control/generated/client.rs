@@ -56,35 +56,6 @@ impl StorageControl {
         self.storage.lock_bucket_retention_policy()
     }
 
-    /// Gets the IAM policy for a specified bucket.
-    /// The `resource` field in the request should be
-    /// `projects/_/buckets/{bucket}` for a bucket, or
-    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-    /// for a managed folder.
-    pub fn get_iam_policy(&self) -> crate::builder::storage_control::GetIamPolicy {
-        self.storage.get_iam_policy()
-    }
-
-    /// Updates an IAM policy for the specified bucket.
-    /// The `resource` field in the request should be
-    /// `projects/_/buckets/{bucket}` for a bucket, or
-    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-    /// for a managed folder.
-    pub fn set_iam_policy(&self) -> crate::builder::storage_control::SetIamPolicy {
-        self.storage.set_iam_policy()
-    }
-
-    /// Tests a set of permissions on the given bucket, object, or managed folder
-    /// to see which, if any, are held by the caller.
-    /// The `resource` field in the request should be
-    /// `projects/_/buckets/{bucket}` for a bucket,
-    /// `projects/_/buckets/{bucket}/objects/{object}` for an object, or
-    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-    /// for a managed folder.
-    pub fn test_iam_permissions(&self) -> crate::builder::storage_control::TestIamPermissions {
-        self.storage.test_iam_permissions()
-    }
-
     /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
     pub fn update_bucket(&self) -> crate::builder::storage_control::UpdateBucket {
         self.storage.update_bucket()
@@ -334,6 +305,35 @@ impl StorageControl {
         &self,
     ) -> crate::builder::storage_control::UpdateOrganizationIntelligenceConfig {
         self.control.update_organization_intelligence_config()
+    }
+
+    /// Gets the IAM policy for a specified bucket.
+    /// The `resource` field in the request should be
+    /// `projects/_/buckets/{bucket}` for a bucket, or
+    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
+    /// for a managed folder.
+    pub fn get_iam_policy(&self) -> crate::builder::storage_control::GetIamPolicy {
+        self.control.get_iam_policy()
+    }
+
+    /// Updates an IAM policy for the specified bucket.
+    /// The `resource` field in the request should be
+    /// `projects/_/buckets/{bucket}` for a bucket, or
+    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
+    /// for a managed folder.
+    pub fn set_iam_policy(&self) -> crate::builder::storage_control::SetIamPolicy {
+        self.control.set_iam_policy()
+    }
+
+    /// Tests a set of permissions on the given bucket, object, or managed folder
+    /// to see which, if any, are held by the caller.
+    /// The `resource` field in the request should be
+    /// `projects/_/buckets/{bucket}` for a bucket,
+    /// `projects/_/buckets/{bucket}/objects/{object}` for an object, or
+    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
+    /// for a managed folder.
+    pub fn test_iam_permissions(&self) -> crate::builder::storage_control::TestIamPermissions {
+        self.control.test_iam_permissions()
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

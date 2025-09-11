@@ -155,6 +155,24 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>;
 
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
@@ -380,6 +398,33 @@ impl<T: super::StorageControl> StorageControl for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>> {
         T::update_organization_intelligence_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

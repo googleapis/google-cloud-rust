@@ -26,6 +26,299 @@
 
 pub(crate) mod dynamic;
 
+/// Defines the trait used to implement [super::client::BusinessGlossaryService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::BusinessGlossaryService`.  In other use-cases, application developers only
+/// use `client::BusinessGlossaryService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait BusinessGlossaryService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::BusinessGlossaryService::create_glossary].
+    fn create_glossary(
+        &self,
+        _req: crate::model::CreateGlossaryRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::update_glossary].
+    fn update_glossary(
+        &self,
+        _req: crate::model::UpdateGlossaryRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::delete_glossary].
+    fn delete_glossary(
+        &self,
+        _req: crate::model::DeleteGlossaryRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::get_glossary].
+    fn get_glossary(
+        &self,
+        _req: crate::model::GetGlossaryRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Glossary>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::list_glossaries].
+    fn list_glossaries(
+        &self,
+        _req: crate::model::ListGlossariesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListGlossariesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::create_glossary_category].
+    fn create_glossary_category(
+        &self,
+        _req: crate::model::CreateGlossaryCategoryRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GlossaryCategory>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::update_glossary_category].
+    fn update_glossary_category(
+        &self,
+        _req: crate::model::UpdateGlossaryCategoryRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GlossaryCategory>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::delete_glossary_category].
+    fn delete_glossary_category(
+        &self,
+        _req: crate::model::DeleteGlossaryCategoryRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::get_glossary_category].
+    fn get_glossary_category(
+        &self,
+        _req: crate::model::GetGlossaryCategoryRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GlossaryCategory>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::list_glossary_categories].
+    fn list_glossary_categories(
+        &self,
+        _req: crate::model::ListGlossaryCategoriesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListGlossaryCategoriesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::create_glossary_term].
+    fn create_glossary_term(
+        &self,
+        _req: crate::model::CreateGlossaryTermRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GlossaryTerm>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::update_glossary_term].
+    fn update_glossary_term(
+        &self,
+        _req: crate::model::UpdateGlossaryTermRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GlossaryTerm>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::delete_glossary_term].
+    fn delete_glossary_term(
+        &self,
+        _req: crate::model::DeleteGlossaryTermRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::get_glossary_term].
+    fn get_glossary_term(
+        &self,
+        _req: crate::model::GetGlossaryTermRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GlossaryTerm>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::list_glossary_terms].
+    fn list_glossary_terms(
+        &self,
+        _req: crate::model::ListGlossaryTermsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListGlossaryTermsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::list_locations].
+    fn list_locations(
+        &self,
+        _req: location::model::ListLocationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::get_location].
+    fn get_location(
+        &self,
+        _req: location::model::GetLocationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: iam_v1::model::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: iam_v1::model::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: iam_v1::model::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::list_operations].
+    fn list_operations(
+        &self,
+        _req: longrunning::model::ListOperationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::delete_operation].
+    fn delete_operation(
+        &self,
+        _req: longrunning::model::DeleteOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BusinessGlossaryService::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: longrunning::model::CancelOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
 /// Defines the trait used to implement [super::client::CatalogService].
 ///
 /// Application developers may need to implement this trait to mock
@@ -319,6 +612,39 @@ pub trait CatalogService: std::fmt::Debug + Send + Sync {
         _req: crate::model::CancelMetadataJobRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CatalogService::create_entry_link].
+    fn create_entry_link(
+        &self,
+        _req: crate::model::CreateEntryLinkRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::EntryLink>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CatalogService::delete_entry_link].
+    fn delete_entry_link(
+        &self,
+        _req: crate::model::DeleteEntryLinkRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::EntryLink>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CatalogService::get_entry_link].
+    fn get_entry_link(
+        &self,
+        _req: crate::model::GetEntryLinkRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::EntryLink>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 

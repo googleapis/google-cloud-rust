@@ -15,6 +15,9 @@ The main types to work with this crate are the clients:
 
 - [ApiHub]
 - [ApiHubDependencies]
+- [ApiHubCollect]
+- [ApiHubCurate]
+- [ApiHubDiscovery]
 - [HostProjectRegistrationService]
 - [LintingService]
 - [ApiHubPlugin]
@@ -27,6 +30,9 @@ The main types to work with this crate are the clients:
 
 [ApiHub]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHub.html
 [ApiHubDependencies]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHubDependencies.html
+[ApiHubCollect]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHubCollect.html
+[ApiHubCurate]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHubCurate.html
+[ApiHubDiscovery]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHubDiscovery.html
 [HostProjectRegistrationService]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.HostProjectRegistrationService.html
 [LintingService]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.LintingService.html
 [ApiHubPlugin]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHubPlugin.html

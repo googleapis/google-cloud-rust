@@ -1106,7 +1106,7 @@ pub mod environment {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct OsImageRuntime {
-            /// Required. Dataplex Image version.
+            /// Required. Dataplex Universal Catalog Image version.
             pub image_version: std::string::String,
 
             /// Optional. List of Java jars to be included in the runtime environment.
@@ -3225,6 +3225,4814 @@ impl std::fmt::Debug for Session {
     }
 }
 
+/// A Glossary represents a collection of GlossaryCategories and GlossaryTerms
+/// defined by the user. Glossary is a top level resource and is the Google Cloud
+/// parent resource of all the GlossaryCategories and GlossaryTerms within it.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Glossary {
+    /// Output only. Identifier. The resource name of the Glossary.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}
+    pub name: std::string::String,
+
+    /// Output only. System generated unique id for the Glossary. This ID will be
+    /// different if the Glossary is deleted and re-created with the
+    /// same name.
+    pub uid: std::string::String,
+
+    /// Optional. User friendly display name of the Glossary. This is user-mutable.
+    /// This will be same as the GlossaryId, if not specified.
+    pub display_name: std::string::String,
+
+    /// Optional. The user-mutable description of the Glossary.
+    pub description: std::string::String,
+
+    /// Output only. The time at which the Glossary was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the Glossary was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. User-defined labels for the Glossary.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. The number of GlossaryTerms in the Glossary.
+    pub term_count: i32,
+
+    /// Output only. The number of GlossaryCategories in the Glossary.
+    pub category_count: i32,
+
+    /// Optional. Needed for resource freshness validation.
+    /// This checksum is computed by the server based on the value of other
+    /// fields, and may be sent on update and delete requests to ensure the
+    /// client has an up-to-date value before proceeding.
+    pub etag: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Glossary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Glossary::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Glossary::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Glossary::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Glossary::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Glossary::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Glossary::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Glossary::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Glossary::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Glossary::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [term_count][crate::model::Glossary::term_count].
+    pub fn set_term_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.term_count = v.into();
+        self
+    }
+
+    /// Sets the value of [category_count][crate::model::Glossary::category_count].
+    pub fn set_category_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.category_count = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Glossary::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Glossary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.Glossary"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Glossary {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __uid,
+            __display_name,
+            __description,
+            __create_time,
+            __update_time,
+            __labels,
+            __term_count,
+            __category_count,
+            __etag,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Glossary")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "uid" => Ok(__FieldTag::__uid),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "description" => Ok(__FieldTag::__description),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "termCount" => Ok(__FieldTag::__term_count),
+                            "term_count" => Ok(__FieldTag::__term_count),
+                            "categoryCount" => Ok(__FieldTag::__category_count),
+                            "category_count" => Ok(__FieldTag::__category_count),
+                            "etag" => Ok(__FieldTag::__etag),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Glossary;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Glossary")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__uid => {
+                            if !fields.insert(__FieldTag::__uid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uid",
+                                ));
+                            }
+                            result.uid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__term_count => {
+                            if !fields.insert(__FieldTag::__term_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for term_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.term_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__category_count => {
+                            if !fields.insert(__FieldTag::__category_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for category_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.category_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Glossary {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.uid.is_empty() {
+            state.serialize_entry("uid", &self.uid)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !wkt::internal::is_default(&self.term_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("termCount", &__With(&self.term_count))?;
+        }
+        if !wkt::internal::is_default(&self.category_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("categoryCount", &__With(&self.category_count))?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for Glossary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Glossary");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("term_count", &self.term_count);
+        debug_struct.field("category_count", &self.category_count);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// A GlossaryCategory represents a collection of GlossaryCategories and
+/// GlossaryTerms within a Glossary that are related to each other.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GlossaryCategory {
+    /// Output only. Identifier. The resource name of the GlossaryCategory.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}
+    pub name: std::string::String,
+
+    /// Output only. System generated unique id for the GlossaryCategory. This ID
+    /// will be different if the GlossaryCategory is deleted and re-created with
+    /// the same name.
+    pub uid: std::string::String,
+
+    /// Optional. User friendly display name of the GlossaryCategory. This is
+    /// user-mutable. This will be same as the GlossaryCategoryId, if not
+    /// specified.
+    pub display_name: std::string::String,
+
+    /// Optional. The user-mutable description of the GlossaryCategory.
+    pub description: std::string::String,
+
+    /// Output only. The time at which the GlossaryCategory was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the GlossaryCategory was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. User-defined labels for the GlossaryCategory.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. The immediate parent of the GlossaryCategory in the
+    /// resource-hierarchy. It can either be a Glossary or a GlossaryCategory.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}
+    /// OR
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}
+    pub parent: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GlossaryCategory {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GlossaryCategory::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::GlossaryCategory::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::GlossaryCategory::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::GlossaryCategory::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::GlossaryCategory::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::GlossaryCategory::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::GlossaryCategory::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::GlossaryCategory::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::GlossaryCategory::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [parent][crate::model::GlossaryCategory::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GlossaryCategory {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.GlossaryCategory"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GlossaryCategory {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __uid,
+            __display_name,
+            __description,
+            __create_time,
+            __update_time,
+            __labels,
+            __parent,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GlossaryCategory")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "uid" => Ok(__FieldTag::__uid),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "description" => Ok(__FieldTag::__description),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "parent" => Ok(__FieldTag::__parent),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GlossaryCategory;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GlossaryCategory")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__uid => {
+                            if !fields.insert(__FieldTag::__uid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uid",
+                                ));
+                            }
+                            result.uid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GlossaryCategory {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.uid.is_empty() {
+            state.serialize_entry("uid", &self.uid)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for GlossaryCategory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlossaryCategory");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// GlossaryTerms are the core of Glossary.
+/// A GlossaryTerm holds a rich text description that can be attached to Entries
+/// or specific columns to enrich them.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GlossaryTerm {
+    /// Output only. Identifier. The resource name of the GlossaryTerm.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/terms/{term_id}
+    pub name: std::string::String,
+
+    /// Output only. System generated unique id for the GlossaryTerm. This ID will
+    /// be different if the GlossaryTerm is deleted and re-created with the same
+    /// name.
+    pub uid: std::string::String,
+
+    /// Optional. User friendly display name of the GlossaryTerm. This is
+    /// user-mutable. This will be same as the GlossaryTermId, if not specified.
+    pub display_name: std::string::String,
+
+    /// Optional. The user-mutable description of the GlossaryTerm.
+    pub description: std::string::String,
+
+    /// Output only. The time at which the GlossaryTerm was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the GlossaryTerm was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. User-defined labels for the GlossaryTerm.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. The immediate parent of the GlossaryTerm in the
+    /// resource-hierarchy. It can either be a Glossary or a GlossaryCategory.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}
+    /// OR
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}
+    pub parent: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GlossaryTerm {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GlossaryTerm::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::GlossaryTerm::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::GlossaryTerm::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::GlossaryTerm::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::GlossaryTerm::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::GlossaryTerm::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::GlossaryTerm::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::GlossaryTerm::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::GlossaryTerm::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [parent][crate::model::GlossaryTerm::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GlossaryTerm {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.GlossaryTerm"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GlossaryTerm {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __uid,
+            __display_name,
+            __description,
+            __create_time,
+            __update_time,
+            __labels,
+            __parent,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GlossaryTerm")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "uid" => Ok(__FieldTag::__uid),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "description" => Ok(__FieldTag::__description),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "parent" => Ok(__FieldTag::__parent),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GlossaryTerm;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GlossaryTerm")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__uid => {
+                            if !fields.insert(__FieldTag::__uid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uid",
+                                ));
+                            }
+                            result.uid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GlossaryTerm {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.uid.is_empty() {
+            state.serialize_entry("uid", &self.uid)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for GlossaryTerm {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlossaryTerm");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Create Glossary Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateGlossaryRequest {
+    /// Required. The parent resource where this Glossary will be created.
+    /// Format: projects/{project_id_or_number}/locations/{location_id}
+    /// where `location_id` refers to a Google Cloud region.
+    pub parent: std::string::String,
+
+    /// Required. Glossary ID: Glossary identifier.
+    pub glossary_id: std::string::String,
+
+    /// Required. The Glossary to create.
+    pub glossary: std::option::Option<crate::model::Glossary>,
+
+    /// Optional. Validates the request without actually creating the Glossary.
+    /// Default: false.
+    pub validate_only: bool,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateGlossaryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateGlossaryRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [glossary_id][crate::model::CreateGlossaryRequest::glossary_id].
+    pub fn set_glossary_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.glossary_id = v.into();
+        self
+    }
+
+    /// Sets the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
+    pub fn set_glossary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Glossary>,
+    {
+        self.glossary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
+    pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Glossary>,
+    {
+        self.glossary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::CreateGlossaryRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateGlossaryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.CreateGlossaryRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateGlossaryRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __glossary_id,
+            __glossary,
+            __validate_only,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateGlossaryRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "glossaryId" => Ok(__FieldTag::__glossary_id),
+                            "glossary_id" => Ok(__FieldTag::__glossary_id),
+                            "glossary" => Ok(__FieldTag::__glossary),
+                            "validateOnly" => Ok(__FieldTag::__validate_only),
+                            "validate_only" => Ok(__FieldTag::__validate_only),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateGlossaryRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateGlossaryRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__glossary_id => {
+                            if !fields.insert(__FieldTag::__glossary_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for glossary_id",
+                                ));
+                            }
+                            result.glossary_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__glossary => {
+                            if !fields.insert(__FieldTag::__glossary) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for glossary",
+                                ));
+                            }
+                            result.glossary =
+                                map.next_value::<std::option::Option<crate::model::Glossary>>()?;
+                        }
+                        __FieldTag::__validate_only => {
+                            if !fields.insert(__FieldTag::__validate_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validate_only",
+                                ));
+                            }
+                            result.validate_only = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateGlossaryRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.glossary_id.is_empty() {
+            state.serialize_entry("glossaryId", &self.glossary_id)?;
+        }
+        if self.glossary.is_some() {
+            state.serialize_entry("glossary", &self.glossary)?;
+        }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CreateGlossaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGlossaryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("glossary_id", &self.glossary_id);
+        debug_struct.field("glossary", &self.glossary);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Update Glossary Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateGlossaryRequest {
+    /// Required. The Glossary to update.
+    /// The Glossary's `name` field is used to identify the Glossary to update.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}
+    pub glossary: std::option::Option<crate::model::Glossary>,
+
+    /// Required. The list of fields to update.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. Validates the request without actually updating the Glossary.
+    /// Default: false.
+    pub validate_only: bool,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateGlossaryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
+    pub fn set_glossary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Glossary>,
+    {
+        self.glossary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
+    pub fn set_or_clear_glossary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Glossary>,
+    {
+        self.glossary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::UpdateGlossaryRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateGlossaryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.UpdateGlossaryRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateGlossaryRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __glossary,
+            __update_mask,
+            __validate_only,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateGlossaryRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "glossary" => Ok(__FieldTag::__glossary),
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            "validateOnly" => Ok(__FieldTag::__validate_only),
+                            "validate_only" => Ok(__FieldTag::__validate_only),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateGlossaryRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateGlossaryRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__glossary => {
+                            if !fields.insert(__FieldTag::__glossary) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for glossary",
+                                ));
+                            }
+                            result.glossary =
+                                map.next_value::<std::option::Option<crate::model::Glossary>>()?;
+                        }
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::__validate_only => {
+                            if !fields.insert(__FieldTag::__validate_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validate_only",
+                                ));
+                            }
+                            result.validate_only = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateGlossaryRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.glossary.is_some() {
+            state.serialize_entry("glossary", &self.glossary)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateGlossaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGlossaryRequest");
+        debug_struct.field("glossary", &self.glossary);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Delete Glossary Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteGlossaryRequest {
+    /// Required. The name of the Glossary to delete.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}
+    pub name: std::string::String,
+
+    /// Optional. The etag of the Glossary.
+    /// If this is provided, it must match the server's etag.
+    /// If the etag is provided and does not match the server-computed etag,
+    /// the request must fail with a ABORTED error code.
+    pub etag: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteGlossaryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteGlossaryRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteGlossaryRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteGlossaryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.DeleteGlossaryRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteGlossaryRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __etag,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteGlossaryRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "etag" => Ok(__FieldTag::__etag),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteGlossaryRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteGlossaryRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteGlossaryRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteGlossaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGlossaryRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Get Glossary Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetGlossaryRequest {
+    /// Required. The name of the Glossary to retrieve.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetGlossaryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetGlossaryRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetGlossaryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.GetGlossaryRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetGlossaryRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetGlossaryRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetGlossaryRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetGlossaryRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetGlossaryRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for GetGlossaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGlossaryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// List Glossaries Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGlossariesRequest {
+    /// Required. The parent, which has this collection of Glossaries.
+    /// Format: projects/{project_id_or_number}/locations/{location_id}
+    /// where `location_id` refers to a Google Cloud region.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of Glossaries to return. The service may
+    /// return fewer than this value. If unspecified, at most 50 Glossaries will be
+    /// returned. The maximum value is 1000; values above 1000 will be coerced to
+    /// 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListGlossaries` call.
+    /// Provide this to retrieve the subsequent page.
+    /// When paginating, all other parameters provided to `ListGlossaries` must
+    /// match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression that filters Glossaries listed in the response.
+    /// Filters on proto fields of Glossary are supported.
+    /// Examples of using a filter are:
+    ///
+    /// - `display_name="my-glossary"`
+    /// - `categoryCount=1`
+    /// - `termCount=0`
+    pub filter: std::string::String,
+
+    /// Optional. Order by expression that orders Glossaries listed in the
+    /// response. Order by fields are: `name` or `create_time` for the result. If
+    /// not specified, the ordering is undefined.
+    pub order_by: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGlossariesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListGlossariesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListGlossariesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListGlossariesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListGlossariesRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListGlossariesRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGlossariesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.ListGlossariesRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListGlossariesRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGlossariesRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListGlossariesRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGlossariesRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListGlossariesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListGlossariesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGlossariesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// List Glossaries Response
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGlossariesResponse {
+    /// Lists the Glossaries in the specified parent.
+    pub glossaries: std::vec::Vec<crate::model::Glossary>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    /// Locations that the service couldn't reach.
+    pub unreachable_locations: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGlossariesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [glossaries][crate::model::ListGlossariesResponse::glossaries].
+    pub fn set_glossaries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Glossary>,
+    {
+        use std::iter::Iterator;
+        self.glossaries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGlossariesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable_locations][crate::model::ListGlossariesResponse::unreachable_locations].
+    pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGlossariesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.ListGlossariesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGlossariesResponse {
+    type PageItem = crate::model::Glossary;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.glossaries
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListGlossariesResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __glossaries,
+            __next_page_token,
+            __unreachable_locations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGlossariesResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "glossaries" => Ok(__FieldTag::__glossaries),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachableLocations" => Ok(__FieldTag::__unreachable_locations),
+                            "unreachable_locations" => Ok(__FieldTag::__unreachable_locations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListGlossariesResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGlossariesResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__glossaries => {
+                            if !fields.insert(__FieldTag::__glossaries) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for glossaries",
+                                ));
+                            }
+                            result.glossaries = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Glossary>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable_locations => {
+                            if !fields.insert(__FieldTag::__unreachable_locations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable_locations",
+                                ));
+                            }
+                            result.unreachable_locations = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListGlossariesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.glossaries.is_empty() {
+            state.serialize_entry("glossaries", &self.glossaries)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable_locations.is_empty() {
+            state.serialize_entry("unreachableLocations", &self.unreachable_locations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListGlossariesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGlossariesResponse");
+        debug_struct.field("glossaries", &self.glossaries);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable_locations", &self.unreachable_locations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Creates a new GlossaryCategory under the specified Glossary.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateGlossaryCategoryRequest {
+    /// Required. The parent resource where this GlossaryCategory will be created.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}
+    /// where `locationId` refers to a Google Cloud region.
+    pub parent: std::string::String,
+
+    /// Required. GlossaryCategory identifier.
+    pub category_id: std::string::String,
+
+    /// Required. The GlossaryCategory to create.
+    pub category: std::option::Option<crate::model::GlossaryCategory>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateGlossaryCategoryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateGlossaryCategoryRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [category_id][crate::model::CreateGlossaryCategoryRequest::category_id].
+    pub fn set_category_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.category_id = v.into();
+        self
+    }
+
+    /// Sets the value of [category][crate::model::CreateGlossaryCategoryRequest::category].
+    pub fn set_category<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryCategory>,
+    {
+        self.category = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [category][crate::model::CreateGlossaryCategoryRequest::category].
+    pub fn set_or_clear_category<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryCategory>,
+    {
+        self.category = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateGlossaryCategoryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.CreateGlossaryCategoryRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateGlossaryCategoryRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __category_id,
+            __category,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateGlossaryCategoryRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "categoryId" => Ok(__FieldTag::__category_id),
+                            "category_id" => Ok(__FieldTag::__category_id),
+                            "category" => Ok(__FieldTag::__category),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateGlossaryCategoryRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateGlossaryCategoryRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__category_id => {
+                            if !fields.insert(__FieldTag::__category_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for category_id",
+                                ));
+                            }
+                            result.category_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__category => {
+                            if !fields.insert(__FieldTag::__category) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for category",
+                                ));
+                            }
+                            result.category = map
+                                .next_value::<std::option::Option<crate::model::GlossaryCategory>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateGlossaryCategoryRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.category_id.is_empty() {
+            state.serialize_entry("categoryId", &self.category_id)?;
+        }
+        if self.category.is_some() {
+            state.serialize_entry("category", &self.category)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CreateGlossaryCategoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGlossaryCategoryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("category_id", &self.category_id);
+        debug_struct.field("category", &self.category);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Update GlossaryCategory Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateGlossaryCategoryRequest {
+    /// Required. The GlossaryCategory to update.
+    /// The GlossaryCategory's `name` field is used to identify the
+    /// GlossaryCategory to update. Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}
+    pub category: std::option::Option<crate::model::GlossaryCategory>,
+
+    /// Required. The list of fields to update.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateGlossaryCategoryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [category][crate::model::UpdateGlossaryCategoryRequest::category].
+    pub fn set_category<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryCategory>,
+    {
+        self.category = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [category][crate::model::UpdateGlossaryCategoryRequest::category].
+    pub fn set_or_clear_category<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryCategory>,
+    {
+        self.category = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateGlossaryCategoryRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGlossaryCategoryRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateGlossaryCategoryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.UpdateGlossaryCategoryRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateGlossaryCategoryRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __category,
+            __update_mask,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateGlossaryCategoryRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "category" => Ok(__FieldTag::__category),
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateGlossaryCategoryRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateGlossaryCategoryRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__category => {
+                            if !fields.insert(__FieldTag::__category) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for category",
+                                ));
+                            }
+                            result.category = map
+                                .next_value::<std::option::Option<crate::model::GlossaryCategory>>(
+                                )?;
+                        }
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateGlossaryCategoryRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.category.is_some() {
+            state.serialize_entry("category", &self.category)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateGlossaryCategoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGlossaryCategoryRequest");
+        debug_struct.field("category", &self.category);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Delete GlossaryCategory Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteGlossaryCategoryRequest {
+    /// Required. The name of the GlossaryCategory to delete.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteGlossaryCategoryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteGlossaryCategoryRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteGlossaryCategoryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.DeleteGlossaryCategoryRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteGlossaryCategoryRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteGlossaryCategoryRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteGlossaryCategoryRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteGlossaryCategoryRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteGlossaryCategoryRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteGlossaryCategoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGlossaryCategoryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Get GlossaryCategory Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetGlossaryCategoryRequest {
+    /// Required. The name of the GlossaryCategory to retrieve.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetGlossaryCategoryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetGlossaryCategoryRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetGlossaryCategoryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.GetGlossaryCategoryRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetGlossaryCategoryRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetGlossaryCategoryRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetGlossaryCategoryRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetGlossaryCategoryRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetGlossaryCategoryRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for GetGlossaryCategoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGlossaryCategoryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// List GlossaryCategories Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGlossaryCategoriesRequest {
+    /// Required. The parent, which has this collection of GlossaryCategories.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}
+    /// Location is the Google Cloud region.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of GlossaryCategories to return. The service
+    /// may return fewer than this value. If unspecified, at most 50
+    /// GlossaryCategories will be returned. The maximum value is 1000; values
+    /// above 1000 will be coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListGlossaryCategories`
+    /// call. Provide this to retrieve the subsequent page. When paginating, all
+    /// other parameters provided to `ListGlossaryCategories` must match the call
+    /// that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression that filters GlossaryCategories listed in the
+    /// response. Filters are supported on the following fields:
+    ///
+    /// - immediate_parent
+    ///
+    /// ## Examples of using a filter are:
+    ///
+    /// ## `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}"`
+    ///
+    /// `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}"`
+    ///
+    /// This will only return the GlossaryCategories that are directly nested
+    /// under the specified parent.
+    pub filter: std::string::String,
+
+    /// Optional. Order by expression that orders GlossaryCategories listed in the
+    /// response. Order by fields are: `name` or `create_time` for the result. If
+    /// not specified, the ordering is undefined.
+    pub order_by: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGlossaryCategoriesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListGlossaryCategoriesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListGlossaryCategoriesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListGlossaryCategoriesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListGlossaryCategoriesRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListGlossaryCategoriesRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGlossaryCategoriesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.ListGlossaryCategoriesRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListGlossaryCategoriesRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGlossaryCategoriesRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListGlossaryCategoriesRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGlossaryCategoriesRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListGlossaryCategoriesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListGlossaryCategoriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGlossaryCategoriesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// List GlossaryCategories Response
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGlossaryCategoriesResponse {
+    /// Lists the GlossaryCategories in the specified parent.
+    pub categories: std::vec::Vec<crate::model::GlossaryCategory>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    /// Locations that the service couldn't reach.
+    pub unreachable_locations: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGlossaryCategoriesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [categories][crate::model::ListGlossaryCategoriesResponse::categories].
+    pub fn set_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GlossaryCategory>,
+    {
+        use std::iter::Iterator;
+        self.categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGlossaryCategoriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable_locations][crate::model::ListGlossaryCategoriesResponse::unreachable_locations].
+    pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGlossaryCategoriesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.ListGlossaryCategoriesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGlossaryCategoriesResponse {
+    type PageItem = crate::model::GlossaryCategory;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.categories
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListGlossaryCategoriesResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __categories,
+            __next_page_token,
+            __unreachable_locations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGlossaryCategoriesResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "categories" => Ok(__FieldTag::__categories),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachableLocations" => Ok(__FieldTag::__unreachable_locations),
+                            "unreachable_locations" => Ok(__FieldTag::__unreachable_locations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListGlossaryCategoriesResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGlossaryCategoriesResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__categories => {
+                            if !fields.insert(__FieldTag::__categories) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for categories",
+                                ));
+                            }
+                            result.categories =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GlossaryCategory>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable_locations => {
+                            if !fields.insert(__FieldTag::__unreachable_locations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable_locations",
+                                ));
+                            }
+                            result.unreachable_locations = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListGlossaryCategoriesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.categories.is_empty() {
+            state.serialize_entry("categories", &self.categories)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable_locations.is_empty() {
+            state.serialize_entry("unreachableLocations", &self.unreachable_locations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListGlossaryCategoriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGlossaryCategoriesResponse");
+        debug_struct.field("categories", &self.categories);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable_locations", &self.unreachable_locations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Creates a new GlossaryTerm under the specified Glossary.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateGlossaryTermRequest {
+    /// Required. The parent resource where the GlossaryTerm will be created.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}
+    /// where `location_id` refers to a Google Cloud region.
+    pub parent: std::string::String,
+
+    /// Required. GlossaryTerm identifier.
+    pub term_id: std::string::String,
+
+    /// Required. The GlossaryTerm to create.
+    pub term: std::option::Option<crate::model::GlossaryTerm>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateGlossaryTermRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateGlossaryTermRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [term_id][crate::model::CreateGlossaryTermRequest::term_id].
+    pub fn set_term_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.term_id = v.into();
+        self
+    }
+
+    /// Sets the value of [term][crate::model::CreateGlossaryTermRequest::term].
+    pub fn set_term<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryTerm>,
+    {
+        self.term = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [term][crate::model::CreateGlossaryTermRequest::term].
+    pub fn set_or_clear_term<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryTerm>,
+    {
+        self.term = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateGlossaryTermRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.CreateGlossaryTermRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateGlossaryTermRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __term_id,
+            __term,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateGlossaryTermRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "termId" => Ok(__FieldTag::__term_id),
+                            "term_id" => Ok(__FieldTag::__term_id),
+                            "term" => Ok(__FieldTag::__term),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateGlossaryTermRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateGlossaryTermRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__term_id => {
+                            if !fields.insert(__FieldTag::__term_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for term_id",
+                                ));
+                            }
+                            result.term_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__term => {
+                            if !fields.insert(__FieldTag::__term) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for term",
+                                ));
+                            }
+                            result.term = map
+                                .next_value::<std::option::Option<crate::model::GlossaryTerm>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateGlossaryTermRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.term_id.is_empty() {
+            state.serialize_entry("termId", &self.term_id)?;
+        }
+        if self.term.is_some() {
+            state.serialize_entry("term", &self.term)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CreateGlossaryTermRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGlossaryTermRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("term_id", &self.term_id);
+        debug_struct.field("term", &self.term);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Update GlossaryTerm Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateGlossaryTermRequest {
+    /// Required. The GlossaryTerm to update.
+    /// The GlossaryTerm's `name` field is used to identify the GlossaryTerm to
+    /// update. Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/terms/{term_id}
+    pub term: std::option::Option<crate::model::GlossaryTerm>,
+
+    /// Required. The list of fields to update.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateGlossaryTermRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [term][crate::model::UpdateGlossaryTermRequest::term].
+    pub fn set_term<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryTerm>,
+    {
+        self.term = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [term][crate::model::UpdateGlossaryTermRequest::term].
+    pub fn set_or_clear_term<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GlossaryTerm>,
+    {
+        self.term = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateGlossaryTermRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGlossaryTermRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateGlossaryTermRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.UpdateGlossaryTermRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateGlossaryTermRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __term,
+            __update_mask,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateGlossaryTermRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "term" => Ok(__FieldTag::__term),
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateGlossaryTermRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateGlossaryTermRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__term => {
+                            if !fields.insert(__FieldTag::__term) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for term",
+                                ));
+                            }
+                            result.term = map
+                                .next_value::<std::option::Option<crate::model::GlossaryTerm>>()?;
+                        }
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateGlossaryTermRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.term.is_some() {
+            state.serialize_entry("term", &self.term)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateGlossaryTermRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGlossaryTermRequest");
+        debug_struct.field("term", &self.term);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Delete GlossaryTerm Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteGlossaryTermRequest {
+    /// Required. The name of the GlossaryTerm to delete.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/terms/{term_id}
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteGlossaryTermRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteGlossaryTermRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteGlossaryTermRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.DeleteGlossaryTermRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteGlossaryTermRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteGlossaryTermRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteGlossaryTermRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteGlossaryTermRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteGlossaryTermRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteGlossaryTermRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGlossaryTermRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Get GlossaryTerm Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetGlossaryTermRequest {
+    /// Required. The name of the GlossaryTerm to retrieve.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/terms/{term_id}
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetGlossaryTermRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetGlossaryTermRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetGlossaryTermRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.GetGlossaryTermRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetGlossaryTermRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetGlossaryTermRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetGlossaryTermRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetGlossaryTermRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetGlossaryTermRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for GetGlossaryTermRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGlossaryTermRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// List GlossaryTerms Request
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGlossaryTermsRequest {
+    /// Required. The parent, which has this collection of GlossaryTerms.
+    /// Format:
+    /// projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}
+    /// where `location_id` refers to a Google Cloud region.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of GlossaryTerms to return. The service may
+    /// return fewer than this value. If unspecified, at most 50 GlossaryTerms will
+    /// be returned. The maximum value is 1000; values above 1000 will be coerced
+    /// to 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListGlossaryTerms` call.
+    /// Provide this to retrieve the subsequent page.
+    /// When paginating, all other parameters provided to `ListGlossaryTerms` must
+    /// match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression that filters GlossaryTerms listed in the
+    /// response. Filters are supported on the following fields:
+    ///
+    /// - immediate_parent
+    ///
+    /// ## Examples of using a filter are:
+    ///
+    /// ## `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}"`
+    ///
+    /// `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}"`
+    ///
+    /// This will only return the GlossaryTerms that are directly nested under the
+    /// specified parent.
+    pub filter: std::string::String,
+
+    /// Optional. Order by expression that orders GlossaryTerms listed in the
+    /// response. Order by fields are: `name` or `create_time` for the result. If
+    /// not specified, the ordering is undefined.
+    pub order_by: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGlossaryTermsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListGlossaryTermsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListGlossaryTermsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListGlossaryTermsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListGlossaryTermsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListGlossaryTermsRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGlossaryTermsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.ListGlossaryTermsRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListGlossaryTermsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGlossaryTermsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListGlossaryTermsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGlossaryTermsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListGlossaryTermsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListGlossaryTermsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGlossaryTermsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// List GlossaryTerms Response
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGlossaryTermsResponse {
+    /// Lists the GlossaryTerms in the specified parent.
+    pub terms: std::vec::Vec<crate::model::GlossaryTerm>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    /// Locations that the service couldn't reach.
+    pub unreachable_locations: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGlossaryTermsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [terms][crate::model::ListGlossaryTermsResponse::terms].
+    pub fn set_terms<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GlossaryTerm>,
+    {
+        use std::iter::Iterator;
+        self.terms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGlossaryTermsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable_locations][crate::model::ListGlossaryTermsResponse::unreachable_locations].
+    pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGlossaryTermsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.ListGlossaryTermsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGlossaryTermsResponse {
+    type PageItem = crate::model::GlossaryTerm;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.terms
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListGlossaryTermsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __terms,
+            __next_page_token,
+            __unreachable_locations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGlossaryTermsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "terms" => Ok(__FieldTag::__terms),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachableLocations" => Ok(__FieldTag::__unreachable_locations),
+                            "unreachable_locations" => Ok(__FieldTag::__unreachable_locations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListGlossaryTermsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGlossaryTermsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__terms => {
+                            if !fields.insert(__FieldTag::__terms) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for terms",
+                                ));
+                            }
+                            result.terms = map.next_value::<std::option::Option<std::vec::Vec<crate::model::GlossaryTerm>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable_locations => {
+                            if !fields.insert(__FieldTag::__unreachable_locations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable_locations",
+                                ));
+                            }
+                            result.unreachable_locations = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListGlossaryTermsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.terms.is_empty() {
+            state.serialize_entry("terms", &self.terms)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable_locations.is_empty() {
+            state.serialize_entry("unreachableLocations", &self.unreachable_locations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ListGlossaryTermsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGlossaryTermsResponse");
+        debug_struct.field("terms", &self.terms);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable_locations", &self.unreachable_locations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AspectType is a template for creating Aspects, and represents the
 /// JSON-schema for a given Entry, for example, BigQuery Table Schema.
 #[derive(Clone, Default, PartialEq)]
@@ -3692,13 +8500,13 @@ pub mod aspect_type {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Autorization for an AspectType.
+    /// Authorization for an AspectType.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Authorization {
         /// Immutable. The IAM permission grantable on the EntryGroup to allow access
-        /// to instantiate Aspects of Dataplex owned AspectTypes, only settable for
-        /// Dataplex owned Types.
+        /// to instantiate Aspects of Dataplex Universal Catalog owned AspectTypes,
+        /// only settable for Dataplex Universal Catalog owned Types.
         pub alternate_use_permission: std::string::String,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3866,8 +8674,8 @@ pub mod aspect_type {
         /// Primitive types:
         ///
         /// * string
-        /// * integer
-        /// * boolean
+        /// * int
+        /// * bool
         /// * double
         /// * datetime. Must be of the format RFC3339 UTC "Zulu" (Examples:
         ///   "2014-10-02T15:01:23Z" and "2014-10-02T15:01:23.045123456Z").
@@ -6130,8 +10938,8 @@ pub mod entry_type {
     #[non_exhaustive]
     pub struct Authorization {
         /// Immutable. The IAM permission grantable on the Entry Group to allow
-        /// access to instantiate Entries of Dataplex owned Entry Types, only
-        /// settable for Dataplex owned Types.
+        /// access to instantiate Entries of Dataplex Universal Catalog owned Entry
+        /// Types, only settable for Dataplex Universal Catalog owned Types.
         pub alternate_use_permission: std::string::String,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6826,10 +11634,12 @@ pub struct Entry {
     /// `projects/{project_id_or_number}/locations/{location_id}/entryTypes/{entry_type_id}`.
     pub entry_type: std::string::String,
 
-    /// Output only. The time when the entry was created in Dataplex.
+    /// Output only. The time when the entry was created in Dataplex Universal
+    /// Catalog.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Output only. The time when the entry was last updated in Dataplex.
+    /// Output only. The time when the entry was last updated in Dataplex Universal
+    /// Catalog.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. The aspects that are attached to the entry. Depending on how the
@@ -7802,7 +12612,7 @@ pub mod entry_source {
 pub struct CreateEntryGroupRequest {
     /// Required. The resource name of the entryGroup, of the form:
     /// projects/{project_number}/locations/{location_id}
-    /// where `location_id` refers to a GCP region.
+    /// where `location_id` refers to a Google Cloud region.
     pub parent: std::string::String,
 
     /// Required. EntryGroup identifier.
@@ -9492,7 +14302,7 @@ impl std::fmt::Debug for UpdateEntryTypeRequest {
     }
 }
 
-/// Delele EntryType Request.
+/// Delete EntryType Request.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEntryTypeRequest {
@@ -10745,7 +15555,7 @@ impl std::fmt::Debug for UpdateAspectTypeRequest {
     }
 }
 
-/// Delele AspectType Request.
+/// Delete AspectType Request.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAspectTypeRequest {
@@ -13138,11 +17948,11 @@ impl std::fmt::Debug for LookupEntryRequest {
 #[non_exhaustive]
 pub struct SearchEntriesRequest {
     /// Required. The project to which the request should be attributed in the
-    /// following form: `projects/{project}/locations/{location}`.
+    /// following form: `projects/{project}/locations/global`.
     pub name: std::string::String,
 
     /// Required. The query against which entries in scope should be matched.
-    /// The query syntax is defined in [Search syntax for Dataplex
+    /// The query syntax is defined in [Search syntax for Dataplex Universal
     /// Catalog](https://cloud.google.com/dataplex/docs/search-syntax).
     pub query: std::string::String,
 
@@ -13158,7 +17968,7 @@ pub struct SearchEntriesRequest {
     /// Optional. Specifies the ordering of results.
     /// Supported values are:
     ///
-    /// * `relevance` (default)
+    /// * `relevance`
     /// * `last_modified_timestamp`
     /// * `last_modified_timestamp asc`
     pub order_by: std::string::String,
@@ -14126,25 +18936,30 @@ pub struct ImportItem {
     /// Information about an entry and its attached aspects.
     pub entry: std::option::Option<crate::model::Entry>,
 
+    /// Information about the entry link. User should provide either one of the
+    /// entry or entry_link. While providing entry_link, user should not
+    /// provide update_mask and aspect_keys.
+    pub entry_link: std::option::Option<crate::model::EntryLink>,
+
     /// The fields to update, in paths that are relative to the `Entry` resource.
     /// Separate each field with a comma.
     ///
-    /// In `FULL` entry sync mode, Dataplex includes the paths of all of the fields
-    /// for an entry that can be modified, including aspects. This means that
-    /// Dataplex replaces the existing entry with the entry in the metadata import
-    /// file. All modifiable fields are updated, regardless of the fields that are
-    /// listed in the update mask, and regardless of whether a field is present
-    /// in the `entry` object.
+    /// In `FULL` entry sync mode, Dataplex Universal Catalog includes the paths of
+    /// all of the fields for an entry that can be modified, including aspects.
+    /// This means that Dataplex Universal Catalog replaces the existing entry with
+    /// the entry in the metadata import file. All modifiable fields are updated,
+    /// regardless of the fields that are listed in the update mask, and regardless
+    /// of whether a field is present in the `entry` object.
     ///
     /// The `update_mask` field is ignored when an entry is created or re-created.
     ///
     /// In an aspect-only metadata job (when entry sync mode is `NONE`), set this
     /// value to `aspects`.
     ///
-    /// Dataplex also determines which entries and aspects to modify by comparing
-    /// the values and timestamps that you provide in the metadata import file with
-    /// the values and timestamps that exist in your project. For more information,
-    /// see [Comparison
+    /// Dataplex Universal Catalog also determines which entries and aspects to
+    /// modify by comparing the values and timestamps that you provide in the
+    /// metadata import file with the values and timestamps that exist in your
+    /// project. For more information, see [Comparison
     /// logic](https://cloud.google.com/dataplex/docs/import-metadata#data-modification-logic).
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
@@ -14164,8 +18979,8 @@ pub struct ImportItem {
     ///
     /// In `FULL` entry sync mode, if you leave this field empty, it is treated as
     /// specifying exactly those aspects that are present within the specified
-    /// entry. Dataplex implicitly adds the keys for all of the required aspects of
-    /// an entry.
+    /// entry. Dataplex Universal Catalog implicitly adds the keys for all of the
+    /// required aspects of an entry.
     pub aspect_keys: std::vec::Vec<std::string::String>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14191,6 +19006,24 @@ impl ImportItem {
         T: std::convert::Into<crate::model::Entry>,
     {
         self.entry = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [entry_link][crate::model::ImportItem::entry_link].
+    pub fn set_entry_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EntryLink>,
+    {
+        self.entry_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [entry_link][crate::model::ImportItem::entry_link].
+    pub fn set_or_clear_entry_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EntryLink>,
+    {
+        self.entry_link = v.map(|x| x.into());
         self
     }
 
@@ -14241,6 +19074,7 @@ impl<'de> serde::de::Deserialize<'de> for ImportItem {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __entry,
+            __entry_link,
             __update_mask,
             __aspect_keys,
             Unknown(std::string::String),
@@ -14264,6 +19098,8 @@ impl<'de> serde::de::Deserialize<'de> for ImportItem {
                         use std::string::ToString;
                         match value {
                             "entry" => Ok(__FieldTag::__entry),
+                            "entryLink" => Ok(__FieldTag::__entry_link),
+                            "entry_link" => Ok(__FieldTag::__entry_link),
                             "updateMask" => Ok(__FieldTag::__update_mask),
                             "update_mask" => Ok(__FieldTag::__update_mask),
                             "aspectKeys" => Ok(__FieldTag::__aspect_keys),
@@ -14301,6 +19137,15 @@ impl<'de> serde::de::Deserialize<'de> for ImportItem {
                             }
                             result.entry =
                                 map.next_value::<std::option::Option<crate::model::Entry>>()?;
+                        }
+                        __FieldTag::__entry_link => {
+                            if !fields.insert(__FieldTag::__entry_link) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entry_link",
+                                ));
+                            }
+                            result.entry_link =
+                                map.next_value::<std::option::Option<crate::model::EntryLink>>()?;
                         }
                         __FieldTag::__update_mask => {
                             if !fields.insert(__FieldTag::__update_mask) {
@@ -14345,6 +19190,9 @@ impl serde::ser::Serialize for ImportItem {
         if self.entry.is_some() {
             state.serialize_entry("entry", &self.entry)?;
         }
+        if self.entry_link.is_some() {
+            state.serialize_entry("entryLink", &self.entry_link)?;
+        }
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
         }
@@ -14364,6 +19212,7 @@ impl std::fmt::Debug for ImportItem {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportItem");
         debug_struct.field("entry", &self.entry);
+        debug_struct.field("entry_link", &self.entry_link);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("aspect_keys", &self.aspect_keys);
         if !self._unknown_fields.is_empty() {
@@ -16009,6 +20858,17 @@ pub mod metadata_job {
         /// Output only. The time when the status was updated.
         pub update_time: std::option::Option<wkt::Timestamp>,
 
+        /// Output only. The total number of entry links that were successfully
+        /// deleted.
+        pub deleted_entry_links: i64,
+
+        /// Output only. The total number of entry links that were successfully
+        /// created.
+        pub created_entry_links: i64,
+
+        /// Output only. The total number of entry links that were left unchanged.
+        pub unchanged_entry_links: i64,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -16064,6 +20924,24 @@ pub mod metadata_job {
             self.update_time = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [deleted_entry_links][crate::model::metadata_job::ImportJobResult::deleted_entry_links].
+        pub fn set_deleted_entry_links<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.deleted_entry_links = v.into();
+            self
+        }
+
+        /// Sets the value of [created_entry_links][crate::model::metadata_job::ImportJobResult::created_entry_links].
+        pub fn set_created_entry_links<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.created_entry_links = v.into();
+            self
+        }
+
+        /// Sets the value of [unchanged_entry_links][crate::model::metadata_job::ImportJobResult::unchanged_entry_links].
+        pub fn set_unchanged_entry_links<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.unchanged_entry_links = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for ImportJobResult {
@@ -16088,6 +20966,9 @@ pub mod metadata_job {
                 __unchanged_entries,
                 __recreated_entries,
                 __update_time,
+                __deleted_entry_links,
+                __created_entry_links,
+                __unchanged_entry_links,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -16123,6 +21004,12 @@ pub mod metadata_job {
                                 "recreated_entries" => Ok(__FieldTag::__recreated_entries),
                                 "updateTime" => Ok(__FieldTag::__update_time),
                                 "update_time" => Ok(__FieldTag::__update_time),
+                                "deletedEntryLinks" => Ok(__FieldTag::__deleted_entry_links),
+                                "deleted_entry_links" => Ok(__FieldTag::__deleted_entry_links),
+                                "createdEntryLinks" => Ok(__FieldTag::__created_entry_links),
+                                "created_entry_links" => Ok(__FieldTag::__created_entry_links),
+                                "unchangedEntryLinks" => Ok(__FieldTag::__unchanged_entry_links),
+                                "unchanged_entry_links" => Ok(__FieldTag::__unchanged_entry_links),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -16257,6 +21144,66 @@ pub mod metadata_job {
                                 result.update_time =
                                     map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                             }
+                            __FieldTag::__deleted_entry_links => {
+                                if !fields.insert(__FieldTag::__deleted_entry_links) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for deleted_entry_links",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.deleted_entry_links =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__created_entry_links => {
+                                if !fields.insert(__FieldTag::__created_entry_links) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for created_entry_links",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.created_entry_links =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__unchanged_entry_links => {
+                                if !fields.insert(__FieldTag::__unchanged_entry_links) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for unchanged_entry_links",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.unchanged_entry_links =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -16343,6 +21290,43 @@ pub mod metadata_job {
             if self.update_time.is_some() {
                 state.serialize_entry("updateTime", &self.update_time)?;
             }
+            if !wkt::internal::is_default(&self.deleted_entry_links) {
+                struct __With<'a>(&'a i64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("deletedEntryLinks", &__With(&self.deleted_entry_links))?;
+            }
+            if !wkt::internal::is_default(&self.created_entry_links) {
+                struct __With<'a>(&'a i64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("createdEntryLinks", &__With(&self.created_entry_links))?;
+            }
+            if !wkt::internal::is_default(&self.unchanged_entry_links) {
+                struct __With<'a>(&'a i64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                    }
+                }
+                state
+                    .serialize_entry("unchangedEntryLinks", &__With(&self.unchanged_entry_links))?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -16361,6 +21345,9 @@ pub mod metadata_job {
             debug_struct.field("unchanged_entries", &self.unchanged_entries);
             debug_struct.field("recreated_entries", &self.recreated_entries);
             debug_struct.field("update_time", &self.update_time);
+            debug_struct.field("deleted_entry_links", &self.deleted_entry_links);
+            debug_struct.field("created_entry_links", &self.created_entry_links);
+            debug_struct.field("unchanged_entry_links", &self.unchanged_entry_links);
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -16968,6 +21955,42 @@ pub mod metadata_job {
             /// job, or the aspect type must be global.
             pub aspect_types: std::vec::Vec<std::string::String>,
 
+            /// Optional. The glossaries that are in scope for the import job,
+            /// specified as relative resource names in the format
+            /// `projects/{project_number_or_id}/locations/{location_id}/glossaries/{glossary_id}`.
+            ///
+            /// While importing Business Glossary entries, the user must
+            /// provide glossaries. While importing entries, the user does not have to
+            /// provide glossaries. If the metadata import file attempts to modify
+            /// Business Glossary entries whose glossary isn't included in this list,
+            /// the import job will skip those entries.
+            ///
+            /// The location of a glossary must either match the location of the
+            /// job, or the glossary must be global.
+            pub glossaries: std::vec::Vec<std::string::String>,
+
+            /// Optional. The entry link types that are in scope for the import job,
+            /// specified as relative resource names in the format
+            /// `projects/{project_number_or_id}/locations/{location_id}/entryLinkTypes/{entry_link_type_id}`.
+            /// The job modifies only the entryLinks that belong to these entry link
+            /// types.
+            ///
+            /// If the metadata import file attempts to create or delete an entry link
+            /// whose entry link type isn't included in this list, the import job will
+            /// skip those entry links.
+            pub entry_link_types: std::vec::Vec<std::string::String>,
+
+            /// Optional. Defines the scope of entries that can be referenced in the
+            /// entry links.
+            ///
+            /// Currently, projects are supported as valid scopes.
+            /// Format: `projects/{project_number_or_id}`
+            ///
+            /// If the metadata import file attempts to create an entry link
+            /// which references an entry that is not in the scope, the import job will
+            /// skip that entry link.
+            pub referenced_entry_scopes: std::vec::Vec<std::string::String>,
+
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -17008,6 +22031,39 @@ pub mod metadata_job {
                 self.aspect_types = v.into_iter().map(|i| i.into()).collect();
                 self
             }
+
+            /// Sets the value of [glossaries][crate::model::metadata_job::import_job_spec::ImportJobScope::glossaries].
+            pub fn set_glossaries<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.glossaries = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [entry_link_types][crate::model::metadata_job::import_job_spec::ImportJobScope::entry_link_types].
+            pub fn set_entry_link_types<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.entry_link_types = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [referenced_entry_scopes][crate::model::metadata_job::import_job_spec::ImportJobScope::referenced_entry_scopes].
+            pub fn set_referenced_entry_scopes<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.referenced_entry_scopes = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
         }
 
         impl wkt::message::Message for ImportJobScope {
@@ -17029,6 +22085,9 @@ pub mod metadata_job {
                     __entry_groups,
                     __entry_types,
                     __aspect_types,
+                    __glossaries,
+                    __entry_link_types,
+                    __referenced_entry_scopes,
                     Unknown(std::string::String),
                 }
                 impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -17061,6 +22120,15 @@ pub mod metadata_job {
                                     "entry_types" => Ok(__FieldTag::__entry_types),
                                     "aspectTypes" => Ok(__FieldTag::__aspect_types),
                                     "aspect_types" => Ok(__FieldTag::__aspect_types),
+                                    "glossaries" => Ok(__FieldTag::__glossaries),
+                                    "entryLinkTypes" => Ok(__FieldTag::__entry_link_types),
+                                    "entry_link_types" => Ok(__FieldTag::__entry_link_types),
+                                    "referencedEntryScopes" => {
+                                        Ok(__FieldTag::__referenced_entry_scopes)
+                                    }
+                                    "referenced_entry_scopes" => {
+                                        Ok(__FieldTag::__referenced_entry_scopes)
+                                    }
                                     _ => Ok(__FieldTag::Unknown(value.to_string())),
                                 }
                             }
@@ -17116,6 +22184,36 @@ pub mod metadata_job {
                                     }
                                     result.aspect_types = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                                 }
+                                __FieldTag::__glossaries => {
+                                    if !fields.insert(__FieldTag::__glossaries) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for glossaries",
+                                            ),
+                                        );
+                                    }
+                                    result.glossaries = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                                }
+                                __FieldTag::__entry_link_types => {
+                                    if !fields.insert(__FieldTag::__entry_link_types) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for entry_link_types",
+                                            ),
+                                        );
+                                    }
+                                    result.entry_link_types = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                                }
+                                __FieldTag::__referenced_entry_scopes => {
+                                    if !fields.insert(__FieldTag::__referenced_entry_scopes) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for referenced_entry_scopes",
+                                            ),
+                                        );
+                                    }
+                                    result.referenced_entry_scopes = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                                }
                                 __FieldTag::Unknown(key) => {
                                     let value = map.next_value::<serde_json::Value>()?;
                                     result._unknown_fields.insert(key, value);
@@ -17148,6 +22246,16 @@ pub mod metadata_job {
                 if !self.aspect_types.is_empty() {
                     state.serialize_entry("aspectTypes", &self.aspect_types)?;
                 }
+                if !self.glossaries.is_empty() {
+                    state.serialize_entry("glossaries", &self.glossaries)?;
+                }
+                if !self.entry_link_types.is_empty() {
+                    state.serialize_entry("entryLinkTypes", &self.entry_link_types)?;
+                }
+                if !self.referenced_entry_scopes.is_empty() {
+                    state
+                        .serialize_entry("referencedEntryScopes", &self.referenced_entry_scopes)?;
+                }
                 if !self._unknown_fields.is_empty() {
                     for (key, value) in self._unknown_fields.iter() {
                         state.serialize_entry(key, &value)?;
@@ -17163,6 +22271,9 @@ pub mod metadata_job {
                 debug_struct.field("entry_groups", &self.entry_groups);
                 debug_struct.field("entry_types", &self.entry_types);
                 debug_struct.field("aspect_types", &self.aspect_types);
+                debug_struct.field("glossaries", &self.glossaries);
+                debug_struct.field("entry_link_types", &self.entry_link_types);
+                debug_struct.field("referenced_entry_scopes", &self.referenced_entry_scopes);
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -17193,9 +22304,9 @@ pub mod metadata_job {
             /// Sync mode unspecified.
             Unspecified,
             /// All resources in the job's scope are modified. If a resource exists in
-            /// Dataplex but isn't included in the metadata import file, the resource
-            /// is deleted when you run the metadata job. Use this mode to perform a
-            /// full sync of the set of entries in the job scope.
+            /// Dataplex Universal Catalog but isn't included in the metadata import
+            /// file, the resource is deleted when you run the metadata job. Use this
+            /// mode to perform a full sync of the set of entries in the job scope.
             ///
             /// This sync mode is supported for entries.
             Full,
@@ -17485,9 +22596,9 @@ pub mod metadata_job {
         /// metadata to, in the format `gs://{bucket}/`. You can optionally specify a
         /// custom prefix after the bucket name, in the format
         /// `gs://{bucket}/{prefix}/`. The maximum length of the custom prefix is 128
-        /// characters. Dataplex constructs the object path for the exported files by
-        /// using the bucket name and prefix that you provide, followed by a
-        /// system-generated path.
+        /// characters. Dataplex Universal Catalog constructs the object path for the
+        /// exported files by using the bucket name and prefix that you provide,
+        /// followed by a system-generated path.
         ///
         /// The bucket must be in the same VPC Service Controls perimeter as the job.
         pub output_path: std::string::String,
@@ -18559,6 +23670,1137 @@ pub mod metadata_job {
         ImportResult(std::boxed::Box<crate::model::metadata_job::ImportJobResult>),
         /// Output only. Export job result.
         ExportResult(std::boxed::Box<crate::model::metadata_job::ExportJobResult>),
+    }
+}
+
+/// EntryLink represents a link between two Entries.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EntryLink {
+    /// Output only. Immutable. Identifier. The relative resource name of the Entry
+    /// Link, of the form:
+    /// `projects/{project_id_or_number}/locations/{location_id}/entryGroups/{entry_group_id}/entryLinks/{entry_link_id}`
+    pub name: std::string::String,
+
+    /// Required. Immutable. Relative resource name of the Entry Link Type used to
+    /// create this Entry Link. For example:
+    ///
+    /// - Entry link between synonym terms in a glossary:
+    ///   `projects/dataplex-types/locations/global/entryLinkTypes/synonym`
+    /// - Entry link between related terms in a glossary:
+    ///   `projects/dataplex-types/locations/global/entryLinkTypes/related`
+    /// - Entry link between glossary terms and data assets:
+    ///   `projects/dataplex-types/locations/global/entryLinkTypes/definition`
+    pub entry_link_type: std::string::String,
+
+    /// Output only. The time when the Entry Link was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time when the Entry Link was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Required. Specifies the Entries referenced in the Entry Link. There should
+    /// be exactly two entry references.
+    pub entry_references: std::vec::Vec<crate::model::entry_link::EntryReference>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EntryLink {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::EntryLink::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [entry_link_type][crate::model::EntryLink::entry_link_type].
+    pub fn set_entry_link_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.entry_link_type = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::EntryLink::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::EntryLink::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::EntryLink::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::EntryLink::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [entry_references][crate::model::EntryLink::entry_references].
+    pub fn set_entry_references<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::entry_link::EntryReference>,
+    {
+        use std::iter::Iterator;
+        self.entry_references = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for EntryLink {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.EntryLink"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for EntryLink {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __entry_link_type,
+            __create_time,
+            __update_time,
+            __entry_references,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EntryLink")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "entryLinkType" => Ok(__FieldTag::__entry_link_type),
+                            "entry_link_type" => Ok(__FieldTag::__entry_link_type),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "entryReferences" => Ok(__FieldTag::__entry_references),
+                            "entry_references" => Ok(__FieldTag::__entry_references),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = EntryLink;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EntryLink")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__entry_link_type => {
+                            if !fields.insert(__FieldTag::__entry_link_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entry_link_type",
+                                ));
+                            }
+                            result.entry_link_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__entry_references => {
+                            if !fields.insert(__FieldTag::__entry_references) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entry_references",
+                                ));
+                            }
+                            result.entry_references = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::entry_link::EntryReference>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for EntryLink {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.entry_link_type.is_empty() {
+            state.serialize_entry("entryLinkType", &self.entry_link_type)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.entry_references.is_empty() {
+            state.serialize_entry("entryReferences", &self.entry_references)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for EntryLink {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntryLink");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("entry_link_type", &self.entry_link_type);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("entry_references", &self.entry_references);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [EntryLink].
+pub mod entry_link {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Reference to the Entry that is linked through the Entry Link.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EntryReference {
+        /// Required. Immutable. The relative resource name of the referenced Entry,
+        /// of the form:
+        /// `projects/{project_id_or_number}/locations/{location_id}/entryGroups/{entry_group_id}/entries/{entry_id}`
+        pub name: std::string::String,
+
+        /// Immutable. The path in the Entry that is referenced in the Entry Link.
+        /// Empty path denotes that the Entry itself is referenced in the Entry
+        /// Link.
+        pub path: std::string::String,
+
+        /// Required. Immutable. The reference type of the Entry.
+        pub r#type: crate::model::entry_link::entry_reference::Type,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EntryReference {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::entry_link::EntryReference::name].
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [path][crate::model::entry_link::EntryReference::path].
+        pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.path = v.into();
+            self
+        }
+
+        /// Sets the value of [r#type][crate::model::entry_link::EntryReference::type].
+        pub fn set_type<T: std::convert::Into<crate::model::entry_link::entry_reference::Type>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for EntryReference {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.EntryLink.EntryReference"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for EntryReference {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __name,
+                __path,
+                __type,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for EntryReference")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "name" => Ok(__FieldTag::__name),
+                                "path" => Ok(__FieldTag::__path),
+                                "type" => Ok(__FieldTag::__type),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = EntryReference;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct EntryReference")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__name => {
+                                if !fields.insert(__FieldTag::__name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for name",
+                                    ));
+                                }
+                                result.name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__path => {
+                                if !fields.insert(__FieldTag::__path) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for path",
+                                    ));
+                                }
+                                result.path = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__type => {
+                                if !fields.insert(__FieldTag::__type) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for type",
+                                    ));
+                                }
+                                result.r#type = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::entry_link::entry_reference::Type,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for EntryReference {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.name.is_empty() {
+                state.serialize_entry("name", &self.name)?;
+            }
+            if !self.path.is_empty() {
+                state.serialize_entry("path", &self.path)?;
+            }
+            if !wkt::internal::is_default(&self.r#type) {
+                state.serialize_entry("type", &self.r#type)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for EntryReference {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EntryReference");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("path", &self.path);
+            debug_struct.field("r#type", &self.r#type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Defines additional types related to [EntryReference].
+    pub mod entry_reference {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Reference type of the Entry.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
+            /// Unspecified reference type. Implies that the Entry is referenced
+            /// in a non-directional Entry Link.
+            Unspecified,
+            /// The Entry is referenced as the source of the directional Entry Link.
+            Source,
+            /// The Entry is referenced as the target of the directional Entry Link.
+            Target,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Type::value] or
+            /// [Type::name].
+            UnknownValue(r#type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod r#type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Type {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Source => std::option::Option::Some(2),
+                    Self::Target => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("UNSPECIFIED"),
+                    Self::Source => std::option::Option::Some("SOURCE"),
+                    Self::Target => std::option::Option::Some("TARGET"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Type {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    2 => Self::Source,
+                    3 => Self::Target,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Type {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "UNSPECIFIED" => Self::Unspecified,
+                    "SOURCE" => Self::Source,
+                    "TARGET" => Self::Target,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Source => serializer.serialize_i32(2),
+                    Self::Target => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                    ".google.cloud.dataplex.v1.EntryLink.EntryReference.Type",
+                ))
+            }
+        }
+    }
+}
+
+/// Request message for CreateEntryLink.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateEntryLinkRequest {
+    /// Required. The resource name of the parent Entry Group:
+    /// `projects/{project_id_or_number}/locations/{location_id}/entryGroups/{entry_group_id}`.
+    pub parent: std::string::String,
+
+    /// Required. Entry Link identifier
+    ///
+    /// * Must contain only lowercase letters, numbers and hyphens.
+    /// * Must start with a letter.
+    /// * Must be between 1-63 characters.
+    /// * Must end with a number or a letter.
+    /// * Must be unique within the EntryGroup.
+    pub entry_link_id: std::string::String,
+
+    /// Required. Entry Link resource.
+    pub entry_link: std::option::Option<crate::model::EntryLink>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateEntryLinkRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateEntryLinkRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [entry_link_id][crate::model::CreateEntryLinkRequest::entry_link_id].
+    pub fn set_entry_link_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.entry_link_id = v.into();
+        self
+    }
+
+    /// Sets the value of [entry_link][crate::model::CreateEntryLinkRequest::entry_link].
+    pub fn set_entry_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EntryLink>,
+    {
+        self.entry_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [entry_link][crate::model::CreateEntryLinkRequest::entry_link].
+    pub fn set_or_clear_entry_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EntryLink>,
+    {
+        self.entry_link = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateEntryLinkRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.CreateEntryLinkRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateEntryLinkRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __entry_link_id,
+            __entry_link,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateEntryLinkRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "entryLinkId" => Ok(__FieldTag::__entry_link_id),
+                            "entry_link_id" => Ok(__FieldTag::__entry_link_id),
+                            "entryLink" => Ok(__FieldTag::__entry_link),
+                            "entry_link" => Ok(__FieldTag::__entry_link),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateEntryLinkRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateEntryLinkRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__entry_link_id => {
+                            if !fields.insert(__FieldTag::__entry_link_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entry_link_id",
+                                ));
+                            }
+                            result.entry_link_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__entry_link => {
+                            if !fields.insert(__FieldTag::__entry_link) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entry_link",
+                                ));
+                            }
+                            result.entry_link =
+                                map.next_value::<std::option::Option<crate::model::EntryLink>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateEntryLinkRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.entry_link_id.is_empty() {
+            state.serialize_entry("entryLinkId", &self.entry_link_id)?;
+        }
+        if self.entry_link.is_some() {
+            state.serialize_entry("entryLink", &self.entry_link)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for CreateEntryLinkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEntryLinkRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("entry_link_id", &self.entry_link_id);
+        debug_struct.field("entry_link", &self.entry_link);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Request message for DeleteEntryLink.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteEntryLinkRequest {
+    /// Required. The resource name of the Entry Link:
+    /// `projects/{project_id_or_number}/locations/{location_id}/entryGroups/{entry_group_id}/entryLinks/{entry_link_id}`.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteEntryLinkRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteEntryLinkRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteEntryLinkRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.DeleteEntryLinkRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteEntryLinkRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteEntryLinkRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteEntryLinkRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteEntryLinkRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteEntryLinkRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteEntryLinkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteEntryLinkRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Request message for GetEntryLink.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetEntryLinkRequest {
+    /// Required. The resource name of the Entry Link:
+    /// `projects/{project_id_or_number}/locations/{location_id}/entryGroups/{entry_group_id}/entryLinks/{entry_link_id}`.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetEntryLinkRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetEntryLinkRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetEntryLinkRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.GetEntryLinkRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetEntryLinkRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetEntryLinkRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetEntryLinkRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetEntryLinkRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetEntryLinkRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for GetEntryLinkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEntryLinkRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -22186,6 +28428,12 @@ pub mod data_discovery_spec {
         /// <https://cloud.google.com/bigquery/docs/locations#supported_locations>.
         pub location: std::string::String,
 
+        /// Optional. The project of the BigQuery dataset to publish BigLake external
+        /// or non-BigLake external tables to. If not specified, the project of the
+        /// Cloud Storage bucket will be used. The format is
+        /// "projects/{project_id_or_number}".
+        pub project: std::string::String,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -22218,6 +28466,12 @@ pub mod data_discovery_spec {
             self.location = v.into();
             self
         }
+
+        /// Sets the value of [project][crate::model::data_discovery_spec::BigQueryPublishingConfig::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for BigQueryPublishingConfig {
@@ -22239,6 +28493,7 @@ pub mod data_discovery_spec {
                 __table_type,
                 __connection,
                 __location,
+                __project,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -22266,6 +28521,7 @@ pub mod data_discovery_spec {
                                 "table_type" => Ok(__FieldTag::__table_type),
                                 "connection" => Ok(__FieldTag::__connection),
                                 "location" => Ok(__FieldTag::__location),
+                                "project" => Ok(__FieldTag::__project),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -22319,6 +28575,16 @@ pub mod data_discovery_spec {
                                     .next_value::<std::option::Option<std::string::String>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__project => {
+                                if !fields.insert(__FieldTag::__project) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for project",
+                                    ));
+                                }
+                                result.project = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -22351,6 +28617,9 @@ pub mod data_discovery_spec {
             if !self.location.is_empty() {
                 state.serialize_entry("location", &self.location)?;
             }
+            if !self.project.is_empty() {
+                state.serialize_entry("project", &self.project)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -22366,6 +28635,7 @@ pub mod data_discovery_spec {
             debug_struct.field("table_type", &self.table_type);
             debug_struct.field("connection", &self.connection);
             debug_struct.field("location", &self.location);
+            debug_struct.field("project", &self.project);
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -24190,10 +30460,8 @@ pub struct DataProfileSpec {
     pub sampling_percent: f32,
 
     /// Optional. A filter applied to all rows in a single DataScan job.
-    /// The filter needs to be a valid SQL expression for a [WHERE clause in
-    /// GoogleSQL
-    /// syntax](https://cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax#where_clause).
-    ///
+    /// The filter needs to be a valid SQL expression for a WHERE clause in
+    /// BigQuery standard SQL syntax.
     /// Example: col1 >= 0 AND col2 < 10
     pub row_filter: std::string::String,
 
@@ -24673,8 +30941,6 @@ pub mod data_profile_spec {
             /// Optional. The BigQuery table to export DataProfileScan results to.
             /// Format:
             /// //bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID
-            /// or
-            /// projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID
             pub results_table: std::string::String,
 
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -24984,13 +31250,13 @@ pub mod data_profile_spec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfileResult {
-    /// The count of rows scanned.
+    /// Output only. The count of rows scanned.
     pub row_count: i64,
 
-    /// The profile information per field.
+    /// Output only. The profile information per field.
     pub profile: std::option::Option<crate::model::data_profile_result::Profile>,
 
-    /// The data scanned for this result.
+    /// Output only. The data scanned for this result.
     pub scanned_data: std::option::Option<crate::model::ScannedData>,
 
     /// Output only. The result of post scan actions.
@@ -25264,7 +31530,8 @@ pub mod data_profile_result {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Profile {
-        /// List of fields with structural and profile information for each field.
+        /// Output only. List of fields with structural and profile information for
+        /// each field.
         pub fields: std::vec::Vec<crate::model::data_profile_result::profile::Field>,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -25422,24 +31689,25 @@ pub mod data_profile_result {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Field {
-            /// The name of the field.
+            /// Output only. The name of the field.
             pub name: std::string::String,
 
-            /// The data type retrieved from the schema of the data source. For
-            /// instance, for a BigQuery native table, it is the [BigQuery Table
+            /// Output only. The data type retrieved from the schema of the data
+            /// source. For instance, for a BigQuery native table, it is the [BigQuery
+            /// Table
             /// Schema](https://cloud.google.com/bigquery/docs/reference/rest/v2/tables#tablefieldschema).
-            /// For a Dataplex Entity, it is the [Entity
+            /// For a Dataplex Universal Catalog Entity, it is the [Entity
             /// Schema](https://cloud.google.com/dataplex/docs/reference/rpc/google.cloud.dataplex.v1#type_3).
             pub r#type: std::string::String,
 
-            /// The mode of the field. Possible values include:
+            /// Output only. The mode of the field. Possible values include:
             ///
             /// * REQUIRED, if it is a required field.
             /// * NULLABLE, if it is an optional field.
             /// * REPEATED, if it is a repeated field.
             pub mode: std::string::String,
 
-            /// Profile information for the corresponding field.
+            /// Output only. Profile information for the corresponding field.
             pub profile:
                 std::option::Option<crate::model::data_profile_result::profile::field::ProfileInfo>,
 
@@ -25675,19 +31943,21 @@ pub mod data_profile_result {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ProfileInfo {
-                /// Ratio of rows with null value against total scanned rows.
+                /// Output only. Ratio of rows with null value against total scanned
+                /// rows.
                 pub null_ratio: f64,
 
-                /// Ratio of rows with distinct values against total scanned rows.
-                /// Not available for complex non-groupable field type, including RECORD,
-                /// ARRAY, GEOGRAPHY, and JSON, as well as fields with REPEATABLE mode.
+                /// Output only. Ratio of rows with distinct values against total scanned
+                /// rows. Not available for complex non-groupable field type, including
+                /// RECORD, ARRAY, GEOGRAPHY, and JSON, as well as fields with REPEATABLE
+                /// mode.
                 pub distinct_ratio: f64,
 
-                /// The list of top N non-null values, frequency and ratio with which
-                /// they occur in the scanned data. N is 10 or equal to the number of
-                /// distinct values in the field, whichever is smaller. Not available for
-                /// complex non-groupable field type, including RECORD, ARRAY, GEOGRAPHY,
-                /// and JSON, as well as fields with REPEATABLE mode.
+                /// Output only. The list of top N non-null values, frequency and ratio
+                /// with which they occur in the scanned data. N is 10 or equal to the
+                /// number of distinct values in the field, whichever is smaller. Not
+                /// available for complex non-groupable field type, including RECORD,
+                /// ARRAY, GEOGRAPHY, and JSON, as well as fields with REPEATABLE mode.
                 pub top_n_values: std::vec::Vec<
                     crate::model::data_profile_result::profile::field::profile_info::TopNValue,
                 >,
@@ -26130,13 +32400,13 @@ pub mod data_profile_result {
                 #[derive(Clone, Default, PartialEq)]
                 #[non_exhaustive]
                 pub struct StringFieldInfo {
-                    /// Minimum length of non-null values in the scanned data.
+                    /// Output only. Minimum length of non-null values in the scanned data.
                     pub min_length: i64,
 
-                    /// Maximum length of non-null values in the scanned data.
+                    /// Output only. Maximum length of non-null values in the scanned data.
                     pub max_length: i64,
 
-                    /// Average length of non-null values in the scanned data.
+                    /// Output only. Average length of non-null values in the scanned data.
                     pub average_length: f64,
 
                     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -26432,34 +32702,34 @@ pub mod data_profile_result {
                 #[derive(Clone, Default, PartialEq)]
                 #[non_exhaustive]
                 pub struct IntegerFieldInfo {
-                    /// Average of non-null values in the scanned data. NaN, if the field
-                    /// has a NaN.
+                    /// Output only. Average of non-null values in the scanned data. NaN,
+                    /// if the field has a NaN.
                     pub average: f64,
 
-                    /// Standard deviation of non-null values in the scanned data. NaN, if
-                    /// the field has a NaN.
+                    /// Output only. Standard deviation of non-null values in the scanned
+                    /// data. NaN, if the field has a NaN.
                     pub standard_deviation: f64,
 
-                    /// Minimum of non-null values in the scanned data. NaN, if the field
-                    /// has a NaN.
+                    /// Output only. Minimum of non-null values in the scanned data. NaN,
+                    /// if the field has a NaN.
                     pub min: i64,
 
-                    /// A quartile divides the number of data points into four parts, or
-                    /// quarters, of more-or-less equal size. Three main quartiles used
-                    /// are: The first quartile (Q1) splits off the lowest 25% of data from
-                    /// the highest 75%. It is also known as the lower or 25th empirical
-                    /// quartile, as 25% of the data is below this point. The second
-                    /// quartile (Q2) is the median of a data set. So, 50% of the data lies
-                    /// below this point. The third quartile (Q3) splits off the highest
-                    /// 25% of data from the lowest 75%. It is known as the upper or 75th
-                    /// empirical quartile, as 75% of the data lies below this point.
-                    /// Here, the quartiles is provided as an ordered list of approximate
-                    /// quartile values for the scanned data, occurring in order Q1,
-                    /// median, Q3.
+                    /// Output only. A quartile divides the number of data points into four
+                    /// parts, or quarters, of more-or-less equal size. Three main
+                    /// quartiles used are: The first quartile (Q1) splits off the lowest
+                    /// 25% of data from the highest 75%. It is also known as the lower or
+                    /// 25th empirical quartile, as 25% of the data is below this point.
+                    /// The second quartile (Q2) is the median of a data set. So, 50% of
+                    /// the data lies below this point. The third quartile (Q3) splits off
+                    /// the highest 25% of data from the lowest 75%. It is known as the
+                    /// upper or 75th empirical quartile, as 75% of the data lies below
+                    /// this point. Here, the quartiles is provided as an ordered list of
+                    /// approximate quartile values for the scanned data, occurring in
+                    /// order Q1, median, Q3.
                     pub quartiles: std::vec::Vec<i64>,
 
-                    /// Maximum of non-null values in the scanned data. NaN, if the field
-                    /// has a NaN.
+                    /// Output only. Maximum of non-null values in the scanned data. NaN,
+                    /// if the field has a NaN.
                     pub max: i64,
 
                     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -26875,33 +33145,34 @@ pub mod data_profile_result {
                 #[derive(Clone, Default, PartialEq)]
                 #[non_exhaustive]
                 pub struct DoubleFieldInfo {
-                    /// Average of non-null values in the scanned data. NaN, if the field
-                    /// has a NaN.
+                    /// Output only. Average of non-null values in the scanned data. NaN,
+                    /// if the field has a NaN.
                     pub average: f64,
 
-                    /// Standard deviation of non-null values in the scanned data. NaN, if
-                    /// the field has a NaN.
+                    /// Output only. Standard deviation of non-null values in the scanned
+                    /// data. NaN, if the field has a NaN.
                     pub standard_deviation: f64,
 
-                    /// Minimum of non-null values in the scanned data. NaN, if the field
-                    /// has a NaN.
+                    /// Output only. Minimum of non-null values in the scanned data. NaN,
+                    /// if the field has a NaN.
                     pub min: f64,
 
-                    /// A quartile divides the number of data points into four parts, or
-                    /// quarters, of more-or-less equal size. Three main quartiles used
-                    /// are: The first quartile (Q1) splits off the lowest 25% of data from
-                    /// the highest 75%. It is also known as the lower or 25th empirical
-                    /// quartile, as 25% of the data is below this point. The second
-                    /// quartile (Q2) is the median of a data set. So, 50% of the data lies
-                    /// below this point. The third quartile (Q3) splits off the highest
-                    /// 25% of data from the lowest 75%. It is known as the upper or 75th
-                    /// empirical quartile, as 75% of the data lies below this point.
-                    /// Here, the quartiles is provided as an ordered list of quartile
-                    /// values for the scanned data, occurring in order Q1, median, Q3.
+                    /// Output only. A quartile divides the number of data points into four
+                    /// parts, or quarters, of more-or-less equal size. Three main
+                    /// quartiles used are: The first quartile (Q1) splits off the lowest
+                    /// 25% of data from the highest 75%. It is also known as the lower or
+                    /// 25th empirical quartile, as 25% of the data is below this point.
+                    /// The second quartile (Q2) is the median of a data set. So, 50% of
+                    /// the data lies below this point. The third quartile (Q3) splits off
+                    /// the highest 25% of data from the lowest 75%. It is known as the
+                    /// upper or 75th empirical quartile, as 75% of the data lies below
+                    /// this point. Here, the quartiles is provided as an ordered list of
+                    /// quartile values for the scanned data, occurring in order Q1,
+                    /// median, Q3.
                     pub quartiles: std::vec::Vec<f64>,
 
-                    /// Maximum of non-null values in the scanned data. NaN, if the field
-                    /// has a NaN.
+                    /// Output only. Maximum of non-null values in the scanned data. NaN,
+                    /// if the field has a NaN.
                     pub max: f64,
 
                     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -27317,14 +33588,14 @@ pub mod data_profile_result {
                 #[derive(Clone, Default, PartialEq)]
                 #[non_exhaustive]
                 pub struct TopNValue {
-                    /// String value of a top N non-null value.
+                    /// Output only. String value of a top N non-null value.
                     pub value: std::string::String,
 
-                    /// Count of the corresponding value in the scanned data.
+                    /// Output only. Count of the corresponding value in the scanned data.
                     pub count: i64,
 
-                    /// Ratio of the corresponding value in the field against the total
-                    /// number of rows in the scanned data.
+                    /// Output only. Ratio of the corresponding value in the field against
+                    /// the total number of rows in the scanned data.
                     pub ratio: f64,
 
                     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -28114,6 +34385,10 @@ pub struct DataQualitySpec {
     /// Optional. Actions to take upon job completion.
     pub post_scan_actions: std::option::Option<crate::model::data_quality_spec::PostScanActions>,
 
+    /// Optional. If set, the latest DataScan job result will be published as
+    /// Dataplex Universal Catalog metadata.
+    pub catalog_publishing_enabled: bool,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -28162,6 +34437,12 @@ impl DataQualitySpec {
         self.post_scan_actions = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [catalog_publishing_enabled][crate::model::DataQualitySpec::catalog_publishing_enabled].
+    pub fn set_catalog_publishing_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.catalog_publishing_enabled = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for DataQualitySpec {
@@ -28184,6 +34465,7 @@ impl<'de> serde::de::Deserialize<'de> for DataQualitySpec {
             __sampling_percent,
             __row_filter,
             __post_scan_actions,
+            __catalog_publishing_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -28211,6 +34493,12 @@ impl<'de> serde::de::Deserialize<'de> for DataQualitySpec {
                             "row_filter" => Ok(__FieldTag::__row_filter),
                             "postScanActions" => Ok(__FieldTag::__post_scan_actions),
                             "post_scan_actions" => Ok(__FieldTag::__post_scan_actions),
+                            "catalogPublishingEnabled" => {
+                                Ok(__FieldTag::__catalog_publishing_enabled)
+                            }
+                            "catalog_publishing_enabled" => {
+                                Ok(__FieldTag::__catalog_publishing_enabled)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -28288,6 +34576,16 @@ impl<'de> serde::de::Deserialize<'de> for DataQualitySpec {
                                 crate::model::data_quality_spec::PostScanActions,
                             >>()?;
                         }
+                        __FieldTag::__catalog_publishing_enabled => {
+                            if !fields.insert(__FieldTag::__catalog_publishing_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for catalog_publishing_enabled",
+                                ));
+                            }
+                            result.catalog_publishing_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -28332,6 +34630,9 @@ impl serde::ser::Serialize for DataQualitySpec {
         if self.post_scan_actions.is_some() {
             state.serialize_entry("postScanActions", &self.post_scan_actions)?;
         }
+        if !wkt::internal::is_default(&self.catalog_publishing_enabled) {
+            state.serialize_entry("catalogPublishingEnabled", &self.catalog_publishing_enabled)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -28348,6 +34649,10 @@ impl std::fmt::Debug for DataQualitySpec {
         debug_struct.field("sampling_percent", &self.sampling_percent);
         debug_struct.field("row_filter", &self.row_filter);
         debug_struct.field("post_scan_actions", &self.post_scan_actions);
+        debug_struct.field(
+            "catalog_publishing_enabled",
+            &self.catalog_publishing_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29640,6 +35945,11 @@ pub struct DataQualityResult {
     pub post_scan_actions_result:
         std::option::Option<crate::model::data_quality_result::PostScanActionsResult>,
 
+    /// Output only. The status of publishing the data scan as Dataplex Universal
+    /// Catalog metadata.
+    pub catalog_publishing_status:
+        std::option::Option<crate::model::DataScanCatalogPublishingStatus>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -29746,6 +36056,24 @@ impl DataQualityResult {
         self.post_scan_actions_result = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [catalog_publishing_status][crate::model::DataQualityResult::catalog_publishing_status].
+    pub fn set_catalog_publishing_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataScanCatalogPublishingStatus>,
+    {
+        self.catalog_publishing_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [catalog_publishing_status][crate::model::DataQualityResult::catalog_publishing_status].
+    pub fn set_or_clear_catalog_publishing_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataScanCatalogPublishingStatus>,
+    {
+        self.catalog_publishing_status = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for DataQualityResult {
@@ -29772,6 +36100,7 @@ impl<'de> serde::de::Deserialize<'de> for DataQualityResult {
             __row_count,
             __scanned_data,
             __post_scan_actions_result,
+            __catalog_publishing_status,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -29804,6 +36133,12 @@ impl<'de> serde::de::Deserialize<'de> for DataQualityResult {
                             "postScanActionsResult" => Ok(__FieldTag::__post_scan_actions_result),
                             "post_scan_actions_result" => {
                                 Ok(__FieldTag::__post_scan_actions_result)
+                            }
+                            "catalogPublishingStatus" => {
+                                Ok(__FieldTag::__catalog_publishing_status)
+                            }
+                            "catalog_publishing_status" => {
+                                Ok(__FieldTag::__catalog_publishing_status)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -29934,6 +36269,17 @@ impl<'de> serde::de::Deserialize<'de> for DataQualityResult {
                                     crate::model::data_quality_result::PostScanActionsResult,
                                 >>()?;
                         }
+                        __FieldTag::__catalog_publishing_status => {
+                            if !fields.insert(__FieldTag::__catalog_publishing_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for catalog_publishing_status",
+                                ));
+                            }
+                            result.catalog_publishing_status = map
+                                .next_value::<std::option::Option<
+                                    crate::model::DataScanCatalogPublishingStatus,
+                                >>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -30001,6 +36347,9 @@ impl serde::ser::Serialize for DataQualityResult {
         if self.post_scan_actions_result.is_some() {
             state.serialize_entry("postScanActionsResult", &self.post_scan_actions_result)?;
         }
+        if self.catalog_publishing_status.is_some() {
+            state.serialize_entry("catalogPublishingStatus", &self.catalog_publishing_status)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -30021,6 +36370,7 @@ impl std::fmt::Debug for DataQualityResult {
         debug_struct.field("row_count", &self.row_count);
         debug_struct.field("scanned_data", &self.scanned_data);
         debug_struct.field("post_scan_actions_result", &self.post_scan_actions_result);
+        debug_struct.field("catalog_publishing_status", &self.catalog_publishing_status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -31214,7 +37564,7 @@ impl std::fmt::Debug for DataQualityDimensionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataQualityDimension {
-    /// Optional. The dimension name a rule belongs to. Custom dimension name is
+    /// Output only. The dimension name a rule belongs to. Custom dimension name is
     /// supported with all uppercase letters and maximum length of 30 characters.
     pub name: std::string::String,
 
@@ -31372,9 +37722,8 @@ pub struct DataQualityRule {
     pub ignore_null: bool,
 
     /// Required. The dimension a rule belongs to. Results are also aggregated at
-    /// the dimension level. Supported dimensions are **["COMPLETENESS",
-    /// "ACCURACY", "CONSISTENCY", "VALIDITY", "UNIQUENESS", "FRESHNESS",
-    /// "VOLUME"]**
+    /// the dimension level. Custom dimension name is supported with all uppercase
+    /// letters and maximum length of 30 characters.
     pub dimension: std::string::String,
 
     /// Optional. The minimum ratio of **passing_rows / total_rows** required to
@@ -33959,6 +40308,12 @@ pub struct DataQualityColumnResult {
     /// points).
     pub score: std::option::Option<f32>,
 
+    /// Output only. Whether the column passed or failed.
+    pub passed: bool,
+
+    /// Output only. The dimension-level results for this column.
+    pub dimensions: std::vec::Vec<crate::model::DataQualityDimensionResult>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -33990,6 +40345,23 @@ impl DataQualityColumnResult {
         self.score = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [passed][crate::model::DataQualityColumnResult::passed].
+    pub fn set_passed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.passed = v.into();
+        self
+    }
+
+    /// Sets the value of [dimensions][crate::model::DataQualityColumnResult::dimensions].
+    pub fn set_dimensions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataQualityDimensionResult>,
+    {
+        use std::iter::Iterator;
+        self.dimensions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for DataQualityColumnResult {
@@ -34010,6 +40382,8 @@ impl<'de> serde::de::Deserialize<'de> for DataQualityColumnResult {
         enum __FieldTag {
             __column,
             __score,
+            __passed,
+            __dimensions,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -34032,6 +40406,8 @@ impl<'de> serde::de::Deserialize<'de> for DataQualityColumnResult {
                         match value {
                             "column" => Ok(__FieldTag::__column),
                             "score" => Ok(__FieldTag::__score),
+                            "passed" => Ok(__FieldTag::__passed),
+                            "dimensions" => Ok(__FieldTag::__dimensions),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -34086,6 +40462,28 @@ impl<'de> serde::de::Deserialize<'de> for DataQualityColumnResult {
                             }
                             result.score = map.next_value::<__With>()?.0;
                         }
+                        __FieldTag::__passed => {
+                            if !fields.insert(__FieldTag::__passed) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for passed",
+                                ));
+                            }
+                            result.passed = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__dimensions => {
+                            if !fields.insert(__FieldTag::__dimensions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dimensions",
+                                ));
+                            }
+                            result.dimensions = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::DataQualityDimensionResult>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -34126,6 +40524,12 @@ impl serde::ser::Serialize for DataQualityColumnResult {
             }
             state.serialize_entry("score", &__With(&self.score))?;
         }
+        if !wkt::internal::is_default(&self.passed) {
+            state.serialize_entry("passed", &self.passed)?;
+        }
+        if !self.dimensions.is_empty() {
+            state.serialize_entry("dimensions", &self.dimensions)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -34140,6 +40544,8 @@ impl std::fmt::Debug for DataQualityColumnResult {
         let mut debug_struct = f.debug_struct("DataQualityColumnResult");
         debug_struct.field("column", &self.column);
         debug_struct.field("score", &self.score);
+        debug_struct.field("passed", &self.passed);
+        debug_struct.field("dimensions", &self.dimensions);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36411,7 +42817,7 @@ impl std::fmt::Debug for GetDataTaxonomyRequest {
 pub struct ListDataTaxonomiesRequest {
     /// Required. The resource name of the DataTaxonomy location, of the form:
     /// projects/{project_number}/locations/{location_id}
-    /// where `location_id` refers to a GCP region.
+    /// where `location_id` refers to a Google Cloud region.
     pub parent: std::string::String,
 
     /// Optional. Maximum number of DataTaxonomies to return. The service may
@@ -39582,7 +45988,7 @@ pub struct CreateDataScanRequest {
     /// Required. The resource name of the parent location:
     /// `projects/{project}/locations/{location_id}`
     /// where `project` refers to a *project_id* or *project_number* and
-    /// `location_id` refers to a GCP region.
+    /// `location_id` refers to a Google Cloud region.
     pub parent: std::string::String,
 
     /// Required. DataScan resource.
@@ -40041,7 +46447,7 @@ pub struct DeleteDataScanRequest {
     /// Required. The resource name of the dataScan:
     /// `projects/{project}/locations/{location_id}/dataScans/{data_scan_id}`
     /// where `project` refers to a *project_id* or *project_number* and
-    /// `location_id` refers to a GCP region.
+    /// `location_id` refers to a Google Cloud region.
     pub name: std::string::String,
 
     /// Optional. If set to true, any child resources of this data scan will also
@@ -40212,7 +46618,7 @@ pub struct GetDataScanRequest {
     /// Required. The resource name of the dataScan:
     /// `projects/{project}/locations/{location_id}/dataScans/{data_scan_id}`
     /// where `project` refers to a *project_id* or *project_number* and
-    /// `location_id` refers to a GCP region.
+    /// `location_id` refers to a Google Cloud region.
     pub name: std::string::String,
 
     /// Optional. Select the DataScan view to return. Defaults to `BASIC`.
@@ -40524,7 +46930,7 @@ pub struct ListDataScansRequest {
     /// Required. The resource name of the parent location:
     /// `projects/{project}/locations/{location_id}`
     /// where `project` refers to a *project_id* or *project_number* and
-    /// `location_id` refers to a GCP region.
+    /// `location_id` refers to a Google Cloud region.
     pub parent: std::string::String,
 
     /// Optional. Maximum number of dataScans to return. The service may return
@@ -41009,7 +47415,7 @@ pub struct RunDataScanRequest {
     /// Required. The resource name of the DataScan:
     /// `projects/{project}/locations/{location_id}/dataScans/{data_scan_id}`.
     /// where `project` refers to a *project_id* or *project_number* and
-    /// `location_id` refers to a GCP region.
+    /// `location_id` refers to a Google Cloud region.
     ///
     /// Only **OnDemand** data scans are allowed.
     pub name: std::string::String,
@@ -41307,7 +47713,7 @@ pub struct GetDataScanJobRequest {
     /// Required. The resource name of the DataScanJob:
     /// `projects/{project}/locations/{location_id}/dataScans/{data_scan_id}/jobs/{data_scan_job_id}`
     /// where `project` refers to a *project_id* or *project_number* and
-    /// `location_id` refers to a GCP region.
+    /// `location_id` refers to a Google Cloud region.
     pub name: std::string::String,
 
     /// Optional. Select the DataScanJob view to return. Defaults to `BASIC`.
@@ -41621,7 +48027,7 @@ pub struct ListDataScanJobsRequest {
     /// Required. The resource name of the parent environment:
     /// `projects/{project}/locations/{location_id}/dataScans/{data_scan_id}`
     /// where `project` refers to a *project_id* or *project_number* and
-    /// `location_id` refers to a GCP region.
+    /// `location_id` refers to a Google Cloud region.
     pub parent: std::string::String,
 
     /// Optional. Maximum number of DataScanJobs to return. The service may return
@@ -42211,8 +48617,8 @@ impl std::fmt::Debug for GenerateDataQualityRulesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateDataQualityRulesResponse {
-    /// The data quality rules that Dataplex generates based on the results
-    /// of a data profiling scan.
+    /// The data quality rules that Dataplex Universal Catalog generates based on
+    /// the results of a data profiling scan.
     pub rule: std::vec::Vec<crate::model::DataQualityRule>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -42378,7 +48784,7 @@ pub struct DataScan {
     /// Output only. Identifier. The relative resource name of the scan, of the
     /// form: `projects/{project}/locations/{location_id}/dataScans/{datascan_id}`,
     /// where `project` refers to a *project_id* or *project_number* and
-    /// `location_id` refers to a GCP region.
+    /// `location_id` refers to a Google Cloud region.
     pub name: std::string::String,
 
     /// Output only. System generated globally unique ID for the scan. This ID will
@@ -43761,7 +50167,7 @@ pub struct DataScanJob {
     /// the form:
     /// `projects/{project}/locations/{location_id}/dataScans/{datascan_id}/jobs/{job_id}`,
     /// where `project` refers to a *project_id* or *project_number* and
-    /// `location_id` refers to a GCP region.
+    /// `location_id` refers to a Google Cloud region.
     pub name: std::string::String,
 
     /// Output only. System generated globally unique ID for the DataScanJob.
@@ -44673,6 +51079,293 @@ pub mod data_scan_job {
         DataProfileResult(std::boxed::Box<crate::model::DataProfileResult>),
         /// Output only. The result of a data discovery scan.
         DataDiscoveryResult(std::boxed::Box<crate::model::DataDiscoveryResult>),
+    }
+}
+
+/// The status of publishing the data scan result as Dataplex Universal Catalog
+/// metadata.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataScanCatalogPublishingStatus {
+    /// Output only. Execution state for catalog publishing.
+    pub state: crate::model::data_scan_catalog_publishing_status::State,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataScanCatalogPublishingStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [state][crate::model::DataScanCatalogPublishingStatus::state].
+    pub fn set_state<
+        T: std::convert::Into<crate::model::data_scan_catalog_publishing_status::State>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DataScanCatalogPublishingStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.DataScanCatalogPublishingStatus"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DataScanCatalogPublishingStatus {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __state,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DataScanCatalogPublishingStatus")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "state" => Ok(__FieldTag::__state),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DataScanCatalogPublishingStatus;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DataScanCatalogPublishingStatus")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map
+                                .next_value::<std::option::Option<
+                                    crate::model::data_scan_catalog_publishing_status::State,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DataScanCatalogPublishingStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for DataScanCatalogPublishingStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataScanCatalogPublishingStatus");
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [DataScanCatalogPublishingStatus].
+pub mod data_scan_catalog_publishing_status {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Execution state for the publishing.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The publishing state is unspecified.
+        Unspecified,
+        /// Publish to catalog completed successfully.
+        Succeeded,
+        /// Publish to catalog failed.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Succeeded => std::option::Option::Some(1),
+                Self::Failed => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Succeeded,
+                2 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Succeeded => serializer.serialize_i32(1),
+                Self::Failed => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.dataplex.v1.DataScanCatalogPublishingStatus.State",
+            ))
+        }
     }
 }
 
@@ -47518,8 +54211,8 @@ pub mod job_event {
     pub enum ExecutionTrigger {
         /// The job execution trigger is unspecified.
         Unspecified,
-        /// The job was triggered by Dataplex based on trigger spec from task
-        /// definition.
+        /// The job was triggered by Dataplex Universal Catalog based on trigger spec
+        /// from task definition.
         TaskConfig,
         /// The job was triggered by the explicit call of Task API.
         RunRequest,
@@ -49471,6 +56164,11 @@ pub struct DataScanEvent {
     pub post_scan_actions_result:
         std::option::Option<crate::model::data_scan_event::PostScanActionsResult>,
 
+    /// The status of publishing the data scan as Dataplex Universal Catalog
+    /// metadata.
+    pub catalog_publishing_status:
+        std::option::Option<crate::model::DataScanCatalogPublishingStatus>,
+
     /// The result of the data scan job.
     pub result: std::option::Option<crate::model::data_scan_event::Result>,
 
@@ -49614,6 +56312,24 @@ impl DataScanEvent {
         T: std::convert::Into<crate::model::data_scan_event::PostScanActionsResult>,
     {
         self.post_scan_actions_result = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [catalog_publishing_status][crate::model::DataScanEvent::catalog_publishing_status].
+    pub fn set_catalog_publishing_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataScanCatalogPublishingStatus>,
+    {
+        self.catalog_publishing_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [catalog_publishing_status][crate::model::DataScanEvent::catalog_publishing_status].
+    pub fn set_or_clear_catalog_publishing_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataScanCatalogPublishingStatus>,
+    {
+        self.catalog_publishing_status = v.map(|x| x.into());
         self
     }
 
@@ -49810,6 +56526,7 @@ impl<'de> serde::de::Deserialize<'de> for DataScanEvent {
             __data_profile_configs,
             __data_quality_configs,
             __post_scan_actions_result,
+            __catalog_publishing_status,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -49858,6 +56575,12 @@ impl<'de> serde::de::Deserialize<'de> for DataScanEvent {
                             "postScanActionsResult" => Ok(__FieldTag::__post_scan_actions_result),
                             "post_scan_actions_result" => {
                                 Ok(__FieldTag::__post_scan_actions_result)
+                            }
+                            "catalogPublishingStatus" => {
+                                Ok(__FieldTag::__catalog_publishing_status)
+                            }
+                            "catalog_publishing_status" => {
+                                Ok(__FieldTag::__catalog_publishing_status)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -50072,6 +56795,17 @@ impl<'de> serde::de::Deserialize<'de> for DataScanEvent {
                                     crate::model::data_scan_event::PostScanActionsResult,
                                 >>()?;
                         }
+                        __FieldTag::__catalog_publishing_status => {
+                            if !fields.insert(__FieldTag::__catalog_publishing_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for catalog_publishing_status",
+                                ));
+                            }
+                            result.catalog_publishing_status = map
+                                .next_value::<std::option::Option<
+                                    crate::model::DataScanCatalogPublishingStatus,
+                                >>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -50143,6 +56877,9 @@ impl serde::ser::Serialize for DataScanEvent {
         if self.post_scan_actions_result.is_some() {
             state.serialize_entry("postScanActionsResult", &self.post_scan_actions_result)?;
         }
+        if self.catalog_publishing_status.is_some() {
+            state.serialize_entry("catalogPublishingStatus", &self.catalog_publishing_status)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -50167,6 +56904,7 @@ impl std::fmt::Debug for DataScanEvent {
         debug_struct.field("trigger", &self.trigger);
         debug_struct.field("scope", &self.scope);
         debug_struct.field("post_scan_actions_result", &self.post_scan_actions_result);
+        debug_struct.field("catalog_publishing_status", &self.catalog_publishing_status);
         debug_struct.field("result", &self.result);
         debug_struct.field("applied_configs", &self.applied_configs);
         if !self._unknown_fields.is_empty() {
@@ -51832,7 +58570,7 @@ pub mod data_scan_event {
         Failed,
         /// Data scan job was cancelled.
         Cancelled,
-        /// Data scan job was createed.
+        /// Data scan job was created.
         Created,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -57878,18 +64616,20 @@ impl std::fmt::Debug for Partition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Schema {
-    /// Required. Set to `true` if user-managed or `false` if managed by Dataplex.
-    /// The default is `false` (managed by Dataplex).
+    /// Required. Set to `true` if user-managed or `false` if managed by Dataplex
+    /// Universal Catalog. The default is `false` (managed by Dataplex Universal
+    /// Catalog).
     ///
-    /// - Set to `false`to enable Dataplex discovery to update the schema.
+    /// - Set to `false`to enable Dataplex Universal Catalog discovery to update
+    ///   the schema.
     ///   including new data discovery, schema inference, and schema evolution.
-    ///   Users retain the ability to input and edit the schema. Dataplex
-    ///   treats schema input by the user as though produced
-    ///   by a previous Dataplex discovery operation, and it will
-    ///   evolve the schema and take action based on that treatment.
+    ///   Users retain the ability to input and edit the schema. Dataplex Universal
+    ///   Catalog treats schema input by the user as though produced by a previous
+    ///   Dataplex Universal Catalog discovery operation, and it will evolve the
+    ///   schema and take action based on that treatment.
     ///
     /// - Set to `true` to fully manage the entity
-    ///   schema. This setting guarantees that Dataplex will not
+    ///   schema. This setting guarantees that Dataplex Universal Catalog will not
     ///   change schema fields.
     ///
     pub user_managed: bool,
@@ -61383,13 +68123,17 @@ pub mod data_source {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Source {
-        /// Immutable. The Dataplex entity that represents the data source (e.g.
-        /// BigQuery table) for DataScan, of the form:
+        /// Immutable. The Dataplex Universal Catalog entity that represents the data
+        /// source (e.g. BigQuery table) for DataScan, of the form:
         /// `projects/{project_number}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}`.
         Entity(std::string::String),
         /// Immutable. The service-qualified full resource name of the cloud resource
-        /// for a DataScan job to scan against. The field could be: BigQuery table of
-        /// type "TABLE" for DataProfileScan/DataQualityScan Format:
+        /// for a DataScan job to scan against. The field could either be: Cloud
+        /// Storage bucket for DataDiscoveryScan Format:
+        /// //storage.googleapis.com/projects/PROJECT_ID/buckets/BUCKET_ID
+        /// or
+        /// BigQuery table of type "TABLE" for DataProfileScan/DataQualityScan
+        /// Format:
         /// //bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID
         Resource(std::string::String),
     }
@@ -61598,14 +68342,14 @@ pub mod scanned_data {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IncrementalField {
-        /// The field that contains values which monotonically increases over time
-        /// (e.g. a timestamp column).
+        /// Output only. The field that contains values which monotonically increases
+        /// over time (e.g. a timestamp column).
         pub field: std::string::String,
 
-        /// Value that marks the start of the range.
+        /// Output only. Value that marks the start of the range.
         pub start: std::string::String,
 
-        /// Value that marks the end of the range.
+        /// Output only. Value that marks the end of the range.
         pub end: std::string::String,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -71144,7 +77888,7 @@ impl std::fmt::Debug for DataAccessSpec {
 pub struct CreateLakeRequest {
     /// Required. The resource name of the lake location, of the form:
     /// projects/{project_number}/locations/{location_id}
-    /// where `location_id` refers to a GCP region.
+    /// where `location_id` refers to a Google Cloud region.
     pub parent: std::string::String,
 
     /// Required. Lake identifier.
@@ -71743,7 +78487,7 @@ impl std::fmt::Debug for DeleteLakeRequest {
 pub struct ListLakesRequest {
     /// Required. The resource name of the lake location, of the form:
     /// `projects/{project_number}/locations/{location_id}`
-    /// where `location_id` refers to a GCP region.
+    /// where `location_id` refers to a Google Cloud region.
     pub parent: std::string::String,
 
     /// Optional. Maximum number of Lakes to return. The service may return fewer
@@ -83983,7 +90727,7 @@ pub mod job {
         Succeeded,
         /// The job is no longer running due to an error.
         Failed,
-        /// The job was cancelled outside of Dataplex.
+        /// The job was cancelled outside of Dataplex Universal Catalog.
         Aborted,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -84133,8 +90877,8 @@ pub mod job {
     pub enum Trigger {
         /// The trigger is unspecified.
         Unspecified,
-        /// The job was triggered by Dataplex based on trigger spec from task
-        /// definition.
+        /// The job was triggered by Dataplex Universal Catalog based on trigger spec
+        /// from task definition.
         TaskConfig,
         /// The job was triggered by the explicit call of Task API.
         RunRequest,

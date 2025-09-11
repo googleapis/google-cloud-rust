@@ -182,6 +182,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn create_api_operation(
+        &self,
+        req: crate::model::CreateApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ApiOperation>> {
+        self.inner.create_api_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_api_operation(
         &self,
         req: crate::model::GetApiOperationRequest,
@@ -197,6 +206,24 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListApiOperationsResponse>> {
         self.inner.list_api_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_api_operation(
+        &self,
+        req: crate::model::UpdateApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ApiOperation>> {
+        self.inner.update_api_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_api_operation(
+        &self,
+        req: crate::model::DeleteApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_api_operation(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -529,6 +556,347 @@ where
     }
 }
 
+/// Implements a [ApiHubCollect](super::stub::ApiHubCollect) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct ApiHubCollect<T>
+where
+    T: super::stub::ApiHubCollect + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> ApiHubCollect<T>
+where
+    T: super::stub::ApiHubCollect + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::ApiHubCollect for ApiHubCollect<T>
+where
+    T: super::stub::ApiHubCollect + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn collect_api_data(
+        &self,
+        req: crate::model::CollectApiDataRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.collect_api_data(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        self.inner.list_locations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        self.inner.get_location(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        self.inner.list_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.cancel_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [ApiHubCurate](super::stub::ApiHubCurate) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct ApiHubCurate<T>
+where
+    T: super::stub::ApiHubCurate + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> ApiHubCurate<T>
+where
+    T: super::stub::ApiHubCurate + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::ApiHubCurate for ApiHubCurate<T>
+where
+    T: super::stub::ApiHubCurate + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn create_curation(
+        &self,
+        req: crate::model::CreateCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Curation>> {
+        self.inner.create_curation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_curation(
+        &self,
+        req: crate::model::GetCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Curation>> {
+        self.inner.get_curation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_curations(
+        &self,
+        req: crate::model::ListCurationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListCurationsResponse>> {
+        self.inner.list_curations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_curation(
+        &self,
+        req: crate::model::UpdateCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Curation>> {
+        self.inner.update_curation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_curation(
+        &self,
+        req: crate::model::DeleteCurationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_curation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        self.inner.list_locations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        self.inner.get_location(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        self.inner.list_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.cancel_operation(req, options).await
+    }
+}
+
+/// Implements a [ApiHubDiscovery](super::stub::ApiHubDiscovery) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct ApiHubDiscovery<T>
+where
+    T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> ApiHubDiscovery<T>
+where
+    T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::ApiHubDiscovery for ApiHubDiscovery<T>
+where
+    T: super::stub::ApiHubDiscovery + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn list_discovered_api_observations(
+        &self,
+        req: crate::model::ListDiscoveredApiObservationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDiscoveredApiObservationsResponse>> {
+        self.inner
+            .list_discovered_api_observations(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_discovered_api_observation(
+        &self,
+        req: crate::model::GetDiscoveredApiObservationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::DiscoveredApiObservation>> {
+        self.inner
+            .get_discovered_api_observation(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_discovered_api_operations(
+        &self,
+        req: crate::model::ListDiscoveredApiOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDiscoveredApiOperationsResponse>> {
+        self.inner
+            .list_discovered_api_operations(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_discovered_api_operation(
+        &self,
+        req: crate::model::GetDiscoveredApiOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::DiscoveredApiOperation>> {
+        self.inner.get_discovered_api_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        self.inner.list_locations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        self.inner.get_location(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        self.inner.list_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.cancel_operation(req, options).await
+    }
+}
+
 /// Implements a [HostProjectRegistrationService](super::stub::HostProjectRegistrationService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct HostProjectRegistrationService<T>
@@ -800,6 +1168,109 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn create_plugin(
+        &self,
+        req: crate::model::CreatePluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Plugin>> {
+        self.inner.create_plugin(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_plugins(
+        &self,
+        req: crate::model::ListPluginsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListPluginsResponse>> {
+        self.inner.list_plugins(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_plugin(
+        &self,
+        req: crate::model::DeletePluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_plugin(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_plugin_instance(
+        &self,
+        req: crate::model::CreatePluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_plugin_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn execute_plugin_instance_action(
+        &self,
+        req: crate::model::ExecutePluginInstanceActionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner
+            .execute_plugin_instance_action(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_plugin_instance(
+        &self,
+        req: crate::model::GetPluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::PluginInstance>> {
+        self.inner.get_plugin_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_plugin_instances(
+        &self,
+        req: crate::model::ListPluginInstancesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListPluginInstancesResponse>> {
+        self.inner.list_plugin_instances(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn enable_plugin_instance_action(
+        &self,
+        req: crate::model::EnablePluginInstanceActionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.enable_plugin_instance_action(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn disable_plugin_instance_action(
+        &self,
+        req: crate::model::DisablePluginInstanceActionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner
+            .disable_plugin_instance_action(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_plugin_instance(
+        &self,
+        req: crate::model::UpdatePluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::PluginInstance>> {
+        self.inner.update_plugin_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_plugin_instance(
+        &self,
+        req: crate::model::DeletePluginInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_plugin_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -852,6 +1323,20 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
 }
 
 /// Implements a [Provisioning](super::stub::Provisioning) decorator for logging and tracing.
@@ -883,6 +1368,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_api_hub_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_api_hub_instance(
+        &self,
+        req: crate::model::DeleteApiHubInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_api_hub_instance(req, options).await
     }
 
     #[tracing::instrument(ret)]

@@ -24,9 +24,6 @@ included-ids = """\
     .google.storage.v2.Storage.CreateBucket,\
     .google.storage.v2.Storage.ListBuckets,\
     .google.storage.v2.Storage.LockBucketRetentionPolicy,\
-    .google.storage.v2.Storage.GetIamPolicy,\
-    .google.storage.v2.Storage.SetIamPolicy,\
-    .google.storage.v2.Storage.TestIamPermissions,\
     .google.storage.v2.Storage.UpdateBucket,\
     .google.storage.v2.Storage.ComposeObject,\
     .google.storage.v2.Storage.DeleteObject,\

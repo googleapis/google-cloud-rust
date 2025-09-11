@@ -10480,7 +10480,7 @@ pub mod inspect_data_source_details {
         }
     }
 
-    /// All result fields mentioned below are updated while the job is processing.
+    /// All Result fields are updated while the job is processing.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Result {
@@ -12339,6 +12339,323 @@ pub mod deidentify_data_source_details {
     }
 }
 
+/// Locations at which a feature can be used.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct LocationSupport {
+    /// The current scope for location on this feature. This may expand over time.
+    pub regionalization_scope: crate::model::location_support::RegionalizationScope,
+
+    /// Specific locations where the feature may be used.
+    /// Examples: us-central1, us, asia, global
+    /// If scope is ANY_LOCATION, no regions will be listed.
+    pub locations: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LocationSupport {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [regionalization_scope][crate::model::LocationSupport::regionalization_scope].
+    pub fn set_regionalization_scope<
+        T: std::convert::Into<crate::model::location_support::RegionalizationScope>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.regionalization_scope = v.into();
+        self
+    }
+
+    /// Sets the value of [locations][crate::model::LocationSupport::locations].
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for LocationSupport {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.LocationSupport"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for LocationSupport {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __regionalization_scope,
+            __locations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LocationSupport")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "regionalizationScope" => Ok(__FieldTag::__regionalization_scope),
+                            "regionalization_scope" => Ok(__FieldTag::__regionalization_scope),
+                            "locations" => Ok(__FieldTag::__locations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = LocationSupport;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LocationSupport")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__regionalization_scope => {
+                            if !fields.insert(__FieldTag::__regionalization_scope) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for regionalization_scope",
+                                ));
+                            }
+                            result.regionalization_scope = map
+                                .next_value::<std::option::Option<
+                                    crate::model::location_support::RegionalizationScope,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__locations => {
+                            if !fields.insert(__FieldTag::__locations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for locations",
+                                ));
+                            }
+                            result.locations = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for LocationSupport {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.regionalization_scope) {
+            state.serialize_entry("regionalizationScope", &self.regionalization_scope)?;
+        }
+        if !self.locations.is_empty() {
+            state.serialize_entry("locations", &self.locations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for LocationSupport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationSupport");
+        debug_struct.field("regionalization_scope", &self.regionalization_scope);
+        debug_struct.field("locations", &self.locations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [LocationSupport].
+pub mod location_support {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The location scope for a feature.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RegionalizationScope {
+        /// Invalid.
+        Unspecified,
+        /// Feature may be used with one or more regions. See locations for details.
+        Regional,
+        /// Feature may be used anywhere. Default value.
+        AnyLocation,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RegionalizationScope::value] or
+        /// [RegionalizationScope::name].
+        UnknownValue(regionalization_scope::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod regionalization_scope {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RegionalizationScope {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Regional => std::option::Option::Some(1),
+                Self::AnyLocation => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REGIONALIZATION_SCOPE_UNSPECIFIED"),
+                Self::Regional => std::option::Option::Some("REGIONAL"),
+                Self::AnyLocation => std::option::Option::Some("ANY_LOCATION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RegionalizationScope {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RegionalizationScope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RegionalizationScope {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Regional,
+                2 => Self::AnyLocation,
+                _ => Self::UnknownValue(regionalization_scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RegionalizationScope {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REGIONALIZATION_SCOPE_UNSPECIFIED" => Self::Unspecified,
+                "REGIONAL" => Self::Regional,
+                "ANY_LOCATION" => Self::AnyLocation,
+                _ => Self::UnknownValue(regionalization_scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RegionalizationScope {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Regional => serializer.serialize_i32(1),
+                Self::AnyLocation => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RegionalizationScope {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RegionalizationScope>::new(
+                ".google.privacy.dlp.v2.LocationSupport.RegionalizationScope",
+            ))
+        }
+    }
+}
+
 /// InfoType description.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -12355,6 +12672,9 @@ pub struct InfoTypeDescription {
     /// Description of the infotype. Translated when language is provided in the
     /// request.
     pub description: std::string::String,
+
+    /// Locations at which this feature can be used. May change over time.
+    pub location_support: std::option::Option<crate::model::LocationSupport>,
 
     /// A sample that is a true positive for this infoType.
     pub example: std::string::String,
@@ -12409,6 +12729,24 @@ impl InfoTypeDescription {
     /// Sets the value of [description][crate::model::InfoTypeDescription::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [location_support][crate::model::InfoTypeDescription::location_support].
+    pub fn set_location_support<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LocationSupport>,
+    {
+        self.location_support = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [location_support][crate::model::InfoTypeDescription::location_support].
+    pub fn set_or_clear_location_support<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LocationSupport>,
+    {
+        self.location_support = v.map(|x| x.into());
         self
     }
 
@@ -12490,6 +12828,7 @@ impl<'de> serde::de::Deserialize<'de> for InfoTypeDescription {
             __display_name,
             __supported_by,
             __description,
+            __location_support,
             __example,
             __versions,
             __categories,
@@ -12521,6 +12860,8 @@ impl<'de> serde::de::Deserialize<'de> for InfoTypeDescription {
                             "supportedBy" => Ok(__FieldTag::__supported_by),
                             "supported_by" => Ok(__FieldTag::__supported_by),
                             "description" => Ok(__FieldTag::__description),
+                            "locationSupport" => Ok(__FieldTag::__location_support),
+                            "location_support" => Ok(__FieldTag::__location_support),
                             "example" => Ok(__FieldTag::__example),
                             "versions" => Ok(__FieldTag::__versions),
                             "categories" => Ok(__FieldTag::__categories),
@@ -12594,6 +12935,16 @@ impl<'de> serde::de::Deserialize<'de> for InfoTypeDescription {
                             result.description = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__location_support => {
+                            if !fields.insert(__FieldTag::__location_support) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location_support",
+                                ));
+                            }
+                            result.location_support = map
+                                .next_value::<std::option::Option<crate::model::LocationSupport>>(
+                                )?;
                         }
                         __FieldTag::__example => {
                             if !fields.insert(__FieldTag::__example) {
@@ -12682,6 +13033,9 @@ impl serde::ser::Serialize for InfoTypeDescription {
         if !self.description.is_empty() {
             state.serialize_entry("description", &self.description)?;
         }
+        if self.location_support.is_some() {
+            state.serialize_entry("locationSupport", &self.location_support)?;
+        }
         if !self.example.is_empty() {
             state.serialize_entry("example", &self.example)?;
         }
@@ -12713,6 +13067,7 @@ impl std::fmt::Debug for InfoTypeDescription {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("supported_by", &self.supported_by);
         debug_struct.field("description", &self.description);
+        debug_struct.field("location_support", &self.location_support);
         debug_struct.field("example", &self.example);
         debug_struct.field("versions", &self.versions);
         debug_struct.field("categories", &self.categories);
@@ -13069,6 +13424,8 @@ pub mod info_type_category {
         Armenia,
         /// The infoType is typically used in Australia.
         Australia,
+        /// The infoType is typically used in Austria.
+        Austria,
         /// The infoType is typically used in Azerbaijan.
         Azerbaijan,
         /// The infoType is typically used in Belarus.
@@ -13190,6 +13547,7 @@ pub mod info_type_category {
                 Self::Argentina => std::option::Option::Some(2),
                 Self::Armenia => std::option::Option::Some(51),
                 Self::Australia => std::option::Option::Some(3),
+                Self::Austria => std::option::Option::Some(53),
                 Self::Azerbaijan => std::option::Option::Some(48),
                 Self::Belarus => std::option::Option::Some(50),
                 Self::Belgium => std::option::Option::Some(4),
@@ -13252,6 +13610,7 @@ pub mod info_type_category {
                 Self::Argentina => std::option::Option::Some("ARGENTINA"),
                 Self::Armenia => std::option::Option::Some("ARMENIA"),
                 Self::Australia => std::option::Option::Some("AUSTRALIA"),
+                Self::Austria => std::option::Option::Some("AUSTRIA"),
                 Self::Azerbaijan => std::option::Option::Some("AZERBAIJAN"),
                 Self::Belarus => std::option::Option::Some("BELARUS"),
                 Self::Belgium => std::option::Option::Some("BELGIUM"),
@@ -13372,6 +13731,7 @@ pub mod info_type_category {
                 50 => Self::Belarus,
                 51 => Self::Armenia,
                 52 => Self::Czechia,
+                53 => Self::Austria,
                 _ => Self::UnknownValue(location_category::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -13388,6 +13748,7 @@ pub mod info_type_category {
                 "ARGENTINA" => Self::Argentina,
                 "ARMENIA" => Self::Armenia,
                 "AUSTRALIA" => Self::Australia,
+                "AUSTRIA" => Self::Austria,
                 "AZERBAIJAN" => Self::Azerbaijan,
                 "BELARUS" => Self::Belarus,
                 "BELGIUM" => Self::Belgium,
@@ -13453,6 +13814,7 @@ pub mod info_type_category {
                 Self::Argentina => serializer.serialize_i32(2),
                 Self::Armenia => serializer.serialize_i32(51),
                 Self::Australia => serializer.serialize_i32(3),
+                Self::Austria => serializer.serialize_i32(53),
                 Self::Azerbaijan => serializer.serialize_i32(48),
                 Self::Belarus => serializer.serialize_i32(50),
                 Self::Belgium => serializer.serialize_i32(4),
@@ -14940,7 +15302,7 @@ pub mod quasi_id {
         InfoType(std::boxed::Box<crate::model::InfoType>),
         /// A column can be tagged with a custom tag. In this case, the user must
         /// indicate an auxiliary table that contains statistical information on
-        /// the possible values of this column (below).
+        /// the possible values of this column.
         CustomTag(std::string::String),
         /// If no semantic tag is indicated, we infer the statistical model from
         /// the distribution of values in the input data
@@ -15194,7 +15556,7 @@ pub mod statistical_table {
 
         /// A column can be tagged with a custom tag. In this case, the user must
         /// indicate an auxiliary table that contains statistical information on
-        /// the possible values of this column (below).
+        /// the possible values of this column.
         pub custom_tag: std::string::String,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -17159,7 +17521,7 @@ pub mod privacy_metric {
                 InfoType(std::boxed::Box<crate::model::InfoType>),
                 /// A column can be tagged with a custom tag. In this case, the user must
                 /// indicate an auxiliary table that contains statistical information on
-                /// the possible values of this column (below).
+                /// the possible values of this column.
                 CustomTag(std::string::String),
                 /// If no semantic tag is indicated, we infer the statistical model from
                 /// the distribution of values in the input data
@@ -38893,12 +39255,12 @@ pub mod action {
             std::option::Option<crate::model::TransformationDetailsStorageConfig>,
 
         /// List of user-specified file type groups to transform. If specified, only
-        /// the files with these file types will be transformed. If empty, all
-        /// supported files will be transformed. Supported types may be automatically
-        /// added over time. If a file type is set in this field that isn't supported
-        /// by the Deidentify action then the job will fail and will not be
-        /// successfully created/started. Currently the only file types supported
-        /// are: IMAGES, TEXT_FILES, CSV, TSV.
+        /// the files with these file types are transformed. If empty, all
+        /// supported files are transformed. Supported types may be automatically
+        /// added over time. Any unsupported file types that are set in this field
+        /// are excluded from de-identification. An error is recorded for each
+        /// unsupported file in the TransformationDetails output table. Currently the
+        /// only file types supported are: IMAGES, TEXT_FILES, CSV, TSV.
         pub file_types_to_transform: std::vec::Vec<crate::model::FileType>,
 
         /// Where to store the output.
@@ -70928,10 +71290,14 @@ pub struct ListTableDataProfilesRequest {
     /// Supported syntax:
     ///
     /// * Filter expressions are made up of one or more restrictions.
+    ///
     /// * Restrictions can be combined by `AND` or `OR` logical operators. A
     ///   sequence of restrictions implicitly uses `AND`.
+    ///
     /// * A restriction has the form of `{field} {operator} {value}`.
+    ///
     /// * Supported fields/values:
+    ///
     ///   - `project_id` - The Google Cloud project ID.
     ///   - `dataset_id` - The BigQuery dataset ID.
     ///   - `table_id` - The ID of the BigQuery table.
@@ -70941,6 +71307,7 @@ pub struct ListTableDataProfilesRequest {
     ///   - `status_code` - an RPC status code as defined in
     ///     <https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto>
     /// * The operator must be `=` or `!=`.
+    ///
     ///
     /// Examples:
     ///
@@ -72963,7 +73330,8 @@ pub struct TableDataProfile {
     /// May be empty if the profile is still being generated.
     pub profile_status: std::option::Option<crate::model::ProfileStatus>,
 
-    /// State of a profile.
+    /// State of a profile. This will always be set to DONE when the table data
+    /// profile is written to another service like BigQuery or Pub/Sub.
     pub state: crate::model::table_data_profile::State,
 
     /// The sensitivity score of this table.
@@ -73025,6 +73393,9 @@ pub struct TableDataProfile {
 
     /// Resources related to this profile.
     pub related_resources: std::vec::Vec<crate::model::RelatedResource>,
+
+    /// Domains associated with the profile.
+    pub domains: std::vec::Vec<crate::model::Domain>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -73371,6 +73742,17 @@ impl TableDataProfile {
         self.related_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [domains][crate::model::TableDataProfile::domains].
+    pub fn set_domains<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Domain>,
+    {
+        use std::iter::Iterator;
+        self.domains = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for TableDataProfile {
@@ -73418,6 +73800,7 @@ impl<'de> serde::de::Deserialize<'de> for TableDataProfile {
             __sample_findings_table,
             __tags,
             __related_resources,
+            __domains,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -73493,6 +73876,7 @@ impl<'de> serde::de::Deserialize<'de> for TableDataProfile {
                             "tags" => Ok(__FieldTag::__tags),
                             "relatedResources" => Ok(__FieldTag::__related_resources),
                             "related_resources" => Ok(__FieldTag::__related_resources),
+                            "domains" => Ok(__FieldTag::__domains),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -73845,6 +74229,14 @@ impl<'de> serde::de::Deserialize<'de> for TableDataProfile {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__domains => {
+                            if !fields.insert(__FieldTag::__domains) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for domains",
+                                ));
+                            }
+                            result.domains = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Domain>>>()?.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -73991,6 +74383,9 @@ impl serde::ser::Serialize for TableDataProfile {
         if !self.related_resources.is_empty() {
             state.serialize_entry("relatedResources", &self.related_resources)?;
         }
+        if !self.domains.is_empty() {
+            state.serialize_entry("domains", &self.domains)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -74032,6 +74427,7 @@ impl std::fmt::Debug for TableDataProfile {
         debug_struct.field("sample_findings_table", &self.sample_findings_table);
         debug_struct.field("tags", &self.tags);
         debug_struct.field("related_resources", &self.related_resources);
+        debug_struct.field("domains", &self.domains);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -76188,6 +76584,9 @@ pub struct FileStoreDataProfile {
     /// Resources related to this profile.
     pub related_resources: std::vec::Vec<crate::model::RelatedResource>,
 
+    /// Domains associated with the profile.
+    pub domains: std::vec::Vec<crate::model::Domain>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -76508,6 +76907,17 @@ impl FileStoreDataProfile {
         self.related_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [domains][crate::model::FileStoreDataProfile::domains].
+    pub fn set_domains<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Domain>,
+    {
+        use std::iter::Iterator;
+        self.domains = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for FileStoreDataProfile {
@@ -76552,6 +76962,7 @@ impl<'de> serde::de::Deserialize<'de> for FileStoreDataProfile {
             __file_store_is_empty,
             __tags,
             __related_resources,
+            __domains,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -76625,6 +77036,7 @@ impl<'de> serde::de::Deserialize<'de> for FileStoreDataProfile {
                             "tags" => Ok(__FieldTag::__tags),
                             "relatedResources" => Ok(__FieldTag::__related_resources),
                             "related_resources" => Ok(__FieldTag::__related_resources),
+                            "domains" => Ok(__FieldTag::__domains),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -76915,6 +77327,14 @@ impl<'de> serde::de::Deserialize<'de> for FileStoreDataProfile {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__domains => {
+                            if !fields.insert(__FieldTag::__domains) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for domains",
+                                ));
+                            }
+                            result.domains = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Domain>>>()?.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -77019,6 +77439,9 @@ impl serde::ser::Serialize for FileStoreDataProfile {
         if !self.related_resources.is_empty() {
             state.serialize_entry("relatedResources", &self.related_resources)?;
         }
+        if !self.domains.is_empty() {
+            state.serialize_entry("domains", &self.domains)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -77060,6 +77483,7 @@ impl std::fmt::Debug for FileStoreDataProfile {
         debug_struct.field("file_store_is_empty", &self.file_store_is_empty);
         debug_struct.field("tags", &self.tags);
         debug_struct.field("related_resources", &self.related_resources);
+        debug_struct.field("domains", &self.domains);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -78579,10 +79003,14 @@ pub struct ListFileStoreDataProfilesRequest {
     /// Supported syntax:
     ///
     /// * Filter expressions are made up of one or more restrictions.
+    ///
     /// * Restrictions can be combined by `AND` or `OR` logical operators. A
     ///   sequence of restrictions implicitly uses `AND`.
+    ///
     /// * A restriction has the form of `{field} {operator} {value}`.
+    ///
     /// * Supported fields/values:
+    ///
     ///   - `project_id` - The Google Cloud project ID.
     ///   - `account_id` - The AWS account ID.
     ///   - `file_store_path` - The path like "gs://bucket".
@@ -78596,6 +79024,7 @@ pub struct ListFileStoreDataProfilesRequest {
     ///   - `status_code` - an RPC status code as defined in
     ///     <https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto>
     /// * The operator must be `=` or `!=`.
+    ///
     ///
     /// Examples:
     ///
@@ -83893,9 +84322,13 @@ pub mod file_cluster_type {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessingLocation {
-    /// Image processing will fall back using this configuration.
+    /// Image processing falls back using this configuration.
     pub image_fallback_location:
         std::option::Option<crate::model::processing_location::ImageFallbackLocation>,
+
+    /// Document processing falls back using this configuration.
+    pub document_fallback_location:
+        std::option::Option<crate::model::processing_location::DocumentFallbackLocation>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -83922,6 +84355,24 @@ impl ProcessingLocation {
         self.image_fallback_location = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [document_fallback_location][crate::model::ProcessingLocation::document_fallback_location].
+    pub fn set_document_fallback_location<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::processing_location::DocumentFallbackLocation>,
+    {
+        self.document_fallback_location = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [document_fallback_location][crate::model::ProcessingLocation::document_fallback_location].
+    pub fn set_or_clear_document_fallback_location<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::processing_location::DocumentFallbackLocation>,
+    {
+        self.document_fallback_location = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for ProcessingLocation {
@@ -83941,6 +84392,7 @@ impl<'de> serde::de::Deserialize<'de> for ProcessingLocation {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __image_fallback_location,
+            __document_fallback_location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -83963,6 +84415,12 @@ impl<'de> serde::de::Deserialize<'de> for ProcessingLocation {
                         match value {
                             "imageFallbackLocation" => Ok(__FieldTag::__image_fallback_location),
                             "image_fallback_location" => Ok(__FieldTag::__image_fallback_location),
+                            "documentFallbackLocation" => {
+                                Ok(__FieldTag::__document_fallback_location)
+                            }
+                            "document_fallback_location" => {
+                                Ok(__FieldTag::__document_fallback_location)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -83998,6 +84456,17 @@ impl<'de> serde::de::Deserialize<'de> for ProcessingLocation {
                                 crate::model::processing_location::ImageFallbackLocation,
                             >>()?;
                         }
+                        __FieldTag::__document_fallback_location => {
+                            if !fields.insert(__FieldTag::__document_fallback_location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for document_fallback_location",
+                                ));
+                            }
+                            result.document_fallback_location = map
+                                .next_value::<std::option::Option<
+                                    crate::model::processing_location::DocumentFallbackLocation,
+                                >>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -84024,6 +84493,9 @@ impl serde::ser::Serialize for ProcessingLocation {
         if self.image_fallback_location.is_some() {
             state.serialize_entry("imageFallbackLocation", &self.image_fallback_location)?;
         }
+        if self.document_fallback_location.is_some() {
+            state.serialize_entry("documentFallbackLocation", &self.document_fallback_location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -84037,6 +84509,10 @@ impl std::fmt::Debug for ProcessingLocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProcessingLocation");
         debug_struct.field("image_fallback_location", &self.image_fallback_location);
+        debug_struct.field(
+            "document_fallback_location",
+            &self.document_fallback_location,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -84049,7 +84525,7 @@ pub mod processing_location {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Processing will happen in a multi-region that contains the current region
+    /// Processing occurs in a multi-region that contains the current region
     /// if available.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -84166,7 +84642,7 @@ pub mod processing_location {
         }
     }
 
-    /// Processing will happen in the global region.
+    /// Processing occurs in the global region.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GlobalProcessing {
@@ -84282,17 +84758,18 @@ pub mod processing_location {
         }
     }
 
-    /// Configure image processing to fall back to the configured processing option
-    /// below if unavailable in the request location.
+    /// Configure image processing to fall back to any of the following processing
+    /// options if image processing is unavailable in the original request
+    /// location.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ImageFallbackLocation {
-        /// Processing will happen in a multi-region that contains the current region
+        /// Processing occurs in a multi-region that contains the current region
         /// if available.
         pub multi_region_processing:
             std::option::Option<crate::model::processing_location::MultiRegionProcessing>,
 
-        /// Processing will happen in the global region.
+        /// Processing occurs in the global region.
         pub global_processing:
             std::option::Option<crate::model::processing_location::GlobalProcessing>,
 
@@ -84486,11 +84963,217 @@ pub mod processing_location {
             debug_struct.finish()
         }
     }
+
+    /// Configure document processing to fall back to any of the following
+    /// processing options if document processing is unavailable in the original
+    /// request location.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DocumentFallbackLocation {
+        /// Processing occurs in a multi-region that contains the current region
+        /// if available.
+        pub multi_region_processing:
+            std::option::Option<crate::model::processing_location::MultiRegionProcessing>,
+
+        /// Processing occurs in the global region.
+        pub global_processing:
+            std::option::Option<crate::model::processing_location::GlobalProcessing>,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DocumentFallbackLocation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [multi_region_processing][crate::model::processing_location::DocumentFallbackLocation::multi_region_processing].
+        pub fn set_multi_region_processing<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::processing_location::MultiRegionProcessing>,
+        {
+            self.multi_region_processing = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [multi_region_processing][crate::model::processing_location::DocumentFallbackLocation::multi_region_processing].
+        pub fn set_or_clear_multi_region_processing<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::processing_location::MultiRegionProcessing>,
+        {
+            self.multi_region_processing = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [global_processing][crate::model::processing_location::DocumentFallbackLocation::global_processing].
+        pub fn set_global_processing<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::processing_location::GlobalProcessing>,
+        {
+            self.global_processing = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [global_processing][crate::model::processing_location::DocumentFallbackLocation::global_processing].
+        pub fn set_or_clear_global_processing<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::processing_location::GlobalProcessing>,
+        {
+            self.global_processing = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for DocumentFallbackLocation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.ProcessingLocation.DocumentFallbackLocation"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for DocumentFallbackLocation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __multi_region_processing,
+                __global_processing,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for DocumentFallbackLocation")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "multiRegionProcessing" => {
+                                    Ok(__FieldTag::__multi_region_processing)
+                                }
+                                "multi_region_processing" => {
+                                    Ok(__FieldTag::__multi_region_processing)
+                                }
+                                "globalProcessing" => Ok(__FieldTag::__global_processing),
+                                "global_processing" => Ok(__FieldTag::__global_processing),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = DocumentFallbackLocation;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct DocumentFallbackLocation")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__multi_region_processing => {
+                                if !fields.insert(__FieldTag::__multi_region_processing) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for multi_region_processing",
+                                    ));
+                                }
+                                result.multi_region_processing = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::processing_location::MultiRegionProcessing,
+                                    >>()?;
+                            }
+                            __FieldTag::__global_processing => {
+                                if !fields.insert(__FieldTag::__global_processing) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for global_processing",
+                                    ));
+                                }
+                                result.global_processing = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::processing_location::GlobalProcessing,
+                                    >>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for DocumentFallbackLocation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.multi_region_processing.is_some() {
+                state.serialize_entry("multiRegionProcessing", &self.multi_region_processing)?;
+            }
+            if self.global_processing.is_some() {
+                state.serialize_entry("globalProcessing", &self.global_processing)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for DocumentFallbackLocation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DocumentFallbackLocation");
+            debug_struct.field("multi_region_processing", &self.multi_region_processing);
+            debug_struct.field("global_processing", &self.global_processing);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Collection of findings saved to a Cloud Storage bucket. This is used as the
 /// proto schema for textproto files created when specifying a cloud storage
-/// path to save inspection findings.
+/// path to save Inspect findings.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SaveToGcsFindingsOutput {
@@ -84631,6 +85314,490 @@ impl std::fmt::Debug for SaveToGcsFindingsOutput {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
+    }
+}
+
+/// A domain represents a thematic category that a data profile can fall under.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Domain {
+    /// A domain category that this profile is related to.
+    pub category: crate::model::domain::Category,
+
+    /// The collection of signals that influenced selection of the category.
+    pub signals: std::vec::Vec<crate::model::domain::Signal>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Domain {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [category][crate::model::Domain::category].
+    pub fn set_category<T: std::convert::Into<crate::model::domain::Category>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.category = v.into();
+        self
+    }
+
+    /// Sets the value of [signals][crate::model::Domain::signals].
+    pub fn set_signals<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::domain::Signal>,
+    {
+        use std::iter::Iterator;
+        self.signals = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Domain {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.Domain"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Domain {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __category,
+            __signals,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Domain")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "category" => Ok(__FieldTag::__category),
+                            "signals" => Ok(__FieldTag::__signals),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Domain;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Domain")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__category => {
+                            if !fields.insert(__FieldTag::__category) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for category",
+                                ));
+                            }
+                            result.category = map
+                                .next_value::<std::option::Option<crate::model::domain::Category>>(
+                                )?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__signals => {
+                            if !fields.insert(__FieldTag::__signals) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for signals",
+                                ));
+                            }
+                            result.signals =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::domain::Signal>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Domain {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.category) {
+            state.serialize_entry("category", &self.category)?;
+        }
+        if !self.signals.is_empty() {
+            state.serialize_entry("signals", &self.signals)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for Domain {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Domain");
+        debug_struct.field("category", &self.category);
+        debug_struct.field("signals", &self.signals);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [Domain].
+pub mod domain {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// This enum defines the various domain categories a data profile can fall
+    /// under.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Category {
+        /// Category unspecified.
+        Unspecified,
+        /// Indicates that the data profile is related to artificial intelligence.
+        /// When set, all findings stored to Security Command Center will set the
+        /// corresponding AI domain field of `Finding` objects.
+        Ai,
+        /// Indicates that the data profile is related to code.
+        Code,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Category::value] or
+        /// [Category::name].
+        UnknownValue(category::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod category {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Category {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ai => std::option::Option::Some(1),
+                Self::Code => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CATEGORY_UNSPECIFIED"),
+                Self::Ai => std::option::Option::Some("AI"),
+                Self::Code => std::option::Option::Some("CODE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Category {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Category {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Category {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ai,
+                2 => Self::Code,
+                _ => Self::UnknownValue(category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Category {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CATEGORY_UNSPECIFIED" => Self::Unspecified,
+                "AI" => Self::Ai,
+                "CODE" => Self::Code,
+                _ => Self::UnknownValue(category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Category {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ai => serializer.serialize_i32(1),
+                Self::Code => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Category {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Category>::new(
+                ".google.privacy.dlp.v2.Domain.Category",
+            ))
+        }
+    }
+
+    /// The signal used to determine the category.
+    /// This list may increase over time.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Signal {
+        /// Unused.
+        Unspecified,
+        /// One or more machine learning models are present.
+        Model,
+        /// A table appears to be a text embedding.
+        TextEmbedding,
+        /// The [Cloud SQL Vertex
+        /// AI](https://cloud.google.com/sql/docs/postgres/integrate-cloud-sql-with-vertex-ai)
+        /// plugin is installed on the database.
+        VertexPlugin,
+        /// Support for [Cloud SQL vector
+        /// embeddings](https://cloud.google.com/sql/docs/mysql/enable-vector-search)
+        /// is enabled on the database.
+        VectorPlugin,
+        /// Source code is present.
+        SourceCode,
+        /// If the service determines the category type. For example, Vertex AI
+        /// assets would always have a `Category` of `AI`.
+        Service,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Signal::value] or
+        /// [Signal::name].
+        UnknownValue(signal::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod signal {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Signal {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Model => std::option::Option::Some(1),
+                Self::TextEmbedding => std::option::Option::Some(2),
+                Self::VertexPlugin => std::option::Option::Some(3),
+                Self::VectorPlugin => std::option::Option::Some(4),
+                Self::SourceCode => std::option::Option::Some(5),
+                Self::Service => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SIGNAL_UNSPECIFIED"),
+                Self::Model => std::option::Option::Some("MODEL"),
+                Self::TextEmbedding => std::option::Option::Some("TEXT_EMBEDDING"),
+                Self::VertexPlugin => std::option::Option::Some("VERTEX_PLUGIN"),
+                Self::VectorPlugin => std::option::Option::Some("VECTOR_PLUGIN"),
+                Self::SourceCode => std::option::Option::Some("SOURCE_CODE"),
+                Self::Service => std::option::Option::Some("SERVICE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Signal {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Signal {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Signal {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Model,
+                2 => Self::TextEmbedding,
+                3 => Self::VertexPlugin,
+                4 => Self::VectorPlugin,
+                5 => Self::SourceCode,
+                6 => Self::Service,
+                _ => Self::UnknownValue(signal::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Signal {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SIGNAL_UNSPECIFIED" => Self::Unspecified,
+                "MODEL" => Self::Model,
+                "TEXT_EMBEDDING" => Self::TextEmbedding,
+                "VERTEX_PLUGIN" => Self::VertexPlugin,
+                "VECTOR_PLUGIN" => Self::VectorPlugin,
+                "SOURCE_CODE" => Self::SourceCode,
+                "SERVICE" => Self::Service,
+                _ => Self::UnknownValue(signal::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Signal {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Model => serializer.serialize_i32(1),
+                Self::TextEmbedding => serializer.serialize_i32(2),
+                Self::VertexPlugin => serializer.serialize_i32(3),
+                Self::VectorPlugin => serializer.serialize_i32(4),
+                Self::SourceCode => serializer.serialize_i32(5),
+                Self::Service => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Signal {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Signal>::new(
+                ".google.privacy.dlp.v2.Domain.Signal",
+            ))
+        }
     }
 }
 

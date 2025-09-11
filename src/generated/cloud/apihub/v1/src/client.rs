@@ -135,7 +135,7 @@ impl ApiHub {
     }
 
     /// Update an API resource in the API hub. The following fields in the
-    /// [API][] can be updated:
+    /// [API][google.cloud.apihub.v1.Api] can be updated:
     ///
     /// * [display_name][google.cloud.apihub.v1.Api.display_name]
     /// * [description][google.cloud.apihub.v1.Api.description]
@@ -145,6 +145,7 @@ impl ApiHub {
     /// * [team][google.cloud.apihub.v1.Api.team]
     /// * [business_unit][google.cloud.apihub.v1.Api.business_unit]
     /// * [maturity_level][google.cloud.apihub.v1.Api.maturity_level]
+    /// * [api_style][google.cloud.apihub.v1.Api.api_style]
     /// * [attributes][google.cloud.apihub.v1.Api.attributes]
     ///
     /// The
@@ -154,6 +155,8 @@ impl ApiHub {
     /// Updating the owner field requires complete owner message
     /// and updates both owner and email fields.
     ///
+    /// [google.cloud.apihub.v1.Api]: crate::model::Api
+    /// [google.cloud.apihub.v1.Api.api_style]: crate::model::Api::api_style
     /// [google.cloud.apihub.v1.Api.attributes]: crate::model::Api::attributes
     /// [google.cloud.apihub.v1.Api.business_unit]: crate::model::Api::business_unit
     /// [google.cloud.apihub.v1.Api.description]: crate::model::Api::description
@@ -319,6 +322,13 @@ impl ApiHub {
         super::builder::api_hub::DeleteSpec::new(self.inner.clone())
     }
 
+    /// Create an apiOperation in an API version.
+    /// An apiOperation can be created only if the version has no apiOperations
+    /// which were created by parsing a spec.
+    pub fn create_api_operation(&self) -> super::builder::api_hub::CreateApiOperation {
+        super::builder::api_hub::CreateApiOperation::new(self.inner.clone())
+    }
+
     /// Get details about a particular operation in API version.
     pub fn get_api_operation(&self) -> super::builder::api_hub::GetApiOperation {
         super::builder::api_hub::GetApiOperation::new(self.inner.clone())
@@ -327,6 +337,41 @@ impl ApiHub {
     /// List operations in an API version.
     pub fn list_api_operations(&self) -> super::builder::api_hub::ListApiOperations {
         super::builder::api_hub::ListApiOperations::new(self.inner.clone())
+    }
+
+    /// Update an operation in an API version. The following fields in the
+    /// [ApiOperation resource][google.cloud.apihub.v1.ApiOperation] can be
+    /// updated:
+    ///
+    /// * [details.description][ApiOperation.details.description]
+    /// * [details.documentation][ApiOperation.details.documentation]
+    /// * [details.http_operation.path][ApiOperation.details.http_operation.path.path]
+    /// * [details.http_operation.method][ApiOperation.details.http_operation.method]
+    /// * [details.deprecated][ApiOperation.details.deprecated]
+    /// * [attributes][google.cloud.apihub.v1.ApiOperation.attributes]
+    ///
+    /// The
+    /// [update_mask][google.cloud.apihub.v1.UpdateApiOperationRequest.update_mask]
+    /// should be used to specify the fields being updated.
+    ///
+    /// An operation can be updated only if the operation was created via
+    /// [CreateApiOperation][google.cloud.apihub.v1.ApiHub.CreateApiOperation] API.
+    /// If the operation was created by parsing the spec, then it can be edited by
+    /// updating the spec.
+    ///
+    /// [google.cloud.apihub.v1.ApiHub.CreateApiOperation]: crate::client::ApiHub::create_api_operation
+    /// [google.cloud.apihub.v1.ApiOperation]: crate::model::ApiOperation
+    /// [google.cloud.apihub.v1.ApiOperation.attributes]: crate::model::ApiOperation::attributes
+    /// [google.cloud.apihub.v1.UpdateApiOperationRequest.update_mask]: crate::model::UpdateApiOperationRequest::update_mask
+    pub fn update_api_operation(&self) -> super::builder::api_hub::UpdateApiOperation {
+        super::builder::api_hub::UpdateApiOperation::new(self.inner.clone())
+    }
+
+    /// Delete an operation in an API version and we can delete only the
+    /// operations created via create API. If the operation was created by parsing
+    /// the spec, then it can be deleted by editing or deleting the spec.
+    pub fn delete_api_operation(&self) -> super::builder::api_hub::DeleteApiOperation {
+        super::builder::api_hub::DeleteApiOperation::new(self.inner.clone())
     }
 
     /// Get details about a definition in an API version.
@@ -364,10 +409,14 @@ impl ApiHub {
     /// * [slo][google.cloud.apihub.v1.Deployment.slo]
     /// * [environment][google.cloud.apihub.v1.Deployment.environment]
     /// * [attributes][google.cloud.apihub.v1.Deployment.attributes]
-    ///
-    /// The
-    /// [update_mask][google.cloud.apihub.v1.UpdateDeploymentRequest.update_mask]
-    /// should be used to specify the fields being updated.
+    /// * [source_project] [google.cloud.apihub.v1.Deployment.source_project]
+    /// * [source_environment]
+    ///   [google.cloud.apihub.v1.Deployment.source_environment]
+    /// * [management_url][google.cloud.apihub.v1.Deployment.management_url]
+    /// * [source_uri][google.cloud.apihub.v1.Deployment.source_uri]
+    ///   The
+    ///   [update_mask][google.cloud.apihub.v1.UpdateDeploymentRequest.update_mask]
+    ///   should be used to specify the fields being updated.
     ///
     /// [google.cloud.apihub.v1.Deployment]: crate::model::Deployment
     /// [google.cloud.apihub.v1.Deployment.attributes]: crate::model::Deployment::attributes
@@ -377,8 +426,10 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.Deployment.documentation]: crate::model::Deployment::documentation
     /// [google.cloud.apihub.v1.Deployment.endpoints]: crate::model::Deployment::endpoints
     /// [google.cloud.apihub.v1.Deployment.environment]: crate::model::Deployment::environment
+    /// [google.cloud.apihub.v1.Deployment.management_url]: crate::model::Deployment::management_url
     /// [google.cloud.apihub.v1.Deployment.resource_uri]: crate::model::Deployment::resource_uri
     /// [google.cloud.apihub.v1.Deployment.slo]: crate::model::Deployment::slo
+    /// [google.cloud.apihub.v1.Deployment.source_uri]: crate::model::Deployment::source_uri
     /// [google.cloud.apihub.v1.UpdateDeploymentRequest.update_mask]: crate::model::UpdateDeploymentRequest::update_mask
     pub fn update_deployment(&self) -> super::builder::api_hub::UpdateDeployment {
         super::builder::api_hub::UpdateDeployment::new(self.inner.clone())
@@ -723,6 +774,522 @@ impl ApiHubDependencies {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::api_hub_dependencies::CancelOperation {
         super::builder::api_hub_dependencies::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the API hub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_apihub_v1::client::ApiHubCollect;
+/// let client = ApiHubCollect::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// This service exposes methods used for collecting various types of data from
+/// different first party and third party sources and push it to Hub's collect
+/// layer.
+///
+/// # Configuration
+///
+/// To configure `ApiHubCollect` use the `with_*` methods in the type returned
+/// by [builder()][ApiHubCollect::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apihub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::api_hub_collect::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::api_hub_collect::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ApiHubCollect` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `ApiHubCollect` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct ApiHubCollect {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ApiHubCollect>,
+}
+
+impl ApiHubCollect {
+    /// Returns a builder for [ApiHubCollect].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::client::ApiHubCollect;
+    /// let client = ApiHubCollect::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::api_hub_collect::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::api_hub_collect::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::ApiHubCollect + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ApiHubCollect>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ApiHubCollect> {
+        super::transport::ApiHubCollect::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ApiHubCollect> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ApiHubCollect::new)
+    }
+
+    /// Collect API data from a source and push it to Hub's collect layer.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn collect_api_data(&self) -> super::builder::api_hub_collect::CollectApiData {
+        super::builder::api_hub_collect::CollectApiData::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::api_hub_collect::ListLocations {
+        super::builder::api_hub_collect::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::api_hub_collect::GetLocation {
+        super::builder::api_hub_collect::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::api_hub_collect::ListOperations {
+        super::builder::api_hub_collect::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::api_hub_collect::GetOperation {
+        super::builder::api_hub_collect::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(&self) -> super::builder::api_hub_collect::DeleteOperation {
+        super::builder::api_hub_collect::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::api_hub_collect::CancelOperation {
+        super::builder::api_hub_collect::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the API hub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_apihub_v1::client::ApiHubCurate;
+/// let client = ApiHubCurate::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// This service is used for managing curations for processing API data consumed
+/// from collect layer.
+///
+/// # Configuration
+///
+/// To configure `ApiHubCurate` use the `with_*` methods in the type returned
+/// by [builder()][ApiHubCurate::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apihub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::api_hub_curate::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::api_hub_curate::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ApiHubCurate` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `ApiHubCurate` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct ApiHubCurate {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ApiHubCurate>,
+}
+
+impl ApiHubCurate {
+    /// Returns a builder for [ApiHubCurate].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// let client = ApiHubCurate::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::api_hub_curate::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::api_hub_curate::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::ApiHubCurate + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ApiHubCurate>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ApiHubCurate> {
+        super::transport::ApiHubCurate::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ApiHubCurate> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ApiHubCurate::new)
+    }
+
+    /// Create a curation resource in the API hub.
+    /// Once a curation resource is created, plugin instances can start using it.
+    pub fn create_curation(&self) -> super::builder::api_hub_curate::CreateCuration {
+        super::builder::api_hub_curate::CreateCuration::new(self.inner.clone())
+    }
+
+    /// Get curation resource details.
+    pub fn get_curation(&self) -> super::builder::api_hub_curate::GetCuration {
+        super::builder::api_hub_curate::GetCuration::new(self.inner.clone())
+    }
+
+    /// List curation resources in the API hub.
+    pub fn list_curations(&self) -> super::builder::api_hub_curate::ListCurations {
+        super::builder::api_hub_curate::ListCurations::new(self.inner.clone())
+    }
+
+    /// Update a curation resource in the API hub. The following fields in the
+    /// [curation][google.cloud.apihub.v1.Curation] can be updated:
+    ///
+    /// * [display_name][google.cloud.apihub.v1.Curation.display_name]
+    /// * [description][google.cloud.apihub.v1.Curation.description]
+    ///
+    /// The
+    /// [update_mask][google.cloud.apihub.v1.UpdateApiRequest.update_mask]
+    /// should be used to specify the fields being updated.
+    ///
+    /// [google.cloud.apihub.v1.Curation]: crate::model::Curation
+    /// [google.cloud.apihub.v1.Curation.description]: crate::model::Curation::description
+    /// [google.cloud.apihub.v1.Curation.display_name]: crate::model::Curation::display_name
+    /// [google.cloud.apihub.v1.UpdateApiRequest.update_mask]: crate::model::UpdateApiRequest::update_mask
+    pub fn update_curation(&self) -> super::builder::api_hub_curate::UpdateCuration {
+        super::builder::api_hub_curate::UpdateCuration::new(self.inner.clone())
+    }
+
+    /// Delete a curation resource in the API hub. A curation can only be deleted
+    /// if it's not being used by any plugin instance.
+    pub fn delete_curation(&self) -> super::builder::api_hub_curate::DeleteCuration {
+        super::builder::api_hub_curate::DeleteCuration::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::api_hub_curate::ListLocations {
+        super::builder::api_hub_curate::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::api_hub_curate::GetLocation {
+        super::builder::api_hub_curate::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::api_hub_curate::ListOperations {
+        super::builder::api_hub_curate::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::api_hub_curate::GetOperation {
+        super::builder::api_hub_curate::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(&self) -> super::builder::api_hub_curate::DeleteOperation {
+        super::builder::api_hub_curate::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::api_hub_curate::CancelOperation {
+        super::builder::api_hub_curate::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the API hub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+/// let client = ApiHubDiscovery::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// This service exposes methods used to manage DiscoveredApiObservations
+/// and DiscoveredApiOperations.
+///
+/// # Configuration
+///
+/// To configure `ApiHubDiscovery` use the `with_*` methods in the type returned
+/// by [builder()][ApiHubDiscovery::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apihub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::api_hub_discovery::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::api_hub_discovery::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ApiHubDiscovery` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `ApiHubDiscovery` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct ApiHubDiscovery {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ApiHubDiscovery>,
+}
+
+impl ApiHubDiscovery {
+    /// Returns a builder for [ApiHubDiscovery].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+    /// let client = ApiHubDiscovery::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::api_hub_discovery::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::api_hub_discovery::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::ApiHubDiscovery + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ApiHubDiscovery>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ApiHubDiscovery> {
+        super::transport::ApiHubDiscovery::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ApiHubDiscovery> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ApiHubDiscovery::new)
+    }
+
+    /// Lists all the DiscoveredAPIObservations in a given project and location.
+    pub fn list_discovered_api_observations(
+        &self,
+    ) -> super::builder::api_hub_discovery::ListDiscoveredApiObservations {
+        super::builder::api_hub_discovery::ListDiscoveredApiObservations::new(self.inner.clone())
+    }
+
+    /// Gets a DiscoveredAPIObservation in a given project, location and
+    /// ApiObservation.
+    pub fn get_discovered_api_observation(
+        &self,
+    ) -> super::builder::api_hub_discovery::GetDiscoveredApiObservation {
+        super::builder::api_hub_discovery::GetDiscoveredApiObservation::new(self.inner.clone())
+    }
+
+    /// Lists all the DiscoveredAPIOperations in a given project, location and
+    /// ApiObservation.
+    pub fn list_discovered_api_operations(
+        &self,
+    ) -> super::builder::api_hub_discovery::ListDiscoveredApiOperations {
+        super::builder::api_hub_discovery::ListDiscoveredApiOperations::new(self.inner.clone())
+    }
+
+    /// Gets a DiscoveredAPIOperation in a given project, location,
+    /// ApiObservation and ApiOperation.
+    pub fn get_discovered_api_operation(
+        &self,
+    ) -> super::builder::api_hub_discovery::GetDiscoveredApiOperation {
+        super::builder::api_hub_discovery::GetDiscoveredApiOperation::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::api_hub_discovery::ListLocations {
+        super::builder::api_hub_discovery::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::api_hub_discovery::GetLocation {
+        super::builder::api_hub_discovery::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::api_hub_discovery::ListOperations {
+        super::builder::api_hub_discovery::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::api_hub_discovery::GetOperation {
+        super::builder::api_hub_discovery::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(&self) -> super::builder::api_hub_discovery::DeleteOperation {
+        super::builder::api_hub_discovery::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::api_hub_discovery::CancelOperation {
+        super::builder::api_hub_discovery::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -1177,7 +1744,7 @@ impl ApiHubPlugin {
             .map(super::tracing::ApiHubPlugin::new)
     }
 
-    /// Get details about an API Hub plugin.
+    /// Get an API Hub plugin.
     pub fn get_plugin(&self) -> super::builder::api_hub_plugin::GetPlugin {
         super::builder::api_hub_plugin::GetPlugin::new(self.inner.clone())
     }
@@ -1192,6 +1759,153 @@ impl ApiHubPlugin {
     /// The `state` of the plugin after disabling is `DISABLED`
     pub fn disable_plugin(&self) -> super::builder::api_hub_plugin::DisablePlugin {
         super::builder::api_hub_plugin::DisablePlugin::new(self.inner.clone())
+    }
+
+    /// Create an API Hub plugin resource in the API hub.
+    /// Once a plugin is created, it can be used to create plugin instances.
+    pub fn create_plugin(&self) -> super::builder::api_hub_plugin::CreatePlugin {
+        super::builder::api_hub_plugin::CreatePlugin::new(self.inner.clone())
+    }
+
+    /// List all the plugins in a given project and location.
+    pub fn list_plugins(&self) -> super::builder::api_hub_plugin::ListPlugins {
+        super::builder::api_hub_plugin::ListPlugins::new(self.inner.clone())
+    }
+
+    /// Delete a Plugin in API hub.
+    /// Note, only user owned plugins can be deleted via this method.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_plugin(&self) -> super::builder::api_hub_plugin::DeletePlugin {
+        super::builder::api_hub_plugin::DeletePlugin::new(self.inner.clone())
+    }
+
+    /// Creates a Plugin instance in the API hub.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_plugin_instance(&self) -> super::builder::api_hub_plugin::CreatePluginInstance {
+        super::builder::api_hub_plugin::CreatePluginInstance::new(self.inner.clone())
+    }
+
+    /// Executes a plugin instance in the API hub.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn execute_plugin_instance_action(
+        &self,
+    ) -> super::builder::api_hub_plugin::ExecutePluginInstanceAction {
+        super::builder::api_hub_plugin::ExecutePluginInstanceAction::new(self.inner.clone())
+    }
+
+    /// Get an API Hub plugin instance.
+    pub fn get_plugin_instance(&self) -> super::builder::api_hub_plugin::GetPluginInstance {
+        super::builder::api_hub_plugin::GetPluginInstance::new(self.inner.clone())
+    }
+
+    /// List all the plugins in a given project and location.
+    /// `-` can be used as wildcard value for {plugin_id}
+    pub fn list_plugin_instances(&self) -> super::builder::api_hub_plugin::ListPluginInstances {
+        super::builder::api_hub_plugin::ListPluginInstances::new(self.inner.clone())
+    }
+
+    /// Enables a plugin instance in the API hub.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn enable_plugin_instance_action(
+        &self,
+    ) -> super::builder::api_hub_plugin::EnablePluginInstanceAction {
+        super::builder::api_hub_plugin::EnablePluginInstanceAction::new(self.inner.clone())
+    }
+
+    /// Disables a plugin instance in the API hub.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn disable_plugin_instance_action(
+        &self,
+    ) -> super::builder::api_hub_plugin::DisablePluginInstanceAction {
+        super::builder::api_hub_plugin::DisablePluginInstanceAction::new(self.inner.clone())
+    }
+
+    /// Updates a plugin instance in the API hub.
+    /// The following fields in the
+    /// [plugin_instance][google.cloud.apihub.v1.PluginInstance] can be updated
+    /// currently:
+    ///
+    /// * [display_name][google.cloud.apihub.v1.PluginInstance.display_name]
+    /// * [schedule_cron_expression][PluginInstance.actions.schedule_cron_expression]
+    ///
+    /// The
+    /// [update_mask][google.cloud.apihub.v1.UpdatePluginInstanceRequest.update_mask]
+    /// should be used to specify the fields being updated.
+    ///
+    /// To update the
+    /// [auth_config][google.cloud.apihub.v1.PluginInstance.auth_config] and
+    /// [additional_config][google.cloud.apihub.v1.PluginInstance.additional_config]
+    /// of the plugin instance, use the
+    /// [ApplyPluginInstanceConfig][google.cloud.apihub.v1.ApiHubPlugin.ApplyPluginInstanceConfig]
+    /// method.
+    ///
+    /// [google.cloud.apihub.v1.PluginInstance]: crate::model::PluginInstance
+    /// [google.cloud.apihub.v1.PluginInstance.additional_config]: crate::model::PluginInstance::additional_config
+    /// [google.cloud.apihub.v1.PluginInstance.auth_config]: crate::model::PluginInstance::auth_config
+    /// [google.cloud.apihub.v1.PluginInstance.display_name]: crate::model::PluginInstance::display_name
+    /// [google.cloud.apihub.v1.UpdatePluginInstanceRequest.update_mask]: crate::model::UpdatePluginInstanceRequest::update_mask
+    pub fn update_plugin_instance(&self) -> super::builder::api_hub_plugin::UpdatePluginInstance {
+        super::builder::api_hub_plugin::UpdatePluginInstance::new(self.inner.clone())
+    }
+
+    /// Deletes a plugin instance in the API hub.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_plugin_instance(&self) -> super::builder::api_hub_plugin::DeletePluginInstance {
+        super::builder::api_hub_plugin::DeletePluginInstance::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
@@ -1348,6 +2062,21 @@ impl Provisioning {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_api_hub_instance(&self) -> super::builder::provisioning::CreateApiHubInstance {
         super::builder::provisioning::CreateApiHubInstance::new(self.inner.clone())
+    }
+
+    /// Deletes the API hub instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_api_hub_instance(&self) -> super::builder::provisioning::DeleteApiHubInstance {
+        super::builder::provisioning::DeleteApiHubInstance::new(self.inner.clone())
     }
 
     /// Gets details of a single API Hub instance.

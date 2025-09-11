@@ -93,35 +93,6 @@ impl StorageControl {
         super::builder::storage_control::LockBucketRetentionPolicy::new(self.inner.clone())
     }
 
-    /// Gets the IAM policy for a specified bucket.
-    /// The `resource` field in the request should be
-    /// `projects/_/buckets/{bucket}` for a bucket, or
-    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-    /// for a managed folder.
-    pub fn get_iam_policy(&self) -> super::builder::storage_control::GetIamPolicy {
-        super::builder::storage_control::GetIamPolicy::new(self.inner.clone())
-    }
-
-    /// Updates an IAM policy for the specified bucket.
-    /// The `resource` field in the request should be
-    /// `projects/_/buckets/{bucket}` for a bucket, or
-    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-    /// for a managed folder.
-    pub fn set_iam_policy(&self) -> super::builder::storage_control::SetIamPolicy {
-        super::builder::storage_control::SetIamPolicy::new(self.inner.clone())
-    }
-
-    /// Tests a set of permissions on the given bucket, object, or managed folder
-    /// to see which, if any, are held by the caller.
-    /// The `resource` field in the request should be
-    /// `projects/_/buckets/{bucket}` for a bucket,
-    /// `projects/_/buckets/{bucket}/objects/{object}` for an object, or
-    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-    /// for a managed folder.
-    pub fn test_iam_permissions(&self) -> super::builder::storage_control::TestIamPermissions {
-        super::builder::storage_control::TestIamPermissions::new(self.inner.clone())
-    }
-
     /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
     pub fn update_bucket(&self) -> super::builder::storage_control::UpdateBucket {
         super::builder::storage_control::UpdateBucket::new(self.inner.clone())
