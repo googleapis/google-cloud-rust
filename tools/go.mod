@@ -12,4 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module golints
+module github.com/googleapis/google-cloud-rust/tools
+
+go 1.25.1
+
+require (
+	github.com/cbroglie/mustache v1.4.0
+	github.com/google/go-cmp v0.7.0
+	github.com/yuin/goldmark v1.7.13
+)
