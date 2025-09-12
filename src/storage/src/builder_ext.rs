@@ -76,6 +76,7 @@ mod tests {
     use super::*;
     use crate::client::StorageControl;
     use crate::model::{Object, RewriteObjectRequest, RewriteResponse};
+    use gax::error::rpc::{Code, Status};
     use gax::options::RequestOptions;
     use gax::response::Response;
 
@@ -124,6 +125,28 @@ mod tests {
         let result = client.rewrite_object().rewrite_until_done().await?;
 
         assert_eq!(result, final_object);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_rewrite_until_done_error() -> anyhow::Result<()> {
+        let mut mock = MockStorageControl::new();
+        mock.expect_rewrite_object()
+            .withf(|req: &RewriteObjectRequest, _| req.rewrite_token.is_empty())
+            .times(1)
+            .returning(|_, _| {
+                Err(gax::error::Error::service(
+                    Status::default().set_code(Code::Unavailable),
+                ))
+            });
+
+        let client = StorageControl::from_stub(mock);
+        let _ = client
+            .rewrite_object()
+            .rewrite_until_done()
+            .await
+            .unwrap_err();
+
         Ok(())
     }
 }
