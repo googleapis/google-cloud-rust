@@ -31,6 +31,7 @@ name = "getting_started"
 anyhow.workspace                        = true
 crc32c.workspace                        = true
 futures.workspace                       = true
+google-cloud-auth                       = { workspace = true }
 google-cloud-aiplatform-v1              = { workspace = true, default-features = false, features = ["prediction-service"] }
 google-cloud-gax                        = { workspace = true, features = ["unstable-stream"] }
 google-cloud-language-v2.workspace      = true
