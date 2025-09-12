@@ -429,6 +429,12 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let content = tokio::fs::read_to_string(downloaded_file_path).await?;
     assert_eq!(content, "hello world from file");
 
+    tracing::info!("running download_public_file example");
+    // Public object containing 2B of data.
+    let public_bucket = "gcp-public-data-arco-era5";
+    let public_object = "ar/1959-2022-1h-240x121_equiangular_with_poles_conservative.zarr/.zattrs";
+    objects::download_public_file::sample(public_bucket, public_object).await?;
+
     tracing::info!("running download_byte_range example");
     objects::download_byte_range::sample(&client, &id, "object-to-download.txt", 4, 10).await?;
 
