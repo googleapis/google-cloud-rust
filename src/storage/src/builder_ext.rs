@@ -23,8 +23,8 @@ pub trait RewriteObjectExt {
     ///
     /// This helper function simplifies the process of handling a
     /// [StorageControl::rewrite_object][crate::client::StorageControl::rewrite_object]
-    /// operation, which may require multiple requests to complete for large objects.
-    /// It automatically handles the pagination logic of sending the
+    /// operation, which may require multiple requests to complete. It automatically
+    /// handles the logic of sending the
     /// [rewrite_token][crate::generated::gapic::model::RewriteObjectRequest::rewrite_token]
     /// from one response in the next request.
     ///
@@ -53,16 +53,18 @@ pub trait RewriteObjectExt {
     /// # Ok(())
     /// # }
     /// ```
-    async fn rewrite_until_done(self) -> crate::Result<Option<crate::model::Object>>;
+    async fn rewrite_until_done(self) -> crate::Result<crate::model::Object>;
 }
 
 #[async_trait::async_trait]
 impl RewriteObjectExt for crate::builder::storage_control::RewriteObject {
-    async fn rewrite_until_done(mut self) -> crate::Result<Option<crate::model::Object>> {
+    async fn rewrite_until_done(mut self) -> crate::Result<crate::model::Object> {
         loop {
             let resp = self.clone().send().await?;
             if resp.done {
-                return Ok(resp.resource);
+                return Ok(resp
+                    .resource
+                    .expect("an object is always returned when the rewrite operation is done"));
             }
             self = self.set_rewrite_token(resp.rewrite_token);
         }
@@ -86,7 +88,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_rewrite_until_done() {
+    async fn test_rewrite_until_done() -> anyhow::Result<()> {
         let mut mock = MockStorageControl::new();
         let final_object = Object::new().set_name("final-object");
 
@@ -119,8 +121,9 @@ mod tests {
             });
 
         let client = StorageControl::from_stub(mock);
-        let result = client.rewrite_object().rewrite_until_done().await.unwrap();
+        let result = client.rewrite_object().rewrite_until_done().await?;
 
-        assert_eq!(result, Some(final_object));
+        assert_eq!(result, final_object);
+        Ok(())
     }
 }
