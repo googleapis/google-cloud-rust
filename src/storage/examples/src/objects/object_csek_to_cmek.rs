@@ -13,6 +13,7 @@
 // limitations under the License.
 
 // [START storage_object_csek_to_cmek]
+use google_cloud_storage::builder_ext::RewriteObjectExt;
 use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::CommonObjectRequestParams;
 use google_cloud_storage::model_ext::KeyAes256;
@@ -25,7 +26,7 @@ pub async fn sample(
     kms_key: &str,
 ) -> anyhow::Result<()> {
     let csek: CommonObjectRequestParams = csek_key.into();
-    let mut builder = client
+    let updated = client
         .rewrite_object()
         .set_source_bucket(format!("projects/_/buckets/{bucket_id}"))
         .set_source_object(object_id)
@@ -34,18 +35,9 @@ pub async fn sample(
         .set_copy_source_encryption_key_sha256_bytes(csek.encryption_key_sha256_bytes)
         .set_destination_bucket(format!("projects/_/buckets/{bucket_id}"))
         .set_destination_name(object_id)
-        .set_destination_kms_key(kms_key.to_string());
-
-    // For more details on this loop, see the "Rewriting objects" section of the
-    // user guide:
-    // https://googleapis.github.io/google-cloud-rust/storage/rewrite_object.html
-    let updated = loop {
-        let resp = builder.clone().send().await?;
-        if resp.done {
-            break resp.resource;
-        }
-        builder = builder.set_rewrite_token(resp.rewrite_token);
-    };
+        .set_destination_kms_key(kms_key.to_string())
+        .rewrite_until_done()
+        .await?;
 
     println!(
         "successfully rotated encryption key for object {object_id} in bucket {bucket_id} from CSEK to CMEK: {updated:?}"
