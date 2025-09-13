@@ -152,12 +152,27 @@ impl ReqwestClient {
             Ok(CacheableResource::New { data, .. }) => builder.headers(data),
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
-        let response = builder.send().await.map_err(Self::map_send_error)?;
+        let (client, request) = builder.build_split();
+        let request = request.map_err(Self::map_send_error)?;
+        let response = self
+            .instrument_and_send(client, request)
+            .await
+            .map_err(Self::map_send_error)?;
         if !response.status().is_success() {
             return self::to_http_error(response).await;
         }
 
         self::to_http_response(response).await
+    }
+
+    // This function is intended to be as close to the reqwest library call as possible.
+    async fn instrument_and_send(
+        &self,
+        client: reqwest::Client,
+        request: reqwest::Request,
+    ) -> reqwest::Result<reqwest::Response> {
+        // TODO(#3239): add instrumentation.
+        client.execute(request).await
     }
 
     fn map_send_error(err: reqwest::Error) -> Error {
