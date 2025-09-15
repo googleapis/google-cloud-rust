@@ -3177,10 +3177,15 @@ pub struct ResourceOptions {
     /// <1.16.
     pub v1beta1_crd: bool,
 
-    /// Optional. Major version of the Kubernetes cluster. This is only used to
-    /// determine which version to use for the CustomResourceDefinition resources,
-    /// `apiextensions/v1beta1` or`apiextensions/v1`.
+    /// Optional. Major and minor version of the Kubernetes cluster. This is only
+    /// used to determine which version to use for the CustomResourceDefinition
+    /// resources, `apiextensions/v1beta1` or`apiextensions/v1`.
     pub k8s_version: std::string::String,
+
+    /// Optional. Git version of the Kubernetes cluster. This is only used to gate
+    /// the Connect Agent migration to svc.id.goog on GDC-SO 1.33.100 patch and
+    /// above.
+    pub k8s_git_version: std::string::String,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3207,6 +3212,12 @@ impl ResourceOptions {
         self.k8s_version = v.into();
         self
     }
+
+    /// Sets the value of [k8s_git_version][crate::model::ResourceOptions::k8s_git_version].
+    pub fn set_k8s_git_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.k8s_git_version = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ResourceOptions {
@@ -3228,6 +3239,7 @@ impl<'de> serde::de::Deserialize<'de> for ResourceOptions {
             __connect_version,
             __v1beta1_crd,
             __k8s_version,
+            __k8s_git_version,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3254,6 +3266,8 @@ impl<'de> serde::de::Deserialize<'de> for ResourceOptions {
                             "v1beta1_crd" => Ok(__FieldTag::__v1beta1_crd),
                             "k8sVersion" => Ok(__FieldTag::__k8s_version),
                             "k8s_version" => Ok(__FieldTag::__k8s_version),
+                            "k8sGitVersion" => Ok(__FieldTag::__k8s_git_version),
+                            "k8s_git_version" => Ok(__FieldTag::__k8s_git_version),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3309,6 +3323,16 @@ impl<'de> serde::de::Deserialize<'de> for ResourceOptions {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__k8s_git_version => {
+                            if !fields.insert(__FieldTag::__k8s_git_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for k8s_git_version",
+                                ));
+                            }
+                            result.k8s_git_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3341,6 +3365,9 @@ impl serde::ser::Serialize for ResourceOptions {
         if !self.k8s_version.is_empty() {
             state.serialize_entry("k8sVersion", &self.k8s_version)?;
         }
+        if !self.k8s_git_version.is_empty() {
+            state.serialize_entry("k8sGitVersion", &self.k8s_git_version)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3356,6 +3383,7 @@ impl std::fmt::Debug for ResourceOptions {
         debug_struct.field("connect_version", &self.connect_version);
         debug_struct.field("v1beta1_crd", &self.v1beta1_crd);
         debug_struct.field("k8s_version", &self.k8s_version);
+        debug_struct.field("k8s_git_version", &self.k8s_git_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
