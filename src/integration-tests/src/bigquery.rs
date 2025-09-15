@@ -15,6 +15,8 @@
 use crate::Result;
 use rand::{Rng, distr::Alphanumeric};
 
+const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
+
 pub async fn dataset_admin(
     builder: bigquery::builder::dataset_service::ClientBuilder,
 ) -> Result<()> {
@@ -48,7 +50,7 @@ pub async fn dataset_admin(
                 .set_dataset_reference(
                     bigquery::model::DatasetReference::new().set_dataset_id(&dataset_id),
                 )
-                .set_labels([("integration-test", "true")]),
+                .set_labels([(INSTANCE_LABEL, "true")]),
         )
         .send()
         .await?;
@@ -59,6 +61,7 @@ pub async fn dataset_admin(
     let list = client
         .list_datasets()
         .set_project_id(&project_id)
+        .set_filter(format!("labels.{INSTANCE_LABEL}"))
         .send()
         .await?;
     println!("LIST DATASET = {} entries", list.datasets.len());
