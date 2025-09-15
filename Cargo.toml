@@ -308,7 +308,7 @@ rand               = { default-features = false, version = "0.9.2" }
 reqwest            = { default-features = false, version = "0.12.23", features = ["json"] }
 rustls             = { default-features = false, version = "0.23" }
 rustls-pemfile     = { default-features = false, version = "2" }
-serde              = { default-features = false, version = "1.0.150", features = ["serde_derive"] }
+serde              = { default-features = false, version = "1.0.223", features = ["serde_derive"] }
 serde_json         = { default-features = false, version = "1.0.132", features = ["std"] }
 serde_with         = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
 sha2               = { default-features = false, version = "0.10" }
