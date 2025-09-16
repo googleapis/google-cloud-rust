@@ -17,4 +17,5 @@ specification-source = 'google/privacy/dlp/v2'
 service-config = 'google/privacy/dlp/v2/dlp_v2.yaml'
 
 [codec]
+version        = '1.1.0'
 copyright-year = '2025'
