@@ -174,7 +174,7 @@ fn random_dataset_id() -> String {
     format!("rust_bq_test_dataset_{rand_suffix}")
 }
 
-fn extract_dataset_id(project_id: &str, id: &String) -> Option<String> {
+fn extract_dataset_id(project_id: &str, id: &str) -> Option<String> {
     id.strip_prefix(format!("{project_id}:").as_str())
         .map(|v| v.to_string())
 }
