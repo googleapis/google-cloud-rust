@@ -13,6 +13,8 @@
 // limitations under the License.
 
 use crate::Result;
+use futures::stream::StreamExt;
+use gax::paginator::ItemPaginator;
 use rand::{Rng, distr::Alphanumeric};
 
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
@@ -35,7 +37,7 @@ pub async fn dataset_admin(
     };
 
     let project_id = crate::project_id()?;
-    let client = builder.build().await?;
+    let client: bigquery::client::DatasetService = builder.build().await?;
     cleanup_stale_datasets(&client, &project_id).await?;
 
     let dataset_id = random_dataset_id();
@@ -62,11 +64,12 @@ pub async fn dataset_admin(
         .list_datasets()
         .set_project_id(&project_id)
         .set_filter(format!("labels.{INSTANCE_LABEL}"))
-        .send()
-        .await?;
-    println!("LIST DATASET = {} entries", list.datasets.len());
+        .by_item()
+        .into_stream();
+    let items = list.collect::<Vec<gax::Result<_>>>().await;
+    println!("LIST DATASET = {} entries", items.len());
 
-    assert!(list.datasets.iter().any(|v| v.id.contains(&dataset_id)));
+    assert!(items.iter().any(|v| v.as_ref().unwrap().id.contains(&dataset_id)));
 
     client
         .delete_dataset()
@@ -92,23 +95,29 @@ async fn cleanup_stale_datasets(
     let list = client
         .list_datasets()
         .set_project_id(project_id)
-        .set_filter("labels.integration-test:true")
-        .send()
-        .await?;
-    let pending_all_datasets = list
-        .datasets
-        .into_iter()
+        .set_filter(format!("labels.{INSTANCE_LABEL}"))
+        .by_item()
+        .into_stream();
+    let datasets = list.collect::<Vec<gax::Result<_>>>().await;
+
+    let pending_all_datasets = datasets
+        .iter()
         .filter_map(|v| {
-            if let Some(dataset_id) = extract_dataset_id(project_id, v.id) {
-                return Some(
-                    client
-                        .get_dataset()
-                        .set_project_id(project_id)
-                        .set_dataset_id(dataset_id)
-                        .send(),
-                );
+            match v {
+                Ok(v) => {
+                    if let Some(dataset_id) = extract_dataset_id(project_id, &v.id) {
+                        return Some(
+                            client
+                                .get_dataset()
+                                .set_project_id(project_id)
+                                .set_dataset_id(dataset_id)
+                                .send(),
+                        );
+                    }
+                    None
+                }
+                Err(_) => None,
             }
-            None
         })
         .collect::<Vec<_>>();
 
@@ -119,7 +128,7 @@ async fn cleanup_stale_datasets(
             let dataset = r.unwrap();
             if dataset
                 .labels
-                .get("integration-test")
+                .get(INSTANCE_LABEL)
                 .is_some_and(|v| v == "true")
                 && dataset.creation_time < stale_deadline
             {
@@ -134,7 +143,7 @@ async fn cleanup_stale_datasets(
     let pending_deletion: Vec<_> = stale_datasets
         .into_iter()
         .filter_map(|ds| {
-            if let Some(dataset_id) = extract_dataset_id(project_id, ds.id) {
+            if let Some(dataset_id) = extract_dataset_id(project_id, &ds.id) {
                 return Some(
                     client
                         .delete_dataset()
@@ -163,7 +172,7 @@ fn random_dataset_id() -> String {
     format!("rust_bq_test_dataset_{rand_suffix}")
 }
 
-fn extract_dataset_id(project_id: &str, id: String) -> Option<String> {
-    id.strip_prefix(format!("projects/{project_id}").as_str())
+fn extract_dataset_id(project_id: &str, id: &String) -> Option<String> {
+    id.strip_prefix(format!("{project_id}:").as_str())
         .map(|v| v.to_string())
 }

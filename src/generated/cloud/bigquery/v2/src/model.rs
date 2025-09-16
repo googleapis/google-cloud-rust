@@ -5931,6 +5931,20 @@ impl wkt::message::Message for DatasetList {
 }
 
 #[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for DatasetList {
+    type PageItem = crate::model::ListFormatDataset;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.datasets
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for DatasetList {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
