@@ -32,6 +32,20 @@ use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, SharedRetryThrottler};
 use std::sync::Arc;
 
+/// Options for instrumenting client behavior, primarily for tracing and metrics.
+#[derive(Clone, Debug, PartialEq, Eq)]
+#[non_exhaustive]
+pub struct InstrumentationOptions {
+    /// The short service name, e.g., "appengine", "run", "firestore".
+    pub service_name: String,
+    /// The version of the client library.
+    pub client_version: String,
+    /// The name of the client library artifact (e.g., crate name).
+    pub client_artifact: String,
+    /// The default hostname of the service.
+    pub default_host: String,
+}
+
 /// A set of options configuring a single request.
 ///
 /// Application only use this class directly in mocks, where they may want to
@@ -386,4 +400,5 @@ mod tests {
 
         Ok(())
     }
+
 }
