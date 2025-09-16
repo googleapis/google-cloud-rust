@@ -80,3 +80,16 @@ disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links"
 'package:longrunning'  = 'package=google-cloud-longrunning,source=google.longrunning'
 'package:rpc'          = 'package=google-cloud-rpc,source=google.rpc'
 'package:rpc_context'  = 'package=google-cloud-rpc-context,source=google.rpc.context'
+
+[release]
+remote          = 'upstream'
+branch          = 'main'
+ignored-changes = ['.repo-metadata.json', '.sidekick.toml']
+
+[[release.tools.cargo]]
+name    = 'cargo-semver-checks'
+version = '0.42.0'
+
+[release.pre-installed]
+cargo = 'cargo'
+git   = 'git'

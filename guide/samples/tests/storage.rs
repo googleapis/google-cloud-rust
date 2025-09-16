@@ -54,6 +54,15 @@ pub mod storage {
         }
 
         #[tokio::test(flavor = "multi_thread")]
+        async fn rewrite_object_until_done() -> anyhow::Result<()> {
+            let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
+            let response = super::rewrite_object::rewrite_object_until_done(&bucket.name).await;
+            // Ignore cleanup errors.
+            let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
+            response
+        }
+
+        #[tokio::test(flavor = "multi_thread")]
         async fn striped() -> anyhow::Result<()> {
             let destination = tempfile::NamedTempFile::new()?;
             let path = destination

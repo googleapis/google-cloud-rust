@@ -81,9 +81,23 @@ Note that there is a [minimum storage duration] associated with the new storage
 class. While the object used in this example (3 MiB) incurs less than `$0.001`
 of cost, the billing may be noticeable for larger objects.
 
-### Introduce rewrite loop helpers
+### Using the `rewrite_until_done` helper
 
-Next, we introduce a helper function to perform one iteration of the rewrite
+The library provides a helper function to automatically perform the rewrite
+loop.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:rewrite-until-done}}
+```
+
+This helper function handles the rewrite token and continues the operation until
+it is done.
+
+### Manually executing the rewrite loop
+
+If you need more control over the rewrite loop, you can execute it manually.
+
+First, we introduce a helper function to perform one iteration of the rewrite
 loop.
 
 We send the request and process the response. We log the progress made.
