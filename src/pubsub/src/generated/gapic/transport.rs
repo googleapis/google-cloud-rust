@@ -18,28 +18,28 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Publisher](super::stub::Publisher) using a [gaxi::http::ReqwestClient].
+/// Implements [TopicAdmin](super::stub::TopicAdmin) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
-pub struct Publisher {
+pub struct TopicAdmin {
     inner: gaxi::http::ReqwestClient,
 }
 
-impl std::fmt::Debug for Publisher {
+impl std::fmt::Debug for TopicAdmin {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Publisher")
+        f.debug_struct("TopicAdmin")
             .field("inner", &self.inner)
             .finish()
     }
 }
 
-impl Publisher {
+impl TopicAdmin {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl super::stub::Publisher for Publisher {
+impl super::stub::TopicAdmin for TopicAdmin {
     async fn create_topic(
         &self,
         req: crate::model::Topic,
@@ -520,28 +520,28 @@ impl super::stub::Publisher for Publisher {
     }
 }
 
-/// Implements [Subscriber](super::stub::Subscriber) using a [gaxi::http::ReqwestClient].
+/// Implements [SubscriptionAdmin](super::stub::SubscriptionAdmin) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
-pub struct Subscriber {
+pub struct SubscriptionAdmin {
     inner: gaxi::http::ReqwestClient,
 }
 
-impl std::fmt::Debug for Subscriber {
+impl std::fmt::Debug for SubscriptionAdmin {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Subscriber")
+        f.debug_struct("SubscriptionAdmin")
             .field("inner", &self.inner)
             .finish()
     }
 }
 
-impl Subscriber {
+impl SubscriptionAdmin {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl super::stub::Subscriber for Subscriber {
+impl super::stub::SubscriptionAdmin for SubscriptionAdmin {
     async fn create_subscription(
         &self,
         req: crate::model::Subscription,

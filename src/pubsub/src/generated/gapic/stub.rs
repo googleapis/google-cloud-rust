@@ -26,19 +26,19 @@
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [super::client::Publisher].
+/// Defines the trait used to implement [super::client::TopicAdmin].
 ///
 /// Application developers may need to implement this trait to mock
-/// `client::Publisher`.  In other use-cases, application developers only
-/// use `client::Publisher` and need not be concerned with this trait or
+/// `client::TopicAdmin`.  In other use-cases, application developers only
+/// use `client::TopicAdmin` and need not be concerned with this trait or
 /// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
-pub trait Publisher: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::Publisher::create_topic].
+pub trait TopicAdmin: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::TopicAdmin::create_topic].
     fn create_topic(
         &self,
         _req: crate::model::Topic,
@@ -49,7 +49,7 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Publisher::update_topic].
+    /// Implements [super::client::TopicAdmin::update_topic].
     fn update_topic(
         &self,
         _req: crate::model::UpdateTopicRequest,
@@ -60,7 +60,7 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Publisher::get_topic].
+    /// Implements [super::client::TopicAdmin::get_topic].
     fn get_topic(
         &self,
         _req: crate::model::GetTopicRequest,
@@ -71,7 +71,7 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Publisher::list_topics].
+    /// Implements [super::client::TopicAdmin::list_topics].
     fn list_topics(
         &self,
         _req: crate::model::ListTopicsRequest,
@@ -82,7 +82,7 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Publisher::list_topic_subscriptions].
+    /// Implements [super::client::TopicAdmin::list_topic_subscriptions].
     fn list_topic_subscriptions(
         &self,
         _req: crate::model::ListTopicSubscriptionsRequest,
@@ -95,7 +95,7 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Publisher::list_topic_snapshots].
+    /// Implements [super::client::TopicAdmin::list_topic_snapshots].
     fn list_topic_snapshots(
         &self,
         _req: crate::model::ListTopicSnapshotsRequest,
@@ -106,7 +106,7 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Publisher::delete_topic].
+    /// Implements [super::client::TopicAdmin::delete_topic].
     fn delete_topic(
         &self,
         _req: crate::model::DeleteTopicRequest,
@@ -115,7 +115,7 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Publisher::detach_subscription].
+    /// Implements [super::client::TopicAdmin::detach_subscription].
     fn detach_subscription(
         &self,
         _req: crate::model::DetachSubscriptionRequest,
@@ -127,19 +127,19 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [super::client::Subscriber].
+/// Defines the trait used to implement [super::client::SubscriptionAdmin].
 ///
 /// Application developers may need to implement this trait to mock
-/// `client::Subscriber`.  In other use-cases, application developers only
-/// use `client::Subscriber` and need not be concerned with this trait or
+/// `client::SubscriptionAdmin`.  In other use-cases, application developers only
+/// use `client::SubscriptionAdmin` and need not be concerned with this trait or
 /// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
-pub trait Subscriber: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::Subscriber::create_subscription].
+pub trait SubscriptionAdmin: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::SubscriptionAdmin::create_subscription].
     fn create_subscription(
         &self,
         _req: crate::model::Subscription,
@@ -150,7 +150,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Subscriber::get_subscription].
+    /// Implements [super::client::SubscriptionAdmin::get_subscription].
     fn get_subscription(
         &self,
         _req: crate::model::GetSubscriptionRequest,
@@ -161,7 +161,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Subscriber::update_subscription].
+    /// Implements [super::client::SubscriptionAdmin::update_subscription].
     fn update_subscription(
         &self,
         _req: crate::model::UpdateSubscriptionRequest,
@@ -172,7 +172,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Subscriber::list_subscriptions].
+    /// Implements [super::client::SubscriptionAdmin::list_subscriptions].
     fn list_subscriptions(
         &self,
         _req: crate::model::ListSubscriptionsRequest,
@@ -183,7 +183,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Subscriber::delete_subscription].
+    /// Implements [super::client::SubscriptionAdmin::delete_subscription].
     fn delete_subscription(
         &self,
         _req: crate::model::DeleteSubscriptionRequest,
@@ -192,7 +192,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Subscriber::modify_push_config].
+    /// Implements [super::client::SubscriptionAdmin::modify_push_config].
     fn modify_push_config(
         &self,
         _req: crate::model::ModifyPushConfigRequest,
@@ -201,7 +201,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Subscriber::get_snapshot].
+    /// Implements [super::client::SubscriptionAdmin::get_snapshot].
     fn get_snapshot(
         &self,
         _req: crate::model::GetSnapshotRequest,
@@ -212,7 +212,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Subscriber::list_snapshots].
+    /// Implements [super::client::SubscriptionAdmin::list_snapshots].
     fn list_snapshots(
         &self,
         _req: crate::model::ListSnapshotsRequest,
@@ -223,7 +223,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Subscriber::create_snapshot].
+    /// Implements [super::client::SubscriptionAdmin::create_snapshot].
     fn create_snapshot(
         &self,
         _req: crate::model::CreateSnapshotRequest,
@@ -234,7 +234,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Subscriber::update_snapshot].
+    /// Implements [super::client::SubscriptionAdmin::update_snapshot].
     fn update_snapshot(
         &self,
         _req: crate::model::UpdateSnapshotRequest,
@@ -245,7 +245,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Subscriber::delete_snapshot].
+    /// Implements [super::client::SubscriptionAdmin::delete_snapshot].
     fn delete_snapshot(
         &self,
         _req: crate::model::DeleteSnapshotRequest,
@@ -254,7 +254,7 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Subscriber::seek].
+    /// Implements [super::client::SubscriptionAdmin::seek].
     fn seek(
         &self,
         _req: crate::model::SeekRequest,
