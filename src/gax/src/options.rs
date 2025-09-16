@@ -210,12 +210,6 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
 
     /// Sets the polling backoff policy configuration.
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(self, v: V) -> Self;
-
-    /// Sets the path template for the request URL.
-    fn with_path_template(self, v: Option<String>) -> Self;
-
-    /// Sets the prior attempt count for the request.
-    fn with_prior_attempt_count(self, v: u32) -> Self;
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
@@ -237,6 +231,22 @@ pub mod internal {
 
     pub fn set_default_idempotency(mut options: RequestOptions, default: bool) -> RequestOptions {
         options.set_default_idempotency(default);
+        options
+    }
+
+    pub fn set_path_template(
+        mut options: RequestOptions,
+        path_template: Option<String>,
+    ) -> RequestOptions {
+        options.set_path_template(path_template);
+        options
+    }
+
+    pub fn set_prior_attempt_count(
+        mut options: RequestOptions,
+        prior_attempt_count: u32,
+    ) -> RequestOptions {
+        options.set_prior_attempt_count(prior_attempt_count);
         options
     }
 }
@@ -283,16 +293,6 @@ where
 
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
         self.request_options().set_polling_backoff_policy(v);
-        self
-    }
-
-    fn with_path_template(mut self, v: Option<String>) -> Self {
-        self.request_options().set_path_template(v);
-        self
-    }
-
-    fn with_prior_attempt_count(mut self, v: u32) -> Self {
-        self.request_options().set_prior_attempt_count(v);
         self
     }
 }
@@ -351,6 +351,18 @@ mod tests {
 
         opts.set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
         assert!(opts.polling_backoff_policy().is_some(), "{opts:?}");
+
+        opts.set_path_template(Some("test".to_string()));
+        assert_eq!(opts.path_template(), Some("test"));
+
+        opts.set_prior_attempt_count(0);
+        assert_eq!(opts.prior_attempt_count(), 0);
+
+        // default should be 0.
+        assert_eq!(opts.prior_attempt_count(), 0);
+
+        opts.set_prior_attempt_count(2);
+        assert_eq!(opts.prior_attempt_count(), 2);
     }
 
     #[test]
@@ -421,12 +433,6 @@ mod tests {
             builder.request_options().polling_backoff_policy().is_some(),
             "{builder:?}"
         );
-
-        let mut builder = TestBuilder::default().with_path_template(Some("test".to_string()));
-        assert_eq!(builder.request_options().path_template(), Some("test"));
-
-        let mut builder = TestBuilder::default().with_prior_attempt_count(5);
-        assert_eq!(builder.request_options().prior_attempt_count(), 5);
 
         Ok(())
     }
