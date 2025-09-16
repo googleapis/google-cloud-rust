@@ -49,6 +49,8 @@ pub struct RequestOptions {
     retry_throttler: Option<SharedRetryThrottler>,
     polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+    path_template: Option<String>,
+    prior_attempt_count: u32,
 }
 
 impl RequestOptions {
@@ -153,6 +155,26 @@ impl RequestOptions {
     pub fn set_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(&mut self, v: V) {
         self.polling_backoff_policy = Some(v.into().0);
     }
+
+    /// Get the current path template, if any.
+    pub fn path_template(&self) -> Option<&str> {
+        self.path_template.as_deref()
+    }
+
+    /// Sets the path template for the request URL.
+    pub fn set_path_template(&mut self, v: Option<String>) {
+        self.path_template = v;
+    }
+
+    /// Get the current prior attempt count.
+    pub fn prior_attempt_count(&self) -> u32 {
+        self.prior_attempt_count
+    }
+
+    /// Sets the prior attempt count for the request.
+    pub fn set_prior_attempt_count(&mut self, v: u32) {
+        self.prior_attempt_count = v;
+    }
 }
 
 /// Implementations of this trait provide setters to configure request options.
@@ -188,6 +210,12 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
 
     /// Sets the polling backoff policy configuration.
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(self, v: V) -> Self;
+
+    /// Sets the path template for the request URL.
+    fn with_path_template(self, v: Option<String>) -> Self;
+
+    /// Sets the prior attempt count for the request.
+    fn with_prior_attempt_count(self, v: u32) -> Self;
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
@@ -255,6 +283,16 @@ where
 
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
         self.request_options().set_polling_backoff_policy(v);
+        self
+    }
+
+    fn with_path_template(mut self, v: Option<String>) -> Self {
+        self.request_options().set_path_template(v);
+        self
+    }
+
+    fn with_prior_attempt_count(mut self, v: u32) -> Self {
+        self.request_options().set_prior_attempt_count(v);
         self
     }
 }
@@ -383,6 +421,12 @@ mod tests {
             builder.request_options().polling_backoff_policy().is_some(),
             "{builder:?}"
         );
+
+        let mut builder = TestBuilder::default().with_path_template(Some("test".to_string()));
+        assert_eq!(builder.request_options().path_template(), Some("test"));
+
+        let mut builder = TestBuilder::default().with_prior_attempt_count(5);
+        assert_eq!(builder.request_options().prior_attempt_count(), 5);
 
         Ok(())
     }
