@@ -386,6 +386,20 @@ impl<F, Cr> ClientBuilder<F, Cr> {
 pub mod internal {
     use super::*;
 
+    /// Options for instrumenting client behavior, primarily for tracing and metrics.
+    #[derive(Clone, Debug, PartialEq, Eq)]
+    #[non_exhaustive]
+    pub struct InstrumentationOptions {
+        /// The short service name, e.g., "appengine", "run", "firestore".
+        pub service_name: String,
+        /// The version of the client library.
+        pub client_version: String,
+        /// The name of the client library artifact (e.g., crate name).
+        pub client_artifact: String,
+        /// The default hostname of the service.
+        pub default_host: String,
+    }
+
     pub trait ClientFactory {
         type Client;
         type Credentials;
@@ -423,6 +437,7 @@ pub mod internal {
         pub retry_throttler: SharedRetryThrottler,
         pub polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
         pub polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+        pub instrumentation: Option<InstrumentationOptions>,
     }
 
     impl<Cr> std::default::Default for ClientConfig<Cr> {
@@ -438,6 +453,7 @@ pub mod internal {
                 retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
                 polling_error_policy: None,
                 polling_backoff_policy: None,
+                instrumentation: None,
             }
         }
     }
