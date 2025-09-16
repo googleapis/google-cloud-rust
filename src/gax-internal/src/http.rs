@@ -39,6 +39,7 @@ pub struct ReqwestClient {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
 }
 
 impl ReqwestClient {
@@ -79,7 +80,16 @@ impl ReqwestClient {
             polling_backoff_policy: config
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
+            instrumentation: None,
         })
+    }
+
+    pub fn with_instrumentation(
+        mut self,
+        instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
+    ) -> Self {
+        self.instrumentation = instrumentation;
+        self
     }
 
     pub fn builder(&self, method: Method, path: String) -> reqwest::RequestBuilder {
@@ -280,6 +290,9 @@ mod tests {
     use http::{HeaderMap, HeaderValue, Method};
     use test_case::test_case;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    use super::*;
+    use crate::options::ClientConfig;
+    use crate::options::InstrumentationClientInfo;
 
     #[tokio::test]
     async fn client_http_error_bytes() -> TestResult {
@@ -404,5 +417,41 @@ mod tests {
     #[test_case(Method::PATCH, false)]
     fn default_idempotency(input: Method, expected: bool) {
         assert!(super::default_idempotency(&input) == expected);
+    }
+
+    static TEST_INSTRUMENTATION_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
+        service_name: "test-service",
+        client_version: "1.2.3",
+        client_artifact: "test-artifact",
+        default_host: "test.googleapis.com",
+    };
+
+    #[tokio::test]
+    async fn reqwest_client_new() {
+        let config = ClientConfig::default();
+        let client = ReqwestClient::new(config, "https://test.googleapis.com")
+            .await
+            .unwrap();
+        assert!(client.instrumentation.is_none());
+    }
+
+    #[tokio::test]
+    async fn reqwest_client_with_instrumentation() {
+        let config = ClientConfig::default();
+        let client = ReqwestClient::new(config, "https://test.googleapis.com")
+            .await
+            .unwrap();
+        assert!(client.instrumentation.is_none());
+
+        let client = client.with_instrumentation(Some(&TEST_INSTRUMENTATION_INFO));
+        assert!(client.instrumentation.is_some());
+        let info = client.instrumentation.unwrap();
+        assert_eq!(info.service_name, "test-service");
+        assert_eq!(info.client_version, "1.2.3");
+        assert_eq!(info.client_artifact, "test-artifact");
+        assert_eq!(info.default_host, "test.googleapis.com");
+
+        let client = client.with_instrumentation(None);
+        assert!(client.instrumentation.is_none());
     }
 }
