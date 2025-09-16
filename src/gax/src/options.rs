@@ -157,22 +157,22 @@ impl RequestOptions {
     }
 
     /// Get the current path template, if any.
-    pub fn path_template(&self) -> Option<&str> {
+    pub(crate) fn path_template(&self) -> Option<&str> {
         self.path_template.as_deref()
     }
 
     /// Sets the path template for the request URL.
-    pub fn set_path_template(&mut self, v: Option<String>) {
+    pub(crate) fn set_path_template(&mut self, v: Option<String>) {
         self.path_template = v;
     }
 
     /// Get the current prior attempt count.
-    pub fn prior_attempt_count(&self) -> u32 {
+    pub(crate) fn prior_attempt_count(&self) -> u32 {
         self.prior_attempt_count
     }
 
     /// Sets the prior attempt count for the request.
-    pub fn set_prior_attempt_count(&mut self, v: u32) {
+    pub(crate) fn set_prior_attempt_count(&mut self, v: u32) {
         self.prior_attempt_count = v;
     }
 }
@@ -242,11 +242,14 @@ pub mod internal {
         options
     }
 
-    pub fn set_prior_attempt_count(
-        mut options: RequestOptions,
-        prior_attempt_count: u32,
+    pub fn get_path_template(options: &RequestOptions) -> Option<&str> {
+        options.path_template()
+    }
+
+    pub fn increment_prior_attempt_count(
+        mut options: RequestOptions
     ) -> RequestOptions {
-        options.set_prior_attempt_count(prior_attempt_count);
+        options.set_prior_attempt_count(options.prior_attempt_count() + 1);
         options
     }
 }
