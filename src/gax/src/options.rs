@@ -246,9 +246,7 @@ pub mod internal {
         options.path_template()
     }
 
-    pub fn increment_prior_attempt_count(
-        mut options: RequestOptions
-    ) -> RequestOptions {
+    pub fn increment_prior_attempt_count(mut options: RequestOptions) -> RequestOptions {
         options.set_prior_attempt_count(options.prior_attempt_count() + 1);
         options
     }
@@ -358,10 +356,10 @@ mod tests {
         opts.set_path_template(Some("test".to_string()));
         assert_eq!(opts.path_template(), Some("test"));
 
-        opts.set_prior_attempt_count(0);
+        // default should be 0.
         assert_eq!(opts.prior_attempt_count(), 0);
 
-        // default should be 0.
+        opts.set_prior_attempt_count(0);
         assert_eq!(opts.prior_attempt_count(), 0);
 
         opts.set_prior_attempt_count(2);
@@ -379,6 +377,22 @@ mod tests {
         assert_eq!(opts.idempotent(), Some(false));
         let opts = set_default_idempotency(opts, true);
         assert_eq!(opts.idempotent(), Some(false));
+    }
+
+    #[test]
+    fn request_options_attempt_count() {
+        let opts = RequestOptions::default();
+        assert_eq!(opts.prior_attempt_count(), 0);
+        let opts = increment_prior_attempt_count(opts);
+        assert_eq!(opts.prior_attempt_count(), 1);
+    }
+
+    #[test]
+    fn request_options_path_template() {
+        let opts = RequestOptions::default();
+        assert_eq!(opts.path_template(), None);
+        let opts = set_path_template(opts, Some("test".to_string()));
+        assert_eq!(opts.path_template(), Some("test"));
     }
 
     #[test]
