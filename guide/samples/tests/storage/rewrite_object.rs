@@ -125,3 +125,26 @@ async fn cleanup(control: StorageControl, bucket_name: &str, o1: &str, o2: &str)
     let _ = control.delete_bucket().set_name(bucket_name).send().await;
 }
 // ANCHOR_END: all
+
+pub async fn rewrite_object_until_done(bucket_name: &str) -> anyhow::Result<()> {
+    let source_object = upload(bucket_name).await?;
+
+    let control = StorageControl::builder()
+        .with_retry_policy(RetryableErrors.with_attempt_limit(5))
+        .build()
+        .await?;
+
+    let builder = control
+        .rewrite_object()
+        .set_source_bucket(bucket_name)
+        .set_source_object(&source_object.name)
+        .set_destination_bucket(bucket_name)
+        .set_destination_name("rewrite-object-clone");
+
+    // ANCHOR: rewrite-until-done
+    use google_cloud_storage::builder_ext::RewriteObjectExt;
+    let dest_object = builder.rewrite_until_done().await?;
+    println!("dest_object={dest_object:?}");
+    // ANCHOR_END: rewrite-until-done
+    Ok(())
+}
