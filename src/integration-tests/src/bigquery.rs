@@ -69,7 +69,11 @@ pub async fn dataset_admin(
     let items = list.collect::<Vec<gax::Result<_>>>().await;
     println!("LIST DATASET = {} entries", items.len());
 
-    assert!(items.iter().any(|v| v.as_ref().unwrap().id.contains(&dataset_id)));
+    assert!(
+        items
+            .iter()
+            .any(|v| v.as_ref().unwrap().id.contains(&dataset_id))
+    );
 
     client
         .delete_dataset()
@@ -102,22 +106,20 @@ async fn cleanup_stale_datasets(
 
     let pending_all_datasets = datasets
         .iter()
-        .filter_map(|v| {
-            match v {
-                Ok(v) => {
-                    if let Some(dataset_id) = extract_dataset_id(project_id, &v.id) {
-                        return Some(
-                            client
-                                .get_dataset()
-                                .set_project_id(project_id)
-                                .set_dataset_id(dataset_id)
-                                .send(),
-                        );
-                    }
-                    None
+        .filter_map(|v| match v {
+            Ok(v) => {
+                if let Some(dataset_id) = extract_dataset_id(project_id, &v.id) {
+                    return Some(
+                        client
+                            .get_dataset()
+                            .set_project_id(project_id)
+                            .set_dataset_id(dataset_id)
+                            .send(),
+                    );
                 }
-                Err(_) => None,
+                None
             }
+            Err(_) => None,
         })
         .collect::<Vec<_>>();
 
