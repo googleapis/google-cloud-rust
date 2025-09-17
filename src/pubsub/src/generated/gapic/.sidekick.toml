@@ -38,7 +38,9 @@ included-ids = """\
     .google.pubsub.v1.Subscriber.CreateSnapshot,\
     .google.pubsub.v1.Subscriber.UpdateSnapshot,\
     .google.pubsub.v1.Subscriber.DeleteSnapshot,\
-    .google.pubsub.v1.Subscriber.Seek\
+    .google.pubsub.v1.Subscriber.Seek,\
+    .google.pubsub.v1.PublishRequest,\
+    .google.pubsub.v1.PublishResponse\
     """
 
 [codec]
@@ -46,3 +48,4 @@ copyright-year        = '2025'
 template-override     = 'templates/http-client'
 package-name-override = 'google-cloud-pubsub'
 name-overrides        = '.google.pubsub.v1.Publisher=TopicAdmin,.google.pubsub.v1.Subscriber=SubscriptionAdmin'
+internal-types        = ".google.pubsub.v1.PublishRequest"

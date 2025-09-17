@@ -24,13 +24,20 @@
 //!
 //! [pub/sub]: https://cloud.google.com/pubsub
 
+pub mod client {
+    pub use crate::generated::gapic::client::SchemaService;
+    pub use crate::generated::gapic::client::SubscriptionAdmin;
+    pub use crate::generated::gapic::client::TopicAdmin;
+    pub use crate::publisher::client::Publisher;
+}
+
 pub(crate) mod generated;
+pub(crate) mod publisher;
 
 pub use gax::Result;
 pub use gax::error::Error;
 
 pub use generated::gapic::builder;
-pub use generated::gapic::client;
 pub use generated::gapic::model;
 pub use generated::gapic::stub;
 

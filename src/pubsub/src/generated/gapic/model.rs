@@ -5251,6 +5251,312 @@ pub mod topic {
     }
 }
 
+/// A message that is published by publishers and consumed by subscribers. The
+/// message must contain either a non-empty data field or at least one attribute.
+/// Note that client libraries represent this object differently
+/// depending on the language. See the corresponding [client library
+/// documentation](https://cloud.google.com/pubsub/docs/reference/libraries) for
+/// more information. See [quotas and limits]
+/// (<https://cloud.google.com/pubsub/quotas>) for more information about message
+/// limits.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PubsubMessage {
+    /// Optional. The message data field. If this field is empty, the message must
+    /// contain at least one attribute.
+    pub data: ::bytes::Bytes,
+
+    /// Optional. Attributes for this message. If this field is empty, the message
+    /// must contain non-empty data. This can be used to filter messages on the
+    /// subscription.
+    pub attributes: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// ID of this message, assigned by the server when the message is published.
+    /// Guaranteed to be unique within the topic. This value may be read by a
+    /// subscriber that receives a `PubsubMessage` via a `Pull` call or a push
+    /// delivery. It must not be populated by the publisher in a `Publish` call.
+    pub message_id: std::string::String,
+
+    /// The time at which the message was published, populated by the server when
+    /// it receives the `Publish` call. It must not be populated by the
+    /// publisher in a `Publish` call.
+    pub publish_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. If non-empty, identifies related messages for which publish order
+    /// should be respected. If a `Subscription` has `enable_message_ordering` set
+    /// to `true`, messages published with the same non-empty `ordering_key` value
+    /// will be delivered to subscribers in the order in which they are received by
+    /// the Pub/Sub system. All `PubsubMessage`s published in a given
+    /// `PublishRequest` must specify the same `ordering_key` value. For more
+    /// information, see [ordering
+    /// messages](https://cloud.google.com/pubsub/docs/ordering).
+    pub ordering_key: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PubsubMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data][crate::model::PubsubMessage::data].
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.data = v.into();
+        self
+    }
+
+    /// Sets the value of [attributes][crate::model::PubsubMessage::attributes].
+    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [message_id][crate::model::PubsubMessage::message_id].
+    pub fn set_message_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.message_id = v.into();
+        self
+    }
+
+    /// Sets the value of [publish_time][crate::model::PubsubMessage::publish_time].
+    pub fn set_publish_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.publish_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [publish_time][crate::model::PubsubMessage::publish_time].
+    pub fn set_or_clear_publish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.publish_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ordering_key][crate::model::PubsubMessage::ordering_key].
+    pub fn set_ordering_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ordering_key = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PubsubMessage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.PubsubMessage"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for PubsubMessage {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __data,
+            __attributes,
+            __message_id,
+            __publish_time,
+            __ordering_key,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PubsubMessage")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "data" => Ok(__FieldTag::__data),
+                            "attributes" => Ok(__FieldTag::__attributes),
+                            "messageId" => Ok(__FieldTag::__message_id),
+                            "message_id" => Ok(__FieldTag::__message_id),
+                            "publishTime" => Ok(__FieldTag::__publish_time),
+                            "publish_time" => Ok(__FieldTag::__publish_time),
+                            "orderingKey" => Ok(__FieldTag::__ordering_key),
+                            "ordering_key" => Ok(__FieldTag::__ordering_key),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = PubsubMessage;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PubsubMessage")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__data => {
+                            if !fields.insert(__FieldTag::__data) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.data = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__attributes => {
+                            if !fields.insert(__FieldTag::__attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attributes",
+                                ));
+                            }
+                            result.attributes = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__message_id => {
+                            if !fields.insert(__FieldTag::__message_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for message_id",
+                                ));
+                            }
+                            result.message_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__publish_time => {
+                            if !fields.insert(__FieldTag::__publish_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for publish_time",
+                                ));
+                            }
+                            result.publish_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__ordering_key => {
+                            if !fields.insert(__FieldTag::__ordering_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ordering_key",
+                                ));
+                            }
+                            result.ordering_key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for PubsubMessage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.data.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("data", &__With(&self.data))?;
+        }
+        if !self.attributes.is_empty() {
+            state.serialize_entry("attributes", &self.attributes)?;
+        }
+        if !self.message_id.is_empty() {
+            state.serialize_entry("messageId", &self.message_id)?;
+        }
+        if self.publish_time.is_some() {
+            state.serialize_entry("publishTime", &self.publish_time)?;
+        }
+        if !self.ordering_key.is_empty() {
+            state.serialize_entry("orderingKey", &self.ordering_key)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for PubsubMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PubsubMessage");
+        debug_struct.field("data", &self.data);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("message_id", &self.message_id);
+        debug_struct.field("publish_time", &self.publish_time);
+        debug_struct.field("ordering_key", &self.ordering_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the GetTopic method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5579,6 +5885,323 @@ impl std::fmt::Debug for UpdateTopicRequest {
         let mut debug_struct = f.debug_struct("UpdateTopicRequest");
         debug_struct.field("topic", &self.topic);
         debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Request for the Publish method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub(crate) struct PublishRequest {
+    /// Required. The messages in the request will be published on this topic.
+    /// Format is `projects/{project}/topics/{topic}`.
+    pub topic: std::string::String,
+
+    /// Required. The messages to publish.
+    pub messages: std::vec::Vec<crate::model::PubsubMessage>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PublishRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [topic][crate::model::PublishRequest::topic].
+    pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.topic = v.into();
+        self
+    }
+
+    /// Sets the value of [messages][crate::model::PublishRequest::messages].
+    pub fn set_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PubsubMessage>,
+    {
+        use std::iter::Iterator;
+        self.messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for PublishRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.PublishRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for PublishRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __topic,
+            __messages,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PublishRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "topic" => Ok(__FieldTag::__topic),
+                            "messages" => Ok(__FieldTag::__messages),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = PublishRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PublishRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__topic => {
+                            if !fields.insert(__FieldTag::__topic) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for topic",
+                                ));
+                            }
+                            result.topic = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__messages => {
+                            if !fields.insert(__FieldTag::__messages) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for messages",
+                                ));
+                            }
+                            result.messages = map.next_value::<std::option::Option<std::vec::Vec<crate::model::PubsubMessage>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for PublishRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.topic.is_empty() {
+            state.serialize_entry("topic", &self.topic)?;
+        }
+        if !self.messages.is_empty() {
+            state.serialize_entry("messages", &self.messages)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for PublishRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PublishRequest");
+        debug_struct.field("topic", &self.topic);
+        debug_struct.field("messages", &self.messages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Response for the `Publish` method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PublishResponse {
+    /// Optional. The server-assigned ID of each published message, in the same
+    /// order as the messages in the request. IDs are guaranteed to be unique
+    /// within the topic.
+    pub message_ids: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PublishResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [message_ids][crate::model::PublishResponse::message_ids].
+    pub fn set_message_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.message_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for PublishResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.PublishResponse"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for PublishResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __message_ids,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PublishResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "messageIds" => Ok(__FieldTag::__message_ids),
+                            "message_ids" => Ok(__FieldTag::__message_ids),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = PublishResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PublishResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__message_ids => {
+                            if !fields.insert(__FieldTag::__message_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for message_ids",
+                                ));
+                            }
+                            result.message_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for PublishResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.message_ids.is_empty() {
+            state.serialize_entry("messageIds", &self.message_ids)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for PublishResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PublishResponse");
+        debug_struct.field("message_ids", &self.message_ids);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

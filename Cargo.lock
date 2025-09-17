@@ -3867,6 +3867,7 @@ dependencies = [
 name = "google-cloud-pubsub"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "async-trait",
  "bytes",
  "google-cloud-gax",
@@ -3878,6 +3879,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "tokio",
  "tokio-test",
  "tracing",
 ]
