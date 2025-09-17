@@ -49,6 +49,7 @@ pub struct RequestOptions {
     retry_throttler: Option<SharedRetryThrottler>,
     polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+    path_template: Option<String>,
 }
 
 impl RequestOptions {
@@ -153,6 +154,16 @@ impl RequestOptions {
     pub fn set_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(&mut self, v: V) {
         self.polling_backoff_policy = Some(v.into().0);
     }
+
+    /// Get the current path template, if any.
+    pub(crate) fn path_template(&self) -> Option<&str> {
+        self.path_template.as_deref()
+    }
+
+    /// Sets the path template for the request URL.
+    pub(crate) fn set_path_template(&mut self, v: Option<String>) {
+        self.path_template = v;
+    }
 }
 
 /// Implementations of this trait provide setters to configure request options.
@@ -210,6 +221,18 @@ pub mod internal {
     pub fn set_default_idempotency(mut options: RequestOptions, default: bool) -> RequestOptions {
         options.set_default_idempotency(default);
         options
+    }
+
+    pub fn set_path_template(
+        mut options: RequestOptions,
+        path_template: Option<String>,
+    ) -> RequestOptions {
+        options.set_path_template(path_template);
+        options
+    }
+
+    pub fn get_path_template(options: &RequestOptions) -> Option<&str> {
+        options.path_template()
     }
 }
 
@@ -313,6 +336,9 @@ mod tests {
 
         opts.set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
         assert!(opts.polling_backoff_policy().is_some(), "{opts:?}");
+
+        opts.set_path_template(Some("test".to_string()));
+        assert_eq!(opts.path_template(), Some("test"));
     }
 
     #[test]
@@ -326,6 +352,14 @@ mod tests {
         assert_eq!(opts.idempotent(), Some(false));
         let opts = set_default_idempotency(opts, true);
         assert_eq!(opts.idempotent(), Some(false));
+    }
+
+    #[test]
+    fn request_options_path_template() {
+        let opts = RequestOptions::default();
+        assert_eq!(opts.path_template(), None);
+        let opts = set_path_template(opts, Some("test".to_string()));
+        assert_eq!(opts.path_template(), Some("test"));
     }
 
     #[test]
