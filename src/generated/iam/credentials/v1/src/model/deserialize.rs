@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateAccessTokenRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GenerateAccessTokenRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -64,7 +64,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateAccessTokenReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GenerateAccessTokenRequest;
+            type Value = super::GenerateAccessTokenRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GenerateAccessTokenRequest")
             }
@@ -129,7 +129,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateAccessTokenReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateAccessTokenResponse {
+impl<'de> serde::de::Deserialize<'de> for super::GenerateAccessTokenResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -173,7 +173,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateAccessTokenRespo
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GenerateAccessTokenResponse;
+            type Value = super::GenerateAccessTokenResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GenerateAccessTokenResponse")
             }
@@ -222,7 +222,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateAccessTokenRespo
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SignBlobRequest {
+impl<'de> serde::de::Deserialize<'de> for super::SignBlobRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -266,7 +266,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SignBlobRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SignBlobRequest;
+            type Value = super::SignBlobRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SignBlobRequest")
             }
@@ -333,7 +333,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SignBlobRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SignBlobResponse {
+impl<'de> serde::de::Deserialize<'de> for super::SignBlobResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -377,7 +377,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SignBlobResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SignBlobResponse;
+            type Value = super::SignBlobResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SignBlobResponse")
             }
@@ -436,7 +436,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SignBlobResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SignJwtRequest {
+impl<'de> serde::de::Deserialize<'de> for super::SignJwtRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -480,7 +480,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SignJwtRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SignJwtRequest;
+            type Value = super::SignJwtRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SignJwtRequest")
             }
@@ -538,7 +538,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SignJwtRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SignJwtResponse {
+impl<'de> serde::de::Deserialize<'de> for super::SignJwtResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -582,7 +582,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SignJwtResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SignJwtResponse;
+            type Value = super::SignJwtResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SignJwtResponse")
             }
@@ -632,7 +632,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SignJwtResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateIdTokenRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GenerateIdTokenRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -679,7 +679,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateIdTokenRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GenerateIdTokenRequest;
+            type Value = super::GenerateIdTokenRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GenerateIdTokenRequest")
             }
@@ -747,7 +747,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateIdTokenRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateIdTokenResponse {
+impl<'de> serde::de::Deserialize<'de> for super::GenerateIdTokenResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -787,7 +787,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateIdTokenResponse 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GenerateIdTokenResponse;
+            type Value = super::GenerateIdTokenResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GenerateIdTokenResponse")
             }

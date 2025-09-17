@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DocsAddOnManifest {
+impl<'de> serde::de::Deserialize<'de> for super::DocsAddOnManifest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -66,7 +66,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DocsAddOnManifest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DocsAddOnManifest;
+            type Value = super::DocsAddOnManifest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DocsAddOnManifest")
             }
@@ -115,7 +115,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DocsAddOnManifest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DocsExtensionPoint {
+impl<'de> serde::de::Deserialize<'de> for super::DocsExtensionPoint {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -156,7 +156,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DocsExtensionPoint {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DocsExtensionPoint;
+            type Value = super::DocsExtensionPoint;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DocsExtensionPoint")
             }

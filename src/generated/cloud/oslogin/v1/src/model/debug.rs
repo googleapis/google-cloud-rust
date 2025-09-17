@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::LoginProfile {
+impl std::fmt::Debug for super::LoginProfile {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LoginProfile");
         debug_struct.field("name", &self.name);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::LoginProfile {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateSshPublicKeyRequest {
+impl std::fmt::Debug for super::CreateSshPublicKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateSshPublicKeyRequest");
         debug_struct.field("parent", &self.parent);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::CreateSshPublicKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeletePosixAccountRequest {
+impl std::fmt::Debug for super::DeletePosixAccountRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeletePosixAccountRequest");
         debug_struct.field("name", &self.name);
@@ -53,7 +53,7 @@ impl std::fmt::Debug for crate::model::DeletePosixAccountRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteSshPublicKeyRequest {
+impl std::fmt::Debug for super::DeleteSshPublicKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSshPublicKeyRequest");
         debug_struct.field("name", &self.name);
@@ -64,7 +64,7 @@ impl std::fmt::Debug for crate::model::DeleteSshPublicKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetLoginProfileRequest {
+impl std::fmt::Debug for super::GetLoginProfileRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetLoginProfileRequest");
         debug_struct.field("name", &self.name);
@@ -77,7 +77,7 @@ impl std::fmt::Debug for crate::model::GetLoginProfileRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetSshPublicKeyRequest {
+impl std::fmt::Debug for super::GetSshPublicKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSshPublicKeyRequest");
         debug_struct.field("name", &self.name);
@@ -88,7 +88,7 @@ impl std::fmt::Debug for crate::model::GetSshPublicKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ImportSshPublicKeyRequest {
+impl std::fmt::Debug for super::ImportSshPublicKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportSshPublicKeyRequest");
         debug_struct.field("parent", &self.parent);
@@ -102,7 +102,7 @@ impl std::fmt::Debug for crate::model::ImportSshPublicKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ImportSshPublicKeyResponse {
+impl std::fmt::Debug for super::ImportSshPublicKeyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportSshPublicKeyResponse");
         debug_struct.field("login_profile", &self.login_profile);
@@ -114,7 +114,7 @@ impl std::fmt::Debug for crate::model::ImportSshPublicKeyResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateSshPublicKeyRequest {
+impl std::fmt::Debug for super::UpdateSshPublicKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSshPublicKeyRequest");
         debug_struct.field("name", &self.name);

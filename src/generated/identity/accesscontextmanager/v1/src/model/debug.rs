@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ListAccessPoliciesRequest {
+impl std::fmt::Debug for super::ListAccessPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAccessPoliciesRequest");
         debug_struct.field("parent", &self.parent);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::ListAccessPoliciesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAccessPoliciesResponse {
+impl std::fmt::Debug for super::ListAccessPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAccessPoliciesResponse");
         debug_struct.field("access_policies", &self.access_policies);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::ListAccessPoliciesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetAccessPolicyRequest {
+impl std::fmt::Debug for super::GetAccessPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAccessPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -53,7 +53,7 @@ impl std::fmt::Debug for crate::model::GetAccessPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateAccessPolicyRequest {
+impl std::fmt::Debug for super::UpdateAccessPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateAccessPolicyRequest");
         debug_struct.field("policy", &self.policy);
@@ -65,7 +65,7 @@ impl std::fmt::Debug for crate::model::UpdateAccessPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteAccessPolicyRequest {
+impl std::fmt::Debug for super::DeleteAccessPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAccessPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -76,7 +76,7 @@ impl std::fmt::Debug for crate::model::DeleteAccessPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAccessLevelsRequest {
+impl std::fmt::Debug for super::ListAccessLevelsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAccessLevelsRequest");
         debug_struct.field("parent", &self.parent);
@@ -90,7 +90,7 @@ impl std::fmt::Debug for crate::model::ListAccessLevelsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAccessLevelsResponse {
+impl std::fmt::Debug for super::ListAccessLevelsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAccessLevelsResponse");
         debug_struct.field("access_levels", &self.access_levels);
@@ -102,7 +102,7 @@ impl std::fmt::Debug for crate::model::ListAccessLevelsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetAccessLevelRequest {
+impl std::fmt::Debug for super::GetAccessLevelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAccessLevelRequest");
         debug_struct.field("name", &self.name);
@@ -114,7 +114,7 @@ impl std::fmt::Debug for crate::model::GetAccessLevelRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateAccessLevelRequest {
+impl std::fmt::Debug for super::CreateAccessLevelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateAccessLevelRequest");
         debug_struct.field("parent", &self.parent);
@@ -126,7 +126,7 @@ impl std::fmt::Debug for crate::model::CreateAccessLevelRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateAccessLevelRequest {
+impl std::fmt::Debug for super::UpdateAccessLevelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateAccessLevelRequest");
         debug_struct.field("access_level", &self.access_level);
@@ -138,7 +138,7 @@ impl std::fmt::Debug for crate::model::UpdateAccessLevelRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteAccessLevelRequest {
+impl std::fmt::Debug for super::DeleteAccessLevelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAccessLevelRequest");
         debug_struct.field("name", &self.name);
@@ -149,7 +149,7 @@ impl std::fmt::Debug for crate::model::DeleteAccessLevelRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReplaceAccessLevelsRequest {
+impl std::fmt::Debug for super::ReplaceAccessLevelsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplaceAccessLevelsRequest");
         debug_struct.field("parent", &self.parent);
@@ -162,7 +162,7 @@ impl std::fmt::Debug for crate::model::ReplaceAccessLevelsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReplaceAccessLevelsResponse {
+impl std::fmt::Debug for super::ReplaceAccessLevelsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplaceAccessLevelsResponse");
         debug_struct.field("access_levels", &self.access_levels);
@@ -173,7 +173,7 @@ impl std::fmt::Debug for crate::model::ReplaceAccessLevelsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListServicePerimetersRequest {
+impl std::fmt::Debug for super::ListServicePerimetersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServicePerimetersRequest");
         debug_struct.field("parent", &self.parent);
@@ -186,7 +186,7 @@ impl std::fmt::Debug for crate::model::ListServicePerimetersRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListServicePerimetersResponse {
+impl std::fmt::Debug for super::ListServicePerimetersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServicePerimetersResponse");
         debug_struct.field("service_perimeters", &self.service_perimeters);
@@ -198,7 +198,7 @@ impl std::fmt::Debug for crate::model::ListServicePerimetersResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetServicePerimeterRequest {
+impl std::fmt::Debug for super::GetServicePerimeterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetServicePerimeterRequest");
         debug_struct.field("name", &self.name);
@@ -209,7 +209,7 @@ impl std::fmt::Debug for crate::model::GetServicePerimeterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateServicePerimeterRequest {
+impl std::fmt::Debug for super::CreateServicePerimeterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateServicePerimeterRequest");
         debug_struct.field("parent", &self.parent);
@@ -221,7 +221,7 @@ impl std::fmt::Debug for crate::model::CreateServicePerimeterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateServicePerimeterRequest {
+impl std::fmt::Debug for super::UpdateServicePerimeterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateServicePerimeterRequest");
         debug_struct.field("service_perimeter", &self.service_perimeter);
@@ -233,7 +233,7 @@ impl std::fmt::Debug for crate::model::UpdateServicePerimeterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteServicePerimeterRequest {
+impl std::fmt::Debug for super::DeleteServicePerimeterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteServicePerimeterRequest");
         debug_struct.field("name", &self.name);
@@ -244,7 +244,7 @@ impl std::fmt::Debug for crate::model::DeleteServicePerimeterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReplaceServicePerimetersRequest {
+impl std::fmt::Debug for super::ReplaceServicePerimetersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplaceServicePerimetersRequest");
         debug_struct.field("parent", &self.parent);
@@ -257,7 +257,7 @@ impl std::fmt::Debug for crate::model::ReplaceServicePerimetersRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReplaceServicePerimetersResponse {
+impl std::fmt::Debug for super::ReplaceServicePerimetersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplaceServicePerimetersResponse");
         debug_struct.field("service_perimeters", &self.service_perimeters);
@@ -268,7 +268,7 @@ impl std::fmt::Debug for crate::model::ReplaceServicePerimetersResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CommitServicePerimetersRequest {
+impl std::fmt::Debug for super::CommitServicePerimetersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CommitServicePerimetersRequest");
         debug_struct.field("parent", &self.parent);
@@ -280,7 +280,7 @@ impl std::fmt::Debug for crate::model::CommitServicePerimetersRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CommitServicePerimetersResponse {
+impl std::fmt::Debug for super::CommitServicePerimetersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CommitServicePerimetersResponse");
         debug_struct.field("service_perimeters", &self.service_perimeters);
@@ -291,7 +291,7 @@ impl std::fmt::Debug for crate::model::CommitServicePerimetersResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListGcpUserAccessBindingsRequest {
+impl std::fmt::Debug for super::ListGcpUserAccessBindingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListGcpUserAccessBindingsRequest");
         debug_struct.field("parent", &self.parent);
@@ -304,7 +304,7 @@ impl std::fmt::Debug for crate::model::ListGcpUserAccessBindingsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListGcpUserAccessBindingsResponse {
+impl std::fmt::Debug for super::ListGcpUserAccessBindingsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListGcpUserAccessBindingsResponse");
         debug_struct.field("gcp_user_access_bindings", &self.gcp_user_access_bindings);
@@ -316,7 +316,7 @@ impl std::fmt::Debug for crate::model::ListGcpUserAccessBindingsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetGcpUserAccessBindingRequest {
+impl std::fmt::Debug for super::GetGcpUserAccessBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetGcpUserAccessBindingRequest");
         debug_struct.field("name", &self.name);
@@ -327,7 +327,7 @@ impl std::fmt::Debug for crate::model::GetGcpUserAccessBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateGcpUserAccessBindingRequest {
+impl std::fmt::Debug for super::CreateGcpUserAccessBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateGcpUserAccessBindingRequest");
         debug_struct.field("parent", &self.parent);
@@ -339,7 +339,7 @@ impl std::fmt::Debug for crate::model::CreateGcpUserAccessBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateGcpUserAccessBindingRequest {
+impl std::fmt::Debug for super::UpdateGcpUserAccessBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateGcpUserAccessBindingRequest");
         debug_struct.field("gcp_user_access_binding", &self.gcp_user_access_binding);
@@ -351,7 +351,7 @@ impl std::fmt::Debug for crate::model::UpdateGcpUserAccessBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteGcpUserAccessBindingRequest {
+impl std::fmt::Debug for super::DeleteGcpUserAccessBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteGcpUserAccessBindingRequest");
         debug_struct.field("name", &self.name);
@@ -362,7 +362,7 @@ impl std::fmt::Debug for crate::model::DeleteGcpUserAccessBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GcpUserAccessBindingOperationMetadata {
+impl std::fmt::Debug for super::GcpUserAccessBindingOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcpUserAccessBindingOperationMetadata");
         if !self._unknown_fields.is_empty() {
@@ -372,7 +372,7 @@ impl std::fmt::Debug for crate::model::GcpUserAccessBindingOperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessContextManagerOperationMetadata {
+impl std::fmt::Debug for super::AccessContextManagerOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessContextManagerOperationMetadata");
         if !self._unknown_fields.is_empty() {
@@ -382,7 +382,7 @@ impl std::fmt::Debug for crate::model::AccessContextManagerOperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessLevel {
+impl std::fmt::Debug for super::AccessLevel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessLevel");
         debug_struct.field("name", &self.name);
@@ -398,7 +398,7 @@ impl std::fmt::Debug for crate::model::AccessLevel {
     }
 }
 
-impl std::fmt::Debug for crate::model::BasicLevel {
+impl std::fmt::Debug for super::BasicLevel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BasicLevel");
         debug_struct.field("conditions", &self.conditions);
@@ -410,7 +410,7 @@ impl std::fmt::Debug for crate::model::BasicLevel {
     }
 }
 
-impl std::fmt::Debug for crate::model::Condition {
+impl std::fmt::Debug for super::Condition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Condition");
         debug_struct.field("ip_subnetworks", &self.ip_subnetworks);
@@ -426,7 +426,7 @@ impl std::fmt::Debug for crate::model::Condition {
     }
 }
 
-impl std::fmt::Debug for crate::model::CustomLevel {
+impl std::fmt::Debug for super::CustomLevel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomLevel");
         debug_struct.field("expr", &self.expr);
@@ -437,7 +437,7 @@ impl std::fmt::Debug for crate::model::CustomLevel {
     }
 }
 
-impl std::fmt::Debug for crate::model::DevicePolicy {
+impl std::fmt::Debug for super::DevicePolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DevicePolicy");
         debug_struct.field("require_screenlock", &self.require_screenlock);
@@ -459,7 +459,7 @@ impl std::fmt::Debug for crate::model::DevicePolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::OsConstraint {
+impl std::fmt::Debug for super::OsConstraint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OsConstraint");
         debug_struct.field("os_type", &self.os_type);
@@ -475,7 +475,7 @@ impl std::fmt::Debug for crate::model::OsConstraint {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessPolicy {
+impl std::fmt::Debug for super::AccessPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessPolicy");
         debug_struct.field("name", &self.name);
@@ -492,7 +492,7 @@ impl std::fmt::Debug for crate::model::AccessPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::GcpUserAccessBinding {
+impl std::fmt::Debug for super::GcpUserAccessBinding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcpUserAccessBinding");
         debug_struct.field("name", &self.name);
@@ -505,7 +505,7 @@ impl std::fmt::Debug for crate::model::GcpUserAccessBinding {
     }
 }
 
-impl std::fmt::Debug for crate::model::ServicePerimeter {
+impl std::fmt::Debug for super::ServicePerimeter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServicePerimeter");
         debug_struct.field("name", &self.name);
@@ -524,7 +524,7 @@ impl std::fmt::Debug for crate::model::ServicePerimeter {
     }
 }
 
-impl std::fmt::Debug for crate::model::ServicePerimeterConfig {
+impl std::fmt::Debug for super::ServicePerimeterConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServicePerimeterConfig");
         debug_struct.field("resources", &self.resources);
@@ -540,7 +540,7 @@ impl std::fmt::Debug for crate::model::ServicePerimeterConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::service_perimeter_config::VpcAccessibleServices {
+impl std::fmt::Debug for super::service_perimeter_config::VpcAccessibleServices {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VpcAccessibleServices");
         debug_struct.field("enable_restriction", &self.enable_restriction);
@@ -552,7 +552,7 @@ impl std::fmt::Debug for crate::model::service_perimeter_config::VpcAccessibleSe
     }
 }
 
-impl std::fmt::Debug for crate::model::service_perimeter_config::MethodSelector {
+impl std::fmt::Debug for super::service_perimeter_config::MethodSelector {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MethodSelector");
         debug_struct.field("kind", &self.kind);
@@ -563,7 +563,7 @@ impl std::fmt::Debug for crate::model::service_perimeter_config::MethodSelector 
     }
 }
 
-impl std::fmt::Debug for crate::model::service_perimeter_config::ApiOperation {
+impl std::fmt::Debug for super::service_perimeter_config::ApiOperation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ApiOperation");
         debug_struct.field("service_name", &self.service_name);
@@ -575,7 +575,7 @@ impl std::fmt::Debug for crate::model::service_perimeter_config::ApiOperation {
     }
 }
 
-impl std::fmt::Debug for crate::model::service_perimeter_config::IngressSource {
+impl std::fmt::Debug for super::service_perimeter_config::IngressSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IngressSource");
         debug_struct.field("source", &self.source);
@@ -586,7 +586,7 @@ impl std::fmt::Debug for crate::model::service_perimeter_config::IngressSource {
     }
 }
 
-impl std::fmt::Debug for crate::model::service_perimeter_config::IngressFrom {
+impl std::fmt::Debug for super::service_perimeter_config::IngressFrom {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IngressFrom");
         debug_struct.field("sources", &self.sources);
@@ -599,7 +599,7 @@ impl std::fmt::Debug for crate::model::service_perimeter_config::IngressFrom {
     }
 }
 
-impl std::fmt::Debug for crate::model::service_perimeter_config::IngressTo {
+impl std::fmt::Debug for super::service_perimeter_config::IngressTo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IngressTo");
         debug_struct.field("operations", &self.operations);
@@ -611,7 +611,7 @@ impl std::fmt::Debug for crate::model::service_perimeter_config::IngressTo {
     }
 }
 
-impl std::fmt::Debug for crate::model::service_perimeter_config::IngressPolicy {
+impl std::fmt::Debug for super::service_perimeter_config::IngressPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IngressPolicy");
         debug_struct.field("ingress_from", &self.ingress_from);
@@ -623,7 +623,7 @@ impl std::fmt::Debug for crate::model::service_perimeter_config::IngressPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::service_perimeter_config::EgressFrom {
+impl std::fmt::Debug for super::service_perimeter_config::EgressFrom {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EgressFrom");
         debug_struct.field("identities", &self.identities);
@@ -635,7 +635,7 @@ impl std::fmt::Debug for crate::model::service_perimeter_config::EgressFrom {
     }
 }
 
-impl std::fmt::Debug for crate::model::service_perimeter_config::EgressTo {
+impl std::fmt::Debug for super::service_perimeter_config::EgressTo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EgressTo");
         debug_struct.field("resources", &self.resources);
@@ -648,7 +648,7 @@ impl std::fmt::Debug for crate::model::service_perimeter_config::EgressTo {
     }
 }
 
-impl std::fmt::Debug for crate::model::service_perimeter_config::EgressPolicy {
+impl std::fmt::Debug for super::service_perimeter_config::EgressPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EgressPolicy");
         debug_struct.field("egress_from", &self.egress_from);

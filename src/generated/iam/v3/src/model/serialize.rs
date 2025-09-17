@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationMetadata {
+impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -58,7 +58,7 @@ impl serde::ser::Serialize for crate::model::OperationMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PolicyBinding {
+impl serde::ser::Serialize for super::PolicyBinding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -113,7 +113,7 @@ impl serde::ser::Serialize for crate::model::PolicyBinding {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::policy_binding::Target {
+impl serde::ser::Serialize for super::policy_binding::Target {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -135,7 +135,7 @@ impl serde::ser::Serialize for crate::model::policy_binding::Target {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreatePolicyBindingRequest {
+impl serde::ser::Serialize for super::CreatePolicyBindingRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -166,7 +166,7 @@ impl serde::ser::Serialize for crate::model::CreatePolicyBindingRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetPolicyBindingRequest {
+impl serde::ser::Serialize for super::GetPolicyBindingRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -188,7 +188,7 @@ impl serde::ser::Serialize for crate::model::GetPolicyBindingRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdatePolicyBindingRequest {
+impl serde::ser::Serialize for super::UpdatePolicyBindingRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -216,7 +216,7 @@ impl serde::ser::Serialize for crate::model::UpdatePolicyBindingRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeletePolicyBindingRequest {
+impl serde::ser::Serialize for super::DeletePolicyBindingRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -244,7 +244,7 @@ impl serde::ser::Serialize for crate::model::DeletePolicyBindingRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPolicyBindingsRequest {
+impl serde::ser::Serialize for super::ListPolicyBindingsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -284,7 +284,7 @@ impl serde::ser::Serialize for crate::model::ListPolicyBindingsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPolicyBindingsResponse {
+impl serde::ser::Serialize for super::ListPolicyBindingsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -309,7 +309,7 @@ impl serde::ser::Serialize for crate::model::ListPolicyBindingsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchTargetPolicyBindingsRequest {
+impl serde::ser::Serialize for super::SearchTargetPolicyBindingsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -349,7 +349,7 @@ impl serde::ser::Serialize for crate::model::SearchTargetPolicyBindingsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchTargetPolicyBindingsResponse {
+impl serde::ser::Serialize for super::SearchTargetPolicyBindingsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -374,7 +374,7 @@ impl serde::ser::Serialize for crate::model::SearchTargetPolicyBindingsResponse 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreatePrincipalAccessBoundaryPolicyRequest {
+impl serde::ser::Serialize for super::CreatePrincipalAccessBoundaryPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -411,7 +411,7 @@ impl serde::ser::Serialize for crate::model::CreatePrincipalAccessBoundaryPolicy
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetPrincipalAccessBoundaryPolicyRequest {
+impl serde::ser::Serialize for super::GetPrincipalAccessBoundaryPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -433,7 +433,7 @@ impl serde::ser::Serialize for crate::model::GetPrincipalAccessBoundaryPolicyReq
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdatePrincipalAccessBoundaryPolicyRequest {
+impl serde::ser::Serialize for super::UpdatePrincipalAccessBoundaryPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -464,7 +464,7 @@ impl serde::ser::Serialize for crate::model::UpdatePrincipalAccessBoundaryPolicy
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeletePrincipalAccessBoundaryPolicyRequest {
+impl serde::ser::Serialize for super::DeletePrincipalAccessBoundaryPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -495,7 +495,7 @@ impl serde::ser::Serialize for crate::model::DeletePrincipalAccessBoundaryPolicy
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPrincipalAccessBoundaryPoliciesRequest {
+impl serde::ser::Serialize for super::ListPrincipalAccessBoundaryPoliciesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -532,7 +532,7 @@ impl serde::ser::Serialize for crate::model::ListPrincipalAccessBoundaryPolicies
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPrincipalAccessBoundaryPoliciesResponse {
+impl serde::ser::Serialize for super::ListPrincipalAccessBoundaryPoliciesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -560,7 +560,7 @@ impl serde::ser::Serialize for crate::model::ListPrincipalAccessBoundaryPolicies
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest {
+impl serde::ser::Serialize for super::SearchPrincipalAccessBoundaryPolicyBindingsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -597,7 +597,7 @@ impl serde::ser::Serialize for crate::model::SearchPrincipalAccessBoundaryPolicy
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse {
+impl serde::ser::Serialize for super::SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -622,7 +622,7 @@ impl serde::ser::Serialize for crate::model::SearchPrincipalAccessBoundaryPolicy
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PrincipalAccessBoundaryPolicy {
+impl serde::ser::Serialize for super::PrincipalAccessBoundaryPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -665,7 +665,7 @@ impl serde::ser::Serialize for crate::model::PrincipalAccessBoundaryPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PrincipalAccessBoundaryPolicyDetails {
+impl serde::ser::Serialize for super::PrincipalAccessBoundaryPolicyDetails {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -690,7 +690,7 @@ impl serde::ser::Serialize for crate::model::PrincipalAccessBoundaryPolicyDetail
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PrincipalAccessBoundaryPolicyRule {
+impl serde::ser::Serialize for super::PrincipalAccessBoundaryPolicyRule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

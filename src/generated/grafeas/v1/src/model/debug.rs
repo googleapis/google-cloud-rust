@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::AttestationNote {
+impl std::fmt::Debug for super::AttestationNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AttestationNote");
         debug_struct.field("hint", &self.hint);
@@ -28,7 +28,7 @@ impl std::fmt::Debug for crate::model::AttestationNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::attestation_note::Hint {
+impl std::fmt::Debug for super::attestation_note::Hint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Hint");
         debug_struct.field("human_readable_name", &self.human_readable_name);
@@ -39,7 +39,7 @@ impl std::fmt::Debug for crate::model::attestation_note::Hint {
     }
 }
 
-impl std::fmt::Debug for crate::model::Jwt {
+impl std::fmt::Debug for super::Jwt {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Jwt");
         debug_struct.field("compact_jwt", &self.compact_jwt);
@@ -50,7 +50,7 @@ impl std::fmt::Debug for crate::model::Jwt {
     }
 }
 
-impl std::fmt::Debug for crate::model::AttestationOccurrence {
+impl std::fmt::Debug for super::AttestationOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AttestationOccurrence");
         debug_struct.field("serialized_payload", &self.serialized_payload);
@@ -63,7 +63,7 @@ impl std::fmt::Debug for crate::model::AttestationOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::BuildNote {
+impl std::fmt::Debug for super::BuildNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BuildNote");
         debug_struct.field("builder_version", &self.builder_version);
@@ -74,7 +74,7 @@ impl std::fmt::Debug for crate::model::BuildNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::BuildOccurrence {
+impl std::fmt::Debug for super::BuildOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BuildOccurrence");
         debug_struct.field("provenance", &self.provenance);
@@ -92,7 +92,7 @@ impl std::fmt::Debug for crate::model::BuildOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::RelatedUrl {
+impl std::fmt::Debug for super::RelatedUrl {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RelatedUrl");
         debug_struct.field("url", &self.url);
@@ -104,7 +104,7 @@ impl std::fmt::Debug for crate::model::RelatedUrl {
     }
 }
 
-impl std::fmt::Debug for crate::model::Signature {
+impl std::fmt::Debug for super::Signature {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Signature");
         debug_struct.field("signature", &self.signature);
@@ -116,7 +116,7 @@ impl std::fmt::Debug for crate::model::Signature {
     }
 }
 
-impl std::fmt::Debug for crate::model::Envelope {
+impl std::fmt::Debug for super::Envelope {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Envelope");
         debug_struct.field("payload", &self.payload);
@@ -129,7 +129,7 @@ impl std::fmt::Debug for crate::model::Envelope {
     }
 }
 
-impl std::fmt::Debug for crate::model::EnvelopeSignature {
+impl std::fmt::Debug for super::EnvelopeSignature {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnvelopeSignature");
         debug_struct.field("sig", &self.sig);
@@ -141,7 +141,7 @@ impl std::fmt::Debug for crate::model::EnvelopeSignature {
     }
 }
 
-impl std::fmt::Debug for crate::model::FileLocation {
+impl std::fmt::Debug for super::FileLocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FileLocation");
         debug_struct.field("file_path", &self.file_path);
@@ -153,7 +153,7 @@ impl std::fmt::Debug for crate::model::FileLocation {
     }
 }
 
-impl std::fmt::Debug for crate::model::BaseImage {
+impl std::fmt::Debug for super::BaseImage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BaseImage");
         debug_struct.field("name", &self.name);
@@ -166,7 +166,7 @@ impl std::fmt::Debug for crate::model::BaseImage {
     }
 }
 
-impl std::fmt::Debug for crate::model::LayerDetails {
+impl std::fmt::Debug for super::LayerDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LayerDetails");
         debug_struct.field("index", &self.index);
@@ -181,7 +181,7 @@ impl std::fmt::Debug for crate::model::LayerDetails {
     }
 }
 
-impl std::fmt::Debug for crate::model::License {
+impl std::fmt::Debug for super::License {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("License");
         debug_struct.field("expression", &self.expression);
@@ -193,7 +193,7 @@ impl std::fmt::Debug for crate::model::License {
     }
 }
 
-impl std::fmt::Debug for crate::model::Digest {
+impl std::fmt::Debug for super::Digest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Digest");
         debug_struct.field("algo", &self.algo);
@@ -205,7 +205,7 @@ impl std::fmt::Debug for crate::model::Digest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ComplianceNote {
+impl std::fmt::Debug for super::ComplianceNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ComplianceNote");
         debug_struct.field("title", &self.title);
@@ -223,7 +223,7 @@ impl std::fmt::Debug for crate::model::ComplianceNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::compliance_note::CisBenchmark {
+impl std::fmt::Debug for super::compliance_note::CisBenchmark {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CisBenchmark");
         debug_struct.field("profile_level", &self.profile_level);
@@ -235,7 +235,7 @@ impl std::fmt::Debug for crate::model::compliance_note::CisBenchmark {
     }
 }
 
-impl std::fmt::Debug for crate::model::ComplianceVersion {
+impl std::fmt::Debug for super::ComplianceVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ComplianceVersion");
         debug_struct.field("cpe_uri", &self.cpe_uri);
@@ -248,7 +248,7 @@ impl std::fmt::Debug for crate::model::ComplianceVersion {
     }
 }
 
-impl std::fmt::Debug for crate::model::ComplianceOccurrence {
+impl std::fmt::Debug for super::ComplianceOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ComplianceOccurrence");
         debug_struct.field("non_compliant_files", &self.non_compliant_files);
@@ -261,7 +261,7 @@ impl std::fmt::Debug for crate::model::ComplianceOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::NonCompliantFile {
+impl std::fmt::Debug for super::NonCompliantFile {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NonCompliantFile");
         debug_struct.field("path", &self.path);
@@ -274,7 +274,7 @@ impl std::fmt::Debug for crate::model::NonCompliantFile {
     }
 }
 
-impl std::fmt::Debug for crate::model::CVSSv3 {
+impl std::fmt::Debug for super::CVSSv3 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CVSSv3");
         debug_struct.field("base_score", &self.base_score);
@@ -295,7 +295,7 @@ impl std::fmt::Debug for crate::model::CVSSv3 {
     }
 }
 
-impl std::fmt::Debug for crate::model::Cvss {
+impl std::fmt::Debug for super::Cvss {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Cvss");
         debug_struct.field("base_score", &self.base_score);
@@ -317,7 +317,7 @@ impl std::fmt::Debug for crate::model::Cvss {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeploymentNote {
+impl std::fmt::Debug for super::DeploymentNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeploymentNote");
         debug_struct.field("resource_uri", &self.resource_uri);
@@ -328,7 +328,7 @@ impl std::fmt::Debug for crate::model::DeploymentNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeploymentOccurrence {
+impl std::fmt::Debug for super::DeploymentOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeploymentOccurrence");
         debug_struct.field("user_email", &self.user_email);
@@ -345,7 +345,7 @@ impl std::fmt::Debug for crate::model::DeploymentOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::DiscoveryNote {
+impl std::fmt::Debug for super::DiscoveryNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DiscoveryNote");
         debug_struct.field("analysis_kind", &self.analysis_kind);
@@ -356,7 +356,7 @@ impl std::fmt::Debug for crate::model::DiscoveryNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::DiscoveryOccurrence {
+impl std::fmt::Debug for super::DiscoveryOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DiscoveryOccurrence");
         debug_struct.field("continuous_analysis", &self.continuous_analysis);
@@ -376,7 +376,7 @@ impl std::fmt::Debug for crate::model::DiscoveryOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::discovery_occurrence::AnalysisCompleted {
+impl std::fmt::Debug for super::discovery_occurrence::AnalysisCompleted {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnalysisCompleted");
         debug_struct.field("analysis_type", &self.analysis_type);
@@ -387,7 +387,7 @@ impl std::fmt::Debug for crate::model::discovery_occurrence::AnalysisCompleted {
     }
 }
 
-impl std::fmt::Debug for crate::model::discovery_occurrence::SBOMStatus {
+impl std::fmt::Debug for super::discovery_occurrence::SBOMStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SBOMStatus");
         debug_struct.field("sbom_state", &self.sbom_state);
@@ -399,7 +399,7 @@ impl std::fmt::Debug for crate::model::discovery_occurrence::SBOMStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::discovery_occurrence::VulnerabilityAttestation {
+impl std::fmt::Debug for super::discovery_occurrence::VulnerabilityAttestation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VulnerabilityAttestation");
         debug_struct.field("last_attempt_time", &self.last_attempt_time);
@@ -412,7 +412,7 @@ impl std::fmt::Debug for crate::model::discovery_occurrence::VulnerabilityAttest
     }
 }
 
-impl std::fmt::Debug for crate::model::DSSEAttestationNote {
+impl std::fmt::Debug for super::DSSEAttestationNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DSSEAttestationNote");
         debug_struct.field("hint", &self.hint);
@@ -423,7 +423,7 @@ impl std::fmt::Debug for crate::model::DSSEAttestationNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::dsse_attestation_note::DSSEHint {
+impl std::fmt::Debug for super::dsse_attestation_note::DSSEHint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DSSEHint");
         debug_struct.field("human_readable_name", &self.human_readable_name);
@@ -434,7 +434,7 @@ impl std::fmt::Debug for crate::model::dsse_attestation_note::DSSEHint {
     }
 }
 
-impl std::fmt::Debug for crate::model::DSSEAttestationOccurrence {
+impl std::fmt::Debug for super::DSSEAttestationOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DSSEAttestationOccurrence");
         debug_struct.field("envelope", &self.envelope);
@@ -446,7 +446,7 @@ impl std::fmt::Debug for crate::model::DSSEAttestationOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::Occurrence {
+impl std::fmt::Debug for super::Occurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Occurrence");
         debug_struct.field("name", &self.name);
@@ -465,7 +465,7 @@ impl std::fmt::Debug for crate::model::Occurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::Note {
+impl std::fmt::Debug for super::Note {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Note");
         debug_struct.field("name", &self.name);
@@ -485,7 +485,7 @@ impl std::fmt::Debug for crate::model::Note {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetOccurrenceRequest {
+impl std::fmt::Debug for super::GetOccurrenceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOccurrenceRequest");
         debug_struct.field("name", &self.name);
@@ -496,7 +496,7 @@ impl std::fmt::Debug for crate::model::GetOccurrenceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOccurrencesRequest {
+impl std::fmt::Debug for super::ListOccurrencesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOccurrencesRequest");
         debug_struct.field("parent", &self.parent);
@@ -510,7 +510,7 @@ impl std::fmt::Debug for crate::model::ListOccurrencesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOccurrencesResponse {
+impl std::fmt::Debug for super::ListOccurrencesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOccurrencesResponse");
         debug_struct.field("occurrences", &self.occurrences);
@@ -522,7 +522,7 @@ impl std::fmt::Debug for crate::model::ListOccurrencesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteOccurrenceRequest {
+impl std::fmt::Debug for super::DeleteOccurrenceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteOccurrenceRequest");
         debug_struct.field("name", &self.name);
@@ -533,7 +533,7 @@ impl std::fmt::Debug for crate::model::DeleteOccurrenceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateOccurrenceRequest {
+impl std::fmt::Debug for super::CreateOccurrenceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateOccurrenceRequest");
         debug_struct.field("parent", &self.parent);
@@ -545,7 +545,7 @@ impl std::fmt::Debug for crate::model::CreateOccurrenceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateOccurrenceRequest {
+impl std::fmt::Debug for super::UpdateOccurrenceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateOccurrenceRequest");
         debug_struct.field("name", &self.name);
@@ -558,7 +558,7 @@ impl std::fmt::Debug for crate::model::UpdateOccurrenceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetNoteRequest {
+impl std::fmt::Debug for super::GetNoteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetNoteRequest");
         debug_struct.field("name", &self.name);
@@ -569,7 +569,7 @@ impl std::fmt::Debug for crate::model::GetNoteRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetOccurrenceNoteRequest {
+impl std::fmt::Debug for super::GetOccurrenceNoteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOccurrenceNoteRequest");
         debug_struct.field("name", &self.name);
@@ -580,7 +580,7 @@ impl std::fmt::Debug for crate::model::GetOccurrenceNoteRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNotesRequest {
+impl std::fmt::Debug for super::ListNotesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNotesRequest");
         debug_struct.field("parent", &self.parent);
@@ -594,7 +594,7 @@ impl std::fmt::Debug for crate::model::ListNotesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNotesResponse {
+impl std::fmt::Debug for super::ListNotesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNotesResponse");
         debug_struct.field("notes", &self.notes);
@@ -606,7 +606,7 @@ impl std::fmt::Debug for crate::model::ListNotesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteNoteRequest {
+impl std::fmt::Debug for super::DeleteNoteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteNoteRequest");
         debug_struct.field("name", &self.name);
@@ -617,7 +617,7 @@ impl std::fmt::Debug for crate::model::DeleteNoteRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateNoteRequest {
+impl std::fmt::Debug for super::CreateNoteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateNoteRequest");
         debug_struct.field("parent", &self.parent);
@@ -630,7 +630,7 @@ impl std::fmt::Debug for crate::model::CreateNoteRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateNoteRequest {
+impl std::fmt::Debug for super::UpdateNoteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateNoteRequest");
         debug_struct.field("name", &self.name);
@@ -643,7 +643,7 @@ impl std::fmt::Debug for crate::model::UpdateNoteRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNoteOccurrencesRequest {
+impl std::fmt::Debug for super::ListNoteOccurrencesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNoteOccurrencesRequest");
         debug_struct.field("name", &self.name);
@@ -657,7 +657,7 @@ impl std::fmt::Debug for crate::model::ListNoteOccurrencesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNoteOccurrencesResponse {
+impl std::fmt::Debug for super::ListNoteOccurrencesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNoteOccurrencesResponse");
         debug_struct.field("occurrences", &self.occurrences);
@@ -669,7 +669,7 @@ impl std::fmt::Debug for crate::model::ListNoteOccurrencesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchCreateNotesRequest {
+impl std::fmt::Debug for super::BatchCreateNotesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchCreateNotesRequest");
         debug_struct.field("parent", &self.parent);
@@ -681,7 +681,7 @@ impl std::fmt::Debug for crate::model::BatchCreateNotesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchCreateNotesResponse {
+impl std::fmt::Debug for super::BatchCreateNotesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchCreateNotesResponse");
         debug_struct.field("notes", &self.notes);
@@ -692,7 +692,7 @@ impl std::fmt::Debug for crate::model::BatchCreateNotesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchCreateOccurrencesRequest {
+impl std::fmt::Debug for super::BatchCreateOccurrencesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchCreateOccurrencesRequest");
         debug_struct.field("parent", &self.parent);
@@ -704,7 +704,7 @@ impl std::fmt::Debug for crate::model::BatchCreateOccurrencesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchCreateOccurrencesResponse {
+impl std::fmt::Debug for super::BatchCreateOccurrencesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchCreateOccurrencesResponse");
         debug_struct.field("occurrences", &self.occurrences);
@@ -715,7 +715,7 @@ impl std::fmt::Debug for crate::model::BatchCreateOccurrencesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Layer {
+impl std::fmt::Debug for super::Layer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Layer");
         debug_struct.field("directive", &self.directive);
@@ -727,7 +727,7 @@ impl std::fmt::Debug for crate::model::Layer {
     }
 }
 
-impl std::fmt::Debug for crate::model::Fingerprint {
+impl std::fmt::Debug for super::Fingerprint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Fingerprint");
         debug_struct.field("v1_name", &self.v1_name);
@@ -740,7 +740,7 @@ impl std::fmt::Debug for crate::model::Fingerprint {
     }
 }
 
-impl std::fmt::Debug for crate::model::ImageNote {
+impl std::fmt::Debug for super::ImageNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImageNote");
         debug_struct.field("resource_url", &self.resource_url);
@@ -752,7 +752,7 @@ impl std::fmt::Debug for crate::model::ImageNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::ImageOccurrence {
+impl std::fmt::Debug for super::ImageOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImageOccurrence");
         debug_struct.field("fingerprint", &self.fingerprint);
@@ -766,7 +766,7 @@ impl std::fmt::Debug for crate::model::ImageOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::Recipe {
+impl std::fmt::Debug for super::Recipe {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Recipe");
         debug_struct.field("r#type", &self.r#type);
@@ -781,7 +781,7 @@ impl std::fmt::Debug for crate::model::Recipe {
     }
 }
 
-impl std::fmt::Debug for crate::model::Completeness {
+impl std::fmt::Debug for super::Completeness {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Completeness");
         debug_struct.field("arguments", &self.arguments);
@@ -794,7 +794,7 @@ impl std::fmt::Debug for crate::model::Completeness {
     }
 }
 
-impl std::fmt::Debug for crate::model::Metadata {
+impl std::fmt::Debug for super::Metadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Metadata");
         debug_struct.field("build_invocation_id", &self.build_invocation_id);
@@ -809,7 +809,7 @@ impl std::fmt::Debug for crate::model::Metadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::BuilderConfig {
+impl std::fmt::Debug for super::BuilderConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BuilderConfig");
         debug_struct.field("id", &self.id);
@@ -820,7 +820,7 @@ impl std::fmt::Debug for crate::model::BuilderConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::InTotoProvenance {
+impl std::fmt::Debug for super::InTotoProvenance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InTotoProvenance");
         debug_struct.field("builder_config", &self.builder_config);
@@ -834,7 +834,7 @@ impl std::fmt::Debug for crate::model::InTotoProvenance {
     }
 }
 
-impl std::fmt::Debug for crate::model::InTotoStatement {
+impl std::fmt::Debug for super::InTotoStatement {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InTotoStatement");
         debug_struct.field("r#type", &self.r#type);
@@ -848,7 +848,7 @@ impl std::fmt::Debug for crate::model::InTotoStatement {
     }
 }
 
-impl std::fmt::Debug for crate::model::Subject {
+impl std::fmt::Debug for super::Subject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Subject");
         debug_struct.field("name", &self.name);
@@ -860,7 +860,7 @@ impl std::fmt::Debug for crate::model::Subject {
     }
 }
 
-impl std::fmt::Debug for crate::model::InTotoSlsaProvenanceV1 {
+impl std::fmt::Debug for super::InTotoSlsaProvenanceV1 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InTotoSlsaProvenanceV1");
         debug_struct.field("r#type", &self.r#type);
@@ -874,7 +874,7 @@ impl std::fmt::Debug for crate::model::InTotoSlsaProvenanceV1 {
     }
 }
 
-impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1 {
+impl std::fmt::Debug for super::in_toto_slsa_provenance_v_1::SlsaProvenanceV1 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaProvenanceV1");
         debug_struct.field("build_definition", &self.build_definition);
@@ -886,7 +886,7 @@ impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::SlsaProvenan
     }
 }
 
-impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::BuildDefinition {
+impl std::fmt::Debug for super::in_toto_slsa_provenance_v_1::BuildDefinition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BuildDefinition");
         debug_struct.field("build_type", &self.build_type);
@@ -900,7 +900,7 @@ impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::BuildDefinit
     }
 }
 
-impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor {
+impl std::fmt::Debug for super::in_toto_slsa_provenance_v_1::ResourceDescriptor {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceDescriptor");
         debug_struct.field("name", &self.name);
@@ -917,7 +917,7 @@ impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::ResourceDesc
     }
 }
 
-impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::RunDetails {
+impl std::fmt::Debug for super::in_toto_slsa_provenance_v_1::RunDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RunDetails");
         debug_struct.field("builder", &self.builder);
@@ -930,7 +930,7 @@ impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::RunDetails {
     }
 }
 
-impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder {
+impl std::fmt::Debug for super::in_toto_slsa_provenance_v_1::ProvenanceBuilder {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProvenanceBuilder");
         debug_struct.field("id", &self.id);
@@ -943,7 +943,7 @@ impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::ProvenanceBu
     }
 }
 
-impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::BuildMetadata {
+impl std::fmt::Debug for super::in_toto_slsa_provenance_v_1::BuildMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BuildMetadata");
         debug_struct.field("invocation_id", &self.invocation_id);
@@ -956,7 +956,7 @@ impl std::fmt::Debug for crate::model::in_toto_slsa_provenance_v_1::BuildMetadat
     }
 }
 
-impl std::fmt::Debug for crate::model::Distribution {
+impl std::fmt::Debug for super::Distribution {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Distribution");
         debug_struct.field("cpe_uri", &self.cpe_uri);
@@ -972,7 +972,7 @@ impl std::fmt::Debug for crate::model::Distribution {
     }
 }
 
-impl std::fmt::Debug for crate::model::Location {
+impl std::fmt::Debug for super::Location {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Location");
         debug_struct.field("cpe_uri", &self.cpe_uri);
@@ -985,7 +985,7 @@ impl std::fmt::Debug for crate::model::Location {
     }
 }
 
-impl std::fmt::Debug for crate::model::PackageNote {
+impl std::fmt::Debug for super::PackageNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PackageNote");
         debug_struct.field("name", &self.name);
@@ -1006,7 +1006,7 @@ impl std::fmt::Debug for crate::model::PackageNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::PackageOccurrence {
+impl std::fmt::Debug for super::PackageOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PackageOccurrence");
         debug_struct.field("name", &self.name);
@@ -1023,7 +1023,7 @@ impl std::fmt::Debug for crate::model::PackageOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::Version {
+impl std::fmt::Debug for super::Version {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Version");
         debug_struct.field("epoch", &self.epoch);
@@ -1039,7 +1039,7 @@ impl std::fmt::Debug for crate::model::Version {
     }
 }
 
-impl std::fmt::Debug for crate::model::BuildProvenance {
+impl std::fmt::Debug for super::BuildProvenance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BuildProvenance");
         debug_struct.field("id", &self.id);
@@ -1062,7 +1062,7 @@ impl std::fmt::Debug for crate::model::BuildProvenance {
     }
 }
 
-impl std::fmt::Debug for crate::model::Source {
+impl std::fmt::Debug for super::Source {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Source");
         debug_struct.field(
@@ -1079,7 +1079,7 @@ impl std::fmt::Debug for crate::model::Source {
     }
 }
 
-impl std::fmt::Debug for crate::model::FileHashes {
+impl std::fmt::Debug for super::FileHashes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FileHashes");
         debug_struct.field("file_hash", &self.file_hash);
@@ -1090,7 +1090,7 @@ impl std::fmt::Debug for crate::model::FileHashes {
     }
 }
 
-impl std::fmt::Debug for crate::model::Hash {
+impl std::fmt::Debug for super::Hash {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Hash");
         debug_struct.field("r#type", &self.r#type);
@@ -1102,7 +1102,7 @@ impl std::fmt::Debug for crate::model::Hash {
     }
 }
 
-impl std::fmt::Debug for crate::model::Command {
+impl std::fmt::Debug for super::Command {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Command");
         debug_struct.field("name", &self.name);
@@ -1118,7 +1118,7 @@ impl std::fmt::Debug for crate::model::Command {
     }
 }
 
-impl std::fmt::Debug for crate::model::Artifact {
+impl std::fmt::Debug for super::Artifact {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Artifact");
         debug_struct.field("checksum", &self.checksum);
@@ -1131,7 +1131,7 @@ impl std::fmt::Debug for crate::model::Artifact {
     }
 }
 
-impl std::fmt::Debug for crate::model::SourceContext {
+impl std::fmt::Debug for super::SourceContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceContext");
         debug_struct.field("labels", &self.labels);
@@ -1143,7 +1143,7 @@ impl std::fmt::Debug for crate::model::SourceContext {
     }
 }
 
-impl std::fmt::Debug for crate::model::AliasContext {
+impl std::fmt::Debug for super::AliasContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AliasContext");
         debug_struct.field("kind", &self.kind);
@@ -1155,7 +1155,7 @@ impl std::fmt::Debug for crate::model::AliasContext {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudRepoSourceContext {
+impl std::fmt::Debug for super::CloudRepoSourceContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudRepoSourceContext");
         debug_struct.field("repo_id", &self.repo_id);
@@ -1167,7 +1167,7 @@ impl std::fmt::Debug for crate::model::CloudRepoSourceContext {
     }
 }
 
-impl std::fmt::Debug for crate::model::GerritSourceContext {
+impl std::fmt::Debug for super::GerritSourceContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GerritSourceContext");
         debug_struct.field("host_uri", &self.host_uri);
@@ -1180,7 +1180,7 @@ impl std::fmt::Debug for crate::model::GerritSourceContext {
     }
 }
 
-impl std::fmt::Debug for crate::model::GitSourceContext {
+impl std::fmt::Debug for super::GitSourceContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GitSourceContext");
         debug_struct.field("url", &self.url);
@@ -1192,7 +1192,7 @@ impl std::fmt::Debug for crate::model::GitSourceContext {
     }
 }
 
-impl std::fmt::Debug for crate::model::RepoId {
+impl std::fmt::Debug for super::RepoId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RepoId");
         debug_struct.field("id", &self.id);
@@ -1203,7 +1203,7 @@ impl std::fmt::Debug for crate::model::RepoId {
     }
 }
 
-impl std::fmt::Debug for crate::model::ProjectRepoId {
+impl std::fmt::Debug for super::ProjectRepoId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProjectRepoId");
         debug_struct.field("project_id", &self.project_id);
@@ -1215,7 +1215,7 @@ impl std::fmt::Debug for crate::model::ProjectRepoId {
     }
 }
 
-impl std::fmt::Debug for crate::model::SBOMReferenceNote {
+impl std::fmt::Debug for super::SBOMReferenceNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SBOMReferenceNote");
         debug_struct.field("format", &self.format);
@@ -1227,7 +1227,7 @@ impl std::fmt::Debug for crate::model::SBOMReferenceNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::SBOMReferenceOccurrence {
+impl std::fmt::Debug for super::SBOMReferenceOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SBOMReferenceOccurrence");
         debug_struct.field("payload", &self.payload);
@@ -1240,7 +1240,7 @@ impl std::fmt::Debug for crate::model::SBOMReferenceOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::SbomReferenceIntotoPayload {
+impl std::fmt::Debug for super::SbomReferenceIntotoPayload {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SbomReferenceIntotoPayload");
         debug_struct.field("r#type", &self.r#type);
@@ -1254,7 +1254,7 @@ impl std::fmt::Debug for crate::model::SbomReferenceIntotoPayload {
     }
 }
 
-impl std::fmt::Debug for crate::model::SbomReferenceIntotoPredicate {
+impl std::fmt::Debug for super::SbomReferenceIntotoPredicate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SbomReferenceIntotoPredicate");
         debug_struct.field("referrer_id", &self.referrer_id);
@@ -1268,7 +1268,7 @@ impl std::fmt::Debug for crate::model::SbomReferenceIntotoPredicate {
     }
 }
 
-impl std::fmt::Debug for crate::model::SecretNote {
+impl std::fmt::Debug for super::SecretNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecretNote");
         if !self._unknown_fields.is_empty() {
@@ -1278,7 +1278,7 @@ impl std::fmt::Debug for crate::model::SecretNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::SecretOccurrence {
+impl std::fmt::Debug for super::SecretOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecretOccurrence");
         debug_struct.field("kind", &self.kind);
@@ -1291,7 +1291,7 @@ impl std::fmt::Debug for crate::model::SecretOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::SecretLocation {
+impl std::fmt::Debug for super::SecretLocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecretLocation");
         debug_struct.field("location", &self.location);
@@ -1302,7 +1302,7 @@ impl std::fmt::Debug for crate::model::SecretLocation {
     }
 }
 
-impl std::fmt::Debug for crate::model::SecretStatus {
+impl std::fmt::Debug for super::SecretStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecretStatus");
         debug_struct.field("status", &self.status);
@@ -1315,7 +1315,7 @@ impl std::fmt::Debug for crate::model::SecretStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::SlsaProvenance {
+impl std::fmt::Debug for super::SlsaProvenance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaProvenance");
         debug_struct.field("builder", &self.builder);
@@ -1329,7 +1329,7 @@ impl std::fmt::Debug for crate::model::SlsaProvenance {
     }
 }
 
-impl std::fmt::Debug for crate::model::slsa_provenance::SlsaRecipe {
+impl std::fmt::Debug for super::slsa_provenance::SlsaRecipe {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaRecipe");
         debug_struct.field("r#type", &self.r#type);
@@ -1344,7 +1344,7 @@ impl std::fmt::Debug for crate::model::slsa_provenance::SlsaRecipe {
     }
 }
 
-impl std::fmt::Debug for crate::model::slsa_provenance::SlsaCompleteness {
+impl std::fmt::Debug for super::slsa_provenance::SlsaCompleteness {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaCompleteness");
         debug_struct.field("arguments", &self.arguments);
@@ -1357,7 +1357,7 @@ impl std::fmt::Debug for crate::model::slsa_provenance::SlsaCompleteness {
     }
 }
 
-impl std::fmt::Debug for crate::model::slsa_provenance::SlsaMetadata {
+impl std::fmt::Debug for super::slsa_provenance::SlsaMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaMetadata");
         debug_struct.field("build_invocation_id", &self.build_invocation_id);
@@ -1372,7 +1372,7 @@ impl std::fmt::Debug for crate::model::slsa_provenance::SlsaMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::slsa_provenance::SlsaBuilder {
+impl std::fmt::Debug for super::slsa_provenance::SlsaBuilder {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaBuilder");
         debug_struct.field("id", &self.id);
@@ -1383,7 +1383,7 @@ impl std::fmt::Debug for crate::model::slsa_provenance::SlsaBuilder {
     }
 }
 
-impl std::fmt::Debug for crate::model::slsa_provenance::Material {
+impl std::fmt::Debug for super::slsa_provenance::Material {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Material");
         debug_struct.field("uri", &self.uri);
@@ -1395,7 +1395,7 @@ impl std::fmt::Debug for crate::model::slsa_provenance::Material {
     }
 }
 
-impl std::fmt::Debug for crate::model::SlsaProvenanceZeroTwo {
+impl std::fmt::Debug for super::SlsaProvenanceZeroTwo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaProvenanceZeroTwo");
         debug_struct.field("builder", &self.builder);
@@ -1411,7 +1411,7 @@ impl std::fmt::Debug for crate::model::SlsaProvenanceZeroTwo {
     }
 }
 
-impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaBuilder {
+impl std::fmt::Debug for super::slsa_provenance_zero_two::SlsaBuilder {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaBuilder");
         debug_struct.field("id", &self.id);
@@ -1422,7 +1422,7 @@ impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaBuilder {
     }
 }
 
-impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaMaterial {
+impl std::fmt::Debug for super::slsa_provenance_zero_two::SlsaMaterial {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaMaterial");
         debug_struct.field("uri", &self.uri);
@@ -1434,7 +1434,7 @@ impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaMaterial {
     }
 }
 
-impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaInvocation {
+impl std::fmt::Debug for super::slsa_provenance_zero_two::SlsaInvocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaInvocation");
         debug_struct.field("config_source", &self.config_source);
@@ -1447,7 +1447,7 @@ impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaInvocation 
     }
 }
 
-impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaConfigSource {
+impl std::fmt::Debug for super::slsa_provenance_zero_two::SlsaConfigSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaConfigSource");
         debug_struct.field("uri", &self.uri);
@@ -1460,7 +1460,7 @@ impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaConfigSourc
     }
 }
 
-impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaMetadata {
+impl std::fmt::Debug for super::slsa_provenance_zero_two::SlsaMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaMetadata");
         debug_struct.field("build_invocation_id", &self.build_invocation_id);
@@ -1475,7 +1475,7 @@ impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaCompleteness {
+impl std::fmt::Debug for super::slsa_provenance_zero_two::SlsaCompleteness {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SlsaCompleteness");
         debug_struct.field("parameters", &self.parameters);
@@ -1488,7 +1488,7 @@ impl std::fmt::Debug for crate::model::slsa_provenance_zero_two::SlsaCompletenes
     }
 }
 
-impl std::fmt::Debug for crate::model::UpgradeNote {
+impl std::fmt::Debug for super::UpgradeNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpgradeNote");
         debug_struct.field("package", &self.package);
@@ -1502,7 +1502,7 @@ impl std::fmt::Debug for crate::model::UpgradeNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpgradeDistribution {
+impl std::fmt::Debug for super::UpgradeDistribution {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpgradeDistribution");
         debug_struct.field("cpe_uri", &self.cpe_uri);
@@ -1516,7 +1516,7 @@ impl std::fmt::Debug for crate::model::UpgradeDistribution {
     }
 }
 
-impl std::fmt::Debug for crate::model::WindowsUpdate {
+impl std::fmt::Debug for super::WindowsUpdate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WindowsUpdate");
         debug_struct.field("identity", &self.identity);
@@ -1533,7 +1533,7 @@ impl std::fmt::Debug for crate::model::WindowsUpdate {
     }
 }
 
-impl std::fmt::Debug for crate::model::windows_update::Identity {
+impl std::fmt::Debug for super::windows_update::Identity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Identity");
         debug_struct.field("update_id", &self.update_id);
@@ -1545,7 +1545,7 @@ impl std::fmt::Debug for crate::model::windows_update::Identity {
     }
 }
 
-impl std::fmt::Debug for crate::model::windows_update::Category {
+impl std::fmt::Debug for super::windows_update::Category {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Category");
         debug_struct.field("category_id", &self.category_id);
@@ -1557,7 +1557,7 @@ impl std::fmt::Debug for crate::model::windows_update::Category {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpgradeOccurrence {
+impl std::fmt::Debug for super::UpgradeOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpgradeOccurrence");
         debug_struct.field("package", &self.package);
@@ -1571,7 +1571,7 @@ impl std::fmt::Debug for crate::model::UpgradeOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::VulnerabilityAssessmentNote {
+impl std::fmt::Debug for super::VulnerabilityAssessmentNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VulnerabilityAssessmentNote");
         debug_struct.field("title", &self.title);
@@ -1588,7 +1588,7 @@ impl std::fmt::Debug for crate::model::VulnerabilityAssessmentNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_assessment_note::Publisher {
+impl std::fmt::Debug for super::vulnerability_assessment_note::Publisher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Publisher");
         debug_struct.field("name", &self.name);
@@ -1601,7 +1601,7 @@ impl std::fmt::Debug for crate::model::vulnerability_assessment_note::Publisher 
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_assessment_note::Product {
+impl std::fmt::Debug for super::vulnerability_assessment_note::Product {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Product");
         debug_struct.field("name", &self.name);
@@ -1614,7 +1614,7 @@ impl std::fmt::Debug for crate::model::vulnerability_assessment_note::Product {
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_assessment_note::Assessment {
+impl std::fmt::Debug for super::vulnerability_assessment_note::Assessment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Assessment");
         debug_struct.field("cve", &self.cve);
@@ -1633,7 +1633,7 @@ impl std::fmt::Debug for crate::model::vulnerability_assessment_note::Assessment
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_assessment_note::assessment::Justification {
+impl std::fmt::Debug for super::vulnerability_assessment_note::assessment::Justification {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Justification");
         debug_struct.field("justification_type", &self.justification_type);
@@ -1645,7 +1645,7 @@ impl std::fmt::Debug for crate::model::vulnerability_assessment_note::assessment
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_assessment_note::assessment::Remediation {
+impl std::fmt::Debug for super::vulnerability_assessment_note::assessment::Remediation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Remediation");
         debug_struct.field("remediation_type", &self.remediation_type);
@@ -1658,7 +1658,7 @@ impl std::fmt::Debug for crate::model::vulnerability_assessment_note::assessment
     }
 }
 
-impl std::fmt::Debug for crate::model::VulnerabilityNote {
+impl std::fmt::Debug for super::VulnerabilityNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VulnerabilityNote");
         debug_struct.field("cvss_score", &self.cvss_score);
@@ -1676,7 +1676,7 @@ impl std::fmt::Debug for crate::model::VulnerabilityNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_note::Detail {
+impl std::fmt::Debug for super::vulnerability_note::Detail {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Detail");
         debug_struct.field("severity_name", &self.severity_name);
@@ -1700,7 +1700,7 @@ impl std::fmt::Debug for crate::model::vulnerability_note::Detail {
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_note::WindowsDetail {
+impl std::fmt::Debug for super::vulnerability_note::WindowsDetail {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WindowsDetail");
         debug_struct.field("cpe_uri", &self.cpe_uri);
@@ -1714,7 +1714,7 @@ impl std::fmt::Debug for crate::model::vulnerability_note::WindowsDetail {
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_note::windows_detail::KnowledgeBase {
+impl std::fmt::Debug for super::vulnerability_note::windows_detail::KnowledgeBase {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KnowledgeBase");
         debug_struct.field("name", &self.name);
@@ -1726,7 +1726,7 @@ impl std::fmt::Debug for crate::model::vulnerability_note::windows_detail::Knowl
     }
 }
 
-impl std::fmt::Debug for crate::model::VulnerabilityOccurrence {
+impl std::fmt::Debug for super::VulnerabilityOccurrence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VulnerabilityOccurrence");
         debug_struct.field("r#type", &self.r#type);
@@ -1750,7 +1750,7 @@ impl std::fmt::Debug for crate::model::VulnerabilityOccurrence {
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_occurrence::PackageIssue {
+impl std::fmt::Debug for super::vulnerability_occurrence::PackageIssue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PackageIssue");
         debug_struct.field("affected_cpe_uri", &self.affected_cpe_uri);
@@ -1770,7 +1770,7 @@ impl std::fmt::Debug for crate::model::vulnerability_occurrence::PackageIssue {
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_occurrence::VexAssessment {
+impl std::fmt::Debug for super::vulnerability_occurrence::VexAssessment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VexAssessment");
         debug_struct.field("cve", &self.cve);

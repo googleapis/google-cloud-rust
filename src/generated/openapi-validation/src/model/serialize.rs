@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListLocationsResponse {
+impl serde::ser::Serialize for super::ListLocationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -43,7 +43,7 @@ impl serde::ser::Serialize for crate::model::ListLocationsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Location {
+impl serde::ser::Serialize for super::Location {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -77,7 +77,7 @@ impl serde::ser::Serialize for crate::model::Location {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSecretsResponse {
+impl serde::ser::Serialize for super::ListSecretsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -116,7 +116,7 @@ impl serde::ser::Serialize for crate::model::ListSecretsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Secret {
+impl serde::ser::Serialize for super::Secret {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -186,7 +186,7 @@ impl serde::ser::Serialize for crate::model::Secret {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Replication {
+impl serde::ser::Serialize for super::Replication {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -211,7 +211,7 @@ impl serde::ser::Serialize for crate::model::Replication {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Automatic {
+impl serde::ser::Serialize for super::Automatic {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -236,7 +236,7 @@ impl serde::ser::Serialize for crate::model::Automatic {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CustomerManagedEncryption {
+impl serde::ser::Serialize for super::CustomerManagedEncryption {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -258,7 +258,7 @@ impl serde::ser::Serialize for crate::model::CustomerManagedEncryption {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UserManaged {
+impl serde::ser::Serialize for super::UserManaged {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -280,7 +280,7 @@ impl serde::ser::Serialize for crate::model::UserManaged {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Replica {
+impl serde::ser::Serialize for super::Replica {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -308,7 +308,7 @@ impl serde::ser::Serialize for crate::model::Replica {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Topic {
+impl serde::ser::Serialize for super::Topic {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -330,7 +330,7 @@ impl serde::ser::Serialize for crate::model::Topic {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Rotation {
+impl serde::ser::Serialize for super::Rotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -355,7 +355,7 @@ impl serde::ser::Serialize for crate::model::Rotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddSecretVersionRequest {
+impl serde::ser::Serialize for super::AddSecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -377,7 +377,7 @@ impl serde::ser::Serialize for crate::model::AddSecretVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SecretPayload {
+impl serde::ser::Serialize for super::SecretPayload {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -424,7 +424,7 @@ impl serde::ser::Serialize for crate::model::SecretPayload {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SecretVersion {
+impl serde::ser::Serialize for super::SecretVersion {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -476,7 +476,7 @@ impl serde::ser::Serialize for crate::model::SecretVersion {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReplicationStatus {
+impl serde::ser::Serialize for super::ReplicationStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -501,7 +501,7 @@ impl serde::ser::Serialize for crate::model::ReplicationStatus {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AutomaticStatus {
+impl serde::ser::Serialize for super::AutomaticStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -526,7 +526,7 @@ impl serde::ser::Serialize for crate::model::AutomaticStatus {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CustomerManagedEncryptionStatus {
+impl serde::ser::Serialize for super::CustomerManagedEncryptionStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -548,7 +548,7 @@ impl serde::ser::Serialize for crate::model::CustomerManagedEncryptionStatus {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UserManagedStatus {
+impl serde::ser::Serialize for super::UserManagedStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -570,7 +570,7 @@ impl serde::ser::Serialize for crate::model::UserManagedStatus {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReplicaStatus {
+impl serde::ser::Serialize for super::ReplicaStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -598,7 +598,7 @@ impl serde::ser::Serialize for crate::model::ReplicaStatus {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Empty {
+impl serde::ser::Serialize for super::Empty {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -617,7 +617,7 @@ impl serde::ser::Serialize for crate::model::Empty {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSecretVersionsResponse {
+impl serde::ser::Serialize for super::ListSecretVersionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -656,7 +656,7 @@ impl serde::ser::Serialize for crate::model::ListSecretVersionsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessSecretVersionResponse {
+impl serde::ser::Serialize for super::AccessSecretVersionResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -681,7 +681,7 @@ impl serde::ser::Serialize for crate::model::AccessSecretVersionResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DisableSecretVersionRequest {
+impl serde::ser::Serialize for super::DisableSecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -703,7 +703,7 @@ impl serde::ser::Serialize for crate::model::DisableSecretVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EnableSecretVersionRequest {
+impl serde::ser::Serialize for super::EnableSecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -725,7 +725,7 @@ impl serde::ser::Serialize for crate::model::EnableSecretVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DestroySecretVersionRequest {
+impl serde::ser::Serialize for super::DestroySecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -747,7 +747,7 @@ impl serde::ser::Serialize for crate::model::DestroySecretVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SetIamPolicyRequest {
+impl serde::ser::Serialize for super::SetIamPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -772,7 +772,7 @@ impl serde::ser::Serialize for crate::model::SetIamPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Policy {
+impl serde::ser::Serialize for super::Policy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -825,7 +825,7 @@ impl serde::ser::Serialize for crate::model::Policy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Binding {
+impl serde::ser::Serialize for super::Binding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -853,7 +853,7 @@ impl serde::ser::Serialize for crate::model::Binding {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Expr {
+impl serde::ser::Serialize for super::Expr {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -884,7 +884,7 @@ impl serde::ser::Serialize for crate::model::Expr {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AuditConfig {
+impl serde::ser::Serialize for super::AuditConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -909,7 +909,7 @@ impl serde::ser::Serialize for crate::model::AuditConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AuditLogConfig {
+impl serde::ser::Serialize for super::AuditLogConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -934,7 +934,7 @@ impl serde::ser::Serialize for crate::model::AuditLogConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TestIamPermissionsRequest {
+impl serde::ser::Serialize for super::TestIamPermissionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -956,7 +956,7 @@ impl serde::ser::Serialize for crate::model::TestIamPermissionsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TestIamPermissionsResponse {
+impl serde::ser::Serialize for super::TestIamPermissionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -978,7 +978,7 @@ impl serde::ser::Serialize for crate::model::TestIamPermissionsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListLocationsRequest {
+impl serde::ser::Serialize for super::ListLocationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -997,7 +997,7 @@ impl serde::ser::Serialize for crate::model::ListLocationsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetLocationRequest {
+impl serde::ser::Serialize for super::GetLocationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1016,7 +1016,7 @@ impl serde::ser::Serialize for crate::model::GetLocationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSecretsRequest {
+impl serde::ser::Serialize for super::ListSecretsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1035,48 +1035,7 @@ impl serde::ser::Serialize for crate::model::ListSecretsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateSecretRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.request_body.is_some() {
-            state.serialize_entry("requestBody", &self.request_body)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSecretsByProjectAndLocationRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateSecretByProjectAndLocationRequest {
+impl serde::ser::Serialize for super::CreateSecretRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1098,7 +1057,7 @@ impl serde::ser::Serialize for crate::model::CreateSecretByProjectAndLocationReq
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSecretRequest {
+impl serde::ser::Serialize for super::ListSecretsByProjectAndLocationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1117,26 +1076,7 @@ impl serde::ser::Serialize for crate::model::GetSecretRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteSecretRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateSecretRequest {
+impl serde::ser::Serialize for super::CreateSecretByProjectAndLocationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1158,7 +1098,7 @@ impl serde::ser::Serialize for crate::model::UpdateSecretRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSecretByProjectAndLocationAndSecretRequest {
+impl serde::ser::Serialize for super::GetSecretRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1177,7 +1117,7 @@ impl serde::ser::Serialize for crate::model::GetSecretByProjectAndLocationAndSec
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteSecretByProjectAndLocationAndSecretRequest {
+impl serde::ser::Serialize for super::DeleteSecretRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1196,7 +1136,7 @@ impl serde::ser::Serialize for crate::model::DeleteSecretByProjectAndLocationAnd
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateSecretByProjectAndLocationAndSecretRequest {
+impl serde::ser::Serialize for super::UpdateSecretRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1218,7 +1158,105 @@ impl serde::ser::Serialize for crate::model::UpdateSecretByProjectAndLocationAnd
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSecretVersionsRequest {
+impl serde::ser::Serialize for super::GetSecretByProjectAndLocationAndSecretRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteSecretByProjectAndLocationAndSecretRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateSecretByProjectAndLocationAndSecretRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.request_body.is_some() {
+            state.serialize_entry("requestBody", &self.request_body)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListSecretVersionsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListSecretVersionsByProjectAndLocationAndSecretRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetSecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1238,7 +1276,7 @@ impl serde::ser::Serialize for crate::model::ListSecretVersionsRequest {
 
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest
+    for super::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1258,7 +1296,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSecretVersionRequest {
+impl serde::ser::Serialize for super::AccessSecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1278,7 +1316,7 @@ impl serde::ser::Serialize for crate::model::GetSecretVersionRequest {
 
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest
+    for super::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1298,7 +1336,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessSecretVersionRequest {
+impl serde::ser::Serialize for super::GetIamPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1317,47 +1355,7 @@ impl serde::ser::Serialize for crate::model::AccessSecretVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest
-{
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetIamPolicyRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest {
+impl serde::ser::Serialize for super::GetIamPolicyByProjectAndLocationAndSecretRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

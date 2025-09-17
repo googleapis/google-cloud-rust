@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Workflow {
+impl serde::ser::Serialize for super::Workflow {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -94,7 +94,7 @@ impl serde::ser::Serialize for crate::model::Workflow {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::workflow::StateError {
+impl serde::ser::Serialize for super::workflow::StateError {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -119,7 +119,7 @@ impl serde::ser::Serialize for crate::model::workflow::StateError {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkflowsRequest {
+impl serde::ser::Serialize for super::ListWorkflowsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -162,7 +162,7 @@ impl serde::ser::Serialize for crate::model::ListWorkflowsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkflowsResponse {
+impl serde::ser::Serialize for super::ListWorkflowsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -190,7 +190,7 @@ impl serde::ser::Serialize for crate::model::ListWorkflowsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetWorkflowRequest {
+impl serde::ser::Serialize for super::GetWorkflowRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -215,7 +215,7 @@ impl serde::ser::Serialize for crate::model::GetWorkflowRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateWorkflowRequest {
+impl serde::ser::Serialize for super::CreateWorkflowRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -243,7 +243,7 @@ impl serde::ser::Serialize for crate::model::CreateWorkflowRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteWorkflowRequest {
+impl serde::ser::Serialize for super::DeleteWorkflowRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -265,7 +265,7 @@ impl serde::ser::Serialize for crate::model::DeleteWorkflowRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateWorkflowRequest {
+impl serde::ser::Serialize for super::UpdateWorkflowRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -290,7 +290,7 @@ impl serde::ser::Serialize for crate::model::UpdateWorkflowRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationMetadata {
+impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -324,7 +324,7 @@ impl serde::ser::Serialize for crate::model::OperationMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkflowRevisionsRequest {
+impl serde::ser::Serialize for super::ListWorkflowRevisionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -361,7 +361,7 @@ impl serde::ser::Serialize for crate::model::ListWorkflowRevisionsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkflowRevisionsResponse {
+impl serde::ser::Serialize for super::ListWorkflowRevisionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

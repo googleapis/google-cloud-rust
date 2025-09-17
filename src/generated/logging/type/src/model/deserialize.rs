@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::HttpRequest {
+impl<'de> serde::de::Deserialize<'de> for super::HttpRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -101,7 +101,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::HttpRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::HttpRequest;
+            type Value = super::HttpRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct HttpRequest")
             }

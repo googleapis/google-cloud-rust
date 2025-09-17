@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetAuthorizationRequest {
+impl serde::ser::Serialize for super::GetAuthorizationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -40,7 +40,7 @@ impl serde::ser::Serialize for crate::model::GetAuthorizationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Authorization {
+impl serde::ser::Serialize for super::Authorization {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -68,7 +68,7 @@ impl serde::ser::Serialize for crate::model::Authorization {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateDeploymentRequest {
+impl serde::ser::Serialize for super::CreateDeploymentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -96,7 +96,7 @@ impl serde::ser::Serialize for crate::model::CreateDeploymentRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReplaceDeploymentRequest {
+impl serde::ser::Serialize for super::ReplaceDeploymentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -118,7 +118,7 @@ impl serde::ser::Serialize for crate::model::ReplaceDeploymentRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetDeploymentRequest {
+impl serde::ser::Serialize for super::GetDeploymentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -140,7 +140,7 @@ impl serde::ser::Serialize for crate::model::GetDeploymentRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDeploymentsRequest {
+impl serde::ser::Serialize for super::ListDeploymentsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -177,7 +177,7 @@ impl serde::ser::Serialize for crate::model::ListDeploymentsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDeploymentsResponse {
+impl serde::ser::Serialize for super::ListDeploymentsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -202,7 +202,7 @@ impl serde::ser::Serialize for crate::model::ListDeploymentsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteDeploymentRequest {
+impl serde::ser::Serialize for super::DeleteDeploymentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -227,7 +227,7 @@ impl serde::ser::Serialize for crate::model::DeleteDeploymentRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InstallDeploymentRequest {
+impl serde::ser::Serialize for super::InstallDeploymentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -249,7 +249,7 @@ impl serde::ser::Serialize for crate::model::InstallDeploymentRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UninstallDeploymentRequest {
+impl serde::ser::Serialize for super::UninstallDeploymentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -271,7 +271,7 @@ impl serde::ser::Serialize for crate::model::UninstallDeploymentRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetInstallStatusRequest {
+impl serde::ser::Serialize for super::GetInstallStatusRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -293,7 +293,7 @@ impl serde::ser::Serialize for crate::model::GetInstallStatusRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InstallStatus {
+impl serde::ser::Serialize for super::InstallStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -318,7 +318,7 @@ impl serde::ser::Serialize for crate::model::InstallStatus {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Deployment {
+impl serde::ser::Serialize for super::Deployment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -349,7 +349,7 @@ impl serde::ser::Serialize for crate::model::Deployment {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddOns {
+impl serde::ser::Serialize for super::AddOns {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

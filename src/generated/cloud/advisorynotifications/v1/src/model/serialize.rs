@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Notification {
+impl serde::ser::Serialize for super::Notification {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -52,7 +52,7 @@ impl serde::ser::Serialize for crate::model::Notification {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Text {
+impl serde::ser::Serialize for super::Text {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -80,7 +80,7 @@ impl serde::ser::Serialize for crate::model::Text {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Subject {
+impl serde::ser::Serialize for super::Subject {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -102,7 +102,7 @@ impl serde::ser::Serialize for crate::model::Subject {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Message {
+impl serde::ser::Serialize for super::Message {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -133,7 +133,7 @@ impl serde::ser::Serialize for crate::model::Message {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::message::Body {
+impl serde::ser::Serialize for super::message::Body {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -155,7 +155,7 @@ impl serde::ser::Serialize for crate::model::message::Body {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Attachment {
+impl serde::ser::Serialize for super::Attachment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -180,7 +180,7 @@ impl serde::ser::Serialize for crate::model::Attachment {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Csv {
+impl serde::ser::Serialize for super::Csv {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -205,7 +205,7 @@ impl serde::ser::Serialize for crate::model::Csv {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::csv::CsvRow {
+impl serde::ser::Serialize for super::csv::CsvRow {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -227,7 +227,7 @@ impl serde::ser::Serialize for crate::model::csv::CsvRow {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNotificationsRequest {
+impl serde::ser::Serialize for super::ListNotificationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -270,7 +270,7 @@ impl serde::ser::Serialize for crate::model::ListNotificationsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNotificationsResponse {
+impl serde::ser::Serialize for super::ListNotificationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -307,7 +307,7 @@ impl serde::ser::Serialize for crate::model::ListNotificationsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetNotificationRequest {
+impl serde::ser::Serialize for super::GetNotificationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -332,7 +332,7 @@ impl serde::ser::Serialize for crate::model::GetNotificationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Settings {
+impl serde::ser::Serialize for super::Settings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -360,7 +360,7 @@ impl serde::ser::Serialize for crate::model::Settings {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NotificationSettings {
+impl serde::ser::Serialize for super::NotificationSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -382,7 +382,7 @@ impl serde::ser::Serialize for crate::model::NotificationSettings {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSettingsRequest {
+impl serde::ser::Serialize for super::GetSettingsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -404,7 +404,7 @@ impl serde::ser::Serialize for crate::model::GetSettingsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateSettingsRequest {
+impl serde::ser::Serialize for super::UpdateSettingsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

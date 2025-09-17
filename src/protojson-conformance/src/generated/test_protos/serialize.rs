@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::test_protos::TestAllTypesProto3 {
+impl serde::ser::Serialize for super::TestAllTypesProto3 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1571,9 +1571,7 @@ impl serde::ser::Serialize for crate::generated::test_protos::TestAllTypesProto3
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::generated::test_protos::test_all_types_proto_3::NestedMessage
-{
+impl serde::ser::Serialize for super::test_all_types_proto_3::NestedMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1607,7 +1605,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::test_protos::ForeignMessage {
+impl serde::ser::Serialize for super::ForeignMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1638,7 +1636,7 @@ impl serde::ser::Serialize for crate::generated::test_protos::ForeignMessage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::test_protos::NullHypothesisProto3 {
+impl serde::ser::Serialize for super::NullHypothesisProto3 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1657,7 +1655,7 @@ impl serde::ser::Serialize for crate::generated::test_protos::NullHypothesisProt
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::test_protos::EnumOnlyProto3 {
+impl serde::ser::Serialize for super::EnumOnlyProto3 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

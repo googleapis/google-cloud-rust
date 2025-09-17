@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::InputConfig {
+impl std::fmt::Debug for super::InputConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InputConfig");
         debug_struct.field("data_format", &self.data_format);
@@ -29,7 +29,7 @@ impl std::fmt::Debug for crate::model::InputConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::OutputConfig {
+impl std::fmt::Debug for super::OutputConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OutputConfig");
         debug_struct.field("data_format", &self.data_format);
@@ -41,7 +41,7 @@ impl std::fmt::Debug for crate::model::OutputConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::GcsSource {
+impl std::fmt::Debug for super::GcsSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsSource");
         debug_struct.field("uri", &self.uri);
@@ -52,7 +52,7 @@ impl std::fmt::Debug for crate::model::GcsSource {
     }
 }
 
-impl std::fmt::Debug for crate::model::GcsDestination {
+impl std::fmt::Debug for super::GcsDestination {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsDestination");
         debug_struct.field("uri", &self.uri);
@@ -63,7 +63,7 @@ impl std::fmt::Debug for crate::model::GcsDestination {
     }
 }
 
-impl std::fmt::Debug for crate::model::AsyncModelMetadata {
+impl std::fmt::Debug for super::AsyncModelMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AsyncModelMetadata");
         debug_struct.field("state", &self.state);
@@ -77,7 +77,7 @@ impl std::fmt::Debug for crate::model::AsyncModelMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::OptimizeToursRequest {
+impl std::fmt::Debug for super::OptimizeToursRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OptimizeToursRequest");
         debug_struct.field("parent", &self.parent);
@@ -126,7 +126,7 @@ impl std::fmt::Debug for crate::model::OptimizeToursRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::OptimizeToursResponse {
+impl std::fmt::Debug for super::OptimizeToursResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OptimizeToursResponse");
         debug_struct.field("routes", &self.routes);
@@ -142,7 +142,7 @@ impl std::fmt::Debug for crate::model::OptimizeToursResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::optimize_tours_response::Metrics {
+impl std::fmt::Debug for super::optimize_tours_response::Metrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Metrics");
         debug_struct.field("aggregated_route_metrics", &self.aggregated_route_metrics);
@@ -165,7 +165,7 @@ impl std::fmt::Debug for crate::model::optimize_tours_response::Metrics {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchOptimizeToursRequest {
+impl std::fmt::Debug for super::BatchOptimizeToursRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchOptimizeToursRequest");
         debug_struct.field("parent", &self.parent);
@@ -177,7 +177,7 @@ impl std::fmt::Debug for crate::model::BatchOptimizeToursRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::batch_optimize_tours_request::AsyncModelConfig {
+impl std::fmt::Debug for super::batch_optimize_tours_request::AsyncModelConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AsyncModelConfig");
         debug_struct.field("display_name", &self.display_name);
@@ -191,7 +191,7 @@ impl std::fmt::Debug for crate::model::batch_optimize_tours_request::AsyncModelC
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchOptimizeToursResponse {
+impl std::fmt::Debug for super::BatchOptimizeToursResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchOptimizeToursResponse");
         if !self._unknown_fields.is_empty() {
@@ -201,7 +201,7 @@ impl std::fmt::Debug for crate::model::BatchOptimizeToursResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ShipmentModel {
+impl std::fmt::Debug for super::ShipmentModel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShipmentModel");
         debug_struct.field("shipments", &self.shipments);
@@ -243,7 +243,7 @@ impl std::fmt::Debug for crate::model::ShipmentModel {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_model::DurationDistanceMatrix {
+impl std::fmt::Debug for super::shipment_model::DurationDistanceMatrix {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DurationDistanceMatrix");
         debug_struct.field("rows", &self.rows);
@@ -255,7 +255,7 @@ impl std::fmt::Debug for crate::model::shipment_model::DurationDistanceMatrix {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_model::duration_distance_matrix::Row {
+impl std::fmt::Debug for super::shipment_model::duration_distance_matrix::Row {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Row");
         debug_struct.field("durations", &self.durations);
@@ -267,7 +267,7 @@ impl std::fmt::Debug for crate::model::shipment_model::duration_distance_matrix:
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_model::PrecedenceRule {
+impl std::fmt::Debug for super::shipment_model::PrecedenceRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrecedenceRule");
         debug_struct.field("first_index", &self.first_index);
@@ -282,7 +282,7 @@ impl std::fmt::Debug for crate::model::shipment_model::PrecedenceRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_model::BreakRule {
+impl std::fmt::Debug for super::shipment_model::BreakRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BreakRule");
         debug_struct.field("break_requests", &self.break_requests);
@@ -294,7 +294,7 @@ impl std::fmt::Debug for crate::model::shipment_model::BreakRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_model::break_rule::BreakRequest {
+impl std::fmt::Debug for super::shipment_model::break_rule::BreakRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BreakRequest");
         debug_struct.field("earliest_start_time", &self.earliest_start_time);
@@ -307,7 +307,7 @@ impl std::fmt::Debug for crate::model::shipment_model::break_rule::BreakRequest 
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_model::break_rule::FrequencyConstraint {
+impl std::fmt::Debug for super::shipment_model::break_rule::FrequencyConstraint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FrequencyConstraint");
         debug_struct.field("min_break_duration", &self.min_break_duration);
@@ -319,7 +319,7 @@ impl std::fmt::Debug for crate::model::shipment_model::break_rule::FrequencyCons
     }
 }
 
-impl std::fmt::Debug for crate::model::Shipment {
+impl std::fmt::Debug for super::Shipment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Shipment");
         debug_struct.field("pickups", &self.pickups);
@@ -352,7 +352,7 @@ impl std::fmt::Debug for crate::model::Shipment {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment::VisitRequest {
+impl std::fmt::Debug for super::shipment::VisitRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VisitRequest");
         debug_struct.field("arrival_location", &self.arrival_location);
@@ -374,7 +374,7 @@ impl std::fmt::Debug for crate::model::shipment::VisitRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment::Load {
+impl std::fmt::Debug for super::shipment::Load {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Load");
         debug_struct.field("amount", &self.amount);
@@ -385,7 +385,7 @@ impl std::fmt::Debug for crate::model::shipment::Load {
     }
 }
 
-impl std::fmt::Debug for crate::model::ShipmentTypeIncompatibility {
+impl std::fmt::Debug for super::ShipmentTypeIncompatibility {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShipmentTypeIncompatibility");
         debug_struct.field("types", &self.types);
@@ -397,7 +397,7 @@ impl std::fmt::Debug for crate::model::ShipmentTypeIncompatibility {
     }
 }
 
-impl std::fmt::Debug for crate::model::ShipmentTypeRequirement {
+impl std::fmt::Debug for super::ShipmentTypeRequirement {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShipmentTypeRequirement");
         debug_struct.field(
@@ -413,7 +413,7 @@ impl std::fmt::Debug for crate::model::ShipmentTypeRequirement {
     }
 }
 
-impl std::fmt::Debug for crate::model::RouteModifiers {
+impl std::fmt::Debug for super::RouteModifiers {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RouteModifiers");
         debug_struct.field("avoid_tolls", &self.avoid_tolls);
@@ -427,7 +427,7 @@ impl std::fmt::Debug for crate::model::RouteModifiers {
     }
 }
 
-impl std::fmt::Debug for crate::model::Vehicle {
+impl std::fmt::Debug for super::Vehicle {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Vehicle");
         debug_struct.field("travel_mode", &self.travel_mode);
@@ -469,7 +469,7 @@ impl std::fmt::Debug for crate::model::Vehicle {
     }
 }
 
-impl std::fmt::Debug for crate::model::vehicle::LoadLimit {
+impl std::fmt::Debug for super::vehicle::LoadLimit {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LoadLimit");
         debug_struct.field("max_load", &self.max_load);
@@ -487,7 +487,7 @@ impl std::fmt::Debug for crate::model::vehicle::LoadLimit {
     }
 }
 
-impl std::fmt::Debug for crate::model::vehicle::load_limit::Interval {
+impl std::fmt::Debug for super::vehicle::load_limit::Interval {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Interval");
         debug_struct.field("min", &self.min);
@@ -499,7 +499,7 @@ impl std::fmt::Debug for crate::model::vehicle::load_limit::Interval {
     }
 }
 
-impl std::fmt::Debug for crate::model::vehicle::DurationLimit {
+impl std::fmt::Debug for super::vehicle::DurationLimit {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DurationLimit");
         debug_struct.field("max_duration", &self.max_duration);
@@ -523,7 +523,7 @@ impl std::fmt::Debug for crate::model::vehicle::DurationLimit {
     }
 }
 
-impl std::fmt::Debug for crate::model::TimeWindow {
+impl std::fmt::Debug for super::TimeWindow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TimeWindow");
         debug_struct.field("start_time", &self.start_time);
@@ -545,7 +545,7 @@ impl std::fmt::Debug for crate::model::TimeWindow {
     }
 }
 
-impl std::fmt::Debug for crate::model::CapacityQuantity {
+impl std::fmt::Debug for super::CapacityQuantity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CapacityQuantity");
         debug_struct.field("r#type", &self.r#type);
@@ -557,7 +557,7 @@ impl std::fmt::Debug for crate::model::CapacityQuantity {
     }
 }
 
-impl std::fmt::Debug for crate::model::CapacityQuantityInterval {
+impl std::fmt::Debug for super::CapacityQuantityInterval {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CapacityQuantityInterval");
         debug_struct.field("r#type", &self.r#type);
@@ -570,7 +570,7 @@ impl std::fmt::Debug for crate::model::CapacityQuantityInterval {
     }
 }
 
-impl std::fmt::Debug for crate::model::DistanceLimit {
+impl std::fmt::Debug for super::DistanceLimit {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DistanceLimit");
         debug_struct.field("max_meters", &self.max_meters);
@@ -590,7 +590,7 @@ impl std::fmt::Debug for crate::model::DistanceLimit {
     }
 }
 
-impl std::fmt::Debug for crate::model::TransitionAttributes {
+impl std::fmt::Debug for super::TransitionAttributes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TransitionAttributes");
         debug_struct.field("src_tag", &self.src_tag);
@@ -608,7 +608,7 @@ impl std::fmt::Debug for crate::model::TransitionAttributes {
     }
 }
 
-impl std::fmt::Debug for crate::model::Waypoint {
+impl std::fmt::Debug for super::Waypoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Waypoint");
         debug_struct.field("side_of_road", &self.side_of_road);
@@ -620,7 +620,7 @@ impl std::fmt::Debug for crate::model::Waypoint {
     }
 }
 
-impl std::fmt::Debug for crate::model::Location {
+impl std::fmt::Debug for super::Location {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Location");
         debug_struct.field("lat_lng", &self.lat_lng);
@@ -632,7 +632,7 @@ impl std::fmt::Debug for crate::model::Location {
     }
 }
 
-impl std::fmt::Debug for crate::model::BreakRule {
+impl std::fmt::Debug for super::BreakRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BreakRule");
         debug_struct.field("break_requests", &self.break_requests);
@@ -644,7 +644,7 @@ impl std::fmt::Debug for crate::model::BreakRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::break_rule::BreakRequest {
+impl std::fmt::Debug for super::break_rule::BreakRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BreakRequest");
         debug_struct.field("earliest_start_time", &self.earliest_start_time);
@@ -657,7 +657,7 @@ impl std::fmt::Debug for crate::model::break_rule::BreakRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::break_rule::FrequencyConstraint {
+impl std::fmt::Debug for super::break_rule::FrequencyConstraint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FrequencyConstraint");
         debug_struct.field("min_break_duration", &self.min_break_duration);
@@ -669,7 +669,7 @@ impl std::fmt::Debug for crate::model::break_rule::FrequencyConstraint {
     }
 }
 
-impl std::fmt::Debug for crate::model::ShipmentRoute {
+impl std::fmt::Debug for super::ShipmentRoute {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShipmentRoute");
         debug_struct.field("vehicle_index", &self.vehicle_index);
@@ -698,7 +698,7 @@ impl std::fmt::Debug for crate::model::ShipmentRoute {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_route::Delay {
+impl std::fmt::Debug for super::shipment_route::Delay {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Delay");
         debug_struct.field("start_time", &self.start_time);
@@ -710,7 +710,7 @@ impl std::fmt::Debug for crate::model::shipment_route::Delay {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_route::Visit {
+impl std::fmt::Debug for super::shipment_route::Visit {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Visit");
         debug_struct.field("shipment_index", &self.shipment_index);
@@ -731,7 +731,7 @@ impl std::fmt::Debug for crate::model::shipment_route::Visit {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_route::Transition {
+impl std::fmt::Debug for super::shipment_route::Transition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Transition");
         debug_struct.field("travel_duration", &self.travel_duration);
@@ -752,7 +752,7 @@ impl std::fmt::Debug for crate::model::shipment_route::Transition {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_route::VehicleLoad {
+impl std::fmt::Debug for super::shipment_route::VehicleLoad {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VehicleLoad");
         debug_struct.field("amount", &self.amount);
@@ -763,7 +763,7 @@ impl std::fmt::Debug for crate::model::shipment_route::VehicleLoad {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_route::EncodedPolyline {
+impl std::fmt::Debug for super::shipment_route::EncodedPolyline {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EncodedPolyline");
         debug_struct.field("points", &self.points);
@@ -774,7 +774,7 @@ impl std::fmt::Debug for crate::model::shipment_route::EncodedPolyline {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_route::Break {
+impl std::fmt::Debug for super::shipment_route::Break {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Break");
         debug_struct.field("start_time", &self.start_time);
@@ -786,7 +786,7 @@ impl std::fmt::Debug for crate::model::shipment_route::Break {
     }
 }
 
-impl std::fmt::Debug for crate::model::shipment_route::TravelStep {
+impl std::fmt::Debug for super::shipment_route::TravelStep {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TravelStep");
         debug_struct.field("duration", &self.duration);
@@ -800,7 +800,7 @@ impl std::fmt::Debug for crate::model::shipment_route::TravelStep {
     }
 }
 
-impl std::fmt::Debug for crate::model::SkippedShipment {
+impl std::fmt::Debug for super::SkippedShipment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SkippedShipment");
         debug_struct.field("index", &self.index);
@@ -813,7 +813,7 @@ impl std::fmt::Debug for crate::model::SkippedShipment {
     }
 }
 
-impl std::fmt::Debug for crate::model::skipped_shipment::Reason {
+impl std::fmt::Debug for super::skipped_shipment::Reason {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reason");
         debug_struct.field("code", &self.code);
@@ -829,7 +829,7 @@ impl std::fmt::Debug for crate::model::skipped_shipment::Reason {
     }
 }
 
-impl std::fmt::Debug for crate::model::AggregatedMetrics {
+impl std::fmt::Debug for super::AggregatedMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AggregatedMetrics");
         debug_struct.field("performed_shipment_count", &self.performed_shipment_count);
@@ -850,7 +850,7 @@ impl std::fmt::Debug for crate::model::AggregatedMetrics {
     }
 }
 
-impl std::fmt::Debug for crate::model::InjectedSolutionConstraint {
+impl std::fmt::Debug for super::InjectedSolutionConstraint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InjectedSolutionConstraint");
         debug_struct.field("routes", &self.routes);
@@ -863,7 +863,7 @@ impl std::fmt::Debug for crate::model::InjectedSolutionConstraint {
     }
 }
 
-impl std::fmt::Debug for crate::model::injected_solution_constraint::ConstraintRelaxation {
+impl std::fmt::Debug for super::injected_solution_constraint::ConstraintRelaxation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConstraintRelaxation");
         debug_struct.field("relaxations", &self.relaxations);
@@ -875,9 +875,7 @@ impl std::fmt::Debug for crate::model::injected_solution_constraint::ConstraintR
     }
 }
 
-impl std::fmt::Debug
-    for crate::model::injected_solution_constraint::constraint_relaxation::Relaxation
-{
+impl std::fmt::Debug for super::injected_solution_constraint::constraint_relaxation::Relaxation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Relaxation");
         debug_struct.field("level", &self.level);
@@ -890,7 +888,7 @@ impl std::fmt::Debug
     }
 }
 
-impl std::fmt::Debug for crate::model::OptimizeToursValidationError {
+impl std::fmt::Debug for super::OptimizeToursValidationError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OptimizeToursValidationError");
         debug_struct.field("code", &self.code);
@@ -905,7 +903,7 @@ impl std::fmt::Debug for crate::model::OptimizeToursValidationError {
     }
 }
 
-impl std::fmt::Debug for crate::model::optimize_tours_validation_error::FieldReference {
+impl std::fmt::Debug for super::optimize_tours_validation_error::FieldReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FieldReference");
         debug_struct.field("name", &self.name);

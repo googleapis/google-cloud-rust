@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Color {
+impl std::fmt::Debug for super::Color {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Color");
         debug_struct.field("red", &self.red);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::model::Color {
     }
 }
 
-impl std::fmt::Debug for crate::model::Date {
+impl std::fmt::Debug for super::Date {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Date");
         debug_struct.field("year", &self.year);
@@ -44,7 +44,7 @@ impl std::fmt::Debug for crate::model::Date {
     }
 }
 
-impl std::fmt::Debug for crate::model::DateTime {
+impl std::fmt::Debug for super::DateTime {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DateTime");
         debug_struct.field("year", &self.year);
@@ -62,7 +62,7 @@ impl std::fmt::Debug for crate::model::DateTime {
     }
 }
 
-impl std::fmt::Debug for crate::model::TimeZone {
+impl std::fmt::Debug for super::TimeZone {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TimeZone");
         debug_struct.field("id", &self.id);
@@ -74,7 +74,7 @@ impl std::fmt::Debug for crate::model::TimeZone {
     }
 }
 
-impl std::fmt::Debug for crate::model::Decimal {
+impl std::fmt::Debug for super::Decimal {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Decimal");
         debug_struct.field("value", &self.value);
@@ -85,7 +85,7 @@ impl std::fmt::Debug for crate::model::Decimal {
     }
 }
 
-impl std::fmt::Debug for crate::model::Expr {
+impl std::fmt::Debug for super::Expr {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Expr");
         debug_struct.field("expression", &self.expression);
@@ -99,7 +99,7 @@ impl std::fmt::Debug for crate::model::Expr {
     }
 }
 
-impl std::fmt::Debug for crate::model::Fraction {
+impl std::fmt::Debug for super::Fraction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Fraction");
         debug_struct.field("numerator", &self.numerator);
@@ -111,7 +111,7 @@ impl std::fmt::Debug for crate::model::Fraction {
     }
 }
 
-impl std::fmt::Debug for crate::model::Interval {
+impl std::fmt::Debug for super::Interval {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Interval");
         debug_struct.field("start_time", &self.start_time);
@@ -123,7 +123,7 @@ impl std::fmt::Debug for crate::model::Interval {
     }
 }
 
-impl std::fmt::Debug for crate::model::LatLng {
+impl std::fmt::Debug for super::LatLng {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LatLng");
         debug_struct.field("latitude", &self.latitude);
@@ -135,7 +135,7 @@ impl std::fmt::Debug for crate::model::LatLng {
     }
 }
 
-impl std::fmt::Debug for crate::model::LocalizedText {
+impl std::fmt::Debug for super::LocalizedText {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LocalizedText");
         debug_struct.field("text", &self.text);
@@ -147,7 +147,7 @@ impl std::fmt::Debug for crate::model::LocalizedText {
     }
 }
 
-impl std::fmt::Debug for crate::model::Money {
+impl std::fmt::Debug for super::Money {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Money");
         debug_struct.field("currency_code", &self.currency_code);
@@ -160,7 +160,7 @@ impl std::fmt::Debug for crate::model::Money {
     }
 }
 
-impl std::fmt::Debug for crate::model::PhoneNumber {
+impl std::fmt::Debug for super::PhoneNumber {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PhoneNumber");
         debug_struct.field("extension", &self.extension);
@@ -172,7 +172,7 @@ impl std::fmt::Debug for crate::model::PhoneNumber {
     }
 }
 
-impl std::fmt::Debug for crate::model::phone_number::ShortCode {
+impl std::fmt::Debug for super::phone_number::ShortCode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShortCode");
         debug_struct.field("region_code", &self.region_code);
@@ -184,7 +184,7 @@ impl std::fmt::Debug for crate::model::phone_number::ShortCode {
     }
 }
 
-impl std::fmt::Debug for crate::model::PostalAddress {
+impl std::fmt::Debug for super::PostalAddress {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PostalAddress");
         debug_struct.field("revision", &self.revision);
@@ -205,7 +205,7 @@ impl std::fmt::Debug for crate::model::PostalAddress {
     }
 }
 
-impl std::fmt::Debug for crate::model::Quaternion {
+impl std::fmt::Debug for super::Quaternion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Quaternion");
         debug_struct.field("x", &self.x);
@@ -219,7 +219,7 @@ impl std::fmt::Debug for crate::model::Quaternion {
     }
 }
 
-impl std::fmt::Debug for crate::model::TimeOfDay {
+impl std::fmt::Debug for super::TimeOfDay {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TimeOfDay");
         debug_struct.field("hours", &self.hours);

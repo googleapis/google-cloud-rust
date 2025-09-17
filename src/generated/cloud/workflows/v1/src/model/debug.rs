@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Workflow {
+impl std::fmt::Debug for super::Workflow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Workflow");
         debug_struct.field("name", &self.name);
@@ -46,7 +46,7 @@ impl std::fmt::Debug for crate::model::Workflow {
     }
 }
 
-impl std::fmt::Debug for crate::model::workflow::StateError {
+impl std::fmt::Debug for super::workflow::StateError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StateError");
         debug_struct.field("details", &self.details);
@@ -58,7 +58,7 @@ impl std::fmt::Debug for crate::model::workflow::StateError {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListWorkflowsRequest {
+impl std::fmt::Debug for super::ListWorkflowsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListWorkflowsRequest");
         debug_struct.field("parent", &self.parent);
@@ -73,7 +73,7 @@ impl std::fmt::Debug for crate::model::ListWorkflowsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListWorkflowsResponse {
+impl std::fmt::Debug for super::ListWorkflowsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListWorkflowsResponse");
         debug_struct.field("workflows", &self.workflows);
@@ -86,7 +86,7 @@ impl std::fmt::Debug for crate::model::ListWorkflowsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetWorkflowRequest {
+impl std::fmt::Debug for super::GetWorkflowRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetWorkflowRequest");
         debug_struct.field("name", &self.name);
@@ -98,7 +98,7 @@ impl std::fmt::Debug for crate::model::GetWorkflowRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateWorkflowRequest {
+impl std::fmt::Debug for super::CreateWorkflowRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateWorkflowRequest");
         debug_struct.field("parent", &self.parent);
@@ -111,7 +111,7 @@ impl std::fmt::Debug for crate::model::CreateWorkflowRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteWorkflowRequest {
+impl std::fmt::Debug for super::DeleteWorkflowRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteWorkflowRequest");
         debug_struct.field("name", &self.name);
@@ -122,7 +122,7 @@ impl std::fmt::Debug for crate::model::DeleteWorkflowRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateWorkflowRequest {
+impl std::fmt::Debug for super::UpdateWorkflowRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateWorkflowRequest");
         debug_struct.field("workflow", &self.workflow);
@@ -134,7 +134,7 @@ impl std::fmt::Debug for crate::model::UpdateWorkflowRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("create_time", &self.create_time);
@@ -149,7 +149,7 @@ impl std::fmt::Debug for crate::model::OperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListWorkflowRevisionsRequest {
+impl std::fmt::Debug for super::ListWorkflowRevisionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListWorkflowRevisionsRequest");
         debug_struct.field("name", &self.name);
@@ -162,7 +162,7 @@ impl std::fmt::Debug for crate::model::ListWorkflowRevisionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListWorkflowRevisionsResponse {
+impl std::fmt::Debug for super::ListWorkflowRevisionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListWorkflowRevisionsResponse");
         debug_struct.field("workflows", &self.workflows);

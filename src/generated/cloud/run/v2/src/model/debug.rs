@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::SubmitBuildRequest {
+impl std::fmt::Debug for super::SubmitBuildRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SubmitBuildRequest");
         debug_struct.field("parent", &self.parent);
@@ -34,7 +34,7 @@ impl std::fmt::Debug for crate::model::SubmitBuildRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::submit_build_request::DockerBuild {
+impl std::fmt::Debug for super::submit_build_request::DockerBuild {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DockerBuild");
         if !self._unknown_fields.is_empty() {
@@ -44,7 +44,7 @@ impl std::fmt::Debug for crate::model::submit_build_request::DockerBuild {
     }
 }
 
-impl std::fmt::Debug for crate::model::submit_build_request::BuildpacksBuild {
+impl std::fmt::Debug for super::submit_build_request::BuildpacksBuild {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BuildpacksBuild");
         debug_struct.field("runtime", &self.runtime);
@@ -61,7 +61,7 @@ impl std::fmt::Debug for crate::model::submit_build_request::BuildpacksBuild {
     }
 }
 
-impl std::fmt::Debug for crate::model::SubmitBuildResponse {
+impl std::fmt::Debug for super::SubmitBuildResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SubmitBuildResponse");
         debug_struct.field("build_operation", &self.build_operation);
@@ -74,7 +74,7 @@ impl std::fmt::Debug for crate::model::SubmitBuildResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::StorageSource {
+impl std::fmt::Debug for super::StorageSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StorageSource");
         debug_struct.field("bucket", &self.bucket);
@@ -87,7 +87,7 @@ impl std::fmt::Debug for crate::model::StorageSource {
     }
 }
 
-impl std::fmt::Debug for crate::model::Condition {
+impl std::fmt::Debug for super::Condition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Condition");
         debug_struct.field("r#type", &self.r#type);
@@ -103,7 +103,7 @@ impl std::fmt::Debug for crate::model::Condition {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetExecutionRequest {
+impl std::fmt::Debug for super::GetExecutionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetExecutionRequest");
         debug_struct.field("name", &self.name);
@@ -114,7 +114,7 @@ impl std::fmt::Debug for crate::model::GetExecutionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListExecutionsRequest {
+impl std::fmt::Debug for super::ListExecutionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListExecutionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -128,7 +128,7 @@ impl std::fmt::Debug for crate::model::ListExecutionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListExecutionsResponse {
+impl std::fmt::Debug for super::ListExecutionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListExecutionsResponse");
         debug_struct.field("executions", &self.executions);
@@ -140,7 +140,7 @@ impl std::fmt::Debug for crate::model::ListExecutionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteExecutionRequest {
+impl std::fmt::Debug for super::DeleteExecutionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteExecutionRequest");
         debug_struct.field("name", &self.name);
@@ -153,7 +153,7 @@ impl std::fmt::Debug for crate::model::DeleteExecutionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CancelExecutionRequest {
+impl std::fmt::Debug for super::CancelExecutionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelExecutionRequest");
         debug_struct.field("name", &self.name);
@@ -166,7 +166,7 @@ impl std::fmt::Debug for crate::model::CancelExecutionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Execution {
+impl std::fmt::Debug for super::Execution {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Execution");
         debug_struct.field("name", &self.name);
@@ -204,7 +204,7 @@ impl std::fmt::Debug for crate::model::Execution {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExecutionTemplate {
+impl std::fmt::Debug for super::ExecutionTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExecutionTemplate");
         debug_struct.field("labels", &self.labels);
@@ -219,7 +219,7 @@ impl std::fmt::Debug for crate::model::ExecutionTemplate {
     }
 }
 
-impl std::fmt::Debug for crate::model::InstanceSplit {
+impl std::fmt::Debug for super::InstanceSplit {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstanceSplit");
         debug_struct.field("r#type", &self.r#type);
@@ -232,7 +232,7 @@ impl std::fmt::Debug for crate::model::InstanceSplit {
     }
 }
 
-impl std::fmt::Debug for crate::model::InstanceSplitStatus {
+impl std::fmt::Debug for super::InstanceSplitStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstanceSplitStatus");
         debug_struct.field("r#type", &self.r#type);
@@ -245,7 +245,7 @@ impl std::fmt::Debug for crate::model::InstanceSplitStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateJobRequest {
+impl std::fmt::Debug for super::CreateJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateJobRequest");
         debug_struct.field("parent", &self.parent);
@@ -259,7 +259,7 @@ impl std::fmt::Debug for crate::model::CreateJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetJobRequest {
+impl std::fmt::Debug for super::GetJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetJobRequest");
         debug_struct.field("name", &self.name);
@@ -270,7 +270,7 @@ impl std::fmt::Debug for crate::model::GetJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateJobRequest {
+impl std::fmt::Debug for super::UpdateJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateJobRequest");
         debug_struct.field("job", &self.job);
@@ -283,7 +283,7 @@ impl std::fmt::Debug for crate::model::UpdateJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListJobsRequest {
+impl std::fmt::Debug for super::ListJobsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListJobsRequest");
         debug_struct.field("parent", &self.parent);
@@ -297,7 +297,7 @@ impl std::fmt::Debug for crate::model::ListJobsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListJobsResponse {
+impl std::fmt::Debug for super::ListJobsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListJobsResponse");
         debug_struct.field("jobs", &self.jobs);
@@ -309,7 +309,7 @@ impl std::fmt::Debug for crate::model::ListJobsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteJobRequest {
+impl std::fmt::Debug for super::DeleteJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteJobRequest");
         debug_struct.field("name", &self.name);
@@ -322,7 +322,7 @@ impl std::fmt::Debug for crate::model::DeleteJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RunJobRequest {
+impl std::fmt::Debug for super::RunJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RunJobRequest");
         debug_struct.field("name", &self.name);
@@ -336,7 +336,7 @@ impl std::fmt::Debug for crate::model::RunJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::run_job_request::Overrides {
+impl std::fmt::Debug for super::run_job_request::Overrides {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Overrides");
         debug_struct.field("container_overrides", &self.container_overrides);
@@ -349,7 +349,7 @@ impl std::fmt::Debug for crate::model::run_job_request::Overrides {
     }
 }
 
-impl std::fmt::Debug for crate::model::run_job_request::overrides::ContainerOverride {
+impl std::fmt::Debug for super::run_job_request::overrides::ContainerOverride {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContainerOverride");
         debug_struct.field("name", &self.name);
@@ -363,7 +363,7 @@ impl std::fmt::Debug for crate::model::run_job_request::overrides::ContainerOver
     }
 }
 
-impl std::fmt::Debug for crate::model::Job {
+impl std::fmt::Debug for super::Job {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Job");
         debug_struct.field("name", &self.name);
@@ -398,7 +398,7 @@ impl std::fmt::Debug for crate::model::Job {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExecutionReference {
+impl std::fmt::Debug for super::ExecutionReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExecutionReference");
         debug_struct.field("name", &self.name);
@@ -413,7 +413,7 @@ impl std::fmt::Debug for crate::model::ExecutionReference {
     }
 }
 
-impl std::fmt::Debug for crate::model::Container {
+impl std::fmt::Debug for super::Container {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Container");
         debug_struct.field("name", &self.name);
@@ -437,7 +437,7 @@ impl std::fmt::Debug for crate::model::Container {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResourceRequirements {
+impl std::fmt::Debug for super::ResourceRequirements {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceRequirements");
         debug_struct.field("limits", &self.limits);
@@ -450,7 +450,7 @@ impl std::fmt::Debug for crate::model::ResourceRequirements {
     }
 }
 
-impl std::fmt::Debug for crate::model::EnvVar {
+impl std::fmt::Debug for super::EnvVar {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnvVar");
         debug_struct.field("name", &self.name);
@@ -462,7 +462,7 @@ impl std::fmt::Debug for crate::model::EnvVar {
     }
 }
 
-impl std::fmt::Debug for crate::model::EnvVarSource {
+impl std::fmt::Debug for super::EnvVarSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnvVarSource");
         debug_struct.field("secret_key_ref", &self.secret_key_ref);
@@ -473,7 +473,7 @@ impl std::fmt::Debug for crate::model::EnvVarSource {
     }
 }
 
-impl std::fmt::Debug for crate::model::SecretKeySelector {
+impl std::fmt::Debug for super::SecretKeySelector {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecretKeySelector");
         debug_struct.field("secret", &self.secret);
@@ -485,7 +485,7 @@ impl std::fmt::Debug for crate::model::SecretKeySelector {
     }
 }
 
-impl std::fmt::Debug for crate::model::ContainerPort {
+impl std::fmt::Debug for super::ContainerPort {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContainerPort");
         debug_struct.field("name", &self.name);
@@ -497,7 +497,7 @@ impl std::fmt::Debug for crate::model::ContainerPort {
     }
 }
 
-impl std::fmt::Debug for crate::model::VolumeMount {
+impl std::fmt::Debug for super::VolumeMount {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VolumeMount");
         debug_struct.field("name", &self.name);
@@ -509,7 +509,7 @@ impl std::fmt::Debug for crate::model::VolumeMount {
     }
 }
 
-impl std::fmt::Debug for crate::model::Volume {
+impl std::fmt::Debug for super::Volume {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Volume");
         debug_struct.field("name", &self.name);
@@ -521,7 +521,7 @@ impl std::fmt::Debug for crate::model::Volume {
     }
 }
 
-impl std::fmt::Debug for crate::model::SecretVolumeSource {
+impl std::fmt::Debug for super::SecretVolumeSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecretVolumeSource");
         debug_struct.field("secret", &self.secret);
@@ -534,7 +534,7 @@ impl std::fmt::Debug for crate::model::SecretVolumeSource {
     }
 }
 
-impl std::fmt::Debug for crate::model::VersionToPath {
+impl std::fmt::Debug for super::VersionToPath {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VersionToPath");
         debug_struct.field("path", &self.path);
@@ -547,7 +547,7 @@ impl std::fmt::Debug for crate::model::VersionToPath {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudSqlInstance {
+impl std::fmt::Debug for super::CloudSqlInstance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudSqlInstance");
         debug_struct.field("instances", &self.instances);
@@ -558,7 +558,7 @@ impl std::fmt::Debug for crate::model::CloudSqlInstance {
     }
 }
 
-impl std::fmt::Debug for crate::model::EmptyDirVolumeSource {
+impl std::fmt::Debug for super::EmptyDirVolumeSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EmptyDirVolumeSource");
         debug_struct.field("medium", &self.medium);
@@ -570,7 +570,7 @@ impl std::fmt::Debug for crate::model::EmptyDirVolumeSource {
     }
 }
 
-impl std::fmt::Debug for crate::model::NFSVolumeSource {
+impl std::fmt::Debug for super::NFSVolumeSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NFSVolumeSource");
         debug_struct.field("server", &self.server);
@@ -583,7 +583,7 @@ impl std::fmt::Debug for crate::model::NFSVolumeSource {
     }
 }
 
-impl std::fmt::Debug for crate::model::GCSVolumeSource {
+impl std::fmt::Debug for super::GCSVolumeSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GCSVolumeSource");
         debug_struct.field("bucket", &self.bucket);
@@ -596,7 +596,7 @@ impl std::fmt::Debug for crate::model::GCSVolumeSource {
     }
 }
 
-impl std::fmt::Debug for crate::model::Probe {
+impl std::fmt::Debug for super::Probe {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Probe");
         debug_struct.field("initial_delay_seconds", &self.initial_delay_seconds);
@@ -611,7 +611,7 @@ impl std::fmt::Debug for crate::model::Probe {
     }
 }
 
-impl std::fmt::Debug for crate::model::HTTPGetAction {
+impl std::fmt::Debug for super::HTTPGetAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HTTPGetAction");
         debug_struct.field("path", &self.path);
@@ -624,7 +624,7 @@ impl std::fmt::Debug for crate::model::HTTPGetAction {
     }
 }
 
-impl std::fmt::Debug for crate::model::HTTPHeader {
+impl std::fmt::Debug for super::HTTPHeader {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HTTPHeader");
         debug_struct.field("name", &self.name);
@@ -636,7 +636,7 @@ impl std::fmt::Debug for crate::model::HTTPHeader {
     }
 }
 
-impl std::fmt::Debug for crate::model::TCPSocketAction {
+impl std::fmt::Debug for super::TCPSocketAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TCPSocketAction");
         debug_struct.field("port", &self.port);
@@ -647,7 +647,7 @@ impl std::fmt::Debug for crate::model::TCPSocketAction {
     }
 }
 
-impl std::fmt::Debug for crate::model::GRPCAction {
+impl std::fmt::Debug for super::GRPCAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GRPCAction");
         debug_struct.field("port", &self.port);
@@ -659,7 +659,7 @@ impl std::fmt::Debug for crate::model::GRPCAction {
     }
 }
 
-impl std::fmt::Debug for crate::model::BuildInfo {
+impl std::fmt::Debug for super::BuildInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BuildInfo");
         debug_struct.field("function_target", &self.function_target);
@@ -671,7 +671,7 @@ impl std::fmt::Debug for crate::model::BuildInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetRevisionRequest {
+impl std::fmt::Debug for super::GetRevisionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRevisionRequest");
         debug_struct.field("name", &self.name);
@@ -682,7 +682,7 @@ impl std::fmt::Debug for crate::model::GetRevisionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListRevisionsRequest {
+impl std::fmt::Debug for super::ListRevisionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRevisionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -696,7 +696,7 @@ impl std::fmt::Debug for crate::model::ListRevisionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListRevisionsResponse {
+impl std::fmt::Debug for super::ListRevisionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRevisionsResponse");
         debug_struct.field("revisions", &self.revisions);
@@ -708,7 +708,7 @@ impl std::fmt::Debug for crate::model::ListRevisionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteRevisionRequest {
+impl std::fmt::Debug for super::DeleteRevisionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteRevisionRequest");
         debug_struct.field("name", &self.name);
@@ -721,7 +721,7 @@ impl std::fmt::Debug for crate::model::DeleteRevisionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Revision {
+impl std::fmt::Debug for super::Revision {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Revision");
         debug_struct.field("name", &self.name);
@@ -777,7 +777,7 @@ impl std::fmt::Debug for crate::model::Revision {
     }
 }
 
-impl std::fmt::Debug for crate::model::RevisionTemplate {
+impl std::fmt::Debug for super::RevisionTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RevisionTemplate");
         debug_struct.field("revision", &self.revision);
@@ -818,7 +818,7 @@ impl std::fmt::Debug for crate::model::RevisionTemplate {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateServiceRequest {
+impl std::fmt::Debug for super::CreateServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateServiceRequest");
         debug_struct.field("parent", &self.parent);
@@ -832,7 +832,7 @@ impl std::fmt::Debug for crate::model::CreateServiceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateServiceRequest {
+impl std::fmt::Debug for super::UpdateServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateServiceRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -846,7 +846,7 @@ impl std::fmt::Debug for crate::model::UpdateServiceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListServicesRequest {
+impl std::fmt::Debug for super::ListServicesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServicesRequest");
         debug_struct.field("parent", &self.parent);
@@ -860,7 +860,7 @@ impl std::fmt::Debug for crate::model::ListServicesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListServicesResponse {
+impl std::fmt::Debug for super::ListServicesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServicesResponse");
         debug_struct.field("services", &self.services);
@@ -872,7 +872,7 @@ impl std::fmt::Debug for crate::model::ListServicesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetServiceRequest {
+impl std::fmt::Debug for super::GetServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetServiceRequest");
         debug_struct.field("name", &self.name);
@@ -883,7 +883,7 @@ impl std::fmt::Debug for crate::model::GetServiceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteServiceRequest {
+impl std::fmt::Debug for super::DeleteServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteServiceRequest");
         debug_struct.field("name", &self.name);
@@ -896,7 +896,7 @@ impl std::fmt::Debug for crate::model::DeleteServiceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Service {
+impl std::fmt::Debug for super::Service {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Service");
         debug_struct.field("name", &self.name);
@@ -941,7 +941,7 @@ impl std::fmt::Debug for crate::model::Service {
     }
 }
 
-impl std::fmt::Debug for crate::model::RevisionScalingStatus {
+impl std::fmt::Debug for super::RevisionScalingStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RevisionScalingStatus");
         debug_struct.field(
@@ -955,7 +955,7 @@ impl std::fmt::Debug for crate::model::RevisionScalingStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetTaskRequest {
+impl std::fmt::Debug for super::GetTaskRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetTaskRequest");
         debug_struct.field("name", &self.name);
@@ -966,7 +966,7 @@ impl std::fmt::Debug for crate::model::GetTaskRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListTasksRequest {
+impl std::fmt::Debug for super::ListTasksRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListTasksRequest");
         debug_struct.field("parent", &self.parent);
@@ -980,7 +980,7 @@ impl std::fmt::Debug for crate::model::ListTasksRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListTasksResponse {
+impl std::fmt::Debug for super::ListTasksResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListTasksResponse");
         debug_struct.field("tasks", &self.tasks);
@@ -992,7 +992,7 @@ impl std::fmt::Debug for crate::model::ListTasksResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Task {
+impl std::fmt::Debug for super::Task {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Task");
         debug_struct.field("name", &self.name);
@@ -1038,7 +1038,7 @@ impl std::fmt::Debug for crate::model::Task {
     }
 }
 
-impl std::fmt::Debug for crate::model::TaskAttemptResult {
+impl std::fmt::Debug for super::TaskAttemptResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TaskAttemptResult");
         debug_struct.field("status", &self.status);
@@ -1051,7 +1051,7 @@ impl std::fmt::Debug for crate::model::TaskAttemptResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::TaskTemplate {
+impl std::fmt::Debug for super::TaskTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TaskTemplate");
         debug_struct.field("containers", &self.containers);
@@ -1074,7 +1074,7 @@ impl std::fmt::Debug for crate::model::TaskTemplate {
     }
 }
 
-impl std::fmt::Debug for crate::model::TrafficTarget {
+impl std::fmt::Debug for super::TrafficTarget {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TrafficTarget");
         debug_struct.field("r#type", &self.r#type);
@@ -1088,7 +1088,7 @@ impl std::fmt::Debug for crate::model::TrafficTarget {
     }
 }
 
-impl std::fmt::Debug for crate::model::TrafficTargetStatus {
+impl std::fmt::Debug for super::TrafficTargetStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TrafficTargetStatus");
         debug_struct.field("r#type", &self.r#type);
@@ -1103,7 +1103,7 @@ impl std::fmt::Debug for crate::model::TrafficTargetStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::VpcAccess {
+impl std::fmt::Debug for super::VpcAccess {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VpcAccess");
         debug_struct.field("connector", &self.connector);
@@ -1116,7 +1116,7 @@ impl std::fmt::Debug for crate::model::VpcAccess {
     }
 }
 
-impl std::fmt::Debug for crate::model::vpc_access::NetworkInterface {
+impl std::fmt::Debug for super::vpc_access::NetworkInterface {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworkInterface");
         debug_struct.field("network", &self.network);
@@ -1129,7 +1129,7 @@ impl std::fmt::Debug for crate::model::vpc_access::NetworkInterface {
     }
 }
 
-impl std::fmt::Debug for crate::model::BinaryAuthorization {
+impl std::fmt::Debug for super::BinaryAuthorization {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BinaryAuthorization");
         debug_struct.field("breakglass_justification", &self.breakglass_justification);
@@ -1141,7 +1141,7 @@ impl std::fmt::Debug for crate::model::BinaryAuthorization {
     }
 }
 
-impl std::fmt::Debug for crate::model::RevisionScaling {
+impl std::fmt::Debug for super::RevisionScaling {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RevisionScaling");
         debug_struct.field("min_instance_count", &self.min_instance_count);
@@ -1153,7 +1153,7 @@ impl std::fmt::Debug for crate::model::RevisionScaling {
     }
 }
 
-impl std::fmt::Debug for crate::model::ServiceMesh {
+impl std::fmt::Debug for super::ServiceMesh {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServiceMesh");
         debug_struct.field("mesh", &self.mesh);
@@ -1164,7 +1164,7 @@ impl std::fmt::Debug for crate::model::ServiceMesh {
     }
 }
 
-impl std::fmt::Debug for crate::model::ServiceScaling {
+impl std::fmt::Debug for super::ServiceScaling {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServiceScaling");
         debug_struct.field("min_instance_count", &self.min_instance_count);
@@ -1177,7 +1177,7 @@ impl std::fmt::Debug for crate::model::ServiceScaling {
     }
 }
 
-impl std::fmt::Debug for crate::model::WorkerPoolScaling {
+impl std::fmt::Debug for super::WorkerPoolScaling {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WorkerPoolScaling");
         debug_struct.field("manual_instance_count", &self.manual_instance_count);
@@ -1188,7 +1188,7 @@ impl std::fmt::Debug for crate::model::WorkerPoolScaling {
     }
 }
 
-impl std::fmt::Debug for crate::model::NodeSelector {
+impl std::fmt::Debug for super::NodeSelector {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NodeSelector");
         debug_struct.field("accelerator", &self.accelerator);
@@ -1199,7 +1199,7 @@ impl std::fmt::Debug for crate::model::NodeSelector {
     }
 }
 
-impl std::fmt::Debug for crate::model::BuildConfig {
+impl std::fmt::Debug for super::BuildConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BuildConfig");
         debug_struct.field("name", &self.name);
@@ -1218,7 +1218,7 @@ impl std::fmt::Debug for crate::model::BuildConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateWorkerPoolRequest {
+impl std::fmt::Debug for super::CreateWorkerPoolRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateWorkerPoolRequest");
         debug_struct.field("parent", &self.parent);
@@ -1232,7 +1232,7 @@ impl std::fmt::Debug for crate::model::CreateWorkerPoolRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateWorkerPoolRequest {
+impl std::fmt::Debug for super::UpdateWorkerPoolRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateWorkerPoolRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -1247,7 +1247,7 @@ impl std::fmt::Debug for crate::model::UpdateWorkerPoolRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListWorkerPoolsRequest {
+impl std::fmt::Debug for super::ListWorkerPoolsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListWorkerPoolsRequest");
         debug_struct.field("parent", &self.parent);
@@ -1261,7 +1261,7 @@ impl std::fmt::Debug for crate::model::ListWorkerPoolsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListWorkerPoolsResponse {
+impl std::fmt::Debug for super::ListWorkerPoolsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListWorkerPoolsResponse");
         debug_struct.field("worker_pools", &self.worker_pools);
@@ -1273,7 +1273,7 @@ impl std::fmt::Debug for crate::model::ListWorkerPoolsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetWorkerPoolRequest {
+impl std::fmt::Debug for super::GetWorkerPoolRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetWorkerPoolRequest");
         debug_struct.field("name", &self.name);
@@ -1284,7 +1284,7 @@ impl std::fmt::Debug for crate::model::GetWorkerPoolRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteWorkerPoolRequest {
+impl std::fmt::Debug for super::DeleteWorkerPoolRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteWorkerPoolRequest");
         debug_struct.field("name", &self.name);
@@ -1297,7 +1297,7 @@ impl std::fmt::Debug for crate::model::DeleteWorkerPoolRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::WorkerPool {
+impl std::fmt::Debug for super::WorkerPool {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WorkerPool");
         debug_struct.field("name", &self.name);
@@ -1336,7 +1336,7 @@ impl std::fmt::Debug for crate::model::WorkerPool {
     }
 }
 
-impl std::fmt::Debug for crate::model::WorkerPoolRevisionTemplate {
+impl std::fmt::Debug for super::WorkerPoolRevisionTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WorkerPoolRevisionTemplate");
         debug_struct.field("revision", &self.revision);

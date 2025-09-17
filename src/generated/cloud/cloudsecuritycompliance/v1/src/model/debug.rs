@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Framework {
+impl std::fmt::Debug for super::Framework {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Framework");
         debug_struct.field("name", &self.name);
@@ -43,7 +43,7 @@ impl std::fmt::Debug for crate::model::Framework {
     }
 }
 
-impl std::fmt::Debug for crate::model::framework::CloudControlGroupDetails {
+impl std::fmt::Debug for super::framework::CloudControlGroupDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudControlGroupDetails");
         debug_struct.field("kind", &self.kind);
@@ -54,7 +54,7 @@ impl std::fmt::Debug for crate::model::framework::CloudControlGroupDetails {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudControlGroup {
+impl std::fmt::Debug for super::CloudControlGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudControlGroup");
         debug_struct.field("name", &self.name);
@@ -71,7 +71,7 @@ impl std::fmt::Debug for crate::model::CloudControlGroup {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudControlDetails {
+impl std::fmt::Debug for super::CloudControlDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudControlDetails");
         debug_struct.field("name", &self.name);
@@ -84,7 +84,7 @@ impl std::fmt::Debug for crate::model::CloudControlDetails {
     }
 }
 
-impl std::fmt::Debug for crate::model::FrameworkReference {
+impl std::fmt::Debug for super::FrameworkReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FrameworkReference");
         debug_struct.field("framework", &self.framework);
@@ -96,7 +96,7 @@ impl std::fmt::Debug for crate::model::FrameworkReference {
     }
 }
 
-impl std::fmt::Debug for crate::model::Parameter {
+impl std::fmt::Debug for super::Parameter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Parameter");
         debug_struct.field("name", &self.name);
@@ -108,7 +108,7 @@ impl std::fmt::Debug for crate::model::Parameter {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudControl {
+impl std::fmt::Debug for super::CloudControl {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudControl");
         debug_struct.field("name", &self.name);
@@ -139,7 +139,7 @@ impl std::fmt::Debug for crate::model::CloudControl {
     }
 }
 
-impl std::fmt::Debug for crate::model::ParameterSpec {
+impl std::fmt::Debug for super::ParameterSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ParameterSpec");
         debug_struct.field("name", &self.name);
@@ -158,7 +158,7 @@ impl std::fmt::Debug for crate::model::ParameterSpec {
     }
 }
 
-impl std::fmt::Debug for crate::model::Validation {
+impl std::fmt::Debug for super::Validation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Validation");
         debug_struct.field("constraint", &self.constraint);
@@ -169,7 +169,7 @@ impl std::fmt::Debug for crate::model::Validation {
     }
 }
 
-impl std::fmt::Debug for crate::model::AllowedValues {
+impl std::fmt::Debug for super::AllowedValues {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AllowedValues");
         debug_struct.field("values", &self.values);
@@ -180,7 +180,7 @@ impl std::fmt::Debug for crate::model::AllowedValues {
     }
 }
 
-impl std::fmt::Debug for crate::model::RegexpPattern {
+impl std::fmt::Debug for super::RegexpPattern {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RegexpPattern");
         debug_struct.field("pattern", &self.pattern);
@@ -191,7 +191,7 @@ impl std::fmt::Debug for crate::model::RegexpPattern {
     }
 }
 
-impl std::fmt::Debug for crate::model::IntRange {
+impl std::fmt::Debug for super::IntRange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IntRange");
         debug_struct.field("min", &self.min);
@@ -203,7 +203,7 @@ impl std::fmt::Debug for crate::model::IntRange {
     }
 }
 
-impl std::fmt::Debug for crate::model::StringList {
+impl std::fmt::Debug for super::StringList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StringList");
         debug_struct.field("values", &self.values);
@@ -214,7 +214,7 @@ impl std::fmt::Debug for crate::model::StringList {
     }
 }
 
-impl std::fmt::Debug for crate::model::ParamValue {
+impl std::fmt::Debug for super::ParamValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ParamValue");
         debug_struct.field("kind", &self.kind);
@@ -225,7 +225,7 @@ impl std::fmt::Debug for crate::model::ParamValue {
     }
 }
 
-impl std::fmt::Debug for crate::model::ParameterSubstitutionRule {
+impl std::fmt::Debug for super::ParameterSubstitutionRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ParameterSubstitutionRule");
         debug_struct.field("substitution_type", &self.substitution_type);
@@ -236,7 +236,7 @@ impl std::fmt::Debug for crate::model::ParameterSubstitutionRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::AttributeSubstitutionRule {
+impl std::fmt::Debug for super::AttributeSubstitutionRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AttributeSubstitutionRule");
         debug_struct.field("attribute", &self.attribute);
@@ -247,7 +247,7 @@ impl std::fmt::Debug for crate::model::AttributeSubstitutionRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::PlaceholderSubstitutionRule {
+impl std::fmt::Debug for super::PlaceholderSubstitutionRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PlaceholderSubstitutionRule");
         debug_struct.field("attribute", &self.attribute);
@@ -258,7 +258,7 @@ impl std::fmt::Debug for crate::model::PlaceholderSubstitutionRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::Rule {
+impl std::fmt::Debug for super::Rule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Rule");
         debug_struct.field("description", &self.description);
@@ -271,7 +271,7 @@ impl std::fmt::Debug for crate::model::Rule {
     }
 }
 
-impl std::fmt::Debug for crate::model::CELExpression {
+impl std::fmt::Debug for super::CELExpression {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CELExpression");
         debug_struct.field("expression", &self.expression);
@@ -283,7 +283,7 @@ impl std::fmt::Debug for crate::model::CELExpression {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("create_time", &self.create_time);
@@ -300,7 +300,7 @@ impl std::fmt::Debug for crate::model::OperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::Control {
+impl std::fmt::Debug for super::Control {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Control");
         debug_struct.field("name", &self.name);
@@ -338,7 +338,7 @@ impl std::fmt::Debug for crate::model::Control {
     }
 }
 
-impl std::fmt::Debug for crate::model::ControlFamily {
+impl std::fmt::Debug for super::ControlFamily {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ControlFamily");
         debug_struct.field("family_id", &self.family_id);
@@ -350,7 +350,7 @@ impl std::fmt::Debug for crate::model::ControlFamily {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListFrameworksRequest {
+impl std::fmt::Debug for super::ListFrameworksRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListFrameworksRequest");
         debug_struct.field("parent", &self.parent);
@@ -363,7 +363,7 @@ impl std::fmt::Debug for crate::model::ListFrameworksRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListFrameworksResponse {
+impl std::fmt::Debug for super::ListFrameworksResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListFrameworksResponse");
         debug_struct.field("frameworks", &self.frameworks);
@@ -375,7 +375,7 @@ impl std::fmt::Debug for crate::model::ListFrameworksResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetFrameworkRequest {
+impl std::fmt::Debug for super::GetFrameworkRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetFrameworkRequest");
         debug_struct.field("name", &self.name);
@@ -387,7 +387,7 @@ impl std::fmt::Debug for crate::model::GetFrameworkRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateFrameworkRequest {
+impl std::fmt::Debug for super::CreateFrameworkRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateFrameworkRequest");
         debug_struct.field("parent", &self.parent);
@@ -400,7 +400,7 @@ impl std::fmt::Debug for crate::model::CreateFrameworkRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateFrameworkRequest {
+impl std::fmt::Debug for super::UpdateFrameworkRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateFrameworkRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -413,7 +413,7 @@ impl std::fmt::Debug for crate::model::UpdateFrameworkRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteFrameworkRequest {
+impl std::fmt::Debug for super::DeleteFrameworkRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteFrameworkRequest");
         debug_struct.field("name", &self.name);
@@ -424,7 +424,7 @@ impl std::fmt::Debug for crate::model::DeleteFrameworkRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCloudControlsRequest {
+impl std::fmt::Debug for super::ListCloudControlsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCloudControlsRequest");
         debug_struct.field("parent", &self.parent);
@@ -437,7 +437,7 @@ impl std::fmt::Debug for crate::model::ListCloudControlsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCloudControlsResponse {
+impl std::fmt::Debug for super::ListCloudControlsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCloudControlsResponse");
         debug_struct.field("cloud_controls", &self.cloud_controls);
@@ -449,7 +449,7 @@ impl std::fmt::Debug for crate::model::ListCloudControlsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetCloudControlRequest {
+impl std::fmt::Debug for super::GetCloudControlRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCloudControlRequest");
         debug_struct.field("name", &self.name);
@@ -460,7 +460,7 @@ impl std::fmt::Debug for crate::model::GetCloudControlRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateCloudControlRequest {
+impl std::fmt::Debug for super::CreateCloudControlRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateCloudControlRequest");
         debug_struct.field("parent", &self.parent);
@@ -473,7 +473,7 @@ impl std::fmt::Debug for crate::model::CreateCloudControlRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateCloudControlRequest {
+impl std::fmt::Debug for super::UpdateCloudControlRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCloudControlRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -485,7 +485,7 @@ impl std::fmt::Debug for crate::model::UpdateCloudControlRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteCloudControlRequest {
+impl std::fmt::Debug for super::DeleteCloudControlRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteCloudControlRequest");
         debug_struct.field("name", &self.name);
@@ -496,7 +496,7 @@ impl std::fmt::Debug for crate::model::DeleteCloudControlRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::FrameworkDeployment {
+impl std::fmt::Debug for super::FrameworkDeployment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FrameworkDeployment");
         debug_struct.field("name", &self.name);
@@ -526,7 +526,7 @@ impl std::fmt::Debug for crate::model::FrameworkDeployment {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudControlDeployment {
+impl std::fmt::Debug for super::CloudControlDeployment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudControlDeployment");
         debug_struct.field("name", &self.name);
@@ -557,7 +557,7 @@ impl std::fmt::Debug for crate::model::CloudControlDeployment {
     }
 }
 
-impl std::fmt::Debug for crate::model::TargetResourceConfig {
+impl std::fmt::Debug for super::TargetResourceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TargetResourceConfig");
         debug_struct.field("resource_config", &self.resource_config);
@@ -568,7 +568,7 @@ impl std::fmt::Debug for crate::model::TargetResourceConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::TargetResourceCreationConfig {
+impl std::fmt::Debug for super::TargetResourceCreationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TargetResourceCreationConfig");
         debug_struct.field("resource_creation_config", &self.resource_creation_config);
@@ -579,7 +579,7 @@ impl std::fmt::Debug for crate::model::TargetResourceCreationConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::FolderCreationConfig {
+impl std::fmt::Debug for super::FolderCreationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FolderCreationConfig");
         debug_struct.field("parent", &self.parent);
@@ -591,7 +591,7 @@ impl std::fmt::Debug for crate::model::FolderCreationConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::ProjectCreationConfig {
+impl std::fmt::Debug for super::ProjectCreationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProjectCreationConfig");
         debug_struct.field("parent", &self.parent);
@@ -604,7 +604,7 @@ impl std::fmt::Debug for crate::model::ProjectCreationConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudControlMetadata {
+impl std::fmt::Debug for super::CloudControlMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudControlMetadata");
         debug_struct.field("cloud_control_details", &self.cloud_control_details);
@@ -616,7 +616,7 @@ impl std::fmt::Debug for crate::model::CloudControlMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudControlGroupDeployment {
+impl std::fmt::Debug for super::CloudControlGroupDeployment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudControlGroupDeployment");
         debug_struct.field("cloud_control_group", &self.cloud_control_group);
@@ -629,7 +629,7 @@ impl std::fmt::Debug for crate::model::CloudControlGroupDeployment {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateFrameworkDeploymentRequest {
+impl std::fmt::Debug for super::CreateFrameworkDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateFrameworkDeploymentRequest");
         debug_struct.field("parent", &self.parent);
@@ -642,7 +642,7 @@ impl std::fmt::Debug for crate::model::CreateFrameworkDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteFrameworkDeploymentRequest {
+impl std::fmt::Debug for super::DeleteFrameworkDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteFrameworkDeploymentRequest");
         debug_struct.field("name", &self.name);
@@ -654,7 +654,7 @@ impl std::fmt::Debug for crate::model::DeleteFrameworkDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetFrameworkDeploymentRequest {
+impl std::fmt::Debug for super::GetFrameworkDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetFrameworkDeploymentRequest");
         debug_struct.field("name", &self.name);
@@ -665,7 +665,7 @@ impl std::fmt::Debug for crate::model::GetFrameworkDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListFrameworkDeploymentsRequest {
+impl std::fmt::Debug for super::ListFrameworkDeploymentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListFrameworkDeploymentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -680,7 +680,7 @@ impl std::fmt::Debug for crate::model::ListFrameworkDeploymentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListFrameworkDeploymentsResponse {
+impl std::fmt::Debug for super::ListFrameworkDeploymentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListFrameworkDeploymentsResponse");
         debug_struct.field("framework_deployments", &self.framework_deployments);
@@ -692,7 +692,7 @@ impl std::fmt::Debug for crate::model::ListFrameworkDeploymentsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetCloudControlDeploymentRequest {
+impl std::fmt::Debug for super::GetCloudControlDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCloudControlDeploymentRequest");
         debug_struct.field("name", &self.name);
@@ -703,7 +703,7 @@ impl std::fmt::Debug for crate::model::GetCloudControlDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCloudControlDeploymentsRequest {
+impl std::fmt::Debug for super::ListCloudControlDeploymentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCloudControlDeploymentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -718,7 +718,7 @@ impl std::fmt::Debug for crate::model::ListCloudControlDeploymentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCloudControlDeploymentsResponse {
+impl std::fmt::Debug for super::ListCloudControlDeploymentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCloudControlDeploymentsResponse");
         debug_struct.field("cloud_control_deployments", &self.cloud_control_deployments);
@@ -730,7 +730,7 @@ impl std::fmt::Debug for crate::model::ListCloudControlDeploymentsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudControlDeploymentReference {
+impl std::fmt::Debug for super::CloudControlDeploymentReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudControlDeploymentReference");
         debug_struct.field("cloud_control_deployment", &self.cloud_control_deployment);
@@ -741,7 +741,7 @@ impl std::fmt::Debug for crate::model::CloudControlDeploymentReference {
     }
 }
 
-impl std::fmt::Debug for crate::model::FrameworkDeploymentReference {
+impl std::fmt::Debug for super::FrameworkDeploymentReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FrameworkDeploymentReference");
         debug_struct.field("framework_deployment", &self.framework_deployment);

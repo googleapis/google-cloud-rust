@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Job {
+impl std::fmt::Debug for super::Job {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Job");
         debug_struct.field("name", &self.name);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::Job {
     }
 }
 
-impl std::fmt::Debug for crate::model::JobTemplate {
+impl std::fmt::Debug for super::JobTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("JobTemplate");
         debug_struct.field("name", &self.name);
@@ -55,7 +55,7 @@ impl std::fmt::Debug for crate::model::JobTemplate {
     }
 }
 
-impl std::fmt::Debug for crate::model::JobConfig {
+impl std::fmt::Debug for super::JobConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("JobConfig");
         debug_struct.field("inputs", &self.inputs);
@@ -76,7 +76,7 @@ impl std::fmt::Debug for crate::model::JobConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::Input {
+impl std::fmt::Debug for super::Input {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Input");
         debug_struct.field("key", &self.key);
@@ -90,7 +90,7 @@ impl std::fmt::Debug for crate::model::Input {
     }
 }
 
-impl std::fmt::Debug for crate::model::Output {
+impl std::fmt::Debug for super::Output {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Output");
         debug_struct.field("uri", &self.uri);
@@ -101,7 +101,7 @@ impl std::fmt::Debug for crate::model::Output {
     }
 }
 
-impl std::fmt::Debug for crate::model::EditAtom {
+impl std::fmt::Debug for super::EditAtom {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EditAtom");
         debug_struct.field("key", &self.key);
@@ -115,7 +115,7 @@ impl std::fmt::Debug for crate::model::EditAtom {
     }
 }
 
-impl std::fmt::Debug for crate::model::AdBreak {
+impl std::fmt::Debug for super::AdBreak {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdBreak");
         debug_struct.field("start_time_offset", &self.start_time_offset);
@@ -126,7 +126,7 @@ impl std::fmt::Debug for crate::model::AdBreak {
     }
 }
 
-impl std::fmt::Debug for crate::model::ElementaryStream {
+impl std::fmt::Debug for super::ElementaryStream {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ElementaryStream");
         debug_struct.field("key", &self.key);
@@ -138,7 +138,7 @@ impl std::fmt::Debug for crate::model::ElementaryStream {
     }
 }
 
-impl std::fmt::Debug for crate::model::MuxStream {
+impl std::fmt::Debug for super::MuxStream {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MuxStream");
         debug_struct.field("key", &self.key);
@@ -155,7 +155,7 @@ impl std::fmt::Debug for crate::model::MuxStream {
     }
 }
 
-impl std::fmt::Debug for crate::model::mux_stream::Fmp4Config {
+impl std::fmt::Debug for super::mux_stream::Fmp4Config {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Fmp4Config");
         debug_struct.field("codec_tag", &self.codec_tag);
@@ -166,7 +166,7 @@ impl std::fmt::Debug for crate::model::mux_stream::Fmp4Config {
     }
 }
 
-impl std::fmt::Debug for crate::model::Manifest {
+impl std::fmt::Debug for super::Manifest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Manifest");
         debug_struct.field("file_name", &self.file_name);
@@ -180,7 +180,7 @@ impl std::fmt::Debug for crate::model::Manifest {
     }
 }
 
-impl std::fmt::Debug for crate::model::manifest::DashConfig {
+impl std::fmt::Debug for super::manifest::DashConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DashConfig");
         debug_struct.field("segment_reference_scheme", &self.segment_reference_scheme);
@@ -191,7 +191,7 @@ impl std::fmt::Debug for crate::model::manifest::DashConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::PubsubDestination {
+impl std::fmt::Debug for super::PubsubDestination {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PubsubDestination");
         debug_struct.field("topic", &self.topic);
@@ -202,7 +202,7 @@ impl std::fmt::Debug for crate::model::PubsubDestination {
     }
 }
 
-impl std::fmt::Debug for crate::model::SpriteSheet {
+impl std::fmt::Debug for super::SpriteSheet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpriteSheet");
         debug_struct.field("format", &self.format);
@@ -222,7 +222,7 @@ impl std::fmt::Debug for crate::model::SpriteSheet {
     }
 }
 
-impl std::fmt::Debug for crate::model::Overlay {
+impl std::fmt::Debug for super::Overlay {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Overlay");
         debug_struct.field("image", &self.image);
@@ -234,7 +234,7 @@ impl std::fmt::Debug for crate::model::Overlay {
     }
 }
 
-impl std::fmt::Debug for crate::model::overlay::NormalizedCoordinate {
+impl std::fmt::Debug for super::overlay::NormalizedCoordinate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NormalizedCoordinate");
         debug_struct.field("x", &self.x);
@@ -246,7 +246,7 @@ impl std::fmt::Debug for crate::model::overlay::NormalizedCoordinate {
     }
 }
 
-impl std::fmt::Debug for crate::model::overlay::Image {
+impl std::fmt::Debug for super::overlay::Image {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Image");
         debug_struct.field("uri", &self.uri);
@@ -259,7 +259,7 @@ impl std::fmt::Debug for crate::model::overlay::Image {
     }
 }
 
-impl std::fmt::Debug for crate::model::overlay::AnimationStatic {
+impl std::fmt::Debug for super::overlay::AnimationStatic {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnimationStatic");
         debug_struct.field("xy", &self.xy);
@@ -271,7 +271,7 @@ impl std::fmt::Debug for crate::model::overlay::AnimationStatic {
     }
 }
 
-impl std::fmt::Debug for crate::model::overlay::AnimationFade {
+impl std::fmt::Debug for super::overlay::AnimationFade {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnimationFade");
         debug_struct.field("fade_type", &self.fade_type);
@@ -285,7 +285,7 @@ impl std::fmt::Debug for crate::model::overlay::AnimationFade {
     }
 }
 
-impl std::fmt::Debug for crate::model::overlay::AnimationEnd {
+impl std::fmt::Debug for super::overlay::AnimationEnd {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnimationEnd");
         debug_struct.field("start_time_offset", &self.start_time_offset);
@@ -296,7 +296,7 @@ impl std::fmt::Debug for crate::model::overlay::AnimationEnd {
     }
 }
 
-impl std::fmt::Debug for crate::model::overlay::Animation {
+impl std::fmt::Debug for super::overlay::Animation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Animation");
         debug_struct.field("animation_type", &self.animation_type);
@@ -307,7 +307,7 @@ impl std::fmt::Debug for crate::model::overlay::Animation {
     }
 }
 
-impl std::fmt::Debug for crate::model::PreprocessingConfig {
+impl std::fmt::Debug for super::PreprocessingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PreprocessingConfig");
         debug_struct.field("color", &self.color);
@@ -324,7 +324,7 @@ impl std::fmt::Debug for crate::model::PreprocessingConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::preprocessing_config::Color {
+impl std::fmt::Debug for super::preprocessing_config::Color {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Color");
         debug_struct.field("saturation", &self.saturation);
@@ -337,7 +337,7 @@ impl std::fmt::Debug for crate::model::preprocessing_config::Color {
     }
 }
 
-impl std::fmt::Debug for crate::model::preprocessing_config::Denoise {
+impl std::fmt::Debug for super::preprocessing_config::Denoise {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Denoise");
         debug_struct.field("strength", &self.strength);
@@ -349,7 +349,7 @@ impl std::fmt::Debug for crate::model::preprocessing_config::Denoise {
     }
 }
 
-impl std::fmt::Debug for crate::model::preprocessing_config::Deblock {
+impl std::fmt::Debug for super::preprocessing_config::Deblock {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Deblock");
         debug_struct.field("strength", &self.strength);
@@ -361,7 +361,7 @@ impl std::fmt::Debug for crate::model::preprocessing_config::Deblock {
     }
 }
 
-impl std::fmt::Debug for crate::model::preprocessing_config::Audio {
+impl std::fmt::Debug for super::preprocessing_config::Audio {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Audio");
         debug_struct.field("lufs", &self.lufs);
@@ -374,7 +374,7 @@ impl std::fmt::Debug for crate::model::preprocessing_config::Audio {
     }
 }
 
-impl std::fmt::Debug for crate::model::preprocessing_config::Crop {
+impl std::fmt::Debug for super::preprocessing_config::Crop {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Crop");
         debug_struct.field("top_pixels", &self.top_pixels);
@@ -388,7 +388,7 @@ impl std::fmt::Debug for crate::model::preprocessing_config::Crop {
     }
 }
 
-impl std::fmt::Debug for crate::model::preprocessing_config::Pad {
+impl std::fmt::Debug for super::preprocessing_config::Pad {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Pad");
         debug_struct.field("top_pixels", &self.top_pixels);
@@ -402,7 +402,7 @@ impl std::fmt::Debug for crate::model::preprocessing_config::Pad {
     }
 }
 
-impl std::fmt::Debug for crate::model::preprocessing_config::Deinterlace {
+impl std::fmt::Debug for super::preprocessing_config::Deinterlace {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Deinterlace");
         debug_struct.field("deinterlacing_filter", &self.deinterlacing_filter);
@@ -413,7 +413,7 @@ impl std::fmt::Debug for crate::model::preprocessing_config::Deinterlace {
     }
 }
 
-impl std::fmt::Debug for crate::model::preprocessing_config::deinterlace::YadifConfig {
+impl std::fmt::Debug for super::preprocessing_config::deinterlace::YadifConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("YadifConfig");
         debug_struct.field("mode", &self.mode);
@@ -430,7 +430,7 @@ impl std::fmt::Debug for crate::model::preprocessing_config::deinterlace::YadifC
     }
 }
 
-impl std::fmt::Debug for crate::model::preprocessing_config::deinterlace::BwdifConfig {
+impl std::fmt::Debug for super::preprocessing_config::deinterlace::BwdifConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BwdifConfig");
         debug_struct.field("mode", &self.mode);
@@ -443,7 +443,7 @@ impl std::fmt::Debug for crate::model::preprocessing_config::deinterlace::BwdifC
     }
 }
 
-impl std::fmt::Debug for crate::model::TrackDefinition {
+impl std::fmt::Debug for super::TrackDefinition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TrackDefinition");
         debug_struct.field("input_track", &self.input_track);
@@ -457,7 +457,7 @@ impl std::fmt::Debug for crate::model::TrackDefinition {
     }
 }
 
-impl std::fmt::Debug for crate::model::InputAttributes {
+impl std::fmt::Debug for super::InputAttributes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InputAttributes");
         debug_struct.field("track_definitions", &self.track_definitions);
@@ -468,7 +468,7 @@ impl std::fmt::Debug for crate::model::InputAttributes {
     }
 }
 
-impl std::fmt::Debug for crate::model::VideoStream {
+impl std::fmt::Debug for super::VideoStream {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VideoStream");
         debug_struct.field("codec_settings", &self.codec_settings);
@@ -479,7 +479,7 @@ impl std::fmt::Debug for crate::model::VideoStream {
     }
 }
 
-impl std::fmt::Debug for crate::model::video_stream::H264ColorFormatSDR {
+impl std::fmt::Debug for super::video_stream::H264ColorFormatSDR {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("H264ColorFormatSDR");
         if !self._unknown_fields.is_empty() {
@@ -489,7 +489,7 @@ impl std::fmt::Debug for crate::model::video_stream::H264ColorFormatSDR {
     }
 }
 
-impl std::fmt::Debug for crate::model::video_stream::H264ColorFormatHLG {
+impl std::fmt::Debug for super::video_stream::H264ColorFormatHLG {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("H264ColorFormatHLG");
         if !self._unknown_fields.is_empty() {
@@ -499,7 +499,7 @@ impl std::fmt::Debug for crate::model::video_stream::H264ColorFormatHLG {
     }
 }
 
-impl std::fmt::Debug for crate::model::video_stream::H264CodecSettings {
+impl std::fmt::Debug for super::video_stream::H264CodecSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("H264CodecSettings");
         debug_struct.field("width_pixels", &self.width_pixels);
@@ -533,7 +533,7 @@ impl std::fmt::Debug for crate::model::video_stream::H264CodecSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::video_stream::H265ColorFormatSDR {
+impl std::fmt::Debug for super::video_stream::H265ColorFormatSDR {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("H265ColorFormatSDR");
         if !self._unknown_fields.is_empty() {
@@ -543,7 +543,7 @@ impl std::fmt::Debug for crate::model::video_stream::H265ColorFormatSDR {
     }
 }
 
-impl std::fmt::Debug for crate::model::video_stream::H265ColorFormatHLG {
+impl std::fmt::Debug for super::video_stream::H265ColorFormatHLG {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("H265ColorFormatHLG");
         if !self._unknown_fields.is_empty() {
@@ -553,7 +553,7 @@ impl std::fmt::Debug for crate::model::video_stream::H265ColorFormatHLG {
     }
 }
 
-impl std::fmt::Debug for crate::model::video_stream::H265ColorFormatHDR10 {
+impl std::fmt::Debug for super::video_stream::H265ColorFormatHDR10 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("H265ColorFormatHDR10");
         if !self._unknown_fields.is_empty() {
@@ -563,7 +563,7 @@ impl std::fmt::Debug for crate::model::video_stream::H265ColorFormatHDR10 {
     }
 }
 
-impl std::fmt::Debug for crate::model::video_stream::H265CodecSettings {
+impl std::fmt::Debug for super::video_stream::H265CodecSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("H265CodecSettings");
         debug_struct.field("width_pixels", &self.width_pixels);
@@ -596,7 +596,7 @@ impl std::fmt::Debug for crate::model::video_stream::H265CodecSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::video_stream::Vp9ColorFormatSDR {
+impl std::fmt::Debug for super::video_stream::Vp9ColorFormatSDR {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Vp9ColorFormatSDR");
         if !self._unknown_fields.is_empty() {
@@ -606,7 +606,7 @@ impl std::fmt::Debug for crate::model::video_stream::Vp9ColorFormatSDR {
     }
 }
 
-impl std::fmt::Debug for crate::model::video_stream::Vp9ColorFormatHLG {
+impl std::fmt::Debug for super::video_stream::Vp9ColorFormatHLG {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Vp9ColorFormatHLG");
         if !self._unknown_fields.is_empty() {
@@ -616,7 +616,7 @@ impl std::fmt::Debug for crate::model::video_stream::Vp9ColorFormatHLG {
     }
 }
 
-impl std::fmt::Debug for crate::model::video_stream::Vp9CodecSettings {
+impl std::fmt::Debug for super::video_stream::Vp9CodecSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Vp9CodecSettings");
         debug_struct.field("width_pixels", &self.width_pixels);
@@ -640,7 +640,7 @@ impl std::fmt::Debug for crate::model::video_stream::Vp9CodecSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::AudioStream {
+impl std::fmt::Debug for super::AudioStream {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AudioStream");
         debug_struct.field("codec", &self.codec);
@@ -658,7 +658,7 @@ impl std::fmt::Debug for crate::model::AudioStream {
     }
 }
 
-impl std::fmt::Debug for crate::model::audio_stream::AudioMapping {
+impl std::fmt::Debug for super::audio_stream::AudioMapping {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AudioMapping");
         debug_struct.field("atom_key", &self.atom_key);
@@ -674,7 +674,7 @@ impl std::fmt::Debug for crate::model::audio_stream::AudioMapping {
     }
 }
 
-impl std::fmt::Debug for crate::model::TextStream {
+impl std::fmt::Debug for super::TextStream {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextStream");
         debug_struct.field("codec", &self.codec);
@@ -688,7 +688,7 @@ impl std::fmt::Debug for crate::model::TextStream {
     }
 }
 
-impl std::fmt::Debug for crate::model::text_stream::TextMapping {
+impl std::fmt::Debug for super::text_stream::TextMapping {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextMapping");
         debug_struct.field("atom_key", &self.atom_key);
@@ -701,7 +701,7 @@ impl std::fmt::Debug for crate::model::text_stream::TextMapping {
     }
 }
 
-impl std::fmt::Debug for crate::model::SegmentSettings {
+impl std::fmt::Debug for super::SegmentSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SegmentSettings");
         debug_struct.field("segment_duration", &self.segment_duration);
@@ -713,7 +713,7 @@ impl std::fmt::Debug for crate::model::SegmentSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::Encryption {
+impl std::fmt::Debug for super::Encryption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Encryption");
         debug_struct.field("id", &self.id);
@@ -727,7 +727,7 @@ impl std::fmt::Debug for crate::model::Encryption {
     }
 }
 
-impl std::fmt::Debug for crate::model::encryption::Aes128Encryption {
+impl std::fmt::Debug for super::encryption::Aes128Encryption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Aes128Encryption");
         if !self._unknown_fields.is_empty() {
@@ -737,7 +737,7 @@ impl std::fmt::Debug for crate::model::encryption::Aes128Encryption {
     }
 }
 
-impl std::fmt::Debug for crate::model::encryption::SampleAesEncryption {
+impl std::fmt::Debug for super::encryption::SampleAesEncryption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SampleAesEncryption");
         if !self._unknown_fields.is_empty() {
@@ -747,7 +747,7 @@ impl std::fmt::Debug for crate::model::encryption::SampleAesEncryption {
     }
 }
 
-impl std::fmt::Debug for crate::model::encryption::MpegCommonEncryption {
+impl std::fmt::Debug for super::encryption::MpegCommonEncryption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MpegCommonEncryption");
         debug_struct.field("scheme", &self.scheme);
@@ -758,7 +758,7 @@ impl std::fmt::Debug for crate::model::encryption::MpegCommonEncryption {
     }
 }
 
-impl std::fmt::Debug for crate::model::encryption::SecretManagerSource {
+impl std::fmt::Debug for super::encryption::SecretManagerSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecretManagerSource");
         debug_struct.field("secret_version", &self.secret_version);
@@ -769,7 +769,7 @@ impl std::fmt::Debug for crate::model::encryption::SecretManagerSource {
     }
 }
 
-impl std::fmt::Debug for crate::model::encryption::Widevine {
+impl std::fmt::Debug for super::encryption::Widevine {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Widevine");
         if !self._unknown_fields.is_empty() {
@@ -779,7 +779,7 @@ impl std::fmt::Debug for crate::model::encryption::Widevine {
     }
 }
 
-impl std::fmt::Debug for crate::model::encryption::Fairplay {
+impl std::fmt::Debug for super::encryption::Fairplay {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Fairplay");
         if !self._unknown_fields.is_empty() {
@@ -789,7 +789,7 @@ impl std::fmt::Debug for crate::model::encryption::Fairplay {
     }
 }
 
-impl std::fmt::Debug for crate::model::encryption::Playready {
+impl std::fmt::Debug for super::encryption::Playready {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Playready");
         if !self._unknown_fields.is_empty() {
@@ -799,7 +799,7 @@ impl std::fmt::Debug for crate::model::encryption::Playready {
     }
 }
 
-impl std::fmt::Debug for crate::model::encryption::Clearkey {
+impl std::fmt::Debug for super::encryption::Clearkey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Clearkey");
         if !self._unknown_fields.is_empty() {
@@ -809,7 +809,7 @@ impl std::fmt::Debug for crate::model::encryption::Clearkey {
     }
 }
 
-impl std::fmt::Debug for crate::model::encryption::DrmSystems {
+impl std::fmt::Debug for super::encryption::DrmSystems {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DrmSystems");
         debug_struct.field("widevine", &self.widevine);
@@ -823,7 +823,7 @@ impl std::fmt::Debug for crate::model::encryption::DrmSystems {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateJobRequest {
+impl std::fmt::Debug for super::CreateJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateJobRequest");
         debug_struct.field("parent", &self.parent);
@@ -835,7 +835,7 @@ impl std::fmt::Debug for crate::model::CreateJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListJobsRequest {
+impl std::fmt::Debug for super::ListJobsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListJobsRequest");
         debug_struct.field("parent", &self.parent);
@@ -850,7 +850,7 @@ impl std::fmt::Debug for crate::model::ListJobsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetJobRequest {
+impl std::fmt::Debug for super::GetJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetJobRequest");
         debug_struct.field("name", &self.name);
@@ -861,7 +861,7 @@ impl std::fmt::Debug for crate::model::GetJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteJobRequest {
+impl std::fmt::Debug for super::DeleteJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteJobRequest");
         debug_struct.field("name", &self.name);
@@ -873,7 +873,7 @@ impl std::fmt::Debug for crate::model::DeleteJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListJobsResponse {
+impl std::fmt::Debug for super::ListJobsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListJobsResponse");
         debug_struct.field("jobs", &self.jobs);
@@ -886,7 +886,7 @@ impl std::fmt::Debug for crate::model::ListJobsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateJobTemplateRequest {
+impl std::fmt::Debug for super::CreateJobTemplateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateJobTemplateRequest");
         debug_struct.field("parent", &self.parent);
@@ -899,7 +899,7 @@ impl std::fmt::Debug for crate::model::CreateJobTemplateRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListJobTemplatesRequest {
+impl std::fmt::Debug for super::ListJobTemplatesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListJobTemplatesRequest");
         debug_struct.field("parent", &self.parent);
@@ -914,7 +914,7 @@ impl std::fmt::Debug for crate::model::ListJobTemplatesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetJobTemplateRequest {
+impl std::fmt::Debug for super::GetJobTemplateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetJobTemplateRequest");
         debug_struct.field("name", &self.name);
@@ -925,7 +925,7 @@ impl std::fmt::Debug for crate::model::GetJobTemplateRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteJobTemplateRequest {
+impl std::fmt::Debug for super::DeleteJobTemplateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteJobTemplateRequest");
         debug_struct.field("name", &self.name);
@@ -937,7 +937,7 @@ impl std::fmt::Debug for crate::model::DeleteJobTemplateRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListJobTemplatesResponse {
+impl std::fmt::Debug for super::ListJobTemplatesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListJobTemplatesResponse");
         debug_struct.field("job_templates", &self.job_templates);

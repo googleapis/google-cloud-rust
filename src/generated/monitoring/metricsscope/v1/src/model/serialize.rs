@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MetricsScope {
+impl serde::ser::Serialize for super::MetricsScope {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -49,7 +49,7 @@ impl serde::ser::Serialize for crate::model::MetricsScope {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MonitoredProject {
+impl serde::ser::Serialize for super::MonitoredProject {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -74,7 +74,7 @@ impl serde::ser::Serialize for crate::model::MonitoredProject {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetMetricsScopeRequest {
+impl serde::ser::Serialize for super::GetMetricsScopeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -96,7 +96,7 @@ impl serde::ser::Serialize for crate::model::GetMetricsScopeRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListMetricsScopesByMonitoredProjectRequest {
+impl serde::ser::Serialize for super::ListMetricsScopesByMonitoredProjectRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -121,7 +121,7 @@ impl serde::ser::Serialize for crate::model::ListMetricsScopesByMonitoredProject
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListMetricsScopesByMonitoredProjectResponse {
+impl serde::ser::Serialize for super::ListMetricsScopesByMonitoredProjectResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -143,7 +143,7 @@ impl serde::ser::Serialize for crate::model::ListMetricsScopesByMonitoredProject
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateMonitoredProjectRequest {
+impl serde::ser::Serialize for super::CreateMonitoredProjectRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -168,7 +168,7 @@ impl serde::ser::Serialize for crate::model::CreateMonitoredProjectRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteMonitoredProjectRequest {
+impl serde::ser::Serialize for super::DeleteMonitoredProjectRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -190,7 +190,7 @@ impl serde::ser::Serialize for crate::model::DeleteMonitoredProjectRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationMetadata {
+impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

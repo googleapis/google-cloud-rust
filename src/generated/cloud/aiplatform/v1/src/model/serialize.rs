@@ -19,7 +19,7 @@ use super::*;
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Annotation {
+impl serde::ser::Serialize for super::Annotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -63,7 +63,7 @@ impl serde::ser::Serialize for crate::model::Annotation {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnnotationSpec {
+impl serde::ser::Serialize for super::AnnotationSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -98,7 +98,7 @@ impl serde::ser::Serialize for crate::model::AnnotationSpec {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ApiAuth {
+impl serde::ser::Serialize for super::ApiAuth {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -121,7 +121,7 @@ impl serde::ser::Serialize for crate::model::ApiAuth {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::api_auth::ApiKeyConfig {
+impl serde::ser::Serialize for super::api_auth::ApiKeyConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -148,7 +148,7 @@ impl serde::ser::Serialize for crate::model::api_auth::ApiKeyConfig {
     feature = "schedule-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Artifact {
+impl serde::ser::Serialize for super::Artifact {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -204,7 +204,7 @@ impl serde::ser::Serialize for crate::model::Artifact {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchPredictionJob {
+impl serde::ser::Serialize for super::BatchPredictionJob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -314,7 +314,7 @@ impl serde::ser::Serialize for crate::model::BatchPredictionJob {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::batch_prediction_job::InputConfig {
+impl serde::ser::Serialize for super::batch_prediction_job::InputConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -343,7 +343,7 @@ impl serde::ser::Serialize for crate::model::batch_prediction_job::InputConfig {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::batch_prediction_job::InstanceConfig {
+impl serde::ser::Serialize for super::batch_prediction_job::InstanceConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -375,7 +375,7 @@ impl serde::ser::Serialize for crate::model::batch_prediction_job::InstanceConfi
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::batch_prediction_job::OutputConfig {
+impl serde::ser::Serialize for super::batch_prediction_job::OutputConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -404,7 +404,7 @@ impl serde::ser::Serialize for crate::model::batch_prediction_job::OutputConfig 
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::batch_prediction_job::OutputInfo {
+impl serde::ser::Serialize for super::batch_prediction_job::OutputInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -433,7 +433,7 @@ impl serde::ser::Serialize for crate::model::batch_prediction_job::OutputInfo {
 
 #[cfg(feature = "gen-ai-cache-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CachedContent {
+impl serde::ser::Serialize for super::CachedContent {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -492,7 +492,7 @@ impl serde::ser::Serialize for crate::model::CachedContent {
 
 #[cfg(feature = "gen-ai-cache-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::cached_content::UsageMetadata {
+impl serde::ser::Serialize for super::cached_content::UsageMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -578,7 +578,7 @@ impl serde::ser::Serialize for crate::model::cached_content::UsageMetadata {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CompletionStats {
+impl serde::ser::Serialize for super::CompletionStats {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -656,7 +656,7 @@ impl serde::ser::Serialize for crate::model::CompletionStats {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Content {
+impl serde::ser::Serialize for super::Content {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -689,7 +689,7 @@ impl serde::ser::Serialize for crate::model::Content {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Part {
+impl serde::ser::Serialize for super::Part {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -755,7 +755,7 @@ impl serde::ser::Serialize for crate::model::Part {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Blob {
+impl serde::ser::Serialize for super::Blob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -797,7 +797,7 @@ impl serde::ser::Serialize for crate::model::Blob {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FileData {
+impl serde::ser::Serialize for super::FileData {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -830,7 +830,7 @@ impl serde::ser::Serialize for crate::model::FileData {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VideoMetadata {
+impl serde::ser::Serialize for super::VideoMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -856,7 +856,7 @@ impl serde::ser::Serialize for crate::model::VideoMetadata {
 
 #[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerationConfig {
+impl serde::ser::Serialize for super::GenerationConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1023,7 +1023,7 @@ impl serde::ser::Serialize for crate::model::GenerationConfig {
 
 #[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::generation_config::RoutingConfig {
+impl serde::ser::Serialize for super::generation_config::RoutingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1049,7 +1049,7 @@ impl serde::ser::Serialize for crate::model::generation_config::RoutingConfig {
 
 #[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::generation_config::routing_config::AutoRoutingMode {
+impl serde::ser::Serialize for super::generation_config::routing_config::AutoRoutingMode {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1072,7 +1072,7 @@ impl serde::ser::Serialize for crate::model::generation_config::routing_config::
 
 #[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::generation_config::routing_config::ManualRoutingMode {
+impl serde::ser::Serialize for super::generation_config::routing_config::ManualRoutingMode {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1095,7 +1095,7 @@ impl serde::ser::Serialize for crate::model::generation_config::routing_config::
 
 #[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::generation_config::ThinkingConfig {
+impl serde::ser::Serialize for super::generation_config::ThinkingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1132,7 +1132,7 @@ impl serde::ser::Serialize for crate::model::generation_config::ThinkingConfig {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SafetySetting {
+impl serde::ser::Serialize for super::SafetySetting {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1161,7 +1161,7 @@ impl serde::ser::Serialize for crate::model::SafetySetting {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SafetyRating {
+impl serde::ser::Serialize for super::SafetyRating {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1217,7 +1217,7 @@ impl serde::ser::Serialize for crate::model::SafetyRating {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CitationMetadata {
+impl serde::ser::Serialize for super::CitationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1240,7 +1240,7 @@ impl serde::ser::Serialize for crate::model::CitationMetadata {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Citation {
+impl serde::ser::Serialize for super::Citation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1296,7 +1296,7 @@ impl serde::ser::Serialize for crate::model::Citation {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Candidate {
+impl serde::ser::Serialize for super::Candidate {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1376,7 +1376,7 @@ impl serde::ser::Serialize for crate::model::Candidate {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UrlContextMetadata {
+impl serde::ser::Serialize for super::UrlContextMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1399,7 +1399,7 @@ impl serde::ser::Serialize for crate::model::UrlContextMetadata {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UrlMetadata {
+impl serde::ser::Serialize for super::UrlMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1425,7 +1425,7 @@ impl serde::ser::Serialize for crate::model::UrlMetadata {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LogprobsResult {
+impl serde::ser::Serialize for super::LogprobsResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1451,7 +1451,7 @@ impl serde::ser::Serialize for crate::model::LogprobsResult {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::logprobs_result::Candidate {
+impl serde::ser::Serialize for super::logprobs_result::Candidate {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1502,7 +1502,7 @@ impl serde::ser::Serialize for crate::model::logprobs_result::Candidate {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::logprobs_result::TopCandidates {
+impl serde::ser::Serialize for super::logprobs_result::TopCandidates {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1525,7 +1525,7 @@ impl serde::ser::Serialize for crate::model::logprobs_result::TopCandidates {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Segment {
+impl serde::ser::Serialize for super::Segment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1584,7 +1584,7 @@ impl serde::ser::Serialize for crate::model::Segment {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GroundingChunk {
+impl serde::ser::Serialize for super::GroundingChunk {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1613,7 +1613,7 @@ impl serde::ser::Serialize for crate::model::GroundingChunk {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grounding_chunk::Web {
+impl serde::ser::Serialize for super::grounding_chunk::Web {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1639,7 +1639,7 @@ impl serde::ser::Serialize for crate::model::grounding_chunk::Web {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grounding_chunk::RetrievedContext {
+impl serde::ser::Serialize for super::grounding_chunk::RetrievedContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1674,7 +1674,7 @@ impl serde::ser::Serialize for crate::model::grounding_chunk::RetrievedContext {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grounding_chunk::Maps {
+impl serde::ser::Serialize for super::grounding_chunk::Maps {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1706,7 +1706,7 @@ impl serde::ser::Serialize for crate::model::grounding_chunk::Maps {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GroundingSupport {
+impl serde::ser::Serialize for super::GroundingSupport {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1760,7 +1760,7 @@ impl serde::ser::Serialize for crate::model::GroundingSupport {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GroundingMetadata {
+impl serde::ser::Serialize for super::GroundingMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1801,7 +1801,7 @@ impl serde::ser::Serialize for crate::model::GroundingMetadata {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchEntryPoint {
+impl serde::ser::Serialize for super::SearchEntryPoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1836,7 +1836,7 @@ impl serde::ser::Serialize for crate::model::SearchEntryPoint {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RetrievalMetadata {
+impl serde::ser::Serialize for super::RetrievalMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1871,7 +1871,7 @@ impl serde::ser::Serialize for crate::model::RetrievalMetadata {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelArmorConfig {
+impl serde::ser::Serialize for super::ModelArmorConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1897,7 +1897,7 @@ impl serde::ser::Serialize for crate::model::ModelArmorConfig {
 
 #[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModalityTokenCount {
+impl serde::ser::Serialize for super::ModalityTokenCount {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1936,7 +1936,7 @@ impl serde::ser::Serialize for crate::model::ModalityTokenCount {
     feature = "schedule-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Context {
+impl serde::ser::Serialize for super::Context {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1989,7 +1989,7 @@ impl serde::ser::Serialize for crate::model::Context {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CustomJob {
+impl serde::ser::Serialize for super::CustomJob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2051,7 +2051,7 @@ impl serde::ser::Serialize for crate::model::CustomJob {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CustomJobSpec {
+impl serde::ser::Serialize for super::CustomJobSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2119,7 +2119,7 @@ impl serde::ser::Serialize for crate::model::CustomJobSpec {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WorkerPoolSpec {
+impl serde::ser::Serialize for super::WorkerPoolSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2166,7 +2166,7 @@ impl serde::ser::Serialize for crate::model::WorkerPoolSpec {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ContainerSpec {
+impl serde::ser::Serialize for super::ContainerSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2198,7 +2198,7 @@ impl serde::ser::Serialize for crate::model::ContainerSpec {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PythonPackageSpec {
+impl serde::ser::Serialize for super::PythonPackageSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2233,7 +2233,7 @@ impl serde::ser::Serialize for crate::model::PythonPackageSpec {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Scheduling {
+impl serde::ser::Serialize for super::Scheduling {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2271,7 +2271,7 @@ impl serde::ser::Serialize for crate::model::Scheduling {
 
 #[cfg(feature = "data-foundry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateSyntheticDataRequest {
+impl serde::ser::Serialize for super::GenerateSyntheticDataRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2315,7 +2315,7 @@ impl serde::ser::Serialize for crate::model::GenerateSyntheticDataRequest {
 
 #[cfg(feature = "data-foundry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SyntheticField {
+impl serde::ser::Serialize for super::SyntheticField {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2341,7 +2341,7 @@ impl serde::ser::Serialize for crate::model::SyntheticField {
 
 #[cfg(feature = "data-foundry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SyntheticExample {
+impl serde::ser::Serialize for super::SyntheticExample {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2364,7 +2364,7 @@ impl serde::ser::Serialize for crate::model::SyntheticExample {
 
 #[cfg(feature = "data-foundry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OutputFieldSpec {
+impl serde::ser::Serialize for super::OutputFieldSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2393,7 +2393,7 @@ impl serde::ser::Serialize for crate::model::OutputFieldSpec {
 
 #[cfg(feature = "data-foundry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TaskDescriptionStrategy {
+impl serde::ser::Serialize for super::TaskDescriptionStrategy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2416,7 +2416,7 @@ impl serde::ser::Serialize for crate::model::TaskDescriptionStrategy {
 
 #[cfg(feature = "data-foundry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateSyntheticDataResponse {
+impl serde::ser::Serialize for super::GenerateSyntheticDataResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2439,7 +2439,7 @@ impl serde::ser::Serialize for crate::model::GenerateSyntheticDataResponse {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DataItem {
+impl serde::ser::Serialize for super::DataItem {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2483,7 +2483,7 @@ impl serde::ser::Serialize for crate::model::DataItem {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DataLabelingJob {
+impl serde::ser::Serialize for super::DataLabelingJob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2575,7 +2575,7 @@ impl serde::ser::Serialize for crate::model::DataLabelingJob {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ActiveLearningConfig {
+impl serde::ser::Serialize for super::ActiveLearningConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2625,7 +2625,7 @@ impl serde::ser::Serialize for crate::model::ActiveLearningConfig {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SampleConfig {
+impl serde::ser::Serialize for super::SampleConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2672,7 +2672,7 @@ impl serde::ser::Serialize for crate::model::SampleConfig {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TrainingConfig {
+impl serde::ser::Serialize for super::TrainingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2707,7 +2707,7 @@ impl serde::ser::Serialize for crate::model::TrainingConfig {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Dataset {
+impl serde::ser::Serialize for super::Dataset {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2784,7 +2784,7 @@ impl serde::ser::Serialize for crate::model::Dataset {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportDataConfig {
+impl serde::ser::Serialize for super::ImportDataConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2816,7 +2816,7 @@ impl serde::ser::Serialize for crate::model::ImportDataConfig {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportDataConfig {
+impl serde::ser::Serialize for super::ExportDataConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2857,7 +2857,7 @@ impl serde::ser::Serialize for crate::model::ExportDataConfig {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportFractionSplit {
+impl serde::ser::Serialize for super::ExportFractionSplit {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2913,7 +2913,7 @@ impl serde::ser::Serialize for crate::model::ExportFractionSplit {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportFilterSplit {
+impl serde::ser::Serialize for super::ExportFilterSplit {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2942,7 +2942,7 @@ impl serde::ser::Serialize for crate::model::ExportFilterSplit {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateDatasetRequest {
+impl serde::ser::Serialize for super::CreateDatasetRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2968,7 +2968,7 @@ impl serde::ser::Serialize for crate::model::CreateDatasetRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateDatasetOperationMetadata {
+impl serde::ser::Serialize for super::CreateDatasetOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2991,7 +2991,7 @@ impl serde::ser::Serialize for crate::model::CreateDatasetOperationMetadata {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetDatasetRequest {
+impl serde::ser::Serialize for super::GetDatasetRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3017,7 +3017,7 @@ impl serde::ser::Serialize for crate::model::GetDatasetRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateDatasetRequest {
+impl serde::ser::Serialize for super::UpdateDatasetRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3043,7 +3043,7 @@ impl serde::ser::Serialize for crate::model::UpdateDatasetRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateDatasetVersionRequest {
+impl serde::ser::Serialize for super::UpdateDatasetVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3069,7 +3069,7 @@ impl serde::ser::Serialize for crate::model::UpdateDatasetVersionRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDatasetsRequest {
+impl serde::ser::Serialize for super::ListDatasetsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3116,7 +3116,7 @@ impl serde::ser::Serialize for crate::model::ListDatasetsRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDatasetsResponse {
+impl serde::ser::Serialize for super::ListDatasetsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3142,7 +3142,7 @@ impl serde::ser::Serialize for crate::model::ListDatasetsResponse {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteDatasetRequest {
+impl serde::ser::Serialize for super::DeleteDatasetRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3165,7 +3165,7 @@ impl serde::ser::Serialize for crate::model::DeleteDatasetRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportDataRequest {
+impl serde::ser::Serialize for super::ImportDataRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3191,7 +3191,7 @@ impl serde::ser::Serialize for crate::model::ImportDataRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportDataResponse {
+impl serde::ser::Serialize for super::ImportDataResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3211,7 +3211,7 @@ impl serde::ser::Serialize for crate::model::ImportDataResponse {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportDataOperationMetadata {
+impl serde::ser::Serialize for super::ImportDataOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3234,7 +3234,7 @@ impl serde::ser::Serialize for crate::model::ImportDataOperationMetadata {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportDataRequest {
+impl serde::ser::Serialize for super::ExportDataRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3260,7 +3260,7 @@ impl serde::ser::Serialize for crate::model::ExportDataRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportDataResponse {
+impl serde::ser::Serialize for super::ExportDataResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3286,7 +3286,7 @@ impl serde::ser::Serialize for crate::model::ExportDataResponse {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportDataOperationMetadata {
+impl serde::ser::Serialize for super::ExportDataOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3312,7 +3312,7 @@ impl serde::ser::Serialize for crate::model::ExportDataOperationMetadata {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateDatasetVersionRequest {
+impl serde::ser::Serialize for super::CreateDatasetVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3338,7 +3338,7 @@ impl serde::ser::Serialize for crate::model::CreateDatasetVersionRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateDatasetVersionOperationMetadata {
+impl serde::ser::Serialize for super::CreateDatasetVersionOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3361,7 +3361,7 @@ impl serde::ser::Serialize for crate::model::CreateDatasetVersionOperationMetada
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteDatasetVersionRequest {
+impl serde::ser::Serialize for super::DeleteDatasetVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3384,7 +3384,7 @@ impl serde::ser::Serialize for crate::model::DeleteDatasetVersionRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetDatasetVersionRequest {
+impl serde::ser::Serialize for super::GetDatasetVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3410,7 +3410,7 @@ impl serde::ser::Serialize for crate::model::GetDatasetVersionRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDatasetVersionsRequest {
+impl serde::ser::Serialize for super::ListDatasetVersionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3457,7 +3457,7 @@ impl serde::ser::Serialize for crate::model::ListDatasetVersionsRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDatasetVersionsResponse {
+impl serde::ser::Serialize for super::ListDatasetVersionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3483,7 +3483,7 @@ impl serde::ser::Serialize for crate::model::ListDatasetVersionsResponse {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RestoreDatasetVersionRequest {
+impl serde::ser::Serialize for super::RestoreDatasetVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3506,7 +3506,7 @@ impl serde::ser::Serialize for crate::model::RestoreDatasetVersionRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RestoreDatasetVersionOperationMetadata {
+impl serde::ser::Serialize for super::RestoreDatasetVersionOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3529,7 +3529,7 @@ impl serde::ser::Serialize for crate::model::RestoreDatasetVersionOperationMetad
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDataItemsRequest {
+impl serde::ser::Serialize for super::ListDataItemsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3576,7 +3576,7 @@ impl serde::ser::Serialize for crate::model::ListDataItemsRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDataItemsResponse {
+impl serde::ser::Serialize for super::ListDataItemsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3602,7 +3602,7 @@ impl serde::ser::Serialize for crate::model::ListDataItemsResponse {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchDataItemsRequest {
+impl serde::ser::Serialize for super::SearchDataItemsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3679,7 +3679,7 @@ impl serde::ser::Serialize for crate::model::SearchDataItemsRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::search_data_items_request::OrderByAnnotation {
+impl serde::ser::Serialize for super::search_data_items_request::OrderByAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3705,7 +3705,7 @@ impl serde::ser::Serialize for crate::model::search_data_items_request::OrderByA
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchDataItemsResponse {
+impl serde::ser::Serialize for super::SearchDataItemsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3731,7 +3731,7 @@ impl serde::ser::Serialize for crate::model::SearchDataItemsResponse {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DataItemView {
+impl serde::ser::Serialize for super::DataItemView {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3760,7 +3760,7 @@ impl serde::ser::Serialize for crate::model::DataItemView {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSavedQueriesRequest {
+impl serde::ser::Serialize for super::ListSavedQueriesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3807,7 +3807,7 @@ impl serde::ser::Serialize for crate::model::ListSavedQueriesRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSavedQueriesResponse {
+impl serde::ser::Serialize for super::ListSavedQueriesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3833,7 +3833,7 @@ impl serde::ser::Serialize for crate::model::ListSavedQueriesResponse {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteSavedQueryRequest {
+impl serde::ser::Serialize for super::DeleteSavedQueryRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3856,7 +3856,7 @@ impl serde::ser::Serialize for crate::model::DeleteSavedQueryRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetAnnotationSpecRequest {
+impl serde::ser::Serialize for super::GetAnnotationSpecRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3882,7 +3882,7 @@ impl serde::ser::Serialize for crate::model::GetAnnotationSpecRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAnnotationsRequest {
+impl serde::ser::Serialize for super::ListAnnotationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3929,7 +3929,7 @@ impl serde::ser::Serialize for crate::model::ListAnnotationsRequest {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAnnotationsResponse {
+impl serde::ser::Serialize for super::ListAnnotationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3955,7 +3955,7 @@ impl serde::ser::Serialize for crate::model::ListAnnotationsResponse {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DatasetVersion {
+impl serde::ser::Serialize for super::DatasetVersion {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4005,7 +4005,7 @@ impl serde::ser::Serialize for crate::model::DatasetVersion {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployedIndexRef {
+impl serde::ser::Serialize for super::DeployedIndexRef {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4039,7 +4039,7 @@ impl serde::ser::Serialize for crate::model::DeployedIndexRef {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployedModelRef {
+impl serde::ser::Serialize for super::DeployedModelRef {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4065,7 +4065,7 @@ impl serde::ser::Serialize for crate::model::DeployedModelRef {
 
 #[cfg(feature = "deployment-resource-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeploymentResourcePool {
+impl serde::ser::Serialize for super::DeploymentResourcePool {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4109,7 +4109,7 @@ impl serde::ser::Serialize for crate::model::DeploymentResourcePool {
 
 #[cfg(feature = "deployment-resource-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateDeploymentResourcePoolRequest {
+impl serde::ser::Serialize for super::CreateDeploymentResourcePoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4141,7 +4141,7 @@ impl serde::ser::Serialize for crate::model::CreateDeploymentResourcePoolRequest
 
 #[cfg(feature = "deployment-resource-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateDeploymentResourcePoolOperationMetadata {
+impl serde::ser::Serialize for super::CreateDeploymentResourcePoolOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4164,7 +4164,7 @@ impl serde::ser::Serialize for crate::model::CreateDeploymentResourcePoolOperati
 
 #[cfg(feature = "deployment-resource-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetDeploymentResourcePoolRequest {
+impl serde::ser::Serialize for super::GetDeploymentResourcePoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4187,7 +4187,7 @@ impl serde::ser::Serialize for crate::model::GetDeploymentResourcePoolRequest {
 
 #[cfg(feature = "deployment-resource-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDeploymentResourcePoolsRequest {
+impl serde::ser::Serialize for super::ListDeploymentResourcePoolsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4225,7 +4225,7 @@ impl serde::ser::Serialize for crate::model::ListDeploymentResourcePoolsRequest 
 
 #[cfg(feature = "deployment-resource-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDeploymentResourcePoolsResponse {
+impl serde::ser::Serialize for super::ListDeploymentResourcePoolsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4251,7 +4251,7 @@ impl serde::ser::Serialize for crate::model::ListDeploymentResourcePoolsResponse
 
 #[cfg(feature = "deployment-resource-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateDeploymentResourcePoolRequest {
+impl serde::ser::Serialize for super::UpdateDeploymentResourcePoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4277,7 +4277,7 @@ impl serde::ser::Serialize for crate::model::UpdateDeploymentResourcePoolRequest
 
 #[cfg(feature = "deployment-resource-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateDeploymentResourcePoolOperationMetadata {
+impl serde::ser::Serialize for super::UpdateDeploymentResourcePoolOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4300,7 +4300,7 @@ impl serde::ser::Serialize for crate::model::UpdateDeploymentResourcePoolOperati
 
 #[cfg(feature = "deployment-resource-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteDeploymentResourcePoolRequest {
+impl serde::ser::Serialize for super::DeleteDeploymentResourcePoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4323,7 +4323,7 @@ impl serde::ser::Serialize for crate::model::DeleteDeploymentResourcePoolRequest
 
 #[cfg(feature = "deployment-resource-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QueryDeployedModelsRequest {
+impl serde::ser::Serialize for super::QueryDeployedModelsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4361,7 +4361,7 @@ impl serde::ser::Serialize for crate::model::QueryDeployedModelsRequest {
 
 #[cfg(feature = "deployment-resource-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QueryDeployedModelsResponse {
+impl serde::ser::Serialize for super::QueryDeployedModelsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4437,7 +4437,7 @@ impl serde::ser::Serialize for crate::model::QueryDeployedModelsResponse {
     feature = "vertex-rag-data-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EncryptionSpec {
+impl serde::ser::Serialize for super::EncryptionSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4460,7 +4460,7 @@ impl serde::ser::Serialize for crate::model::EncryptionSpec {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Endpoint {
+impl serde::ser::Serialize for super::Endpoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4576,7 +4576,7 @@ impl serde::ser::Serialize for crate::model::Endpoint {
     feature = "endpoint-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployedModel {
+impl serde::ser::Serialize for super::DeployedModel {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4656,7 +4656,7 @@ impl serde::ser::Serialize for crate::model::DeployedModel {
     feature = "endpoint-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::deployed_model::Status {
+impl serde::ser::Serialize for super::deployed_model::Status {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4700,7 +4700,7 @@ impl serde::ser::Serialize for crate::model::deployed_model::Status {
     feature = "endpoint-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PrivateEndpoints {
+impl serde::ser::Serialize for super::PrivateEndpoints {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4732,7 +4732,7 @@ impl serde::ser::Serialize for crate::model::PrivateEndpoints {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PredictRequestResponseLoggingConfig {
+impl serde::ser::Serialize for super::PredictRequestResponseLoggingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4770,7 +4770,7 @@ impl serde::ser::Serialize for crate::model::PredictRequestResponseLoggingConfig
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ClientConnectionConfig {
+impl serde::ser::Serialize for super::ClientConnectionConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4796,7 +4796,7 @@ impl serde::ser::Serialize for crate::model::ClientConnectionConfig {
     feature = "endpoint-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FasterDeploymentConfig {
+impl serde::ser::Serialize for super::FasterDeploymentConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4819,7 +4819,7 @@ impl serde::ser::Serialize for crate::model::FasterDeploymentConfig {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenAiAdvancedFeaturesConfig {
+impl serde::ser::Serialize for super::GenAiAdvancedFeaturesConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4842,7 +4842,7 @@ impl serde::ser::Serialize for crate::model::GenAiAdvancedFeaturesConfig {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::gen_ai_advanced_features_config::RagConfig {
+impl serde::ser::Serialize for super::gen_ai_advanced_features_config::RagConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4868,7 +4868,7 @@ impl serde::ser::Serialize for crate::model::gen_ai_advanced_features_config::Ra
     feature = "endpoint-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SpeculativeDecodingSpec {
+impl serde::ser::Serialize for super::SpeculativeDecodingSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4912,7 +4912,7 @@ impl serde::ser::Serialize for crate::model::SpeculativeDecodingSpec {
     feature = "endpoint-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::speculative_decoding_spec::DraftModelSpeculation {
+impl serde::ser::Serialize for super::speculative_decoding_spec::DraftModelSpeculation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4938,7 +4938,7 @@ impl serde::ser::Serialize for crate::model::speculative_decoding_spec::DraftMod
     feature = "endpoint-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::speculative_decoding_spec::NgramSpeculation {
+impl serde::ser::Serialize for super::speculative_decoding_spec::NgramSpeculation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4970,7 +4970,7 @@ impl serde::ser::Serialize for crate::model::speculative_decoding_spec::NgramSpe
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateEndpointRequest {
+impl serde::ser::Serialize for super::CreateEndpointRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -4999,7 +4999,7 @@ impl serde::ser::Serialize for crate::model::CreateEndpointRequest {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateEndpointOperationMetadata {
+impl serde::ser::Serialize for super::CreateEndpointOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5025,7 +5025,7 @@ impl serde::ser::Serialize for crate::model::CreateEndpointOperationMetadata {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetEndpointRequest {
+impl serde::ser::Serialize for super::GetEndpointRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5048,7 +5048,7 @@ impl serde::ser::Serialize for crate::model::GetEndpointRequest {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListEndpointsRequest {
+impl serde::ser::Serialize for super::ListEndpointsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5095,7 +5095,7 @@ impl serde::ser::Serialize for crate::model::ListEndpointsRequest {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListEndpointsResponse {
+impl serde::ser::Serialize for super::ListEndpointsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5121,7 +5121,7 @@ impl serde::ser::Serialize for crate::model::ListEndpointsResponse {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateEndpointRequest {
+impl serde::ser::Serialize for super::UpdateEndpointRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5147,7 +5147,7 @@ impl serde::ser::Serialize for crate::model::UpdateEndpointRequest {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateEndpointLongRunningRequest {
+impl serde::ser::Serialize for super::UpdateEndpointLongRunningRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5170,7 +5170,7 @@ impl serde::ser::Serialize for crate::model::UpdateEndpointLongRunningRequest {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateEndpointOperationMetadata {
+impl serde::ser::Serialize for super::UpdateEndpointOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5193,7 +5193,7 @@ impl serde::ser::Serialize for crate::model::UpdateEndpointOperationMetadata {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteEndpointRequest {
+impl serde::ser::Serialize for super::DeleteEndpointRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5216,7 +5216,7 @@ impl serde::ser::Serialize for crate::model::DeleteEndpointRequest {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployModelRequest {
+impl serde::ser::Serialize for super::DeployModelRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5254,7 +5254,7 @@ impl serde::ser::Serialize for crate::model::DeployModelRequest {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployModelResponse {
+impl serde::ser::Serialize for super::DeployModelResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5277,7 +5277,7 @@ impl serde::ser::Serialize for crate::model::DeployModelResponse {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployModelOperationMetadata {
+impl serde::ser::Serialize for super::DeployModelOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5303,7 +5303,7 @@ impl serde::ser::Serialize for crate::model::DeployModelOperationMetadata {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UndeployModelRequest {
+impl serde::ser::Serialize for super::UndeployModelRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5341,7 +5341,7 @@ impl serde::ser::Serialize for crate::model::UndeployModelRequest {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UndeployModelResponse {
+impl serde::ser::Serialize for super::UndeployModelResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5361,7 +5361,7 @@ impl serde::ser::Serialize for crate::model::UndeployModelResponse {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UndeployModelOperationMetadata {
+impl serde::ser::Serialize for super::UndeployModelOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5384,7 +5384,7 @@ impl serde::ser::Serialize for crate::model::UndeployModelOperationMetadata {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MutateDeployedModelRequest {
+impl serde::ser::Serialize for super::MutateDeployedModelRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5413,7 +5413,7 @@ impl serde::ser::Serialize for crate::model::MutateDeployedModelRequest {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MutateDeployedModelResponse {
+impl serde::ser::Serialize for super::MutateDeployedModelResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5436,7 +5436,7 @@ impl serde::ser::Serialize for crate::model::MutateDeployedModelResponse {
 
 #[cfg(feature = "endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MutateDeployedModelOperationMetadata {
+impl serde::ser::Serialize for super::MutateDeployedModelOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5459,7 +5459,7 @@ impl serde::ser::Serialize for crate::model::MutateDeployedModelOperationMetadat
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EntityType {
+impl serde::ser::Serialize for super::EntityType {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5529,7 +5529,7 @@ impl serde::ser::Serialize for crate::model::EntityType {
     feature = "reasoning-engine-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EnvVar {
+impl serde::ser::Serialize for super::EnvVar {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5555,7 +5555,7 @@ impl serde::ser::Serialize for crate::model::EnvVar {
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SecretRef {
+impl serde::ser::Serialize for super::SecretRef {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5581,7 +5581,7 @@ impl serde::ser::Serialize for crate::model::SecretRef {
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SecretEnvVar {
+impl serde::ser::Serialize for super::SecretEnvVar {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5607,7 +5607,7 @@ impl serde::ser::Serialize for crate::model::SecretEnvVar {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EvaluatedAnnotation {
+impl serde::ser::Serialize for super::EvaluatedAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5648,7 +5648,7 @@ impl serde::ser::Serialize for crate::model::EvaluatedAnnotation {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EvaluatedAnnotationExplanation {
+impl serde::ser::Serialize for super::EvaluatedAnnotationExplanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5674,7 +5674,7 @@ impl serde::ser::Serialize for crate::model::EvaluatedAnnotationExplanation {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ErrorAnalysisAnnotation {
+impl serde::ser::Serialize for super::ErrorAnalysisAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5724,7 +5724,7 @@ impl serde::ser::Serialize for crate::model::ErrorAnalysisAnnotation {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::error_analysis_annotation::AttributedItem {
+impl serde::ser::Serialize for super::error_analysis_annotation::AttributedItem {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5759,7 +5759,7 @@ impl serde::ser::Serialize for crate::model::error_analysis_annotation::Attribut
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EvaluateInstancesRequest {
+impl serde::ser::Serialize for super::EvaluateInstancesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5857,7 +5857,7 @@ impl serde::ser::Serialize for crate::model::EvaluateInstancesRequest {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EvaluateInstancesResponse {
+impl serde::ser::Serialize for super::EvaluateInstancesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5952,7 +5952,7 @@ impl serde::ser::Serialize for crate::model::EvaluateInstancesResponse {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExactMatchInput {
+impl serde::ser::Serialize for super::ExactMatchInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -5978,7 +5978,7 @@ impl serde::ser::Serialize for crate::model::ExactMatchInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExactMatchInstance {
+impl serde::ser::Serialize for super::ExactMatchInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6004,7 +6004,7 @@ impl serde::ser::Serialize for crate::model::ExactMatchInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExactMatchSpec {
+impl serde::ser::Serialize for super::ExactMatchSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6024,7 +6024,7 @@ impl serde::ser::Serialize for crate::model::ExactMatchSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExactMatchResults {
+impl serde::ser::Serialize for super::ExactMatchResults {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6047,7 +6047,7 @@ impl serde::ser::Serialize for crate::model::ExactMatchResults {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExactMatchMetricValue {
+impl serde::ser::Serialize for super::ExactMatchMetricValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6081,7 +6081,7 @@ impl serde::ser::Serialize for crate::model::ExactMatchMetricValue {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BleuInput {
+impl serde::ser::Serialize for super::BleuInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6107,7 +6107,7 @@ impl serde::ser::Serialize for crate::model::BleuInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BleuInstance {
+impl serde::ser::Serialize for super::BleuInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6133,7 +6133,7 @@ impl serde::ser::Serialize for crate::model::BleuInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BleuSpec {
+impl serde::ser::Serialize for super::BleuSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6156,7 +6156,7 @@ impl serde::ser::Serialize for crate::model::BleuSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BleuResults {
+impl serde::ser::Serialize for super::BleuResults {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6179,7 +6179,7 @@ impl serde::ser::Serialize for crate::model::BleuResults {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BleuMetricValue {
+impl serde::ser::Serialize for super::BleuMetricValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6213,7 +6213,7 @@ impl serde::ser::Serialize for crate::model::BleuMetricValue {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RougeInput {
+impl serde::ser::Serialize for super::RougeInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6239,7 +6239,7 @@ impl serde::ser::Serialize for crate::model::RougeInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RougeInstance {
+impl serde::ser::Serialize for super::RougeInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6265,7 +6265,7 @@ impl serde::ser::Serialize for crate::model::RougeInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RougeSpec {
+impl serde::ser::Serialize for super::RougeSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6294,7 +6294,7 @@ impl serde::ser::Serialize for crate::model::RougeSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RougeResults {
+impl serde::ser::Serialize for super::RougeResults {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6317,7 +6317,7 @@ impl serde::ser::Serialize for crate::model::RougeResults {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RougeMetricValue {
+impl serde::ser::Serialize for super::RougeMetricValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6351,7 +6351,7 @@ impl serde::ser::Serialize for crate::model::RougeMetricValue {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CoherenceInput {
+impl serde::ser::Serialize for super::CoherenceInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6377,7 +6377,7 @@ impl serde::ser::Serialize for crate::model::CoherenceInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CoherenceInstance {
+impl serde::ser::Serialize for super::CoherenceInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6400,7 +6400,7 @@ impl serde::ser::Serialize for crate::model::CoherenceInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CoherenceSpec {
+impl serde::ser::Serialize for super::CoherenceSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6432,7 +6432,7 @@ impl serde::ser::Serialize for crate::model::CoherenceSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CoherenceResult {
+impl serde::ser::Serialize for super::CoherenceResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6483,7 +6483,7 @@ impl serde::ser::Serialize for crate::model::CoherenceResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FluencyInput {
+impl serde::ser::Serialize for super::FluencyInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6509,7 +6509,7 @@ impl serde::ser::Serialize for crate::model::FluencyInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FluencyInstance {
+impl serde::ser::Serialize for super::FluencyInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6532,7 +6532,7 @@ impl serde::ser::Serialize for crate::model::FluencyInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FluencySpec {
+impl serde::ser::Serialize for super::FluencySpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6564,7 +6564,7 @@ impl serde::ser::Serialize for crate::model::FluencySpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FluencyResult {
+impl serde::ser::Serialize for super::FluencyResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6615,7 +6615,7 @@ impl serde::ser::Serialize for crate::model::FluencyResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SafetyInput {
+impl serde::ser::Serialize for super::SafetyInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6641,7 +6641,7 @@ impl serde::ser::Serialize for crate::model::SafetyInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SafetyInstance {
+impl serde::ser::Serialize for super::SafetyInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6664,7 +6664,7 @@ impl serde::ser::Serialize for crate::model::SafetyInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SafetySpec {
+impl serde::ser::Serialize for super::SafetySpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6696,7 +6696,7 @@ impl serde::ser::Serialize for crate::model::SafetySpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SafetyResult {
+impl serde::ser::Serialize for super::SafetyResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6747,7 +6747,7 @@ impl serde::ser::Serialize for crate::model::SafetyResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GroundednessInput {
+impl serde::ser::Serialize for super::GroundednessInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6773,7 +6773,7 @@ impl serde::ser::Serialize for crate::model::GroundednessInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GroundednessInstance {
+impl serde::ser::Serialize for super::GroundednessInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6799,7 +6799,7 @@ impl serde::ser::Serialize for crate::model::GroundednessInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GroundednessSpec {
+impl serde::ser::Serialize for super::GroundednessSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6831,7 +6831,7 @@ impl serde::ser::Serialize for crate::model::GroundednessSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GroundednessResult {
+impl serde::ser::Serialize for super::GroundednessResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6882,7 +6882,7 @@ impl serde::ser::Serialize for crate::model::GroundednessResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FulfillmentInput {
+impl serde::ser::Serialize for super::FulfillmentInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6908,7 +6908,7 @@ impl serde::ser::Serialize for crate::model::FulfillmentInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FulfillmentInstance {
+impl serde::ser::Serialize for super::FulfillmentInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6934,7 +6934,7 @@ impl serde::ser::Serialize for crate::model::FulfillmentInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FulfillmentSpec {
+impl serde::ser::Serialize for super::FulfillmentSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6966,7 +6966,7 @@ impl serde::ser::Serialize for crate::model::FulfillmentSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FulfillmentResult {
+impl serde::ser::Serialize for super::FulfillmentResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7017,7 +7017,7 @@ impl serde::ser::Serialize for crate::model::FulfillmentResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationQualityInput {
+impl serde::ser::Serialize for super::SummarizationQualityInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7043,7 +7043,7 @@ impl serde::ser::Serialize for crate::model::SummarizationQualityInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationQualityInstance {
+impl serde::ser::Serialize for super::SummarizationQualityInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7075,7 +7075,7 @@ impl serde::ser::Serialize for crate::model::SummarizationQualityInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationQualitySpec {
+impl serde::ser::Serialize for super::SummarizationQualitySpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7110,7 +7110,7 @@ impl serde::ser::Serialize for crate::model::SummarizationQualitySpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationQualityResult {
+impl serde::ser::Serialize for super::SummarizationQualityResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7161,7 +7161,7 @@ impl serde::ser::Serialize for crate::model::SummarizationQualityResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseSummarizationQualityInput {
+impl serde::ser::Serialize for super::PairwiseSummarizationQualityInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7187,7 +7187,7 @@ impl serde::ser::Serialize for crate::model::PairwiseSummarizationQualityInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseSummarizationQualityInstance {
+impl serde::ser::Serialize for super::PairwiseSummarizationQualityInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7222,7 +7222,7 @@ impl serde::ser::Serialize for crate::model::PairwiseSummarizationQualityInstanc
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseSummarizationQualitySpec {
+impl serde::ser::Serialize for super::PairwiseSummarizationQualitySpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7257,7 +7257,7 @@ impl serde::ser::Serialize for crate::model::PairwiseSummarizationQualitySpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseSummarizationQualityResult {
+impl serde::ser::Serialize for super::PairwiseSummarizationQualityResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7297,7 +7297,7 @@ impl serde::ser::Serialize for crate::model::PairwiseSummarizationQualityResult 
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationHelpfulnessInput {
+impl serde::ser::Serialize for super::SummarizationHelpfulnessInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7323,7 +7323,7 @@ impl serde::ser::Serialize for crate::model::SummarizationHelpfulnessInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationHelpfulnessInstance {
+impl serde::ser::Serialize for super::SummarizationHelpfulnessInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7355,7 +7355,7 @@ impl serde::ser::Serialize for crate::model::SummarizationHelpfulnessInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationHelpfulnessSpec {
+impl serde::ser::Serialize for super::SummarizationHelpfulnessSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7390,7 +7390,7 @@ impl serde::ser::Serialize for crate::model::SummarizationHelpfulnessSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationHelpfulnessResult {
+impl serde::ser::Serialize for super::SummarizationHelpfulnessResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7441,7 +7441,7 @@ impl serde::ser::Serialize for crate::model::SummarizationHelpfulnessResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationVerbosityInput {
+impl serde::ser::Serialize for super::SummarizationVerbosityInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7467,7 +7467,7 @@ impl serde::ser::Serialize for crate::model::SummarizationVerbosityInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationVerbosityInstance {
+impl serde::ser::Serialize for super::SummarizationVerbosityInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7499,7 +7499,7 @@ impl serde::ser::Serialize for crate::model::SummarizationVerbosityInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationVerbositySpec {
+impl serde::ser::Serialize for super::SummarizationVerbositySpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7534,7 +7534,7 @@ impl serde::ser::Serialize for crate::model::SummarizationVerbositySpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SummarizationVerbosityResult {
+impl serde::ser::Serialize for super::SummarizationVerbosityResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7585,7 +7585,7 @@ impl serde::ser::Serialize for crate::model::SummarizationVerbosityResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringQualityInput {
+impl serde::ser::Serialize for super::QuestionAnsweringQualityInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7611,7 +7611,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringQualityInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringQualityInstance {
+impl serde::ser::Serialize for super::QuestionAnsweringQualityInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7643,7 +7643,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringQualityInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringQualitySpec {
+impl serde::ser::Serialize for super::QuestionAnsweringQualitySpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7678,7 +7678,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringQualitySpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringQualityResult {
+impl serde::ser::Serialize for super::QuestionAnsweringQualityResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7729,7 +7729,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringQualityResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseQuestionAnsweringQualityInput {
+impl serde::ser::Serialize for super::PairwiseQuestionAnsweringQualityInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7755,7 +7755,7 @@ impl serde::ser::Serialize for crate::model::PairwiseQuestionAnsweringQualityInp
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseQuestionAnsweringQualityInstance {
+impl serde::ser::Serialize for super::PairwiseQuestionAnsweringQualityInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7790,7 +7790,7 @@ impl serde::ser::Serialize for crate::model::PairwiseQuestionAnsweringQualityIns
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseQuestionAnsweringQualitySpec {
+impl serde::ser::Serialize for super::PairwiseQuestionAnsweringQualitySpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7825,7 +7825,7 @@ impl serde::ser::Serialize for crate::model::PairwiseQuestionAnsweringQualitySpe
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseQuestionAnsweringQualityResult {
+impl serde::ser::Serialize for super::PairwiseQuestionAnsweringQualityResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7865,7 +7865,7 @@ impl serde::ser::Serialize for crate::model::PairwiseQuestionAnsweringQualityRes
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringRelevanceInput {
+impl serde::ser::Serialize for super::QuestionAnsweringRelevanceInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7891,7 +7891,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringRelevanceInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringRelevanceInstance {
+impl serde::ser::Serialize for super::QuestionAnsweringRelevanceInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7923,7 +7923,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringRelevanceInstance 
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringRelevanceSpec {
+impl serde::ser::Serialize for super::QuestionAnsweringRelevanceSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -7958,7 +7958,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringRelevanceSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringRelevanceResult {
+impl serde::ser::Serialize for super::QuestionAnsweringRelevanceResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8009,7 +8009,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringRelevanceResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringHelpfulnessInput {
+impl serde::ser::Serialize for super::QuestionAnsweringHelpfulnessInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8035,7 +8035,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringHelpfulnessInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringHelpfulnessInstance {
+impl serde::ser::Serialize for super::QuestionAnsweringHelpfulnessInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8067,7 +8067,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringHelpfulnessInstanc
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringHelpfulnessSpec {
+impl serde::ser::Serialize for super::QuestionAnsweringHelpfulnessSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8102,7 +8102,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringHelpfulnessSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringHelpfulnessResult {
+impl serde::ser::Serialize for super::QuestionAnsweringHelpfulnessResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8153,7 +8153,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringHelpfulnessResult 
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringCorrectnessInput {
+impl serde::ser::Serialize for super::QuestionAnsweringCorrectnessInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8179,7 +8179,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringCorrectnessInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringCorrectnessInstance {
+impl serde::ser::Serialize for super::QuestionAnsweringCorrectnessInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8211,7 +8211,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringCorrectnessInstanc
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringCorrectnessSpec {
+impl serde::ser::Serialize for super::QuestionAnsweringCorrectnessSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8246,7 +8246,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringCorrectnessSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuestionAnsweringCorrectnessResult {
+impl serde::ser::Serialize for super::QuestionAnsweringCorrectnessResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8297,7 +8297,7 @@ impl serde::ser::Serialize for crate::model::QuestionAnsweringCorrectnessResult 
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PointwiseMetricInput {
+impl serde::ser::Serialize for super::PointwiseMetricInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8323,7 +8323,7 @@ impl serde::ser::Serialize for crate::model::PointwiseMetricInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PointwiseMetricInstance {
+impl serde::ser::Serialize for super::PointwiseMetricInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8346,7 +8346,7 @@ impl serde::ser::Serialize for crate::model::PointwiseMetricInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PointwiseMetricSpec {
+impl serde::ser::Serialize for super::PointwiseMetricSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8369,7 +8369,7 @@ impl serde::ser::Serialize for crate::model::PointwiseMetricSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PointwiseMetricResult {
+impl serde::ser::Serialize for super::PointwiseMetricResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8406,7 +8406,7 @@ impl serde::ser::Serialize for crate::model::PointwiseMetricResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseMetricInput {
+impl serde::ser::Serialize for super::PairwiseMetricInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8432,7 +8432,7 @@ impl serde::ser::Serialize for crate::model::PairwiseMetricInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseMetricInstance {
+impl serde::ser::Serialize for super::PairwiseMetricInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8455,7 +8455,7 @@ impl serde::ser::Serialize for crate::model::PairwiseMetricInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseMetricSpec {
+impl serde::ser::Serialize for super::PairwiseMetricSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8478,7 +8478,7 @@ impl serde::ser::Serialize for crate::model::PairwiseMetricSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PairwiseMetricResult {
+impl serde::ser::Serialize for super::PairwiseMetricResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8504,7 +8504,7 @@ impl serde::ser::Serialize for crate::model::PairwiseMetricResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolCallValidInput {
+impl serde::ser::Serialize for super::ToolCallValidInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8530,7 +8530,7 @@ impl serde::ser::Serialize for crate::model::ToolCallValidInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolCallValidSpec {
+impl serde::ser::Serialize for super::ToolCallValidSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8550,7 +8550,7 @@ impl serde::ser::Serialize for crate::model::ToolCallValidSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolCallValidInstance {
+impl serde::ser::Serialize for super::ToolCallValidInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8576,7 +8576,7 @@ impl serde::ser::Serialize for crate::model::ToolCallValidInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolCallValidResults {
+impl serde::ser::Serialize for super::ToolCallValidResults {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8602,7 +8602,7 @@ impl serde::ser::Serialize for crate::model::ToolCallValidResults {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolCallValidMetricValue {
+impl serde::ser::Serialize for super::ToolCallValidMetricValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8636,7 +8636,7 @@ impl serde::ser::Serialize for crate::model::ToolCallValidMetricValue {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolNameMatchInput {
+impl serde::ser::Serialize for super::ToolNameMatchInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8662,7 +8662,7 @@ impl serde::ser::Serialize for crate::model::ToolNameMatchInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolNameMatchSpec {
+impl serde::ser::Serialize for super::ToolNameMatchSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8682,7 +8682,7 @@ impl serde::ser::Serialize for crate::model::ToolNameMatchSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolNameMatchInstance {
+impl serde::ser::Serialize for super::ToolNameMatchInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8708,7 +8708,7 @@ impl serde::ser::Serialize for crate::model::ToolNameMatchInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolNameMatchResults {
+impl serde::ser::Serialize for super::ToolNameMatchResults {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8734,7 +8734,7 @@ impl serde::ser::Serialize for crate::model::ToolNameMatchResults {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolNameMatchMetricValue {
+impl serde::ser::Serialize for super::ToolNameMatchMetricValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8768,7 +8768,7 @@ impl serde::ser::Serialize for crate::model::ToolNameMatchMetricValue {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolParameterKeyMatchInput {
+impl serde::ser::Serialize for super::ToolParameterKeyMatchInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8794,7 +8794,7 @@ impl serde::ser::Serialize for crate::model::ToolParameterKeyMatchInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolParameterKeyMatchSpec {
+impl serde::ser::Serialize for super::ToolParameterKeyMatchSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8814,7 +8814,7 @@ impl serde::ser::Serialize for crate::model::ToolParameterKeyMatchSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolParameterKeyMatchInstance {
+impl serde::ser::Serialize for super::ToolParameterKeyMatchInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8840,7 +8840,7 @@ impl serde::ser::Serialize for crate::model::ToolParameterKeyMatchInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolParameterKeyMatchResults {
+impl serde::ser::Serialize for super::ToolParameterKeyMatchResults {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8866,7 +8866,7 @@ impl serde::ser::Serialize for crate::model::ToolParameterKeyMatchResults {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolParameterKeyMatchMetricValue {
+impl serde::ser::Serialize for super::ToolParameterKeyMatchMetricValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8900,7 +8900,7 @@ impl serde::ser::Serialize for crate::model::ToolParameterKeyMatchMetricValue {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolParameterKVMatchInput {
+impl serde::ser::Serialize for super::ToolParameterKVMatchInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8926,7 +8926,7 @@ impl serde::ser::Serialize for crate::model::ToolParameterKVMatchInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolParameterKVMatchSpec {
+impl serde::ser::Serialize for super::ToolParameterKVMatchSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8949,7 +8949,7 @@ impl serde::ser::Serialize for crate::model::ToolParameterKVMatchSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolParameterKVMatchInstance {
+impl serde::ser::Serialize for super::ToolParameterKVMatchInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8975,7 +8975,7 @@ impl serde::ser::Serialize for crate::model::ToolParameterKVMatchInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolParameterKVMatchResults {
+impl serde::ser::Serialize for super::ToolParameterKVMatchResults {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9001,7 +9001,7 @@ impl serde::ser::Serialize for crate::model::ToolParameterKVMatchResults {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolParameterKVMatchMetricValue {
+impl serde::ser::Serialize for super::ToolParameterKVMatchMetricValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9035,7 +9035,7 @@ impl serde::ser::Serialize for crate::model::ToolParameterKVMatchMetricValue {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CometInput {
+impl serde::ser::Serialize for super::CometInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9061,7 +9061,7 @@ impl serde::ser::Serialize for crate::model::CometInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CometSpec {
+impl serde::ser::Serialize for super::CometSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9090,7 +9090,7 @@ impl serde::ser::Serialize for crate::model::CometSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CometInstance {
+impl serde::ser::Serialize for super::CometInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9119,7 +9119,7 @@ impl serde::ser::Serialize for crate::model::CometInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CometResult {
+impl serde::ser::Serialize for super::CometResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9153,7 +9153,7 @@ impl serde::ser::Serialize for crate::model::CometResult {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MetricxInput {
+impl serde::ser::Serialize for super::MetricxInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9179,7 +9179,7 @@ impl serde::ser::Serialize for crate::model::MetricxInput {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MetricxSpec {
+impl serde::ser::Serialize for super::MetricxSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9208,7 +9208,7 @@ impl serde::ser::Serialize for crate::model::MetricxSpec {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MetricxInstance {
+impl serde::ser::Serialize for super::MetricxInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9237,7 +9237,7 @@ impl serde::ser::Serialize for crate::model::MetricxInstance {
 
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MetricxResult {
+impl serde::ser::Serialize for super::MetricxResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9271,7 +9271,7 @@ impl serde::ser::Serialize for crate::model::MetricxResult {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Event {
+impl serde::ser::Serialize for super::Event {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9310,7 +9310,7 @@ impl serde::ser::Serialize for crate::model::Event {
     feature = "schedule-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Execution {
+impl serde::ser::Serialize for super::Execution {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9363,7 +9363,7 @@ impl serde::ser::Serialize for crate::model::Execution {
 
 #[cfg(any(feature = "model-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Explanation {
+impl serde::ser::Serialize for super::Explanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9389,7 +9389,7 @@ impl serde::ser::Serialize for crate::model::Explanation {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelExplanation {
+impl serde::ser::Serialize for super::ModelExplanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9412,7 +9412,7 @@ impl serde::ser::Serialize for crate::model::ModelExplanation {
 
 #[cfg(any(feature = "model-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Attribution {
+impl serde::ser::Serialize for super::Attribution {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9491,7 +9491,7 @@ impl serde::ser::Serialize for crate::model::Attribution {
 
 #[cfg(any(feature = "model-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Neighbor {
+impl serde::ser::Serialize for super::Neighbor {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9533,7 +9533,7 @@ impl serde::ser::Serialize for crate::model::Neighbor {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplanationSpec {
+impl serde::ser::Serialize for super::ExplanationSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9567,7 +9567,7 @@ impl serde::ser::Serialize for crate::model::ExplanationSpec {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplanationParameters {
+impl serde::ser::Serialize for super::ExplanationParameters {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9622,7 +9622,7 @@ impl serde::ser::Serialize for crate::model::ExplanationParameters {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SampledShapleyAttribution {
+impl serde::ser::Serialize for super::SampledShapleyAttribution {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9662,7 +9662,7 @@ impl serde::ser::Serialize for crate::model::SampledShapleyAttribution {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::IntegratedGradientsAttribution {
+impl serde::ser::Serialize for super::IntegratedGradientsAttribution {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9708,7 +9708,7 @@ impl serde::ser::Serialize for crate::model::IntegratedGradientsAttribution {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::XraiAttribution {
+impl serde::ser::Serialize for super::XraiAttribution {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9754,7 +9754,7 @@ impl serde::ser::Serialize for crate::model::XraiAttribution {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SmoothGradConfig {
+impl serde::ser::Serialize for super::SmoothGradConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9809,7 +9809,7 @@ impl serde::ser::Serialize for crate::model::SmoothGradConfig {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureNoiseSigma {
+impl serde::ser::Serialize for super::FeatureNoiseSigma {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9840,7 +9840,7 @@ impl serde::ser::Serialize for crate::model::FeatureNoiseSigma {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_noise_sigma::NoiseSigmaForFeature {
+impl serde::ser::Serialize for super::feature_noise_sigma::NoiseSigmaForFeature {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9883,7 +9883,7 @@ impl serde::ser::Serialize for crate::model::feature_noise_sigma::NoiseSigmaForF
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BlurBaselineConfig {
+impl serde::ser::Serialize for super::BlurBaselineConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9923,7 +9923,7 @@ impl serde::ser::Serialize for crate::model::BlurBaselineConfig {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Examples {
+impl serde::ser::Serialize for super::Examples {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -9972,7 +9972,7 @@ impl serde::ser::Serialize for crate::model::Examples {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::examples::ExampleGcsSource {
+impl serde::ser::Serialize for super::examples::ExampleGcsSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10006,7 +10006,7 @@ impl serde::ser::Serialize for crate::model::examples::ExampleGcsSource {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Presets {
+impl serde::ser::Serialize for super::Presets {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10032,7 +10032,7 @@ impl serde::ser::Serialize for crate::model::Presets {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplanationSpecOverride {
+impl serde::ser::Serialize for super::ExplanationSpecOverride {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10061,7 +10061,7 @@ impl serde::ser::Serialize for crate::model::ExplanationSpecOverride {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplanationMetadataOverride {
+impl serde::ser::Serialize for super::ExplanationMetadataOverride {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10084,7 +10084,7 @@ impl serde::ser::Serialize for crate::model::ExplanationMetadataOverride {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::explanation_metadata_override::InputMetadataOverride {
+impl serde::ser::Serialize for super::explanation_metadata_override::InputMetadataOverride {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10107,7 +10107,7 @@ impl serde::ser::Serialize for crate::model::explanation_metadata_override::Inpu
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExamplesOverride {
+impl serde::ser::Serialize for super::ExamplesOverride {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10160,7 +10160,7 @@ impl serde::ser::Serialize for crate::model::ExamplesOverride {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExamplesRestrictionsNamespace {
+impl serde::ser::Serialize for super::ExamplesRestrictionsNamespace {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10196,7 +10196,7 @@ impl serde::ser::Serialize for crate::model::ExamplesRestrictionsNamespace {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplanationMetadata {
+impl serde::ser::Serialize for super::ExplanationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10238,7 +10238,7 @@ impl serde::ser::Serialize for crate::model::ExplanationMetadata {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::explanation_metadata::InputMetadata {
+impl serde::ser::Serialize for super::explanation_metadata::InputMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10301,9 +10301,7 @@ impl serde::ser::Serialize for crate::model::explanation_metadata::InputMetadata
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::explanation_metadata::input_metadata::FeatureValueDomain
-{
+impl serde::ser::Serialize for super::explanation_metadata::input_metadata::FeatureValueDomain {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10378,7 +10376,7 @@ impl serde::ser::Serialize
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::explanation_metadata::input_metadata::Visualization {
+impl serde::ser::Serialize for super::explanation_metadata::input_metadata::Visualization {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10447,7 +10445,7 @@ impl serde::ser::Serialize for crate::model::explanation_metadata::input_metadat
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::explanation_metadata::OutputMetadata {
+impl serde::ser::Serialize for super::explanation_metadata::OutputMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10476,7 +10474,7 @@ impl serde::ser::Serialize for crate::model::explanation_metadata::OutputMetadat
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Feature {
+impl serde::ser::Serialize for super::Feature {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10529,7 +10527,7 @@ impl serde::ser::Serialize for crate::model::Feature {
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature::MonitoringStatsAnomaly {
+impl serde::ser::Serialize for super::feature::MonitoringStatsAnomaly {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10555,7 +10553,7 @@ impl serde::ser::Serialize for crate::model::feature::MonitoringStatsAnomaly {
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureGroup {
+impl serde::ser::Serialize for super::FeatureGroup {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10596,7 +10594,7 @@ impl serde::ser::Serialize for crate::model::FeatureGroup {
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_group::BigQuery {
+impl serde::ser::Serialize for super::feature_group::BigQuery {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10631,7 +10629,7 @@ impl serde::ser::Serialize for crate::model::feature_group::BigQuery {
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_group::big_query::TimeSeries {
+impl serde::ser::Serialize for super::feature_group::big_query::TimeSeries {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10658,7 +10656,7 @@ impl serde::ser::Serialize for crate::model::feature_group::big_query::TimeSerie
     feature = "job-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureStatsAnomaly {
+impl serde::ser::Serialize for super::FeatureStatsAnomaly {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10732,7 +10730,7 @@ impl serde::ser::Serialize for crate::model::FeatureStatsAnomaly {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureOnlineStore {
+impl serde::ser::Serialize for super::FeatureOnlineStore {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10788,7 +10786,7 @@ impl serde::ser::Serialize for crate::model::FeatureOnlineStore {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_online_store::Bigtable {
+impl serde::ser::Serialize for super::feature_online_store::Bigtable {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10811,7 +10809,7 @@ impl serde::ser::Serialize for crate::model::feature_online_store::Bigtable {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_online_store::bigtable::AutoScaling {
+impl serde::ser::Serialize for super::feature_online_store::bigtable::AutoScaling {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10870,7 +10868,7 @@ impl serde::ser::Serialize for crate::model::feature_online_store::bigtable::Aut
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_online_store::Optimized {
+impl serde::ser::Serialize for super::feature_online_store::Optimized {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10890,7 +10888,7 @@ impl serde::ser::Serialize for crate::model::feature_online_store::Optimized {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_online_store::DedicatedServingEndpoint {
+impl serde::ser::Serialize for super::feature_online_store::DedicatedServingEndpoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10925,7 +10923,7 @@ impl serde::ser::Serialize for crate::model::feature_online_store::DedicatedServ
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateFeatureOnlineStoreRequest {
+impl serde::ser::Serialize for super::CreateFeatureOnlineStoreRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10954,7 +10952,7 @@ impl serde::ser::Serialize for crate::model::CreateFeatureOnlineStoreRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetFeatureOnlineStoreRequest {
+impl serde::ser::Serialize for super::GetFeatureOnlineStoreRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -10977,7 +10975,7 @@ impl serde::ser::Serialize for crate::model::GetFeatureOnlineStoreRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeatureOnlineStoresRequest {
+impl serde::ser::Serialize for super::ListFeatureOnlineStoresRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11021,7 +11019,7 @@ impl serde::ser::Serialize for crate::model::ListFeatureOnlineStoresRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeatureOnlineStoresResponse {
+impl serde::ser::Serialize for super::ListFeatureOnlineStoresResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11047,7 +11045,7 @@ impl serde::ser::Serialize for crate::model::ListFeatureOnlineStoresResponse {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateFeatureOnlineStoreRequest {
+impl serde::ser::Serialize for super::UpdateFeatureOnlineStoreRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11073,7 +11071,7 @@ impl serde::ser::Serialize for crate::model::UpdateFeatureOnlineStoreRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteFeatureOnlineStoreRequest {
+impl serde::ser::Serialize for super::DeleteFeatureOnlineStoreRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11099,7 +11097,7 @@ impl serde::ser::Serialize for crate::model::DeleteFeatureOnlineStoreRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateFeatureViewRequest {
+impl serde::ser::Serialize for super::CreateFeatureViewRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11131,7 +11129,7 @@ impl serde::ser::Serialize for crate::model::CreateFeatureViewRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetFeatureViewRequest {
+impl serde::ser::Serialize for super::GetFeatureViewRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11154,7 +11152,7 @@ impl serde::ser::Serialize for crate::model::GetFeatureViewRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeatureViewsRequest {
+impl serde::ser::Serialize for super::ListFeatureViewsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11198,7 +11196,7 @@ impl serde::ser::Serialize for crate::model::ListFeatureViewsRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeatureViewsResponse {
+impl serde::ser::Serialize for super::ListFeatureViewsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11224,7 +11222,7 @@ impl serde::ser::Serialize for crate::model::ListFeatureViewsResponse {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateFeatureViewRequest {
+impl serde::ser::Serialize for super::UpdateFeatureViewRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11250,7 +11248,7 @@ impl serde::ser::Serialize for crate::model::UpdateFeatureViewRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteFeatureViewRequest {
+impl serde::ser::Serialize for super::DeleteFeatureViewRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11273,7 +11271,7 @@ impl serde::ser::Serialize for crate::model::DeleteFeatureViewRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateFeatureOnlineStoreOperationMetadata {
+impl serde::ser::Serialize for super::CreateFeatureOnlineStoreOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11296,7 +11294,7 @@ impl serde::ser::Serialize for crate::model::CreateFeatureOnlineStoreOperationMe
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateFeatureOnlineStoreOperationMetadata {
+impl serde::ser::Serialize for super::UpdateFeatureOnlineStoreOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11319,7 +11317,7 @@ impl serde::ser::Serialize for crate::model::UpdateFeatureOnlineStoreOperationMe
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateFeatureViewOperationMetadata {
+impl serde::ser::Serialize for super::CreateFeatureViewOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11342,7 +11340,7 @@ impl serde::ser::Serialize for crate::model::CreateFeatureViewOperationMetadata 
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateFeatureViewOperationMetadata {
+impl serde::ser::Serialize for super::UpdateFeatureViewOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11365,7 +11363,7 @@ impl serde::ser::Serialize for crate::model::UpdateFeatureViewOperationMetadata 
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SyncFeatureViewRequest {
+impl serde::ser::Serialize for super::SyncFeatureViewRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11388,7 +11386,7 @@ impl serde::ser::Serialize for crate::model::SyncFeatureViewRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SyncFeatureViewResponse {
+impl serde::ser::Serialize for super::SyncFeatureViewResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11411,7 +11409,7 @@ impl serde::ser::Serialize for crate::model::SyncFeatureViewResponse {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetFeatureViewSyncRequest {
+impl serde::ser::Serialize for super::GetFeatureViewSyncRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11434,7 +11432,7 @@ impl serde::ser::Serialize for crate::model::GetFeatureViewSyncRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeatureViewSyncsRequest {
+impl serde::ser::Serialize for super::ListFeatureViewSyncsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11478,7 +11476,7 @@ impl serde::ser::Serialize for crate::model::ListFeatureViewSyncsRequest {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeatureViewSyncsResponse {
+impl serde::ser::Serialize for super::ListFeatureViewSyncsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11504,7 +11502,7 @@ impl serde::ser::Serialize for crate::model::ListFeatureViewSyncsResponse {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureViewDataKey {
+impl serde::ser::Serialize for super::FeatureViewDataKey {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11530,7 +11528,7 @@ impl serde::ser::Serialize for crate::model::FeatureViewDataKey {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view_data_key::CompositeKey {
+impl serde::ser::Serialize for super::feature_view_data_key::CompositeKey {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11553,7 +11551,7 @@ impl serde::ser::Serialize for crate::model::feature_view_data_key::CompositeKey
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FetchFeatureValuesRequest {
+impl serde::ser::Serialize for super::FetchFeatureValuesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11582,7 +11580,7 @@ impl serde::ser::Serialize for crate::model::FetchFeatureValuesRequest {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FetchFeatureValuesResponse {
+impl serde::ser::Serialize for super::FetchFeatureValuesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11611,9 +11609,7 @@ impl serde::ser::Serialize for crate::model::FetchFeatureValuesResponse {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::fetch_feature_values_response::FeatureNameValuePairList
-{
+impl serde::ser::Serialize for super::fetch_feature_values_response::FeatureNameValuePairList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11636,14 +11632,16 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::fetch_feature_values_response::feature_name_value_pair_list::FeatureNameValuePair {
+impl serde::ser::Serialize
+    for super::fetch_feature_values_response::feature_name_value_pair_list::FeatureNameValuePair
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.value() {
             state.serialize_entry("value", value)?;
@@ -11662,7 +11660,7 @@ impl serde::ser::Serialize for crate::model::fetch_feature_values_response::feat
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NearestNeighborQuery {
+impl serde::ser::Serialize for super::NearestNeighborQuery {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11724,7 +11722,7 @@ impl serde::ser::Serialize for crate::model::NearestNeighborQuery {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::nearest_neighbor_query::Embedding {
+impl serde::ser::Serialize for super::nearest_neighbor_query::Embedding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11758,7 +11756,7 @@ impl serde::ser::Serialize for crate::model::nearest_neighbor_query::Embedding {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::nearest_neighbor_query::StringFilter {
+impl serde::ser::Serialize for super::nearest_neighbor_query::StringFilter {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11787,7 +11785,7 @@ impl serde::ser::Serialize for crate::model::nearest_neighbor_query::StringFilte
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::nearest_neighbor_query::NumericFilter {
+impl serde::ser::Serialize for super::nearest_neighbor_query::NumericFilter {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11849,7 +11847,7 @@ impl serde::ser::Serialize for crate::model::nearest_neighbor_query::NumericFilt
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::nearest_neighbor_query::Parameters {
+impl serde::ser::Serialize for super::nearest_neighbor_query::Parameters {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11899,7 +11897,7 @@ impl serde::ser::Serialize for crate::model::nearest_neighbor_query::Parameters 
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchNearestEntitiesRequest {
+impl serde::ser::Serialize for super::SearchNearestEntitiesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11928,7 +11926,7 @@ impl serde::ser::Serialize for crate::model::SearchNearestEntitiesRequest {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NearestNeighbors {
+impl serde::ser::Serialize for super::NearestNeighbors {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11951,7 +11949,7 @@ impl serde::ser::Serialize for crate::model::NearestNeighbors {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::nearest_neighbors::Neighbor {
+impl serde::ser::Serialize for super::nearest_neighbors::Neighbor {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -11989,7 +11987,7 @@ impl serde::ser::Serialize for crate::model::nearest_neighbors::Neighbor {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchNearestEntitiesResponse {
+impl serde::ser::Serialize for super::SearchNearestEntitiesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12012,7 +12010,7 @@ impl serde::ser::Serialize for crate::model::SearchNearestEntitiesResponse {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureViewDirectWriteRequest {
+impl serde::ser::Serialize for super::FeatureViewDirectWriteRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12038,9 +12036,7 @@ impl serde::ser::Serialize for crate::model::FeatureViewDirectWriteRequest {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::feature_view_direct_write_request::DataKeyAndFeatureValues
-{
+impl serde::ser::Serialize for super::feature_view_direct_write_request::DataKeyAndFeatureValues {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12067,7 +12063,7 @@ impl serde::ser::Serialize
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::feature_view_direct_write_request::data_key_and_feature_values::Feature
+    for super::feature_view_direct_write_request::data_key_and_feature_values::Feature
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -12094,7 +12090,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureViewDirectWriteResponse {
+impl serde::ser::Serialize for super::FeatureViewDirectWriteResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12120,7 +12116,7 @@ impl serde::ser::Serialize for crate::model::FeatureViewDirectWriteResponse {
 
 #[cfg(feature = "feature-online-store-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view_direct_write_response::WriteResponse {
+impl serde::ser::Serialize for super::feature_view_direct_write_response::WriteResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12146,7 +12142,7 @@ impl serde::ser::Serialize for crate::model::feature_view_direct_write_response:
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateFeatureGroupRequest {
+impl serde::ser::Serialize for super::CreateFeatureGroupRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12175,7 +12171,7 @@ impl serde::ser::Serialize for crate::model::CreateFeatureGroupRequest {
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetFeatureGroupRequest {
+impl serde::ser::Serialize for super::GetFeatureGroupRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12198,7 +12194,7 @@ impl serde::ser::Serialize for crate::model::GetFeatureGroupRequest {
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeatureGroupsRequest {
+impl serde::ser::Serialize for super::ListFeatureGroupsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12242,7 +12238,7 @@ impl serde::ser::Serialize for crate::model::ListFeatureGroupsRequest {
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeatureGroupsResponse {
+impl serde::ser::Serialize for super::ListFeatureGroupsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12268,7 +12264,7 @@ impl serde::ser::Serialize for crate::model::ListFeatureGroupsResponse {
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateFeatureGroupRequest {
+impl serde::ser::Serialize for super::UpdateFeatureGroupRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12294,7 +12290,7 @@ impl serde::ser::Serialize for crate::model::UpdateFeatureGroupRequest {
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteFeatureGroupRequest {
+impl serde::ser::Serialize for super::DeleteFeatureGroupRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12320,7 +12316,7 @@ impl serde::ser::Serialize for crate::model::DeleteFeatureGroupRequest {
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateFeatureGroupOperationMetadata {
+impl serde::ser::Serialize for super::CreateFeatureGroupOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12343,7 +12339,7 @@ impl serde::ser::Serialize for crate::model::CreateFeatureGroupOperationMetadata
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateFeatureGroupOperationMetadata {
+impl serde::ser::Serialize for super::UpdateFeatureGroupOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12400,7 +12396,7 @@ impl serde::ser::Serialize for crate::model::UpdateFeatureGroupOperationMetadata
     feature = "vizier-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateRegistryFeatureOperationMetadata {
+impl serde::ser::Serialize for super::CreateRegistryFeatureOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12423,7 +12419,7 @@ impl serde::ser::Serialize for crate::model::CreateRegistryFeatureOperationMetad
 
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateFeatureOperationMetadata {
+impl serde::ser::Serialize for super::UpdateFeatureOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12449,7 +12445,7 @@ impl serde::ser::Serialize for crate::model::UpdateFeatureOperationMetadata {
     feature = "featurestore-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::IdMatcher {
+impl serde::ser::Serialize for super::IdMatcher {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12475,7 +12471,7 @@ impl serde::ser::Serialize for crate::model::IdMatcher {
     feature = "featurestore-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureSelector {
+impl serde::ser::Serialize for super::FeatureSelector {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12498,7 +12494,7 @@ impl serde::ser::Serialize for crate::model::FeatureSelector {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureView {
+impl serde::ser::Serialize for super::FeatureView {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12563,7 +12559,7 @@ impl serde::ser::Serialize for crate::model::FeatureView {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view::BigQuerySource {
+impl serde::ser::Serialize for super::feature_view::BigQuerySource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12589,7 +12585,7 @@ impl serde::ser::Serialize for crate::model::feature_view::BigQuerySource {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view::SyncConfig {
+impl serde::ser::Serialize for super::feature_view::SyncConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12615,7 +12611,7 @@ impl serde::ser::Serialize for crate::model::feature_view::SyncConfig {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view::IndexConfig {
+impl serde::ser::Serialize for super::feature_view::IndexConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12667,7 +12663,7 @@ impl serde::ser::Serialize for crate::model::feature_view::IndexConfig {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view::index_config::BruteForceConfig {
+impl serde::ser::Serialize for super::feature_view::index_config::BruteForceConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12687,7 +12683,7 @@ impl serde::ser::Serialize for crate::model::feature_view::index_config::BruteFo
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view::index_config::TreeAHConfig {
+impl serde::ser::Serialize for super::feature_view::index_config::TreeAHConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12724,7 +12720,7 @@ impl serde::ser::Serialize for crate::model::feature_view::index_config::TreeAHC
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view::FeatureRegistrySource {
+impl serde::ser::Serialize for super::feature_view::FeatureRegistrySource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12761,7 +12757,7 @@ impl serde::ser::Serialize for crate::model::feature_view::FeatureRegistrySource
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view::feature_registry_source::FeatureGroup {
+impl serde::ser::Serialize for super::feature_view::feature_registry_source::FeatureGroup {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12787,7 +12783,7 @@ impl serde::ser::Serialize for crate::model::feature_view::feature_registry_sour
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view::VertexRagSource {
+impl serde::ser::Serialize for super::feature_view::VertexRagSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12822,7 +12818,7 @@ impl serde::ser::Serialize for crate::model::feature_view::VertexRagSource {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view::OptimizedConfig {
+impl serde::ser::Serialize for super::feature_view::OptimizedConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12845,7 +12841,7 @@ impl serde::ser::Serialize for crate::model::feature_view::OptimizedConfig {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureViewSync {
+impl serde::ser::Serialize for super::FeatureViewSync {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12886,7 +12882,7 @@ impl serde::ser::Serialize for crate::model::FeatureViewSync {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_view_sync::SyncSummary {
+impl serde::ser::Serialize for super::feature_view_sync::SyncSummary {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12933,7 +12929,7 @@ impl serde::ser::Serialize for crate::model::feature_view_sync::SyncSummary {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Featurestore {
+impl serde::ser::Serialize for super::Featurestore {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -12998,7 +12994,7 @@ impl serde::ser::Serialize for crate::model::Featurestore {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::featurestore::OnlineServingConfig {
+impl serde::ser::Serialize for super::featurestore::OnlineServingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13033,7 +13029,7 @@ impl serde::ser::Serialize for crate::model::featurestore::OnlineServingConfig {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::featurestore::online_serving_config::Scaling {
+impl serde::ser::Serialize for super::featurestore::online_serving_config::Scaling {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13092,7 +13088,7 @@ impl serde::ser::Serialize for crate::model::featurestore::online_serving_config
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeaturestoreMonitoringConfig {
+impl serde::ser::Serialize for super::FeaturestoreMonitoringConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13127,7 +13123,7 @@ impl serde::ser::Serialize for crate::model::FeaturestoreMonitoringConfig {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::featurestore_monitoring_config::SnapshotAnalysis {
+impl serde::ser::Serialize for super::featurestore_monitoring_config::SnapshotAnalysis {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13177,9 +13173,7 @@ impl serde::ser::Serialize for crate::model::featurestore_monitoring_config::Sna
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::featurestore_monitoring_config::ImportFeaturesAnalysis
-{
+impl serde::ser::Serialize for super::featurestore_monitoring_config::ImportFeaturesAnalysis {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13205,7 +13199,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::featurestore_monitoring_config::ThresholdConfig {
+impl serde::ser::Serialize for super::featurestore_monitoring_config::ThresholdConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13237,7 +13231,7 @@ impl serde::ser::Serialize for crate::model::featurestore_monitoring_config::Thr
 
 #[cfg(feature = "featurestore-online-serving-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WriteFeatureValuesRequest {
+impl serde::ser::Serialize for super::WriteFeatureValuesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13263,7 +13257,7 @@ impl serde::ser::Serialize for crate::model::WriteFeatureValuesRequest {
 
 #[cfg(feature = "featurestore-online-serving-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WriteFeatureValuesPayload {
+impl serde::ser::Serialize for super::WriteFeatureValuesPayload {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13289,7 +13283,7 @@ impl serde::ser::Serialize for crate::model::WriteFeatureValuesPayload {
 
 #[cfg(feature = "featurestore-online-serving-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WriteFeatureValuesResponse {
+impl serde::ser::Serialize for super::WriteFeatureValuesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13309,7 +13303,7 @@ impl serde::ser::Serialize for crate::model::WriteFeatureValuesResponse {
 
 #[cfg(feature = "featurestore-online-serving-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadFeatureValuesRequest {
+impl serde::ser::Serialize for super::ReadFeatureValuesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13338,7 +13332,7 @@ impl serde::ser::Serialize for crate::model::ReadFeatureValuesRequest {
 
 #[cfg(feature = "featurestore-online-serving-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadFeatureValuesResponse {
+impl serde::ser::Serialize for super::ReadFeatureValuesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13364,7 +13358,7 @@ impl serde::ser::Serialize for crate::model::ReadFeatureValuesResponse {
 
 #[cfg(feature = "featurestore-online-serving-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::read_feature_values_response::FeatureDescriptor {
+impl serde::ser::Serialize for super::read_feature_values_response::FeatureDescriptor {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13387,7 +13381,7 @@ impl serde::ser::Serialize for crate::model::read_feature_values_response::Featu
 
 #[cfg(feature = "featurestore-online-serving-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::read_feature_values_response::Header {
+impl serde::ser::Serialize for super::read_feature_values_response::Header {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13413,7 +13407,7 @@ impl serde::ser::Serialize for crate::model::read_feature_values_response::Heade
 
 #[cfg(feature = "featurestore-online-serving-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::read_feature_values_response::EntityView {
+impl serde::ser::Serialize for super::read_feature_values_response::EntityView {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13439,7 +13433,7 @@ impl serde::ser::Serialize for crate::model::read_feature_values_response::Entit
 
 #[cfg(feature = "featurestore-online-serving-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::read_feature_values_response::entity_view::Data {
+impl serde::ser::Serialize for super::read_feature_values_response::entity_view::Data {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13465,7 +13459,7 @@ impl serde::ser::Serialize for crate::model::read_feature_values_response::entit
 
 #[cfg(feature = "featurestore-online-serving-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamingReadFeatureValuesRequest {
+impl serde::ser::Serialize for super::StreamingReadFeatureValuesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13497,7 +13491,7 @@ impl serde::ser::Serialize for crate::model::StreamingReadFeatureValuesRequest {
     feature = "featurestore-online-serving-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureValue {
+impl serde::ser::Serialize for super::FeatureValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13580,7 +13574,7 @@ impl serde::ser::Serialize for crate::model::FeatureValue {
     feature = "featurestore-online-serving-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::feature_value::Metadata {
+impl serde::ser::Serialize for super::feature_value::Metadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13606,7 +13600,7 @@ impl serde::ser::Serialize for crate::model::feature_value::Metadata {
     feature = "featurestore-online-serving-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StructValue {
+impl serde::ser::Serialize for super::StructValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13632,7 +13626,7 @@ impl serde::ser::Serialize for crate::model::StructValue {
     feature = "featurestore-online-serving-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StructFieldValue {
+impl serde::ser::Serialize for super::StructFieldValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13658,7 +13652,7 @@ impl serde::ser::Serialize for crate::model::StructFieldValue {
 
 #[cfg(feature = "featurestore-online-serving-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureValueList {
+impl serde::ser::Serialize for super::FeatureValueList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13681,7 +13675,7 @@ impl serde::ser::Serialize for crate::model::FeatureValueList {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateFeaturestoreRequest {
+impl serde::ser::Serialize for super::CreateFeaturestoreRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13710,7 +13704,7 @@ impl serde::ser::Serialize for crate::model::CreateFeaturestoreRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetFeaturestoreRequest {
+impl serde::ser::Serialize for super::GetFeaturestoreRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13733,7 +13727,7 @@ impl serde::ser::Serialize for crate::model::GetFeaturestoreRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeaturestoresRequest {
+impl serde::ser::Serialize for super::ListFeaturestoresRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13780,7 +13774,7 @@ impl serde::ser::Serialize for crate::model::ListFeaturestoresRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeaturestoresResponse {
+impl serde::ser::Serialize for super::ListFeaturestoresResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13806,7 +13800,7 @@ impl serde::ser::Serialize for crate::model::ListFeaturestoresResponse {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateFeaturestoreRequest {
+impl serde::ser::Serialize for super::UpdateFeaturestoreRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13832,7 +13826,7 @@ impl serde::ser::Serialize for crate::model::UpdateFeaturestoreRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteFeaturestoreRequest {
+impl serde::ser::Serialize for super::DeleteFeaturestoreRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13858,7 +13852,7 @@ impl serde::ser::Serialize for crate::model::DeleteFeaturestoreRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportFeatureValuesRequest {
+impl serde::ser::Serialize for super::ImportFeatureValuesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13920,7 +13914,7 @@ impl serde::ser::Serialize for crate::model::ImportFeatureValuesRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::import_feature_values_request::FeatureSpec {
+impl serde::ser::Serialize for super::import_feature_values_request::FeatureSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -13946,7 +13940,7 @@ impl serde::ser::Serialize for crate::model::import_feature_values_request::Feat
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportFeatureValuesResponse {
+impl serde::ser::Serialize for super::ImportFeatureValuesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14020,7 +14014,7 @@ impl serde::ser::Serialize for crate::model::ImportFeatureValuesResponse {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchReadFeatureValuesRequest {
+impl serde::ser::Serialize for super::BatchReadFeatureValuesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14061,7 +14055,7 @@ impl serde::ser::Serialize for crate::model::BatchReadFeatureValuesRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::batch_read_feature_values_request::PassThroughField {
+impl serde::ser::Serialize for super::batch_read_feature_values_request::PassThroughField {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14084,7 +14078,7 @@ impl serde::ser::Serialize for crate::model::batch_read_feature_values_request::
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::batch_read_feature_values_request::EntityTypeSpec {
+impl serde::ser::Serialize for super::batch_read_feature_values_request::EntityTypeSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14113,7 +14107,7 @@ impl serde::ser::Serialize for crate::model::batch_read_feature_values_request::
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportFeatureValuesRequest {
+impl serde::ser::Serialize for super::ExportFeatureValuesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14151,7 +14145,7 @@ impl serde::ser::Serialize for crate::model::ExportFeatureValuesRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::export_feature_values_request::SnapshotExport {
+impl serde::ser::Serialize for super::export_feature_values_request::SnapshotExport {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14177,7 +14171,7 @@ impl serde::ser::Serialize for crate::model::export_feature_values_request::Snap
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::export_feature_values_request::FullExport {
+impl serde::ser::Serialize for super::export_feature_values_request::FullExport {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14203,7 +14197,7 @@ impl serde::ser::Serialize for crate::model::export_feature_values_request::Full
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DestinationFeatureSetting {
+impl serde::ser::Serialize for super::DestinationFeatureSetting {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14229,7 +14223,7 @@ impl serde::ser::Serialize for crate::model::DestinationFeatureSetting {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FeatureValueDestination {
+impl serde::ser::Serialize for super::FeatureValueDestination {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14258,7 +14252,7 @@ impl serde::ser::Serialize for crate::model::FeatureValueDestination {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportFeatureValuesResponse {
+impl serde::ser::Serialize for super::ExportFeatureValuesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14278,7 +14272,7 @@ impl serde::ser::Serialize for crate::model::ExportFeatureValuesResponse {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchReadFeatureValuesResponse {
+impl serde::ser::Serialize for super::BatchReadFeatureValuesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14298,7 +14292,7 @@ impl serde::ser::Serialize for crate::model::BatchReadFeatureValuesResponse {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateEntityTypeRequest {
+impl serde::ser::Serialize for super::CreateEntityTypeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14327,7 +14321,7 @@ impl serde::ser::Serialize for crate::model::CreateEntityTypeRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetEntityTypeRequest {
+impl serde::ser::Serialize for super::GetEntityTypeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14350,7 +14344,7 @@ impl serde::ser::Serialize for crate::model::GetEntityTypeRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListEntityTypesRequest {
+impl serde::ser::Serialize for super::ListEntityTypesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14397,7 +14391,7 @@ impl serde::ser::Serialize for crate::model::ListEntityTypesRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListEntityTypesResponse {
+impl serde::ser::Serialize for super::ListEntityTypesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14423,7 +14417,7 @@ impl serde::ser::Serialize for crate::model::ListEntityTypesResponse {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateEntityTypeRequest {
+impl serde::ser::Serialize for super::UpdateEntityTypeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14449,7 +14443,7 @@ impl serde::ser::Serialize for crate::model::UpdateEntityTypeRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteEntityTypeRequest {
+impl serde::ser::Serialize for super::DeleteEntityTypeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14475,7 +14469,7 @@ impl serde::ser::Serialize for crate::model::DeleteEntityTypeRequest {
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateFeatureRequest {
+impl serde::ser::Serialize for super::CreateFeatureRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14504,7 +14498,7 @@ impl serde::ser::Serialize for crate::model::CreateFeatureRequest {
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchCreateFeaturesRequest {
+impl serde::ser::Serialize for super::BatchCreateFeaturesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14530,7 +14524,7 @@ impl serde::ser::Serialize for crate::model::BatchCreateFeaturesRequest {
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchCreateFeaturesResponse {
+impl serde::ser::Serialize for super::BatchCreateFeaturesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14553,7 +14547,7 @@ impl serde::ser::Serialize for crate::model::BatchCreateFeaturesResponse {
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetFeatureRequest {
+impl serde::ser::Serialize for super::GetFeatureRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14576,7 +14570,7 @@ impl serde::ser::Serialize for crate::model::GetFeatureRequest {
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeaturesRequest {
+impl serde::ser::Serialize for super::ListFeaturesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14635,7 +14629,7 @@ impl serde::ser::Serialize for crate::model::ListFeaturesRequest {
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListFeaturesResponse {
+impl serde::ser::Serialize for super::ListFeaturesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14661,7 +14655,7 @@ impl serde::ser::Serialize for crate::model::ListFeaturesResponse {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchFeaturesRequest {
+impl serde::ser::Serialize for super::SearchFeaturesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14702,7 +14696,7 @@ impl serde::ser::Serialize for crate::model::SearchFeaturesRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchFeaturesResponse {
+impl serde::ser::Serialize for super::SearchFeaturesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14728,7 +14722,7 @@ impl serde::ser::Serialize for crate::model::SearchFeaturesResponse {
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateFeatureRequest {
+impl serde::ser::Serialize for super::UpdateFeatureRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14754,7 +14748,7 @@ impl serde::ser::Serialize for crate::model::UpdateFeatureRequest {
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteFeatureRequest {
+impl serde::ser::Serialize for super::DeleteFeatureRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14777,7 +14771,7 @@ impl serde::ser::Serialize for crate::model::DeleteFeatureRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateFeaturestoreOperationMetadata {
+impl serde::ser::Serialize for super::CreateFeaturestoreOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14800,7 +14794,7 @@ impl serde::ser::Serialize for crate::model::CreateFeaturestoreOperationMetadata
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateFeaturestoreOperationMetadata {
+impl serde::ser::Serialize for super::UpdateFeaturestoreOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14823,7 +14817,7 @@ impl serde::ser::Serialize for crate::model::UpdateFeaturestoreOperationMetadata
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportFeatureValuesOperationMetadata {
+impl serde::ser::Serialize for super::ImportFeatureValuesOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14920,7 +14914,7 @@ impl serde::ser::Serialize for crate::model::ImportFeatureValuesOperationMetadat
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportFeatureValuesOperationMetadata {
+impl serde::ser::Serialize for super::ExportFeatureValuesOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14943,7 +14937,7 @@ impl serde::ser::Serialize for crate::model::ExportFeatureValuesOperationMetadat
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchReadFeatureValuesOperationMetadata {
+impl serde::ser::Serialize for super::BatchReadFeatureValuesOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14966,7 +14960,7 @@ impl serde::ser::Serialize for crate::model::BatchReadFeatureValuesOperationMeta
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteFeatureValuesOperationMetadata {
+impl serde::ser::Serialize for super::DeleteFeatureValuesOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -14989,7 +14983,7 @@ impl serde::ser::Serialize for crate::model::DeleteFeatureValuesOperationMetadat
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateEntityTypeOperationMetadata {
+impl serde::ser::Serialize for super::CreateEntityTypeOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15012,7 +15006,7 @@ impl serde::ser::Serialize for crate::model::CreateEntityTypeOperationMetadata {
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateFeatureOperationMetadata {
+impl serde::ser::Serialize for super::CreateFeatureOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15035,7 +15029,7 @@ impl serde::ser::Serialize for crate::model::CreateFeatureOperationMetadata {
 
 #[cfg(any(feature = "feature-registry-service", feature = "featurestore-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchCreateFeaturesOperationMetadata {
+impl serde::ser::Serialize for super::BatchCreateFeaturesOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15058,7 +15052,7 @@ impl serde::ser::Serialize for crate::model::BatchCreateFeaturesOperationMetadat
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteFeatureValuesRequest {
+impl serde::ser::Serialize for super::DeleteFeatureValuesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15087,7 +15081,7 @@ impl serde::ser::Serialize for crate::model::DeleteFeatureValuesRequest {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::delete_feature_values_request::SelectEntity {
+impl serde::ser::Serialize for super::delete_feature_values_request::SelectEntity {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15110,9 +15104,7 @@ impl serde::ser::Serialize for crate::model::delete_feature_values_request::Sele
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::delete_feature_values_request::SelectTimeRangeAndFeature
-{
+impl serde::ser::Serialize for super::delete_feature_values_request::SelectTimeRangeAndFeature {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15141,7 +15133,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteFeatureValuesResponse {
+impl serde::ser::Serialize for super::DeleteFeatureValuesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15167,7 +15159,7 @@ impl serde::ser::Serialize for crate::model::DeleteFeatureValuesResponse {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::delete_feature_values_response::SelectEntity {
+impl serde::ser::Serialize for super::delete_feature_values_response::SelectEntity {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15217,9 +15209,7 @@ impl serde::ser::Serialize for crate::model::delete_feature_values_response::Sel
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::delete_feature_values_response::SelectTimeRangeAndFeature
-{
+impl serde::ser::Serialize for super::delete_feature_values_response::SelectTimeRangeAndFeature {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15284,7 +15274,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EntityIdSelector {
+impl serde::ser::Serialize for super::EntityIdSelector {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15310,7 +15300,7 @@ impl serde::ser::Serialize for crate::model::EntityIdSelector {
 
 #[cfg(feature = "gen-ai-cache-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateCachedContentRequest {
+impl serde::ser::Serialize for super::CreateCachedContentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15336,7 +15326,7 @@ impl serde::ser::Serialize for crate::model::CreateCachedContentRequest {
 
 #[cfg(feature = "gen-ai-cache-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetCachedContentRequest {
+impl serde::ser::Serialize for super::GetCachedContentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15359,7 +15349,7 @@ impl serde::ser::Serialize for crate::model::GetCachedContentRequest {
 
 #[cfg(feature = "gen-ai-cache-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateCachedContentRequest {
+impl serde::ser::Serialize for super::UpdateCachedContentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15385,7 +15375,7 @@ impl serde::ser::Serialize for crate::model::UpdateCachedContentRequest {
 
 #[cfg(feature = "gen-ai-cache-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteCachedContentRequest {
+impl serde::ser::Serialize for super::DeleteCachedContentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15408,7 +15398,7 @@ impl serde::ser::Serialize for crate::model::DeleteCachedContentRequest {
 
 #[cfg(feature = "gen-ai-cache-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListCachedContentsRequest {
+impl serde::ser::Serialize for super::ListCachedContentsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15446,7 +15436,7 @@ impl serde::ser::Serialize for crate::model::ListCachedContentsRequest {
 
 #[cfg(feature = "gen-ai-cache-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListCachedContentsResponse {
+impl serde::ser::Serialize for super::ListCachedContentsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15472,7 +15462,7 @@ impl serde::ser::Serialize for crate::model::ListCachedContentsResponse {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateTuningJobRequest {
+impl serde::ser::Serialize for super::CreateTuningJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15498,7 +15488,7 @@ impl serde::ser::Serialize for crate::model::CreateTuningJobRequest {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetTuningJobRequest {
+impl serde::ser::Serialize for super::GetTuningJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15521,7 +15511,7 @@ impl serde::ser::Serialize for crate::model::GetTuningJobRequest {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTuningJobsRequest {
+impl serde::ser::Serialize for super::ListTuningJobsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15562,7 +15552,7 @@ impl serde::ser::Serialize for crate::model::ListTuningJobsRequest {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTuningJobsResponse {
+impl serde::ser::Serialize for super::ListTuningJobsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15588,7 +15578,7 @@ impl serde::ser::Serialize for crate::model::ListTuningJobsResponse {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelTuningJobRequest {
+impl serde::ser::Serialize for super::CancelTuningJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15611,7 +15601,7 @@ impl serde::ser::Serialize for crate::model::CancelTuningJobRequest {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RebaseTunedModelRequest {
+impl serde::ser::Serialize for super::RebaseTunedModelRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15646,7 +15636,7 @@ impl serde::ser::Serialize for crate::model::RebaseTunedModelRequest {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RebaseTunedModelOperationMetadata {
+impl serde::ser::Serialize for super::RebaseTunedModelOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15669,7 +15659,7 @@ impl serde::ser::Serialize for crate::model::RebaseTunedModelOperationMetadata {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::HyperparameterTuningJob {
+impl serde::ser::Serialize for super::HyperparameterTuningJob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15770,7 +15760,7 @@ impl serde::ser::Serialize for crate::model::HyperparameterTuningJob {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Index {
+impl serde::ser::Serialize for super::Index {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15835,7 +15825,7 @@ impl serde::ser::Serialize for crate::model::Index {
 
 #[cfg(any(feature = "index-service", feature = "match-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::IndexDatapoint {
+impl serde::ser::Serialize for super::IndexDatapoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15887,7 +15877,7 @@ impl serde::ser::Serialize for crate::model::IndexDatapoint {
 
 #[cfg(any(feature = "index-service", feature = "match-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::index_datapoint::SparseEmbedding {
+impl serde::ser::Serialize for super::index_datapoint::SparseEmbedding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15935,7 +15925,7 @@ impl serde::ser::Serialize for crate::model::index_datapoint::SparseEmbedding {
 
 #[cfg(any(feature = "index-service", feature = "match-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::index_datapoint::Restriction {
+impl serde::ser::Serialize for super::index_datapoint::Restriction {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -15964,7 +15954,7 @@ impl serde::ser::Serialize for crate::model::index_datapoint::Restriction {
 
 #[cfg(any(feature = "index-service", feature = "match-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::index_datapoint::NumericRestriction {
+impl serde::ser::Serialize for super::index_datapoint::NumericRestriction {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16026,7 +16016,7 @@ impl serde::ser::Serialize for crate::model::index_datapoint::NumericRestriction
 
 #[cfg(any(feature = "index-service", feature = "match-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::index_datapoint::CrowdingTag {
+impl serde::ser::Serialize for super::index_datapoint::CrowdingTag {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16049,7 +16039,7 @@ impl serde::ser::Serialize for crate::model::index_datapoint::CrowdingTag {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::IndexStats {
+impl serde::ser::Serialize for super::IndexStats {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16105,7 +16095,7 @@ impl serde::ser::Serialize for crate::model::IndexStats {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::IndexEndpoint {
+impl serde::ser::Serialize for super::IndexEndpoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16182,7 +16172,7 @@ impl serde::ser::Serialize for crate::model::IndexEndpoint {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployedIndex {
+impl serde::ser::Serialize for super::DeployedIndex {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16247,7 +16237,7 @@ impl serde::ser::Serialize for crate::model::DeployedIndex {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployedIndexAuthConfig {
+impl serde::ser::Serialize for super::DeployedIndexAuthConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16270,7 +16260,7 @@ impl serde::ser::Serialize for crate::model::DeployedIndexAuthConfig {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::deployed_index_auth_config::AuthProvider {
+impl serde::ser::Serialize for super::deployed_index_auth_config::AuthProvider {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16296,7 +16286,7 @@ impl serde::ser::Serialize for crate::model::deployed_index_auth_config::AuthPro
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::IndexPrivateEndpoints {
+impl serde::ser::Serialize for super::IndexPrivateEndpoints {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16325,7 +16315,7 @@ impl serde::ser::Serialize for crate::model::IndexPrivateEndpoints {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateIndexEndpointRequest {
+impl serde::ser::Serialize for super::CreateIndexEndpointRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16351,7 +16341,7 @@ impl serde::ser::Serialize for crate::model::CreateIndexEndpointRequest {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateIndexEndpointOperationMetadata {
+impl serde::ser::Serialize for super::CreateIndexEndpointOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16374,7 +16364,7 @@ impl serde::ser::Serialize for crate::model::CreateIndexEndpointOperationMetadat
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetIndexEndpointRequest {
+impl serde::ser::Serialize for super::GetIndexEndpointRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16397,7 +16387,7 @@ impl serde::ser::Serialize for crate::model::GetIndexEndpointRequest {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListIndexEndpointsRequest {
+impl serde::ser::Serialize for super::ListIndexEndpointsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16441,7 +16431,7 @@ impl serde::ser::Serialize for crate::model::ListIndexEndpointsRequest {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListIndexEndpointsResponse {
+impl serde::ser::Serialize for super::ListIndexEndpointsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16467,7 +16457,7 @@ impl serde::ser::Serialize for crate::model::ListIndexEndpointsResponse {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateIndexEndpointRequest {
+impl serde::ser::Serialize for super::UpdateIndexEndpointRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16493,7 +16483,7 @@ impl serde::ser::Serialize for crate::model::UpdateIndexEndpointRequest {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteIndexEndpointRequest {
+impl serde::ser::Serialize for super::DeleteIndexEndpointRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16516,7 +16506,7 @@ impl serde::ser::Serialize for crate::model::DeleteIndexEndpointRequest {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployIndexRequest {
+impl serde::ser::Serialize for super::DeployIndexRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16542,7 +16532,7 @@ impl serde::ser::Serialize for crate::model::DeployIndexRequest {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployIndexResponse {
+impl serde::ser::Serialize for super::DeployIndexResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16565,7 +16555,7 @@ impl serde::ser::Serialize for crate::model::DeployIndexResponse {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployIndexOperationMetadata {
+impl serde::ser::Serialize for super::DeployIndexOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16591,7 +16581,7 @@ impl serde::ser::Serialize for crate::model::DeployIndexOperationMetadata {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UndeployIndexRequest {
+impl serde::ser::Serialize for super::UndeployIndexRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16617,7 +16607,7 @@ impl serde::ser::Serialize for crate::model::UndeployIndexRequest {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UndeployIndexResponse {
+impl serde::ser::Serialize for super::UndeployIndexResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16637,7 +16627,7 @@ impl serde::ser::Serialize for crate::model::UndeployIndexResponse {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UndeployIndexOperationMetadata {
+impl serde::ser::Serialize for super::UndeployIndexOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16660,7 +16650,7 @@ impl serde::ser::Serialize for crate::model::UndeployIndexOperationMetadata {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MutateDeployedIndexRequest {
+impl serde::ser::Serialize for super::MutateDeployedIndexRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16686,7 +16676,7 @@ impl serde::ser::Serialize for crate::model::MutateDeployedIndexRequest {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MutateDeployedIndexResponse {
+impl serde::ser::Serialize for super::MutateDeployedIndexResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16709,7 +16699,7 @@ impl serde::ser::Serialize for crate::model::MutateDeployedIndexResponse {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MutateDeployedIndexOperationMetadata {
+impl serde::ser::Serialize for super::MutateDeployedIndexOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16735,7 +16725,7 @@ impl serde::ser::Serialize for crate::model::MutateDeployedIndexOperationMetadat
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateIndexRequest {
+impl serde::ser::Serialize for super::CreateIndexRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16761,7 +16751,7 @@ impl serde::ser::Serialize for crate::model::CreateIndexRequest {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateIndexOperationMetadata {
+impl serde::ser::Serialize for super::CreateIndexOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16790,7 +16780,7 @@ impl serde::ser::Serialize for crate::model::CreateIndexOperationMetadata {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetIndexRequest {
+impl serde::ser::Serialize for super::GetIndexRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16813,7 +16803,7 @@ impl serde::ser::Serialize for crate::model::GetIndexRequest {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListIndexesRequest {
+impl serde::ser::Serialize for super::ListIndexesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16857,7 +16847,7 @@ impl serde::ser::Serialize for crate::model::ListIndexesRequest {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListIndexesResponse {
+impl serde::ser::Serialize for super::ListIndexesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16883,7 +16873,7 @@ impl serde::ser::Serialize for crate::model::ListIndexesResponse {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateIndexRequest {
+impl serde::ser::Serialize for super::UpdateIndexRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16909,7 +16899,7 @@ impl serde::ser::Serialize for crate::model::UpdateIndexRequest {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateIndexOperationMetadata {
+impl serde::ser::Serialize for super::UpdateIndexOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16938,7 +16928,7 @@ impl serde::ser::Serialize for crate::model::UpdateIndexOperationMetadata {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteIndexRequest {
+impl serde::ser::Serialize for super::DeleteIndexRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16961,7 +16951,7 @@ impl serde::ser::Serialize for crate::model::DeleteIndexRequest {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpsertDatapointsRequest {
+impl serde::ser::Serialize for super::UpsertDatapointsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -16990,7 +16980,7 @@ impl serde::ser::Serialize for crate::model::UpsertDatapointsRequest {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpsertDatapointsResponse {
+impl serde::ser::Serialize for super::UpsertDatapointsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17010,7 +17000,7 @@ impl serde::ser::Serialize for crate::model::UpsertDatapointsResponse {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RemoveDatapointsRequest {
+impl serde::ser::Serialize for super::RemoveDatapointsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17036,7 +17026,7 @@ impl serde::ser::Serialize for crate::model::RemoveDatapointsRequest {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RemoveDatapointsResponse {
+impl serde::ser::Serialize for super::RemoveDatapointsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17056,7 +17046,7 @@ impl serde::ser::Serialize for crate::model::RemoveDatapointsResponse {
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NearestNeighborSearchOperationMetadata {
+impl serde::ser::Serialize for super::NearestNeighborSearchOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17091,9 +17081,7 @@ impl serde::ser::Serialize for crate::model::NearestNeighborSearchOperationMetad
 
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::nearest_neighbor_search_operation_metadata::RecordError
-{
+impl serde::ser::Serialize for super::nearest_neighbor_search_operation_metadata::RecordError {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17129,7 +17117,7 @@ impl serde::ser::Serialize
 #[cfg(feature = "index-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::nearest_neighbor_search_operation_metadata::ContentValidationStats
+    for super::nearest_neighbor_search_operation_metadata::ContentValidationStats
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -17210,7 +17198,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AvroSource {
+impl serde::ser::Serialize for super::AvroSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17233,7 +17221,7 @@ impl serde::ser::Serialize for crate::model::AvroSource {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CsvSource {
+impl serde::ser::Serialize for super::CsvSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17266,7 +17254,7 @@ impl serde::ser::Serialize for crate::model::CsvSource {
     feature = "vertex-rag-data-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GcsSource {
+impl serde::ser::Serialize for super::GcsSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17297,7 +17285,7 @@ impl serde::ser::Serialize for crate::model::GcsSource {
     feature = "vertex-rag-data-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GcsDestination {
+impl serde::ser::Serialize for super::GcsDestination {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17324,7 +17312,7 @@ impl serde::ser::Serialize for crate::model::GcsDestination {
     feature = "job-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BigQuerySource {
+impl serde::ser::Serialize for super::BigQuerySource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17353,7 +17341,7 @@ impl serde::ser::Serialize for crate::model::BigQuerySource {
     feature = "vertex-rag-data-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BigQueryDestination {
+impl serde::ser::Serialize for super::BigQueryDestination {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17376,7 +17364,7 @@ impl serde::ser::Serialize for crate::model::BigQueryDestination {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CsvDestination {
+impl serde::ser::Serialize for super::CsvDestination {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17399,7 +17387,7 @@ impl serde::ser::Serialize for crate::model::CsvDestination {
 
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TFRecordDestination {
+impl serde::ser::Serialize for super::TFRecordDestination {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17422,7 +17410,7 @@ impl serde::ser::Serialize for crate::model::TFRecordDestination {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ContainerRegistryDestination {
+impl serde::ser::Serialize for super::ContainerRegistryDestination {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17445,7 +17433,7 @@ impl serde::ser::Serialize for crate::model::ContainerRegistryDestination {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GoogleDriveSource {
+impl serde::ser::Serialize for super::GoogleDriveSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17468,7 +17456,7 @@ impl serde::ser::Serialize for crate::model::GoogleDriveSource {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::google_drive_source::ResourceId {
+impl serde::ser::Serialize for super::google_drive_source::ResourceId {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17494,7 +17482,7 @@ impl serde::ser::Serialize for crate::model::google_drive_source::ResourceId {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DirectUploadSource {
+impl serde::ser::Serialize for super::DirectUploadSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17514,7 +17502,7 @@ impl serde::ser::Serialize for crate::model::DirectUploadSource {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SlackSource {
+impl serde::ser::Serialize for super::SlackSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17537,7 +17525,7 @@ impl serde::ser::Serialize for crate::model::SlackSource {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::slack_source::SlackChannels {
+impl serde::ser::Serialize for super::slack_source::SlackChannels {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17563,7 +17551,7 @@ impl serde::ser::Serialize for crate::model::slack_source::SlackChannels {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::slack_source::slack_channels::SlackChannel {
+impl serde::ser::Serialize for super::slack_source::slack_channels::SlackChannel {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17592,7 +17580,7 @@ impl serde::ser::Serialize for crate::model::slack_source::slack_channels::Slack
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::JiraSource {
+impl serde::ser::Serialize for super::JiraSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17615,7 +17603,7 @@ impl serde::ser::Serialize for crate::model::JiraSource {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::jira_source::JiraQueries {
+impl serde::ser::Serialize for super::jira_source::JiraQueries {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17650,7 +17638,7 @@ impl serde::ser::Serialize for crate::model::jira_source::JiraQueries {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SharePointSources {
+impl serde::ser::Serialize for super::SharePointSources {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17673,7 +17661,7 @@ impl serde::ser::Serialize for crate::model::SharePointSources {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::share_point_sources::SharePointSource {
+impl serde::ser::Serialize for super::share_point_sources::SharePointSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17720,7 +17708,7 @@ impl serde::ser::Serialize for crate::model::share_point_sources::SharePointSour
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateCustomJobRequest {
+impl serde::ser::Serialize for super::CreateCustomJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17746,7 +17734,7 @@ impl serde::ser::Serialize for crate::model::CreateCustomJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetCustomJobRequest {
+impl serde::ser::Serialize for super::GetCustomJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17769,7 +17757,7 @@ impl serde::ser::Serialize for crate::model::GetCustomJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListCustomJobsRequest {
+impl serde::ser::Serialize for super::ListCustomJobsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17813,7 +17801,7 @@ impl serde::ser::Serialize for crate::model::ListCustomJobsRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListCustomJobsResponse {
+impl serde::ser::Serialize for super::ListCustomJobsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17839,7 +17827,7 @@ impl serde::ser::Serialize for crate::model::ListCustomJobsResponse {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteCustomJobRequest {
+impl serde::ser::Serialize for super::DeleteCustomJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17862,7 +17850,7 @@ impl serde::ser::Serialize for crate::model::DeleteCustomJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelCustomJobRequest {
+impl serde::ser::Serialize for super::CancelCustomJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17885,7 +17873,7 @@ impl serde::ser::Serialize for crate::model::CancelCustomJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateDataLabelingJobRequest {
+impl serde::ser::Serialize for super::CreateDataLabelingJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17911,7 +17899,7 @@ impl serde::ser::Serialize for crate::model::CreateDataLabelingJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetDataLabelingJobRequest {
+impl serde::ser::Serialize for super::GetDataLabelingJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17934,7 +17922,7 @@ impl serde::ser::Serialize for crate::model::GetDataLabelingJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDataLabelingJobsRequest {
+impl serde::ser::Serialize for super::ListDataLabelingJobsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -17981,7 +17969,7 @@ impl serde::ser::Serialize for crate::model::ListDataLabelingJobsRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDataLabelingJobsResponse {
+impl serde::ser::Serialize for super::ListDataLabelingJobsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18007,7 +17995,7 @@ impl serde::ser::Serialize for crate::model::ListDataLabelingJobsResponse {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteDataLabelingJobRequest {
+impl serde::ser::Serialize for super::DeleteDataLabelingJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18030,7 +18018,7 @@ impl serde::ser::Serialize for crate::model::DeleteDataLabelingJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelDataLabelingJobRequest {
+impl serde::ser::Serialize for super::CancelDataLabelingJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18053,7 +18041,7 @@ impl serde::ser::Serialize for crate::model::CancelDataLabelingJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateHyperparameterTuningJobRequest {
+impl serde::ser::Serialize for super::CreateHyperparameterTuningJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18079,7 +18067,7 @@ impl serde::ser::Serialize for crate::model::CreateHyperparameterTuningJobReques
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetHyperparameterTuningJobRequest {
+impl serde::ser::Serialize for super::GetHyperparameterTuningJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18102,7 +18090,7 @@ impl serde::ser::Serialize for crate::model::GetHyperparameterTuningJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListHyperparameterTuningJobsRequest {
+impl serde::ser::Serialize for super::ListHyperparameterTuningJobsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18146,7 +18134,7 @@ impl serde::ser::Serialize for crate::model::ListHyperparameterTuningJobsRequest
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListHyperparameterTuningJobsResponse {
+impl serde::ser::Serialize for super::ListHyperparameterTuningJobsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18172,7 +18160,7 @@ impl serde::ser::Serialize for crate::model::ListHyperparameterTuningJobsRespons
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteHyperparameterTuningJobRequest {
+impl serde::ser::Serialize for super::DeleteHyperparameterTuningJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18195,7 +18183,7 @@ impl serde::ser::Serialize for crate::model::DeleteHyperparameterTuningJobReques
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelHyperparameterTuningJobRequest {
+impl serde::ser::Serialize for super::CancelHyperparameterTuningJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18218,7 +18206,7 @@ impl serde::ser::Serialize for crate::model::CancelHyperparameterTuningJobReques
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateNasJobRequest {
+impl serde::ser::Serialize for super::CreateNasJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18244,7 +18232,7 @@ impl serde::ser::Serialize for crate::model::CreateNasJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetNasJobRequest {
+impl serde::ser::Serialize for super::GetNasJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18267,7 +18255,7 @@ impl serde::ser::Serialize for crate::model::GetNasJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNasJobsRequest {
+impl serde::ser::Serialize for super::ListNasJobsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18311,7 +18299,7 @@ impl serde::ser::Serialize for crate::model::ListNasJobsRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNasJobsResponse {
+impl serde::ser::Serialize for super::ListNasJobsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18337,7 +18325,7 @@ impl serde::ser::Serialize for crate::model::ListNasJobsResponse {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteNasJobRequest {
+impl serde::ser::Serialize for super::DeleteNasJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18360,7 +18348,7 @@ impl serde::ser::Serialize for crate::model::DeleteNasJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelNasJobRequest {
+impl serde::ser::Serialize for super::CancelNasJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18383,7 +18371,7 @@ impl serde::ser::Serialize for crate::model::CancelNasJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetNasTrialDetailRequest {
+impl serde::ser::Serialize for super::GetNasTrialDetailRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18406,7 +18394,7 @@ impl serde::ser::Serialize for crate::model::GetNasTrialDetailRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNasTrialDetailsRequest {
+impl serde::ser::Serialize for super::ListNasTrialDetailsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18444,7 +18432,7 @@ impl serde::ser::Serialize for crate::model::ListNasTrialDetailsRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNasTrialDetailsResponse {
+impl serde::ser::Serialize for super::ListNasTrialDetailsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18470,7 +18458,7 @@ impl serde::ser::Serialize for crate::model::ListNasTrialDetailsResponse {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateBatchPredictionJobRequest {
+impl serde::ser::Serialize for super::CreateBatchPredictionJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18496,7 +18484,7 @@ impl serde::ser::Serialize for crate::model::CreateBatchPredictionJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetBatchPredictionJobRequest {
+impl serde::ser::Serialize for super::GetBatchPredictionJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18519,7 +18507,7 @@ impl serde::ser::Serialize for crate::model::GetBatchPredictionJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListBatchPredictionJobsRequest {
+impl serde::ser::Serialize for super::ListBatchPredictionJobsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18563,7 +18551,7 @@ impl serde::ser::Serialize for crate::model::ListBatchPredictionJobsRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListBatchPredictionJobsResponse {
+impl serde::ser::Serialize for super::ListBatchPredictionJobsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18589,7 +18577,7 @@ impl serde::ser::Serialize for crate::model::ListBatchPredictionJobsResponse {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteBatchPredictionJobRequest {
+impl serde::ser::Serialize for super::DeleteBatchPredictionJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18612,7 +18600,7 @@ impl serde::ser::Serialize for crate::model::DeleteBatchPredictionJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelBatchPredictionJobRequest {
+impl serde::ser::Serialize for super::CancelBatchPredictionJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18635,7 +18623,7 @@ impl serde::ser::Serialize for crate::model::CancelBatchPredictionJobRequest {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateModelDeploymentMonitoringJobRequest {
+impl serde::ser::Serialize for super::CreateModelDeploymentMonitoringJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18664,7 +18652,7 @@ impl serde::ser::Serialize for crate::model::CreateModelDeploymentMonitoringJobR
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest {
+impl serde::ser::Serialize for super::SearchModelDeploymentMonitoringStatsAnomaliesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18720,14 +18708,16 @@ impl serde::ser::Serialize for crate::model::SearchModelDeploymentMonitoringStat
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::search_model_deployment_monitoring_stats_anomalies_request::StatsAnomaliesObjective {
+impl serde::ser::Serialize
+    for super::search_model_deployment_monitoring_stats_anomalies_request::StatsAnomaliesObjective
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.r#type) {
             state.serialize_entry("type", &self.r#type)?;
@@ -18755,7 +18745,7 @@ impl serde::ser::Serialize for crate::model::search_model_deployment_monitoring_
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchModelDeploymentMonitoringStatsAnomaliesResponse {
+impl serde::ser::Serialize for super::SearchModelDeploymentMonitoringStatsAnomaliesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18781,7 +18771,7 @@ impl serde::ser::Serialize for crate::model::SearchModelDeploymentMonitoringStat
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetModelDeploymentMonitoringJobRequest {
+impl serde::ser::Serialize for super::GetModelDeploymentMonitoringJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18804,7 +18794,7 @@ impl serde::ser::Serialize for crate::model::GetModelDeploymentMonitoringJobRequ
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelDeploymentMonitoringJobsRequest {
+impl serde::ser::Serialize for super::ListModelDeploymentMonitoringJobsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18848,7 +18838,7 @@ impl serde::ser::Serialize for crate::model::ListModelDeploymentMonitoringJobsRe
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelDeploymentMonitoringJobsResponse {
+impl serde::ser::Serialize for super::ListModelDeploymentMonitoringJobsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18877,7 +18867,7 @@ impl serde::ser::Serialize for crate::model::ListModelDeploymentMonitoringJobsRe
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateModelDeploymentMonitoringJobRequest {
+impl serde::ser::Serialize for super::UpdateModelDeploymentMonitoringJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18906,7 +18896,7 @@ impl serde::ser::Serialize for crate::model::UpdateModelDeploymentMonitoringJobR
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteModelDeploymentMonitoringJobRequest {
+impl serde::ser::Serialize for super::DeleteModelDeploymentMonitoringJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18929,7 +18919,7 @@ impl serde::ser::Serialize for crate::model::DeleteModelDeploymentMonitoringJobR
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PauseModelDeploymentMonitoringJobRequest {
+impl serde::ser::Serialize for super::PauseModelDeploymentMonitoringJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18952,7 +18942,7 @@ impl serde::ser::Serialize for crate::model::PauseModelDeploymentMonitoringJobRe
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResumeModelDeploymentMonitoringJobRequest {
+impl serde::ser::Serialize for super::ResumeModelDeploymentMonitoringJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18975,7 +18965,7 @@ impl serde::ser::Serialize for crate::model::ResumeModelDeploymentMonitoringJobR
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateModelDeploymentMonitoringJobOperationMetadata {
+impl serde::ser::Serialize for super::UpdateModelDeploymentMonitoringJobOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -18998,7 +18988,7 @@ impl serde::ser::Serialize for crate::model::UpdateModelDeploymentMonitoringJobO
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LineageSubgraph {
+impl serde::ser::Serialize for super::LineageSubgraph {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19027,7 +19017,7 @@ impl serde::ser::Serialize for crate::model::LineageSubgraph {
 
 #[cfg(feature = "llm-utility-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ComputeTokensRequest {
+impl serde::ser::Serialize for super::ComputeTokensRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19059,7 +19049,7 @@ impl serde::ser::Serialize for crate::model::ComputeTokensRequest {
 
 #[cfg(feature = "llm-utility-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TokensInfo {
+impl serde::ser::Serialize for super::TokensInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19110,7 +19100,7 @@ impl serde::ser::Serialize for crate::model::TokensInfo {
 
 #[cfg(feature = "llm-utility-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ComputeTokensResponse {
+impl serde::ser::Serialize for super::ComputeTokensResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19142,7 +19132,7 @@ impl serde::ser::Serialize for crate::model::ComputeTokensResponse {
     feature = "schedule-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MachineSpec {
+impl serde::ser::Serialize for super::MachineSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19191,7 +19181,7 @@ impl serde::ser::Serialize for crate::model::MachineSpec {
     feature = "model-garden-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DedicatedResources {
+impl serde::ser::Serialize for super::DedicatedResources {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19265,7 +19255,7 @@ impl serde::ser::Serialize for crate::model::DedicatedResources {
     feature = "model-garden-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AutomaticResources {
+impl serde::ser::Serialize for super::AutomaticResources {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19309,7 +19299,7 @@ impl serde::ser::Serialize for crate::model::AutomaticResources {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchDedicatedResources {
+impl serde::ser::Serialize for super::BatchDedicatedResources {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19359,7 +19349,7 @@ impl serde::ser::Serialize for crate::model::BatchDedicatedResources {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResourcesConsumed {
+impl serde::ser::Serialize for super::ResourcesConsumed {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19391,7 +19381,7 @@ impl serde::ser::Serialize for crate::model::ResourcesConsumed {
 
 #[cfg(any(feature = "job-service", feature = "persistent-resource-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DiskSpec {
+impl serde::ser::Serialize for super::DiskSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19426,7 +19416,7 @@ impl serde::ser::Serialize for crate::model::DiskSpec {
 
 #[cfg(any(feature = "notebook-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PersistentDiskSpec {
+impl serde::ser::Serialize for super::PersistentDiskSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19461,7 +19451,7 @@ impl serde::ser::Serialize for crate::model::PersistentDiskSpec {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NfsMount {
+impl serde::ser::Serialize for super::NfsMount {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19495,7 +19485,7 @@ impl serde::ser::Serialize for crate::model::NfsMount {
     feature = "model-garden-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AutoscalingMetricSpec {
+impl serde::ser::Serialize for super::AutoscalingMetricSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19530,7 +19520,7 @@ impl serde::ser::Serialize for crate::model::AutoscalingMetricSpec {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ShieldedVmConfig {
+impl serde::ser::Serialize for super::ShieldedVmConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19553,7 +19543,7 @@ impl serde::ser::Serialize for crate::model::ShieldedVmConfig {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ManualBatchTuningParameters {
+impl serde::ser::Serialize for super::ManualBatchTuningParameters {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19585,7 +19575,7 @@ impl serde::ser::Serialize for crate::model::ManualBatchTuningParameters {
 
 #[cfg(feature = "match-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FindNeighborsRequest {
+impl serde::ser::Serialize for super::FindNeighborsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19617,7 +19607,7 @@ impl serde::ser::Serialize for crate::model::FindNeighborsRequest {
 
 #[cfg(feature = "match-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::find_neighbors_request::Query {
+impl serde::ser::Serialize for super::find_neighbors_request::Query {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19700,7 +19690,7 @@ impl serde::ser::Serialize for crate::model::find_neighbors_request::Query {
 
 #[cfg(feature = "match-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::find_neighbors_request::query::Rrf {
+impl serde::ser::Serialize for super::find_neighbors_request::query::Rrf {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19732,7 +19722,7 @@ impl serde::ser::Serialize for crate::model::find_neighbors_request::query::Rrf 
 
 #[cfg(feature = "match-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FindNeighborsResponse {
+impl serde::ser::Serialize for super::FindNeighborsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19755,7 +19745,7 @@ impl serde::ser::Serialize for crate::model::FindNeighborsResponse {
 
 #[cfg(feature = "match-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::find_neighbors_response::Neighbor {
+impl serde::ser::Serialize for super::find_neighbors_response::Neighbor {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19802,7 +19792,7 @@ impl serde::ser::Serialize for crate::model::find_neighbors_response::Neighbor {
 
 #[cfg(feature = "match-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::find_neighbors_response::NearestNeighbors {
+impl serde::ser::Serialize for super::find_neighbors_response::NearestNeighbors {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19828,7 +19818,7 @@ impl serde::ser::Serialize for crate::model::find_neighbors_response::NearestNei
 
 #[cfg(feature = "match-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadIndexDatapointsRequest {
+impl serde::ser::Serialize for super::ReadIndexDatapointsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19857,7 +19847,7 @@ impl serde::ser::Serialize for crate::model::ReadIndexDatapointsRequest {
 
 #[cfg(feature = "match-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadIndexDatapointsResponse {
+impl serde::ser::Serialize for super::ReadIndexDatapointsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19880,7 +19870,7 @@ impl serde::ser::Serialize for crate::model::ReadIndexDatapointsResponse {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MetadataSchema {
+impl serde::ser::Serialize for super::MetadataSchema {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19918,7 +19908,7 @@ impl serde::ser::Serialize for crate::model::MetadataSchema {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateMetadataStoreRequest {
+impl serde::ser::Serialize for super::CreateMetadataStoreRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19947,7 +19937,7 @@ impl serde::ser::Serialize for crate::model::CreateMetadataStoreRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateMetadataStoreOperationMetadata {
+impl serde::ser::Serialize for super::CreateMetadataStoreOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19970,7 +19960,7 @@ impl serde::ser::Serialize for crate::model::CreateMetadataStoreOperationMetadat
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetMetadataStoreRequest {
+impl serde::ser::Serialize for super::GetMetadataStoreRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -19993,7 +19983,7 @@ impl serde::ser::Serialize for crate::model::GetMetadataStoreRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListMetadataStoresRequest {
+impl serde::ser::Serialize for super::ListMetadataStoresRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20031,7 +20021,7 @@ impl serde::ser::Serialize for crate::model::ListMetadataStoresRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListMetadataStoresResponse {
+impl serde::ser::Serialize for super::ListMetadataStoresResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20057,7 +20047,7 @@ impl serde::ser::Serialize for crate::model::ListMetadataStoresResponse {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteMetadataStoreRequest {
+impl serde::ser::Serialize for super::DeleteMetadataStoreRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20083,7 +20073,7 @@ impl serde::ser::Serialize for crate::model::DeleteMetadataStoreRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteMetadataStoreOperationMetadata {
+impl serde::ser::Serialize for super::DeleteMetadataStoreOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20106,7 +20096,7 @@ impl serde::ser::Serialize for crate::model::DeleteMetadataStoreOperationMetadat
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateArtifactRequest {
+impl serde::ser::Serialize for super::CreateArtifactRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20135,7 +20125,7 @@ impl serde::ser::Serialize for crate::model::CreateArtifactRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetArtifactRequest {
+impl serde::ser::Serialize for super::GetArtifactRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20158,7 +20148,7 @@ impl serde::ser::Serialize for crate::model::GetArtifactRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListArtifactsRequest {
+impl serde::ser::Serialize for super::ListArtifactsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20202,7 +20192,7 @@ impl serde::ser::Serialize for crate::model::ListArtifactsRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListArtifactsResponse {
+impl serde::ser::Serialize for super::ListArtifactsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20228,7 +20218,7 @@ impl serde::ser::Serialize for crate::model::ListArtifactsResponse {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateArtifactRequest {
+impl serde::ser::Serialize for super::UpdateArtifactRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20257,7 +20247,7 @@ impl serde::ser::Serialize for crate::model::UpdateArtifactRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteArtifactRequest {
+impl serde::ser::Serialize for super::DeleteArtifactRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20283,7 +20273,7 @@ impl serde::ser::Serialize for crate::model::DeleteArtifactRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PurgeArtifactsRequest {
+impl serde::ser::Serialize for super::PurgeArtifactsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20312,7 +20302,7 @@ impl serde::ser::Serialize for crate::model::PurgeArtifactsRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PurgeArtifactsResponse {
+impl serde::ser::Serialize for super::PurgeArtifactsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20347,7 +20337,7 @@ impl serde::ser::Serialize for crate::model::PurgeArtifactsResponse {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PurgeArtifactsMetadata {
+impl serde::ser::Serialize for super::PurgeArtifactsMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20370,7 +20360,7 @@ impl serde::ser::Serialize for crate::model::PurgeArtifactsMetadata {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateContextRequest {
+impl serde::ser::Serialize for super::CreateContextRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20399,7 +20389,7 @@ impl serde::ser::Serialize for crate::model::CreateContextRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetContextRequest {
+impl serde::ser::Serialize for super::GetContextRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20422,7 +20412,7 @@ impl serde::ser::Serialize for crate::model::GetContextRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListContextsRequest {
+impl serde::ser::Serialize for super::ListContextsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20466,7 +20456,7 @@ impl serde::ser::Serialize for crate::model::ListContextsRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListContextsResponse {
+impl serde::ser::Serialize for super::ListContextsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20492,7 +20482,7 @@ impl serde::ser::Serialize for crate::model::ListContextsResponse {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateContextRequest {
+impl serde::ser::Serialize for super::UpdateContextRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20521,7 +20511,7 @@ impl serde::ser::Serialize for crate::model::UpdateContextRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteContextRequest {
+impl serde::ser::Serialize for super::DeleteContextRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20550,7 +20540,7 @@ impl serde::ser::Serialize for crate::model::DeleteContextRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PurgeContextsRequest {
+impl serde::ser::Serialize for super::PurgeContextsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20579,7 +20569,7 @@ impl serde::ser::Serialize for crate::model::PurgeContextsRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PurgeContextsResponse {
+impl serde::ser::Serialize for super::PurgeContextsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20614,7 +20604,7 @@ impl serde::ser::Serialize for crate::model::PurgeContextsResponse {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PurgeContextsMetadata {
+impl serde::ser::Serialize for super::PurgeContextsMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20637,7 +20627,7 @@ impl serde::ser::Serialize for crate::model::PurgeContextsMetadata {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddContextArtifactsAndExecutionsRequest {
+impl serde::ser::Serialize for super::AddContextArtifactsAndExecutionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20666,7 +20656,7 @@ impl serde::ser::Serialize for crate::model::AddContextArtifactsAndExecutionsReq
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddContextArtifactsAndExecutionsResponse {
+impl serde::ser::Serialize for super::AddContextArtifactsAndExecutionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20686,53 +20676,7 @@ impl serde::ser::Serialize for crate::model::AddContextArtifactsAndExecutionsRes
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddContextChildrenRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.context.is_empty() {
-            state.serialize_entry("context", &self.context)?;
-        }
-        if !self.child_contexts.is_empty() {
-            state.serialize_entry("childContexts", &self.child_contexts)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "metadata-service")]
-#[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddContextChildrenResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "metadata-service")]
-#[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RemoveContextChildrenRequest {
+impl serde::ser::Serialize for super::AddContextChildrenRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20758,7 +20702,7 @@ impl serde::ser::Serialize for crate::model::RemoveContextChildrenRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RemoveContextChildrenResponse {
+impl serde::ser::Serialize for super::AddContextChildrenResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20778,7 +20722,53 @@ impl serde::ser::Serialize for crate::model::RemoveContextChildrenResponse {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QueryContextLineageSubgraphRequest {
+impl serde::ser::Serialize for super::RemoveContextChildrenRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.context.is_empty() {
+            state.serialize_entry("context", &self.context)?;
+        }
+        if !self.child_contexts.is_empty() {
+            state.serialize_entry("childContexts", &self.child_contexts)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "metadata-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RemoveContextChildrenResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "metadata-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::QueryContextLineageSubgraphRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20801,7 +20791,7 @@ impl serde::ser::Serialize for crate::model::QueryContextLineageSubgraphRequest 
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateExecutionRequest {
+impl serde::ser::Serialize for super::CreateExecutionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20830,7 +20820,7 @@ impl serde::ser::Serialize for crate::model::CreateExecutionRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetExecutionRequest {
+impl serde::ser::Serialize for super::GetExecutionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20853,7 +20843,7 @@ impl serde::ser::Serialize for crate::model::GetExecutionRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListExecutionsRequest {
+impl serde::ser::Serialize for super::ListExecutionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20897,7 +20887,7 @@ impl serde::ser::Serialize for crate::model::ListExecutionsRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListExecutionsResponse {
+impl serde::ser::Serialize for super::ListExecutionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20923,7 +20913,7 @@ impl serde::ser::Serialize for crate::model::ListExecutionsResponse {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateExecutionRequest {
+impl serde::ser::Serialize for super::UpdateExecutionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20952,7 +20942,7 @@ impl serde::ser::Serialize for crate::model::UpdateExecutionRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteExecutionRequest {
+impl serde::ser::Serialize for super::DeleteExecutionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -20978,7 +20968,7 @@ impl serde::ser::Serialize for crate::model::DeleteExecutionRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PurgeExecutionsRequest {
+impl serde::ser::Serialize for super::PurgeExecutionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21007,7 +20997,7 @@ impl serde::ser::Serialize for crate::model::PurgeExecutionsRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PurgeExecutionsResponse {
+impl serde::ser::Serialize for super::PurgeExecutionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21042,7 +21032,7 @@ impl serde::ser::Serialize for crate::model::PurgeExecutionsResponse {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PurgeExecutionsMetadata {
+impl serde::ser::Serialize for super::PurgeExecutionsMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21065,7 +21055,7 @@ impl serde::ser::Serialize for crate::model::PurgeExecutionsMetadata {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddExecutionEventsRequest {
+impl serde::ser::Serialize for super::AddExecutionEventsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21091,7 +21081,7 @@ impl serde::ser::Serialize for crate::model::AddExecutionEventsRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddExecutionEventsResponse {
+impl serde::ser::Serialize for super::AddExecutionEventsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21111,7 +21101,7 @@ impl serde::ser::Serialize for crate::model::AddExecutionEventsResponse {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QueryExecutionInputsAndOutputsRequest {
+impl serde::ser::Serialize for super::QueryExecutionInputsAndOutputsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21134,7 +21124,7 @@ impl serde::ser::Serialize for crate::model::QueryExecutionInputsAndOutputsReque
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateMetadataSchemaRequest {
+impl serde::ser::Serialize for super::CreateMetadataSchemaRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21163,7 +21153,7 @@ impl serde::ser::Serialize for crate::model::CreateMetadataSchemaRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetMetadataSchemaRequest {
+impl serde::ser::Serialize for super::GetMetadataSchemaRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21186,7 +21176,7 @@ impl serde::ser::Serialize for crate::model::GetMetadataSchemaRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListMetadataSchemasRequest {
+impl serde::ser::Serialize for super::ListMetadataSchemasRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21227,7 +21217,7 @@ impl serde::ser::Serialize for crate::model::ListMetadataSchemasRequest {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListMetadataSchemasResponse {
+impl serde::ser::Serialize for super::ListMetadataSchemasResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21253,7 +21243,7 @@ impl serde::ser::Serialize for crate::model::ListMetadataSchemasResponse {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QueryArtifactLineageSubgraphRequest {
+impl serde::ser::Serialize for super::QueryArtifactLineageSubgraphRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21291,7 +21281,7 @@ impl serde::ser::Serialize for crate::model::QueryArtifactLineageSubgraphRequest
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MetadataStore {
+impl serde::ser::Serialize for super::MetadataStore {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21332,7 +21322,7 @@ impl serde::ser::Serialize for crate::model::MetadataStore {
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::metadata_store::MetadataStoreState {
+impl serde::ser::Serialize for super::metadata_store::MetadataStoreState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21367,7 +21357,7 @@ impl serde::ser::Serialize for crate::model::metadata_store::MetadataStoreState 
 
 #[cfg(feature = "metadata-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::metadata_store::DataplexConfig {
+impl serde::ser::Serialize for super::metadata_store::DataplexConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21390,7 +21380,7 @@ impl serde::ser::Serialize for crate::model::metadata_store::DataplexConfig {
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MigratableResource {
+impl serde::ser::Serialize for super::MigratableResource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21428,7 +21418,7 @@ impl serde::ser::Serialize for crate::model::MigratableResource {
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::migratable_resource::MlEngineModelVersion {
+impl serde::ser::Serialize for super::migratable_resource::MlEngineModelVersion {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21454,7 +21444,7 @@ impl serde::ser::Serialize for crate::model::migratable_resource::MlEngineModelV
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::migratable_resource::AutomlModel {
+impl serde::ser::Serialize for super::migratable_resource::AutomlModel {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21480,7 +21470,7 @@ impl serde::ser::Serialize for crate::model::migratable_resource::AutomlModel {
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::migratable_resource::AutomlDataset {
+impl serde::ser::Serialize for super::migratable_resource::AutomlDataset {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21506,7 +21496,7 @@ impl serde::ser::Serialize for crate::model::migratable_resource::AutomlDataset 
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::migratable_resource::DataLabelingDataset {
+impl serde::ser::Serialize for super::migratable_resource::DataLabelingDataset {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21539,7 +21529,7 @@ impl serde::ser::Serialize for crate::model::migratable_resource::DataLabelingDa
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::migratable_resource::data_labeling_dataset::DataLabelingAnnotatedDataset
+    for super::migratable_resource::data_labeling_dataset::DataLabelingAnnotatedDataset
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -21569,7 +21559,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchMigratableResourcesRequest {
+impl serde::ser::Serialize for super::SearchMigratableResourcesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21610,7 +21600,7 @@ impl serde::ser::Serialize for crate::model::SearchMigratableResourcesRequest {
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchMigratableResourcesResponse {
+impl serde::ser::Serialize for super::SearchMigratableResourcesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21636,7 +21626,7 @@ impl serde::ser::Serialize for crate::model::SearchMigratableResourcesResponse {
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchMigrateResourcesRequest {
+impl serde::ser::Serialize for super::BatchMigrateResourcesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21662,7 +21652,7 @@ impl serde::ser::Serialize for crate::model::BatchMigrateResourcesRequest {
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MigrateResourceRequest {
+impl serde::ser::Serialize for super::MigrateResourceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21694,9 +21684,7 @@ impl serde::ser::Serialize for crate::model::MigrateResourceRequest {
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::migrate_resource_request::MigrateMlEngineModelVersionConfig
-{
+impl serde::ser::Serialize for super::migrate_resource_request::MigrateMlEngineModelVersionConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21725,7 +21713,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::migrate_resource_request::MigrateAutomlModelConfig {
+impl serde::ser::Serialize for super::migrate_resource_request::MigrateAutomlModelConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21751,7 +21739,7 @@ impl serde::ser::Serialize for crate::model::migrate_resource_request::MigrateAu
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::migrate_resource_request::MigrateAutomlDatasetConfig {
+impl serde::ser::Serialize for super::migrate_resource_request::MigrateAutomlDatasetConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21777,9 +21765,7 @@ impl serde::ser::Serialize for crate::model::migrate_resource_request::MigrateAu
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::migrate_resource_request::MigrateDataLabelingDatasetConfig
-{
+impl serde::ser::Serialize for super::migrate_resource_request::MigrateDataLabelingDatasetConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21814,7 +21800,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::migrate_resource_request::migrate_data_labeling_dataset_config::MigrateDataLabelingAnnotatedDatasetConfig {
+impl serde::ser::Serialize for super::migrate_resource_request::migrate_data_labeling_dataset_config::MigrateDataLabelingAnnotatedDatasetConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21837,7 +21823,7 @@ impl serde::ser::Serialize for crate::model::migrate_resource_request::migrate_d
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchMigrateResourcesResponse {
+impl serde::ser::Serialize for super::BatchMigrateResourcesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21860,7 +21846,7 @@ impl serde::ser::Serialize for crate::model::BatchMigrateResourcesResponse {
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MigrateResourceResponse {
+impl serde::ser::Serialize for super::MigrateResourceResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21889,7 +21875,7 @@ impl serde::ser::Serialize for crate::model::MigrateResourceResponse {
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchMigrateResourcesOperationMetadata {
+impl serde::ser::Serialize for super::BatchMigrateResourcesOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21915,9 +21901,7 @@ impl serde::ser::Serialize for crate::model::BatchMigrateResourcesOperationMetad
 
 #[cfg(feature = "migration-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::batch_migrate_resources_operation_metadata::PartialResult
-{
+impl serde::ser::Serialize for super::batch_migrate_resources_operation_metadata::PartialResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -21953,7 +21937,7 @@ impl serde::ser::Serialize
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Model {
+impl serde::ser::Serialize for super::Model {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22091,7 +22075,7 @@ impl serde::ser::Serialize for crate::model::Model {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model::ExportFormat {
+impl serde::ser::Serialize for super::model::ExportFormat {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22121,7 +22105,7 @@ impl serde::ser::Serialize for crate::model::model::ExportFormat {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model::DataStats {
+impl serde::ser::Serialize for super::model::DataStats {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22232,7 +22216,7 @@ impl serde::ser::Serialize for crate::model::model::DataStats {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model::OriginalModelInfo {
+impl serde::ser::Serialize for super::model::OriginalModelInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22259,7 +22243,7 @@ impl serde::ser::Serialize for crate::model::model::OriginalModelInfo {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model::BaseModelSource {
+impl serde::ser::Serialize for super::model::BaseModelSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22285,7 +22269,7 @@ impl serde::ser::Serialize for crate::model::model::BaseModelSource {
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LargeModelReference {
+impl serde::ser::Serialize for super::LargeModelReference {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22312,7 +22296,7 @@ impl serde::ser::Serialize for crate::model::LargeModelReference {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelGardenSource {
+impl serde::ser::Serialize for super::ModelGardenSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22345,7 +22329,7 @@ impl serde::ser::Serialize for crate::model::ModelGardenSource {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenieSource {
+impl serde::ser::Serialize for super::GenieSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22374,7 +22358,7 @@ impl serde::ser::Serialize for crate::model::GenieSource {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PredictSchemata {
+impl serde::ser::Serialize for super::PredictSchemata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22409,7 +22393,7 @@ impl serde::ser::Serialize for crate::model::PredictSchemata {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelContainerSpec {
+impl serde::ser::Serialize for super::ModelContainerSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22486,7 +22470,7 @@ impl serde::ser::Serialize for crate::model::ModelContainerSpec {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Port {
+impl serde::ser::Serialize for super::Port {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22522,7 +22506,7 @@ impl serde::ser::Serialize for crate::model::Port {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelSourceInfo {
+impl serde::ser::Serialize for super::ModelSourceInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22554,7 +22538,7 @@ impl serde::ser::Serialize for crate::model::ModelSourceInfo {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Probe {
+impl serde::ser::Serialize for super::Probe {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22652,7 +22636,7 @@ impl serde::ser::Serialize for crate::model::Probe {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::probe::ExecAction {
+impl serde::ser::Serialize for super::probe::ExecAction {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22681,7 +22665,7 @@ impl serde::ser::Serialize for crate::model::probe::ExecAction {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::probe::HttpGetAction {
+impl serde::ser::Serialize for super::probe::HttpGetAction {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22731,7 +22715,7 @@ impl serde::ser::Serialize for crate::model::probe::HttpGetAction {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::probe::GrpcAction {
+impl serde::ser::Serialize for super::probe::GrpcAction {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22772,7 +22756,7 @@ impl serde::ser::Serialize for crate::model::probe::GrpcAction {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::probe::TcpSocketAction {
+impl serde::ser::Serialize for super::probe::TcpSocketAction {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22813,7 +22797,7 @@ impl serde::ser::Serialize for crate::model::probe::TcpSocketAction {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::probe::HttpHeader {
+impl serde::ser::Serialize for super::probe::HttpHeader {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22843,7 +22827,7 @@ impl serde::ser::Serialize for crate::model::probe::HttpHeader {
     feature = "pipeline-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Checkpoint {
+impl serde::ser::Serialize for super::Checkpoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -22890,7 +22874,7 @@ impl serde::ser::Serialize for crate::model::Checkpoint {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelDeploymentMonitoringJob {
+impl serde::ser::Serialize for super::ModelDeploymentMonitoringJob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23013,7 +22997,7 @@ impl serde::ser::Serialize for crate::model::ModelDeploymentMonitoringJob {
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::model_deployment_monitoring_job::LatestMonitoringPipelineMetadata
+    for super::model_deployment_monitoring_job::LatestMonitoringPipelineMetadata
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -23040,7 +23024,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelDeploymentMonitoringBigQueryTable {
+impl serde::ser::Serialize for super::ModelDeploymentMonitoringBigQueryTable {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23075,7 +23059,7 @@ impl serde::ser::Serialize for crate::model::ModelDeploymentMonitoringBigQueryTa
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelDeploymentMonitoringObjectiveConfig {
+impl serde::ser::Serialize for super::ModelDeploymentMonitoringObjectiveConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23101,7 +23085,7 @@ impl serde::ser::Serialize for crate::model::ModelDeploymentMonitoringObjectiveC
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelDeploymentMonitoringScheduleConfig {
+impl serde::ser::Serialize for super::ModelDeploymentMonitoringScheduleConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23127,7 +23111,7 @@ impl serde::ser::Serialize for crate::model::ModelDeploymentMonitoringScheduleCo
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelMonitoringStatsAnomalies {
+impl serde::ser::Serialize for super::ModelMonitoringStatsAnomalies {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23169,7 +23153,7 @@ impl serde::ser::Serialize for crate::model::ModelMonitoringStatsAnomalies {
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::model_monitoring_stats_anomalies::FeatureHistoricStatsAnomalies
+    for super::model_monitoring_stats_anomalies::FeatureHistoricStatsAnomalies
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -23202,7 +23186,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelEvaluation {
+impl serde::ser::Serialize for super::ModelEvaluation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23255,7 +23239,7 @@ impl serde::ser::Serialize for crate::model::ModelEvaluation {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model_evaluation::ModelEvaluationExplanationSpec {
+impl serde::ser::Serialize for super::model_evaluation::ModelEvaluationExplanationSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23281,7 +23265,7 @@ impl serde::ser::Serialize for crate::model::model_evaluation::ModelEvaluationEx
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelEvaluationSlice {
+impl serde::ser::Serialize for super::ModelEvaluationSlice {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23319,7 +23303,7 @@ impl serde::ser::Serialize for crate::model::ModelEvaluationSlice {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model_evaluation_slice::Slice {
+impl serde::ser::Serialize for super::model_evaluation_slice::Slice {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23348,7 +23332,7 @@ impl serde::ser::Serialize for crate::model::model_evaluation_slice::Slice {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model_evaluation_slice::slice::SliceSpec {
+impl serde::ser::Serialize for super::model_evaluation_slice::slice::SliceSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23371,9 +23355,7 @@ impl serde::ser::Serialize for crate::model::model_evaluation_slice::slice::Slic
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::model_evaluation_slice::slice::slice_spec::SliceConfig
-{
+impl serde::ser::Serialize for super::model_evaluation_slice::slice::slice_spec::SliceConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23402,7 +23384,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model_evaluation_slice::slice::slice_spec::Range {
+impl serde::ser::Serialize for super::model_evaluation_slice::slice::slice_spec::Range {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23446,7 +23428,7 @@ impl serde::ser::Serialize for crate::model::model_evaluation_slice::slice::slic
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model_evaluation_slice::slice::slice_spec::Value {
+impl serde::ser::Serialize for super::model_evaluation_slice::slice::slice_spec::Value {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23481,7 +23463,7 @@ impl serde::ser::Serialize for crate::model::model_evaluation_slice::slice::slic
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetPublisherModelRequest {
+impl serde::ser::Serialize for super::GetPublisherModelRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23516,7 +23498,7 @@ impl serde::ser::Serialize for crate::model::GetPublisherModelRequest {
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployRequest {
+impl serde::ser::Serialize for super::DeployRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23554,7 +23536,7 @@ impl serde::ser::Serialize for crate::model::DeployRequest {
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::deploy_request::ModelConfig {
+impl serde::ser::Serialize for super::deploy_request::ModelConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23592,7 +23574,7 @@ impl serde::ser::Serialize for crate::model::deploy_request::ModelConfig {
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::deploy_request::EndpointConfig {
+impl serde::ser::Serialize for super::deploy_request::EndpointConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23627,7 +23609,7 @@ impl serde::ser::Serialize for crate::model::deploy_request::EndpointConfig {
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::deploy_request::DeployConfig {
+impl serde::ser::Serialize for super::deploy_request::DeployConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23656,7 +23638,7 @@ impl serde::ser::Serialize for crate::model::deploy_request::DeployConfig {
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployResponse {
+impl serde::ser::Serialize for super::DeployResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23685,7 +23667,7 @@ impl serde::ser::Serialize for crate::model::DeployResponse {
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeployOperationMetadata {
+impl serde::ser::Serialize for super::DeployOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23729,7 +23711,7 @@ impl serde::ser::Serialize for crate::model::DeployOperationMetadata {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelMonitoringObjectiveConfig {
+impl serde::ser::Serialize for super::ModelMonitoringObjectiveConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23767,7 +23749,7 @@ impl serde::ser::Serialize for crate::model::ModelMonitoringObjectiveConfig {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model_monitoring_objective_config::TrainingDataset {
+impl serde::ser::Serialize for super::model_monitoring_objective_config::TrainingDataset {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23806,7 +23788,7 @@ impl serde::ser::Serialize for crate::model::model_monitoring_objective_config::
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::model_monitoring_objective_config::TrainingPredictionSkewDetectionConfig
+    for super::model_monitoring_objective_config::TrainingPredictionSkewDetectionConfig
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -23840,7 +23822,7 @@ impl serde::ser::Serialize
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::model_monitoring_objective_config::PredictionDriftDetectionConfig
+    for super::model_monitoring_objective_config::PredictionDriftDetectionConfig
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -23873,7 +23855,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model_monitoring_objective_config::ExplanationConfig {
+impl serde::ser::Serialize for super::model_monitoring_objective_config::ExplanationConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23900,7 +23882,7 @@ impl serde::ser::Serialize for crate::model::model_monitoring_objective_config::
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::model_monitoring_objective_config::explanation_config::ExplanationBaseline
+    for super::model_monitoring_objective_config::explanation_config::ExplanationBaseline
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -23930,7 +23912,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelMonitoringAlertConfig {
+impl serde::ser::Serialize for super::ModelMonitoringAlertConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23959,7 +23941,7 @@ impl serde::ser::Serialize for crate::model::ModelMonitoringAlertConfig {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::model_monitoring_alert_config::EmailAlertConfig {
+impl serde::ser::Serialize for super::model_monitoring_alert_config::EmailAlertConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -23982,7 +23964,7 @@ impl serde::ser::Serialize for crate::model::model_monitoring_alert_config::Emai
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ThresholdConfig {
+impl serde::ser::Serialize for super::ThresholdConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24014,7 +23996,7 @@ impl serde::ser::Serialize for crate::model::ThresholdConfig {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SamplingStrategy {
+impl serde::ser::Serialize for super::SamplingStrategy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24037,7 +24019,7 @@ impl serde::ser::Serialize for crate::model::SamplingStrategy {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::sampling_strategy::RandomSampleConfig {
+impl serde::ser::Serialize for super::sampling_strategy::RandomSampleConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24069,7 +24051,7 @@ impl serde::ser::Serialize for crate::model::sampling_strategy::RandomSampleConf
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UploadModelRequest {
+impl serde::ser::Serialize for super::UploadModelRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24104,7 +24086,7 @@ impl serde::ser::Serialize for crate::model::UploadModelRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UploadModelOperationMetadata {
+impl serde::ser::Serialize for super::UploadModelOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24127,7 +24109,7 @@ impl serde::ser::Serialize for crate::model::UploadModelOperationMetadata {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UploadModelResponse {
+impl serde::ser::Serialize for super::UploadModelResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24153,7 +24135,7 @@ impl serde::ser::Serialize for crate::model::UploadModelResponse {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetModelRequest {
+impl serde::ser::Serialize for super::GetModelRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24176,7 +24158,7 @@ impl serde::ser::Serialize for crate::model::GetModelRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelsRequest {
+impl serde::ser::Serialize for super::ListModelsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24223,7 +24205,7 @@ impl serde::ser::Serialize for crate::model::ListModelsRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelsResponse {
+impl serde::ser::Serialize for super::ListModelsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24249,7 +24231,7 @@ impl serde::ser::Serialize for crate::model::ListModelsResponse {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelVersionsRequest {
+impl serde::ser::Serialize for super::ListModelVersionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24296,7 +24278,7 @@ impl serde::ser::Serialize for crate::model::ListModelVersionsRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelVersionsResponse {
+impl serde::ser::Serialize for super::ListModelVersionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24322,7 +24304,7 @@ impl serde::ser::Serialize for crate::model::ListModelVersionsResponse {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelVersionCheckpointsRequest {
+impl serde::ser::Serialize for super::ListModelVersionCheckpointsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24360,7 +24342,7 @@ impl serde::ser::Serialize for crate::model::ListModelVersionCheckpointsRequest 
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModelVersionCheckpoint {
+impl serde::ser::Serialize for super::ModelVersionCheckpoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24407,7 +24389,7 @@ impl serde::ser::Serialize for crate::model::ModelVersionCheckpoint {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelVersionCheckpointsResponse {
+impl serde::ser::Serialize for super::ListModelVersionCheckpointsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24433,7 +24415,7 @@ impl serde::ser::Serialize for crate::model::ListModelVersionCheckpointsResponse
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateModelRequest {
+impl serde::ser::Serialize for super::UpdateModelRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24459,7 +24441,7 @@ impl serde::ser::Serialize for crate::model::UpdateModelRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateExplanationDatasetRequest {
+impl serde::ser::Serialize for super::UpdateExplanationDatasetRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24485,7 +24467,7 @@ impl serde::ser::Serialize for crate::model::UpdateExplanationDatasetRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateExplanationDatasetOperationMetadata {
+impl serde::ser::Serialize for super::UpdateExplanationDatasetOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24508,7 +24490,7 @@ impl serde::ser::Serialize for crate::model::UpdateExplanationDatasetOperationMe
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteModelRequest {
+impl serde::ser::Serialize for super::DeleteModelRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24531,7 +24513,7 @@ impl serde::ser::Serialize for crate::model::DeleteModelRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteModelVersionRequest {
+impl serde::ser::Serialize for super::DeleteModelVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24554,7 +24536,7 @@ impl serde::ser::Serialize for crate::model::DeleteModelVersionRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MergeVersionAliasesRequest {
+impl serde::ser::Serialize for super::MergeVersionAliasesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24580,7 +24562,7 @@ impl serde::ser::Serialize for crate::model::MergeVersionAliasesRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportModelRequest {
+impl serde::ser::Serialize for super::ExportModelRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24606,7 +24588,7 @@ impl serde::ser::Serialize for crate::model::ExportModelRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::export_model_request::OutputConfig {
+impl serde::ser::Serialize for super::export_model_request::OutputConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24635,7 +24617,7 @@ impl serde::ser::Serialize for crate::model::export_model_request::OutputConfig 
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportModelOperationMetadata {
+impl serde::ser::Serialize for super::ExportModelOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24661,7 +24643,7 @@ impl serde::ser::Serialize for crate::model::ExportModelOperationMetadata {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::export_model_operation_metadata::OutputInfo {
+impl serde::ser::Serialize for super::export_model_operation_metadata::OutputInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24687,7 +24669,7 @@ impl serde::ser::Serialize for crate::model::export_model_operation_metadata::Ou
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateExplanationDatasetResponse {
+impl serde::ser::Serialize for super::UpdateExplanationDatasetResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24707,7 +24689,7 @@ impl serde::ser::Serialize for crate::model::UpdateExplanationDatasetResponse {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportModelResponse {
+impl serde::ser::Serialize for super::ExportModelResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24727,7 +24709,7 @@ impl serde::ser::Serialize for crate::model::ExportModelResponse {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CopyModelRequest {
+impl serde::ser::Serialize for super::CopyModelRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24762,7 +24744,7 @@ impl serde::ser::Serialize for crate::model::CopyModelRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CopyModelOperationMetadata {
+impl serde::ser::Serialize for super::CopyModelOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24785,7 +24767,7 @@ impl serde::ser::Serialize for crate::model::CopyModelOperationMetadata {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CopyModelResponse {
+impl serde::ser::Serialize for super::CopyModelResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24811,7 +24793,7 @@ impl serde::ser::Serialize for crate::model::CopyModelResponse {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportModelEvaluationRequest {
+impl serde::ser::Serialize for super::ImportModelEvaluationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24837,7 +24819,7 @@ impl serde::ser::Serialize for crate::model::ImportModelEvaluationRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchImportModelEvaluationSlicesRequest {
+impl serde::ser::Serialize for super::BatchImportModelEvaluationSlicesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24863,7 +24845,7 @@ impl serde::ser::Serialize for crate::model::BatchImportModelEvaluationSlicesReq
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchImportModelEvaluationSlicesResponse {
+impl serde::ser::Serialize for super::BatchImportModelEvaluationSlicesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24889,7 +24871,7 @@ impl serde::ser::Serialize for crate::model::BatchImportModelEvaluationSlicesRes
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchImportEvaluatedAnnotationsRequest {
+impl serde::ser::Serialize for super::BatchImportEvaluatedAnnotationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24915,7 +24897,7 @@ impl serde::ser::Serialize for crate::model::BatchImportEvaluatedAnnotationsRequ
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchImportEvaluatedAnnotationsResponse {
+impl serde::ser::Serialize for super::BatchImportEvaluatedAnnotationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24950,7 +24932,7 @@ impl serde::ser::Serialize for crate::model::BatchImportEvaluatedAnnotationsResp
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetModelEvaluationRequest {
+impl serde::ser::Serialize for super::GetModelEvaluationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -24973,7 +24955,7 @@ impl serde::ser::Serialize for crate::model::GetModelEvaluationRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelEvaluationsRequest {
+impl serde::ser::Serialize for super::ListModelEvaluationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25017,7 +24999,7 @@ impl serde::ser::Serialize for crate::model::ListModelEvaluationsRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelEvaluationsResponse {
+impl serde::ser::Serialize for super::ListModelEvaluationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25043,7 +25025,7 @@ impl serde::ser::Serialize for crate::model::ListModelEvaluationsResponse {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetModelEvaluationSliceRequest {
+impl serde::ser::Serialize for super::GetModelEvaluationSliceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25066,7 +25048,7 @@ impl serde::ser::Serialize for crate::model::GetModelEvaluationSliceRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelEvaluationSlicesRequest {
+impl serde::ser::Serialize for super::ListModelEvaluationSlicesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25110,7 +25092,7 @@ impl serde::ser::Serialize for crate::model::ListModelEvaluationSlicesRequest {
 
 #[cfg(feature = "model-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListModelEvaluationSlicesResponse {
+impl serde::ser::Serialize for super::ListModelEvaluationSlicesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25136,7 +25118,7 @@ impl serde::ser::Serialize for crate::model::ListModelEvaluationSlicesResponse {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NasJob {
+impl serde::ser::Serialize for super::NasJob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25204,7 +25186,7 @@ impl serde::ser::Serialize for crate::model::NasJob {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NasTrialDetail {
+impl serde::ser::Serialize for super::NasTrialDetail {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25236,7 +25218,7 @@ impl serde::ser::Serialize for crate::model::NasTrialDetail {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NasJobSpec {
+impl serde::ser::Serialize for super::NasJobSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25265,7 +25247,7 @@ impl serde::ser::Serialize for crate::model::NasJobSpec {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::nas_job_spec::MultiTrialAlgorithmSpec {
+impl serde::ser::Serialize for super::nas_job_spec::MultiTrialAlgorithmSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25297,7 +25279,7 @@ impl serde::ser::Serialize for crate::model::nas_job_spec::MultiTrialAlgorithmSp
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::nas_job_spec::multi_trial_algorithm_spec::MetricSpec {
+impl serde::ser::Serialize for super::nas_job_spec::multi_trial_algorithm_spec::MetricSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25323,9 +25305,7 @@ impl serde::ser::Serialize for crate::model::nas_job_spec::multi_trial_algorithm
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::nas_job_spec::multi_trial_algorithm_spec::SearchTrialSpec
-{
+impl serde::ser::Serialize for super::nas_job_spec::multi_trial_algorithm_spec::SearchTrialSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25387,9 +25367,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::nas_job_spec::multi_trial_algorithm_spec::TrainTrialSpec
-{
+impl serde::ser::Serialize for super::nas_job_spec::multi_trial_algorithm_spec::TrainTrialSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25439,7 +25417,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NasJobOutput {
+impl serde::ser::Serialize for super::NasJobOutput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25462,7 +25440,7 @@ impl serde::ser::Serialize for crate::model::NasJobOutput {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::nas_job_output::MultiTrialJobOutput {
+impl serde::ser::Serialize for super::nas_job_output::MultiTrialJobOutput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25488,7 +25466,7 @@ impl serde::ser::Serialize for crate::model::nas_job_output::MultiTrialJobOutput
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NasTrial {
+impl serde::ser::Serialize for super::NasTrial {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25523,7 +25501,7 @@ impl serde::ser::Serialize for crate::model::NasTrial {
 
 #[cfg(any(feature = "notebook-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NetworkSpec {
+impl serde::ser::Serialize for super::NetworkSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25552,7 +25530,7 @@ impl serde::ser::Serialize for crate::model::NetworkSpec {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NotebookEucConfig {
+impl serde::ser::Serialize for super::NotebookEucConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25578,7 +25556,7 @@ impl serde::ser::Serialize for crate::model::NotebookEucConfig {
 
 #[cfg(any(feature = "notebook-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NotebookExecutionJob {
+impl serde::ser::Serialize for super::NotebookExecutionJob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25658,7 +25636,7 @@ impl serde::ser::Serialize for crate::model::NotebookExecutionJob {
 
 #[cfg(any(feature = "notebook-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::notebook_execution_job::DataformRepositorySource {
+impl serde::ser::Serialize for super::notebook_execution_job::DataformRepositorySource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25687,7 +25665,7 @@ impl serde::ser::Serialize for crate::model::notebook_execution_job::DataformRep
 
 #[cfg(any(feature = "notebook-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::notebook_execution_job::GcsNotebookSource {
+impl serde::ser::Serialize for super::notebook_execution_job::GcsNotebookSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25713,7 +25691,7 @@ impl serde::ser::Serialize for crate::model::notebook_execution_job::GcsNotebook
 
 #[cfg(any(feature = "notebook-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::notebook_execution_job::DirectNotebookSource {
+impl serde::ser::Serialize for super::notebook_execution_job::DirectNotebookSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25745,7 +25723,7 @@ impl serde::ser::Serialize for crate::model::notebook_execution_job::DirectNoteb
 
 #[cfg(any(feature = "notebook-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::notebook_execution_job::CustomEnvironmentSpec {
+impl serde::ser::Serialize for super::notebook_execution_job::CustomEnvironmentSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25774,7 +25752,7 @@ impl serde::ser::Serialize for crate::model::notebook_execution_job::CustomEnvir
 
 #[cfg(any(feature = "notebook-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::notebook_execution_job::WorkbenchRuntime {
+impl serde::ser::Serialize for super::notebook_execution_job::WorkbenchRuntime {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25794,7 +25772,7 @@ impl serde::ser::Serialize for crate::model::notebook_execution_job::WorkbenchRu
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NotebookIdleShutdownConfig {
+impl serde::ser::Serialize for super::NotebookIdleShutdownConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25820,7 +25798,7 @@ impl serde::ser::Serialize for crate::model::NotebookIdleShutdownConfig {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NotebookRuntimeTemplate {
+impl serde::ser::Serialize for super::NotebookRuntimeTemplate {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -25897,7 +25875,7 @@ impl serde::ser::Serialize for crate::model::NotebookRuntimeTemplate {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NotebookRuntime {
+impl serde::ser::Serialize for super::NotebookRuntime {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26001,7 +25979,7 @@ impl serde::ser::Serialize for crate::model::NotebookRuntime {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NotebookRuntimeTemplateRef {
+impl serde::ser::Serialize for super::NotebookRuntimeTemplateRef {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26024,7 +26002,7 @@ impl serde::ser::Serialize for crate::model::NotebookRuntimeTemplateRef {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateNotebookRuntimeTemplateRequest {
+impl serde::ser::Serialize for super::CreateNotebookRuntimeTemplateRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26056,7 +26034,7 @@ impl serde::ser::Serialize for crate::model::CreateNotebookRuntimeTemplateReques
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateNotebookRuntimeTemplateOperationMetadata {
+impl serde::ser::Serialize for super::CreateNotebookRuntimeTemplateOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26079,7 +26057,7 @@ impl serde::ser::Serialize for crate::model::CreateNotebookRuntimeTemplateOperat
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetNotebookRuntimeTemplateRequest {
+impl serde::ser::Serialize for super::GetNotebookRuntimeTemplateRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26102,7 +26080,7 @@ impl serde::ser::Serialize for crate::model::GetNotebookRuntimeTemplateRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNotebookRuntimeTemplatesRequest {
+impl serde::ser::Serialize for super::ListNotebookRuntimeTemplatesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26149,7 +26127,7 @@ impl serde::ser::Serialize for crate::model::ListNotebookRuntimeTemplatesRequest
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNotebookRuntimeTemplatesResponse {
+impl serde::ser::Serialize for super::ListNotebookRuntimeTemplatesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26175,7 +26153,7 @@ impl serde::ser::Serialize for crate::model::ListNotebookRuntimeTemplatesRespons
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteNotebookRuntimeTemplateRequest {
+impl serde::ser::Serialize for super::DeleteNotebookRuntimeTemplateRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26198,7 +26176,7 @@ impl serde::ser::Serialize for crate::model::DeleteNotebookRuntimeTemplateReques
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateNotebookRuntimeTemplateRequest {
+impl serde::ser::Serialize for super::UpdateNotebookRuntimeTemplateRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26224,7 +26202,7 @@ impl serde::ser::Serialize for crate::model::UpdateNotebookRuntimeTemplateReques
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AssignNotebookRuntimeRequest {
+impl serde::ser::Serialize for super::AssignNotebookRuntimeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26256,7 +26234,7 @@ impl serde::ser::Serialize for crate::model::AssignNotebookRuntimeRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AssignNotebookRuntimeOperationMetadata {
+impl serde::ser::Serialize for super::AssignNotebookRuntimeOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26282,7 +26260,7 @@ impl serde::ser::Serialize for crate::model::AssignNotebookRuntimeOperationMetad
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetNotebookRuntimeRequest {
+impl serde::ser::Serialize for super::GetNotebookRuntimeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26305,7 +26283,7 @@ impl serde::ser::Serialize for crate::model::GetNotebookRuntimeRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNotebookRuntimesRequest {
+impl serde::ser::Serialize for super::ListNotebookRuntimesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26352,7 +26330,7 @@ impl serde::ser::Serialize for crate::model::ListNotebookRuntimesRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNotebookRuntimesResponse {
+impl serde::ser::Serialize for super::ListNotebookRuntimesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26378,7 +26356,7 @@ impl serde::ser::Serialize for crate::model::ListNotebookRuntimesResponse {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteNotebookRuntimeRequest {
+impl serde::ser::Serialize for super::DeleteNotebookRuntimeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26401,7 +26379,7 @@ impl serde::ser::Serialize for crate::model::DeleteNotebookRuntimeRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpgradeNotebookRuntimeRequest {
+impl serde::ser::Serialize for super::UpgradeNotebookRuntimeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26424,7 +26402,7 @@ impl serde::ser::Serialize for crate::model::UpgradeNotebookRuntimeRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpgradeNotebookRuntimeOperationMetadata {
+impl serde::ser::Serialize for super::UpgradeNotebookRuntimeOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26450,7 +26428,7 @@ impl serde::ser::Serialize for crate::model::UpgradeNotebookRuntimeOperationMeta
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpgradeNotebookRuntimeResponse {
+impl serde::ser::Serialize for super::UpgradeNotebookRuntimeResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26470,7 +26448,7 @@ impl serde::ser::Serialize for crate::model::UpgradeNotebookRuntimeResponse {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StartNotebookRuntimeRequest {
+impl serde::ser::Serialize for super::StartNotebookRuntimeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26493,7 +26471,7 @@ impl serde::ser::Serialize for crate::model::StartNotebookRuntimeRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StartNotebookRuntimeOperationMetadata {
+impl serde::ser::Serialize for super::StartNotebookRuntimeOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26519,7 +26497,7 @@ impl serde::ser::Serialize for crate::model::StartNotebookRuntimeOperationMetada
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StartNotebookRuntimeResponse {
+impl serde::ser::Serialize for super::StartNotebookRuntimeResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26539,7 +26517,7 @@ impl serde::ser::Serialize for crate::model::StartNotebookRuntimeResponse {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StopNotebookRuntimeRequest {
+impl serde::ser::Serialize for super::StopNotebookRuntimeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26562,7 +26540,7 @@ impl serde::ser::Serialize for crate::model::StopNotebookRuntimeRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StopNotebookRuntimeOperationMetadata {
+impl serde::ser::Serialize for super::StopNotebookRuntimeOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26585,7 +26563,7 @@ impl serde::ser::Serialize for crate::model::StopNotebookRuntimeOperationMetadat
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StopNotebookRuntimeResponse {
+impl serde::ser::Serialize for super::StopNotebookRuntimeResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26605,7 +26583,7 @@ impl serde::ser::Serialize for crate::model::StopNotebookRuntimeResponse {
 
 #[cfg(any(feature = "notebook-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateNotebookExecutionJobRequest {
+impl serde::ser::Serialize for super::CreateNotebookExecutionJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26634,7 +26612,7 @@ impl serde::ser::Serialize for crate::model::CreateNotebookExecutionJobRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateNotebookExecutionJobOperationMetadata {
+impl serde::ser::Serialize for super::CreateNotebookExecutionJobOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26660,7 +26638,7 @@ impl serde::ser::Serialize for crate::model::CreateNotebookExecutionJobOperation
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetNotebookExecutionJobRequest {
+impl serde::ser::Serialize for super::GetNotebookExecutionJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26686,7 +26664,7 @@ impl serde::ser::Serialize for crate::model::GetNotebookExecutionJobRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNotebookExecutionJobsRequest {
+impl serde::ser::Serialize for super::ListNotebookExecutionJobsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26733,7 +26711,7 @@ impl serde::ser::Serialize for crate::model::ListNotebookExecutionJobsRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListNotebookExecutionJobsResponse {
+impl serde::ser::Serialize for super::ListNotebookExecutionJobsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26759,7 +26737,7 @@ impl serde::ser::Serialize for crate::model::ListNotebookExecutionJobsResponse {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteNotebookExecutionJobRequest {
+impl serde::ser::Serialize for super::DeleteNotebookExecutionJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26782,7 +26760,7 @@ impl serde::ser::Serialize for crate::model::DeleteNotebookExecutionJobRequest {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PostStartupScriptConfig {
+impl serde::ser::Serialize for super::PostStartupScriptConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26814,7 +26792,7 @@ impl serde::ser::Serialize for crate::model::PostStartupScriptConfig {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ColabImage {
+impl serde::ser::Serialize for super::ColabImage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26840,7 +26818,7 @@ impl serde::ser::Serialize for crate::model::ColabImage {
 
 #[cfg(feature = "notebook-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NotebookSoftwareConfig {
+impl serde::ser::Serialize for super::NotebookSoftwareConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -26873,7 +26851,7 @@ impl serde::ser::Serialize for crate::model::NotebookSoftwareConfig {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Schema {
+impl serde::ser::Serialize for super::Schema {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27064,7 +27042,7 @@ impl serde::ser::Serialize for crate::model::Schema {
     feature = "vizier-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenericOperationMetadata {
+impl serde::ser::Serialize for super::GenericOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27113,7 +27091,7 @@ impl serde::ser::Serialize for crate::model::GenericOperationMetadata {
     feature = "vertex-rag-data-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteOperationMetadata {
+impl serde::ser::Serialize for super::DeleteOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27136,7 +27114,7 @@ impl serde::ser::Serialize for crate::model::DeleteOperationMetadata {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PersistentResource {
+impl serde::ser::Serialize for super::PersistentResource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27201,7 +27179,7 @@ impl serde::ser::Serialize for crate::model::PersistentResource {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResourcePool {
+impl serde::ser::Serialize for super::ResourcePool {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27259,7 +27237,7 @@ impl serde::ser::Serialize for crate::model::ResourcePool {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::resource_pool::AutoscalingSpec {
+impl serde::ser::Serialize for super::resource_pool::AutoscalingSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27307,7 +27285,7 @@ impl serde::ser::Serialize for crate::model::resource_pool::AutoscalingSpec {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResourceRuntimeSpec {
+impl serde::ser::Serialize for super::ResourceRuntimeSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27333,7 +27311,7 @@ impl serde::ser::Serialize for crate::model::ResourceRuntimeSpec {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RaySpec {
+impl serde::ser::Serialize for super::RaySpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27368,7 +27346,7 @@ impl serde::ser::Serialize for crate::model::RaySpec {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResourceRuntime {
+impl serde::ser::Serialize for super::ResourceRuntime {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27391,7 +27369,7 @@ impl serde::ser::Serialize for crate::model::ResourceRuntime {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ServiceAccountSpec {
+impl serde::ser::Serialize for super::ServiceAccountSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27420,7 +27398,7 @@ impl serde::ser::Serialize for crate::model::ServiceAccountSpec {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RayMetricSpec {
+impl serde::ser::Serialize for super::RayMetricSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27443,7 +27421,7 @@ impl serde::ser::Serialize for crate::model::RayMetricSpec {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RayLogsSpec {
+impl serde::ser::Serialize for super::RayLogsSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27466,7 +27444,7 @@ impl serde::ser::Serialize for crate::model::RayLogsSpec {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreatePersistentResourceRequest {
+impl serde::ser::Serialize for super::CreatePersistentResourceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27495,7 +27473,7 @@ impl serde::ser::Serialize for crate::model::CreatePersistentResourceRequest {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreatePersistentResourceOperationMetadata {
+impl serde::ser::Serialize for super::CreatePersistentResourceOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27521,7 +27499,7 @@ impl serde::ser::Serialize for crate::model::CreatePersistentResourceOperationMe
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdatePersistentResourceOperationMetadata {
+impl serde::ser::Serialize for super::UpdatePersistentResourceOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27547,7 +27525,7 @@ impl serde::ser::Serialize for crate::model::UpdatePersistentResourceOperationMe
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RebootPersistentResourceOperationMetadata {
+impl serde::ser::Serialize for super::RebootPersistentResourceOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27573,7 +27551,7 @@ impl serde::ser::Serialize for crate::model::RebootPersistentResourceOperationMe
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetPersistentResourceRequest {
+impl serde::ser::Serialize for super::GetPersistentResourceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27596,7 +27574,7 @@ impl serde::ser::Serialize for crate::model::GetPersistentResourceRequest {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPersistentResourcesRequest {
+impl serde::ser::Serialize for super::ListPersistentResourcesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27634,7 +27612,7 @@ impl serde::ser::Serialize for crate::model::ListPersistentResourcesRequest {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPersistentResourcesResponse {
+impl serde::ser::Serialize for super::ListPersistentResourcesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27660,7 +27638,7 @@ impl serde::ser::Serialize for crate::model::ListPersistentResourcesResponse {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeletePersistentResourceRequest {
+impl serde::ser::Serialize for super::DeletePersistentResourceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27683,7 +27661,7 @@ impl serde::ser::Serialize for crate::model::DeletePersistentResourceRequest {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdatePersistentResourceRequest {
+impl serde::ser::Serialize for super::UpdatePersistentResourceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27709,7 +27687,7 @@ impl serde::ser::Serialize for crate::model::UpdatePersistentResourceRequest {
 
 #[cfg(feature = "persistent-resource-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RebootPersistentResourceRequest {
+impl serde::ser::Serialize for super::RebootPersistentResourceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27732,7 +27710,7 @@ impl serde::ser::Serialize for crate::model::RebootPersistentResourceRequest {
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PipelineJob {
+impl serde::ser::Serialize for super::PipelineJob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27815,7 +27793,7 @@ impl serde::ser::Serialize for crate::model::PipelineJob {
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::pipeline_job::RuntimeConfig {
+impl serde::ser::Serialize for super::pipeline_job::RuntimeConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27850,7 +27828,7 @@ impl serde::ser::Serialize for crate::model::pipeline_job::RuntimeConfig {
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::pipeline_job::runtime_config::InputArtifact {
+impl serde::ser::Serialize for super::pipeline_job::runtime_config::InputArtifact {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27873,7 +27851,7 @@ impl serde::ser::Serialize for crate::model::pipeline_job::runtime_config::Input
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PipelineTemplateMetadata {
+impl serde::ser::Serialize for super::PipelineTemplateMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27896,7 +27874,7 @@ impl serde::ser::Serialize for crate::model::PipelineTemplateMetadata {
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PipelineJobDetail {
+impl serde::ser::Serialize for super::PipelineJobDetail {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27925,7 +27903,7 @@ impl serde::ser::Serialize for crate::model::PipelineJobDetail {
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PipelineTaskDetail {
+impl serde::ser::Serialize for super::PipelineTaskDetail {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28005,7 +27983,7 @@ impl serde::ser::Serialize for crate::model::PipelineTaskDetail {
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::pipeline_task_detail::PipelineTaskStatus {
+impl serde::ser::Serialize for super::pipeline_task_detail::PipelineTaskStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28034,7 +28012,7 @@ impl serde::ser::Serialize for crate::model::pipeline_task_detail::PipelineTaskS
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::pipeline_task_detail::ArtifactList {
+impl serde::ser::Serialize for super::pipeline_task_detail::ArtifactList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28057,7 +28035,7 @@ impl serde::ser::Serialize for crate::model::pipeline_task_detail::ArtifactList 
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PipelineTaskExecutorDetail {
+impl serde::ser::Serialize for super::PipelineTaskExecutorDetail {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28083,7 +28061,7 @@ impl serde::ser::Serialize for crate::model::PipelineTaskExecutorDetail {
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::pipeline_task_executor_detail::ContainerDetail {
+impl serde::ser::Serialize for super::pipeline_task_executor_detail::ContainerDetail {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28118,7 +28096,7 @@ impl serde::ser::Serialize for crate::model::pipeline_task_executor_detail::Cont
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::pipeline_task_executor_detail::CustomJobDetail {
+impl serde::ser::Serialize for super::pipeline_task_executor_detail::CustomJobDetail {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28144,7 +28122,7 @@ impl serde::ser::Serialize for crate::model::pipeline_task_executor_detail::Cust
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchCancelPipelineJobsOperationMetadata {
+impl serde::ser::Serialize for super::BatchCancelPipelineJobsOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28167,7 +28145,7 @@ impl serde::ser::Serialize for crate::model::BatchCancelPipelineJobsOperationMet
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateTrainingPipelineRequest {
+impl serde::ser::Serialize for super::CreateTrainingPipelineRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28193,7 +28171,7 @@ impl serde::ser::Serialize for crate::model::CreateTrainingPipelineRequest {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetTrainingPipelineRequest {
+impl serde::ser::Serialize for super::GetTrainingPipelineRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28216,7 +28194,7 @@ impl serde::ser::Serialize for crate::model::GetTrainingPipelineRequest {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTrainingPipelinesRequest {
+impl serde::ser::Serialize for super::ListTrainingPipelinesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28260,7 +28238,7 @@ impl serde::ser::Serialize for crate::model::ListTrainingPipelinesRequest {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTrainingPipelinesResponse {
+impl serde::ser::Serialize for super::ListTrainingPipelinesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28286,7 +28264,7 @@ impl serde::ser::Serialize for crate::model::ListTrainingPipelinesResponse {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteTrainingPipelineRequest {
+impl serde::ser::Serialize for super::DeleteTrainingPipelineRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28309,7 +28287,7 @@ impl serde::ser::Serialize for crate::model::DeleteTrainingPipelineRequest {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelTrainingPipelineRequest {
+impl serde::ser::Serialize for super::CancelTrainingPipelineRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28332,7 +28310,7 @@ impl serde::ser::Serialize for crate::model::CancelTrainingPipelineRequest {
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreatePipelineJobRequest {
+impl serde::ser::Serialize for super::CreatePipelineJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28361,7 +28339,7 @@ impl serde::ser::Serialize for crate::model::CreatePipelineJobRequest {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetPipelineJobRequest {
+impl serde::ser::Serialize for super::GetPipelineJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28384,7 +28362,7 @@ impl serde::ser::Serialize for crate::model::GetPipelineJobRequest {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPipelineJobsRequest {
+impl serde::ser::Serialize for super::ListPipelineJobsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28431,7 +28409,7 @@ impl serde::ser::Serialize for crate::model::ListPipelineJobsRequest {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPipelineJobsResponse {
+impl serde::ser::Serialize for super::ListPipelineJobsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28457,7 +28435,7 @@ impl serde::ser::Serialize for crate::model::ListPipelineJobsResponse {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeletePipelineJobRequest {
+impl serde::ser::Serialize for super::DeletePipelineJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28480,7 +28458,7 @@ impl serde::ser::Serialize for crate::model::DeletePipelineJobRequest {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchDeletePipelineJobsRequest {
+impl serde::ser::Serialize for super::BatchDeletePipelineJobsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28506,7 +28484,7 @@ impl serde::ser::Serialize for crate::model::BatchDeletePipelineJobsRequest {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchDeletePipelineJobsResponse {
+impl serde::ser::Serialize for super::BatchDeletePipelineJobsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28529,7 +28507,7 @@ impl serde::ser::Serialize for crate::model::BatchDeletePipelineJobsResponse {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelPipelineJobRequest {
+impl serde::ser::Serialize for super::CancelPipelineJobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28552,7 +28530,7 @@ impl serde::ser::Serialize for crate::model::CancelPipelineJobRequest {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchCancelPipelineJobsRequest {
+impl serde::ser::Serialize for super::BatchCancelPipelineJobsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28578,7 +28556,7 @@ impl serde::ser::Serialize for crate::model::BatchCancelPipelineJobsRequest {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchCancelPipelineJobsResponse {
+impl serde::ser::Serialize for super::BatchCancelPipelineJobsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28601,7 +28579,7 @@ impl serde::ser::Serialize for crate::model::BatchCancelPipelineJobsResponse {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PredictRequest {
+impl serde::ser::Serialize for super::PredictRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28630,7 +28608,7 @@ impl serde::ser::Serialize for crate::model::PredictRequest {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PredictResponse {
+impl serde::ser::Serialize for super::PredictResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28668,7 +28646,7 @@ impl serde::ser::Serialize for crate::model::PredictResponse {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RawPredictRequest {
+impl serde::ser::Serialize for super::RawPredictRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28694,7 +28672,7 @@ impl serde::ser::Serialize for crate::model::RawPredictRequest {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamRawPredictRequest {
+impl serde::ser::Serialize for super::StreamRawPredictRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28720,7 +28698,7 @@ impl serde::ser::Serialize for crate::model::StreamRawPredictRequest {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DirectPredictRequest {
+impl serde::ser::Serialize for super::DirectPredictRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28749,7 +28727,7 @@ impl serde::ser::Serialize for crate::model::DirectPredictRequest {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DirectPredictResponse {
+impl serde::ser::Serialize for super::DirectPredictResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28775,7 +28753,7 @@ impl serde::ser::Serialize for crate::model::DirectPredictResponse {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DirectRawPredictRequest {
+impl serde::ser::Serialize for super::DirectRawPredictRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28813,7 +28791,7 @@ impl serde::ser::Serialize for crate::model::DirectRawPredictRequest {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DirectRawPredictResponse {
+impl serde::ser::Serialize for super::DirectRawPredictResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28845,7 +28823,7 @@ impl serde::ser::Serialize for crate::model::DirectRawPredictResponse {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamDirectPredictRequest {
+impl serde::ser::Serialize for super::StreamDirectPredictRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28874,7 +28852,7 @@ impl serde::ser::Serialize for crate::model::StreamDirectPredictRequest {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamDirectPredictResponse {
+impl serde::ser::Serialize for super::StreamDirectPredictResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28900,7 +28878,7 @@ impl serde::ser::Serialize for crate::model::StreamDirectPredictResponse {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamDirectRawPredictRequest {
+impl serde::ser::Serialize for super::StreamDirectRawPredictRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28938,7 +28916,7 @@ impl serde::ser::Serialize for crate::model::StreamDirectRawPredictRequest {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamDirectRawPredictResponse {
+impl serde::ser::Serialize for super::StreamDirectRawPredictResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28970,7 +28948,7 @@ impl serde::ser::Serialize for crate::model::StreamDirectRawPredictResponse {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamingPredictRequest {
+impl serde::ser::Serialize for super::StreamingPredictRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -28999,7 +28977,7 @@ impl serde::ser::Serialize for crate::model::StreamingPredictRequest {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamingPredictResponse {
+impl serde::ser::Serialize for super::StreamingPredictResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29025,7 +29003,7 @@ impl serde::ser::Serialize for crate::model::StreamingPredictResponse {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamingRawPredictRequest {
+impl serde::ser::Serialize for super::StreamingRawPredictRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29063,7 +29041,7 @@ impl serde::ser::Serialize for crate::model::StreamingRawPredictRequest {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamingRawPredictResponse {
+impl serde::ser::Serialize for super::StreamingRawPredictResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29095,7 +29073,7 @@ impl serde::ser::Serialize for crate::model::StreamingRawPredictResponse {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplainRequest {
+impl serde::ser::Serialize for super::ExplainRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29130,7 +29108,7 @@ impl serde::ser::Serialize for crate::model::ExplainRequest {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplainResponse {
+impl serde::ser::Serialize for super::ExplainResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29159,7 +29137,7 @@ impl serde::ser::Serialize for crate::model::ExplainResponse {
 
 #[cfg(feature = "llm-utility-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CountTokensRequest {
+impl serde::ser::Serialize for super::CountTokensRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29200,7 +29178,7 @@ impl serde::ser::Serialize for crate::model::CountTokensRequest {
 
 #[cfg(feature = "llm-utility-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CountTokensResponse {
+impl serde::ser::Serialize for super::CountTokensResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29250,7 +29228,7 @@ impl serde::ser::Serialize for crate::model::CountTokensResponse {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateContentRequest {
+impl serde::ser::Serialize for super::GenerateContentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29300,7 +29278,7 @@ impl serde::ser::Serialize for crate::model::GenerateContentRequest {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateContentResponse {
+impl serde::ser::Serialize for super::GenerateContentResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29338,7 +29316,7 @@ impl serde::ser::Serialize for crate::model::GenerateContentResponse {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::generate_content_response::PromptFeedback {
+impl serde::ser::Serialize for super::generate_content_response::PromptFeedback {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29367,7 +29345,7 @@ impl serde::ser::Serialize for crate::model::generate_content_response::PromptFe
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::generate_content_response::UsageMetadata {
+impl serde::ser::Serialize for super::generate_content_response::UsageMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29462,7 +29440,7 @@ impl serde::ser::Serialize for crate::model::generate_content_response::UsageMet
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PublisherModel {
+impl serde::ser::Serialize for super::PublisherModel {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29509,7 +29487,7 @@ impl serde::ser::Serialize for crate::model::PublisherModel {
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::publisher_model::ResourceReference {
+impl serde::ser::Serialize for super::publisher_model::ResourceReference {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29541,7 +29519,7 @@ impl serde::ser::Serialize for crate::model::publisher_model::ResourceReference 
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::publisher_model::Documentation {
+impl serde::ser::Serialize for super::publisher_model::Documentation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29567,7 +29545,7 @@ impl serde::ser::Serialize for crate::model::publisher_model::Documentation {
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::publisher_model::CallToAction {
+impl serde::ser::Serialize for super::publisher_model::CallToAction {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29629,9 +29607,7 @@ impl serde::ser::Serialize for crate::model::publisher_model::CallToAction {
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::publisher_model::call_to_action::RegionalResourceReferences
-{
+impl serde::ser::Serialize for super::publisher_model::call_to_action::RegionalResourceReferences {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29666,7 +29642,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::publisher_model::call_to_action::ViewRestApi {
+impl serde::ser::Serialize for super::publisher_model::call_to_action::ViewRestApi {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29692,7 +29668,7 @@ impl serde::ser::Serialize for crate::model::publisher_model::call_to_action::Vi
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::publisher_model::call_to_action::OpenNotebooks {
+impl serde::ser::Serialize for super::publisher_model::call_to_action::OpenNotebooks {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29715,9 +29691,7 @@ impl serde::ser::Serialize for crate::model::publisher_model::call_to_action::Op
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::publisher_model::call_to_action::OpenFineTuningPipelines
-{
+impl serde::ser::Serialize for super::publisher_model::call_to_action::OpenFineTuningPipelines {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29740,7 +29714,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::publisher_model::call_to_action::Deploy {
+impl serde::ser::Serialize for super::publisher_model::call_to_action::Deploy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29793,9 +29767,7 @@ impl serde::ser::Serialize for crate::model::publisher_model::call_to_action::De
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::publisher_model::call_to_action::deploy::DeployMetadata
-{
+impl serde::ser::Serialize for super::publisher_model::call_to_action::deploy::DeployMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29821,7 +29793,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "model-garden-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::publisher_model::call_to_action::DeployGke {
+impl serde::ser::Serialize for super::publisher_model::call_to_action::DeployGke {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29844,7 +29816,7 @@ impl serde::ser::Serialize for crate::model::publisher_model::call_to_action::De
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReasoningEngineSpec {
+impl serde::ser::Serialize for super::ReasoningEngineSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29879,7 +29851,7 @@ impl serde::ser::Serialize for crate::model::ReasoningEngineSpec {
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::reasoning_engine_spec::PackageSpec {
+impl serde::ser::Serialize for super::reasoning_engine_spec::PackageSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29911,7 +29883,7 @@ impl serde::ser::Serialize for crate::model::reasoning_engine_spec::PackageSpec 
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::reasoning_engine_spec::DeploymentSpec {
+impl serde::ser::Serialize for super::reasoning_engine_spec::DeploymentSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -29985,7 +29957,7 @@ impl serde::ser::Serialize for crate::model::reasoning_engine_spec::DeploymentSp
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReasoningEngine {
+impl serde::ser::Serialize for super::ReasoningEngine {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30029,7 +30001,7 @@ impl serde::ser::Serialize for crate::model::ReasoningEngine {
 
 #[cfg(feature = "reasoning-engine-execution-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QueryReasoningEngineRequest {
+impl serde::ser::Serialize for super::QueryReasoningEngineRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30058,7 +30030,7 @@ impl serde::ser::Serialize for crate::model::QueryReasoningEngineRequest {
 
 #[cfg(feature = "reasoning-engine-execution-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QueryReasoningEngineResponse {
+impl serde::ser::Serialize for super::QueryReasoningEngineResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30081,7 +30053,7 @@ impl serde::ser::Serialize for crate::model::QueryReasoningEngineResponse {
 
 #[cfg(feature = "reasoning-engine-execution-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamQueryReasoningEngineRequest {
+impl serde::ser::Serialize for super::StreamQueryReasoningEngineRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30110,7 +30082,7 @@ impl serde::ser::Serialize for crate::model::StreamQueryReasoningEngineRequest {
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateReasoningEngineRequest {
+impl serde::ser::Serialize for super::CreateReasoningEngineRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30136,7 +30108,7 @@ impl serde::ser::Serialize for crate::model::CreateReasoningEngineRequest {
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateReasoningEngineOperationMetadata {
+impl serde::ser::Serialize for super::CreateReasoningEngineOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30159,7 +30131,7 @@ impl serde::ser::Serialize for crate::model::CreateReasoningEngineOperationMetad
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetReasoningEngineRequest {
+impl serde::ser::Serialize for super::GetReasoningEngineRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30182,7 +30154,7 @@ impl serde::ser::Serialize for crate::model::GetReasoningEngineRequest {
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateReasoningEngineRequest {
+impl serde::ser::Serialize for super::UpdateReasoningEngineRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30208,7 +30180,7 @@ impl serde::ser::Serialize for crate::model::UpdateReasoningEngineRequest {
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateReasoningEngineOperationMetadata {
+impl serde::ser::Serialize for super::UpdateReasoningEngineOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30231,7 +30203,7 @@ impl serde::ser::Serialize for crate::model::UpdateReasoningEngineOperationMetad
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListReasoningEnginesRequest {
+impl serde::ser::Serialize for super::ListReasoningEnginesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30272,7 +30244,7 @@ impl serde::ser::Serialize for crate::model::ListReasoningEnginesRequest {
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListReasoningEnginesResponse {
+impl serde::ser::Serialize for super::ListReasoningEnginesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30298,7 +30270,7 @@ impl serde::ser::Serialize for crate::model::ListReasoningEnginesResponse {
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteReasoningEngineRequest {
+impl serde::ser::Serialize for super::DeleteReasoningEngineRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30333,7 +30305,7 @@ impl serde::ser::Serialize for crate::model::DeleteReasoningEngineRequest {
     feature = "schedule-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReservationAffinity {
+impl serde::ser::Serialize for super::ReservationAffinity {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30362,7 +30334,7 @@ impl serde::ser::Serialize for crate::model::ReservationAffinity {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SavedQuery {
+impl serde::ser::Serialize for super::SavedQuery {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30421,7 +30393,7 @@ impl serde::ser::Serialize for crate::model::SavedQuery {
 
 #[cfg(feature = "schedule-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Schedule {
+impl serde::ser::Serialize for super::Schedule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30531,7 +30503,7 @@ impl serde::ser::Serialize for crate::model::Schedule {
 
 #[cfg(feature = "schedule-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::schedule::RunResponse {
+impl serde::ser::Serialize for super::schedule::RunResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30557,7 +30529,7 @@ impl serde::ser::Serialize for crate::model::schedule::RunResponse {
 
 #[cfg(feature = "schedule-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateScheduleRequest {
+impl serde::ser::Serialize for super::CreateScheduleRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30583,7 +30555,7 @@ impl serde::ser::Serialize for crate::model::CreateScheduleRequest {
 
 #[cfg(feature = "schedule-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetScheduleRequest {
+impl serde::ser::Serialize for super::GetScheduleRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30606,7 +30578,7 @@ impl serde::ser::Serialize for crate::model::GetScheduleRequest {
 
 #[cfg(feature = "schedule-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSchedulesRequest {
+impl serde::ser::Serialize for super::ListSchedulesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30650,7 +30622,7 @@ impl serde::ser::Serialize for crate::model::ListSchedulesRequest {
 
 #[cfg(feature = "schedule-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSchedulesResponse {
+impl serde::ser::Serialize for super::ListSchedulesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30676,7 +30648,7 @@ impl serde::ser::Serialize for crate::model::ListSchedulesResponse {
 
 #[cfg(feature = "schedule-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteScheduleRequest {
+impl serde::ser::Serialize for super::DeleteScheduleRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30699,7 +30671,7 @@ impl serde::ser::Serialize for crate::model::DeleteScheduleRequest {
 
 #[cfg(feature = "schedule-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PauseScheduleRequest {
+impl serde::ser::Serialize for super::PauseScheduleRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30722,7 +30694,7 @@ impl serde::ser::Serialize for crate::model::PauseScheduleRequest {
 
 #[cfg(feature = "schedule-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResumeScheduleRequest {
+impl serde::ser::Serialize for super::ResumeScheduleRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30748,7 +30720,7 @@ impl serde::ser::Serialize for crate::model::ResumeScheduleRequest {
 
 #[cfg(feature = "schedule-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateScheduleRequest {
+impl serde::ser::Serialize for super::UpdateScheduleRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30778,7 +30750,7 @@ impl serde::ser::Serialize for crate::model::UpdateScheduleRequest {
     feature = "index-endpoint-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PSCAutomationConfig {
+impl serde::ser::Serialize for super::PSCAutomationConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30820,7 +30792,7 @@ impl serde::ser::Serialize for crate::model::PSCAutomationConfig {
     feature = "index-endpoint-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PrivateServiceConnectConfig {
+impl serde::ser::Serialize for super::PrivateServiceConnectConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30855,7 +30827,7 @@ impl serde::ser::Serialize for crate::model::PrivateServiceConnectConfig {
 
 #[cfg(feature = "index-endpoint-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PscAutomatedEndpoints {
+impl serde::ser::Serialize for super::PscAutomatedEndpoints {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30890,7 +30862,7 @@ impl serde::ser::Serialize for crate::model::PscAutomatedEndpoints {
     feature = "schedule-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PscInterfaceConfig {
+impl serde::ser::Serialize for super::PscInterfaceConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30922,7 +30894,7 @@ impl serde::ser::Serialize for crate::model::PscInterfaceConfig {
     feature = "schedule-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DnsPeeringConfig {
+impl serde::ser::Serialize for super::DnsPeeringConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30951,7 +30923,7 @@ impl serde::ser::Serialize for crate::model::DnsPeeringConfig {
 
 #[cfg(feature = "specialist-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SpecialistPool {
+impl serde::ser::Serialize for super::SpecialistPool {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31001,7 +30973,7 @@ impl serde::ser::Serialize for crate::model::SpecialistPool {
 
 #[cfg(feature = "specialist-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateSpecialistPoolRequest {
+impl serde::ser::Serialize for super::CreateSpecialistPoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31027,7 +30999,7 @@ impl serde::ser::Serialize for crate::model::CreateSpecialistPoolRequest {
 
 #[cfg(feature = "specialist-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateSpecialistPoolOperationMetadata {
+impl serde::ser::Serialize for super::CreateSpecialistPoolOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31050,7 +31022,7 @@ impl serde::ser::Serialize for crate::model::CreateSpecialistPoolOperationMetada
 
 #[cfg(feature = "specialist-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSpecialistPoolRequest {
+impl serde::ser::Serialize for super::GetSpecialistPoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31073,7 +31045,7 @@ impl serde::ser::Serialize for crate::model::GetSpecialistPoolRequest {
 
 #[cfg(feature = "specialist-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSpecialistPoolsRequest {
+impl serde::ser::Serialize for super::ListSpecialistPoolsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31114,7 +31086,7 @@ impl serde::ser::Serialize for crate::model::ListSpecialistPoolsRequest {
 
 #[cfg(feature = "specialist-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSpecialistPoolsResponse {
+impl serde::ser::Serialize for super::ListSpecialistPoolsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31140,7 +31112,7 @@ impl serde::ser::Serialize for crate::model::ListSpecialistPoolsResponse {
 
 #[cfg(feature = "specialist-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteSpecialistPoolRequest {
+impl serde::ser::Serialize for super::DeleteSpecialistPoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31166,7 +31138,7 @@ impl serde::ser::Serialize for crate::model::DeleteSpecialistPoolRequest {
 
 #[cfg(feature = "specialist-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateSpecialistPoolRequest {
+impl serde::ser::Serialize for super::UpdateSpecialistPoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31192,7 +31164,7 @@ impl serde::ser::Serialize for crate::model::UpdateSpecialistPoolRequest {
 
 #[cfg(feature = "specialist-pool-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateSpecialistPoolOperationMetadata {
+impl serde::ser::Serialize for super::UpdateSpecialistPoolOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31218,7 +31190,7 @@ impl serde::ser::Serialize for crate::model::UpdateSpecialistPoolOperationMetada
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Study {
+impl serde::ser::Serialize for super::Study {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31256,7 +31228,7 @@ impl serde::ser::Serialize for crate::model::Study {
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Trial {
+impl serde::ser::Serialize for super::Trial {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31312,7 +31284,7 @@ impl serde::ser::Serialize for crate::model::Trial {
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::trial::Parameter {
+impl serde::ser::Serialize for super::trial::Parameter {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31338,7 +31310,7 @@ impl serde::ser::Serialize for crate::model::trial::Parameter {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TrialContext {
+impl serde::ser::Serialize for super::TrialContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31364,7 +31336,7 @@ impl serde::ser::Serialize for crate::model::TrialContext {
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StudyTimeConstraint {
+impl serde::ser::Serialize for super::StudyTimeConstraint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31390,7 +31362,7 @@ impl serde::ser::Serialize for crate::model::StudyTimeConstraint {
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StudySpec {
+impl serde::ser::Serialize for super::StudySpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31437,7 +31409,7 @@ impl serde::ser::Serialize for crate::model::StudySpec {
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::MetricSpec {
+impl serde::ser::Serialize for super::study_spec::MetricSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31466,7 +31438,7 @@ impl serde::ser::Serialize for crate::model::study_spec::MetricSpec {
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::metric_spec::SafetyMetricConfig {
+impl serde::ser::Serialize for super::study_spec::metric_spec::SafetyMetricConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31515,7 +31487,7 @@ impl serde::ser::Serialize for crate::model::study_spec::metric_spec::SafetyMetr
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::ParameterSpec {
+impl serde::ser::Serialize for super::study_spec::ParameterSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31559,7 +31531,7 @@ impl serde::ser::Serialize for crate::model::study_spec::ParameterSpec {
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::DoubleValueSpec {
+impl serde::ser::Serialize for super::study_spec::parameter_spec::DoubleValueSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31617,7 +31589,7 @@ impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::DoubleV
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::IntegerValueSpec {
+impl serde::ser::Serialize for super::study_spec::parameter_spec::IntegerValueSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31675,7 +31647,7 @@ impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::Integer
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::CategoricalValueSpec {
+impl serde::ser::Serialize for super::study_spec::parameter_spec::CategoricalValueSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31701,7 +31673,7 @@ impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::Categor
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::DiscreteValueSpec {
+impl serde::ser::Serialize for super::study_spec::parameter_spec::DiscreteValueSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31749,7 +31721,7 @@ impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::Discret
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::ConditionalParameterSpec {
+impl serde::ser::Serialize for super::study_spec::parameter_spec::ConditionalParameterSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31782,7 +31754,7 @@ impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::Conditi
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::study_spec::parameter_spec::conditional_parameter_spec::DiscreteValueCondition
+    for super::study_spec::parameter_spec::conditional_parameter_spec::DiscreteValueCondition
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -31818,7 +31790,7 @@ impl serde::ser::Serialize
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::study_spec::parameter_spec::conditional_parameter_spec::IntValueCondition
+    for super::study_spec::parameter_spec::conditional_parameter_spec::IntValueCondition
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -31853,14 +31825,16 @@ impl serde::ser::Serialize
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::conditional_parameter_spec::CategoricalValueCondition {
+impl serde::ser::Serialize
+    for super::study_spec::parameter_spec::conditional_parameter_spec::CategoricalValueCondition
+{
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
-        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.values.is_empty() {
             state.serialize_entry("values", &self.values)?;
@@ -31876,7 +31850,7 @@ impl serde::ser::Serialize for crate::model::study_spec::parameter_spec::conditi
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::DecayCurveAutomatedStoppingSpec {
+impl serde::ser::Serialize for super::study_spec::DecayCurveAutomatedStoppingSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31899,7 +31873,7 @@ impl serde::ser::Serialize for crate::model::study_spec::DecayCurveAutomatedStop
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::MedianAutomatedStoppingSpec {
+impl serde::ser::Serialize for super::study_spec::MedianAutomatedStoppingSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31922,7 +31896,7 @@ impl serde::ser::Serialize for crate::model::study_spec::MedianAutomatedStopping
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::ConvexAutomatedStoppingSpec {
+impl serde::ser::Serialize for super::study_spec::ConvexAutomatedStoppingSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -31990,7 +31964,7 @@ impl serde::ser::Serialize for crate::model::study_spec::ConvexAutomatedStopping
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::study_spec::StudyStoppingConfig {
+impl serde::ser::Serialize for super::study_spec::StudyStoppingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32067,7 +32041,7 @@ impl serde::ser::Serialize for crate::model::study_spec::StudyStoppingConfig {
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Measurement {
+impl serde::ser::Serialize for super::Measurement {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32105,7 +32079,7 @@ impl serde::ser::Serialize for crate::model::Measurement {
 
 #[cfg(any(feature = "job-service", feature = "vizier-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::measurement::Metric {
+impl serde::ser::Serialize for super::measurement::Metric {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32140,7 +32114,7 @@ impl serde::ser::Serialize for crate::model::measurement::Metric {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Tensorboard {
+impl serde::ser::Serialize for super::Tensorboard {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32208,7 +32182,7 @@ impl serde::ser::Serialize for crate::model::Tensorboard {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TimeSeriesData {
+impl serde::ser::Serialize for super::TimeSeriesData {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32237,7 +32211,7 @@ impl serde::ser::Serialize for crate::model::TimeSeriesData {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TimeSeriesDataPoint {
+impl serde::ser::Serialize for super::TimeSeriesDataPoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32281,7 +32255,7 @@ impl serde::ser::Serialize for crate::model::TimeSeriesDataPoint {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Scalar {
+impl serde::ser::Serialize for super::Scalar {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32313,7 +32287,7 @@ impl serde::ser::Serialize for crate::model::Scalar {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TensorboardTensor {
+impl serde::ser::Serialize for super::TensorboardTensor {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32357,7 +32331,7 @@ impl serde::ser::Serialize for crate::model::TensorboardTensor {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TensorboardBlobSequence {
+impl serde::ser::Serialize for super::TensorboardBlobSequence {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32380,7 +32354,7 @@ impl serde::ser::Serialize for crate::model::TensorboardBlobSequence {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TensorboardBlob {
+impl serde::ser::Serialize for super::TensorboardBlob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32415,7 +32389,7 @@ impl serde::ser::Serialize for crate::model::TensorboardBlob {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TensorboardExperiment {
+impl serde::ser::Serialize for super::TensorboardExperiment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32459,7 +32433,7 @@ impl serde::ser::Serialize for crate::model::TensorboardExperiment {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TensorboardRun {
+impl serde::ser::Serialize for super::TensorboardRun {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32500,7 +32474,7 @@ impl serde::ser::Serialize for crate::model::TensorboardRun {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateTensorboardRequest {
+impl serde::ser::Serialize for super::CreateTensorboardRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32526,7 +32500,7 @@ impl serde::ser::Serialize for crate::model::CreateTensorboardRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetTensorboardRequest {
+impl serde::ser::Serialize for super::GetTensorboardRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32549,7 +32523,7 @@ impl serde::ser::Serialize for crate::model::GetTensorboardRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTensorboardsRequest {
+impl serde::ser::Serialize for super::ListTensorboardsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32596,7 +32570,7 @@ impl serde::ser::Serialize for crate::model::ListTensorboardsRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTensorboardsResponse {
+impl serde::ser::Serialize for super::ListTensorboardsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32622,7 +32596,7 @@ impl serde::ser::Serialize for crate::model::ListTensorboardsResponse {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateTensorboardRequest {
+impl serde::ser::Serialize for super::UpdateTensorboardRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32648,7 +32622,7 @@ impl serde::ser::Serialize for crate::model::UpdateTensorboardRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteTensorboardRequest {
+impl serde::ser::Serialize for super::DeleteTensorboardRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32671,7 +32645,7 @@ impl serde::ser::Serialize for crate::model::DeleteTensorboardRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadTensorboardUsageRequest {
+impl serde::ser::Serialize for super::ReadTensorboardUsageRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32694,7 +32668,7 @@ impl serde::ser::Serialize for crate::model::ReadTensorboardUsageRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadTensorboardUsageResponse {
+impl serde::ser::Serialize for super::ReadTensorboardUsageResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32717,7 +32691,7 @@ impl serde::ser::Serialize for crate::model::ReadTensorboardUsageResponse {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::read_tensorboard_usage_response::PerUserUsageData {
+impl serde::ser::Serialize for super::read_tensorboard_usage_response::PerUserUsageData {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32752,7 +32726,7 @@ impl serde::ser::Serialize for crate::model::read_tensorboard_usage_response::Pe
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::read_tensorboard_usage_response::PerMonthUsageData {
+impl serde::ser::Serialize for super::read_tensorboard_usage_response::PerMonthUsageData {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32775,7 +32749,7 @@ impl serde::ser::Serialize for crate::model::read_tensorboard_usage_response::Pe
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadTensorboardSizeRequest {
+impl serde::ser::Serialize for super::ReadTensorboardSizeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32798,7 +32772,7 @@ impl serde::ser::Serialize for crate::model::ReadTensorboardSizeRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadTensorboardSizeResponse {
+impl serde::ser::Serialize for super::ReadTensorboardSizeResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32830,7 +32804,7 @@ impl serde::ser::Serialize for crate::model::ReadTensorboardSizeResponse {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateTensorboardExperimentRequest {
+impl serde::ser::Serialize for super::CreateTensorboardExperimentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32859,7 +32833,7 @@ impl serde::ser::Serialize for crate::model::CreateTensorboardExperimentRequest 
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetTensorboardExperimentRequest {
+impl serde::ser::Serialize for super::GetTensorboardExperimentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32882,7 +32856,7 @@ impl serde::ser::Serialize for crate::model::GetTensorboardExperimentRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTensorboardExperimentsRequest {
+impl serde::ser::Serialize for super::ListTensorboardExperimentsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32929,7 +32903,7 @@ impl serde::ser::Serialize for crate::model::ListTensorboardExperimentsRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTensorboardExperimentsResponse {
+impl serde::ser::Serialize for super::ListTensorboardExperimentsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32955,7 +32929,7 @@ impl serde::ser::Serialize for crate::model::ListTensorboardExperimentsResponse 
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateTensorboardExperimentRequest {
+impl serde::ser::Serialize for super::UpdateTensorboardExperimentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -32981,7 +32955,7 @@ impl serde::ser::Serialize for crate::model::UpdateTensorboardExperimentRequest 
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteTensorboardExperimentRequest {
+impl serde::ser::Serialize for super::DeleteTensorboardExperimentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33004,7 +32978,7 @@ impl serde::ser::Serialize for crate::model::DeleteTensorboardExperimentRequest 
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchCreateTensorboardRunsRequest {
+impl serde::ser::Serialize for super::BatchCreateTensorboardRunsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33030,7 +33004,7 @@ impl serde::ser::Serialize for crate::model::BatchCreateTensorboardRunsRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchCreateTensorboardRunsResponse {
+impl serde::ser::Serialize for super::BatchCreateTensorboardRunsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33053,7 +33027,7 @@ impl serde::ser::Serialize for crate::model::BatchCreateTensorboardRunsResponse 
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateTensorboardRunRequest {
+impl serde::ser::Serialize for super::CreateTensorboardRunRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33082,7 +33056,7 @@ impl serde::ser::Serialize for crate::model::CreateTensorboardRunRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetTensorboardRunRequest {
+impl serde::ser::Serialize for super::GetTensorboardRunRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33105,7 +33079,7 @@ impl serde::ser::Serialize for crate::model::GetTensorboardRunRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadTensorboardBlobDataRequest {
+impl serde::ser::Serialize for super::ReadTensorboardBlobDataRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33131,7 +33105,7 @@ impl serde::ser::Serialize for crate::model::ReadTensorboardBlobDataRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadTensorboardBlobDataResponse {
+impl serde::ser::Serialize for super::ReadTensorboardBlobDataResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33154,7 +33128,7 @@ impl serde::ser::Serialize for crate::model::ReadTensorboardBlobDataResponse {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTensorboardRunsRequest {
+impl serde::ser::Serialize for super::ListTensorboardRunsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33201,7 +33175,7 @@ impl serde::ser::Serialize for crate::model::ListTensorboardRunsRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTensorboardRunsResponse {
+impl serde::ser::Serialize for super::ListTensorboardRunsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33227,7 +33201,7 @@ impl serde::ser::Serialize for crate::model::ListTensorboardRunsResponse {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateTensorboardRunRequest {
+impl serde::ser::Serialize for super::UpdateTensorboardRunRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33253,7 +33227,7 @@ impl serde::ser::Serialize for crate::model::UpdateTensorboardRunRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteTensorboardRunRequest {
+impl serde::ser::Serialize for super::DeleteTensorboardRunRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33276,7 +33250,7 @@ impl serde::ser::Serialize for crate::model::DeleteTensorboardRunRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchCreateTensorboardTimeSeriesRequest {
+impl serde::ser::Serialize for super::BatchCreateTensorboardTimeSeriesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33302,7 +33276,7 @@ impl serde::ser::Serialize for crate::model::BatchCreateTensorboardTimeSeriesReq
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchCreateTensorboardTimeSeriesResponse {
+impl serde::ser::Serialize for super::BatchCreateTensorboardTimeSeriesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33325,7 +33299,7 @@ impl serde::ser::Serialize for crate::model::BatchCreateTensorboardTimeSeriesRes
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateTensorboardTimeSeriesRequest {
+impl serde::ser::Serialize for super::CreateTensorboardTimeSeriesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33354,7 +33328,7 @@ impl serde::ser::Serialize for crate::model::CreateTensorboardTimeSeriesRequest 
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetTensorboardTimeSeriesRequest {
+impl serde::ser::Serialize for super::GetTensorboardTimeSeriesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33377,7 +33351,7 @@ impl serde::ser::Serialize for crate::model::GetTensorboardTimeSeriesRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTensorboardTimeSeriesRequest {
+impl serde::ser::Serialize for super::ListTensorboardTimeSeriesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33424,7 +33398,7 @@ impl serde::ser::Serialize for crate::model::ListTensorboardTimeSeriesRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTensorboardTimeSeriesResponse {
+impl serde::ser::Serialize for super::ListTensorboardTimeSeriesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33450,7 +33424,7 @@ impl serde::ser::Serialize for crate::model::ListTensorboardTimeSeriesResponse {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateTensorboardTimeSeriesRequest {
+impl serde::ser::Serialize for super::UpdateTensorboardTimeSeriesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33476,7 +33450,7 @@ impl serde::ser::Serialize for crate::model::UpdateTensorboardTimeSeriesRequest 
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteTensorboardTimeSeriesRequest {
+impl serde::ser::Serialize for super::DeleteTensorboardTimeSeriesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33499,7 +33473,7 @@ impl serde::ser::Serialize for crate::model::DeleteTensorboardTimeSeriesRequest 
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchReadTensorboardTimeSeriesDataRequest {
+impl serde::ser::Serialize for super::BatchReadTensorboardTimeSeriesDataRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33525,7 +33499,7 @@ impl serde::ser::Serialize for crate::model::BatchReadTensorboardTimeSeriesDataR
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchReadTensorboardTimeSeriesDataResponse {
+impl serde::ser::Serialize for super::BatchReadTensorboardTimeSeriesDataResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33548,7 +33522,7 @@ impl serde::ser::Serialize for crate::model::BatchReadTensorboardTimeSeriesDataR
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadTensorboardTimeSeriesDataRequest {
+impl serde::ser::Serialize for super::ReadTensorboardTimeSeriesDataRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33586,7 +33560,7 @@ impl serde::ser::Serialize for crate::model::ReadTensorboardTimeSeriesDataReques
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReadTensorboardTimeSeriesDataResponse {
+impl serde::ser::Serialize for super::ReadTensorboardTimeSeriesDataResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33609,7 +33583,7 @@ impl serde::ser::Serialize for crate::model::ReadTensorboardTimeSeriesDataRespon
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WriteTensorboardExperimentDataRequest {
+impl serde::ser::Serialize for super::WriteTensorboardExperimentDataRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33635,7 +33609,7 @@ impl serde::ser::Serialize for crate::model::WriteTensorboardExperimentDataReque
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WriteTensorboardExperimentDataResponse {
+impl serde::ser::Serialize for super::WriteTensorboardExperimentDataResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33655,7 +33629,7 @@ impl serde::ser::Serialize for crate::model::WriteTensorboardExperimentDataRespo
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WriteTensorboardRunDataRequest {
+impl serde::ser::Serialize for super::WriteTensorboardRunDataRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33681,7 +33655,7 @@ impl serde::ser::Serialize for crate::model::WriteTensorboardRunDataRequest {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WriteTensorboardRunDataResponse {
+impl serde::ser::Serialize for super::WriteTensorboardRunDataResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33701,7 +33675,7 @@ impl serde::ser::Serialize for crate::model::WriteTensorboardRunDataResponse {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportTensorboardTimeSeriesDataRequest {
+impl serde::ser::Serialize for super::ExportTensorboardTimeSeriesDataRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33745,7 +33719,7 @@ impl serde::ser::Serialize for crate::model::ExportTensorboardTimeSeriesDataRequ
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportTensorboardTimeSeriesDataResponse {
+impl serde::ser::Serialize for super::ExportTensorboardTimeSeriesDataResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33771,7 +33745,7 @@ impl serde::ser::Serialize for crate::model::ExportTensorboardTimeSeriesDataResp
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateTensorboardOperationMetadata {
+impl serde::ser::Serialize for super::CreateTensorboardOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33794,7 +33768,7 @@ impl serde::ser::Serialize for crate::model::CreateTensorboardOperationMetadata 
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateTensorboardOperationMetadata {
+impl serde::ser::Serialize for super::UpdateTensorboardOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33817,7 +33791,7 @@ impl serde::ser::Serialize for crate::model::UpdateTensorboardOperationMetadata 
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TensorboardTimeSeries {
+impl serde::ser::Serialize for super::TensorboardTimeSeries {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33876,7 +33850,7 @@ impl serde::ser::Serialize for crate::model::TensorboardTimeSeries {
 
 #[cfg(feature = "tensorboard-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::tensorboard_time_series::Metadata {
+impl serde::ser::Serialize for super::tensorboard_time_series::Metadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33930,7 +33904,7 @@ impl serde::ser::Serialize for crate::model::tensorboard_time_series::Metadata {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Tool {
+impl serde::ser::Serialize for super::Tool {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -33981,7 +33955,7 @@ impl serde::ser::Serialize for crate::model::Tool {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::tool::GoogleSearch {
+impl serde::ser::Serialize for super::tool::GoogleSearch {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34008,7 +33982,7 @@ impl serde::ser::Serialize for crate::model::tool::GoogleSearch {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::tool::CodeExecution {
+impl serde::ser::Serialize for super::tool::CodeExecution {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34032,7 +34006,7 @@ impl serde::ser::Serialize for crate::model::tool::CodeExecution {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::tool::ComputerUse {
+impl serde::ser::Serialize for super::tool::ComputerUse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34059,7 +34033,7 @@ impl serde::ser::Serialize for crate::model::tool::ComputerUse {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UrlContext {
+impl serde::ser::Serialize for super::UrlContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34083,7 +34057,7 @@ impl serde::ser::Serialize for crate::model::UrlContext {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FunctionDeclaration {
+impl serde::ser::Serialize for super::FunctionDeclaration {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34128,7 +34102,7 @@ impl serde::ser::Serialize for crate::model::FunctionDeclaration {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FunctionCall {
+impl serde::ser::Serialize for super::FunctionCall {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34161,7 +34135,7 @@ impl serde::ser::Serialize for crate::model::FunctionCall {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FunctionResponse {
+impl serde::ser::Serialize for super::FunctionResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34194,7 +34168,7 @@ impl serde::ser::Serialize for crate::model::FunctionResponse {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExecutableCode {
+impl serde::ser::Serialize for super::ExecutableCode {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34227,7 +34201,7 @@ impl serde::ser::Serialize for crate::model::ExecutableCode {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CodeExecutionResult {
+impl serde::ser::Serialize for super::CodeExecutionResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34257,7 +34231,7 @@ impl serde::ser::Serialize for crate::model::CodeExecutionResult {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Retrieval {
+impl serde::ser::Serialize for super::Retrieval {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34291,7 +34265,7 @@ impl serde::ser::Serialize for crate::model::Retrieval {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VertexRagStore {
+impl serde::ser::Serialize for super::VertexRagStore {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34353,7 +34327,7 @@ impl serde::ser::Serialize for crate::model::VertexRagStore {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::vertex_rag_store::RagResource {
+impl serde::ser::Serialize for super::vertex_rag_store::RagResource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34383,7 +34357,7 @@ impl serde::ser::Serialize for crate::model::vertex_rag_store::RagResource {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VertexAISearch {
+impl serde::ser::Serialize for super::VertexAISearch {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34431,7 +34405,7 @@ impl serde::ser::Serialize for crate::model::VertexAISearch {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::vertex_ai_search::DataStoreSpec {
+impl serde::ser::Serialize for super::vertex_ai_search::DataStoreSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34461,7 +34435,7 @@ impl serde::ser::Serialize for crate::model::vertex_ai_search::DataStoreSpec {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GoogleSearchRetrieval {
+impl serde::ser::Serialize for super::GoogleSearchRetrieval {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34488,7 +34462,7 @@ impl serde::ser::Serialize for crate::model::GoogleSearchRetrieval {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GoogleMaps {
+impl serde::ser::Serialize for super::GoogleMaps {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34512,7 +34486,7 @@ impl serde::ser::Serialize for crate::model::GoogleMaps {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EnterpriseWebSearch {
+impl serde::ser::Serialize for super::EnterpriseWebSearch {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34539,7 +34513,7 @@ impl serde::ser::Serialize for crate::model::EnterpriseWebSearch {
     feature = "prediction-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DynamicRetrievalConfig {
+impl serde::ser::Serialize for super::DynamicRetrievalConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34576,7 +34550,7 @@ impl serde::ser::Serialize for crate::model::DynamicRetrievalConfig {
 
 #[cfg(any(feature = "gen-ai-cache-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ToolConfig {
+impl serde::ser::Serialize for super::ToolConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34602,7 +34576,7 @@ impl serde::ser::Serialize for crate::model::ToolConfig {
 
 #[cfg(any(feature = "gen-ai-cache-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FunctionCallingConfig {
+impl serde::ser::Serialize for super::FunctionCallingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34628,7 +34602,7 @@ impl serde::ser::Serialize for crate::model::FunctionCallingConfig {
 
 #[cfg(any(feature = "gen-ai-cache-service", feature = "prediction-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RetrievalConfig {
+impl serde::ser::Serialize for super::RetrievalConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34659,7 +34633,7 @@ impl serde::ser::Serialize for crate::model::RetrievalConfig {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagRetrievalConfig {
+impl serde::ser::Serialize for super::RagRetrievalConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34702,7 +34676,7 @@ impl serde::ser::Serialize for crate::model::RagRetrievalConfig {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_retrieval_config::Filter {
+impl serde::ser::Serialize for super::rag_retrieval_config::Filter {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34754,7 +34728,7 @@ impl serde::ser::Serialize for crate::model::rag_retrieval_config::Filter {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_retrieval_config::Ranking {
+impl serde::ser::Serialize for super::rag_retrieval_config::Ranking {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34785,7 +34759,7 @@ impl serde::ser::Serialize for crate::model::rag_retrieval_config::Ranking {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_retrieval_config::ranking::RankService {
+impl serde::ser::Serialize for super::rag_retrieval_config::ranking::RankService {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34813,7 +34787,7 @@ impl serde::ser::Serialize for crate::model::rag_retrieval_config::ranking::Rank
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_retrieval_config::ranking::LlmRanker {
+impl serde::ser::Serialize for super::rag_retrieval_config::ranking::LlmRanker {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34836,7 +34810,7 @@ impl serde::ser::Serialize for crate::model::rag_retrieval_config::ranking::LlmR
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TrainingPipeline {
+impl serde::ser::Serialize for super::TrainingPipeline {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34907,7 +34881,7 @@ impl serde::ser::Serialize for crate::model::TrainingPipeline {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InputDataConfig {
+impl serde::ser::Serialize for super::InputDataConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -34963,7 +34937,7 @@ impl serde::ser::Serialize for crate::model::InputDataConfig {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FractionSplit {
+impl serde::ser::Serialize for super::FractionSplit {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35019,7 +34993,7 @@ impl serde::ser::Serialize for crate::model::FractionSplit {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FilterSplit {
+impl serde::ser::Serialize for super::FilterSplit {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35048,7 +35022,7 @@ impl serde::ser::Serialize for crate::model::FilterSplit {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PredefinedSplit {
+impl serde::ser::Serialize for super::PredefinedSplit {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35071,7 +35045,7 @@ impl serde::ser::Serialize for crate::model::PredefinedSplit {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TimestampSplit {
+impl serde::ser::Serialize for super::TimestampSplit {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35130,7 +35104,7 @@ impl serde::ser::Serialize for crate::model::TimestampSplit {
 
 #[cfg(feature = "pipeline-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StratifiedSplit {
+impl serde::ser::Serialize for super::StratifiedSplit {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35189,7 +35163,7 @@ impl serde::ser::Serialize for crate::model::StratifiedSplit {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TuningJob {
+impl serde::ser::Serialize for super::TuningJob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35260,7 +35234,7 @@ impl serde::ser::Serialize for crate::model::TuningJob {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TunedModel {
+impl serde::ser::Serialize for super::TunedModel {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35289,7 +35263,7 @@ impl serde::ser::Serialize for crate::model::TunedModel {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SupervisedTuningDatasetDistribution {
+impl serde::ser::Serialize for super::SupervisedTuningDatasetDistribution {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35408,7 +35382,7 @@ impl serde::ser::Serialize for crate::model::SupervisedTuningDatasetDistribution
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::supervised_tuning_dataset_distribution::DatasetBucket {
+impl serde::ser::Serialize for super::supervised_tuning_dataset_distribution::DatasetBucket {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35464,7 +35438,7 @@ impl serde::ser::Serialize for crate::model::supervised_tuning_dataset_distribut
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SupervisedTuningDataStats {
+impl serde::ser::Serialize for super::SupervisedTuningDataStats {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35612,7 +35586,7 @@ impl serde::ser::Serialize for crate::model::SupervisedTuningDataStats {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TuningDataStats {
+impl serde::ser::Serialize for super::TuningDataStats {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35635,7 +35609,7 @@ impl serde::ser::Serialize for crate::model::TuningDataStats {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SupervisedHyperParameters {
+impl serde::ser::Serialize for super::SupervisedHyperParameters {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35685,7 +35659,7 @@ impl serde::ser::Serialize for crate::model::SupervisedHyperParameters {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SupervisedTuningSpec {
+impl serde::ser::Serialize for super::SupervisedTuningSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35720,7 +35694,7 @@ impl serde::ser::Serialize for crate::model::SupervisedTuningSpec {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TunedModelRef {
+impl serde::ser::Serialize for super::TunedModelRef {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35749,7 +35723,7 @@ impl serde::ser::Serialize for crate::model::TunedModelRef {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TunedModelCheckpoint {
+impl serde::ser::Serialize for super::TunedModelCheckpoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35802,7 +35776,7 @@ impl serde::ser::Serialize for crate::model::TunedModelCheckpoint {
     feature = "featurestore-online-serving-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BoolArray {
+impl serde::ser::Serialize for super::BoolArray {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35828,7 +35802,7 @@ impl serde::ser::Serialize for crate::model::BoolArray {
     feature = "featurestore-online-serving-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DoubleArray {
+impl serde::ser::Serialize for super::DoubleArray {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35865,7 +35839,7 @@ impl serde::ser::Serialize for crate::model::DoubleArray {
     feature = "featurestore-online-serving-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Int64Array {
+impl serde::ser::Serialize for super::Int64Array {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35902,7 +35876,7 @@ impl serde::ser::Serialize for crate::model::Int64Array {
     feature = "featurestore-online-serving-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StringArray {
+impl serde::ser::Serialize for super::StringArray {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -35925,7 +35899,7 @@ impl serde::ser::Serialize for crate::model::StringArray {
 
 #[cfg(feature = "prediction-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Tensor {
+impl serde::ser::Serialize for super::Tensor {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36084,7 +36058,7 @@ impl serde::ser::Serialize for crate::model::Tensor {
 
 #[cfg(feature = "job-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UnmanagedContainerModel {
+impl serde::ser::Serialize for super::UnmanagedContainerModel {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36113,7 +36087,7 @@ impl serde::ser::Serialize for crate::model::UnmanagedContainerModel {
 
 #[cfg(feature = "dataset-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UserActionReference {
+impl serde::ser::Serialize for super::UserActionReference {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36142,7 +36116,7 @@ impl serde::ser::Serialize for crate::model::UserActionReference {
 
 #[cfg(any(feature = "pipeline-service", feature = "schedule-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Value {
+impl serde::ser::Serialize for super::Value {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36189,7 +36163,7 @@ impl serde::ser::Serialize for crate::model::Value {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagEmbeddingModelConfig {
+impl serde::ser::Serialize for super::RagEmbeddingModelConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36212,7 +36186,7 @@ impl serde::ser::Serialize for crate::model::RagEmbeddingModelConfig {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_embedding_model_config::VertexPredictionEndpoint {
+impl serde::ser::Serialize for super::rag_embedding_model_config::VertexPredictionEndpoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36241,7 +36215,7 @@ impl serde::ser::Serialize for crate::model::rag_embedding_model_config::VertexP
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagVectorDbConfig {
+impl serde::ser::Serialize for super::RagVectorDbConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36276,7 +36250,7 @@ impl serde::ser::Serialize for crate::model::RagVectorDbConfig {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_vector_db_config::RagManagedDb {
+impl serde::ser::Serialize for super::rag_vector_db_config::RagManagedDb {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36302,7 +36276,7 @@ impl serde::ser::Serialize for crate::model::rag_vector_db_config::RagManagedDb 
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_vector_db_config::rag_managed_db::Knn {
+impl serde::ser::Serialize for super::rag_vector_db_config::rag_managed_db::Knn {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36322,7 +36296,7 @@ impl serde::ser::Serialize for crate::model::rag_vector_db_config::rag_managed_d
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_vector_db_config::rag_managed_db::Ann {
+impl serde::ser::Serialize for super::rag_vector_db_config::rag_managed_db::Ann {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36366,7 +36340,7 @@ impl serde::ser::Serialize for crate::model::rag_vector_db_config::rag_managed_d
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_vector_db_config::Pinecone {
+impl serde::ser::Serialize for super::rag_vector_db_config::Pinecone {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36389,7 +36363,7 @@ impl serde::ser::Serialize for crate::model::rag_vector_db_config::Pinecone {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_vector_db_config::VertexVectorSearch {
+impl serde::ser::Serialize for super::rag_vector_db_config::VertexVectorSearch {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36415,7 +36389,7 @@ impl serde::ser::Serialize for crate::model::rag_vector_db_config::VertexVectorS
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FileStatus {
+impl serde::ser::Serialize for super::FileStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36441,7 +36415,7 @@ impl serde::ser::Serialize for crate::model::FileStatus {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VertexAiSearchConfig {
+impl serde::ser::Serialize for super::VertexAiSearchConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36464,7 +36438,7 @@ impl serde::ser::Serialize for crate::model::VertexAiSearchConfig {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CorpusStatus {
+impl serde::ser::Serialize for super::CorpusStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36490,7 +36464,7 @@ impl serde::ser::Serialize for crate::model::CorpusStatus {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagCorpus {
+impl serde::ser::Serialize for super::RagCorpus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36537,7 +36511,7 @@ impl serde::ser::Serialize for crate::model::RagCorpus {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagFile {
+impl serde::ser::Serialize for super::RagFile {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36593,7 +36567,7 @@ impl serde::ser::Serialize for crate::model::RagFile {
 
 #[cfg(any(feature = "prediction-service", feature = "vertex-rag-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagChunk {
+impl serde::ser::Serialize for super::RagChunk {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36619,7 +36593,7 @@ impl serde::ser::Serialize for crate::model::RagChunk {
 
 #[cfg(any(feature = "prediction-service", feature = "vertex-rag-service",))]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_chunk::PageSpan {
+impl serde::ser::Serialize for super::rag_chunk::PageSpan {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36663,7 +36637,7 @@ impl serde::ser::Serialize for crate::model::rag_chunk::PageSpan {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagFileChunkingConfig {
+impl serde::ser::Serialize for super::RagFileChunkingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36686,7 +36660,7 @@ impl serde::ser::Serialize for crate::model::RagFileChunkingConfig {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_file_chunking_config::FixedLengthChunking {
+impl serde::ser::Serialize for super::rag_file_chunking_config::FixedLengthChunking {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36730,7 +36704,7 @@ impl serde::ser::Serialize for crate::model::rag_file_chunking_config::FixedLeng
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagFileTransformationConfig {
+impl serde::ser::Serialize for super::RagFileTransformationConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36753,7 +36727,7 @@ impl serde::ser::Serialize for crate::model::RagFileTransformationConfig {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagFileParsingConfig {
+impl serde::ser::Serialize for super::RagFileParsingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36779,7 +36753,7 @@ impl serde::ser::Serialize for crate::model::RagFileParsingConfig {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_file_parsing_config::LayoutParser {
+impl serde::ser::Serialize for super::rag_file_parsing_config::LayoutParser {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36817,7 +36791,7 @@ impl serde::ser::Serialize for crate::model::rag_file_parsing_config::LayoutPars
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_file_parsing_config::LlmParser {
+impl serde::ser::Serialize for super::rag_file_parsing_config::LlmParser {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36858,7 +36832,7 @@ impl serde::ser::Serialize for crate::model::rag_file_parsing_config::LlmParser 
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UploadRagFileConfig {
+impl serde::ser::Serialize for super::UploadRagFileConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36884,7 +36858,7 @@ impl serde::ser::Serialize for crate::model::UploadRagFileConfig {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportRagFilesConfig {
+impl serde::ser::Serialize for super::ImportRagFilesConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36958,7 +36932,7 @@ impl serde::ser::Serialize for crate::model::ImportRagFilesConfig {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagManagedDbConfig {
+impl serde::ser::Serialize for super::RagManagedDbConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -36987,7 +36961,7 @@ impl serde::ser::Serialize for crate::model::RagManagedDbConfig {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_managed_db_config::Scaled {
+impl serde::ser::Serialize for super::rag_managed_db_config::Scaled {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37007,7 +36981,7 @@ impl serde::ser::Serialize for crate::model::rag_managed_db_config::Scaled {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_managed_db_config::Basic {
+impl serde::ser::Serialize for super::rag_managed_db_config::Basic {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37027,7 +37001,7 @@ impl serde::ser::Serialize for crate::model::rag_managed_db_config::Basic {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_managed_db_config::Unprovisioned {
+impl serde::ser::Serialize for super::rag_managed_db_config::Unprovisioned {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37047,7 +37021,7 @@ impl serde::ser::Serialize for crate::model::rag_managed_db_config::Unprovisione
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagEngineConfig {
+impl serde::ser::Serialize for super::RagEngineConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37073,7 +37047,7 @@ impl serde::ser::Serialize for crate::model::RagEngineConfig {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateRagCorpusRequest {
+impl serde::ser::Serialize for super::CreateRagCorpusRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37099,7 +37073,7 @@ impl serde::ser::Serialize for crate::model::CreateRagCorpusRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetRagCorpusRequest {
+impl serde::ser::Serialize for super::GetRagCorpusRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37122,7 +37096,7 @@ impl serde::ser::Serialize for crate::model::GetRagCorpusRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListRagCorporaRequest {
+impl serde::ser::Serialize for super::ListRagCorporaRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37160,7 +37134,7 @@ impl serde::ser::Serialize for crate::model::ListRagCorporaRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListRagCorporaResponse {
+impl serde::ser::Serialize for super::ListRagCorporaResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37186,7 +37160,7 @@ impl serde::ser::Serialize for crate::model::ListRagCorporaResponse {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteRagCorpusRequest {
+impl serde::ser::Serialize for super::DeleteRagCorpusRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37212,7 +37186,7 @@ impl serde::ser::Serialize for crate::model::DeleteRagCorpusRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UploadRagFileRequest {
+impl serde::ser::Serialize for super::UploadRagFileRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37241,7 +37215,7 @@ impl serde::ser::Serialize for crate::model::UploadRagFileRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UploadRagFileResponse {
+impl serde::ser::Serialize for super::UploadRagFileResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37267,7 +37241,7 @@ impl serde::ser::Serialize for crate::model::UploadRagFileResponse {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportRagFilesRequest {
+impl serde::ser::Serialize for super::ImportRagFilesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37293,7 +37267,7 @@ impl serde::ser::Serialize for crate::model::ImportRagFilesRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportRagFilesResponse {
+impl serde::ser::Serialize for super::ImportRagFilesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37361,7 +37335,7 @@ impl serde::ser::Serialize for crate::model::ImportRagFilesResponse {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetRagFileRequest {
+impl serde::ser::Serialize for super::GetRagFileRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37384,7 +37358,7 @@ impl serde::ser::Serialize for crate::model::GetRagFileRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListRagFilesRequest {
+impl serde::ser::Serialize for super::ListRagFilesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37422,7 +37396,7 @@ impl serde::ser::Serialize for crate::model::ListRagFilesRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListRagFilesResponse {
+impl serde::ser::Serialize for super::ListRagFilesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37448,7 +37422,7 @@ impl serde::ser::Serialize for crate::model::ListRagFilesResponse {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteRagFileRequest {
+impl serde::ser::Serialize for super::DeleteRagFileRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37471,7 +37445,7 @@ impl serde::ser::Serialize for crate::model::DeleteRagFileRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateRagCorpusOperationMetadata {
+impl serde::ser::Serialize for super::CreateRagCorpusOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37494,7 +37468,7 @@ impl serde::ser::Serialize for crate::model::CreateRagCorpusOperationMetadata {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetRagEngineConfigRequest {
+impl serde::ser::Serialize for super::GetRagEngineConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37517,7 +37491,7 @@ impl serde::ser::Serialize for crate::model::GetRagEngineConfigRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateRagCorpusRequest {
+impl serde::ser::Serialize for super::UpdateRagCorpusRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37540,7 +37514,7 @@ impl serde::ser::Serialize for crate::model::UpdateRagCorpusRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateRagCorpusOperationMetadata {
+impl serde::ser::Serialize for super::UpdateRagCorpusOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37563,7 +37537,7 @@ impl serde::ser::Serialize for crate::model::UpdateRagCorpusOperationMetadata {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportRagFilesOperationMetadata {
+impl serde::ser::Serialize for super::ImportRagFilesOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37613,7 +37587,7 @@ impl serde::ser::Serialize for crate::model::ImportRagFilesOperationMetadata {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateRagEngineConfigRequest {
+impl serde::ser::Serialize for super::UpdateRagEngineConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37636,7 +37610,7 @@ impl serde::ser::Serialize for crate::model::UpdateRagEngineConfigRequest {
 
 #[cfg(feature = "vertex-rag-data-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateRagEngineConfigOperationMetadata {
+impl serde::ser::Serialize for super::UpdateRagEngineConfigOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37659,7 +37633,7 @@ impl serde::ser::Serialize for crate::model::UpdateRagEngineConfigOperationMetad
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagQuery {
+impl serde::ser::Serialize for super::RagQuery {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37685,7 +37659,7 @@ impl serde::ser::Serialize for crate::model::RagQuery {
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RetrieveContextsRequest {
+impl serde::ser::Serialize for super::RetrieveContextsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37714,7 +37688,7 @@ impl serde::ser::Serialize for crate::model::RetrieveContextsRequest {
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::retrieve_contexts_request::VertexRagStore {
+impl serde::ser::Serialize for super::retrieve_contexts_request::VertexRagStore {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37754,9 +37728,7 @@ impl serde::ser::Serialize for crate::model::retrieve_contexts_request::VertexRa
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::retrieve_contexts_request::vertex_rag_store::RagResource
-{
+impl serde::ser::Serialize for super::retrieve_contexts_request::vertex_rag_store::RagResource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37782,7 +37754,7 @@ impl serde::ser::Serialize
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RagContexts {
+impl serde::ser::Serialize for super::RagContexts {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37805,7 +37777,7 @@ impl serde::ser::Serialize for crate::model::RagContexts {
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rag_contexts::Context {
+impl serde::ser::Serialize for super::rag_contexts::Context {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37851,7 +37823,7 @@ impl serde::ser::Serialize for crate::model::rag_contexts::Context {
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RetrieveContextsResponse {
+impl serde::ser::Serialize for super::RetrieveContextsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37874,7 +37846,7 @@ impl serde::ser::Serialize for crate::model::RetrieveContextsResponse {
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AugmentPromptRequest {
+impl serde::ser::Serialize for super::AugmentPromptRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37906,7 +37878,7 @@ impl serde::ser::Serialize for crate::model::AugmentPromptRequest {
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::augment_prompt_request::Model {
+impl serde::ser::Serialize for super::augment_prompt_request::Model {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37932,7 +37904,7 @@ impl serde::ser::Serialize for crate::model::augment_prompt_request::Model {
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AugmentPromptResponse {
+impl serde::ser::Serialize for super::AugmentPromptResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37958,7 +37930,7 @@ impl serde::ser::Serialize for crate::model::AugmentPromptResponse {
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CorroborateContentRequest {
+impl serde::ser::Serialize for super::CorroborateContentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -37990,7 +37962,7 @@ impl serde::ser::Serialize for crate::model::CorroborateContentRequest {
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::corroborate_content_request::Parameters {
+impl serde::ser::Serialize for super::corroborate_content_request::Parameters {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38022,7 +37994,7 @@ impl serde::ser::Serialize for crate::model::corroborate_content_request::Parame
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CorroborateContentResponse {
+impl serde::ser::Serialize for super::CorroborateContentResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38059,7 +38031,7 @@ impl serde::ser::Serialize for crate::model::CorroborateContentResponse {
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Fact {
+impl serde::ser::Serialize for super::Fact {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38122,7 +38094,7 @@ impl serde::ser::Serialize for crate::model::Fact {
 
 #[cfg(feature = "vertex-rag-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Claim {
+impl serde::ser::Serialize for super::Claim {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38198,7 +38170,7 @@ impl serde::ser::Serialize for crate::model::Claim {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetStudyRequest {
+impl serde::ser::Serialize for super::GetStudyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38221,7 +38193,7 @@ impl serde::ser::Serialize for crate::model::GetStudyRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateStudyRequest {
+impl serde::ser::Serialize for super::CreateStudyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38247,7 +38219,7 @@ impl serde::ser::Serialize for crate::model::CreateStudyRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListStudiesRequest {
+impl serde::ser::Serialize for super::ListStudiesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38285,7 +38257,7 @@ impl serde::ser::Serialize for crate::model::ListStudiesRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListStudiesResponse {
+impl serde::ser::Serialize for super::ListStudiesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38311,7 +38283,7 @@ impl serde::ser::Serialize for crate::model::ListStudiesResponse {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteStudyRequest {
+impl serde::ser::Serialize for super::DeleteStudyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38334,7 +38306,7 @@ impl serde::ser::Serialize for crate::model::DeleteStudyRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LookupStudyRequest {
+impl serde::ser::Serialize for super::LookupStudyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38360,7 +38332,7 @@ impl serde::ser::Serialize for crate::model::LookupStudyRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SuggestTrialsRequest {
+impl serde::ser::Serialize for super::SuggestTrialsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38401,7 +38373,7 @@ impl serde::ser::Serialize for crate::model::SuggestTrialsRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SuggestTrialsResponse {
+impl serde::ser::Serialize for super::SuggestTrialsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38433,7 +38405,7 @@ impl serde::ser::Serialize for crate::model::SuggestTrialsResponse {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SuggestTrialsMetadata {
+impl serde::ser::Serialize for super::SuggestTrialsMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38459,7 +38431,7 @@ impl serde::ser::Serialize for crate::model::SuggestTrialsMetadata {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateTrialRequest {
+impl serde::ser::Serialize for super::CreateTrialRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38485,7 +38457,7 @@ impl serde::ser::Serialize for crate::model::CreateTrialRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetTrialRequest {
+impl serde::ser::Serialize for super::GetTrialRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38508,7 +38480,7 @@ impl serde::ser::Serialize for crate::model::GetTrialRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTrialsRequest {
+impl serde::ser::Serialize for super::ListTrialsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38546,7 +38518,7 @@ impl serde::ser::Serialize for crate::model::ListTrialsRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTrialsResponse {
+impl serde::ser::Serialize for super::ListTrialsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38572,7 +38544,7 @@ impl serde::ser::Serialize for crate::model::ListTrialsResponse {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddTrialMeasurementRequest {
+impl serde::ser::Serialize for super::AddTrialMeasurementRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38598,7 +38570,7 @@ impl serde::ser::Serialize for crate::model::AddTrialMeasurementRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CompleteTrialRequest {
+impl serde::ser::Serialize for super::CompleteTrialRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38630,7 +38602,7 @@ impl serde::ser::Serialize for crate::model::CompleteTrialRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteTrialRequest {
+impl serde::ser::Serialize for super::DeleteTrialRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38653,7 +38625,7 @@ impl serde::ser::Serialize for crate::model::DeleteTrialRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CheckTrialEarlyStoppingStateRequest {
+impl serde::ser::Serialize for super::CheckTrialEarlyStoppingStateRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38676,7 +38648,7 @@ impl serde::ser::Serialize for crate::model::CheckTrialEarlyStoppingStateRequest
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CheckTrialEarlyStoppingStateResponse {
+impl serde::ser::Serialize for super::CheckTrialEarlyStoppingStateResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38699,7 +38671,7 @@ impl serde::ser::Serialize for crate::model::CheckTrialEarlyStoppingStateRespons
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CheckTrialEarlyStoppingStateMetatdata {
+impl serde::ser::Serialize for super::CheckTrialEarlyStoppingStateMetatdata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38728,7 +38700,7 @@ impl serde::ser::Serialize for crate::model::CheckTrialEarlyStoppingStateMetatda
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StopTrialRequest {
+impl serde::ser::Serialize for super::StopTrialRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38751,7 +38723,7 @@ impl serde::ser::Serialize for crate::model::StopTrialRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOptimalTrialsRequest {
+impl serde::ser::Serialize for super::ListOptimalTrialsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -38774,7 +38746,7 @@ impl serde::ser::Serialize for crate::model::ListOptimalTrialsRequest {
 
 #[cfg(feature = "vizier-service")]
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOptimalTrialsResponse {
+impl serde::ser::Serialize for super::ListOptimalTrialsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

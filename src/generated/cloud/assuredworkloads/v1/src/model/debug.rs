@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CreateWorkloadRequest {
+impl std::fmt::Debug for super::CreateWorkloadRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateWorkloadRequest");
         debug_struct.field("parent", &self.parent);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::CreateWorkloadRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateWorkloadRequest {
+impl std::fmt::Debug for super::UpdateWorkloadRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateWorkloadRequest");
         debug_struct.field("workload", &self.workload);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::UpdateWorkloadRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteWorkloadRequest {
+impl std::fmt::Debug for super::DeleteWorkloadRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteWorkloadRequest");
         debug_struct.field("name", &self.name);
@@ -54,7 +54,7 @@ impl std::fmt::Debug for crate::model::DeleteWorkloadRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetWorkloadRequest {
+impl std::fmt::Debug for super::GetWorkloadRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetWorkloadRequest");
         debug_struct.field("name", &self.name);
@@ -65,7 +65,7 @@ impl std::fmt::Debug for crate::model::GetWorkloadRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListWorkloadsRequest {
+impl std::fmt::Debug for super::ListWorkloadsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListWorkloadsRequest");
         debug_struct.field("parent", &self.parent);
@@ -79,7 +79,7 @@ impl std::fmt::Debug for crate::model::ListWorkloadsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListWorkloadsResponse {
+impl std::fmt::Debug for super::ListWorkloadsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListWorkloadsResponse");
         debug_struct.field("workloads", &self.workloads);
@@ -91,7 +91,7 @@ impl std::fmt::Debug for crate::model::ListWorkloadsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Workload {
+impl std::fmt::Debug for super::Workload {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Workload");
         debug_struct.field("name", &self.name);
@@ -123,7 +123,7 @@ impl std::fmt::Debug for crate::model::Workload {
     }
 }
 
-impl std::fmt::Debug for crate::model::workload::ResourceInfo {
+impl std::fmt::Debug for super::workload::ResourceInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceInfo");
         debug_struct.field("resource_id", &self.resource_id);
@@ -135,7 +135,7 @@ impl std::fmt::Debug for crate::model::workload::ResourceInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::workload::KMSSettings {
+impl std::fmt::Debug for super::workload::KMSSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KMSSettings");
         debug_struct.field("next_rotation_time", &self.next_rotation_time);
@@ -147,7 +147,7 @@ impl std::fmt::Debug for crate::model::workload::KMSSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::workload::ResourceSettings {
+impl std::fmt::Debug for super::workload::ResourceSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceSettings");
         debug_struct.field("resource_id", &self.resource_id);
@@ -160,7 +160,7 @@ impl std::fmt::Debug for crate::model::workload::ResourceSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::workload::SaaEnrollmentResponse {
+impl std::fmt::Debug for super::workload::SaaEnrollmentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SaaEnrollmentResponse");
         debug_struct.field("setup_status", &self.setup_status);
@@ -172,7 +172,7 @@ impl std::fmt::Debug for crate::model::workload::SaaEnrollmentResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateWorkloadOperationMetadata {
+impl std::fmt::Debug for super::CreateWorkloadOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateWorkloadOperationMetadata");
         debug_struct.field("create_time", &self.create_time);
@@ -186,7 +186,7 @@ impl std::fmt::Debug for crate::model::CreateWorkloadOperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::RestrictAllowedResourcesRequest {
+impl std::fmt::Debug for super::RestrictAllowedResourcesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RestrictAllowedResourcesRequest");
         debug_struct.field("name", &self.name);
@@ -198,7 +198,7 @@ impl std::fmt::Debug for crate::model::RestrictAllowedResourcesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RestrictAllowedResourcesResponse {
+impl std::fmt::Debug for super::RestrictAllowedResourcesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RestrictAllowedResourcesResponse");
         if !self._unknown_fields.is_empty() {
@@ -208,7 +208,7 @@ impl std::fmt::Debug for crate::model::RestrictAllowedResourcesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::AcknowledgeViolationRequest {
+impl std::fmt::Debug for super::AcknowledgeViolationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AcknowledgeViolationRequest");
         debug_struct.field("name", &self.name);
@@ -221,7 +221,7 @@ impl std::fmt::Debug for crate::model::AcknowledgeViolationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AcknowledgeViolationResponse {
+impl std::fmt::Debug for super::AcknowledgeViolationResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AcknowledgeViolationResponse");
         if !self._unknown_fields.is_empty() {
@@ -231,7 +231,7 @@ impl std::fmt::Debug for crate::model::AcknowledgeViolationResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::TimeWindow {
+impl std::fmt::Debug for super::TimeWindow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TimeWindow");
         debug_struct.field("start_time", &self.start_time);
@@ -243,7 +243,7 @@ impl std::fmt::Debug for crate::model::TimeWindow {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListViolationsRequest {
+impl std::fmt::Debug for super::ListViolationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListViolationsRequest");
         debug_struct.field("parent", &self.parent);
@@ -258,7 +258,7 @@ impl std::fmt::Debug for crate::model::ListViolationsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListViolationsResponse {
+impl std::fmt::Debug for super::ListViolationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListViolationsResponse");
         debug_struct.field("violations", &self.violations);
@@ -270,7 +270,7 @@ impl std::fmt::Debug for crate::model::ListViolationsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetViolationRequest {
+impl std::fmt::Debug for super::GetViolationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetViolationRequest");
         debug_struct.field("name", &self.name);
@@ -281,7 +281,7 @@ impl std::fmt::Debug for crate::model::GetViolationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Violation {
+impl std::fmt::Debug for super::Violation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Violation");
         debug_struct.field("name", &self.name);
@@ -305,7 +305,7 @@ impl std::fmt::Debug for crate::model::Violation {
     }
 }
 
-impl std::fmt::Debug for crate::model::violation::Remediation {
+impl std::fmt::Debug for super::violation::Remediation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Remediation");
         debug_struct.field("instructions", &self.instructions);
@@ -318,7 +318,7 @@ impl std::fmt::Debug for crate::model::violation::Remediation {
     }
 }
 
-impl std::fmt::Debug for crate::model::violation::remediation::Instructions {
+impl std::fmt::Debug for super::violation::remediation::Instructions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Instructions");
         debug_struct.field("gcloud_instructions", &self.gcloud_instructions);
@@ -330,7 +330,7 @@ impl std::fmt::Debug for crate::model::violation::remediation::Instructions {
     }
 }
 
-impl std::fmt::Debug for crate::model::violation::remediation::instructions::Gcloud {
+impl std::fmt::Debug for super::violation::remediation::instructions::Gcloud {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Gcloud");
         debug_struct.field("gcloud_commands", &self.gcloud_commands);
@@ -343,7 +343,7 @@ impl std::fmt::Debug for crate::model::violation::remediation::instructions::Gcl
     }
 }
 
-impl std::fmt::Debug for crate::model::violation::remediation::instructions::Console {
+impl std::fmt::Debug for super::violation::remediation::instructions::Console {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Console");
         debug_struct.field("console_uris", &self.console_uris);

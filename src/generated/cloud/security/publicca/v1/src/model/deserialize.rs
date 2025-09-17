@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ExternalAccountKey {
+impl<'de> serde::de::Deserialize<'de> for super::ExternalAccountKey {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -64,7 +64,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExternalAccountKey {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ExternalAccountKey;
+            type Value = super::ExternalAccountKey;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ExternalAccountKey")
             }
@@ -133,7 +133,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExternalAccountKey {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreateExternalAccountKeyRequest {
+impl<'de> serde::de::Deserialize<'de> for super::CreateExternalAccountKeyRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -176,7 +176,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateExternalAccountKey
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreateExternalAccountKeyRequest;
+            type Value = super::CreateExternalAccountKeyRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreateExternalAccountKeyRequest")
             }

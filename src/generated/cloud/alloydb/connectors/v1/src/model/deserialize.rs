@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::MetadataExchangeRequest {
+impl<'de> serde::de::Deserialize<'de> for super::MetadataExchangeRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -65,7 +65,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::MetadataExchangeRequest 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::MetadataExchangeRequest;
+            type Value = super::MetadataExchangeRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct MetadataExchangeRequest")
             }
@@ -127,7 +127,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::MetadataExchangeRequest 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::MetadataExchangeResponse {
+impl<'de> serde::de::Deserialize<'de> for super::MetadataExchangeResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -170,7 +170,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::MetadataExchangeResponse
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::MetadataExchangeResponse;
+            type Value = super::MetadataExchangeResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct MetadataExchangeResponse")
             }

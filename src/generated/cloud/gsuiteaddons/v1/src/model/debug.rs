@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::GetAuthorizationRequest {
+impl std::fmt::Debug for super::GetAuthorizationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAuthorizationRequest");
         debug_struct.field("name", &self.name);
@@ -28,7 +28,7 @@ impl std::fmt::Debug for crate::model::GetAuthorizationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Authorization {
+impl std::fmt::Debug for super::Authorization {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Authorization");
         debug_struct.field("name", &self.name);
@@ -41,7 +41,7 @@ impl std::fmt::Debug for crate::model::Authorization {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateDeploymentRequest {
+impl std::fmt::Debug for super::CreateDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateDeploymentRequest");
         debug_struct.field("parent", &self.parent);
@@ -54,7 +54,7 @@ impl std::fmt::Debug for crate::model::CreateDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReplaceDeploymentRequest {
+impl std::fmt::Debug for super::ReplaceDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplaceDeploymentRequest");
         debug_struct.field("deployment", &self.deployment);
@@ -65,7 +65,7 @@ impl std::fmt::Debug for crate::model::ReplaceDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetDeploymentRequest {
+impl std::fmt::Debug for super::GetDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDeploymentRequest");
         debug_struct.field("name", &self.name);
@@ -76,7 +76,7 @@ impl std::fmt::Debug for crate::model::GetDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListDeploymentsRequest {
+impl std::fmt::Debug for super::ListDeploymentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDeploymentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -89,7 +89,7 @@ impl std::fmt::Debug for crate::model::ListDeploymentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListDeploymentsResponse {
+impl std::fmt::Debug for super::ListDeploymentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDeploymentsResponse");
         debug_struct.field("deployments", &self.deployments);
@@ -101,7 +101,7 @@ impl std::fmt::Debug for crate::model::ListDeploymentsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteDeploymentRequest {
+impl std::fmt::Debug for super::DeleteDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDeploymentRequest");
         debug_struct.field("name", &self.name);
@@ -113,7 +113,7 @@ impl std::fmt::Debug for crate::model::DeleteDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::InstallDeploymentRequest {
+impl std::fmt::Debug for super::InstallDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstallDeploymentRequest");
         debug_struct.field("name", &self.name);
@@ -124,7 +124,7 @@ impl std::fmt::Debug for crate::model::InstallDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UninstallDeploymentRequest {
+impl std::fmt::Debug for super::UninstallDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UninstallDeploymentRequest");
         debug_struct.field("name", &self.name);
@@ -135,7 +135,7 @@ impl std::fmt::Debug for crate::model::UninstallDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetInstallStatusRequest {
+impl std::fmt::Debug for super::GetInstallStatusRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInstallStatusRequest");
         debug_struct.field("name", &self.name);
@@ -146,7 +146,7 @@ impl std::fmt::Debug for crate::model::GetInstallStatusRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::InstallStatus {
+impl std::fmt::Debug for super::InstallStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstallStatus");
         debug_struct.field("name", &self.name);
@@ -158,7 +158,7 @@ impl std::fmt::Debug for crate::model::InstallStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::Deployment {
+impl std::fmt::Debug for super::Deployment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Deployment");
         debug_struct.field("name", &self.name);
@@ -172,7 +172,7 @@ impl std::fmt::Debug for crate::model::Deployment {
     }
 }
 
-impl std::fmt::Debug for crate::model::AddOns {
+impl std::fmt::Debug for super::AddOns {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddOns");
         debug_struct.field("common", &self.common);

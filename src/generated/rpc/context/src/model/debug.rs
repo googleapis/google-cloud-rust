@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::AttributeContext {
+impl std::fmt::Debug for super::AttributeContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AttributeContext");
         debug_struct.field("origin", &self.origin);
@@ -35,7 +35,7 @@ impl std::fmt::Debug for crate::model::AttributeContext {
     }
 }
 
-impl std::fmt::Debug for crate::model::attribute_context::Peer {
+impl std::fmt::Debug for super::attribute_context::Peer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Peer");
         debug_struct.field("ip", &self.ip);
@@ -50,7 +50,7 @@ impl std::fmt::Debug for crate::model::attribute_context::Peer {
     }
 }
 
-impl std::fmt::Debug for crate::model::attribute_context::Api {
+impl std::fmt::Debug for super::attribute_context::Api {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Api");
         debug_struct.field("service", &self.service);
@@ -64,7 +64,7 @@ impl std::fmt::Debug for crate::model::attribute_context::Api {
     }
 }
 
-impl std::fmt::Debug for crate::model::attribute_context::Auth {
+impl std::fmt::Debug for super::attribute_context::Auth {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Auth");
         debug_struct.field("principal", &self.principal);
@@ -79,7 +79,7 @@ impl std::fmt::Debug for crate::model::attribute_context::Auth {
     }
 }
 
-impl std::fmt::Debug for crate::model::attribute_context::Request {
+impl std::fmt::Debug for super::attribute_context::Request {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Request");
         debug_struct.field("id", &self.id);
@@ -101,7 +101,7 @@ impl std::fmt::Debug for crate::model::attribute_context::Request {
     }
 }
 
-impl std::fmt::Debug for crate::model::attribute_context::Response {
+impl std::fmt::Debug for super::attribute_context::Response {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Response");
         debug_struct.field("code", &self.code);
@@ -116,7 +116,7 @@ impl std::fmt::Debug for crate::model::attribute_context::Response {
     }
 }
 
-impl std::fmt::Debug for crate::model::attribute_context::Resource {
+impl std::fmt::Debug for super::attribute_context::Resource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Resource");
         debug_struct.field("service", &self.service);
@@ -138,7 +138,7 @@ impl std::fmt::Debug for crate::model::attribute_context::Resource {
     }
 }
 
-impl std::fmt::Debug for crate::model::AuditContext {
+impl std::fmt::Debug for super::AuditContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuditContext");
         debug_struct.field("audit_log", &self.audit_log);

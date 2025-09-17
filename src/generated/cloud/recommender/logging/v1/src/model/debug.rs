@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ActionLog {
+impl std::fmt::Debug for super::ActionLog {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ActionLog");
         debug_struct.field("actor", &self.actor);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::model::ActionLog {
     }
 }
 
-impl std::fmt::Debug for crate::model::InsightActionLog {
+impl std::fmt::Debug for super::InsightActionLog {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InsightActionLog");
         debug_struct.field("actor", &self.actor);

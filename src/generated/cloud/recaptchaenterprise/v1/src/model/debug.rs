@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CreateAssessmentRequest {
+impl std::fmt::Debug for super::CreateAssessmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateAssessmentRequest");
         debug_struct.field("parent", &self.parent);
@@ -29,7 +29,7 @@ impl std::fmt::Debug for crate::model::CreateAssessmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::TransactionEvent {
+impl std::fmt::Debug for super::TransactionEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TransactionEvent");
         debug_struct.field("event_type", &self.event_type);
@@ -43,7 +43,7 @@ impl std::fmt::Debug for crate::model::TransactionEvent {
     }
 }
 
-impl std::fmt::Debug for crate::model::AnnotateAssessmentRequest {
+impl std::fmt::Debug for super::AnnotateAssessmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotateAssessmentRequest");
         debug_struct.field("name", &self.name);
@@ -59,7 +59,7 @@ impl std::fmt::Debug for crate::model::AnnotateAssessmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AnnotateAssessmentResponse {
+impl std::fmt::Debug for super::AnnotateAssessmentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotateAssessmentResponse");
         if !self._unknown_fields.is_empty() {
@@ -69,7 +69,7 @@ impl std::fmt::Debug for crate::model::AnnotateAssessmentResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::EndpointVerificationInfo {
+impl std::fmt::Debug for super::EndpointVerificationInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EndpointVerificationInfo");
         debug_struct.field("request_token", &self.request_token);
@@ -82,7 +82,7 @@ impl std::fmt::Debug for crate::model::EndpointVerificationInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccountVerificationInfo {
+impl std::fmt::Debug for super::AccountVerificationInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccountVerificationInfo");
         debug_struct.field("endpoints", &self.endpoints);
@@ -99,7 +99,7 @@ impl std::fmt::Debug for crate::model::AccountVerificationInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::PrivatePasswordLeakVerification {
+impl std::fmt::Debug for super::PrivatePasswordLeakVerification {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrivatePasswordLeakVerification");
         debug_struct.field("lookup_hash_prefix", &self.lookup_hash_prefix);
@@ -122,7 +122,7 @@ impl std::fmt::Debug for crate::model::PrivatePasswordLeakVerification {
     }
 }
 
-impl std::fmt::Debug for crate::model::Assessment {
+impl std::fmt::Debug for super::Assessment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Assessment");
         debug_struct.field("name", &self.name);
@@ -156,7 +156,7 @@ impl std::fmt::Debug for crate::model::Assessment {
     }
 }
 
-impl std::fmt::Debug for crate::model::Event {
+impl std::fmt::Debug for super::Event {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Event");
         debug_struct.field("token", &self.token);
@@ -185,7 +185,7 @@ impl std::fmt::Debug for crate::model::Event {
     }
 }
 
-impl std::fmt::Debug for crate::model::TransactionData {
+impl std::fmt::Debug for super::TransactionData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TransactionData");
         debug_struct.field("transaction_id", &self.transaction_id);
@@ -208,7 +208,7 @@ impl std::fmt::Debug for crate::model::TransactionData {
     }
 }
 
-impl std::fmt::Debug for crate::model::transaction_data::Address {
+impl std::fmt::Debug for super::transaction_data::Address {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Address");
         debug_struct.field("recipient", &self.recipient);
@@ -224,7 +224,7 @@ impl std::fmt::Debug for crate::model::transaction_data::Address {
     }
 }
 
-impl std::fmt::Debug for crate::model::transaction_data::User {
+impl std::fmt::Debug for super::transaction_data::User {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("User");
         debug_struct.field("account_id", &self.account_id);
@@ -240,7 +240,7 @@ impl std::fmt::Debug for crate::model::transaction_data::User {
     }
 }
 
-impl std::fmt::Debug for crate::model::transaction_data::Item {
+impl std::fmt::Debug for super::transaction_data::Item {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Item");
         debug_struct.field("name", &self.name);
@@ -254,7 +254,7 @@ impl std::fmt::Debug for crate::model::transaction_data::Item {
     }
 }
 
-impl std::fmt::Debug for crate::model::transaction_data::GatewayInfo {
+impl std::fmt::Debug for super::transaction_data::GatewayInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GatewayInfo");
         debug_struct.field("name", &self.name);
@@ -268,7 +268,7 @@ impl std::fmt::Debug for crate::model::transaction_data::GatewayInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::UserInfo {
+impl std::fmt::Debug for super::UserInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserInfo");
         debug_struct.field("create_account_time", &self.create_account_time);
@@ -281,7 +281,7 @@ impl std::fmt::Debug for crate::model::UserInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::UserId {
+impl std::fmt::Debug for super::UserId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserId");
         debug_struct.field("id_oneof", &self.id_oneof);
@@ -292,7 +292,7 @@ impl std::fmt::Debug for crate::model::UserId {
     }
 }
 
-impl std::fmt::Debug for crate::model::RiskAnalysis {
+impl std::fmt::Debug for super::RiskAnalysis {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RiskAnalysis");
         debug_struct.field("score", &self.score);
@@ -306,7 +306,7 @@ impl std::fmt::Debug for crate::model::RiskAnalysis {
     }
 }
 
-impl std::fmt::Debug for crate::model::TokenProperties {
+impl std::fmt::Debug for super::TokenProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TokenProperties");
         debug_struct.field("valid", &self.valid);
@@ -323,7 +323,7 @@ impl std::fmt::Debug for crate::model::TokenProperties {
     }
 }
 
-impl std::fmt::Debug for crate::model::FraudPreventionAssessment {
+impl std::fmt::Debug for super::FraudPreventionAssessment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FraudPreventionAssessment");
         debug_struct.field("transaction_risk", &self.transaction_risk);
@@ -337,7 +337,7 @@ impl std::fmt::Debug for crate::model::FraudPreventionAssessment {
     }
 }
 
-impl std::fmt::Debug for crate::model::fraud_prevention_assessment::StolenInstrumentVerdict {
+impl std::fmt::Debug for super::fraud_prevention_assessment::StolenInstrumentVerdict {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StolenInstrumentVerdict");
         debug_struct.field("risk", &self.risk);
@@ -348,7 +348,7 @@ impl std::fmt::Debug for crate::model::fraud_prevention_assessment::StolenInstru
     }
 }
 
-impl std::fmt::Debug for crate::model::fraud_prevention_assessment::CardTestingVerdict {
+impl std::fmt::Debug for super::fraud_prevention_assessment::CardTestingVerdict {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CardTestingVerdict");
         debug_struct.field("risk", &self.risk);
@@ -359,7 +359,7 @@ impl std::fmt::Debug for crate::model::fraud_prevention_assessment::CardTestingV
     }
 }
 
-impl std::fmt::Debug for crate::model::fraud_prevention_assessment::BehavioralTrustVerdict {
+impl std::fmt::Debug for super::fraud_prevention_assessment::BehavioralTrustVerdict {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BehavioralTrustVerdict");
         debug_struct.field("trust", &self.trust);
@@ -370,7 +370,7 @@ impl std::fmt::Debug for crate::model::fraud_prevention_assessment::BehavioralTr
     }
 }
 
-impl std::fmt::Debug for crate::model::FraudSignals {
+impl std::fmt::Debug for super::FraudSignals {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FraudSignals");
         debug_struct.field("user_signals", &self.user_signals);
@@ -382,7 +382,7 @@ impl std::fmt::Debug for crate::model::FraudSignals {
     }
 }
 
-impl std::fmt::Debug for crate::model::fraud_signals::UserSignals {
+impl std::fmt::Debug for super::fraud_signals::UserSignals {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserSignals");
         debug_struct.field("active_days_lower_bound", &self.active_days_lower_bound);
@@ -394,7 +394,7 @@ impl std::fmt::Debug for crate::model::fraud_signals::UserSignals {
     }
 }
 
-impl std::fmt::Debug for crate::model::fraud_signals::CardSignals {
+impl std::fmt::Debug for super::fraud_signals::CardSignals {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CardSignals");
         debug_struct.field("card_labels", &self.card_labels);
@@ -405,7 +405,7 @@ impl std::fmt::Debug for crate::model::fraud_signals::CardSignals {
     }
 }
 
-impl std::fmt::Debug for crate::model::SmsTollFraudVerdict {
+impl std::fmt::Debug for super::SmsTollFraudVerdict {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SmsTollFraudVerdict");
         debug_struct.field("risk", &self.risk);
@@ -417,7 +417,7 @@ impl std::fmt::Debug for crate::model::SmsTollFraudVerdict {
     }
 }
 
-impl std::fmt::Debug for crate::model::PhoneFraudAssessment {
+impl std::fmt::Debug for super::PhoneFraudAssessment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PhoneFraudAssessment");
         debug_struct.field("sms_toll_fraud_verdict", &self.sms_toll_fraud_verdict);
@@ -428,7 +428,7 @@ impl std::fmt::Debug for crate::model::PhoneFraudAssessment {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccountDefenderAssessment {
+impl std::fmt::Debug for super::AccountDefenderAssessment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccountDefenderAssessment");
         debug_struct.field("labels", &self.labels);
@@ -439,7 +439,7 @@ impl std::fmt::Debug for crate::model::AccountDefenderAssessment {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateKeyRequest {
+impl std::fmt::Debug for super::CreateKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateKeyRequest");
         debug_struct.field("parent", &self.parent);
@@ -451,7 +451,7 @@ impl std::fmt::Debug for crate::model::CreateKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListKeysRequest {
+impl std::fmt::Debug for super::ListKeysRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKeysRequest");
         debug_struct.field("parent", &self.parent);
@@ -464,7 +464,7 @@ impl std::fmt::Debug for crate::model::ListKeysRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListKeysResponse {
+impl std::fmt::Debug for super::ListKeysResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKeysResponse");
         debug_struct.field("keys", &self.keys);
@@ -476,7 +476,7 @@ impl std::fmt::Debug for crate::model::ListKeysResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::RetrieveLegacySecretKeyRequest {
+impl std::fmt::Debug for super::RetrieveLegacySecretKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RetrieveLegacySecretKeyRequest");
         debug_struct.field("key", &self.key);
@@ -487,7 +487,7 @@ impl std::fmt::Debug for crate::model::RetrieveLegacySecretKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetKeyRequest {
+impl std::fmt::Debug for super::GetKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetKeyRequest");
         debug_struct.field("name", &self.name);
@@ -498,7 +498,7 @@ impl std::fmt::Debug for crate::model::GetKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateKeyRequest {
+impl std::fmt::Debug for super::UpdateKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateKeyRequest");
         debug_struct.field("key", &self.key);
@@ -510,7 +510,7 @@ impl std::fmt::Debug for crate::model::UpdateKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteKeyRequest {
+impl std::fmt::Debug for super::DeleteKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteKeyRequest");
         debug_struct.field("name", &self.name);
@@ -521,7 +521,7 @@ impl std::fmt::Debug for crate::model::DeleteKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateFirewallPolicyRequest {
+impl std::fmt::Debug for super::CreateFirewallPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateFirewallPolicyRequest");
         debug_struct.field("parent", &self.parent);
@@ -533,7 +533,7 @@ impl std::fmt::Debug for crate::model::CreateFirewallPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListFirewallPoliciesRequest {
+impl std::fmt::Debug for super::ListFirewallPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListFirewallPoliciesRequest");
         debug_struct.field("parent", &self.parent);
@@ -546,7 +546,7 @@ impl std::fmt::Debug for crate::model::ListFirewallPoliciesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListFirewallPoliciesResponse {
+impl std::fmt::Debug for super::ListFirewallPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListFirewallPoliciesResponse");
         debug_struct.field("firewall_policies", &self.firewall_policies);
@@ -558,7 +558,7 @@ impl std::fmt::Debug for crate::model::ListFirewallPoliciesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetFirewallPolicyRequest {
+impl std::fmt::Debug for super::GetFirewallPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetFirewallPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -569,7 +569,7 @@ impl std::fmt::Debug for crate::model::GetFirewallPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateFirewallPolicyRequest {
+impl std::fmt::Debug for super::UpdateFirewallPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateFirewallPolicyRequest");
         debug_struct.field("firewall_policy", &self.firewall_policy);
@@ -581,7 +581,7 @@ impl std::fmt::Debug for crate::model::UpdateFirewallPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteFirewallPolicyRequest {
+impl std::fmt::Debug for super::DeleteFirewallPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteFirewallPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -592,7 +592,7 @@ impl std::fmt::Debug for crate::model::DeleteFirewallPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReorderFirewallPoliciesRequest {
+impl std::fmt::Debug for super::ReorderFirewallPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReorderFirewallPoliciesRequest");
         debug_struct.field("parent", &self.parent);
@@ -604,7 +604,7 @@ impl std::fmt::Debug for crate::model::ReorderFirewallPoliciesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReorderFirewallPoliciesResponse {
+impl std::fmt::Debug for super::ReorderFirewallPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReorderFirewallPoliciesResponse");
         if !self._unknown_fields.is_empty() {
@@ -614,7 +614,7 @@ impl std::fmt::Debug for crate::model::ReorderFirewallPoliciesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::MigrateKeyRequest {
+impl std::fmt::Debug for super::MigrateKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrateKeyRequest");
         debug_struct.field("name", &self.name);
@@ -626,7 +626,7 @@ impl std::fmt::Debug for crate::model::MigrateKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetMetricsRequest {
+impl std::fmt::Debug for super::GetMetricsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetMetricsRequest");
         debug_struct.field("name", &self.name);
@@ -637,7 +637,7 @@ impl std::fmt::Debug for crate::model::GetMetricsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Metrics {
+impl std::fmt::Debug for super::Metrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Metrics");
         debug_struct.field("name", &self.name);
@@ -651,7 +651,7 @@ impl std::fmt::Debug for crate::model::Metrics {
     }
 }
 
-impl std::fmt::Debug for crate::model::RetrieveLegacySecretKeyResponse {
+impl std::fmt::Debug for super::RetrieveLegacySecretKeyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RetrieveLegacySecretKeyResponse");
         debug_struct.field("legacy_secret_key", &self.legacy_secret_key);
@@ -662,7 +662,7 @@ impl std::fmt::Debug for crate::model::RetrieveLegacySecretKeyResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Key {
+impl std::fmt::Debug for super::Key {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Key");
         debug_struct.field("name", &self.name);
@@ -679,7 +679,7 @@ impl std::fmt::Debug for crate::model::Key {
     }
 }
 
-impl std::fmt::Debug for crate::model::TestingOptions {
+impl std::fmt::Debug for super::TestingOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TestingOptions");
         debug_struct.field("testing_score", &self.testing_score);
@@ -691,7 +691,7 @@ impl std::fmt::Debug for crate::model::TestingOptions {
     }
 }
 
-impl std::fmt::Debug for crate::model::WebKeySettings {
+impl std::fmt::Debug for super::WebKeySettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WebKeySettings");
         debug_struct.field("allow_all_domains", &self.allow_all_domains);
@@ -709,7 +709,7 @@ impl std::fmt::Debug for crate::model::WebKeySettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::AndroidKeySettings {
+impl std::fmt::Debug for super::AndroidKeySettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AndroidKeySettings");
         debug_struct.field("allow_all_package_names", &self.allow_all_package_names);
@@ -725,7 +725,7 @@ impl std::fmt::Debug for crate::model::AndroidKeySettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::IOSKeySettings {
+impl std::fmt::Debug for super::IOSKeySettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IOSKeySettings");
         debug_struct.field("allow_all_bundle_ids", &self.allow_all_bundle_ids);
@@ -738,7 +738,7 @@ impl std::fmt::Debug for crate::model::IOSKeySettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExpressKeySettings {
+impl std::fmt::Debug for super::ExpressKeySettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExpressKeySettings");
         if !self._unknown_fields.is_empty() {
@@ -748,7 +748,7 @@ impl std::fmt::Debug for crate::model::ExpressKeySettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::AppleDeveloperId {
+impl std::fmt::Debug for super::AppleDeveloperId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AppleDeveloperId");
         debug_struct.field("private_key", &self.private_key);
@@ -761,7 +761,7 @@ impl std::fmt::Debug for crate::model::AppleDeveloperId {
     }
 }
 
-impl std::fmt::Debug for crate::model::ScoreDistribution {
+impl std::fmt::Debug for super::ScoreDistribution {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ScoreDistribution");
         debug_struct.field("score_buckets", &self.score_buckets);
@@ -772,7 +772,7 @@ impl std::fmt::Debug for crate::model::ScoreDistribution {
     }
 }
 
-impl std::fmt::Debug for crate::model::ScoreMetrics {
+impl std::fmt::Debug for super::ScoreMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ScoreMetrics");
         debug_struct.field("overall_metrics", &self.overall_metrics);
@@ -784,7 +784,7 @@ impl std::fmt::Debug for crate::model::ScoreMetrics {
     }
 }
 
-impl std::fmt::Debug for crate::model::ChallengeMetrics {
+impl std::fmt::Debug for super::ChallengeMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChallengeMetrics");
         debug_struct.field("pageload_count", &self.pageload_count);
@@ -798,7 +798,7 @@ impl std::fmt::Debug for crate::model::ChallengeMetrics {
     }
 }
 
-impl std::fmt::Debug for crate::model::FirewallPolicyAssessment {
+impl std::fmt::Debug for super::FirewallPolicyAssessment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FirewallPolicyAssessment");
         debug_struct.field("error", &self.error);
@@ -810,7 +810,7 @@ impl std::fmt::Debug for crate::model::FirewallPolicyAssessment {
     }
 }
 
-impl std::fmt::Debug for crate::model::FirewallAction {
+impl std::fmt::Debug for super::FirewallAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FirewallAction");
         debug_struct.field("firewall_action_oneof", &self.firewall_action_oneof);
@@ -821,7 +821,7 @@ impl std::fmt::Debug for crate::model::FirewallAction {
     }
 }
 
-impl std::fmt::Debug for crate::model::firewall_action::AllowAction {
+impl std::fmt::Debug for super::firewall_action::AllowAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AllowAction");
         if !self._unknown_fields.is_empty() {
@@ -831,7 +831,7 @@ impl std::fmt::Debug for crate::model::firewall_action::AllowAction {
     }
 }
 
-impl std::fmt::Debug for crate::model::firewall_action::BlockAction {
+impl std::fmt::Debug for super::firewall_action::BlockAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BlockAction");
         if !self._unknown_fields.is_empty() {
@@ -841,7 +841,7 @@ impl std::fmt::Debug for crate::model::firewall_action::BlockAction {
     }
 }
 
-impl std::fmt::Debug for crate::model::firewall_action::IncludeRecaptchaScriptAction {
+impl std::fmt::Debug for super::firewall_action::IncludeRecaptchaScriptAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IncludeRecaptchaScriptAction");
         if !self._unknown_fields.is_empty() {
@@ -851,7 +851,7 @@ impl std::fmt::Debug for crate::model::firewall_action::IncludeRecaptchaScriptAc
     }
 }
 
-impl std::fmt::Debug for crate::model::firewall_action::RedirectAction {
+impl std::fmt::Debug for super::firewall_action::RedirectAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RedirectAction");
         if !self._unknown_fields.is_empty() {
@@ -861,7 +861,7 @@ impl std::fmt::Debug for crate::model::firewall_action::RedirectAction {
     }
 }
 
-impl std::fmt::Debug for crate::model::firewall_action::SubstituteAction {
+impl std::fmt::Debug for super::firewall_action::SubstituteAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SubstituteAction");
         debug_struct.field("path", &self.path);
@@ -872,7 +872,7 @@ impl std::fmt::Debug for crate::model::firewall_action::SubstituteAction {
     }
 }
 
-impl std::fmt::Debug for crate::model::firewall_action::SetHeaderAction {
+impl std::fmt::Debug for super::firewall_action::SetHeaderAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SetHeaderAction");
         debug_struct.field("key", &self.key);
@@ -884,7 +884,7 @@ impl std::fmt::Debug for crate::model::firewall_action::SetHeaderAction {
     }
 }
 
-impl std::fmt::Debug for crate::model::FirewallPolicy {
+impl std::fmt::Debug for super::FirewallPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FirewallPolicy");
         debug_struct.field("name", &self.name);
@@ -899,7 +899,7 @@ impl std::fmt::Debug for crate::model::FirewallPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListRelatedAccountGroupMembershipsRequest {
+impl std::fmt::Debug for super::ListRelatedAccountGroupMembershipsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRelatedAccountGroupMembershipsRequest");
         debug_struct.field("parent", &self.parent);
@@ -912,7 +912,7 @@ impl std::fmt::Debug for crate::model::ListRelatedAccountGroupMembershipsRequest
     }
 }
 
-impl std::fmt::Debug for crate::model::ListRelatedAccountGroupMembershipsResponse {
+impl std::fmt::Debug for super::ListRelatedAccountGroupMembershipsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRelatedAccountGroupMembershipsResponse");
         debug_struct.field(
@@ -927,7 +927,7 @@ impl std::fmt::Debug for crate::model::ListRelatedAccountGroupMembershipsRespons
     }
 }
 
-impl std::fmt::Debug for crate::model::ListRelatedAccountGroupsRequest {
+impl std::fmt::Debug for super::ListRelatedAccountGroupsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRelatedAccountGroupsRequest");
         debug_struct.field("parent", &self.parent);
@@ -940,7 +940,7 @@ impl std::fmt::Debug for crate::model::ListRelatedAccountGroupsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListRelatedAccountGroupsResponse {
+impl std::fmt::Debug for super::ListRelatedAccountGroupsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRelatedAccountGroupsResponse");
         debug_struct.field("related_account_groups", &self.related_account_groups);
@@ -952,7 +952,7 @@ impl std::fmt::Debug for crate::model::ListRelatedAccountGroupsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchRelatedAccountGroupMembershipsRequest {
+impl std::fmt::Debug for super::SearchRelatedAccountGroupMembershipsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchRelatedAccountGroupMembershipsRequest");
         debug_struct.field("project", &self.project);
@@ -967,7 +967,7 @@ impl std::fmt::Debug for crate::model::SearchRelatedAccountGroupMembershipsReque
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchRelatedAccountGroupMembershipsResponse {
+impl std::fmt::Debug for super::SearchRelatedAccountGroupMembershipsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchRelatedAccountGroupMembershipsResponse");
         debug_struct.field(
@@ -982,7 +982,7 @@ impl std::fmt::Debug for crate::model::SearchRelatedAccountGroupMembershipsRespo
     }
 }
 
-impl std::fmt::Debug for crate::model::AddIpOverrideRequest {
+impl std::fmt::Debug for super::AddIpOverrideRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddIpOverrideRequest");
         debug_struct.field("name", &self.name);
@@ -994,7 +994,7 @@ impl std::fmt::Debug for crate::model::AddIpOverrideRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AddIpOverrideResponse {
+impl std::fmt::Debug for super::AddIpOverrideResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddIpOverrideResponse");
         if !self._unknown_fields.is_empty() {
@@ -1004,7 +1004,7 @@ impl std::fmt::Debug for crate::model::AddIpOverrideResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::RemoveIpOverrideRequest {
+impl std::fmt::Debug for super::RemoveIpOverrideRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RemoveIpOverrideRequest");
         debug_struct.field("name", &self.name);
@@ -1016,7 +1016,7 @@ impl std::fmt::Debug for crate::model::RemoveIpOverrideRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RemoveIpOverrideResponse {
+impl std::fmt::Debug for super::RemoveIpOverrideResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RemoveIpOverrideResponse");
         if !self._unknown_fields.is_empty() {
@@ -1026,7 +1026,7 @@ impl std::fmt::Debug for crate::model::RemoveIpOverrideResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListIpOverridesRequest {
+impl std::fmt::Debug for super::ListIpOverridesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListIpOverridesRequest");
         debug_struct.field("parent", &self.parent);
@@ -1039,7 +1039,7 @@ impl std::fmt::Debug for crate::model::ListIpOverridesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListIpOverridesResponse {
+impl std::fmt::Debug for super::ListIpOverridesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListIpOverridesResponse");
         debug_struct.field("ip_overrides", &self.ip_overrides);
@@ -1051,7 +1051,7 @@ impl std::fmt::Debug for crate::model::ListIpOverridesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::RelatedAccountGroupMembership {
+impl std::fmt::Debug for super::RelatedAccountGroupMembership {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RelatedAccountGroupMembership");
         debug_struct.field("name", &self.name);
@@ -1064,7 +1064,7 @@ impl std::fmt::Debug for crate::model::RelatedAccountGroupMembership {
     }
 }
 
-impl std::fmt::Debug for crate::model::RelatedAccountGroup {
+impl std::fmt::Debug for super::RelatedAccountGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RelatedAccountGroup");
         debug_struct.field("name", &self.name);
@@ -1075,7 +1075,7 @@ impl std::fmt::Debug for crate::model::RelatedAccountGroup {
     }
 }
 
-impl std::fmt::Debug for crate::model::WafSettings {
+impl std::fmt::Debug for super::WafSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WafSettings");
         debug_struct.field("waf_service", &self.waf_service);
@@ -1087,7 +1087,7 @@ impl std::fmt::Debug for crate::model::WafSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::AssessmentEnvironment {
+impl std::fmt::Debug for super::AssessmentEnvironment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssessmentEnvironment");
         debug_struct.field("client", &self.client);
@@ -1099,7 +1099,7 @@ impl std::fmt::Debug for crate::model::AssessmentEnvironment {
     }
 }
 
-impl std::fmt::Debug for crate::model::IpOverrideData {
+impl std::fmt::Debug for super::IpOverrideData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IpOverrideData");
         debug_struct.field("ip", &self.ip);

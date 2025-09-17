@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::AccessLocations {
+impl std::fmt::Debug for super::AccessLocations {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessLocations");
         debug_struct.field("principal_office_country", &self.principal_office_country);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::AccessLocations {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessReason {
+impl std::fmt::Debug for super::AccessReason {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessReason");
         debug_struct.field("r#type", &self.r#type);
@@ -44,7 +44,7 @@ impl std::fmt::Debug for crate::model::AccessReason {
     }
 }
 
-impl std::fmt::Debug for crate::model::SignatureInfo {
+impl std::fmt::Debug for super::SignatureInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SignatureInfo");
         debug_struct.field("signature", &self.signature);
@@ -56,7 +56,7 @@ impl std::fmt::Debug for crate::model::SignatureInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::ApproveDecision {
+impl std::fmt::Debug for super::ApproveDecision {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ApproveDecision");
         debug_struct.field("approve_time", &self.approve_time);
@@ -71,7 +71,7 @@ impl std::fmt::Debug for crate::model::ApproveDecision {
     }
 }
 
-impl std::fmt::Debug for crate::model::DismissDecision {
+impl std::fmt::Debug for super::DismissDecision {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DismissDecision");
         debug_struct.field("dismiss_time", &self.dismiss_time);
@@ -83,7 +83,7 @@ impl std::fmt::Debug for crate::model::DismissDecision {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResourceProperties {
+impl std::fmt::Debug for super::ResourceProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceProperties");
         debug_struct.field("excludes_descendants", &self.excludes_descendants);
@@ -94,7 +94,7 @@ impl std::fmt::Debug for crate::model::ResourceProperties {
     }
 }
 
-impl std::fmt::Debug for crate::model::ApprovalRequest {
+impl std::fmt::Debug for super::ApprovalRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ApprovalRequest");
         debug_struct.field("name", &self.name);
@@ -115,7 +115,7 @@ impl std::fmt::Debug for crate::model::ApprovalRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::EnrolledService {
+impl std::fmt::Debug for super::EnrolledService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnrolledService");
         debug_struct.field("cloud_product", &self.cloud_product);
@@ -127,7 +127,7 @@ impl std::fmt::Debug for crate::model::EnrolledService {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessApprovalSettings {
+impl std::fmt::Debug for super::AccessApprovalSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessApprovalSettings");
         debug_struct.field("name", &self.name);
@@ -147,7 +147,7 @@ impl std::fmt::Debug for crate::model::AccessApprovalSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessApprovalServiceAccount {
+impl std::fmt::Debug for super::AccessApprovalServiceAccount {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessApprovalServiceAccount");
         debug_struct.field("name", &self.name);
@@ -159,7 +159,7 @@ impl std::fmt::Debug for crate::model::AccessApprovalServiceAccount {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListApprovalRequestsMessage {
+impl std::fmt::Debug for super::ListApprovalRequestsMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListApprovalRequestsMessage");
         debug_struct.field("parent", &self.parent);
@@ -173,7 +173,7 @@ impl std::fmt::Debug for crate::model::ListApprovalRequestsMessage {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListApprovalRequestsResponse {
+impl std::fmt::Debug for super::ListApprovalRequestsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListApprovalRequestsResponse");
         debug_struct.field("approval_requests", &self.approval_requests);
@@ -185,7 +185,7 @@ impl std::fmt::Debug for crate::model::ListApprovalRequestsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetApprovalRequestMessage {
+impl std::fmt::Debug for super::GetApprovalRequestMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetApprovalRequestMessage");
         debug_struct.field("name", &self.name);
@@ -196,7 +196,7 @@ impl std::fmt::Debug for crate::model::GetApprovalRequestMessage {
     }
 }
 
-impl std::fmt::Debug for crate::model::ApproveApprovalRequestMessage {
+impl std::fmt::Debug for super::ApproveApprovalRequestMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ApproveApprovalRequestMessage");
         debug_struct.field("name", &self.name);
@@ -208,7 +208,7 @@ impl std::fmt::Debug for crate::model::ApproveApprovalRequestMessage {
     }
 }
 
-impl std::fmt::Debug for crate::model::DismissApprovalRequestMessage {
+impl std::fmt::Debug for super::DismissApprovalRequestMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DismissApprovalRequestMessage");
         debug_struct.field("name", &self.name);
@@ -219,7 +219,7 @@ impl std::fmt::Debug for crate::model::DismissApprovalRequestMessage {
     }
 }
 
-impl std::fmt::Debug for crate::model::InvalidateApprovalRequestMessage {
+impl std::fmt::Debug for super::InvalidateApprovalRequestMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InvalidateApprovalRequestMessage");
         debug_struct.field("name", &self.name);
@@ -230,7 +230,7 @@ impl std::fmt::Debug for crate::model::InvalidateApprovalRequestMessage {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetAccessApprovalSettingsMessage {
+impl std::fmt::Debug for super::GetAccessApprovalSettingsMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAccessApprovalSettingsMessage");
         debug_struct.field("name", &self.name);
@@ -241,7 +241,7 @@ impl std::fmt::Debug for crate::model::GetAccessApprovalSettingsMessage {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateAccessApprovalSettingsMessage {
+impl std::fmt::Debug for super::UpdateAccessApprovalSettingsMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateAccessApprovalSettingsMessage");
         debug_struct.field("settings", &self.settings);
@@ -253,7 +253,7 @@ impl std::fmt::Debug for crate::model::UpdateAccessApprovalSettingsMessage {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteAccessApprovalSettingsMessage {
+impl std::fmt::Debug for super::DeleteAccessApprovalSettingsMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAccessApprovalSettingsMessage");
         debug_struct.field("name", &self.name);
@@ -264,7 +264,7 @@ impl std::fmt::Debug for crate::model::DeleteAccessApprovalSettingsMessage {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetAccessApprovalServiceAccountMessage {
+impl std::fmt::Debug for super::GetAccessApprovalServiceAccountMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAccessApprovalServiceAccountMessage");
         debug_struct.field("name", &self.name);

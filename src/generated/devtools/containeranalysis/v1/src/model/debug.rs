@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ExportSBOMRequest {
+impl std::fmt::Debug for super::ExportSBOMRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportSBOMRequest");
         debug_struct.field("name", &self.name);
@@ -29,7 +29,7 @@ impl std::fmt::Debug for crate::model::ExportSBOMRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::export_sbom_request::CloudStorageLocation {
+impl std::fmt::Debug for super::export_sbom_request::CloudStorageLocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudStorageLocation");
         if !self._unknown_fields.is_empty() {
@@ -39,7 +39,7 @@ impl std::fmt::Debug for crate::model::export_sbom_request::CloudStorageLocation
     }
 }
 
-impl std::fmt::Debug for crate::model::ExportSBOMResponse {
+impl std::fmt::Debug for super::ExportSBOMResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportSBOMResponse");
         debug_struct.field("discovery_occurrence", &self.discovery_occurrence);
@@ -50,7 +50,7 @@ impl std::fmt::Debug for crate::model::ExportSBOMResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetVulnerabilityOccurrencesSummaryRequest {
+impl std::fmt::Debug for super::GetVulnerabilityOccurrencesSummaryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetVulnerabilityOccurrencesSummaryRequest");
         debug_struct.field("parent", &self.parent);
@@ -62,7 +62,7 @@ impl std::fmt::Debug for crate::model::GetVulnerabilityOccurrencesSummaryRequest
     }
 }
 
-impl std::fmt::Debug for crate::model::VulnerabilityOccurrencesSummary {
+impl std::fmt::Debug for super::VulnerabilityOccurrencesSummary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VulnerabilityOccurrencesSummary");
         debug_struct.field("counts", &self.counts);
@@ -73,7 +73,7 @@ impl std::fmt::Debug for crate::model::VulnerabilityOccurrencesSummary {
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_occurrences_summary::FixableTotalByDigest {
+impl std::fmt::Debug for super::vulnerability_occurrences_summary::FixableTotalByDigest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FixableTotalByDigest");
         debug_struct.field("resource_uri", &self.resource_uri);

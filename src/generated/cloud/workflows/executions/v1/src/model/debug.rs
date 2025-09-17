@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Execution {
+impl std::fmt::Debug for super::Execution {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Execution");
         debug_struct.field("name", &self.name);
@@ -40,7 +40,7 @@ impl std::fmt::Debug for crate::model::Execution {
     }
 }
 
-impl std::fmt::Debug for crate::model::execution::StackTraceElement {
+impl std::fmt::Debug for super::execution::StackTraceElement {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StackTraceElement");
         debug_struct.field("step", &self.step);
@@ -53,7 +53,7 @@ impl std::fmt::Debug for crate::model::execution::StackTraceElement {
     }
 }
 
-impl std::fmt::Debug for crate::model::execution::stack_trace_element::Position {
+impl std::fmt::Debug for super::execution::stack_trace_element::Position {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Position");
         debug_struct.field("line", &self.line);
@@ -66,7 +66,7 @@ impl std::fmt::Debug for crate::model::execution::stack_trace_element::Position 
     }
 }
 
-impl std::fmt::Debug for crate::model::execution::StackTrace {
+impl std::fmt::Debug for super::execution::StackTrace {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StackTrace");
         debug_struct.field("elements", &self.elements);
@@ -77,7 +77,7 @@ impl std::fmt::Debug for crate::model::execution::StackTrace {
     }
 }
 
-impl std::fmt::Debug for crate::model::execution::Error {
+impl std::fmt::Debug for super::execution::Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Error");
         debug_struct.field("payload", &self.payload);
@@ -90,7 +90,7 @@ impl std::fmt::Debug for crate::model::execution::Error {
     }
 }
 
-impl std::fmt::Debug for crate::model::execution::Status {
+impl std::fmt::Debug for super::execution::Status {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Status");
         debug_struct.field("current_steps", &self.current_steps);
@@ -101,7 +101,7 @@ impl std::fmt::Debug for crate::model::execution::Status {
     }
 }
 
-impl std::fmt::Debug for crate::model::execution::status::Step {
+impl std::fmt::Debug for super::execution::status::Step {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Step");
         debug_struct.field("routine", &self.routine);
@@ -113,7 +113,7 @@ impl std::fmt::Debug for crate::model::execution::status::Step {
     }
 }
 
-impl std::fmt::Debug for crate::model::execution::StateError {
+impl std::fmt::Debug for super::execution::StateError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StateError");
         debug_struct.field("details", &self.details);
@@ -125,7 +125,7 @@ impl std::fmt::Debug for crate::model::execution::StateError {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListExecutionsRequest {
+impl std::fmt::Debug for super::ListExecutionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListExecutionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -141,7 +141,7 @@ impl std::fmt::Debug for crate::model::ListExecutionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListExecutionsResponse {
+impl std::fmt::Debug for super::ListExecutionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListExecutionsResponse");
         debug_struct.field("executions", &self.executions);
@@ -153,7 +153,7 @@ impl std::fmt::Debug for crate::model::ListExecutionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateExecutionRequest {
+impl std::fmt::Debug for super::CreateExecutionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateExecutionRequest");
         debug_struct.field("parent", &self.parent);
@@ -165,7 +165,7 @@ impl std::fmt::Debug for crate::model::CreateExecutionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetExecutionRequest {
+impl std::fmt::Debug for super::GetExecutionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetExecutionRequest");
         debug_struct.field("name", &self.name);
@@ -177,7 +177,7 @@ impl std::fmt::Debug for crate::model::GetExecutionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CancelExecutionRequest {
+impl std::fmt::Debug for super::CancelExecutionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelExecutionRequest");
         debug_struct.field("name", &self.name);

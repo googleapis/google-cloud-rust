@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GmailAddOnManifest {
+impl<'de> serde::de::Deserialize<'de> for super::GmailAddOnManifest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -75,7 +75,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GmailAddOnManifest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GmailAddOnManifest;
+            type Value = super::GmailAddOnManifest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GmailAddOnManifest")
             }
@@ -159,7 +159,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GmailAddOnManifest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::UniversalAction {
+impl<'de> serde::de::Deserialize<'de> for super::UniversalAction {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -205,7 +205,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UniversalAction {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::UniversalAction;
+            type Value = super::UniversalAction;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct UniversalAction")
             }
@@ -281,7 +281,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UniversalAction {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ComposeTrigger {
+impl<'de> serde::de::Deserialize<'de> for super::ComposeTrigger {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -324,7 +324,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ComposeTrigger {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ComposeTrigger;
+            type Value = super::ComposeTrigger;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ComposeTrigger")
             }
@@ -374,7 +374,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ComposeTrigger {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ContextualTrigger {
+impl<'de> serde::de::Deserialize<'de> for super::ContextualTrigger {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -417,7 +417,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ContextualTrigger {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ContextualTrigger;
+            type Value = super::ContextualTrigger;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ContextualTrigger")
             }
@@ -477,7 +477,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ContextualTrigger {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::UnconditionalTrigger {
+impl<'de> serde::de::Deserialize<'de> for super::UnconditionalTrigger {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -513,7 +513,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UnconditionalTrigger {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::UnconditionalTrigger;
+            type Value = super::UnconditionalTrigger;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct UnconditionalTrigger")
             }

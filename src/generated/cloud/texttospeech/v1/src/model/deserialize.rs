@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListVoicesRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListVoicesRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -59,7 +59,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListVoicesRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListVoicesRequest;
+            type Value = super::ListVoicesRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListVoicesRequest")
             }
@@ -99,7 +99,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListVoicesRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListVoicesResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListVoicesResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -139,7 +139,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListVoicesResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListVoicesResponse;
+            type Value = super::ListVoicesResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListVoicesResponse")
             }
@@ -177,7 +177,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListVoicesResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::Voice {
+impl<'de> serde::de::Deserialize<'de> for super::Voice {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -228,7 +228,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Voice {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::Voice;
+            type Value = super::Voice;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Voice")
             }
@@ -306,7 +306,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Voice {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AdvancedVoiceOptions {
+impl<'de> serde::de::Deserialize<'de> for super::AdvancedVoiceOptions {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -351,7 +351,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdvancedVoiceOptions {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AdvancedVoiceOptions;
+            type Value = super::AdvancedVoiceOptions;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AdvancedVoiceOptions")
             }
@@ -390,7 +390,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdvancedVoiceOptions {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeSpeechRequest {
+impl<'de> serde::de::Deserialize<'de> for super::SynthesizeSpeechRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -438,7 +438,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeSpeechRequest 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SynthesizeSpeechRequest;
+            type Value = super::SynthesizeSpeechRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SynthesizeSpeechRequest")
             }
@@ -505,7 +505,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeSpeechRequest 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CustomPronunciationParams {
+impl<'de> serde::de::Deserialize<'de> for super::CustomPronunciationParams {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -550,7 +550,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CustomPronunciationParam
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CustomPronunciationParams;
+            type Value = super::CustomPronunciationParams;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CustomPronunciationParams")
             }
@@ -608,7 +608,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CustomPronunciationParam
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CustomPronunciations {
+impl<'de> serde::de::Deserialize<'de> for super::CustomPronunciations {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -648,7 +648,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CustomPronunciations {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CustomPronunciations;
+            type Value = super::CustomPronunciations;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CustomPronunciations")
             }
@@ -690,7 +690,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CustomPronunciations {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::MultiSpeakerMarkup {
+impl<'de> serde::de::Deserialize<'de> for super::MultiSpeakerMarkup {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -730,7 +730,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::MultiSpeakerMarkup {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::MultiSpeakerMarkup;
+            type Value = super::MultiSpeakerMarkup;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct MultiSpeakerMarkup")
             }
@@ -772,7 +772,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::MultiSpeakerMarkup {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::multi_speaker_markup::Turn {
+impl<'de> serde::de::Deserialize<'de> for super::multi_speaker_markup::Turn {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -814,7 +814,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::multi_speaker_markup::Tu
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::multi_speaker_markup::Turn;
+            type Value = super::multi_speaker_markup::Turn;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Turn")
             }
@@ -864,7 +864,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::multi_speaker_markup::Tu
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesisInput {
+impl<'de> serde::de::Deserialize<'de> for super::SynthesisInput {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -916,7 +916,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesisInput {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SynthesisInput;
+            type Value = super::SynthesisInput;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SynthesisInput")
             }
@@ -1038,7 +1038,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesisInput {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::VoiceSelectionParams {
+impl<'de> serde::de::Deserialize<'de> for super::VoiceSelectionParams {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1093,7 +1093,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::VoiceSelectionParams {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::VoiceSelectionParams;
+            type Value = super::VoiceSelectionParams;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct VoiceSelectionParams")
             }
@@ -1183,7 +1183,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::VoiceSelectionParams {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AudioConfig {
+impl<'de> serde::de::Deserialize<'de> for super::AudioConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1238,7 +1238,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AudioConfig {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AudioConfig;
+            type Value = super::AudioConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AudioConfig")
             }
@@ -1365,7 +1365,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AudioConfig {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CustomVoiceParams {
+impl<'de> serde::de::Deserialize<'de> for super::CustomVoiceParams {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1408,7 +1408,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CustomVoiceParams {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CustomVoiceParams;
+            type Value = super::CustomVoiceParams;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CustomVoiceParams")
             }
@@ -1460,7 +1460,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CustomVoiceParams {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::VoiceCloneParams {
+impl<'de> serde::de::Deserialize<'de> for super::VoiceCloneParams {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1501,7 +1501,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::VoiceCloneParams {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::VoiceCloneParams;
+            type Value = super::VoiceCloneParams;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct VoiceCloneParams")
             }
@@ -1541,7 +1541,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::VoiceCloneParams {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeSpeechResponse {
+impl<'de> serde::de::Deserialize<'de> for super::SynthesizeSpeechResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1582,7 +1582,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeSpeechResponse
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SynthesizeSpeechResponse;
+            type Value = super::SynthesizeSpeechResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SynthesizeSpeechResponse")
             }
@@ -1632,7 +1632,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeSpeechResponse
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingAudioConfig {
+impl<'de> serde::de::Deserialize<'de> for super::StreamingAudioConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1679,7 +1679,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingAudioConfig {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::StreamingAudioConfig;
+            type Value = super::StreamingAudioConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct StreamingAudioConfig")
             }
@@ -1759,7 +1759,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingAudioConfig {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesizeConfig {
+impl<'de> serde::de::Deserialize<'de> for super::StreamingSynthesizeConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1805,7 +1805,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesizeConfi
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::StreamingSynthesizeConfig;
+            type Value = super::StreamingSynthesizeConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct StreamingSynthesizeConfig")
             }
@@ -1862,7 +1862,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesizeConfi
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesisInput {
+impl<'de> serde::de::Deserialize<'de> for super::StreamingSynthesisInput {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1906,7 +1906,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesisInput 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::StreamingSynthesisInput;
+            type Value = super::StreamingSynthesisInput;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct StreamingSynthesisInput")
             }
@@ -1981,7 +1981,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesisInput 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesizeRequest {
+impl<'de> serde::de::Deserialize<'de> for super::StreamingSynthesizeRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2024,7 +2024,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesizeReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::StreamingSynthesizeRequest;
+            type Value = super::StreamingSynthesizeRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct StreamingSynthesizeRequest")
             }
@@ -2091,7 +2091,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesizeReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesizeResponse {
+impl<'de> serde::de::Deserialize<'de> for super::StreamingSynthesizeResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2132,7 +2132,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesizeRespo
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::StreamingSynthesizeResponse;
+            type Value = super::StreamingSynthesizeResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct StreamingSynthesizeResponse")
             }
@@ -2182,7 +2182,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::StreamingSynthesizeRespo
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeLongAudioRequest {
+impl<'de> serde::de::Deserialize<'de> for super::SynthesizeLongAudioRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2232,7 +2232,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeLongAudioReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SynthesizeLongAudioRequest;
+            type Value = super::SynthesizeLongAudioRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SynthesizeLongAudioRequest")
             }
@@ -2310,7 +2310,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeLongAudioReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeLongAudioResponse {
+impl<'de> serde::de::Deserialize<'de> for super::SynthesizeLongAudioResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2346,7 +2346,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeLongAudioRespo
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SynthesizeLongAudioResponse;
+            type Value = super::SynthesizeLongAudioResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SynthesizeLongAudioResponse")
             }
@@ -2375,7 +2375,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeLongAudioRespo
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeLongAudioMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::SynthesizeLongAudioMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2422,7 +2422,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SynthesizeLongAudioMetad
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SynthesizeLongAudioMetadata;
+            type Value = super::SynthesizeLongAudioMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SynthesizeLongAudioMetadata")
             }

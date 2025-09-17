@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::GenerateAccessTokenRequest {
+impl std::fmt::Debug for super::GenerateAccessTokenRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateAccessTokenRequest");
         debug_struct.field("name", &self.name);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::model::GenerateAccessTokenRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GenerateAccessTokenResponse {
+impl std::fmt::Debug for super::GenerateAccessTokenResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateAccessTokenResponse");
         debug_struct.field("access_token", &self.access_token);
@@ -43,7 +43,7 @@ impl std::fmt::Debug for crate::model::GenerateAccessTokenResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SignBlobRequest {
+impl std::fmt::Debug for super::SignBlobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SignBlobRequest");
         debug_struct.field("name", &self.name);
@@ -56,7 +56,7 @@ impl std::fmt::Debug for crate::model::SignBlobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SignBlobResponse {
+impl std::fmt::Debug for super::SignBlobResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SignBlobResponse");
         debug_struct.field("key_id", &self.key_id);
@@ -68,7 +68,7 @@ impl std::fmt::Debug for crate::model::SignBlobResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SignJwtRequest {
+impl std::fmt::Debug for super::SignJwtRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SignJwtRequest");
         debug_struct.field("name", &self.name);
@@ -81,7 +81,7 @@ impl std::fmt::Debug for crate::model::SignJwtRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SignJwtResponse {
+impl std::fmt::Debug for super::SignJwtResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SignJwtResponse");
         debug_struct.field("key_id", &self.key_id);
@@ -93,7 +93,7 @@ impl std::fmt::Debug for crate::model::SignJwtResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GenerateIdTokenRequest {
+impl std::fmt::Debug for super::GenerateIdTokenRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateIdTokenRequest");
         debug_struct.field("name", &self.name);
@@ -107,7 +107,7 @@ impl std::fmt::Debug for crate::model::GenerateIdTokenRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GenerateIdTokenResponse {
+impl std::fmt::Debug for super::GenerateIdTokenResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateIdTokenResponse");
         debug_struct.field("token", &self.token);

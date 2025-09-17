@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CalendarAddOnManifest {
+impl std::fmt::Debug for super::CalendarAddOnManifest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CalendarAddOnManifest");
         debug_struct.field("homepage_trigger", &self.homepage_trigger);
@@ -36,7 +36,7 @@ impl std::fmt::Debug for crate::model::CalendarAddOnManifest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ConferenceSolution {
+impl std::fmt::Debug for super::ConferenceSolution {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConferenceSolution");
         debug_struct.field("on_create_function", &self.on_create_function);
@@ -50,7 +50,7 @@ impl std::fmt::Debug for crate::model::ConferenceSolution {
     }
 }
 
-impl std::fmt::Debug for crate::model::CalendarExtensionPoint {
+impl std::fmt::Debug for super::CalendarExtensionPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CalendarExtensionPoint");
         debug_struct.field("run_function", &self.run_function);

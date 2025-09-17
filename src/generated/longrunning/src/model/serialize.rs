@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Operation {
+impl serde::ser::Serialize for super::Operation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -52,7 +52,7 @@ impl serde::ser::Serialize for crate::model::Operation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetOperationRequest {
+impl serde::ser::Serialize for super::GetOperationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -74,7 +74,7 @@ impl serde::ser::Serialize for crate::model::GetOperationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOperationsRequest {
+impl serde::ser::Serialize for super::ListOperationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -114,7 +114,7 @@ impl serde::ser::Serialize for crate::model::ListOperationsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOperationsResponse {
+impl serde::ser::Serialize for super::ListOperationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -139,7 +139,7 @@ impl serde::ser::Serialize for crate::model::ListOperationsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelOperationRequest {
+impl serde::ser::Serialize for super::CancelOperationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -161,7 +161,7 @@ impl serde::ser::Serialize for crate::model::CancelOperationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteOperationRequest {
+impl serde::ser::Serialize for super::DeleteOperationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -183,7 +183,7 @@ impl serde::ser::Serialize for crate::model::DeleteOperationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WaitOperationRequest {
+impl serde::ser::Serialize for super::WaitOperationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -208,7 +208,7 @@ impl serde::ser::Serialize for crate::model::WaitOperationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationInfo {
+impl serde::ser::Serialize for super::OperationInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

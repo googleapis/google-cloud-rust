@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MembershipState {
+impl serde::ser::Serialize for super::MembershipState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -55,7 +55,7 @@ impl serde::ser::Serialize for crate::model::MembershipState {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MembershipSpec {
+impl serde::ser::Serialize for super::MembershipSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -92,7 +92,7 @@ impl serde::ser::Serialize for crate::model::MembershipSpec {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ConfigSync {
+impl serde::ser::Serialize for super::ConfigSync {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -132,7 +132,7 @@ impl serde::ser::Serialize for crate::model::ConfigSync {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GitConfig {
+impl serde::ser::Serialize for super::GitConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -184,7 +184,7 @@ impl serde::ser::Serialize for crate::model::GitConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OciConfig {
+impl serde::ser::Serialize for super::OciConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -227,7 +227,7 @@ impl serde::ser::Serialize for crate::model::OciConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PolicyController {
+impl serde::ser::Serialize for super::PolicyController {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -278,7 +278,7 @@ impl serde::ser::Serialize for crate::model::PolicyController {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::HierarchyControllerConfig {
+impl serde::ser::Serialize for super::HierarchyControllerConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -309,7 +309,7 @@ impl serde::ser::Serialize for crate::model::HierarchyControllerConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::HierarchyControllerDeploymentState {
+impl serde::ser::Serialize for super::HierarchyControllerDeploymentState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -334,7 +334,7 @@ impl serde::ser::Serialize for crate::model::HierarchyControllerDeploymentState 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::HierarchyControllerVersion {
+impl serde::ser::Serialize for super::HierarchyControllerVersion {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -359,7 +359,7 @@ impl serde::ser::Serialize for crate::model::HierarchyControllerVersion {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::HierarchyControllerState {
+impl serde::ser::Serialize for super::HierarchyControllerState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -384,7 +384,7 @@ impl serde::ser::Serialize for crate::model::HierarchyControllerState {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperatorState {
+impl serde::ser::Serialize for super::OperatorState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -412,7 +412,7 @@ impl serde::ser::Serialize for crate::model::OperatorState {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InstallError {
+impl serde::ser::Serialize for super::InstallError {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -434,7 +434,7 @@ impl serde::ser::Serialize for crate::model::InstallError {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ConfigSyncState {
+impl serde::ser::Serialize for super::ConfigSyncState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -474,7 +474,7 @@ impl serde::ser::Serialize for crate::model::ConfigSyncState {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ConfigSyncError {
+impl serde::ser::Serialize for super::ConfigSyncError {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -496,7 +496,7 @@ impl serde::ser::Serialize for crate::model::ConfigSyncError {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ConfigSyncVersion {
+impl serde::ser::Serialize for super::ConfigSyncVersion {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -536,7 +536,7 @@ impl serde::ser::Serialize for crate::model::ConfigSyncVersion {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ConfigSyncDeploymentState {
+impl serde::ser::Serialize for super::ConfigSyncDeploymentState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -576,7 +576,7 @@ impl serde::ser::Serialize for crate::model::ConfigSyncDeploymentState {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SyncState {
+impl serde::ser::Serialize for super::SyncState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -616,7 +616,7 @@ impl serde::ser::Serialize for crate::model::SyncState {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SyncError {
+impl serde::ser::Serialize for super::SyncError {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -644,7 +644,7 @@ impl serde::ser::Serialize for crate::model::SyncError {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ErrorResource {
+impl serde::ser::Serialize for super::ErrorResource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -675,7 +675,7 @@ impl serde::ser::Serialize for crate::model::ErrorResource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GroupVersionKind {
+impl serde::ser::Serialize for super::GroupVersionKind {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -703,7 +703,7 @@ impl serde::ser::Serialize for crate::model::GroupVersionKind {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PolicyControllerState {
+impl serde::ser::Serialize for super::PolicyControllerState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -728,7 +728,7 @@ impl serde::ser::Serialize for crate::model::PolicyControllerState {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PolicyControllerVersion {
+impl serde::ser::Serialize for super::PolicyControllerVersion {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -750,7 +750,7 @@ impl serde::ser::Serialize for crate::model::PolicyControllerVersion {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GatekeeperDeploymentState {
+impl serde::ser::Serialize for super::GatekeeperDeploymentState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

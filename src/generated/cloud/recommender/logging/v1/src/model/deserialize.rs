@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ActionLog {
+impl<'de> serde::de::Deserialize<'de> for super::ActionLog {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -66,7 +66,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ActionLog {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ActionLog;
+            type Value = super::ActionLog;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ActionLog")
             }
@@ -143,7 +143,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ActionLog {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::InsightActionLog {
+impl<'de> serde::de::Deserialize<'de> for super::InsightActionLog {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -190,7 +190,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::InsightActionLog {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::InsightActionLog;
+            type Value = super::InsightActionLog;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct InsightActionLog")
             }

@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("create_time", &self.create_time);
@@ -34,7 +34,7 @@ impl std::fmt::Debug for crate::model::OperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::PolicyBinding {
+impl std::fmt::Debug for super::PolicyBinding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyBinding");
         debug_struct.field("name", &self.name);
@@ -56,7 +56,7 @@ impl std::fmt::Debug for crate::model::PolicyBinding {
     }
 }
 
-impl std::fmt::Debug for crate::model::policy_binding::Target {
+impl std::fmt::Debug for super::policy_binding::Target {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Target");
         debug_struct.field("target", &self.target);
@@ -67,7 +67,7 @@ impl std::fmt::Debug for crate::model::policy_binding::Target {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreatePolicyBindingRequest {
+impl std::fmt::Debug for super::CreatePolicyBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreatePolicyBindingRequest");
         debug_struct.field("parent", &self.parent);
@@ -81,7 +81,7 @@ impl std::fmt::Debug for crate::model::CreatePolicyBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPolicyBindingRequest {
+impl std::fmt::Debug for super::GetPolicyBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPolicyBindingRequest");
         debug_struct.field("name", &self.name);
@@ -92,7 +92,7 @@ impl std::fmt::Debug for crate::model::GetPolicyBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdatePolicyBindingRequest {
+impl std::fmt::Debug for super::UpdatePolicyBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdatePolicyBindingRequest");
         debug_struct.field("policy_binding", &self.policy_binding);
@@ -105,7 +105,7 @@ impl std::fmt::Debug for crate::model::UpdatePolicyBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeletePolicyBindingRequest {
+impl std::fmt::Debug for super::DeletePolicyBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeletePolicyBindingRequest");
         debug_struct.field("name", &self.name);
@@ -118,7 +118,7 @@ impl std::fmt::Debug for crate::model::DeletePolicyBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPolicyBindingsRequest {
+impl std::fmt::Debug for super::ListPolicyBindingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPolicyBindingsRequest");
         debug_struct.field("parent", &self.parent);
@@ -132,7 +132,7 @@ impl std::fmt::Debug for crate::model::ListPolicyBindingsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPolicyBindingsResponse {
+impl std::fmt::Debug for super::ListPolicyBindingsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPolicyBindingsResponse");
         debug_struct.field("policy_bindings", &self.policy_bindings);
@@ -144,7 +144,7 @@ impl std::fmt::Debug for crate::model::ListPolicyBindingsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchTargetPolicyBindingsRequest {
+impl std::fmt::Debug for super::SearchTargetPolicyBindingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchTargetPolicyBindingsRequest");
         debug_struct.field("target", &self.target);
@@ -158,7 +158,7 @@ impl std::fmt::Debug for crate::model::SearchTargetPolicyBindingsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchTargetPolicyBindingsResponse {
+impl std::fmt::Debug for super::SearchTargetPolicyBindingsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchTargetPolicyBindingsResponse");
         debug_struct.field("policy_bindings", &self.policy_bindings);
@@ -170,7 +170,7 @@ impl std::fmt::Debug for crate::model::SearchTargetPolicyBindingsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreatePrincipalAccessBoundaryPolicyRequest {
+impl std::fmt::Debug for super::CreatePrincipalAccessBoundaryPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreatePrincipalAccessBoundaryPolicyRequest");
         debug_struct.field("parent", &self.parent);
@@ -190,7 +190,7 @@ impl std::fmt::Debug for crate::model::CreatePrincipalAccessBoundaryPolicyReques
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPrincipalAccessBoundaryPolicyRequest {
+impl std::fmt::Debug for super::GetPrincipalAccessBoundaryPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPrincipalAccessBoundaryPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -201,7 +201,7 @@ impl std::fmt::Debug for crate::model::GetPrincipalAccessBoundaryPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdatePrincipalAccessBoundaryPolicyRequest {
+impl std::fmt::Debug for super::UpdatePrincipalAccessBoundaryPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdatePrincipalAccessBoundaryPolicyRequest");
         debug_struct.field(
@@ -217,7 +217,7 @@ impl std::fmt::Debug for crate::model::UpdatePrincipalAccessBoundaryPolicyReques
     }
 }
 
-impl std::fmt::Debug for crate::model::DeletePrincipalAccessBoundaryPolicyRequest {
+impl std::fmt::Debug for super::DeletePrincipalAccessBoundaryPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeletePrincipalAccessBoundaryPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -231,7 +231,7 @@ impl std::fmt::Debug for crate::model::DeletePrincipalAccessBoundaryPolicyReques
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPrincipalAccessBoundaryPoliciesRequest {
+impl std::fmt::Debug for super::ListPrincipalAccessBoundaryPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPrincipalAccessBoundaryPoliciesRequest");
         debug_struct.field("parent", &self.parent);
@@ -244,7 +244,7 @@ impl std::fmt::Debug for crate::model::ListPrincipalAccessBoundaryPoliciesReques
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPrincipalAccessBoundaryPoliciesResponse {
+impl std::fmt::Debug for super::ListPrincipalAccessBoundaryPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPrincipalAccessBoundaryPoliciesResponse");
         debug_struct.field(
@@ -259,7 +259,7 @@ impl std::fmt::Debug for crate::model::ListPrincipalAccessBoundaryPoliciesRespon
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest {
+impl std::fmt::Debug for super::SearchPrincipalAccessBoundaryPolicyBindingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchPrincipalAccessBoundaryPolicyBindingsRequest");
         debug_struct.field("name", &self.name);
@@ -272,7 +272,7 @@ impl std::fmt::Debug for crate::model::SearchPrincipalAccessBoundaryPolicyBindin
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse {
+impl std::fmt::Debug for super::SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct =
             f.debug_struct("SearchPrincipalAccessBoundaryPolicyBindingsResponse");
@@ -285,7 +285,7 @@ impl std::fmt::Debug for crate::model::SearchPrincipalAccessBoundaryPolicyBindin
     }
 }
 
-impl std::fmt::Debug for crate::model::PrincipalAccessBoundaryPolicy {
+impl std::fmt::Debug for super::PrincipalAccessBoundaryPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrincipalAccessBoundaryPolicy");
         debug_struct.field("name", &self.name);
@@ -303,7 +303,7 @@ impl std::fmt::Debug for crate::model::PrincipalAccessBoundaryPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::PrincipalAccessBoundaryPolicyDetails {
+impl std::fmt::Debug for super::PrincipalAccessBoundaryPolicyDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrincipalAccessBoundaryPolicyDetails");
         debug_struct.field("rules", &self.rules);
@@ -315,7 +315,7 @@ impl std::fmt::Debug for crate::model::PrincipalAccessBoundaryPolicyDetails {
     }
 }
 
-impl std::fmt::Debug for crate::model::PrincipalAccessBoundaryPolicyRule {
+impl std::fmt::Debug for super::PrincipalAccessBoundaryPolicyRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrincipalAccessBoundaryPolicyRule");
         debug_struct.field("description", &self.description);

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSchemaRegistryRequest {
+impl serde::ser::Serialize for super::GetSchemaRegistryRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -40,7 +40,7 @@ impl serde::ser::Serialize for crate::model::GetSchemaRegistryRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSchemaRegistriesRequest {
+impl serde::ser::Serialize for super::ListSchemaRegistriesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -62,7 +62,7 @@ impl serde::ser::Serialize for crate::model::ListSchemaRegistriesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSchemaRegistriesResponse {
+impl serde::ser::Serialize for super::ListSchemaRegistriesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -84,7 +84,7 @@ impl serde::ser::Serialize for crate::model::ListSchemaRegistriesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateSchemaRegistryRequest {
+impl serde::ser::Serialize for super::CreateSchemaRegistryRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -112,7 +112,7 @@ impl serde::ser::Serialize for crate::model::CreateSchemaRegistryRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteSchemaRegistryRequest {
+impl serde::ser::Serialize for super::DeleteSchemaRegistryRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -134,7 +134,7 @@ impl serde::ser::Serialize for crate::model::DeleteSchemaRegistryRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetContextRequest {
+impl serde::ser::Serialize for super::GetContextRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -156,7 +156,7 @@ impl serde::ser::Serialize for crate::model::GetContextRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListContextsRequest {
+impl serde::ser::Serialize for super::ListContextsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -178,7 +178,7 @@ impl serde::ser::Serialize for crate::model::ListContextsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSchemaRequest {
+impl serde::ser::Serialize for super::GetSchemaRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -203,7 +203,7 @@ impl serde::ser::Serialize for crate::model::GetSchemaRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSchemaTypesRequest {
+impl serde::ser::Serialize for super::ListSchemaTypesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -225,7 +225,7 @@ impl serde::ser::Serialize for crate::model::ListSchemaTypesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSchemaVersionsRequest {
+impl serde::ser::Serialize for super::ListSchemaVersionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -253,7 +253,7 @@ impl serde::ser::Serialize for crate::model::ListSchemaVersionsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSubjectsRequest {
+impl serde::ser::Serialize for super::ListSubjectsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -281,7 +281,7 @@ impl serde::ser::Serialize for crate::model::ListSubjectsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSubjectsBySchemaIdRequest {
+impl serde::ser::Serialize for super::ListSubjectsBySchemaIdRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -309,7 +309,7 @@ impl serde::ser::Serialize for crate::model::ListSubjectsBySchemaIdRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListVersionsRequest {
+impl serde::ser::Serialize for super::ListVersionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -334,7 +334,7 @@ impl serde::ser::Serialize for crate::model::ListVersionsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteSubjectRequest {
+impl serde::ser::Serialize for super::DeleteSubjectRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -359,7 +359,7 @@ impl serde::ser::Serialize for crate::model::DeleteSubjectRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetVersionRequest {
+impl serde::ser::Serialize for super::GetVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -384,7 +384,7 @@ impl serde::ser::Serialize for crate::model::GetVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateVersionRequest {
+impl serde::ser::Serialize for super::CreateVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -446,7 +446,7 @@ impl serde::ser::Serialize for crate::model::CreateVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateVersionResponse {
+impl serde::ser::Serialize for super::CreateVersionResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -477,7 +477,7 @@ impl serde::ser::Serialize for crate::model::CreateVersionResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LookupVersionRequest {
+impl serde::ser::Serialize for super::LookupVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -514,7 +514,7 @@ impl serde::ser::Serialize for crate::model::LookupVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteVersionRequest {
+impl serde::ser::Serialize for super::DeleteVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -539,7 +539,7 @@ impl serde::ser::Serialize for crate::model::DeleteVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListReferencedSchemasRequest {
+impl serde::ser::Serialize for super::ListReferencedSchemasRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -561,7 +561,7 @@ impl serde::ser::Serialize for crate::model::ListReferencedSchemasRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CheckCompatibilityRequest {
+impl serde::ser::Serialize for super::CheckCompatibilityRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -595,7 +595,7 @@ impl serde::ser::Serialize for crate::model::CheckCompatibilityRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CheckCompatibilityResponse {
+impl serde::ser::Serialize for super::CheckCompatibilityResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -620,7 +620,7 @@ impl serde::ser::Serialize for crate::model::CheckCompatibilityResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSchemaConfigRequest {
+impl serde::ser::Serialize for super::GetSchemaConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -645,7 +645,7 @@ impl serde::ser::Serialize for crate::model::GetSchemaConfigRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateSchemaConfigRequest {
+impl serde::ser::Serialize for super::UpdateSchemaConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -673,7 +673,7 @@ impl serde::ser::Serialize for crate::model::UpdateSchemaConfigRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteSchemaConfigRequest {
+impl serde::ser::Serialize for super::DeleteSchemaConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -695,7 +695,7 @@ impl serde::ser::Serialize for crate::model::DeleteSchemaConfigRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSchemaModeRequest {
+impl serde::ser::Serialize for super::GetSchemaModeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -717,7 +717,7 @@ impl serde::ser::Serialize for crate::model::GetSchemaModeRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateSchemaModeRequest {
+impl serde::ser::Serialize for super::UpdateSchemaModeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -742,7 +742,7 @@ impl serde::ser::Serialize for crate::model::UpdateSchemaModeRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteSchemaModeRequest {
+impl serde::ser::Serialize for super::DeleteSchemaModeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -764,7 +764,7 @@ impl serde::ser::Serialize for crate::model::DeleteSchemaModeRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SchemaRegistry {
+impl serde::ser::Serialize for super::SchemaRegistry {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -789,7 +789,7 @@ impl serde::ser::Serialize for crate::model::SchemaRegistry {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Context {
+impl serde::ser::Serialize for super::Context {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -814,7 +814,7 @@ impl serde::ser::Serialize for crate::model::Context {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Schema {
+impl serde::ser::Serialize for super::Schema {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -842,7 +842,7 @@ impl serde::ser::Serialize for crate::model::Schema {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::schema::SchemaReference {
+impl serde::ser::Serialize for super::schema::SchemaReference {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -879,7 +879,7 @@ impl serde::ser::Serialize for crate::model::schema::SchemaReference {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SchemaSubject {
+impl serde::ser::Serialize for super::SchemaSubject {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -904,7 +904,7 @@ impl serde::ser::Serialize for crate::model::SchemaSubject {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SchemaVersion {
+impl serde::ser::Serialize for super::SchemaVersion {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -959,7 +959,7 @@ impl serde::ser::Serialize for crate::model::SchemaVersion {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SchemaConfig {
+impl serde::ser::Serialize for super::SchemaConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -987,7 +987,7 @@ impl serde::ser::Serialize for crate::model::SchemaConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SchemaMode {
+impl serde::ser::Serialize for super::SchemaMode {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::generated::MessageWithEnum {
+impl std::fmt::Debug for super::MessageWithEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithEnum");
         debug_struct.field("singular", &self.singular);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::generated::MessageWithEnum {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithOneOf {
+impl std::fmt::Debug for super::MessageWithOneOf {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithOneOf");
         debug_struct.field("single_string", &self.single_string);
@@ -45,7 +45,7 @@ impl std::fmt::Debug for crate::generated::MessageWithOneOf {
     }
 }
 
-impl std::fmt::Debug for crate::generated::message_with_one_of::Message {
+impl std::fmt::Debug for super::message_with_one_of::Message {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Message");
         debug_struct.field("parent", &self.parent);
@@ -56,7 +56,7 @@ impl std::fmt::Debug for crate::generated::message_with_one_of::Message {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithComplexOneOf {
+impl std::fmt::Debug for super::MessageWithComplexOneOf {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithComplexOneOf");
         debug_struct.field("complex", &self.complex);
@@ -67,7 +67,7 @@ impl std::fmt::Debug for crate::generated::MessageWithComplexOneOf {
     }
 }
 
-impl std::fmt::Debug for crate::generated::message_with_complex_one_of::Inner {
+impl std::fmt::Debug for super::message_with_complex_one_of::Inner {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Inner");
         debug_struct.field("strings", &self.strings);
@@ -78,7 +78,7 @@ impl std::fmt::Debug for crate::generated::message_with_complex_one_of::Inner {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithF32 {
+impl std::fmt::Debug for super::MessageWithF32 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithF32");
         debug_struct.field("singular", &self.singular);
@@ -92,7 +92,7 @@ impl std::fmt::Debug for crate::generated::MessageWithF32 {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithF64 {
+impl std::fmt::Debug for super::MessageWithF64 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithF64");
         debug_struct.field("singular", &self.singular);
@@ -106,7 +106,7 @@ impl std::fmt::Debug for crate::generated::MessageWithF64 {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithI32 {
+impl std::fmt::Debug for super::MessageWithI32 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithI32");
         debug_struct.field("singular", &self.singular);
@@ -122,7 +122,7 @@ impl std::fmt::Debug for crate::generated::MessageWithI32 {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithU32 {
+impl std::fmt::Debug for super::MessageWithU32 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithU32");
         debug_struct.field("singular", &self.singular);
@@ -138,7 +138,7 @@ impl std::fmt::Debug for crate::generated::MessageWithU32 {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithI64 {
+impl std::fmt::Debug for super::MessageWithI64 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithI64");
         debug_struct.field("singular", &self.singular);
@@ -154,7 +154,7 @@ impl std::fmt::Debug for crate::generated::MessageWithI64 {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithU64 {
+impl std::fmt::Debug for super::MessageWithU64 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithU64");
         debug_struct.field("singular", &self.singular);
@@ -170,7 +170,7 @@ impl std::fmt::Debug for crate::generated::MessageWithU64 {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithBytes {
+impl std::fmt::Debug for super::MessageWithBytes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithBytes");
         debug_struct.field("singular", &self.singular);
@@ -184,7 +184,7 @@ impl std::fmt::Debug for crate::generated::MessageWithBytes {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithBool {
+impl std::fmt::Debug for super::MessageWithBool {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithBool");
         debug_struct.field("singular", &self.singular);
@@ -200,7 +200,7 @@ impl std::fmt::Debug for crate::generated::MessageWithBool {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithString {
+impl std::fmt::Debug for super::MessageWithString {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithString");
         debug_struct.field("singular", &self.singular);
@@ -216,7 +216,7 @@ impl std::fmt::Debug for crate::generated::MessageWithString {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithRecursion {
+impl std::fmt::Debug for super::MessageWithRecursion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithRecursion");
         debug_struct.field("singular", &self.singular);
@@ -230,7 +230,7 @@ impl std::fmt::Debug for crate::generated::MessageWithRecursion {
     }
 }
 
-impl std::fmt::Debug for crate::generated::message_with_recursion::Level0 {
+impl std::fmt::Debug for super::message_with_recursion::Level0 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Level0");
         debug_struct.field("level_1", &self.level_1);
@@ -242,7 +242,7 @@ impl std::fmt::Debug for crate::generated::message_with_recursion::Level0 {
     }
 }
 
-impl std::fmt::Debug for crate::generated::message_with_recursion::Level1 {
+impl std::fmt::Debug for super::message_with_recursion::Level1 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Level1");
         debug_struct.field("recurse", &self.recurse);
@@ -253,7 +253,7 @@ impl std::fmt::Debug for crate::generated::message_with_recursion::Level1 {
     }
 }
 
-impl std::fmt::Debug for crate::generated::message_with_recursion::NonRecursive {
+impl std::fmt::Debug for super::message_with_recursion::NonRecursive {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NonRecursive");
         debug_struct.field("value", &self.value);
@@ -264,7 +264,7 @@ impl std::fmt::Debug for crate::generated::message_with_recursion::NonRecursive 
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithValue {
+impl std::fmt::Debug for super::MessageWithValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithValue");
         debug_struct.field("singular", &self.singular);
@@ -278,7 +278,7 @@ impl std::fmt::Debug for crate::generated::MessageWithValue {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithStruct {
+impl std::fmt::Debug for super::MessageWithStruct {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithStruct");
         debug_struct.field("singular", &self.singular);
@@ -292,7 +292,7 @@ impl std::fmt::Debug for crate::generated::MessageWithStruct {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithListValue {
+impl std::fmt::Debug for super::MessageWithListValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithListValue");
         debug_struct.field("singular", &self.singular);
@@ -306,7 +306,7 @@ impl std::fmt::Debug for crate::generated::MessageWithListValue {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithNullValue {
+impl std::fmt::Debug for super::MessageWithNullValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithNullValue");
         debug_struct.field("singular", &self.singular);
@@ -320,7 +320,7 @@ impl std::fmt::Debug for crate::generated::MessageWithNullValue {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithFieldMask {
+impl std::fmt::Debug for super::MessageWithFieldMask {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithFieldMask");
         debug_struct.field("singular", &self.singular);
@@ -334,7 +334,7 @@ impl std::fmt::Debug for crate::generated::MessageWithFieldMask {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithFloatValue {
+impl std::fmt::Debug for super::MessageWithFloatValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithFloatValue");
         debug_struct.field("singular", &self.singular);
@@ -347,7 +347,7 @@ impl std::fmt::Debug for crate::generated::MessageWithFloatValue {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithDoubleValue {
+impl std::fmt::Debug for super::MessageWithDoubleValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithDoubleValue");
         debug_struct.field("singular", &self.singular);
@@ -360,7 +360,7 @@ impl std::fmt::Debug for crate::generated::MessageWithDoubleValue {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithInt32Value {
+impl std::fmt::Debug for super::MessageWithInt32Value {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithInt32Value");
         debug_struct.field("singular", &self.singular);
@@ -373,7 +373,7 @@ impl std::fmt::Debug for crate::generated::MessageWithInt32Value {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithUInt32Value {
+impl std::fmt::Debug for super::MessageWithUInt32Value {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithUInt32Value");
         debug_struct.field("singular", &self.singular);
@@ -386,7 +386,7 @@ impl std::fmt::Debug for crate::generated::MessageWithUInt32Value {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithInt64Value {
+impl std::fmt::Debug for super::MessageWithInt64Value {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithInt64Value");
         debug_struct.field("singular", &self.singular);
@@ -399,7 +399,7 @@ impl std::fmt::Debug for crate::generated::MessageWithInt64Value {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithUInt64Value {
+impl std::fmt::Debug for super::MessageWithUInt64Value {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithUInt64Value");
         debug_struct.field("singular", &self.singular);
@@ -412,7 +412,7 @@ impl std::fmt::Debug for crate::generated::MessageWithUInt64Value {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithBytesValue {
+impl std::fmt::Debug for super::MessageWithBytesValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithBytesValue");
         debug_struct.field("singular", &self.singular);
@@ -425,7 +425,7 @@ impl std::fmt::Debug for crate::generated::MessageWithBytesValue {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithBoolValue {
+impl std::fmt::Debug for super::MessageWithBoolValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithBoolValue");
         debug_struct.field("singular", &self.singular);
@@ -438,7 +438,7 @@ impl std::fmt::Debug for crate::generated::MessageWithBoolValue {
     }
 }
 
-impl std::fmt::Debug for crate::generated::MessageWithStringValue {
+impl std::fmt::Debug for super::MessageWithStringValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithStringValue");
         debug_struct.field("singular", &self.singular);

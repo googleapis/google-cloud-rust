@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::generated::test_protos::TestAllTypesProto3 {
+impl std::fmt::Debug for super::TestAllTypesProto3 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TestAllTypesProto3");
         debug_struct.field("optional_int32", &self.optional_int32);
@@ -172,7 +172,7 @@ impl std::fmt::Debug for crate::generated::test_protos::TestAllTypesProto3 {
     }
 }
 
-impl std::fmt::Debug for crate::generated::test_protos::test_all_types_proto_3::NestedMessage {
+impl std::fmt::Debug for super::test_all_types_proto_3::NestedMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NestedMessage");
         debug_struct.field("a", &self.a);
@@ -184,7 +184,7 @@ impl std::fmt::Debug for crate::generated::test_protos::test_all_types_proto_3::
     }
 }
 
-impl std::fmt::Debug for crate::generated::test_protos::ForeignMessage {
+impl std::fmt::Debug for super::ForeignMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ForeignMessage");
         debug_struct.field("c", &self.c);
@@ -195,7 +195,7 @@ impl std::fmt::Debug for crate::generated::test_protos::ForeignMessage {
     }
 }
 
-impl std::fmt::Debug for crate::generated::test_protos::NullHypothesisProto3 {
+impl std::fmt::Debug for super::NullHypothesisProto3 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NullHypothesisProto3");
         if !self._unknown_fields.is_empty() {
@@ -205,7 +205,7 @@ impl std::fmt::Debug for crate::generated::test_protos::NullHypothesisProto3 {
     }
 }
 
-impl std::fmt::Debug for crate::generated::test_protos::EnumOnlyProto3 {
+impl std::fmt::Debug for super::EnumOnlyProto3 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnumOnlyProto3");
         if !self._unknown_fields.is_empty() {

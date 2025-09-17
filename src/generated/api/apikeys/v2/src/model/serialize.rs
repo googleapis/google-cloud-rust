@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateKeyRequest {
+impl serde::ser::Serialize for super::CreateKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -46,7 +46,7 @@ impl serde::ser::Serialize for crate::model::CreateKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListKeysRequest {
+impl serde::ser::Serialize for super::ListKeysRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -86,7 +86,7 @@ impl serde::ser::Serialize for crate::model::ListKeysRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListKeysResponse {
+impl serde::ser::Serialize for super::ListKeysResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -111,7 +111,7 @@ impl serde::ser::Serialize for crate::model::ListKeysResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetKeyRequest {
+impl serde::ser::Serialize for super::GetKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -133,7 +133,7 @@ impl serde::ser::Serialize for crate::model::GetKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetKeyStringRequest {
+impl serde::ser::Serialize for super::GetKeyStringRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -155,7 +155,7 @@ impl serde::ser::Serialize for crate::model::GetKeyStringRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetKeyStringResponse {
+impl serde::ser::Serialize for super::GetKeyStringResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -177,7 +177,7 @@ impl serde::ser::Serialize for crate::model::GetKeyStringResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateKeyRequest {
+impl serde::ser::Serialize for super::UpdateKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -202,7 +202,7 @@ impl serde::ser::Serialize for crate::model::UpdateKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteKeyRequest {
+impl serde::ser::Serialize for super::DeleteKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -227,7 +227,7 @@ impl serde::ser::Serialize for crate::model::DeleteKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UndeleteKeyRequest {
+impl serde::ser::Serialize for super::UndeleteKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -249,7 +249,7 @@ impl serde::ser::Serialize for crate::model::UndeleteKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LookupKeyRequest {
+impl serde::ser::Serialize for super::LookupKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -271,7 +271,7 @@ impl serde::ser::Serialize for crate::model::LookupKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LookupKeyResponse {
+impl serde::ser::Serialize for super::LookupKeyResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -296,7 +296,7 @@ impl serde::ser::Serialize for crate::model::LookupKeyResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Key {
+impl serde::ser::Serialize for super::Key {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -345,7 +345,7 @@ impl serde::ser::Serialize for crate::model::Key {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Restrictions {
+impl serde::ser::Serialize for super::Restrictions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -379,7 +379,7 @@ impl serde::ser::Serialize for crate::model::Restrictions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BrowserKeyRestrictions {
+impl serde::ser::Serialize for super::BrowserKeyRestrictions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -401,7 +401,7 @@ impl serde::ser::Serialize for crate::model::BrowserKeyRestrictions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ServerKeyRestrictions {
+impl serde::ser::Serialize for super::ServerKeyRestrictions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -423,7 +423,7 @@ impl serde::ser::Serialize for crate::model::ServerKeyRestrictions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AndroidKeyRestrictions {
+impl serde::ser::Serialize for super::AndroidKeyRestrictions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -445,7 +445,7 @@ impl serde::ser::Serialize for crate::model::AndroidKeyRestrictions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AndroidApplication {
+impl serde::ser::Serialize for super::AndroidApplication {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -470,7 +470,7 @@ impl serde::ser::Serialize for crate::model::AndroidApplication {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::IosKeyRestrictions {
+impl serde::ser::Serialize for super::IosKeyRestrictions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -492,7 +492,7 @@ impl serde::ser::Serialize for crate::model::IosKeyRestrictions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ApiTarget {
+impl serde::ser::Serialize for super::ApiTarget {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

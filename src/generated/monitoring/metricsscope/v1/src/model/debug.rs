@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::MetricsScope {
+impl std::fmt::Debug for super::MetricsScope {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MetricsScope");
         debug_struct.field("name", &self.name);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::model::MetricsScope {
     }
 }
 
-impl std::fmt::Debug for crate::model::MonitoredProject {
+impl std::fmt::Debug for super::MonitoredProject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MonitoredProject");
         debug_struct.field("name", &self.name);
@@ -43,7 +43,7 @@ impl std::fmt::Debug for crate::model::MonitoredProject {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetMetricsScopeRequest {
+impl std::fmt::Debug for super::GetMetricsScopeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetMetricsScopeRequest");
         debug_struct.field("name", &self.name);
@@ -54,7 +54,7 @@ impl std::fmt::Debug for crate::model::GetMetricsScopeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListMetricsScopesByMonitoredProjectRequest {
+impl std::fmt::Debug for super::ListMetricsScopesByMonitoredProjectRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListMetricsScopesByMonitoredProjectRequest");
         debug_struct.field(
@@ -68,7 +68,7 @@ impl std::fmt::Debug for crate::model::ListMetricsScopesByMonitoredProjectReques
     }
 }
 
-impl std::fmt::Debug for crate::model::ListMetricsScopesByMonitoredProjectResponse {
+impl std::fmt::Debug for super::ListMetricsScopesByMonitoredProjectResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListMetricsScopesByMonitoredProjectResponse");
         debug_struct.field("metrics_scopes", &self.metrics_scopes);
@@ -79,7 +79,7 @@ impl std::fmt::Debug for crate::model::ListMetricsScopesByMonitoredProjectRespon
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateMonitoredProjectRequest {
+impl std::fmt::Debug for super::CreateMonitoredProjectRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateMonitoredProjectRequest");
         debug_struct.field("parent", &self.parent);
@@ -91,7 +91,7 @@ impl std::fmt::Debug for crate::model::CreateMonitoredProjectRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteMonitoredProjectRequest {
+impl std::fmt::Debug for super::DeleteMonitoredProjectRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteMonitoredProjectRequest");
         debug_struct.field("name", &self.name);
@@ -102,7 +102,7 @@ impl std::fmt::Debug for crate::model::DeleteMonitoredProjectRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("state", &self.state);

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Connector {
+impl serde::ser::Serialize for super::Connector {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -106,7 +106,7 @@ impl serde::ser::Serialize for crate::model::Connector {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::connector::Subnet {
+impl serde::ser::Serialize for super::connector::Subnet {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -131,7 +131,7 @@ impl serde::ser::Serialize for crate::model::connector::Subnet {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateConnectorRequest {
+impl serde::ser::Serialize for super::CreateConnectorRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -159,7 +159,7 @@ impl serde::ser::Serialize for crate::model::CreateConnectorRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetConnectorRequest {
+impl serde::ser::Serialize for super::GetConnectorRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -181,7 +181,7 @@ impl serde::ser::Serialize for crate::model::GetConnectorRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListConnectorsRequest {
+impl serde::ser::Serialize for super::ListConnectorsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -218,7 +218,7 @@ impl serde::ser::Serialize for crate::model::ListConnectorsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListConnectorsResponse {
+impl serde::ser::Serialize for super::ListConnectorsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -243,7 +243,7 @@ impl serde::ser::Serialize for crate::model::ListConnectorsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteConnectorRequest {
+impl serde::ser::Serialize for super::DeleteConnectorRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -265,7 +265,7 @@ impl serde::ser::Serialize for crate::model::DeleteConnectorRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationMetadata {
+impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

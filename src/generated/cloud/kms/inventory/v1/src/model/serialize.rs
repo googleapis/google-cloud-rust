@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListCryptoKeysRequest {
+impl serde::ser::Serialize for super::ListCryptoKeysRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -55,7 +55,7 @@ impl serde::ser::Serialize for crate::model::ListCryptoKeysRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListCryptoKeysResponse {
+impl serde::ser::Serialize for super::ListCryptoKeysResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -80,7 +80,7 @@ impl serde::ser::Serialize for crate::model::ListCryptoKeysResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetProtectedResourcesSummaryRequest {
+impl serde::ser::Serialize for super::GetProtectedResourcesSummaryRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -102,7 +102,7 @@ impl serde::ser::Serialize for crate::model::GetProtectedResourcesSummaryRequest
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ProtectedResourcesSummary {
+impl serde::ser::Serialize for super::ProtectedResourcesSummary {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -184,7 +184,7 @@ impl serde::ser::Serialize for crate::model::ProtectedResourcesSummary {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchProtectedResourcesRequest {
+impl serde::ser::Serialize for super::SearchProtectedResourcesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -227,7 +227,7 @@ impl serde::ser::Serialize for crate::model::SearchProtectedResourcesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchProtectedResourcesResponse {
+impl serde::ser::Serialize for super::SearchProtectedResourcesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -252,7 +252,7 @@ impl serde::ser::Serialize for crate::model::SearchProtectedResourcesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ProtectedResource {
+impl serde::ser::Serialize for super::ProtectedResource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

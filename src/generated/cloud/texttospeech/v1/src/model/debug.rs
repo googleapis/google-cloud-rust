@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ListVoicesRequest {
+impl std::fmt::Debug for super::ListVoicesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListVoicesRequest");
         debug_struct.field("language_code", &self.language_code);
@@ -28,7 +28,7 @@ impl std::fmt::Debug for crate::model::ListVoicesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListVoicesResponse {
+impl std::fmt::Debug for super::ListVoicesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListVoicesResponse");
         debug_struct.field("voices", &self.voices);
@@ -39,7 +39,7 @@ impl std::fmt::Debug for crate::model::ListVoicesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Voice {
+impl std::fmt::Debug for super::Voice {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Voice");
         debug_struct.field("language_codes", &self.language_codes);
@@ -53,7 +53,7 @@ impl std::fmt::Debug for crate::model::Voice {
     }
 }
 
-impl std::fmt::Debug for crate::model::AdvancedVoiceOptions {
+impl std::fmt::Debug for super::AdvancedVoiceOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdvancedVoiceOptions");
         debug_struct.field(
@@ -67,7 +67,7 @@ impl std::fmt::Debug for crate::model::AdvancedVoiceOptions {
     }
 }
 
-impl std::fmt::Debug for crate::model::SynthesizeSpeechRequest {
+impl std::fmt::Debug for super::SynthesizeSpeechRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesizeSpeechRequest");
         debug_struct.field("input", &self.input);
@@ -81,7 +81,7 @@ impl std::fmt::Debug for crate::model::SynthesizeSpeechRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CustomPronunciationParams {
+impl std::fmt::Debug for super::CustomPronunciationParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomPronunciationParams");
         debug_struct.field("phrase", &self.phrase);
@@ -94,7 +94,7 @@ impl std::fmt::Debug for crate::model::CustomPronunciationParams {
     }
 }
 
-impl std::fmt::Debug for crate::model::CustomPronunciations {
+impl std::fmt::Debug for super::CustomPronunciations {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomPronunciations");
         debug_struct.field("pronunciations", &self.pronunciations);
@@ -105,7 +105,7 @@ impl std::fmt::Debug for crate::model::CustomPronunciations {
     }
 }
 
-impl std::fmt::Debug for crate::model::MultiSpeakerMarkup {
+impl std::fmt::Debug for super::MultiSpeakerMarkup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiSpeakerMarkup");
         debug_struct.field("turns", &self.turns);
@@ -116,7 +116,7 @@ impl std::fmt::Debug for crate::model::MultiSpeakerMarkup {
     }
 }
 
-impl std::fmt::Debug for crate::model::multi_speaker_markup::Turn {
+impl std::fmt::Debug for super::multi_speaker_markup::Turn {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Turn");
         debug_struct.field("speaker", &self.speaker);
@@ -128,7 +128,7 @@ impl std::fmt::Debug for crate::model::multi_speaker_markup::Turn {
     }
 }
 
-impl std::fmt::Debug for crate::model::SynthesisInput {
+impl std::fmt::Debug for super::SynthesisInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesisInput");
         debug_struct.field("prompt", &self.prompt);
@@ -141,7 +141,7 @@ impl std::fmt::Debug for crate::model::SynthesisInput {
     }
 }
 
-impl std::fmt::Debug for crate::model::VoiceSelectionParams {
+impl std::fmt::Debug for super::VoiceSelectionParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VoiceSelectionParams");
         debug_struct.field("language_code", &self.language_code);
@@ -157,7 +157,7 @@ impl std::fmt::Debug for crate::model::VoiceSelectionParams {
     }
 }
 
-impl std::fmt::Debug for crate::model::AudioConfig {
+impl std::fmt::Debug for super::AudioConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AudioConfig");
         debug_struct.field("audio_encoding", &self.audio_encoding);
@@ -173,7 +173,7 @@ impl std::fmt::Debug for crate::model::AudioConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::CustomVoiceParams {
+impl std::fmt::Debug for super::CustomVoiceParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomVoiceParams");
         debug_struct.field("model", &self.model);
@@ -185,7 +185,7 @@ impl std::fmt::Debug for crate::model::CustomVoiceParams {
     }
 }
 
-impl std::fmt::Debug for crate::model::VoiceCloneParams {
+impl std::fmt::Debug for super::VoiceCloneParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VoiceCloneParams");
         debug_struct.field("voice_cloning_key", &self.voice_cloning_key);
@@ -196,7 +196,7 @@ impl std::fmt::Debug for crate::model::VoiceCloneParams {
     }
 }
 
-impl std::fmt::Debug for crate::model::SynthesizeSpeechResponse {
+impl std::fmt::Debug for super::SynthesizeSpeechResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesizeSpeechResponse");
         debug_struct.field("audio_content", &self.audio_content);
@@ -207,7 +207,7 @@ impl std::fmt::Debug for crate::model::SynthesizeSpeechResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamingAudioConfig {
+impl std::fmt::Debug for super::StreamingAudioConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingAudioConfig");
         debug_struct.field("audio_encoding", &self.audio_encoding);
@@ -220,7 +220,7 @@ impl std::fmt::Debug for crate::model::StreamingAudioConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamingSynthesizeConfig {
+impl std::fmt::Debug for super::StreamingSynthesizeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingSynthesizeConfig");
         debug_struct.field("voice", &self.voice);
@@ -233,7 +233,7 @@ impl std::fmt::Debug for crate::model::StreamingSynthesizeConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamingSynthesisInput {
+impl std::fmt::Debug for super::StreamingSynthesisInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingSynthesisInput");
         debug_struct.field("prompt", &self.prompt);
@@ -245,7 +245,7 @@ impl std::fmt::Debug for crate::model::StreamingSynthesisInput {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamingSynthesizeRequest {
+impl std::fmt::Debug for super::StreamingSynthesizeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingSynthesizeRequest");
         debug_struct.field("streaming_request", &self.streaming_request);
@@ -256,7 +256,7 @@ impl std::fmt::Debug for crate::model::StreamingSynthesizeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamingSynthesizeResponse {
+impl std::fmt::Debug for super::StreamingSynthesizeResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingSynthesizeResponse");
         debug_struct.field("audio_content", &self.audio_content);
@@ -267,7 +267,7 @@ impl std::fmt::Debug for crate::model::StreamingSynthesizeResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SynthesizeLongAudioRequest {
+impl std::fmt::Debug for super::SynthesizeLongAudioRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesizeLongAudioRequest");
         debug_struct.field("parent", &self.parent);
@@ -282,7 +282,7 @@ impl std::fmt::Debug for crate::model::SynthesizeLongAudioRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SynthesizeLongAudioResponse {
+impl std::fmt::Debug for super::SynthesizeLongAudioResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesizeLongAudioResponse");
         if !self._unknown_fields.is_empty() {
@@ -292,7 +292,7 @@ impl std::fmt::Debug for crate::model::SynthesizeLongAudioResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SynthesizeLongAudioMetadata {
+impl std::fmt::Debug for super::SynthesizeLongAudioMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesizeLongAudioMetadata");
         debug_struct.field("start_time", &self.start_time);

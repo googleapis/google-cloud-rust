@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::AccessTuple {
+impl std::fmt::Debug for super::AccessTuple {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessTuple");
         debug_struct.field("principal", &self.principal);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::AccessTuple {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExplainedPolicy {
+impl std::fmt::Debug for super::ExplainedPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExplainedPolicy");
         debug_struct.field("access", &self.access);
@@ -45,7 +45,7 @@ impl std::fmt::Debug for crate::model::ExplainedPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::BindingExplanation {
+impl std::fmt::Debug for super::BindingExplanation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BindingExplanation");
         debug_struct.field("access", &self.access);
@@ -62,7 +62,7 @@ impl std::fmt::Debug for crate::model::BindingExplanation {
     }
 }
 
-impl std::fmt::Debug for crate::model::binding_explanation::AnnotatedMembership {
+impl std::fmt::Debug for super::binding_explanation::AnnotatedMembership {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotatedMembership");
         debug_struct.field("membership", &self.membership);
@@ -74,7 +74,7 @@ impl std::fmt::Debug for crate::model::binding_explanation::AnnotatedMembership 
     }
 }
 
-impl std::fmt::Debug for crate::model::OrgPolicyViolationsPreview {
+impl std::fmt::Debug for super::OrgPolicyViolationsPreview {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OrgPolicyViolationsPreview");
         debug_struct.field("name", &self.name);
@@ -91,7 +91,7 @@ impl std::fmt::Debug for crate::model::OrgPolicyViolationsPreview {
     }
 }
 
-impl std::fmt::Debug for crate::model::org_policy_violations_preview::ResourceCounts {
+impl std::fmt::Debug for super::org_policy_violations_preview::ResourceCounts {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceCounts");
         debug_struct.field("scanned", &self.scanned);
@@ -106,7 +106,7 @@ impl std::fmt::Debug for crate::model::org_policy_violations_preview::ResourceCo
     }
 }
 
-impl std::fmt::Debug for crate::model::OrgPolicyViolation {
+impl std::fmt::Debug for super::OrgPolicyViolation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OrgPolicyViolation");
         debug_struct.field("name", &self.name);
@@ -120,7 +120,7 @@ impl std::fmt::Debug for crate::model::OrgPolicyViolation {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResourceContext {
+impl std::fmt::Debug for super::ResourceContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceContext");
         debug_struct.field("resource", &self.resource);
@@ -133,7 +133,7 @@ impl std::fmt::Debug for crate::model::ResourceContext {
     }
 }
 
-impl std::fmt::Debug for crate::model::OrgPolicyOverlay {
+impl std::fmt::Debug for super::OrgPolicyOverlay {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OrgPolicyOverlay");
         debug_struct.field("policies", &self.policies);
@@ -145,7 +145,7 @@ impl std::fmt::Debug for crate::model::OrgPolicyOverlay {
     }
 }
 
-impl std::fmt::Debug for crate::model::org_policy_overlay::PolicyOverlay {
+impl std::fmt::Debug for super::org_policy_overlay::PolicyOverlay {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyOverlay");
         debug_struct.field("policy_parent", &self.policy_parent);
@@ -157,7 +157,7 @@ impl std::fmt::Debug for crate::model::org_policy_overlay::PolicyOverlay {
     }
 }
 
-impl std::fmt::Debug for crate::model::org_policy_overlay::CustomConstraintOverlay {
+impl std::fmt::Debug for super::org_policy_overlay::CustomConstraintOverlay {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomConstraintOverlay");
         debug_struct.field("custom_constraint_parent", &self.custom_constraint_parent);
@@ -169,7 +169,7 @@ impl std::fmt::Debug for crate::model::org_policy_overlay::CustomConstraintOverl
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata {
+impl std::fmt::Debug for super::CreateOrgPolicyViolationsPreviewOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateOrgPolicyViolationsPreviewOperationMetadata");
         debug_struct.field("request_time", &self.request_time);
@@ -185,7 +185,7 @@ impl std::fmt::Debug for crate::model::CreateOrgPolicyViolationsPreviewOperation
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOrgPolicyViolationsPreviewsRequest {
+impl std::fmt::Debug for super::ListOrgPolicyViolationsPreviewsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOrgPolicyViolationsPreviewsRequest");
         debug_struct.field("parent", &self.parent);
@@ -198,7 +198,7 @@ impl std::fmt::Debug for crate::model::ListOrgPolicyViolationsPreviewsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOrgPolicyViolationsPreviewsResponse {
+impl std::fmt::Debug for super::ListOrgPolicyViolationsPreviewsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOrgPolicyViolationsPreviewsResponse");
         debug_struct.field(
@@ -213,7 +213,7 @@ impl std::fmt::Debug for crate::model::ListOrgPolicyViolationsPreviewsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetOrgPolicyViolationsPreviewRequest {
+impl std::fmt::Debug for super::GetOrgPolicyViolationsPreviewRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOrgPolicyViolationsPreviewRequest");
         debug_struct.field("name", &self.name);
@@ -224,7 +224,7 @@ impl std::fmt::Debug for crate::model::GetOrgPolicyViolationsPreviewRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateOrgPolicyViolationsPreviewRequest {
+impl std::fmt::Debug for super::CreateOrgPolicyViolationsPreviewRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateOrgPolicyViolationsPreviewRequest");
         debug_struct.field("parent", &self.parent);
@@ -243,7 +243,7 @@ impl std::fmt::Debug for crate::model::CreateOrgPolicyViolationsPreviewRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOrgPolicyViolationsRequest {
+impl std::fmt::Debug for super::ListOrgPolicyViolationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOrgPolicyViolationsRequest");
         debug_struct.field("parent", &self.parent);
@@ -256,7 +256,7 @@ impl std::fmt::Debug for crate::model::ListOrgPolicyViolationsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOrgPolicyViolationsResponse {
+impl std::fmt::Debug for super::ListOrgPolicyViolationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOrgPolicyViolationsResponse");
         debug_struct.field("org_policy_violations", &self.org_policy_violations);
@@ -268,7 +268,7 @@ impl std::fmt::Debug for crate::model::ListOrgPolicyViolationsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Replay {
+impl std::fmt::Debug for super::Replay {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Replay");
         debug_struct.field("name", &self.name);
@@ -282,7 +282,7 @@ impl std::fmt::Debug for crate::model::Replay {
     }
 }
 
-impl std::fmt::Debug for crate::model::replay::ResultsSummary {
+impl std::fmt::Debug for super::replay::ResultsSummary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResultsSummary");
         debug_struct.field("log_count", &self.log_count);
@@ -298,7 +298,7 @@ impl std::fmt::Debug for crate::model::replay::ResultsSummary {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReplayResult {
+impl std::fmt::Debug for super::ReplayResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplayResult");
         debug_struct.field("name", &self.name);
@@ -313,7 +313,7 @@ impl std::fmt::Debug for crate::model::ReplayResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateReplayRequest {
+impl std::fmt::Debug for super::CreateReplayRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateReplayRequest");
         debug_struct.field("parent", &self.parent);
@@ -325,7 +325,7 @@ impl std::fmt::Debug for crate::model::CreateReplayRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReplayOperationMetadata {
+impl std::fmt::Debug for super::ReplayOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplayOperationMetadata");
         debug_struct.field("start_time", &self.start_time);
@@ -336,7 +336,7 @@ impl std::fmt::Debug for crate::model::ReplayOperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetReplayRequest {
+impl std::fmt::Debug for super::GetReplayRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetReplayRequest");
         debug_struct.field("name", &self.name);
@@ -347,7 +347,7 @@ impl std::fmt::Debug for crate::model::GetReplayRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListReplayResultsRequest {
+impl std::fmt::Debug for super::ListReplayResultsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListReplayResultsRequest");
         debug_struct.field("parent", &self.parent);
@@ -360,7 +360,7 @@ impl std::fmt::Debug for crate::model::ListReplayResultsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListReplayResultsResponse {
+impl std::fmt::Debug for super::ListReplayResultsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListReplayResultsResponse");
         debug_struct.field("replay_results", &self.replay_results);
@@ -372,7 +372,7 @@ impl std::fmt::Debug for crate::model::ListReplayResultsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReplayConfig {
+impl std::fmt::Debug for super::ReplayConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplayConfig");
         debug_struct.field("policy_overlay", &self.policy_overlay);
@@ -384,7 +384,7 @@ impl std::fmt::Debug for crate::model::ReplayConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReplayDiff {
+impl std::fmt::Debug for super::ReplayDiff {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplayDiff");
         debug_struct.field("access_diff", &self.access_diff);
@@ -395,7 +395,7 @@ impl std::fmt::Debug for crate::model::ReplayDiff {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessStateDiff {
+impl std::fmt::Debug for super::AccessStateDiff {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessStateDiff");
         debug_struct.field("baseline", &self.baseline);
@@ -408,7 +408,7 @@ impl std::fmt::Debug for crate::model::AccessStateDiff {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExplainedAccess {
+impl std::fmt::Debug for super::ExplainedAccess {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExplainedAccess");
         debug_struct.field("access_state", &self.access_state);

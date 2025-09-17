@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Secret {
+impl std::fmt::Debug for super::Secret {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Secret");
         debug_struct.field("name", &self.name);
@@ -43,7 +43,7 @@ impl std::fmt::Debug for crate::model::Secret {
     }
 }
 
-impl std::fmt::Debug for crate::model::SecretVersion {
+impl std::fmt::Debug for super::SecretVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecretVersion");
         debug_struct.field("name", &self.name);
@@ -68,7 +68,7 @@ impl std::fmt::Debug for crate::model::SecretVersion {
     }
 }
 
-impl std::fmt::Debug for crate::model::Replication {
+impl std::fmt::Debug for super::Replication {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Replication");
         debug_struct.field("replication", &self.replication);
@@ -79,7 +79,7 @@ impl std::fmt::Debug for crate::model::Replication {
     }
 }
 
-impl std::fmt::Debug for crate::model::replication::Automatic {
+impl std::fmt::Debug for super::replication::Automatic {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Automatic");
         debug_struct.field(
@@ -93,7 +93,7 @@ impl std::fmt::Debug for crate::model::replication::Automatic {
     }
 }
 
-impl std::fmt::Debug for crate::model::replication::UserManaged {
+impl std::fmt::Debug for super::replication::UserManaged {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserManaged");
         debug_struct.field("replicas", &self.replicas);
@@ -104,7 +104,7 @@ impl std::fmt::Debug for crate::model::replication::UserManaged {
     }
 }
 
-impl std::fmt::Debug for crate::model::replication::user_managed::Replica {
+impl std::fmt::Debug for super::replication::user_managed::Replica {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Replica");
         debug_struct.field("location", &self.location);
@@ -119,7 +119,7 @@ impl std::fmt::Debug for crate::model::replication::user_managed::Replica {
     }
 }
 
-impl std::fmt::Debug for crate::model::CustomerManagedEncryption {
+impl std::fmt::Debug for super::CustomerManagedEncryption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomerManagedEncryption");
         debug_struct.field("kms_key_name", &self.kms_key_name);
@@ -130,7 +130,7 @@ impl std::fmt::Debug for crate::model::CustomerManagedEncryption {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReplicationStatus {
+impl std::fmt::Debug for super::ReplicationStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplicationStatus");
         debug_struct.field("replication_status", &self.replication_status);
@@ -141,7 +141,7 @@ impl std::fmt::Debug for crate::model::ReplicationStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::replication_status::AutomaticStatus {
+impl std::fmt::Debug for super::replication_status::AutomaticStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutomaticStatus");
         debug_struct.field(
@@ -155,7 +155,7 @@ impl std::fmt::Debug for crate::model::replication_status::AutomaticStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::replication_status::UserManagedStatus {
+impl std::fmt::Debug for super::replication_status::UserManagedStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserManagedStatus");
         debug_struct.field("replicas", &self.replicas);
@@ -166,7 +166,7 @@ impl std::fmt::Debug for crate::model::replication_status::UserManagedStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::replication_status::user_managed_status::ReplicaStatus {
+impl std::fmt::Debug for super::replication_status::user_managed_status::ReplicaStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplicaStatus");
         debug_struct.field("location", &self.location);
@@ -181,7 +181,7 @@ impl std::fmt::Debug for crate::model::replication_status::user_managed_status::
     }
 }
 
-impl std::fmt::Debug for crate::model::CustomerManagedEncryptionStatus {
+impl std::fmt::Debug for super::CustomerManagedEncryptionStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomerManagedEncryptionStatus");
         debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
@@ -192,7 +192,7 @@ impl std::fmt::Debug for crate::model::CustomerManagedEncryptionStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::Topic {
+impl std::fmt::Debug for super::Topic {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Topic");
         debug_struct.field("name", &self.name);
@@ -203,7 +203,7 @@ impl std::fmt::Debug for crate::model::Topic {
     }
 }
 
-impl std::fmt::Debug for crate::model::Rotation {
+impl std::fmt::Debug for super::Rotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Rotation");
         debug_struct.field("next_rotation_time", &self.next_rotation_time);
@@ -215,7 +215,7 @@ impl std::fmt::Debug for crate::model::Rotation {
     }
 }
 
-impl std::fmt::Debug for crate::model::SecretPayload {
+impl std::fmt::Debug for super::SecretPayload {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecretPayload");
         debug_struct.field("data", &self.data);
@@ -227,7 +227,7 @@ impl std::fmt::Debug for crate::model::SecretPayload {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSecretsRequest {
+impl std::fmt::Debug for super::ListSecretsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSecretsRequest");
         debug_struct.field("parent", &self.parent);
@@ -241,7 +241,7 @@ impl std::fmt::Debug for crate::model::ListSecretsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSecretsResponse {
+impl std::fmt::Debug for super::ListSecretsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSecretsResponse");
         debug_struct.field("secrets", &self.secrets);
@@ -254,7 +254,7 @@ impl std::fmt::Debug for crate::model::ListSecretsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateSecretRequest {
+impl std::fmt::Debug for super::CreateSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateSecretRequest");
         debug_struct.field("parent", &self.parent);
@@ -267,7 +267,7 @@ impl std::fmt::Debug for crate::model::CreateSecretRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AddSecretVersionRequest {
+impl std::fmt::Debug for super::AddSecretVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddSecretVersionRequest");
         debug_struct.field("parent", &self.parent);
@@ -279,7 +279,7 @@ impl std::fmt::Debug for crate::model::AddSecretVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetSecretRequest {
+impl std::fmt::Debug for super::GetSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSecretRequest");
         debug_struct.field("name", &self.name);
@@ -290,7 +290,7 @@ impl std::fmt::Debug for crate::model::GetSecretRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSecretVersionsRequest {
+impl std::fmt::Debug for super::ListSecretVersionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSecretVersionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -304,7 +304,7 @@ impl std::fmt::Debug for crate::model::ListSecretVersionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSecretVersionsResponse {
+impl std::fmt::Debug for super::ListSecretVersionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSecretVersionsResponse");
         debug_struct.field("versions", &self.versions);
@@ -317,7 +317,7 @@ impl std::fmt::Debug for crate::model::ListSecretVersionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetSecretVersionRequest {
+impl std::fmt::Debug for super::GetSecretVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSecretVersionRequest");
         debug_struct.field("name", &self.name);
@@ -328,7 +328,7 @@ impl std::fmt::Debug for crate::model::GetSecretVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateSecretRequest {
+impl std::fmt::Debug for super::UpdateSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSecretRequest");
         debug_struct.field("secret", &self.secret);
@@ -340,7 +340,7 @@ impl std::fmt::Debug for crate::model::UpdateSecretRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessSecretVersionRequest {
+impl std::fmt::Debug for super::AccessSecretVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessSecretVersionRequest");
         debug_struct.field("name", &self.name);
@@ -351,7 +351,7 @@ impl std::fmt::Debug for crate::model::AccessSecretVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessSecretVersionResponse {
+impl std::fmt::Debug for super::AccessSecretVersionResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessSecretVersionResponse");
         debug_struct.field("name", &self.name);
@@ -363,7 +363,7 @@ impl std::fmt::Debug for crate::model::AccessSecretVersionResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteSecretRequest {
+impl std::fmt::Debug for super::DeleteSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSecretRequest");
         debug_struct.field("name", &self.name);
@@ -375,7 +375,7 @@ impl std::fmt::Debug for crate::model::DeleteSecretRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DisableSecretVersionRequest {
+impl std::fmt::Debug for super::DisableSecretVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DisableSecretVersionRequest");
         debug_struct.field("name", &self.name);
@@ -387,7 +387,7 @@ impl std::fmt::Debug for crate::model::DisableSecretVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::EnableSecretVersionRequest {
+impl std::fmt::Debug for super::EnableSecretVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnableSecretVersionRequest");
         debug_struct.field("name", &self.name);
@@ -399,7 +399,7 @@ impl std::fmt::Debug for crate::model::EnableSecretVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DestroySecretVersionRequest {
+impl std::fmt::Debug for super::DestroySecretVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DestroySecretVersionRequest");
         debug_struct.field("name", &self.name);

@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::DriveAddOnManifest {
+impl std::fmt::Debug for super::DriveAddOnManifest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DriveAddOnManifest");
         debug_struct.field("homepage_trigger", &self.homepage_trigger);
@@ -29,7 +29,7 @@ impl std::fmt::Debug for crate::model::DriveAddOnManifest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DriveExtensionPoint {
+impl std::fmt::Debug for super::DriveExtensionPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DriveExtensionPoint");
         debug_struct.field("run_function", &self.run_function);

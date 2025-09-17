@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Insight {
+impl std::fmt::Debug for super::Insight {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Insight");
         debug_struct.field("name", &self.name);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::Insight {
     }
 }
 
-impl std::fmt::Debug for crate::model::insight::RecommendationReference {
+impl std::fmt::Debug for super::insight::RecommendationReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecommendationReference");
         debug_struct.field("recommendation", &self.recommendation);
@@ -53,7 +53,7 @@ impl std::fmt::Debug for crate::model::insight::RecommendationReference {
     }
 }
 
-impl std::fmt::Debug for crate::model::InsightStateInfo {
+impl std::fmt::Debug for super::InsightStateInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InsightStateInfo");
         debug_struct.field("state", &self.state);
@@ -65,7 +65,7 @@ impl std::fmt::Debug for crate::model::InsightStateInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::InsightTypeConfig {
+impl std::fmt::Debug for super::InsightTypeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InsightTypeConfig");
         debug_struct.field("name", &self.name);
@@ -85,7 +85,7 @@ impl std::fmt::Debug for crate::model::InsightTypeConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::InsightTypeGenerationConfig {
+impl std::fmt::Debug for super::InsightTypeGenerationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InsightTypeGenerationConfig");
         debug_struct.field("params", &self.params);
@@ -96,7 +96,7 @@ impl std::fmt::Debug for crate::model::InsightTypeGenerationConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::Recommendation {
+impl std::fmt::Debug for super::Recommendation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Recommendation");
         debug_struct.field("name", &self.name);
@@ -118,7 +118,7 @@ impl std::fmt::Debug for crate::model::Recommendation {
     }
 }
 
-impl std::fmt::Debug for crate::model::recommendation::InsightReference {
+impl std::fmt::Debug for super::recommendation::InsightReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InsightReference");
         debug_struct.field("insight", &self.insight);
@@ -129,7 +129,7 @@ impl std::fmt::Debug for crate::model::recommendation::InsightReference {
     }
 }
 
-impl std::fmt::Debug for crate::model::RecommendationContent {
+impl std::fmt::Debug for super::RecommendationContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecommendationContent");
         debug_struct.field("operation_groups", &self.operation_groups);
@@ -141,7 +141,7 @@ impl std::fmt::Debug for crate::model::RecommendationContent {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationGroup {
+impl std::fmt::Debug for super::OperationGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationGroup");
         debug_struct.field("operations", &self.operations);
@@ -152,7 +152,7 @@ impl std::fmt::Debug for crate::model::OperationGroup {
     }
 }
 
-impl std::fmt::Debug for crate::model::Operation {
+impl std::fmt::Debug for super::Operation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Operation");
         debug_struct.field("action", &self.action);
@@ -171,7 +171,7 @@ impl std::fmt::Debug for crate::model::Operation {
     }
 }
 
-impl std::fmt::Debug for crate::model::ValueMatcher {
+impl std::fmt::Debug for super::ValueMatcher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ValueMatcher");
         debug_struct.field("match_variant", &self.match_variant);
@@ -182,7 +182,7 @@ impl std::fmt::Debug for crate::model::ValueMatcher {
     }
 }
 
-impl std::fmt::Debug for crate::model::CostProjection {
+impl std::fmt::Debug for super::CostProjection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CostProjection");
         debug_struct.field("cost", &self.cost);
@@ -195,7 +195,7 @@ impl std::fmt::Debug for crate::model::CostProjection {
     }
 }
 
-impl std::fmt::Debug for crate::model::SecurityProjection {
+impl std::fmt::Debug for super::SecurityProjection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecurityProjection");
         debug_struct.field("details", &self.details);
@@ -206,7 +206,7 @@ impl std::fmt::Debug for crate::model::SecurityProjection {
     }
 }
 
-impl std::fmt::Debug for crate::model::SustainabilityProjection {
+impl std::fmt::Debug for super::SustainabilityProjection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SustainabilityProjection");
         debug_struct.field("kg_c_o2e", &self.kg_c_o2e);
@@ -218,7 +218,7 @@ impl std::fmt::Debug for crate::model::SustainabilityProjection {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReliabilityProjection {
+impl std::fmt::Debug for super::ReliabilityProjection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReliabilityProjection");
         debug_struct.field("risks", &self.risks);
@@ -230,7 +230,7 @@ impl std::fmt::Debug for crate::model::ReliabilityProjection {
     }
 }
 
-impl std::fmt::Debug for crate::model::Impact {
+impl std::fmt::Debug for super::Impact {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Impact");
         debug_struct.field("category", &self.category);
@@ -242,7 +242,7 @@ impl std::fmt::Debug for crate::model::Impact {
     }
 }
 
-impl std::fmt::Debug for crate::model::RecommendationStateInfo {
+impl std::fmt::Debug for super::RecommendationStateInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecommendationStateInfo");
         debug_struct.field("state", &self.state);
@@ -254,7 +254,7 @@ impl std::fmt::Debug for crate::model::RecommendationStateInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::RecommenderConfig {
+impl std::fmt::Debug for super::RecommenderConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecommenderConfig");
         debug_struct.field("name", &self.name);
@@ -274,7 +274,7 @@ impl std::fmt::Debug for crate::model::RecommenderConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::RecommenderGenerationConfig {
+impl std::fmt::Debug for super::RecommenderGenerationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecommenderGenerationConfig");
         debug_struct.field("params", &self.params);
@@ -285,7 +285,7 @@ impl std::fmt::Debug for crate::model::RecommenderGenerationConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListInsightsRequest {
+impl std::fmt::Debug for super::ListInsightsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListInsightsRequest");
         debug_struct.field("parent", &self.parent);
@@ -299,7 +299,7 @@ impl std::fmt::Debug for crate::model::ListInsightsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListInsightsResponse {
+impl std::fmt::Debug for super::ListInsightsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListInsightsResponse");
         debug_struct.field("insights", &self.insights);
@@ -311,7 +311,7 @@ impl std::fmt::Debug for crate::model::ListInsightsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetInsightRequest {
+impl std::fmt::Debug for super::GetInsightRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInsightRequest");
         debug_struct.field("name", &self.name);
@@ -322,7 +322,7 @@ impl std::fmt::Debug for crate::model::GetInsightRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::MarkInsightAcceptedRequest {
+impl std::fmt::Debug for super::MarkInsightAcceptedRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MarkInsightAcceptedRequest");
         debug_struct.field("name", &self.name);
@@ -335,7 +335,7 @@ impl std::fmt::Debug for crate::model::MarkInsightAcceptedRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListRecommendationsRequest {
+impl std::fmt::Debug for super::ListRecommendationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRecommendationsRequest");
         debug_struct.field("parent", &self.parent);
@@ -349,7 +349,7 @@ impl std::fmt::Debug for crate::model::ListRecommendationsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListRecommendationsResponse {
+impl std::fmt::Debug for super::ListRecommendationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRecommendationsResponse");
         debug_struct.field("recommendations", &self.recommendations);
@@ -361,7 +361,7 @@ impl std::fmt::Debug for crate::model::ListRecommendationsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetRecommendationRequest {
+impl std::fmt::Debug for super::GetRecommendationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRecommendationRequest");
         debug_struct.field("name", &self.name);
@@ -372,7 +372,7 @@ impl std::fmt::Debug for crate::model::GetRecommendationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::MarkRecommendationDismissedRequest {
+impl std::fmt::Debug for super::MarkRecommendationDismissedRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MarkRecommendationDismissedRequest");
         debug_struct.field("name", &self.name);
@@ -384,7 +384,7 @@ impl std::fmt::Debug for crate::model::MarkRecommendationDismissedRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::MarkRecommendationClaimedRequest {
+impl std::fmt::Debug for super::MarkRecommendationClaimedRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MarkRecommendationClaimedRequest");
         debug_struct.field("name", &self.name);
@@ -397,7 +397,7 @@ impl std::fmt::Debug for crate::model::MarkRecommendationClaimedRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::MarkRecommendationSucceededRequest {
+impl std::fmt::Debug for super::MarkRecommendationSucceededRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MarkRecommendationSucceededRequest");
         debug_struct.field("name", &self.name);
@@ -410,7 +410,7 @@ impl std::fmt::Debug for crate::model::MarkRecommendationSucceededRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::MarkRecommendationFailedRequest {
+impl std::fmt::Debug for super::MarkRecommendationFailedRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MarkRecommendationFailedRequest");
         debug_struct.field("name", &self.name);
@@ -423,7 +423,7 @@ impl std::fmt::Debug for crate::model::MarkRecommendationFailedRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetRecommenderConfigRequest {
+impl std::fmt::Debug for super::GetRecommenderConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRecommenderConfigRequest");
         debug_struct.field("name", &self.name);
@@ -434,7 +434,7 @@ impl std::fmt::Debug for crate::model::GetRecommenderConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateRecommenderConfigRequest {
+impl std::fmt::Debug for super::UpdateRecommenderConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateRecommenderConfigRequest");
         debug_struct.field("recommender_config", &self.recommender_config);
@@ -447,7 +447,7 @@ impl std::fmt::Debug for crate::model::UpdateRecommenderConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetInsightTypeConfigRequest {
+impl std::fmt::Debug for super::GetInsightTypeConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInsightTypeConfigRequest");
         debug_struct.field("name", &self.name);
@@ -458,7 +458,7 @@ impl std::fmt::Debug for crate::model::GetInsightTypeConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateInsightTypeConfigRequest {
+impl std::fmt::Debug for super::UpdateInsightTypeConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateInsightTypeConfigRequest");
         debug_struct.field("insight_type_config", &self.insight_type_config);

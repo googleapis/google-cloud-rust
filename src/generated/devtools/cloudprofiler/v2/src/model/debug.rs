@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CreateProfileRequest {
+impl std::fmt::Debug for super::CreateProfileRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateProfileRequest");
         debug_struct.field("parent", &self.parent);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::CreateProfileRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateOfflineProfileRequest {
+impl std::fmt::Debug for super::CreateOfflineProfileRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateOfflineProfileRequest");
         debug_struct.field("parent", &self.parent);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::CreateOfflineProfileRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateProfileRequest {
+impl std::fmt::Debug for super::UpdateProfileRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateProfileRequest");
         debug_struct.field("profile", &self.profile);
@@ -54,7 +54,7 @@ impl std::fmt::Debug for crate::model::UpdateProfileRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Profile {
+impl std::fmt::Debug for super::Profile {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Profile");
         debug_struct.field("name", &self.name);
@@ -71,7 +71,7 @@ impl std::fmt::Debug for crate::model::Profile {
     }
 }
 
-impl std::fmt::Debug for crate::model::Deployment {
+impl std::fmt::Debug for super::Deployment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Deployment");
         debug_struct.field("project_id", &self.project_id);
@@ -84,7 +84,7 @@ impl std::fmt::Debug for crate::model::Deployment {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListProfilesRequest {
+impl std::fmt::Debug for super::ListProfilesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListProfilesRequest");
         debug_struct.field("parent", &self.parent);
@@ -97,7 +97,7 @@ impl std::fmt::Debug for crate::model::ListProfilesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListProfilesResponse {
+impl std::fmt::Debug for super::ListProfilesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListProfilesResponse");
         debug_struct.field("profiles", &self.profiles);

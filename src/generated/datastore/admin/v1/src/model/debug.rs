@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CommonMetadata {
+impl std::fmt::Debug for super::CommonMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CommonMetadata");
         debug_struct.field("start_time", &self.start_time);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::CommonMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::Progress {
+impl std::fmt::Debug for super::Progress {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Progress");
         debug_struct.field("work_completed", &self.work_completed);
@@ -44,7 +44,7 @@ impl std::fmt::Debug for crate::model::Progress {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExportEntitiesRequest {
+impl std::fmt::Debug for super::ExportEntitiesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportEntitiesRequest");
         debug_struct.field("project_id", &self.project_id);
@@ -58,7 +58,7 @@ impl std::fmt::Debug for crate::model::ExportEntitiesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ImportEntitiesRequest {
+impl std::fmt::Debug for super::ImportEntitiesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportEntitiesRequest");
         debug_struct.field("project_id", &self.project_id);
@@ -72,7 +72,7 @@ impl std::fmt::Debug for crate::model::ImportEntitiesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExportEntitiesResponse {
+impl std::fmt::Debug for super::ExportEntitiesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportEntitiesResponse");
         debug_struct.field("output_url", &self.output_url);
@@ -83,7 +83,7 @@ impl std::fmt::Debug for crate::model::ExportEntitiesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExportEntitiesMetadata {
+impl std::fmt::Debug for super::ExportEntitiesMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportEntitiesMetadata");
         debug_struct.field("common", &self.common);
@@ -98,7 +98,7 @@ impl std::fmt::Debug for crate::model::ExportEntitiesMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::ImportEntitiesMetadata {
+impl std::fmt::Debug for super::ImportEntitiesMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportEntitiesMetadata");
         debug_struct.field("common", &self.common);
@@ -113,7 +113,7 @@ impl std::fmt::Debug for crate::model::ImportEntitiesMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::EntityFilter {
+impl std::fmt::Debug for super::EntityFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EntityFilter");
         debug_struct.field("kinds", &self.kinds);
@@ -125,7 +125,7 @@ impl std::fmt::Debug for crate::model::EntityFilter {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateIndexRequest {
+impl std::fmt::Debug for super::CreateIndexRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateIndexRequest");
         debug_struct.field("project_id", &self.project_id);
@@ -137,7 +137,7 @@ impl std::fmt::Debug for crate::model::CreateIndexRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteIndexRequest {
+impl std::fmt::Debug for super::DeleteIndexRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteIndexRequest");
         debug_struct.field("project_id", &self.project_id);
@@ -149,7 +149,7 @@ impl std::fmt::Debug for crate::model::DeleteIndexRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetIndexRequest {
+impl std::fmt::Debug for super::GetIndexRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetIndexRequest");
         debug_struct.field("project_id", &self.project_id);
@@ -161,7 +161,7 @@ impl std::fmt::Debug for crate::model::GetIndexRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListIndexesRequest {
+impl std::fmt::Debug for super::ListIndexesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListIndexesRequest");
         debug_struct.field("project_id", &self.project_id);
@@ -175,7 +175,7 @@ impl std::fmt::Debug for crate::model::ListIndexesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListIndexesResponse {
+impl std::fmt::Debug for super::ListIndexesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListIndexesResponse");
         debug_struct.field("indexes", &self.indexes);
@@ -187,7 +187,7 @@ impl std::fmt::Debug for crate::model::ListIndexesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::IndexOperationMetadata {
+impl std::fmt::Debug for super::IndexOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IndexOperationMetadata");
         debug_struct.field("common", &self.common);
@@ -200,7 +200,7 @@ impl std::fmt::Debug for crate::model::IndexOperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::DatastoreFirestoreMigrationMetadata {
+impl std::fmt::Debug for super::DatastoreFirestoreMigrationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DatastoreFirestoreMigrationMetadata");
         debug_struct.field("migration_state", &self.migration_state);
@@ -212,7 +212,7 @@ impl std::fmt::Debug for crate::model::DatastoreFirestoreMigrationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::Index {
+impl std::fmt::Debug for super::Index {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Index");
         debug_struct.field("project_id", &self.project_id);
@@ -228,7 +228,7 @@ impl std::fmt::Debug for crate::model::Index {
     }
 }
 
-impl std::fmt::Debug for crate::model::index::IndexedProperty {
+impl std::fmt::Debug for super::index::IndexedProperty {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IndexedProperty");
         debug_struct.field("name", &self.name);
@@ -240,7 +240,7 @@ impl std::fmt::Debug for crate::model::index::IndexedProperty {
     }
 }
 
-impl std::fmt::Debug for crate::model::MigrationStateEvent {
+impl std::fmt::Debug for super::MigrationStateEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrationStateEvent");
         debug_struct.field("state", &self.state);
@@ -251,7 +251,7 @@ impl std::fmt::Debug for crate::model::MigrationStateEvent {
     }
 }
 
-impl std::fmt::Debug for crate::model::MigrationProgressEvent {
+impl std::fmt::Debug for super::MigrationProgressEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrationProgressEvent");
         debug_struct.field("step", &self.step);
@@ -263,7 +263,7 @@ impl std::fmt::Debug for crate::model::MigrationProgressEvent {
     }
 }
 
-impl std::fmt::Debug for crate::model::migration_progress_event::PrepareStepDetails {
+impl std::fmt::Debug for super::migration_progress_event::PrepareStepDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrepareStepDetails");
         debug_struct.field("concurrency_mode", &self.concurrency_mode);
@@ -274,7 +274,7 @@ impl std::fmt::Debug for crate::model::migration_progress_event::PrepareStepDeta
     }
 }
 
-impl std::fmt::Debug for crate::model::migration_progress_event::RedirectWritesStepDetails {
+impl std::fmt::Debug for super::migration_progress_event::RedirectWritesStepDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RedirectWritesStepDetails");
         debug_struct.field("concurrency_mode", &self.concurrency_mode);

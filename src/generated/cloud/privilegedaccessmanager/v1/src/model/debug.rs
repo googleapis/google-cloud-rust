@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CheckOnboardingStatusRequest {
+impl std::fmt::Debug for super::CheckOnboardingStatusRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckOnboardingStatusRequest");
         debug_struct.field("parent", &self.parent);
@@ -28,7 +28,7 @@ impl std::fmt::Debug for crate::model::CheckOnboardingStatusRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CheckOnboardingStatusResponse {
+impl std::fmt::Debug for super::CheckOnboardingStatusResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckOnboardingStatusResponse");
         debug_struct.field("service_account", &self.service_account);
@@ -40,7 +40,7 @@ impl std::fmt::Debug for crate::model::CheckOnboardingStatusResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::check_onboarding_status_response::Finding {
+impl std::fmt::Debug for super::check_onboarding_status_response::Finding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Finding");
         debug_struct.field("finding_type", &self.finding_type);
@@ -51,7 +51,7 @@ impl std::fmt::Debug for crate::model::check_onboarding_status_response::Finding
     }
 }
 
-impl std::fmt::Debug for crate::model::check_onboarding_status_response::finding::IAMAccessDenied {
+impl std::fmt::Debug for super::check_onboarding_status_response::finding::IAMAccessDenied {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IAMAccessDenied");
         debug_struct.field("missing_permissions", &self.missing_permissions);
@@ -62,7 +62,7 @@ impl std::fmt::Debug for crate::model::check_onboarding_status_response::finding
     }
 }
 
-impl std::fmt::Debug for crate::model::Entitlement {
+impl std::fmt::Debug for super::Entitlement {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Entitlement");
         debug_struct.field("name", &self.name);
@@ -89,7 +89,7 @@ impl std::fmt::Debug for crate::model::Entitlement {
     }
 }
 
-impl std::fmt::Debug for crate::model::entitlement::RequesterJustificationConfig {
+impl std::fmt::Debug for super::entitlement::RequesterJustificationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RequesterJustificationConfig");
         debug_struct.field("justification_type", &self.justification_type);
@@ -100,7 +100,7 @@ impl std::fmt::Debug for crate::model::entitlement::RequesterJustificationConfig
     }
 }
 
-impl std::fmt::Debug for crate::model::entitlement::requester_justification_config::NotMandatory {
+impl std::fmt::Debug for super::entitlement::requester_justification_config::NotMandatory {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NotMandatory");
         if !self._unknown_fields.is_empty() {
@@ -110,7 +110,7 @@ impl std::fmt::Debug for crate::model::entitlement::requester_justification_conf
     }
 }
 
-impl std::fmt::Debug for crate::model::entitlement::requester_justification_config::Unstructured {
+impl std::fmt::Debug for super::entitlement::requester_justification_config::Unstructured {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Unstructured");
         if !self._unknown_fields.is_empty() {
@@ -120,7 +120,7 @@ impl std::fmt::Debug for crate::model::entitlement::requester_justification_conf
     }
 }
 
-impl std::fmt::Debug for crate::model::entitlement::AdditionalNotificationTargets {
+impl std::fmt::Debug for super::entitlement::AdditionalNotificationTargets {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdditionalNotificationTargets");
         debug_struct.field("admin_email_recipients", &self.admin_email_recipients);
@@ -135,7 +135,7 @@ impl std::fmt::Debug for crate::model::entitlement::AdditionalNotificationTarget
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessControlEntry {
+impl std::fmt::Debug for super::AccessControlEntry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessControlEntry");
         debug_struct.field("principals", &self.principals);
@@ -146,7 +146,7 @@ impl std::fmt::Debug for crate::model::AccessControlEntry {
     }
 }
 
-impl std::fmt::Debug for crate::model::ApprovalWorkflow {
+impl std::fmt::Debug for super::ApprovalWorkflow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ApprovalWorkflow");
         debug_struct.field("approval_workflow", &self.approval_workflow);
@@ -157,7 +157,7 @@ impl std::fmt::Debug for crate::model::ApprovalWorkflow {
     }
 }
 
-impl std::fmt::Debug for crate::model::ManualApprovals {
+impl std::fmt::Debug for super::ManualApprovals {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManualApprovals");
         debug_struct.field(
@@ -172,7 +172,7 @@ impl std::fmt::Debug for crate::model::ManualApprovals {
     }
 }
 
-impl std::fmt::Debug for crate::model::manual_approvals::Step {
+impl std::fmt::Debug for super::manual_approvals::Step {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Step");
         debug_struct.field("approvers", &self.approvers);
@@ -185,7 +185,7 @@ impl std::fmt::Debug for crate::model::manual_approvals::Step {
     }
 }
 
-impl std::fmt::Debug for crate::model::PrivilegedAccess {
+impl std::fmt::Debug for super::PrivilegedAccess {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrivilegedAccess");
         debug_struct.field("access_type", &self.access_type);
@@ -196,7 +196,7 @@ impl std::fmt::Debug for crate::model::PrivilegedAccess {
     }
 }
 
-impl std::fmt::Debug for crate::model::privileged_access::GcpIamAccess {
+impl std::fmt::Debug for super::privileged_access::GcpIamAccess {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcpIamAccess");
         debug_struct.field("resource_type", &self.resource_type);
@@ -209,7 +209,7 @@ impl std::fmt::Debug for crate::model::privileged_access::GcpIamAccess {
     }
 }
 
-impl std::fmt::Debug for crate::model::privileged_access::gcp_iam_access::RoleBinding {
+impl std::fmt::Debug for super::privileged_access::gcp_iam_access::RoleBinding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RoleBinding");
         debug_struct.field("role", &self.role);
@@ -221,7 +221,7 @@ impl std::fmt::Debug for crate::model::privileged_access::gcp_iam_access::RoleBi
     }
 }
 
-impl std::fmt::Debug for crate::model::ListEntitlementsRequest {
+impl std::fmt::Debug for super::ListEntitlementsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEntitlementsRequest");
         debug_struct.field("parent", &self.parent);
@@ -236,7 +236,7 @@ impl std::fmt::Debug for crate::model::ListEntitlementsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListEntitlementsResponse {
+impl std::fmt::Debug for super::ListEntitlementsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEntitlementsResponse");
         debug_struct.field("entitlements", &self.entitlements);
@@ -249,7 +249,7 @@ impl std::fmt::Debug for crate::model::ListEntitlementsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchEntitlementsRequest {
+impl std::fmt::Debug for super::SearchEntitlementsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchEntitlementsRequest");
         debug_struct.field("parent", &self.parent);
@@ -264,7 +264,7 @@ impl std::fmt::Debug for crate::model::SearchEntitlementsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchEntitlementsResponse {
+impl std::fmt::Debug for super::SearchEntitlementsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchEntitlementsResponse");
         debug_struct.field("entitlements", &self.entitlements);
@@ -276,7 +276,7 @@ impl std::fmt::Debug for crate::model::SearchEntitlementsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetEntitlementRequest {
+impl std::fmt::Debug for super::GetEntitlementRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEntitlementRequest");
         debug_struct.field("name", &self.name);
@@ -287,7 +287,7 @@ impl std::fmt::Debug for crate::model::GetEntitlementRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateEntitlementRequest {
+impl std::fmt::Debug for super::CreateEntitlementRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateEntitlementRequest");
         debug_struct.field("parent", &self.parent);
@@ -301,7 +301,7 @@ impl std::fmt::Debug for crate::model::CreateEntitlementRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteEntitlementRequest {
+impl std::fmt::Debug for super::DeleteEntitlementRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteEntitlementRequest");
         debug_struct.field("name", &self.name);
@@ -314,7 +314,7 @@ impl std::fmt::Debug for crate::model::DeleteEntitlementRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateEntitlementRequest {
+impl std::fmt::Debug for super::UpdateEntitlementRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateEntitlementRequest");
         debug_struct.field("entitlement", &self.entitlement);
@@ -326,7 +326,7 @@ impl std::fmt::Debug for crate::model::UpdateEntitlementRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Grant {
+impl std::fmt::Debug for super::Grant {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Grant");
         debug_struct.field("name", &self.name);
@@ -351,7 +351,7 @@ impl std::fmt::Debug for crate::model::Grant {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::Timeline {
+impl std::fmt::Debug for super::grant::Timeline {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Timeline");
         debug_struct.field("events", &self.events);
@@ -362,7 +362,7 @@ impl std::fmt::Debug for crate::model::grant::Timeline {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::Event {
+impl std::fmt::Debug for super::grant::timeline::Event {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Event");
         debug_struct.field("event_time", &self.event_time);
@@ -374,7 +374,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::Event {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::event::Requested {
+impl std::fmt::Debug for super::grant::timeline::event::Requested {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Requested");
         debug_struct.field("expire_time", &self.expire_time);
@@ -385,7 +385,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::event::Requested {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::event::Approved {
+impl std::fmt::Debug for super::grant::timeline::event::Approved {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Approved");
         debug_struct.field("reason", &self.reason);
@@ -397,7 +397,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::event::Approved {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::event::Denied {
+impl std::fmt::Debug for super::grant::timeline::event::Denied {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Denied");
         debug_struct.field("reason", &self.reason);
@@ -409,7 +409,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::event::Denied {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::event::Revoked {
+impl std::fmt::Debug for super::grant::timeline::event::Revoked {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Revoked");
         debug_struct.field("reason", &self.reason);
@@ -421,7 +421,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::event::Revoked {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::event::Withdrawn {
+impl std::fmt::Debug for super::grant::timeline::event::Withdrawn {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Withdrawn");
         if !self._unknown_fields.is_empty() {
@@ -431,7 +431,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::event::Withdrawn {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::event::Scheduled {
+impl std::fmt::Debug for super::grant::timeline::event::Scheduled {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Scheduled");
         debug_struct.field("scheduled_activation_time", &self.scheduled_activation_time);
@@ -442,7 +442,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::event::Scheduled {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::event::Activated {
+impl std::fmt::Debug for super::grant::timeline::event::Activated {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Activated");
         if !self._unknown_fields.is_empty() {
@@ -452,7 +452,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::event::Activated {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::event::ActivationFailed {
+impl std::fmt::Debug for super::grant::timeline::event::ActivationFailed {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ActivationFailed");
         debug_struct.field("error", &self.error);
@@ -463,7 +463,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::event::ActivationFailed 
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::event::Expired {
+impl std::fmt::Debug for super::grant::timeline::event::Expired {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Expired");
         if !self._unknown_fields.is_empty() {
@@ -473,7 +473,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::event::Expired {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::event::Ended {
+impl std::fmt::Debug for super::grant::timeline::event::Ended {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Ended");
         if !self._unknown_fields.is_empty() {
@@ -483,7 +483,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::event::Ended {
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::timeline::event::ExternallyModified {
+impl std::fmt::Debug for super::grant::timeline::event::ExternallyModified {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExternallyModified");
         if !self._unknown_fields.is_empty() {
@@ -493,7 +493,7 @@ impl std::fmt::Debug for crate::model::grant::timeline::event::ExternallyModifie
     }
 }
 
-impl std::fmt::Debug for crate::model::grant::AuditTrail {
+impl std::fmt::Debug for super::grant::AuditTrail {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuditTrail");
         debug_struct.field("access_grant_time", &self.access_grant_time);
@@ -505,7 +505,7 @@ impl std::fmt::Debug for crate::model::grant::AuditTrail {
     }
 }
 
-impl std::fmt::Debug for crate::model::Justification {
+impl std::fmt::Debug for super::Justification {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Justification");
         debug_struct.field("justification", &self.justification);
@@ -516,7 +516,7 @@ impl std::fmt::Debug for crate::model::Justification {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListGrantsRequest {
+impl std::fmt::Debug for super::ListGrantsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListGrantsRequest");
         debug_struct.field("parent", &self.parent);
@@ -531,7 +531,7 @@ impl std::fmt::Debug for crate::model::ListGrantsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListGrantsResponse {
+impl std::fmt::Debug for super::ListGrantsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListGrantsResponse");
         debug_struct.field("grants", &self.grants);
@@ -544,7 +544,7 @@ impl std::fmt::Debug for crate::model::ListGrantsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchGrantsRequest {
+impl std::fmt::Debug for super::SearchGrantsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchGrantsRequest");
         debug_struct.field("parent", &self.parent);
@@ -559,7 +559,7 @@ impl std::fmt::Debug for crate::model::SearchGrantsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchGrantsResponse {
+impl std::fmt::Debug for super::SearchGrantsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchGrantsResponse");
         debug_struct.field("grants", &self.grants);
@@ -571,7 +571,7 @@ impl std::fmt::Debug for crate::model::SearchGrantsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetGrantRequest {
+impl std::fmt::Debug for super::GetGrantRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetGrantRequest");
         debug_struct.field("name", &self.name);
@@ -582,7 +582,7 @@ impl std::fmt::Debug for crate::model::GetGrantRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ApproveGrantRequest {
+impl std::fmt::Debug for super::ApproveGrantRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ApproveGrantRequest");
         debug_struct.field("name", &self.name);
@@ -594,7 +594,7 @@ impl std::fmt::Debug for crate::model::ApproveGrantRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DenyGrantRequest {
+impl std::fmt::Debug for super::DenyGrantRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DenyGrantRequest");
         debug_struct.field("name", &self.name);
@@ -606,7 +606,7 @@ impl std::fmt::Debug for crate::model::DenyGrantRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RevokeGrantRequest {
+impl std::fmt::Debug for super::RevokeGrantRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RevokeGrantRequest");
         debug_struct.field("name", &self.name);
@@ -618,7 +618,7 @@ impl std::fmt::Debug for crate::model::RevokeGrantRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateGrantRequest {
+impl std::fmt::Debug for super::CreateGrantRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateGrantRequest");
         debug_struct.field("parent", &self.parent);
@@ -631,7 +631,7 @@ impl std::fmt::Debug for crate::model::CreateGrantRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("create_time", &self.create_time);

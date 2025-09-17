@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CheckRequest {
+impl std::fmt::Debug for super::CheckRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckRequest");
         debug_struct.field("service_name", &self.service_name);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::CheckRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResourceInfo {
+impl std::fmt::Debug for super::ResourceInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceInfo");
         debug_struct.field("name", &self.name);
@@ -47,7 +47,7 @@ impl std::fmt::Debug for crate::model::ResourceInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::CheckResponse {
+impl std::fmt::Debug for super::CheckResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckResponse");
         debug_struct.field("status", &self.status);
@@ -59,7 +59,7 @@ impl std::fmt::Debug for crate::model::CheckResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReportRequest {
+impl std::fmt::Debug for super::ReportRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReportRequest");
         debug_struct.field("service_name", &self.service_name);
@@ -72,7 +72,7 @@ impl std::fmt::Debug for crate::model::ReportRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReportResponse {
+impl std::fmt::Debug for super::ReportResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReportResponse");
         if !self._unknown_fields.is_empty() {
@@ -82,7 +82,7 @@ impl std::fmt::Debug for crate::model::ReportResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResourceInfoList {
+impl std::fmt::Debug for super::ResourceInfoList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceInfoList");
         debug_struct.field("resources", &self.resources);

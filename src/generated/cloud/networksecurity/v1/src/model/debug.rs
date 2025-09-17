@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::AddressGroup {
+impl std::fmt::Debug for super::AddressGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddressGroup");
         debug_struct.field("name", &self.name);
@@ -37,7 +37,7 @@ impl std::fmt::Debug for crate::model::AddressGroup {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAddressGroupsRequest {
+impl std::fmt::Debug for super::ListAddressGroupsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAddressGroupsRequest");
         debug_struct.field("parent", &self.parent);
@@ -51,7 +51,7 @@ impl std::fmt::Debug for crate::model::ListAddressGroupsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAddressGroupsResponse {
+impl std::fmt::Debug for super::ListAddressGroupsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAddressGroupsResponse");
         debug_struct.field("address_groups", &self.address_groups);
@@ -64,7 +64,7 @@ impl std::fmt::Debug for crate::model::ListAddressGroupsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetAddressGroupRequest {
+impl std::fmt::Debug for super::GetAddressGroupRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAddressGroupRequest");
         debug_struct.field("name", &self.name);
@@ -75,7 +75,7 @@ impl std::fmt::Debug for crate::model::GetAddressGroupRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateAddressGroupRequest {
+impl std::fmt::Debug for super::CreateAddressGroupRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateAddressGroupRequest");
         debug_struct.field("parent", &self.parent);
@@ -89,7 +89,7 @@ impl std::fmt::Debug for crate::model::CreateAddressGroupRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateAddressGroupRequest {
+impl std::fmt::Debug for super::UpdateAddressGroupRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateAddressGroupRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -102,7 +102,7 @@ impl std::fmt::Debug for crate::model::UpdateAddressGroupRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteAddressGroupRequest {
+impl std::fmt::Debug for super::DeleteAddressGroupRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAddressGroupRequest");
         debug_struct.field("name", &self.name);
@@ -114,7 +114,7 @@ impl std::fmt::Debug for crate::model::DeleteAddressGroupRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AddAddressGroupItemsRequest {
+impl std::fmt::Debug for super::AddAddressGroupItemsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddAddressGroupItemsRequest");
         debug_struct.field("address_group", &self.address_group);
@@ -127,7 +127,7 @@ impl std::fmt::Debug for crate::model::AddAddressGroupItemsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RemoveAddressGroupItemsRequest {
+impl std::fmt::Debug for super::RemoveAddressGroupItemsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RemoveAddressGroupItemsRequest");
         debug_struct.field("address_group", &self.address_group);
@@ -140,7 +140,7 @@ impl std::fmt::Debug for crate::model::RemoveAddressGroupItemsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloneAddressGroupItemsRequest {
+impl std::fmt::Debug for super::CloneAddressGroupItemsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloneAddressGroupItemsRequest");
         debug_struct.field("address_group", &self.address_group);
@@ -153,7 +153,7 @@ impl std::fmt::Debug for crate::model::CloneAddressGroupItemsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAddressGroupReferencesRequest {
+impl std::fmt::Debug for super::ListAddressGroupReferencesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAddressGroupReferencesRequest");
         debug_struct.field("address_group", &self.address_group);
@@ -166,7 +166,7 @@ impl std::fmt::Debug for crate::model::ListAddressGroupReferencesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAddressGroupReferencesResponse {
+impl std::fmt::Debug for super::ListAddressGroupReferencesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAddressGroupReferencesResponse");
         debug_struct.field("address_group_references", &self.address_group_references);
@@ -178,9 +178,7 @@ impl std::fmt::Debug for crate::model::ListAddressGroupReferencesResponse {
     }
 }
 
-impl std::fmt::Debug
-    for crate::model::list_address_group_references_response::AddressGroupReference
-{
+impl std::fmt::Debug for super::list_address_group_references_response::AddressGroupReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddressGroupReference");
         debug_struct.field("firewall_policy", &self.firewall_policy);
@@ -193,7 +191,7 @@ impl std::fmt::Debug
     }
 }
 
-impl std::fmt::Debug for crate::model::AuthorizationPolicy {
+impl std::fmt::Debug for super::AuthorizationPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuthorizationPolicy");
         debug_struct.field("name", &self.name);
@@ -210,7 +208,7 @@ impl std::fmt::Debug for crate::model::AuthorizationPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::authorization_policy::Rule {
+impl std::fmt::Debug for super::authorization_policy::Rule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Rule");
         debug_struct.field("sources", &self.sources);
@@ -222,7 +220,7 @@ impl std::fmt::Debug for crate::model::authorization_policy::Rule {
     }
 }
 
-impl std::fmt::Debug for crate::model::authorization_policy::rule::Source {
+impl std::fmt::Debug for super::authorization_policy::rule::Source {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Source");
         debug_struct.field("principals", &self.principals);
@@ -234,7 +232,7 @@ impl std::fmt::Debug for crate::model::authorization_policy::rule::Source {
     }
 }
 
-impl std::fmt::Debug for crate::model::authorization_policy::rule::Destination {
+impl std::fmt::Debug for super::authorization_policy::rule::Destination {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Destination");
         debug_struct.field("hosts", &self.hosts);
@@ -248,7 +246,7 @@ impl std::fmt::Debug for crate::model::authorization_policy::rule::Destination {
     }
 }
 
-impl std::fmt::Debug for crate::model::authorization_policy::rule::destination::HttpHeaderMatch {
+impl std::fmt::Debug for super::authorization_policy::rule::destination::HttpHeaderMatch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HttpHeaderMatch");
         debug_struct.field("header_name", &self.header_name);
@@ -260,7 +258,7 @@ impl std::fmt::Debug for crate::model::authorization_policy::rule::destination::
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAuthorizationPoliciesRequest {
+impl std::fmt::Debug for super::ListAuthorizationPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAuthorizationPoliciesRequest");
         debug_struct.field("parent", &self.parent);
@@ -273,7 +271,7 @@ impl std::fmt::Debug for crate::model::ListAuthorizationPoliciesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAuthorizationPoliciesResponse {
+impl std::fmt::Debug for super::ListAuthorizationPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAuthorizationPoliciesResponse");
         debug_struct.field("authorization_policies", &self.authorization_policies);
@@ -285,7 +283,7 @@ impl std::fmt::Debug for crate::model::ListAuthorizationPoliciesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetAuthorizationPolicyRequest {
+impl std::fmt::Debug for super::GetAuthorizationPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAuthorizationPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -296,7 +294,7 @@ impl std::fmt::Debug for crate::model::GetAuthorizationPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateAuthorizationPolicyRequest {
+impl std::fmt::Debug for super::CreateAuthorizationPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateAuthorizationPolicyRequest");
         debug_struct.field("parent", &self.parent);
@@ -309,7 +307,7 @@ impl std::fmt::Debug for crate::model::CreateAuthorizationPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateAuthorizationPolicyRequest {
+impl std::fmt::Debug for super::UpdateAuthorizationPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateAuthorizationPolicyRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -321,7 +319,7 @@ impl std::fmt::Debug for crate::model::UpdateAuthorizationPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteAuthorizationPolicyRequest {
+impl std::fmt::Debug for super::DeleteAuthorizationPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAuthorizationPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -332,7 +330,7 @@ impl std::fmt::Debug for crate::model::DeleteAuthorizationPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ClientTlsPolicy {
+impl std::fmt::Debug for super::ClientTlsPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClientTlsPolicy");
         debug_struct.field("name", &self.name);
@@ -350,7 +348,7 @@ impl std::fmt::Debug for crate::model::ClientTlsPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListClientTlsPoliciesRequest {
+impl std::fmt::Debug for super::ListClientTlsPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListClientTlsPoliciesRequest");
         debug_struct.field("parent", &self.parent);
@@ -363,7 +361,7 @@ impl std::fmt::Debug for crate::model::ListClientTlsPoliciesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListClientTlsPoliciesResponse {
+impl std::fmt::Debug for super::ListClientTlsPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListClientTlsPoliciesResponse");
         debug_struct.field("client_tls_policies", &self.client_tls_policies);
@@ -375,7 +373,7 @@ impl std::fmt::Debug for crate::model::ListClientTlsPoliciesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetClientTlsPolicyRequest {
+impl std::fmt::Debug for super::GetClientTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetClientTlsPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -386,7 +384,7 @@ impl std::fmt::Debug for crate::model::GetClientTlsPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateClientTlsPolicyRequest {
+impl std::fmt::Debug for super::CreateClientTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateClientTlsPolicyRequest");
         debug_struct.field("parent", &self.parent);
@@ -399,7 +397,7 @@ impl std::fmt::Debug for crate::model::CreateClientTlsPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateClientTlsPolicyRequest {
+impl std::fmt::Debug for super::UpdateClientTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateClientTlsPolicyRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -411,7 +409,7 @@ impl std::fmt::Debug for crate::model::UpdateClientTlsPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteClientTlsPolicyRequest {
+impl std::fmt::Debug for super::DeleteClientTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteClientTlsPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -422,7 +420,7 @@ impl std::fmt::Debug for crate::model::DeleteClientTlsPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("create_time", &self.create_time);
@@ -439,7 +437,7 @@ impl std::fmt::Debug for crate::model::OperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::ServerTlsPolicy {
+impl std::fmt::Debug for super::ServerTlsPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServerTlsPolicy");
         debug_struct.field("name", &self.name);
@@ -457,7 +455,7 @@ impl std::fmt::Debug for crate::model::ServerTlsPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::server_tls_policy::MTLSPolicy {
+impl std::fmt::Debug for super::server_tls_policy::MTLSPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MTLSPolicy");
         debug_struct.field("client_validation_ca", &self.client_validation_ca);
@@ -468,7 +466,7 @@ impl std::fmt::Debug for crate::model::server_tls_policy::MTLSPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListServerTlsPoliciesRequest {
+impl std::fmt::Debug for super::ListServerTlsPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServerTlsPoliciesRequest");
         debug_struct.field("parent", &self.parent);
@@ -481,7 +479,7 @@ impl std::fmt::Debug for crate::model::ListServerTlsPoliciesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListServerTlsPoliciesResponse {
+impl std::fmt::Debug for super::ListServerTlsPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServerTlsPoliciesResponse");
         debug_struct.field("server_tls_policies", &self.server_tls_policies);
@@ -493,7 +491,7 @@ impl std::fmt::Debug for crate::model::ListServerTlsPoliciesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetServerTlsPolicyRequest {
+impl std::fmt::Debug for super::GetServerTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetServerTlsPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -504,7 +502,7 @@ impl std::fmt::Debug for crate::model::GetServerTlsPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateServerTlsPolicyRequest {
+impl std::fmt::Debug for super::CreateServerTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateServerTlsPolicyRequest");
         debug_struct.field("parent", &self.parent);
@@ -517,7 +515,7 @@ impl std::fmt::Debug for crate::model::CreateServerTlsPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateServerTlsPolicyRequest {
+impl std::fmt::Debug for super::UpdateServerTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateServerTlsPolicyRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -529,7 +527,7 @@ impl std::fmt::Debug for crate::model::UpdateServerTlsPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteServerTlsPolicyRequest {
+impl std::fmt::Debug for super::DeleteServerTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteServerTlsPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -540,7 +538,7 @@ impl std::fmt::Debug for crate::model::DeleteServerTlsPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GrpcEndpoint {
+impl std::fmt::Debug for super::GrpcEndpoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GrpcEndpoint");
         debug_struct.field("target_uri", &self.target_uri);
@@ -551,7 +549,7 @@ impl std::fmt::Debug for crate::model::GrpcEndpoint {
     }
 }
 
-impl std::fmt::Debug for crate::model::ValidationCA {
+impl std::fmt::Debug for super::ValidationCA {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ValidationCA");
         debug_struct.field("r#type", &self.r#type);
@@ -562,7 +560,7 @@ impl std::fmt::Debug for crate::model::ValidationCA {
     }
 }
 
-impl std::fmt::Debug for crate::model::CertificateProviderInstance {
+impl std::fmt::Debug for super::CertificateProviderInstance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CertificateProviderInstance");
         debug_struct.field("plugin_instance", &self.plugin_instance);
@@ -573,7 +571,7 @@ impl std::fmt::Debug for crate::model::CertificateProviderInstance {
     }
 }
 
-impl std::fmt::Debug for crate::model::CertificateProvider {
+impl std::fmt::Debug for super::CertificateProvider {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CertificateProvider");
         debug_struct.field("r#type", &self.r#type);

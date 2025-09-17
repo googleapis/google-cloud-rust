@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ClientGateway {
+impl<'de> serde::de::Deserialize<'de> for super::ClientGateway {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -73,7 +73,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ClientGateway {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ClientGateway;
+            type Value = super::ClientGateway;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ClientGateway")
             }
@@ -159,7 +159,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ClientGateway {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListClientGatewaysRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListClientGatewaysRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -210,7 +210,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListClientGatewaysReques
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListClientGatewaysRequest;
+            type Value = super::ListClientGatewaysRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListClientGatewaysRequest")
             }
@@ -299,7 +299,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListClientGatewaysReques
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListClientGatewaysResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListClientGatewaysResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -345,7 +345,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListClientGatewaysRespon
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListClientGatewaysResponse;
+            type Value = super::ListClientGatewaysResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListClientGatewaysResponse")
             }
@@ -401,7 +401,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListClientGatewaysRespon
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetClientGatewayRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetClientGatewayRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -441,7 +441,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetClientGatewayRequest 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetClientGatewayRequest;
+            type Value = super::GetClientGatewayRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetClientGatewayRequest")
             }
@@ -481,7 +481,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetClientGatewayRequest 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreateClientGatewayRequest {
+impl<'de> serde::de::Deserialize<'de> for super::CreateClientGatewayRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -533,7 +533,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateClientGatewayReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreateClientGatewayRequest;
+            type Value = super::CreateClientGatewayRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreateClientGatewayRequest")
             }
@@ -612,7 +612,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateClientGatewayReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteClientGatewayRequest {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteClientGatewayRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -658,7 +658,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteClientGatewayReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteClientGatewayRequest;
+            type Value = super::DeleteClientGatewayRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteClientGatewayRequest")
             }
@@ -718,7 +718,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteClientGatewayReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ClientGatewayOperationMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::ClientGatewayOperationMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -775,7 +775,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ClientGatewayOperationMe
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ClientGatewayOperationMetadata;
+            type Value = super::ClientGatewayOperationMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ClientGatewayOperationMetadata")
             }

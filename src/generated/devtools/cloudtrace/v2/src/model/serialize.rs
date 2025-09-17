@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Span {
+impl serde::ser::Serialize for super::Span {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -90,7 +90,7 @@ impl serde::ser::Serialize for crate::model::Span {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::span::Attributes {
+impl serde::ser::Serialize for super::span::Attributes {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -127,7 +127,7 @@ impl serde::ser::Serialize for crate::model::span::Attributes {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::span::TimeEvent {
+impl serde::ser::Serialize for super::span::TimeEvent {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -155,7 +155,7 @@ impl serde::ser::Serialize for crate::model::span::TimeEvent {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::span::time_event::Annotation {
+impl serde::ser::Serialize for super::span::time_event::Annotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -180,7 +180,7 @@ impl serde::ser::Serialize for crate::model::span::time_event::Annotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::span::time_event::MessageEvent {
+impl serde::ser::Serialize for super::span::time_event::MessageEvent {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -241,7 +241,7 @@ impl serde::ser::Serialize for crate::model::span::time_event::MessageEvent {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::span::TimeEvents {
+impl serde::ser::Serialize for super::span::TimeEvents {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -293,7 +293,7 @@ impl serde::ser::Serialize for crate::model::span::TimeEvents {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::span::Link {
+impl serde::ser::Serialize for super::span::Link {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -324,7 +324,7 @@ impl serde::ser::Serialize for crate::model::span::Link {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::span::Links {
+impl serde::ser::Serialize for super::span::Links {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -358,7 +358,7 @@ impl serde::ser::Serialize for crate::model::span::Links {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AttributeValue {
+impl serde::ser::Serialize for super::AttributeValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -395,7 +395,7 @@ impl serde::ser::Serialize for crate::model::AttributeValue {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StackTrace {
+impl serde::ser::Serialize for super::StackTrace {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -429,7 +429,7 @@ impl serde::ser::Serialize for crate::model::StackTrace {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::stack_trace::StackFrame {
+impl serde::ser::Serialize for super::stack_trace::StackFrame {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -487,7 +487,7 @@ impl serde::ser::Serialize for crate::model::stack_trace::StackFrame {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::stack_trace::StackFrames {
+impl serde::ser::Serialize for super::stack_trace::StackFrames {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -521,7 +521,7 @@ impl serde::ser::Serialize for crate::model::stack_trace::StackFrames {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Module {
+impl serde::ser::Serialize for super::Module {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -546,7 +546,7 @@ impl serde::ser::Serialize for crate::model::Module {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TruncatableString {
+impl serde::ser::Serialize for super::TruncatableString {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -580,7 +580,7 @@ impl serde::ser::Serialize for crate::model::TruncatableString {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchWriteSpansRequest {
+impl serde::ser::Serialize for super::BatchWriteSpansRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

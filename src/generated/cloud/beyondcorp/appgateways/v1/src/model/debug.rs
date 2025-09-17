@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ListAppGatewaysRequest {
+impl std::fmt::Debug for super::ListAppGatewaysRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAppGatewaysRequest");
         debug_struct.field("parent", &self.parent);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::ListAppGatewaysRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAppGatewaysResponse {
+impl std::fmt::Debug for super::ListAppGatewaysResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAppGatewaysResponse");
         debug_struct.field("app_gateways", &self.app_gateways);
@@ -45,7 +45,7 @@ impl std::fmt::Debug for crate::model::ListAppGatewaysResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetAppGatewayRequest {
+impl std::fmt::Debug for super::GetAppGatewayRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAppGatewayRequest");
         debug_struct.field("name", &self.name);
@@ -56,7 +56,7 @@ impl std::fmt::Debug for crate::model::GetAppGatewayRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateAppGatewayRequest {
+impl std::fmt::Debug for super::CreateAppGatewayRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateAppGatewayRequest");
         debug_struct.field("parent", &self.parent);
@@ -71,7 +71,7 @@ impl std::fmt::Debug for crate::model::CreateAppGatewayRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteAppGatewayRequest {
+impl std::fmt::Debug for super::DeleteAppGatewayRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAppGatewayRequest");
         debug_struct.field("name", &self.name);
@@ -84,7 +84,7 @@ impl std::fmt::Debug for crate::model::DeleteAppGatewayRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AppGateway {
+impl std::fmt::Debug for super::AppGateway {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AppGateway");
         debug_struct.field("name", &self.name);
@@ -105,7 +105,7 @@ impl std::fmt::Debug for crate::model::AppGateway {
     }
 }
 
-impl std::fmt::Debug for crate::model::app_gateway::AllocatedConnection {
+impl std::fmt::Debug for super::app_gateway::AllocatedConnection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AllocatedConnection");
         debug_struct.field("psc_uri", &self.psc_uri);
@@ -117,7 +117,7 @@ impl std::fmt::Debug for crate::model::app_gateway::AllocatedConnection {
     }
 }
 
-impl std::fmt::Debug for crate::model::AppGatewayOperationMetadata {
+impl std::fmt::Debug for super::AppGatewayOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AppGatewayOperationMetadata");
         debug_struct.field("create_time", &self.create_time);

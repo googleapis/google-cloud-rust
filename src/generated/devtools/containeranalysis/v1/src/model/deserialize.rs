@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ExportSBOMRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ExportSBOMRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -61,7 +61,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExportSBOMRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ExportSBOMRequest;
+            type Value = super::ExportSBOMRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ExportSBOMRequest")
             }
@@ -123,7 +123,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExportSBOMRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::export_sbom_request::CloudStorageLocation {
+impl<'de> serde::de::Deserialize<'de> for super::export_sbom_request::CloudStorageLocation {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -159,7 +159,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::export_sbom_request::Clo
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::export_sbom_request::CloudStorageLocation;
+            type Value = super::export_sbom_request::CloudStorageLocation;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CloudStorageLocation")
             }
@@ -188,7 +188,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::export_sbom_request::Clo
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ExportSBOMResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ExportSBOMResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -229,7 +229,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExportSBOMResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ExportSBOMResponse;
+            type Value = super::ExportSBOMResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ExportSBOMResponse")
             }
@@ -269,7 +269,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExportSBOMResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetVulnerabilityOccurrencesSummaryRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetVulnerabilityOccurrencesSummaryRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -312,7 +312,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetVulnerabilityOccurren
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetVulnerabilityOccurrencesSummaryRequest;
+            type Value = super::GetVulnerabilityOccurrencesSummaryRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetVulnerabilityOccurrencesSummaryRequest")
             }
@@ -362,7 +362,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetVulnerabilityOccurren
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::VulnerabilityOccurrencesSummary {
+impl<'de> serde::de::Deserialize<'de> for super::VulnerabilityOccurrencesSummary {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -402,7 +402,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::VulnerabilityOccurrences
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::VulnerabilityOccurrencesSummary;
+            type Value = super::VulnerabilityOccurrencesSummary;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct VulnerabilityOccurrencesSummary")
             }
@@ -441,7 +441,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::VulnerabilityOccurrences
 
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de>
-    for crate::model::vulnerability_occurrences_summary::FixableTotalByDigest
+    for super::vulnerability_occurrences_summary::FixableTotalByDigest
 {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -491,7 +491,7 @@ impl<'de> serde::de::Deserialize<'de>
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::vulnerability_occurrences_summary::FixableTotalByDigest;
+            type Value = super::vulnerability_occurrences_summary::FixableTotalByDigest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct FixableTotalByDigest")
             }

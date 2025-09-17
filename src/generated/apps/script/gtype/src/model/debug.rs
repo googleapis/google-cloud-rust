@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::AddOnWidgetSet {
+impl std::fmt::Debug for super::AddOnWidgetSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddOnWidgetSet");
         debug_struct.field("used_widgets", &self.used_widgets);
@@ -28,7 +28,7 @@ impl std::fmt::Debug for crate::model::AddOnWidgetSet {
     }
 }
 
-impl std::fmt::Debug for crate::model::MenuItemExtensionPoint {
+impl std::fmt::Debug for super::MenuItemExtensionPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MenuItemExtensionPoint");
         debug_struct.field("run_function", &self.run_function);
@@ -41,7 +41,7 @@ impl std::fmt::Debug for crate::model::MenuItemExtensionPoint {
     }
 }
 
-impl std::fmt::Debug for crate::model::HomepageExtensionPoint {
+impl std::fmt::Debug for super::HomepageExtensionPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HomepageExtensionPoint");
         debug_struct.field("run_function", &self.run_function);
@@ -53,7 +53,7 @@ impl std::fmt::Debug for crate::model::HomepageExtensionPoint {
     }
 }
 
-impl std::fmt::Debug for crate::model::UniversalActionExtensionPoint {
+impl std::fmt::Debug for super::UniversalActionExtensionPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UniversalActionExtensionPoint");
         debug_struct.field("label", &self.label);
@@ -65,7 +65,7 @@ impl std::fmt::Debug for crate::model::UniversalActionExtensionPoint {
     }
 }
 
-impl std::fmt::Debug for crate::model::CommonAddOnManifest {
+impl std::fmt::Debug for super::CommonAddOnManifest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CommonAddOnManifest");
         debug_struct.field("name", &self.name);
@@ -83,7 +83,7 @@ impl std::fmt::Debug for crate::model::CommonAddOnManifest {
     }
 }
 
-impl std::fmt::Debug for crate::model::LayoutProperties {
+impl std::fmt::Debug for super::LayoutProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LayoutProperties");
         debug_struct.field("primary_color", &self.primary_color);
@@ -95,7 +95,7 @@ impl std::fmt::Debug for crate::model::LayoutProperties {
     }
 }
 
-impl std::fmt::Debug for crate::model::HttpOptions {
+impl std::fmt::Debug for super::HttpOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HttpOptions");
         debug_struct.field("authorization_header", &self.authorization_header);

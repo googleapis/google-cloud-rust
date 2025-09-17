@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CloudLocation {
+impl serde::ser::Serialize for super::CloudLocation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -72,7 +72,7 @@ impl serde::ser::Serialize for crate::model::CloudLocation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListCloudLocationsRequest {
+impl serde::ser::Serialize for super::ListCloudLocationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -112,7 +112,7 @@ impl serde::ser::Serialize for crate::model::ListCloudLocationsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListCloudLocationsResponse {
+impl serde::ser::Serialize for super::ListCloudLocationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -137,7 +137,7 @@ impl serde::ser::Serialize for crate::model::ListCloudLocationsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetCloudLocationRequest {
+impl serde::ser::Serialize for super::GetCloudLocationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -159,7 +159,7 @@ impl serde::ser::Serialize for crate::model::GetCloudLocationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchCloudLocationsRequest {
+impl serde::ser::Serialize for super::SearchCloudLocationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -202,7 +202,7 @@ impl serde::ser::Serialize for crate::model::SearchCloudLocationsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchCloudLocationsResponse {
+impl serde::ser::Serialize for super::SearchCloudLocationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

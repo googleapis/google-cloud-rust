@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Document {
+impl serde::ser::Serialize for super::Document {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -49,7 +49,7 @@ impl serde::ser::Serialize for crate::model::Document {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Sentence {
+impl serde::ser::Serialize for super::Sentence {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -74,7 +74,7 @@ impl serde::ser::Serialize for crate::model::Sentence {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Entity {
+impl serde::ser::Serialize for super::Entity {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -108,7 +108,7 @@ impl serde::ser::Serialize for crate::model::Entity {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Sentiment {
+impl serde::ser::Serialize for super::Sentiment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -151,7 +151,7 @@ impl serde::ser::Serialize for crate::model::Sentiment {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EntityMention {
+impl serde::ser::Serialize for super::EntityMention {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -191,7 +191,7 @@ impl serde::ser::Serialize for crate::model::EntityMention {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TextSpan {
+impl serde::ser::Serialize for super::TextSpan {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -225,7 +225,7 @@ impl serde::ser::Serialize for crate::model::TextSpan {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ClassificationCategory {
+impl serde::ser::Serialize for super::ClassificationCategory {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -271,7 +271,7 @@ impl serde::ser::Serialize for crate::model::ClassificationCategory {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnalyzeSentimentRequest {
+impl serde::ser::Serialize for super::AnalyzeSentimentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -296,7 +296,7 @@ impl serde::ser::Serialize for crate::model::AnalyzeSentimentRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnalyzeSentimentResponse {
+impl serde::ser::Serialize for super::AnalyzeSentimentResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -327,7 +327,7 @@ impl serde::ser::Serialize for crate::model::AnalyzeSentimentResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnalyzeEntitiesRequest {
+impl serde::ser::Serialize for super::AnalyzeEntitiesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -352,7 +352,7 @@ impl serde::ser::Serialize for crate::model::AnalyzeEntitiesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnalyzeEntitiesResponse {
+impl serde::ser::Serialize for super::AnalyzeEntitiesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -380,7 +380,7 @@ impl serde::ser::Serialize for crate::model::AnalyzeEntitiesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ClassifyTextRequest {
+impl serde::ser::Serialize for super::ClassifyTextRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -402,7 +402,7 @@ impl serde::ser::Serialize for crate::model::ClassifyTextRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ClassifyTextResponse {
+impl serde::ser::Serialize for super::ClassifyTextResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -430,7 +430,7 @@ impl serde::ser::Serialize for crate::model::ClassifyTextResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModerateTextRequest {
+impl serde::ser::Serialize for super::ModerateTextRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -455,7 +455,7 @@ impl serde::ser::Serialize for crate::model::ModerateTextRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ModerateTextResponse {
+impl serde::ser::Serialize for super::ModerateTextResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -483,7 +483,7 @@ impl serde::ser::Serialize for crate::model::ModerateTextResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnnotateTextRequest {
+impl serde::ser::Serialize for super::AnnotateTextRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -511,7 +511,7 @@ impl serde::ser::Serialize for crate::model::AnnotateTextRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::annotate_text_request::Features {
+impl serde::ser::Serialize for super::annotate_text_request::Features {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -542,7 +542,7 @@ impl serde::ser::Serialize for crate::model::annotate_text_request::Features {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnnotateTextResponse {
+impl serde::ser::Serialize for super::AnnotateTextResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Contact {
+impl serde::ser::Serialize for super::Contact {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -58,7 +58,7 @@ impl serde::ser::Serialize for crate::model::Contact {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListContactsRequest {
+impl serde::ser::Serialize for super::ListContactsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -95,7 +95,7 @@ impl serde::ser::Serialize for crate::model::ListContactsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListContactsResponse {
+impl serde::ser::Serialize for super::ListContactsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -120,7 +120,7 @@ impl serde::ser::Serialize for crate::model::ListContactsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetContactRequest {
+impl serde::ser::Serialize for super::GetContactRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -142,7 +142,7 @@ impl serde::ser::Serialize for crate::model::GetContactRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteContactRequest {
+impl serde::ser::Serialize for super::DeleteContactRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -164,7 +164,7 @@ impl serde::ser::Serialize for crate::model::DeleteContactRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateContactRequest {
+impl serde::ser::Serialize for super::CreateContactRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -189,7 +189,7 @@ impl serde::ser::Serialize for crate::model::CreateContactRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateContactRequest {
+impl serde::ser::Serialize for super::UpdateContactRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -214,7 +214,7 @@ impl serde::ser::Serialize for crate::model::UpdateContactRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ComputeContactsRequest {
+impl serde::ser::Serialize for super::ComputeContactsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -254,7 +254,7 @@ impl serde::ser::Serialize for crate::model::ComputeContactsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ComputeContactsResponse {
+impl serde::ser::Serialize for super::ComputeContactsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -279,7 +279,7 @@ impl serde::ser::Serialize for crate::model::ComputeContactsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SendTestMessageRequest {
+impl serde::ser::Serialize for super::SendTestMessageRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

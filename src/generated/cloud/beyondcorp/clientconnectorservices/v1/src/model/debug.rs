@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ClientConnectorService {
+impl std::fmt::Debug for super::ClientConnectorService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClientConnectorService");
         debug_struct.field("name", &self.name);
@@ -34,7 +34,7 @@ impl std::fmt::Debug for crate::model::ClientConnectorService {
     }
 }
 
-impl std::fmt::Debug for crate::model::client_connector_service::Ingress {
+impl std::fmt::Debug for super::client_connector_service::Ingress {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Ingress");
         debug_struct.field("ingress_config", &self.ingress_config);
@@ -45,7 +45,7 @@ impl std::fmt::Debug for crate::model::client_connector_service::Ingress {
     }
 }
 
-impl std::fmt::Debug for crate::model::client_connector_service::ingress::Config {
+impl std::fmt::Debug for super::client_connector_service::ingress::Config {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Config");
         debug_struct.field("transport_protocol", &self.transport_protocol);
@@ -57,7 +57,7 @@ impl std::fmt::Debug for crate::model::client_connector_service::ingress::Config
     }
 }
 
-impl std::fmt::Debug for crate::model::client_connector_service::ingress::config::DestinationRoute {
+impl std::fmt::Debug for super::client_connector_service::ingress::config::DestinationRoute {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DestinationRoute");
         debug_struct.field("address", &self.address);
@@ -69,7 +69,7 @@ impl std::fmt::Debug for crate::model::client_connector_service::ingress::config
     }
 }
 
-impl std::fmt::Debug for crate::model::client_connector_service::Egress {
+impl std::fmt::Debug for super::client_connector_service::Egress {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Egress");
         debug_struct.field("destination_type", &self.destination_type);
@@ -80,7 +80,7 @@ impl std::fmt::Debug for crate::model::client_connector_service::Egress {
     }
 }
 
-impl std::fmt::Debug for crate::model::client_connector_service::egress::PeeredVpc {
+impl std::fmt::Debug for super::client_connector_service::egress::PeeredVpc {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PeeredVpc");
         debug_struct.field("network_vpc", &self.network_vpc);
@@ -91,7 +91,7 @@ impl std::fmt::Debug for crate::model::client_connector_service::egress::PeeredV
     }
 }
 
-impl std::fmt::Debug for crate::model::ListClientConnectorServicesRequest {
+impl std::fmt::Debug for super::ListClientConnectorServicesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListClientConnectorServicesRequest");
         debug_struct.field("parent", &self.parent);
@@ -106,7 +106,7 @@ impl std::fmt::Debug for crate::model::ListClientConnectorServicesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListClientConnectorServicesResponse {
+impl std::fmt::Debug for super::ListClientConnectorServicesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListClientConnectorServicesResponse");
         debug_struct.field("client_connector_services", &self.client_connector_services);
@@ -119,7 +119,7 @@ impl std::fmt::Debug for crate::model::ListClientConnectorServicesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetClientConnectorServiceRequest {
+impl std::fmt::Debug for super::GetClientConnectorServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetClientConnectorServiceRequest");
         debug_struct.field("name", &self.name);
@@ -130,7 +130,7 @@ impl std::fmt::Debug for crate::model::GetClientConnectorServiceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateClientConnectorServiceRequest {
+impl std::fmt::Debug for super::CreateClientConnectorServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateClientConnectorServiceRequest");
         debug_struct.field("parent", &self.parent);
@@ -148,7 +148,7 @@ impl std::fmt::Debug for crate::model::CreateClientConnectorServiceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateClientConnectorServiceRequest {
+impl std::fmt::Debug for super::UpdateClientConnectorServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateClientConnectorServiceRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -163,7 +163,7 @@ impl std::fmt::Debug for crate::model::UpdateClientConnectorServiceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteClientConnectorServiceRequest {
+impl std::fmt::Debug for super::DeleteClientConnectorServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteClientConnectorServiceRequest");
         debug_struct.field("name", &self.name);
@@ -176,7 +176,7 @@ impl std::fmt::Debug for crate::model::DeleteClientConnectorServiceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ClientConnectorServiceOperationMetadata {
+impl std::fmt::Debug for super::ClientConnectorServiceOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClientConnectorServiceOperationMetadata");
         debug_struct.field("create_time", &self.create_time);

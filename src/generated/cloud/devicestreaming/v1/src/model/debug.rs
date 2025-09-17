@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::DeviceMessage {
+impl std::fmt::Debug for super::DeviceMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeviceMessage");
         debug_struct.field("contents", &self.contents);
@@ -28,7 +28,7 @@ impl std::fmt::Debug for crate::model::DeviceMessage {
     }
 }
 
-impl std::fmt::Debug for crate::model::AdbMessage {
+impl std::fmt::Debug for super::AdbMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdbMessage");
         debug_struct.field("contents", &self.contents);
@@ -39,7 +39,7 @@ impl std::fmt::Debug for crate::model::AdbMessage {
     }
 }
 
-impl std::fmt::Debug for crate::model::StatusUpdate {
+impl std::fmt::Debug for super::StatusUpdate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StatusUpdate");
         debug_struct.field("state", &self.state);
@@ -52,7 +52,7 @@ impl std::fmt::Debug for crate::model::StatusUpdate {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamStatus {
+impl std::fmt::Debug for super::StreamStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamStatus");
         debug_struct.field("stream_id", &self.stream_id);
@@ -64,7 +64,7 @@ impl std::fmt::Debug for crate::model::StreamStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::Open {
+impl std::fmt::Debug for super::Open {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Open");
         debug_struct.field("stream_id", &self.stream_id);
@@ -76,7 +76,7 @@ impl std::fmt::Debug for crate::model::Open {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamData {
+impl std::fmt::Debug for super::StreamData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamData");
         debug_struct.field("stream_id", &self.stream_id);
@@ -88,7 +88,7 @@ impl std::fmt::Debug for crate::model::StreamData {
     }
 }
 
-impl std::fmt::Debug for crate::model::Okay {
+impl std::fmt::Debug for super::Okay {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Okay");
         if !self._unknown_fields.is_empty() {
@@ -98,7 +98,7 @@ impl std::fmt::Debug for crate::model::Okay {
     }
 }
 
-impl std::fmt::Debug for crate::model::Fail {
+impl std::fmt::Debug for super::Fail {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Fail");
         debug_struct.field("reason", &self.reason);
@@ -109,7 +109,7 @@ impl std::fmt::Debug for crate::model::Fail {
     }
 }
 
-impl std::fmt::Debug for crate::model::Close {
+impl std::fmt::Debug for super::Close {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Close");
         if !self._unknown_fields.is_empty() {
@@ -119,7 +119,7 @@ impl std::fmt::Debug for crate::model::Close {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateDeviceSessionRequest {
+impl std::fmt::Debug for super::CreateDeviceSessionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateDeviceSessionRequest");
         debug_struct.field("parent", &self.parent);
@@ -132,7 +132,7 @@ impl std::fmt::Debug for crate::model::CreateDeviceSessionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListDeviceSessionsRequest {
+impl std::fmt::Debug for super::ListDeviceSessionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDeviceSessionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -146,7 +146,7 @@ impl std::fmt::Debug for crate::model::ListDeviceSessionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListDeviceSessionsResponse {
+impl std::fmt::Debug for super::ListDeviceSessionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDeviceSessionsResponse");
         debug_struct.field("device_sessions", &self.device_sessions);
@@ -158,7 +158,7 @@ impl std::fmt::Debug for crate::model::ListDeviceSessionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetDeviceSessionRequest {
+impl std::fmt::Debug for super::GetDeviceSessionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDeviceSessionRequest");
         debug_struct.field("name", &self.name);
@@ -169,7 +169,7 @@ impl std::fmt::Debug for crate::model::GetDeviceSessionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CancelDeviceSessionRequest {
+impl std::fmt::Debug for super::CancelDeviceSessionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelDeviceSessionRequest");
         debug_struct.field("name", &self.name);
@@ -180,7 +180,7 @@ impl std::fmt::Debug for crate::model::CancelDeviceSessionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateDeviceSessionRequest {
+impl std::fmt::Debug for super::UpdateDeviceSessionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateDeviceSessionRequest");
         debug_struct.field("device_session", &self.device_session);
@@ -192,7 +192,7 @@ impl std::fmt::Debug for crate::model::UpdateDeviceSessionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeviceSession {
+impl std::fmt::Debug for super::DeviceSession {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeviceSession");
         debug_struct.field("name", &self.name);
@@ -211,7 +211,7 @@ impl std::fmt::Debug for crate::model::DeviceSession {
     }
 }
 
-impl std::fmt::Debug for crate::model::device_session::SessionStateEvent {
+impl std::fmt::Debug for super::device_session::SessionStateEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SessionStateEvent");
         debug_struct.field("session_state", &self.session_state);
@@ -224,7 +224,7 @@ impl std::fmt::Debug for crate::model::device_session::SessionStateEvent {
     }
 }
 
-impl std::fmt::Debug for crate::model::AndroidDevice {
+impl std::fmt::Debug for super::AndroidDevice {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AndroidDevice");
         debug_struct.field("android_model_id", &self.android_model_id);

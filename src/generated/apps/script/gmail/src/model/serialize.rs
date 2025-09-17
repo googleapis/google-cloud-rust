@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GmailAddOnManifest {
+impl serde::ser::Serialize for super::GmailAddOnManifest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -55,7 +55,7 @@ impl serde::ser::Serialize for crate::model::GmailAddOnManifest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UniversalAction {
+impl serde::ser::Serialize for super::UniversalAction {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -83,7 +83,7 @@ impl serde::ser::Serialize for crate::model::UniversalAction {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ComposeTrigger {
+impl serde::ser::Serialize for super::ComposeTrigger {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -108,7 +108,7 @@ impl serde::ser::Serialize for crate::model::ComposeTrigger {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ContextualTrigger {
+impl serde::ser::Serialize for super::ContextualTrigger {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -133,7 +133,7 @@ impl serde::ser::Serialize for crate::model::ContextualTrigger {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UnconditionalTrigger {
+impl serde::ser::Serialize for super::UnconditionalTrigger {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

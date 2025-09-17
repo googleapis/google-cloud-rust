@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Parameter {
+impl std::fmt::Debug for super::Parameter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Parameter");
         debug_struct.field("name", &self.name);
@@ -34,7 +34,7 @@ impl std::fmt::Debug for crate::model::Parameter {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListParametersRequest {
+impl std::fmt::Debug for super::ListParametersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListParametersRequest");
         debug_struct.field("parent", &self.parent);
@@ -49,7 +49,7 @@ impl std::fmt::Debug for crate::model::ListParametersRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListParametersResponse {
+impl std::fmt::Debug for super::ListParametersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListParametersResponse");
         debug_struct.field("parameters", &self.parameters);
@@ -62,7 +62,7 @@ impl std::fmt::Debug for crate::model::ListParametersResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetParameterRequest {
+impl std::fmt::Debug for super::GetParameterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetParameterRequest");
         debug_struct.field("name", &self.name);
@@ -73,7 +73,7 @@ impl std::fmt::Debug for crate::model::GetParameterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateParameterRequest {
+impl std::fmt::Debug for super::CreateParameterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateParameterRequest");
         debug_struct.field("parent", &self.parent);
@@ -87,7 +87,7 @@ impl std::fmt::Debug for crate::model::CreateParameterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateParameterRequest {
+impl std::fmt::Debug for super::UpdateParameterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateParameterRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -100,7 +100,7 @@ impl std::fmt::Debug for crate::model::UpdateParameterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteParameterRequest {
+impl std::fmt::Debug for super::DeleteParameterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteParameterRequest");
         debug_struct.field("name", &self.name);
@@ -112,7 +112,7 @@ impl std::fmt::Debug for crate::model::DeleteParameterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ParameterVersion {
+impl std::fmt::Debug for super::ParameterVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ParameterVersion");
         debug_struct.field("name", &self.name);
@@ -128,7 +128,7 @@ impl std::fmt::Debug for crate::model::ParameterVersion {
     }
 }
 
-impl std::fmt::Debug for crate::model::ParameterVersionPayload {
+impl std::fmt::Debug for super::ParameterVersionPayload {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ParameterVersionPayload");
         debug_struct.field("data", &self.data);
@@ -139,7 +139,7 @@ impl std::fmt::Debug for crate::model::ParameterVersionPayload {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListParameterVersionsRequest {
+impl std::fmt::Debug for super::ListParameterVersionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListParameterVersionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -154,7 +154,7 @@ impl std::fmt::Debug for crate::model::ListParameterVersionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListParameterVersionsResponse {
+impl std::fmt::Debug for super::ListParameterVersionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListParameterVersionsResponse");
         debug_struct.field("parameter_versions", &self.parameter_versions);
@@ -167,7 +167,7 @@ impl std::fmt::Debug for crate::model::ListParameterVersionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetParameterVersionRequest {
+impl std::fmt::Debug for super::GetParameterVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetParameterVersionRequest");
         debug_struct.field("name", &self.name);
@@ -179,7 +179,7 @@ impl std::fmt::Debug for crate::model::GetParameterVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RenderParameterVersionRequest {
+impl std::fmt::Debug for super::RenderParameterVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RenderParameterVersionRequest");
         debug_struct.field("name", &self.name);
@@ -190,7 +190,7 @@ impl std::fmt::Debug for crate::model::RenderParameterVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RenderParameterVersionResponse {
+impl std::fmt::Debug for super::RenderParameterVersionResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RenderParameterVersionResponse");
         debug_struct.field("parameter_version", &self.parameter_version);
@@ -203,7 +203,7 @@ impl std::fmt::Debug for crate::model::RenderParameterVersionResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateParameterVersionRequest {
+impl std::fmt::Debug for super::CreateParameterVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateParameterVersionRequest");
         debug_struct.field("parent", &self.parent);
@@ -217,7 +217,7 @@ impl std::fmt::Debug for crate::model::CreateParameterVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateParameterVersionRequest {
+impl std::fmt::Debug for super::UpdateParameterVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateParameterVersionRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -230,7 +230,7 @@ impl std::fmt::Debug for crate::model::UpdateParameterVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteParameterVersionRequest {
+impl std::fmt::Debug for super::DeleteParameterVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteParameterVersionRequest");
         debug_struct.field("name", &self.name);

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Registration {
+impl serde::ser::Serialize for super::Registration {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -73,7 +73,7 @@ impl serde::ser::Serialize for crate::model::Registration {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ManagementSettings {
+impl serde::ser::Serialize for super::ManagementSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -98,7 +98,7 @@ impl serde::ser::Serialize for crate::model::ManagementSettings {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DnsSettings {
+impl serde::ser::Serialize for super::DnsSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -126,7 +126,7 @@ impl serde::ser::Serialize for crate::model::DnsSettings {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::dns_settings::CustomDns {
+impl serde::ser::Serialize for super::dns_settings::CustomDns {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -151,7 +151,7 @@ impl serde::ser::Serialize for crate::model::dns_settings::CustomDns {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::dns_settings::GoogleDomainsDns {
+impl serde::ser::Serialize for super::dns_settings::GoogleDomainsDns {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -179,7 +179,7 @@ impl serde::ser::Serialize for crate::model::dns_settings::GoogleDomainsDns {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::dns_settings::DsRecord {
+impl serde::ser::Serialize for super::dns_settings::DsRecord {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -219,7 +219,7 @@ impl serde::ser::Serialize for crate::model::dns_settings::DsRecord {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::dns_settings::GlueRecord {
+impl serde::ser::Serialize for super::dns_settings::GlueRecord {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -247,7 +247,7 @@ impl serde::ser::Serialize for crate::model::dns_settings::GlueRecord {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ContactSettings {
+impl serde::ser::Serialize for super::ContactSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -278,7 +278,7 @@ impl serde::ser::Serialize for crate::model::ContactSettings {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::contact_settings::Contact {
+impl serde::ser::Serialize for super::contact_settings::Contact {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -309,7 +309,7 @@ impl serde::ser::Serialize for crate::model::contact_settings::Contact {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchDomainsRequest {
+impl serde::ser::Serialize for super::SearchDomainsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -334,7 +334,7 @@ impl serde::ser::Serialize for crate::model::SearchDomainsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchDomainsResponse {
+impl serde::ser::Serialize for super::SearchDomainsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -356,7 +356,7 @@ impl serde::ser::Serialize for crate::model::SearchDomainsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RetrieveRegisterParametersRequest {
+impl serde::ser::Serialize for super::RetrieveRegisterParametersRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -381,7 +381,7 @@ impl serde::ser::Serialize for crate::model::RetrieveRegisterParametersRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RetrieveRegisterParametersResponse {
+impl serde::ser::Serialize for super::RetrieveRegisterParametersResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -403,7 +403,7 @@ impl serde::ser::Serialize for crate::model::RetrieveRegisterParametersResponse 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RegisterDomainRequest {
+impl serde::ser::Serialize for super::RegisterDomainRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -440,7 +440,7 @@ impl serde::ser::Serialize for crate::model::RegisterDomainRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RetrieveTransferParametersRequest {
+impl serde::ser::Serialize for super::RetrieveTransferParametersRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -465,7 +465,7 @@ impl serde::ser::Serialize for crate::model::RetrieveTransferParametersRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RetrieveTransferParametersResponse {
+impl serde::ser::Serialize for super::RetrieveTransferParametersResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -487,7 +487,7 @@ impl serde::ser::Serialize for crate::model::RetrieveTransferParametersResponse 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TransferDomainRequest {
+impl serde::ser::Serialize for super::TransferDomainRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -524,7 +524,7 @@ impl serde::ser::Serialize for crate::model::TransferDomainRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListRegistrationsRequest {
+impl serde::ser::Serialize for super::ListRegistrationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -564,7 +564,7 @@ impl serde::ser::Serialize for crate::model::ListRegistrationsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListRegistrationsResponse {
+impl serde::ser::Serialize for super::ListRegistrationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -589,7 +589,7 @@ impl serde::ser::Serialize for crate::model::ListRegistrationsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetRegistrationRequest {
+impl serde::ser::Serialize for super::GetRegistrationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -611,7 +611,7 @@ impl serde::ser::Serialize for crate::model::GetRegistrationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateRegistrationRequest {
+impl serde::ser::Serialize for super::UpdateRegistrationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -636,7 +636,7 @@ impl serde::ser::Serialize for crate::model::UpdateRegistrationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ConfigureManagementSettingsRequest {
+impl serde::ser::Serialize for super::ConfigureManagementSettingsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -664,7 +664,7 @@ impl serde::ser::Serialize for crate::model::ConfigureManagementSettingsRequest 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ConfigureDnsSettingsRequest {
+impl serde::ser::Serialize for super::ConfigureDnsSettingsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -695,7 +695,7 @@ impl serde::ser::Serialize for crate::model::ConfigureDnsSettingsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ConfigureContactSettingsRequest {
+impl serde::ser::Serialize for super::ConfigureContactSettingsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -729,7 +729,7 @@ impl serde::ser::Serialize for crate::model::ConfigureContactSettingsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportRegistrationRequest {
+impl serde::ser::Serialize for super::ExportRegistrationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -751,7 +751,7 @@ impl serde::ser::Serialize for crate::model::ExportRegistrationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteRegistrationRequest {
+impl serde::ser::Serialize for super::DeleteRegistrationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -773,7 +773,7 @@ impl serde::ser::Serialize for crate::model::DeleteRegistrationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RetrieveAuthorizationCodeRequest {
+impl serde::ser::Serialize for super::RetrieveAuthorizationCodeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -795,7 +795,7 @@ impl serde::ser::Serialize for crate::model::RetrieveAuthorizationCodeRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResetAuthorizationCodeRequest {
+impl serde::ser::Serialize for super::ResetAuthorizationCodeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -817,7 +817,7 @@ impl serde::ser::Serialize for crate::model::ResetAuthorizationCodeRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RegisterParameters {
+impl serde::ser::Serialize for super::RegisterParameters {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -851,7 +851,7 @@ impl serde::ser::Serialize for crate::model::RegisterParameters {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TransferParameters {
+impl serde::ser::Serialize for super::TransferParameters {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -888,7 +888,7 @@ impl serde::ser::Serialize for crate::model::TransferParameters {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AuthorizationCode {
+impl serde::ser::Serialize for super::AuthorizationCode {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -910,7 +910,7 @@ impl serde::ser::Serialize for crate::model::AuthorizationCode {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationMetadata {
+impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Inventory {
+impl std::fmt::Debug for super::Inventory {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Inventory");
         debug_struct.field("name", &self.name);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::model::Inventory {
     }
 }
 
-impl std::fmt::Debug for crate::model::inventory::OsInfo {
+impl std::fmt::Debug for super::inventory::OsInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OsInfo");
         debug_struct.field("hostname", &self.hostname);
@@ -49,7 +49,7 @@ impl std::fmt::Debug for crate::model::inventory::OsInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::inventory::Item {
+impl std::fmt::Debug for super::inventory::Item {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Item");
         debug_struct.field("id", &self.id);
@@ -65,7 +65,7 @@ impl std::fmt::Debug for crate::model::inventory::Item {
     }
 }
 
-impl std::fmt::Debug for crate::model::inventory::SoftwarePackage {
+impl std::fmt::Debug for super::inventory::SoftwarePackage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SoftwarePackage");
         debug_struct.field("details", &self.details);
@@ -76,7 +76,7 @@ impl std::fmt::Debug for crate::model::inventory::SoftwarePackage {
     }
 }
 
-impl std::fmt::Debug for crate::model::inventory::VersionedPackage {
+impl std::fmt::Debug for super::inventory::VersionedPackage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VersionedPackage");
         debug_struct.field("package_name", &self.package_name);
@@ -89,7 +89,7 @@ impl std::fmt::Debug for crate::model::inventory::VersionedPackage {
     }
 }
 
-impl std::fmt::Debug for crate::model::inventory::ZypperPatch {
+impl std::fmt::Debug for super::inventory::ZypperPatch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ZypperPatch");
         debug_struct.field("patch_name", &self.patch_name);
@@ -103,7 +103,7 @@ impl std::fmt::Debug for crate::model::inventory::ZypperPatch {
     }
 }
 
-impl std::fmt::Debug for crate::model::inventory::WindowsUpdatePackage {
+impl std::fmt::Debug for super::inventory::WindowsUpdatePackage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WindowsUpdatePackage");
         debug_struct.field("title", &self.title);
@@ -125,7 +125,7 @@ impl std::fmt::Debug for crate::model::inventory::WindowsUpdatePackage {
     }
 }
 
-impl std::fmt::Debug for crate::model::inventory::windows_update_package::WindowsUpdateCategory {
+impl std::fmt::Debug for super::inventory::windows_update_package::WindowsUpdateCategory {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WindowsUpdateCategory");
         debug_struct.field("id", &self.id);
@@ -137,7 +137,7 @@ impl std::fmt::Debug for crate::model::inventory::windows_update_package::Window
     }
 }
 
-impl std::fmt::Debug for crate::model::inventory::WindowsQuickFixEngineeringPackage {
+impl std::fmt::Debug for super::inventory::WindowsQuickFixEngineeringPackage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WindowsQuickFixEngineeringPackage");
         debug_struct.field("caption", &self.caption);
@@ -151,7 +151,7 @@ impl std::fmt::Debug for crate::model::inventory::WindowsQuickFixEngineeringPack
     }
 }
 
-impl std::fmt::Debug for crate::model::inventory::WindowsApplication {
+impl std::fmt::Debug for super::inventory::WindowsApplication {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WindowsApplication");
         debug_struct.field("display_name", &self.display_name);
@@ -166,7 +166,7 @@ impl std::fmt::Debug for crate::model::inventory::WindowsApplication {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetInventoryRequest {
+impl std::fmt::Debug for super::GetInventoryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInventoryRequest");
         debug_struct.field("name", &self.name);
@@ -178,7 +178,7 @@ impl std::fmt::Debug for crate::model::GetInventoryRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListInventoriesRequest {
+impl std::fmt::Debug for super::ListInventoriesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListInventoriesRequest");
         debug_struct.field("parent", &self.parent);
@@ -193,7 +193,7 @@ impl std::fmt::Debug for crate::model::ListInventoriesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListInventoriesResponse {
+impl std::fmt::Debug for super::ListInventoriesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListInventoriesResponse");
         debug_struct.field("inventories", &self.inventories);
@@ -205,7 +205,7 @@ impl std::fmt::Debug for crate::model::ListInventoriesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::OSPolicy {
+impl std::fmt::Debug for super::OSPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OSPolicy");
         debug_struct.field("id", &self.id);
@@ -223,7 +223,7 @@ impl std::fmt::Debug for crate::model::OSPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::InventoryFilter {
+impl std::fmt::Debug for super::os_policy::InventoryFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InventoryFilter");
         debug_struct.field("os_short_name", &self.os_short_name);
@@ -235,7 +235,7 @@ impl std::fmt::Debug for crate::model::os_policy::InventoryFilter {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::Resource {
+impl std::fmt::Debug for super::os_policy::Resource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Resource");
         debug_struct.field("id", &self.id);
@@ -247,7 +247,7 @@ impl std::fmt::Debug for crate::model::os_policy::Resource {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::File {
+impl std::fmt::Debug for super::os_policy::resource::File {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("File");
         debug_struct.field("allow_insecure", &self.allow_insecure);
@@ -259,7 +259,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::File {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::file::Remote {
+impl std::fmt::Debug for super::os_policy::resource::file::Remote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Remote");
         debug_struct.field("uri", &self.uri);
@@ -271,7 +271,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::file::Remote {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::file::Gcs {
+impl std::fmt::Debug for super::os_policy::resource::file::Gcs {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Gcs");
         debug_struct.field("bucket", &self.bucket);
@@ -284,7 +284,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::file::Gcs {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::PackageResource {
+impl std::fmt::Debug for super::os_policy::resource::PackageResource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PackageResource");
         debug_struct.field("desired_state", &self.desired_state);
@@ -296,7 +296,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::PackageResource {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Deb {
+impl std::fmt::Debug for super::os_policy::resource::package_resource::Deb {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Deb");
         debug_struct.field("source", &self.source);
@@ -308,7 +308,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::De
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Apt {
+impl std::fmt::Debug for super::os_policy::resource::package_resource::Apt {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Apt");
         debug_struct.field("name", &self.name);
@@ -319,7 +319,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Ap
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Rpm {
+impl std::fmt::Debug for super::os_policy::resource::package_resource::Rpm {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Rpm");
         debug_struct.field("source", &self.source);
@@ -331,7 +331,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Rp
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Yum {
+impl std::fmt::Debug for super::os_policy::resource::package_resource::Yum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Yum");
         debug_struct.field("name", &self.name);
@@ -342,7 +342,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Yu
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Zypper {
+impl std::fmt::Debug for super::os_policy::resource::package_resource::Zypper {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Zypper");
         debug_struct.field("name", &self.name);
@@ -353,7 +353,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Zy
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::GooGet {
+impl std::fmt::Debug for super::os_policy::resource::package_resource::GooGet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GooGet");
         debug_struct.field("name", &self.name);
@@ -364,7 +364,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Go
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Msi {
+impl std::fmt::Debug for super::os_policy::resource::package_resource::Msi {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Msi");
         debug_struct.field("source", &self.source);
@@ -376,7 +376,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::package_resource::Ms
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::RepositoryResource {
+impl std::fmt::Debug for super::os_policy::resource::RepositoryResource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RepositoryResource");
         debug_struct.field("repository", &self.repository);
@@ -387,7 +387,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::RepositoryResource {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::repository_resource::AptRepository {
+impl std::fmt::Debug for super::os_policy::resource::repository_resource::AptRepository {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AptRepository");
         debug_struct.field("archive_type", &self.archive_type);
@@ -402,7 +402,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::repository_resource:
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::repository_resource::YumRepository {
+impl std::fmt::Debug for super::os_policy::resource::repository_resource::YumRepository {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("YumRepository");
         debug_struct.field("id", &self.id);
@@ -416,7 +416,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::repository_resource:
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::repository_resource::ZypperRepository {
+impl std::fmt::Debug for super::os_policy::resource::repository_resource::ZypperRepository {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ZypperRepository");
         debug_struct.field("id", &self.id);
@@ -430,7 +430,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::repository_resource:
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::repository_resource::GooRepository {
+impl std::fmt::Debug for super::os_policy::resource::repository_resource::GooRepository {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GooRepository");
         debug_struct.field("name", &self.name);
@@ -442,7 +442,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::repository_resource:
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::ExecResource {
+impl std::fmt::Debug for super::os_policy::resource::ExecResource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExecResource");
         debug_struct.field("validate", &self.validate);
@@ -454,7 +454,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::ExecResource {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::exec_resource::Exec {
+impl std::fmt::Debug for super::os_policy::resource::exec_resource::Exec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Exec");
         debug_struct.field("args", &self.args);
@@ -468,7 +468,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::exec_resource::Exec 
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::resource::FileResource {
+impl std::fmt::Debug for super::os_policy::resource::FileResource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FileResource");
         debug_struct.field("path", &self.path);
@@ -482,7 +482,7 @@ impl std::fmt::Debug for crate::model::os_policy::resource::FileResource {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy::ResourceGroup {
+impl std::fmt::Debug for super::os_policy::ResourceGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceGroup");
         debug_struct.field("inventory_filters", &self.inventory_filters);
@@ -494,7 +494,7 @@ impl std::fmt::Debug for crate::model::os_policy::ResourceGroup {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetOSPolicyAssignmentReportRequest {
+impl std::fmt::Debug for super::GetOSPolicyAssignmentReportRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOSPolicyAssignmentReportRequest");
         debug_struct.field("name", &self.name);
@@ -505,7 +505,7 @@ impl std::fmt::Debug for crate::model::GetOSPolicyAssignmentReportRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentReportsRequest {
+impl std::fmt::Debug for super::ListOSPolicyAssignmentReportsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentReportsRequest");
         debug_struct.field("parent", &self.parent);
@@ -519,7 +519,7 @@ impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentReportsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentReportsResponse {
+impl std::fmt::Debug for super::ListOSPolicyAssignmentReportsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentReportsResponse");
         debug_struct.field(
@@ -534,7 +534,7 @@ impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentReportsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::OSPolicyAssignmentReport {
+impl std::fmt::Debug for super::OSPolicyAssignmentReport {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OSPolicyAssignmentReport");
         debug_struct.field("name", &self.name);
@@ -550,7 +550,7 @@ impl std::fmt::Debug for crate::model::OSPolicyAssignmentReport {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy_assignment_report::OSPolicyCompliance {
+impl std::fmt::Debug for super::os_policy_assignment_report::OSPolicyCompliance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OSPolicyCompliance");
         debug_struct.field("os_policy_id", &self.os_policy_id);
@@ -568,7 +568,7 @@ impl std::fmt::Debug for crate::model::os_policy_assignment_report::OSPolicyComp
 }
 
 impl std::fmt::Debug
-    for crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance
+    for super::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OSPolicyResourceCompliance");
@@ -584,7 +584,7 @@ impl std::fmt::Debug
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep {
+impl std::fmt::Debug for super::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OSPolicyResourceConfigStep");
         debug_struct.field("r#type", &self.r#type);
@@ -596,7 +596,7 @@ impl std::fmt::Debug for crate::model::os_policy_assignment_report::os_policy_co
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ExecResourceOutput {
+impl std::fmt::Debug for super::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ExecResourceOutput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExecResourceOutput");
         debug_struct.field("enforcement_output", &self.enforcement_output);
@@ -607,7 +607,7 @@ impl std::fmt::Debug for crate::model::os_policy_assignment_report::os_policy_co
     }
 }
 
-impl std::fmt::Debug for crate::model::OSPolicyAssignment {
+impl std::fmt::Debug for super::OSPolicyAssignment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OSPolicyAssignment");
         debug_struct.field("name", &self.name);
@@ -630,7 +630,7 @@ impl std::fmt::Debug for crate::model::OSPolicyAssignment {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy_assignment::LabelSet {
+impl std::fmt::Debug for super::os_policy_assignment::LabelSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LabelSet");
         debug_struct.field("labels", &self.labels);
@@ -641,7 +641,7 @@ impl std::fmt::Debug for crate::model::os_policy_assignment::LabelSet {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy_assignment::InstanceFilter {
+impl std::fmt::Debug for super::os_policy_assignment::InstanceFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstanceFilter");
         debug_struct.field("all", &self.all);
@@ -655,7 +655,7 @@ impl std::fmt::Debug for crate::model::os_policy_assignment::InstanceFilter {
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy_assignment::instance_filter::Inventory {
+impl std::fmt::Debug for super::os_policy_assignment::instance_filter::Inventory {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Inventory");
         debug_struct.field("os_short_name", &self.os_short_name);
@@ -667,7 +667,7 @@ impl std::fmt::Debug for crate::model::os_policy_assignment::instance_filter::In
     }
 }
 
-impl std::fmt::Debug for crate::model::os_policy_assignment::Rollout {
+impl std::fmt::Debug for super::os_policy_assignment::Rollout {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Rollout");
         debug_struct.field("disruption_budget", &self.disruption_budget);
@@ -679,7 +679,7 @@ impl std::fmt::Debug for crate::model::os_policy_assignment::Rollout {
     }
 }
 
-impl std::fmt::Debug for crate::model::OSPolicyAssignmentOperationMetadata {
+impl std::fmt::Debug for super::OSPolicyAssignmentOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OSPolicyAssignmentOperationMetadata");
         debug_struct.field("os_policy_assignment", &self.os_policy_assignment);
@@ -694,7 +694,7 @@ impl std::fmt::Debug for crate::model::OSPolicyAssignmentOperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateOSPolicyAssignmentRequest {
+impl std::fmt::Debug for super::CreateOSPolicyAssignmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateOSPolicyAssignmentRequest");
         debug_struct.field("parent", &self.parent);
@@ -707,7 +707,7 @@ impl std::fmt::Debug for crate::model::CreateOSPolicyAssignmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateOSPolicyAssignmentRequest {
+impl std::fmt::Debug for super::UpdateOSPolicyAssignmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateOSPolicyAssignmentRequest");
         debug_struct.field("os_policy_assignment", &self.os_policy_assignment);
@@ -719,7 +719,7 @@ impl std::fmt::Debug for crate::model::UpdateOSPolicyAssignmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetOSPolicyAssignmentRequest {
+impl std::fmt::Debug for super::GetOSPolicyAssignmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOSPolicyAssignmentRequest");
         debug_struct.field("name", &self.name);
@@ -730,7 +730,7 @@ impl std::fmt::Debug for crate::model::GetOSPolicyAssignmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentsRequest {
+impl std::fmt::Debug for super::ListOSPolicyAssignmentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -743,7 +743,7 @@ impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentsResponse {
+impl std::fmt::Debug for super::ListOSPolicyAssignmentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentsResponse");
         debug_struct.field("os_policy_assignments", &self.os_policy_assignments);
@@ -755,7 +755,7 @@ impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentRevisionsRequest {
+impl std::fmt::Debug for super::ListOSPolicyAssignmentRevisionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentRevisionsRequest");
         debug_struct.field("name", &self.name);
@@ -768,7 +768,7 @@ impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentRevisionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentRevisionsResponse {
+impl std::fmt::Debug for super::ListOSPolicyAssignmentRevisionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOSPolicyAssignmentRevisionsResponse");
         debug_struct.field("os_policy_assignments", &self.os_policy_assignments);
@@ -780,7 +780,7 @@ impl std::fmt::Debug for crate::model::ListOSPolicyAssignmentRevisionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteOSPolicyAssignmentRequest {
+impl std::fmt::Debug for super::DeleteOSPolicyAssignmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteOSPolicyAssignmentRequest");
         debug_struct.field("name", &self.name);
@@ -791,7 +791,7 @@ impl std::fmt::Debug for crate::model::DeleteOSPolicyAssignmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::FixedOrPercent {
+impl std::fmt::Debug for super::FixedOrPercent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FixedOrPercent");
         debug_struct.field("mode", &self.mode);
@@ -802,7 +802,7 @@ impl std::fmt::Debug for crate::model::FixedOrPercent {
     }
 }
 
-impl std::fmt::Debug for crate::model::PatchDeployment {
+impl std::fmt::Debug for super::PatchDeployment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PatchDeployment");
         debug_struct.field("name", &self.name);
@@ -823,7 +823,7 @@ impl std::fmt::Debug for crate::model::PatchDeployment {
     }
 }
 
-impl std::fmt::Debug for crate::model::OneTimeSchedule {
+impl std::fmt::Debug for super::OneTimeSchedule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OneTimeSchedule");
         debug_struct.field("execute_time", &self.execute_time);
@@ -834,7 +834,7 @@ impl std::fmt::Debug for crate::model::OneTimeSchedule {
     }
 }
 
-impl std::fmt::Debug for crate::model::RecurringSchedule {
+impl std::fmt::Debug for super::RecurringSchedule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecurringSchedule");
         debug_struct.field("time_zone", &self.time_zone);
@@ -852,7 +852,7 @@ impl std::fmt::Debug for crate::model::RecurringSchedule {
     }
 }
 
-impl std::fmt::Debug for crate::model::WeeklySchedule {
+impl std::fmt::Debug for super::WeeklySchedule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WeeklySchedule");
         debug_struct.field("day_of_week", &self.day_of_week);
@@ -863,7 +863,7 @@ impl std::fmt::Debug for crate::model::WeeklySchedule {
     }
 }
 
-impl std::fmt::Debug for crate::model::MonthlySchedule {
+impl std::fmt::Debug for super::MonthlySchedule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MonthlySchedule");
         debug_struct.field("day_of_month", &self.day_of_month);
@@ -874,7 +874,7 @@ impl std::fmt::Debug for crate::model::MonthlySchedule {
     }
 }
 
-impl std::fmt::Debug for crate::model::WeekDayOfMonth {
+impl std::fmt::Debug for super::WeekDayOfMonth {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WeekDayOfMonth");
         debug_struct.field("week_ordinal", &self.week_ordinal);
@@ -887,7 +887,7 @@ impl std::fmt::Debug for crate::model::WeekDayOfMonth {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreatePatchDeploymentRequest {
+impl std::fmt::Debug for super::CreatePatchDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreatePatchDeploymentRequest");
         debug_struct.field("parent", &self.parent);
@@ -900,7 +900,7 @@ impl std::fmt::Debug for crate::model::CreatePatchDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPatchDeploymentRequest {
+impl std::fmt::Debug for super::GetPatchDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPatchDeploymentRequest");
         debug_struct.field("name", &self.name);
@@ -911,7 +911,7 @@ impl std::fmt::Debug for crate::model::GetPatchDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPatchDeploymentsRequest {
+impl std::fmt::Debug for super::ListPatchDeploymentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPatchDeploymentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -924,7 +924,7 @@ impl std::fmt::Debug for crate::model::ListPatchDeploymentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPatchDeploymentsResponse {
+impl std::fmt::Debug for super::ListPatchDeploymentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPatchDeploymentsResponse");
         debug_struct.field("patch_deployments", &self.patch_deployments);
@@ -936,7 +936,7 @@ impl std::fmt::Debug for crate::model::ListPatchDeploymentsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeletePatchDeploymentRequest {
+impl std::fmt::Debug for super::DeletePatchDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeletePatchDeploymentRequest");
         debug_struct.field("name", &self.name);
@@ -947,7 +947,7 @@ impl std::fmt::Debug for crate::model::DeletePatchDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdatePatchDeploymentRequest {
+impl std::fmt::Debug for super::UpdatePatchDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdatePatchDeploymentRequest");
         debug_struct.field("patch_deployment", &self.patch_deployment);
@@ -959,7 +959,7 @@ impl std::fmt::Debug for crate::model::UpdatePatchDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::PausePatchDeploymentRequest {
+impl std::fmt::Debug for super::PausePatchDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PausePatchDeploymentRequest");
         debug_struct.field("name", &self.name);
@@ -970,7 +970,7 @@ impl std::fmt::Debug for crate::model::PausePatchDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResumePatchDeploymentRequest {
+impl std::fmt::Debug for super::ResumePatchDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResumePatchDeploymentRequest");
         debug_struct.field("name", &self.name);
@@ -981,7 +981,7 @@ impl std::fmt::Debug for crate::model::ResumePatchDeploymentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExecutePatchJobRequest {
+impl std::fmt::Debug for super::ExecutePatchJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExecutePatchJobRequest");
         debug_struct.field("parent", &self.parent);
@@ -999,7 +999,7 @@ impl std::fmt::Debug for crate::model::ExecutePatchJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPatchJobRequest {
+impl std::fmt::Debug for super::GetPatchJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPatchJobRequest");
         debug_struct.field("name", &self.name);
@@ -1010,7 +1010,7 @@ impl std::fmt::Debug for crate::model::GetPatchJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPatchJobInstanceDetailsRequest {
+impl std::fmt::Debug for super::ListPatchJobInstanceDetailsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPatchJobInstanceDetailsRequest");
         debug_struct.field("parent", &self.parent);
@@ -1024,7 +1024,7 @@ impl std::fmt::Debug for crate::model::ListPatchJobInstanceDetailsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPatchJobInstanceDetailsResponse {
+impl std::fmt::Debug for super::ListPatchJobInstanceDetailsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPatchJobInstanceDetailsResponse");
         debug_struct.field(
@@ -1039,7 +1039,7 @@ impl std::fmt::Debug for crate::model::ListPatchJobInstanceDetailsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::PatchJobInstanceDetails {
+impl std::fmt::Debug for super::PatchJobInstanceDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PatchJobInstanceDetails");
         debug_struct.field("name", &self.name);
@@ -1054,7 +1054,7 @@ impl std::fmt::Debug for crate::model::PatchJobInstanceDetails {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPatchJobsRequest {
+impl std::fmt::Debug for super::ListPatchJobsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPatchJobsRequest");
         debug_struct.field("parent", &self.parent);
@@ -1068,7 +1068,7 @@ impl std::fmt::Debug for crate::model::ListPatchJobsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPatchJobsResponse {
+impl std::fmt::Debug for super::ListPatchJobsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPatchJobsResponse");
         debug_struct.field("patch_jobs", &self.patch_jobs);
@@ -1080,7 +1080,7 @@ impl std::fmt::Debug for crate::model::ListPatchJobsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::PatchJob {
+impl std::fmt::Debug for super::PatchJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PatchJob");
         debug_struct.field("name", &self.name);
@@ -1105,7 +1105,7 @@ impl std::fmt::Debug for crate::model::PatchJob {
     }
 }
 
-impl std::fmt::Debug for crate::model::patch_job::InstanceDetailsSummary {
+impl std::fmt::Debug for super::patch_job::InstanceDetailsSummary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstanceDetailsSummary");
         debug_struct.field("pending_instance_count", &self.pending_instance_count);
@@ -1148,7 +1148,7 @@ impl std::fmt::Debug for crate::model::patch_job::InstanceDetailsSummary {
     }
 }
 
-impl std::fmt::Debug for crate::model::PatchConfig {
+impl std::fmt::Debug for super::PatchConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PatchConfig");
         debug_struct.field("reboot_config", &self.reboot_config);
@@ -1167,7 +1167,7 @@ impl std::fmt::Debug for crate::model::PatchConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::Instance {
+impl std::fmt::Debug for super::Instance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Instance");
         if !self._unknown_fields.is_empty() {
@@ -1177,7 +1177,7 @@ impl std::fmt::Debug for crate::model::Instance {
     }
 }
 
-impl std::fmt::Debug for crate::model::CancelPatchJobRequest {
+impl std::fmt::Debug for super::CancelPatchJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelPatchJobRequest");
         debug_struct.field("name", &self.name);
@@ -1188,7 +1188,7 @@ impl std::fmt::Debug for crate::model::CancelPatchJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AptSettings {
+impl std::fmt::Debug for super::AptSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AptSettings");
         debug_struct.field("r#type", &self.r#type);
@@ -1201,7 +1201,7 @@ impl std::fmt::Debug for crate::model::AptSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::YumSettings {
+impl std::fmt::Debug for super::YumSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("YumSettings");
         debug_struct.field("security", &self.security);
@@ -1215,7 +1215,7 @@ impl std::fmt::Debug for crate::model::YumSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::GooSettings {
+impl std::fmt::Debug for super::GooSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GooSettings");
         if !self._unknown_fields.is_empty() {
@@ -1225,7 +1225,7 @@ impl std::fmt::Debug for crate::model::GooSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::ZypperSettings {
+impl std::fmt::Debug for super::ZypperSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ZypperSettings");
         debug_struct.field("with_optional", &self.with_optional);
@@ -1241,7 +1241,7 @@ impl std::fmt::Debug for crate::model::ZypperSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::WindowsUpdateSettings {
+impl std::fmt::Debug for super::WindowsUpdateSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WindowsUpdateSettings");
         debug_struct.field("classifications", &self.classifications);
@@ -1254,7 +1254,7 @@ impl std::fmt::Debug for crate::model::WindowsUpdateSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExecStep {
+impl std::fmt::Debug for super::ExecStep {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExecStep");
         debug_struct.field("linux_exec_step_config", &self.linux_exec_step_config);
@@ -1266,7 +1266,7 @@ impl std::fmt::Debug for crate::model::ExecStep {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExecStepConfig {
+impl std::fmt::Debug for super::ExecStepConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExecStepConfig");
         debug_struct.field("allowed_success_codes", &self.allowed_success_codes);
@@ -1279,7 +1279,7 @@ impl std::fmt::Debug for crate::model::ExecStepConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::GcsObject {
+impl std::fmt::Debug for super::GcsObject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsObject");
         debug_struct.field("bucket", &self.bucket);
@@ -1292,7 +1292,7 @@ impl std::fmt::Debug for crate::model::GcsObject {
     }
 }
 
-impl std::fmt::Debug for crate::model::PatchInstanceFilter {
+impl std::fmt::Debug for super::PatchInstanceFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PatchInstanceFilter");
         debug_struct.field("all", &self.all);
@@ -1307,7 +1307,7 @@ impl std::fmt::Debug for crate::model::PatchInstanceFilter {
     }
 }
 
-impl std::fmt::Debug for crate::model::patch_instance_filter::GroupLabel {
+impl std::fmt::Debug for super::patch_instance_filter::GroupLabel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GroupLabel");
         debug_struct.field("labels", &self.labels);
@@ -1318,7 +1318,7 @@ impl std::fmt::Debug for crate::model::patch_instance_filter::GroupLabel {
     }
 }
 
-impl std::fmt::Debug for crate::model::PatchRollout {
+impl std::fmt::Debug for super::PatchRollout {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PatchRollout");
         debug_struct.field("mode", &self.mode);
@@ -1330,7 +1330,7 @@ impl std::fmt::Debug for crate::model::PatchRollout {
     }
 }
 
-impl std::fmt::Debug for crate::model::VulnerabilityReport {
+impl std::fmt::Debug for super::VulnerabilityReport {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VulnerabilityReport");
         debug_struct.field("name", &self.name);
@@ -1347,7 +1347,7 @@ impl std::fmt::Debug for crate::model::VulnerabilityReport {
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_report::Vulnerability {
+impl std::fmt::Debug for super::vulnerability_report::Vulnerability {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Vulnerability");
         debug_struct.field("details", &self.details);
@@ -1369,7 +1369,7 @@ impl std::fmt::Debug for crate::model::vulnerability_report::Vulnerability {
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_report::vulnerability::Details {
+impl std::fmt::Debug for super::vulnerability_report::vulnerability::Details {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Details");
         debug_struct.field("cve", &self.cve);
@@ -1385,7 +1385,7 @@ impl std::fmt::Debug for crate::model::vulnerability_report::vulnerability::Deta
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_report::vulnerability::details::Reference {
+impl std::fmt::Debug for super::vulnerability_report::vulnerability::details::Reference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reference");
         debug_struct.field("url", &self.url);
@@ -1397,7 +1397,7 @@ impl std::fmt::Debug for crate::model::vulnerability_report::vulnerability::deta
     }
 }
 
-impl std::fmt::Debug for crate::model::vulnerability_report::vulnerability::Item {
+impl std::fmt::Debug for super::vulnerability_report::vulnerability::Item {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Item");
         debug_struct.field(
@@ -1417,7 +1417,7 @@ impl std::fmt::Debug for crate::model::vulnerability_report::vulnerability::Item
     }
 }
 
-impl std::fmt::Debug for crate::model::GetVulnerabilityReportRequest {
+impl std::fmt::Debug for super::GetVulnerabilityReportRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetVulnerabilityReportRequest");
         debug_struct.field("name", &self.name);
@@ -1428,7 +1428,7 @@ impl std::fmt::Debug for crate::model::GetVulnerabilityReportRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListVulnerabilityReportsRequest {
+impl std::fmt::Debug for super::ListVulnerabilityReportsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListVulnerabilityReportsRequest");
         debug_struct.field("parent", &self.parent);
@@ -1442,7 +1442,7 @@ impl std::fmt::Debug for crate::model::ListVulnerabilityReportsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListVulnerabilityReportsResponse {
+impl std::fmt::Debug for super::ListVulnerabilityReportsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListVulnerabilityReportsResponse");
         debug_struct.field("vulnerability_reports", &self.vulnerability_reports);
@@ -1454,7 +1454,7 @@ impl std::fmt::Debug for crate::model::ListVulnerabilityReportsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CVSSv3 {
+impl std::fmt::Debug for super::CVSSv3 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CVSSv3");
         debug_struct.field("base_score", &self.base_score);

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddOnWidgetSet {
+impl serde::ser::Serialize for super::AddOnWidgetSet {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -40,7 +40,7 @@ impl serde::ser::Serialize for crate::model::AddOnWidgetSet {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MenuItemExtensionPoint {
+impl serde::ser::Serialize for super::MenuItemExtensionPoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -68,7 +68,7 @@ impl serde::ser::Serialize for crate::model::MenuItemExtensionPoint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::HomepageExtensionPoint {
+impl serde::ser::Serialize for super::HomepageExtensionPoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -93,7 +93,7 @@ impl serde::ser::Serialize for crate::model::HomepageExtensionPoint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UniversalActionExtensionPoint {
+impl serde::ser::Serialize for super::UniversalActionExtensionPoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -121,7 +121,7 @@ impl serde::ser::Serialize for crate::model::UniversalActionExtensionPoint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CommonAddOnManifest {
+impl serde::ser::Serialize for super::CommonAddOnManifest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -164,7 +164,7 @@ impl serde::ser::Serialize for crate::model::CommonAddOnManifest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LayoutProperties {
+impl serde::ser::Serialize for super::LayoutProperties {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -189,7 +189,7 @@ impl serde::ser::Serialize for crate::model::LayoutProperties {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::HttpOptions {
+impl serde::ser::Serialize for super::HttpOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

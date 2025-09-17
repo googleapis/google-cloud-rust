@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Event {
+impl std::fmt::Debug for super::Event {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Event");
         debug_struct.field("name", &self.name);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::Event {
     }
 }
 
-impl std::fmt::Debug for crate::model::OrganizationEvent {
+impl std::fmt::Debug for super::OrganizationEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OrganizationEvent");
         debug_struct.field("name", &self.name);
@@ -66,7 +66,7 @@ impl std::fmt::Debug for crate::model::OrganizationEvent {
     }
 }
 
-impl std::fmt::Debug for crate::model::EventUpdate {
+impl std::fmt::Debug for super::EventUpdate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EventUpdate");
         debug_struct.field("update_time", &self.update_time);
@@ -81,7 +81,7 @@ impl std::fmt::Debug for crate::model::EventUpdate {
     }
 }
 
-impl std::fmt::Debug for crate::model::Location {
+impl std::fmt::Debug for super::Location {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Location");
         debug_struct.field("location_name", &self.location_name);
@@ -92,7 +92,7 @@ impl std::fmt::Debug for crate::model::Location {
     }
 }
 
-impl std::fmt::Debug for crate::model::Product {
+impl std::fmt::Debug for super::Product {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Product");
         debug_struct.field("product_name", &self.product_name);
@@ -104,7 +104,7 @@ impl std::fmt::Debug for crate::model::Product {
     }
 }
 
-impl std::fmt::Debug for crate::model::EventImpact {
+impl std::fmt::Debug for super::EventImpact {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EventImpact");
         debug_struct.field("product", &self.product);
@@ -116,7 +116,7 @@ impl std::fmt::Debug for crate::model::EventImpact {
     }
 }
 
-impl std::fmt::Debug for crate::model::OrganizationImpact {
+impl std::fmt::Debug for super::OrganizationImpact {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OrganizationImpact");
         debug_struct.field("name", &self.name);
@@ -130,7 +130,7 @@ impl std::fmt::Debug for crate::model::OrganizationImpact {
     }
 }
 
-impl std::fmt::Debug for crate::model::Asset {
+impl std::fmt::Debug for super::Asset {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Asset");
         debug_struct.field("asset_name", &self.asset_name);
@@ -142,7 +142,7 @@ impl std::fmt::Debug for crate::model::Asset {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListEventsRequest {
+impl std::fmt::Debug for super::ListEventsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEventsRequest");
         debug_struct.field("parent", &self.parent);
@@ -157,7 +157,7 @@ impl std::fmt::Debug for crate::model::ListEventsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListEventsResponse {
+impl std::fmt::Debug for super::ListEventsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEventsResponse");
         debug_struct.field("events", &self.events);
@@ -170,7 +170,7 @@ impl std::fmt::Debug for crate::model::ListEventsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetEventRequest {
+impl std::fmt::Debug for super::GetEventRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEventRequest");
         debug_struct.field("name", &self.name);
@@ -181,7 +181,7 @@ impl std::fmt::Debug for crate::model::GetEventRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOrganizationEventsRequest {
+impl std::fmt::Debug for super::ListOrganizationEventsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOrganizationEventsRequest");
         debug_struct.field("parent", &self.parent);
@@ -196,7 +196,7 @@ impl std::fmt::Debug for crate::model::ListOrganizationEventsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOrganizationEventsResponse {
+impl std::fmt::Debug for super::ListOrganizationEventsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOrganizationEventsResponse");
         debug_struct.field("organization_events", &self.organization_events);
@@ -209,7 +209,7 @@ impl std::fmt::Debug for crate::model::ListOrganizationEventsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetOrganizationEventRequest {
+impl std::fmt::Debug for super::GetOrganizationEventRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOrganizationEventRequest");
         debug_struct.field("name", &self.name);
@@ -220,7 +220,7 @@ impl std::fmt::Debug for crate::model::GetOrganizationEventRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOrganizationImpactsRequest {
+impl std::fmt::Debug for super::ListOrganizationImpactsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOrganizationImpactsRequest");
         debug_struct.field("parent", &self.parent);
@@ -234,7 +234,7 @@ impl std::fmt::Debug for crate::model::ListOrganizationImpactsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOrganizationImpactsResponse {
+impl std::fmt::Debug for super::ListOrganizationImpactsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOrganizationImpactsResponse");
         debug_struct.field("organization_impacts", &self.organization_impacts);
@@ -247,7 +247,7 @@ impl std::fmt::Debug for crate::model::ListOrganizationImpactsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetOrganizationImpactRequest {
+impl std::fmt::Debug for super::GetOrganizationImpactRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOrganizationImpactRequest");
         debug_struct.field("name", &self.name);

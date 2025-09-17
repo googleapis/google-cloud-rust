@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Template {
+impl std::fmt::Debug for super::Template {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Template");
         debug_struct.field("name", &self.name);
@@ -33,7 +33,7 @@ impl std::fmt::Debug for crate::model::Template {
     }
 }
 
-impl std::fmt::Debug for crate::model::template::TemplateMetadata {
+impl std::fmt::Debug for super::template::TemplateMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TemplateMetadata");
         debug_struct.field(
@@ -67,7 +67,7 @@ impl std::fmt::Debug for crate::model::template::TemplateMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::template::template_metadata::MultiLanguageDetection {
+impl std::fmt::Debug for super::template::template_metadata::MultiLanguageDetection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiLanguageDetection");
         debug_struct.field(
@@ -81,7 +81,7 @@ impl std::fmt::Debug for crate::model::template::template_metadata::MultiLanguag
     }
 }
 
-impl std::fmt::Debug for crate::model::FloorSetting {
+impl std::fmt::Debug for super::FloorSetting {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FloorSetting");
         debug_struct.field("name", &self.name);
@@ -102,7 +102,7 @@ impl std::fmt::Debug for crate::model::FloorSetting {
     }
 }
 
-impl std::fmt::Debug for crate::model::floor_setting::FloorSettingMetadata {
+impl std::fmt::Debug for super::floor_setting::FloorSettingMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FloorSettingMetadata");
         debug_struct.field("multi_language_detection", &self.multi_language_detection);
@@ -113,9 +113,7 @@ impl std::fmt::Debug for crate::model::floor_setting::FloorSettingMetadata {
     }
 }
 
-impl std::fmt::Debug
-    for crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection
-{
+impl std::fmt::Debug for super::floor_setting::floor_setting_metadata::MultiLanguageDetection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiLanguageDetection");
         debug_struct.field(
@@ -129,7 +127,7 @@ impl std::fmt::Debug
     }
 }
 
-impl std::fmt::Debug for crate::model::AiPlatformFloorSetting {
+impl std::fmt::Debug for super::AiPlatformFloorSetting {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AiPlatformFloorSetting");
         debug_struct.field("enable_cloud_logging", &self.enable_cloud_logging);
@@ -141,7 +139,7 @@ impl std::fmt::Debug for crate::model::AiPlatformFloorSetting {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListTemplatesRequest {
+impl std::fmt::Debug for super::ListTemplatesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListTemplatesRequest");
         debug_struct.field("parent", &self.parent);
@@ -156,7 +154,7 @@ impl std::fmt::Debug for crate::model::ListTemplatesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListTemplatesResponse {
+impl std::fmt::Debug for super::ListTemplatesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListTemplatesResponse");
         debug_struct.field("templates", &self.templates);
@@ -169,7 +167,7 @@ impl std::fmt::Debug for crate::model::ListTemplatesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetTemplateRequest {
+impl std::fmt::Debug for super::GetTemplateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetTemplateRequest");
         debug_struct.field("name", &self.name);
@@ -180,7 +178,7 @@ impl std::fmt::Debug for crate::model::GetTemplateRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateTemplateRequest {
+impl std::fmt::Debug for super::CreateTemplateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateTemplateRequest");
         debug_struct.field("parent", &self.parent);
@@ -194,7 +192,7 @@ impl std::fmt::Debug for crate::model::CreateTemplateRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateTemplateRequest {
+impl std::fmt::Debug for super::UpdateTemplateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateTemplateRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -207,7 +205,7 @@ impl std::fmt::Debug for crate::model::UpdateTemplateRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteTemplateRequest {
+impl std::fmt::Debug for super::DeleteTemplateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteTemplateRequest");
         debug_struct.field("name", &self.name);
@@ -219,7 +217,7 @@ impl std::fmt::Debug for crate::model::DeleteTemplateRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetFloorSettingRequest {
+impl std::fmt::Debug for super::GetFloorSettingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetFloorSettingRequest");
         debug_struct.field("name", &self.name);
@@ -230,7 +228,7 @@ impl std::fmt::Debug for crate::model::GetFloorSettingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateFloorSettingRequest {
+impl std::fmt::Debug for super::UpdateFloorSettingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateFloorSettingRequest");
         debug_struct.field("floor_setting", &self.floor_setting);
@@ -242,7 +240,7 @@ impl std::fmt::Debug for crate::model::UpdateFloorSettingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::FilterConfig {
+impl std::fmt::Debug for super::FilterConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FilterConfig");
         debug_struct.field("rai_settings", &self.rai_settings);
@@ -262,7 +260,7 @@ impl std::fmt::Debug for crate::model::FilterConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::PiAndJailbreakFilterSettings {
+impl std::fmt::Debug for super::PiAndJailbreakFilterSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PiAndJailbreakFilterSettings");
         debug_struct.field("filter_enforcement", &self.filter_enforcement);
@@ -274,7 +272,7 @@ impl std::fmt::Debug for crate::model::PiAndJailbreakFilterSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::MaliciousUriFilterSettings {
+impl std::fmt::Debug for super::MaliciousUriFilterSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MaliciousUriFilterSettings");
         debug_struct.field("filter_enforcement", &self.filter_enforcement);
@@ -285,7 +283,7 @@ impl std::fmt::Debug for crate::model::MaliciousUriFilterSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::RaiFilterSettings {
+impl std::fmt::Debug for super::RaiFilterSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RaiFilterSettings");
         debug_struct.field("rai_filters", &self.rai_filters);
@@ -296,7 +294,7 @@ impl std::fmt::Debug for crate::model::RaiFilterSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::rai_filter_settings::RaiFilter {
+impl std::fmt::Debug for super::rai_filter_settings::RaiFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RaiFilter");
         debug_struct.field("filter_type", &self.filter_type);
@@ -308,7 +306,7 @@ impl std::fmt::Debug for crate::model::rai_filter_settings::RaiFilter {
     }
 }
 
-impl std::fmt::Debug for crate::model::SdpFilterSettings {
+impl std::fmt::Debug for super::SdpFilterSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SdpFilterSettings");
         debug_struct.field("sdp_configuration", &self.sdp_configuration);
@@ -319,7 +317,7 @@ impl std::fmt::Debug for crate::model::SdpFilterSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::SdpBasicConfig {
+impl std::fmt::Debug for super::SdpBasicConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SdpBasicConfig");
         debug_struct.field("filter_enforcement", &self.filter_enforcement);
@@ -330,7 +328,7 @@ impl std::fmt::Debug for crate::model::SdpBasicConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::SdpAdvancedConfig {
+impl std::fmt::Debug for super::SdpAdvancedConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SdpAdvancedConfig");
         debug_struct.field("inspect_template", &self.inspect_template);
@@ -342,7 +340,7 @@ impl std::fmt::Debug for crate::model::SdpAdvancedConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::SanitizeUserPromptRequest {
+impl std::fmt::Debug for super::SanitizeUserPromptRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SanitizeUserPromptRequest");
         debug_struct.field("name", &self.name);
@@ -358,7 +356,7 @@ impl std::fmt::Debug for crate::model::SanitizeUserPromptRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SanitizeModelResponseRequest {
+impl std::fmt::Debug for super::SanitizeModelResponseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SanitizeModelResponseRequest");
         debug_struct.field("name", &self.name);
@@ -375,7 +373,7 @@ impl std::fmt::Debug for crate::model::SanitizeModelResponseRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SanitizeUserPromptResponse {
+impl std::fmt::Debug for super::SanitizeUserPromptResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SanitizeUserPromptResponse");
         debug_struct.field("sanitization_result", &self.sanitization_result);
@@ -386,7 +384,7 @@ impl std::fmt::Debug for crate::model::SanitizeUserPromptResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SanitizeModelResponseResponse {
+impl std::fmt::Debug for super::SanitizeModelResponseResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SanitizeModelResponseResponse");
         debug_struct.field("sanitization_result", &self.sanitization_result);
@@ -397,7 +395,7 @@ impl std::fmt::Debug for crate::model::SanitizeModelResponseResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SanitizationResult {
+impl std::fmt::Debug for super::SanitizationResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SanitizationResult");
         debug_struct.field("filter_match_state", &self.filter_match_state);
@@ -411,7 +409,7 @@ impl std::fmt::Debug for crate::model::SanitizationResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::sanitization_result::SanitizationMetadata {
+impl std::fmt::Debug for super::sanitization_result::SanitizationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SanitizationMetadata");
         debug_struct.field("error_code", &self.error_code);
@@ -427,7 +425,7 @@ impl std::fmt::Debug for crate::model::sanitization_result::SanitizationMetadata
     }
 }
 
-impl std::fmt::Debug for crate::model::MultiLanguageDetectionMetadata {
+impl std::fmt::Debug for super::MultiLanguageDetectionMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiLanguageDetectionMetadata");
         debug_struct.field("source_language", &self.source_language);
@@ -442,7 +440,7 @@ impl std::fmt::Debug for crate::model::MultiLanguageDetectionMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::FilterResult {
+impl std::fmt::Debug for super::FilterResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FilterResult");
         debug_struct.field("filter_result", &self.filter_result);
@@ -453,7 +451,7 @@ impl std::fmt::Debug for crate::model::FilterResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::RaiFilterResult {
+impl std::fmt::Debug for super::RaiFilterResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RaiFilterResult");
         debug_struct.field("execution_state", &self.execution_state);
@@ -467,7 +465,7 @@ impl std::fmt::Debug for crate::model::RaiFilterResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::rai_filter_result::RaiFilterTypeResult {
+impl std::fmt::Debug for super::rai_filter_result::RaiFilterTypeResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RaiFilterTypeResult");
         debug_struct.field("filter_type", &self.filter_type);
@@ -480,7 +478,7 @@ impl std::fmt::Debug for crate::model::rai_filter_result::RaiFilterTypeResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::SdpFilterResult {
+impl std::fmt::Debug for super::SdpFilterResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SdpFilterResult");
         debug_struct.field("result", &self.result);
@@ -491,7 +489,7 @@ impl std::fmt::Debug for crate::model::SdpFilterResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::SdpInspectResult {
+impl std::fmt::Debug for super::SdpInspectResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SdpInspectResult");
         debug_struct.field("execution_state", &self.execution_state);
@@ -506,7 +504,7 @@ impl std::fmt::Debug for crate::model::SdpInspectResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::DataItem {
+impl std::fmt::Debug for super::DataItem {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataItem");
         debug_struct.field("data_item", &self.data_item);
@@ -517,7 +515,7 @@ impl std::fmt::Debug for crate::model::DataItem {
     }
 }
 
-impl std::fmt::Debug for crate::model::ByteDataItem {
+impl std::fmt::Debug for super::ByteDataItem {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ByteDataItem");
         debug_struct.field("byte_data_type", &self.byte_data_type);
@@ -529,7 +527,7 @@ impl std::fmt::Debug for crate::model::ByteDataItem {
     }
 }
 
-impl std::fmt::Debug for crate::model::SdpDeidentifyResult {
+impl std::fmt::Debug for super::SdpDeidentifyResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SdpDeidentifyResult");
         debug_struct.field("execution_state", &self.execution_state);
@@ -545,7 +543,7 @@ impl std::fmt::Debug for crate::model::SdpDeidentifyResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::SdpFinding {
+impl std::fmt::Debug for super::SdpFinding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SdpFinding");
         debug_struct.field("info_type", &self.info_type);
@@ -558,7 +556,7 @@ impl std::fmt::Debug for crate::model::SdpFinding {
     }
 }
 
-impl std::fmt::Debug for crate::model::sdp_finding::SdpFindingLocation {
+impl std::fmt::Debug for super::sdp_finding::SdpFindingLocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SdpFindingLocation");
         debug_struct.field("byte_range", &self.byte_range);
@@ -570,7 +568,7 @@ impl std::fmt::Debug for crate::model::sdp_finding::SdpFindingLocation {
     }
 }
 
-impl std::fmt::Debug for crate::model::PiAndJailbreakFilterResult {
+impl std::fmt::Debug for super::PiAndJailbreakFilterResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PiAndJailbreakFilterResult");
         debug_struct.field("execution_state", &self.execution_state);
@@ -584,7 +582,7 @@ impl std::fmt::Debug for crate::model::PiAndJailbreakFilterResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::MaliciousUriFilterResult {
+impl std::fmt::Debug for super::MaliciousUriFilterResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MaliciousUriFilterResult");
         debug_struct.field("execution_state", &self.execution_state);
@@ -601,7 +599,7 @@ impl std::fmt::Debug for crate::model::MaliciousUriFilterResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::malicious_uri_filter_result::MaliciousUriMatchedItem {
+impl std::fmt::Debug for super::malicious_uri_filter_result::MaliciousUriMatchedItem {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MaliciousUriMatchedItem");
         debug_struct.field("uri", &self.uri);
@@ -613,7 +611,7 @@ impl std::fmt::Debug for crate::model::malicious_uri_filter_result::MaliciousUri
     }
 }
 
-impl std::fmt::Debug for crate::model::VirusScanFilterResult {
+impl std::fmt::Debug for super::VirusScanFilterResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VirusScanFilterResult");
         debug_struct.field("execution_state", &self.execution_state);
@@ -629,7 +627,7 @@ impl std::fmt::Debug for crate::model::VirusScanFilterResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::VirusDetail {
+impl std::fmt::Debug for super::VirusDetail {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VirusDetail");
         debug_struct.field("vendor", &self.vendor);
@@ -642,7 +640,7 @@ impl std::fmt::Debug for crate::model::VirusDetail {
     }
 }
 
-impl std::fmt::Debug for crate::model::CsamFilterResult {
+impl std::fmt::Debug for super::CsamFilterResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CsamFilterResult");
         debug_struct.field("execution_state", &self.execution_state);
@@ -655,7 +653,7 @@ impl std::fmt::Debug for crate::model::CsamFilterResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::MessageItem {
+impl std::fmt::Debug for super::MessageItem {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageItem");
         debug_struct.field("message_type", &self.message_type);
@@ -667,7 +665,7 @@ impl std::fmt::Debug for crate::model::MessageItem {
     }
 }
 
-impl std::fmt::Debug for crate::model::RangeInfo {
+impl std::fmt::Debug for super::RangeInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RangeInfo");
         debug_struct.field("start", &self.start);

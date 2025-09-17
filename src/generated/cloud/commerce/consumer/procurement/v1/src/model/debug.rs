@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::AssignmentProtocol {
+impl std::fmt::Debug for super::AssignmentProtocol {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssignmentProtocol");
         debug_struct.field("assignment_type", &self.assignment_type);
@@ -28,7 +28,7 @@ impl std::fmt::Debug for crate::model::AssignmentProtocol {
     }
 }
 
-impl std::fmt::Debug for crate::model::assignment_protocol::ManualAssignmentType {
+impl std::fmt::Debug for super::assignment_protocol::ManualAssignmentType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManualAssignmentType");
         if !self._unknown_fields.is_empty() {
@@ -38,7 +38,7 @@ impl std::fmt::Debug for crate::model::assignment_protocol::ManualAssignmentType
     }
 }
 
-impl std::fmt::Debug for crate::model::assignment_protocol::AutoAssignmentType {
+impl std::fmt::Debug for super::assignment_protocol::AutoAssignmentType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutoAssignmentType");
         debug_struct.field("inactive_license_ttl", &self.inactive_license_ttl);
@@ -49,7 +49,7 @@ impl std::fmt::Debug for crate::model::assignment_protocol::AutoAssignmentType {
     }
 }
 
-impl std::fmt::Debug for crate::model::LicensePool {
+impl std::fmt::Debug for super::LicensePool {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LicensePool");
         debug_struct.field("name", &self.name);
@@ -66,7 +66,7 @@ impl std::fmt::Debug for crate::model::LicensePool {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetLicensePoolRequest {
+impl std::fmt::Debug for super::GetLicensePoolRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetLicensePoolRequest");
         debug_struct.field("name", &self.name);
@@ -77,7 +77,7 @@ impl std::fmt::Debug for crate::model::GetLicensePoolRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateLicensePoolRequest {
+impl std::fmt::Debug for super::UpdateLicensePoolRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateLicensePoolRequest");
         debug_struct.field("license_pool", &self.license_pool);
@@ -89,7 +89,7 @@ impl std::fmt::Debug for crate::model::UpdateLicensePoolRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AssignRequest {
+impl std::fmt::Debug for super::AssignRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssignRequest");
         debug_struct.field("parent", &self.parent);
@@ -101,7 +101,7 @@ impl std::fmt::Debug for crate::model::AssignRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AssignResponse {
+impl std::fmt::Debug for super::AssignResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssignResponse");
         if !self._unknown_fields.is_empty() {
@@ -111,7 +111,7 @@ impl std::fmt::Debug for crate::model::AssignResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::UnassignRequest {
+impl std::fmt::Debug for super::UnassignRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UnassignRequest");
         debug_struct.field("parent", &self.parent);
@@ -123,7 +123,7 @@ impl std::fmt::Debug for crate::model::UnassignRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UnassignResponse {
+impl std::fmt::Debug for super::UnassignResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UnassignResponse");
         if !self._unknown_fields.is_empty() {
@@ -133,7 +133,7 @@ impl std::fmt::Debug for crate::model::UnassignResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::EnumerateLicensedUsersRequest {
+impl std::fmt::Debug for super::EnumerateLicensedUsersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnumerateLicensedUsersRequest");
         debug_struct.field("parent", &self.parent);
@@ -146,7 +146,7 @@ impl std::fmt::Debug for crate::model::EnumerateLicensedUsersRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::LicensedUser {
+impl std::fmt::Debug for super::LicensedUser {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LicensedUser");
         debug_struct.field("username", &self.username);
@@ -159,7 +159,7 @@ impl std::fmt::Debug for crate::model::LicensedUser {
     }
 }
 
-impl std::fmt::Debug for crate::model::EnumerateLicensedUsersResponse {
+impl std::fmt::Debug for super::EnumerateLicensedUsersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnumerateLicensedUsersResponse");
         debug_struct.field("licensed_users", &self.licensed_users);
@@ -171,7 +171,7 @@ impl std::fmt::Debug for crate::model::EnumerateLicensedUsersResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Order {
+impl std::fmt::Debug for super::Order {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Order");
         debug_struct.field("name", &self.name);
@@ -188,7 +188,7 @@ impl std::fmt::Debug for crate::model::Order {
     }
 }
 
-impl std::fmt::Debug for crate::model::LineItem {
+impl std::fmt::Debug for super::LineItem {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LineItem");
         debug_struct.field("line_item_id", &self.line_item_id);
@@ -202,7 +202,7 @@ impl std::fmt::Debug for crate::model::LineItem {
     }
 }
 
-impl std::fmt::Debug for crate::model::LineItemChange {
+impl std::fmt::Debug for super::LineItemChange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LineItemChange");
         debug_struct.field("change_id", &self.change_id);
@@ -222,7 +222,7 @@ impl std::fmt::Debug for crate::model::LineItemChange {
     }
 }
 
-impl std::fmt::Debug for crate::model::LineItemInfo {
+impl std::fmt::Debug for super::LineItemInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LineItemInfo");
         debug_struct.field("offer", &self.offer);
@@ -235,7 +235,7 @@ impl std::fmt::Debug for crate::model::LineItemInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::Parameter {
+impl std::fmt::Debug for super::Parameter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Parameter");
         debug_struct.field("name", &self.name);
@@ -247,7 +247,7 @@ impl std::fmt::Debug for crate::model::Parameter {
     }
 }
 
-impl std::fmt::Debug for crate::model::parameter::Value {
+impl std::fmt::Debug for super::parameter::Value {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Value");
         debug_struct.field("kind", &self.kind);
@@ -258,7 +258,7 @@ impl std::fmt::Debug for crate::model::parameter::Value {
     }
 }
 
-impl std::fmt::Debug for crate::model::Subscription {
+impl std::fmt::Debug for super::Subscription {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Subscription");
         debug_struct.field("start_time", &self.start_time);
@@ -271,7 +271,7 @@ impl std::fmt::Debug for crate::model::Subscription {
     }
 }
 
-impl std::fmt::Debug for crate::model::PlaceOrderRequest {
+impl std::fmt::Debug for super::PlaceOrderRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PlaceOrderRequest");
         debug_struct.field("parent", &self.parent);
@@ -285,7 +285,7 @@ impl std::fmt::Debug for crate::model::PlaceOrderRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::PlaceOrderMetadata {
+impl std::fmt::Debug for super::PlaceOrderMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PlaceOrderMetadata");
         if !self._unknown_fields.is_empty() {
@@ -295,7 +295,7 @@ impl std::fmt::Debug for crate::model::PlaceOrderMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetOrderRequest {
+impl std::fmt::Debug for super::GetOrderRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOrderRequest");
         debug_struct.field("name", &self.name);
@@ -306,7 +306,7 @@ impl std::fmt::Debug for crate::model::GetOrderRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOrdersRequest {
+impl std::fmt::Debug for super::ListOrdersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOrdersRequest");
         debug_struct.field("parent", &self.parent);
@@ -320,7 +320,7 @@ impl std::fmt::Debug for crate::model::ListOrdersRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOrdersResponse {
+impl std::fmt::Debug for super::ListOrdersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOrdersResponse");
         debug_struct.field("orders", &self.orders);
@@ -332,7 +332,7 @@ impl std::fmt::Debug for crate::model::ListOrdersResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ModifyOrderRequest {
+impl std::fmt::Debug for super::ModifyOrderRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModifyOrderRequest");
         debug_struct.field("name", &self.name);
@@ -346,7 +346,7 @@ impl std::fmt::Debug for crate::model::ModifyOrderRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::modify_order_request::Modification {
+impl std::fmt::Debug for super::modify_order_request::Modification {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Modification");
         debug_struct.field("line_item_id", &self.line_item_id);
@@ -360,7 +360,7 @@ impl std::fmt::Debug for crate::model::modify_order_request::Modification {
     }
 }
 
-impl std::fmt::Debug for crate::model::ModifyOrderMetadata {
+impl std::fmt::Debug for super::ModifyOrderMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModifyOrderMetadata");
         if !self._unknown_fields.is_empty() {
@@ -370,7 +370,7 @@ impl std::fmt::Debug for crate::model::ModifyOrderMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::CancelOrderRequest {
+impl std::fmt::Debug for super::CancelOrderRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelOrderRequest");
         debug_struct.field("name", &self.name);
@@ -383,7 +383,7 @@ impl std::fmt::Debug for crate::model::CancelOrderRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CancelOrderMetadata {
+impl std::fmt::Debug for super::CancelOrderMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelOrderMetadata");
         if !self._unknown_fields.is_empty() {

@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::MetadataExchangeRequest {
+impl std::fmt::Debug for super::MetadataExchangeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MetadataExchangeRequest");
         debug_struct.field("user_agent", &self.user_agent);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::MetadataExchangeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::MetadataExchangeResponse {
+impl std::fmt::Debug for super::MetadataExchangeResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MetadataExchangeResponse");
         debug_struct.field("response_code", &self.response_code);

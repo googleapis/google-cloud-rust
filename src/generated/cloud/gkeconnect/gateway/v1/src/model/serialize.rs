@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateCredentialsRequest {
+impl serde::ser::Serialize for super::GenerateCredentialsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -52,7 +52,7 @@ impl serde::ser::Serialize for crate::model::GenerateCredentialsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateCredentialsResponse {
+impl serde::ser::Serialize for super::GenerateCredentialsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

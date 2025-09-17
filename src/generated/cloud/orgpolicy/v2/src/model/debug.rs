@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Constraint {
+impl std::fmt::Debug for super::Constraint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Constraint");
         debug_struct.field("name", &self.name);
@@ -35,7 +35,7 @@ impl std::fmt::Debug for crate::model::Constraint {
     }
 }
 
-impl std::fmt::Debug for crate::model::constraint::ListConstraint {
+impl std::fmt::Debug for super::constraint::ListConstraint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConstraint");
         debug_struct.field("supports_in", &self.supports_in);
@@ -47,7 +47,7 @@ impl std::fmt::Debug for crate::model::constraint::ListConstraint {
     }
 }
 
-impl std::fmt::Debug for crate::model::constraint::CustomConstraintDefinition {
+impl std::fmt::Debug for super::constraint::CustomConstraintDefinition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomConstraintDefinition");
         debug_struct.field("resource_types", &self.resource_types);
@@ -62,7 +62,7 @@ impl std::fmt::Debug for crate::model::constraint::CustomConstraintDefinition {
     }
 }
 
-impl std::fmt::Debug for crate::model::constraint::custom_constraint_definition::Parameter {
+impl std::fmt::Debug for super::constraint::custom_constraint_definition::Parameter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Parameter");
         debug_struct.field("r#type", &self.r#type);
@@ -77,9 +77,7 @@ impl std::fmt::Debug for crate::model::constraint::custom_constraint_definition:
     }
 }
 
-impl std::fmt::Debug
-    for crate::model::constraint::custom_constraint_definition::parameter::Metadata
-{
+impl std::fmt::Debug for super::constraint::custom_constraint_definition::parameter::Metadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Metadata");
         debug_struct.field("description", &self.description);
@@ -90,7 +88,7 @@ impl std::fmt::Debug
     }
 }
 
-impl std::fmt::Debug for crate::model::constraint::BooleanConstraint {
+impl std::fmt::Debug for super::constraint::BooleanConstraint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BooleanConstraint");
         debug_struct.field(
@@ -104,7 +102,7 @@ impl std::fmt::Debug for crate::model::constraint::BooleanConstraint {
     }
 }
 
-impl std::fmt::Debug for crate::model::CustomConstraint {
+impl std::fmt::Debug for super::CustomConstraint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomConstraint");
         debug_struct.field("name", &self.name);
@@ -122,7 +120,7 @@ impl std::fmt::Debug for crate::model::CustomConstraint {
     }
 }
 
-impl std::fmt::Debug for crate::model::Policy {
+impl std::fmt::Debug for super::Policy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Policy");
         debug_struct.field("name", &self.name);
@@ -137,7 +135,7 @@ impl std::fmt::Debug for crate::model::Policy {
     }
 }
 
-impl std::fmt::Debug for crate::model::AlternatePolicySpec {
+impl std::fmt::Debug for super::AlternatePolicySpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AlternatePolicySpec");
         debug_struct.field("launch", &self.launch);
@@ -149,7 +147,7 @@ impl std::fmt::Debug for crate::model::AlternatePolicySpec {
     }
 }
 
-impl std::fmt::Debug for crate::model::PolicySpec {
+impl std::fmt::Debug for super::PolicySpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicySpec");
         debug_struct.field("etag", &self.etag);
@@ -164,7 +162,7 @@ impl std::fmt::Debug for crate::model::PolicySpec {
     }
 }
 
-impl std::fmt::Debug for crate::model::policy_spec::PolicyRule {
+impl std::fmt::Debug for super::policy_spec::PolicyRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyRule");
         debug_struct.field("condition", &self.condition);
@@ -177,7 +175,7 @@ impl std::fmt::Debug for crate::model::policy_spec::PolicyRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::policy_spec::policy_rule::StringValues {
+impl std::fmt::Debug for super::policy_spec::policy_rule::StringValues {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StringValues");
         debug_struct.field("allowed_values", &self.allowed_values);
@@ -189,7 +187,7 @@ impl std::fmt::Debug for crate::model::policy_spec::policy_rule::StringValues {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListConstraintsRequest {
+impl std::fmt::Debug for super::ListConstraintsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConstraintsRequest");
         debug_struct.field("parent", &self.parent);
@@ -202,7 +200,7 @@ impl std::fmt::Debug for crate::model::ListConstraintsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListConstraintsResponse {
+impl std::fmt::Debug for super::ListConstraintsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConstraintsResponse");
         debug_struct.field("constraints", &self.constraints);
@@ -214,7 +212,7 @@ impl std::fmt::Debug for crate::model::ListConstraintsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPoliciesRequest {
+impl std::fmt::Debug for super::ListPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPoliciesRequest");
         debug_struct.field("parent", &self.parent);
@@ -227,7 +225,7 @@ impl std::fmt::Debug for crate::model::ListPoliciesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPoliciesResponse {
+impl std::fmt::Debug for super::ListPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPoliciesResponse");
         debug_struct.field("policies", &self.policies);
@@ -239,7 +237,7 @@ impl std::fmt::Debug for crate::model::ListPoliciesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPolicyRequest {
+impl std::fmt::Debug for super::GetPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -250,7 +248,7 @@ impl std::fmt::Debug for crate::model::GetPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetEffectivePolicyRequest {
+impl std::fmt::Debug for super::GetEffectivePolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEffectivePolicyRequest");
         debug_struct.field("name", &self.name);
@@ -261,7 +259,7 @@ impl std::fmt::Debug for crate::model::GetEffectivePolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreatePolicyRequest {
+impl std::fmt::Debug for super::CreatePolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreatePolicyRequest");
         debug_struct.field("parent", &self.parent);
@@ -273,7 +271,7 @@ impl std::fmt::Debug for crate::model::CreatePolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdatePolicyRequest {
+impl std::fmt::Debug for super::UpdatePolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdatePolicyRequest");
         debug_struct.field("policy", &self.policy);
@@ -285,7 +283,7 @@ impl std::fmt::Debug for crate::model::UpdatePolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeletePolicyRequest {
+impl std::fmt::Debug for super::DeletePolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeletePolicyRequest");
         debug_struct.field("name", &self.name);
@@ -297,7 +295,7 @@ impl std::fmt::Debug for crate::model::DeletePolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateCustomConstraintRequest {
+impl std::fmt::Debug for super::CreateCustomConstraintRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateCustomConstraintRequest");
         debug_struct.field("parent", &self.parent);
@@ -309,7 +307,7 @@ impl std::fmt::Debug for crate::model::CreateCustomConstraintRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetCustomConstraintRequest {
+impl std::fmt::Debug for super::GetCustomConstraintRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCustomConstraintRequest");
         debug_struct.field("name", &self.name);
@@ -320,7 +318,7 @@ impl std::fmt::Debug for crate::model::GetCustomConstraintRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCustomConstraintsRequest {
+impl std::fmt::Debug for super::ListCustomConstraintsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCustomConstraintsRequest");
         debug_struct.field("parent", &self.parent);
@@ -333,7 +331,7 @@ impl std::fmt::Debug for crate::model::ListCustomConstraintsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCustomConstraintsResponse {
+impl std::fmt::Debug for super::ListCustomConstraintsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCustomConstraintsResponse");
         debug_struct.field("custom_constraints", &self.custom_constraints);
@@ -345,7 +343,7 @@ impl std::fmt::Debug for crate::model::ListCustomConstraintsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateCustomConstraintRequest {
+impl std::fmt::Debug for super::UpdateCustomConstraintRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCustomConstraintRequest");
         debug_struct.field("custom_constraint", &self.custom_constraint);
@@ -356,7 +354,7 @@ impl std::fmt::Debug for crate::model::UpdateCustomConstraintRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteCustomConstraintRequest {
+impl std::fmt::Debug for super::DeleteCustomConstraintRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteCustomConstraintRequest");
         debug_struct.field("name", &self.name);

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Execution {
+impl serde::ser::Serialize for super::Execution {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -76,7 +76,7 @@ impl serde::ser::Serialize for crate::model::Execution {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::execution::StackTraceElement {
+impl serde::ser::Serialize for super::execution::StackTraceElement {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -104,7 +104,7 @@ impl serde::ser::Serialize for crate::model::execution::StackTraceElement {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::execution::stack_trace_element::Position {
+impl serde::ser::Serialize for super::execution::stack_trace_element::Position {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -159,7 +159,7 @@ impl serde::ser::Serialize for crate::model::execution::stack_trace_element::Pos
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::execution::StackTrace {
+impl serde::ser::Serialize for super::execution::StackTrace {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -181,7 +181,7 @@ impl serde::ser::Serialize for crate::model::execution::StackTrace {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::execution::Error {
+impl serde::ser::Serialize for super::execution::Error {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -209,7 +209,7 @@ impl serde::ser::Serialize for crate::model::execution::Error {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::execution::Status {
+impl serde::ser::Serialize for super::execution::Status {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -231,7 +231,7 @@ impl serde::ser::Serialize for crate::model::execution::Status {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::execution::status::Step {
+impl serde::ser::Serialize for super::execution::status::Step {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -256,7 +256,7 @@ impl serde::ser::Serialize for crate::model::execution::status::Step {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::execution::StateError {
+impl serde::ser::Serialize for super::execution::StateError {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -281,7 +281,7 @@ impl serde::ser::Serialize for crate::model::execution::StateError {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListExecutionsRequest {
+impl serde::ser::Serialize for super::ListExecutionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -327,7 +327,7 @@ impl serde::ser::Serialize for crate::model::ListExecutionsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListExecutionsResponse {
+impl serde::ser::Serialize for super::ListExecutionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -352,7 +352,7 @@ impl serde::ser::Serialize for crate::model::ListExecutionsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateExecutionRequest {
+impl serde::ser::Serialize for super::CreateExecutionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -377,7 +377,7 @@ impl serde::ser::Serialize for crate::model::CreateExecutionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetExecutionRequest {
+impl serde::ser::Serialize for super::GetExecutionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -402,7 +402,7 @@ impl serde::ser::Serialize for crate::model::GetExecutionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelExecutionRequest {
+impl serde::ser::Serialize for super::CancelExecutionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

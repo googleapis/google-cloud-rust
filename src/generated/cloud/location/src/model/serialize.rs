@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListLocationsRequest {
+impl serde::ser::Serialize for super::ListLocationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -58,7 +58,7 @@ impl serde::ser::Serialize for crate::model::ListLocationsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListLocationsResponse {
+impl serde::ser::Serialize for super::ListLocationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -83,7 +83,7 @@ impl serde::ser::Serialize for crate::model::ListLocationsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetLocationRequest {
+impl serde::ser::Serialize for super::GetLocationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -105,7 +105,7 @@ impl serde::ser::Serialize for crate::model::GetLocationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Location {
+impl serde::ser::Serialize for super::Location {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

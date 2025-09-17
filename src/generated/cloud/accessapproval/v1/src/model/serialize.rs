@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessLocations {
+impl serde::ser::Serialize for super::AccessLocations {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -46,7 +46,7 @@ impl serde::ser::Serialize for crate::model::AccessLocations {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessReason {
+impl serde::ser::Serialize for super::AccessReason {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -71,7 +71,7 @@ impl serde::ser::Serialize for crate::model::AccessReason {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SignatureInfo {
+impl serde::ser::Serialize for super::SignatureInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -108,7 +108,7 @@ impl serde::ser::Serialize for crate::model::SignatureInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ApproveDecision {
+impl serde::ser::Serialize for super::ApproveDecision {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -142,7 +142,7 @@ impl serde::ser::Serialize for crate::model::ApproveDecision {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DismissDecision {
+impl serde::ser::Serialize for super::DismissDecision {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -167,7 +167,7 @@ impl serde::ser::Serialize for crate::model::DismissDecision {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResourceProperties {
+impl serde::ser::Serialize for super::ResourceProperties {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -189,7 +189,7 @@ impl serde::ser::Serialize for crate::model::ResourceProperties {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ApprovalRequest {
+impl serde::ser::Serialize for super::ApprovalRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -238,7 +238,7 @@ impl serde::ser::Serialize for crate::model::ApprovalRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EnrolledService {
+impl serde::ser::Serialize for super::EnrolledService {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -263,7 +263,7 @@ impl serde::ser::Serialize for crate::model::EnrolledService {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessApprovalSettings {
+impl serde::ser::Serialize for super::AccessApprovalSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -306,7 +306,7 @@ impl serde::ser::Serialize for crate::model::AccessApprovalSettings {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessApprovalServiceAccount {
+impl serde::ser::Serialize for super::AccessApprovalServiceAccount {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -331,7 +331,7 @@ impl serde::ser::Serialize for crate::model::AccessApprovalServiceAccount {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListApprovalRequestsMessage {
+impl serde::ser::Serialize for super::ListApprovalRequestsMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -371,7 +371,7 @@ impl serde::ser::Serialize for crate::model::ListApprovalRequestsMessage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListApprovalRequestsResponse {
+impl serde::ser::Serialize for super::ListApprovalRequestsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -396,7 +396,7 @@ impl serde::ser::Serialize for crate::model::ListApprovalRequestsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetApprovalRequestMessage {
+impl serde::ser::Serialize for super::GetApprovalRequestMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -418,7 +418,7 @@ impl serde::ser::Serialize for crate::model::GetApprovalRequestMessage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ApproveApprovalRequestMessage {
+impl serde::ser::Serialize for super::ApproveApprovalRequestMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -443,7 +443,7 @@ impl serde::ser::Serialize for crate::model::ApproveApprovalRequestMessage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DismissApprovalRequestMessage {
+impl serde::ser::Serialize for super::DismissApprovalRequestMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -465,7 +465,7 @@ impl serde::ser::Serialize for crate::model::DismissApprovalRequestMessage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InvalidateApprovalRequestMessage {
+impl serde::ser::Serialize for super::InvalidateApprovalRequestMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -487,7 +487,7 @@ impl serde::ser::Serialize for crate::model::InvalidateApprovalRequestMessage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetAccessApprovalSettingsMessage {
+impl serde::ser::Serialize for super::GetAccessApprovalSettingsMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -509,7 +509,7 @@ impl serde::ser::Serialize for crate::model::GetAccessApprovalSettingsMessage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateAccessApprovalSettingsMessage {
+impl serde::ser::Serialize for super::UpdateAccessApprovalSettingsMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -534,7 +534,7 @@ impl serde::ser::Serialize for crate::model::UpdateAccessApprovalSettingsMessage
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteAccessApprovalSettingsMessage {
+impl serde::ser::Serialize for super::DeleteAccessApprovalSettingsMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -556,7 +556,7 @@ impl serde::ser::Serialize for crate::model::DeleteAccessApprovalSettingsMessage
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetAccessApprovalServiceAccountMessage {
+impl serde::ser::Serialize for super::GetAccessApprovalServiceAccountMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

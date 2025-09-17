@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ClientGateway {
+impl serde::ser::Serialize for super::ClientGateway {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -55,7 +55,7 @@ impl serde::ser::Serialize for crate::model::ClientGateway {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListClientGatewaysRequest {
+impl serde::ser::Serialize for super::ListClientGatewaysRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -98,7 +98,7 @@ impl serde::ser::Serialize for crate::model::ListClientGatewaysRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListClientGatewaysResponse {
+impl serde::ser::Serialize for super::ListClientGatewaysResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -126,7 +126,7 @@ impl serde::ser::Serialize for crate::model::ListClientGatewaysResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetClientGatewayRequest {
+impl serde::ser::Serialize for super::GetClientGatewayRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -148,7 +148,7 @@ impl serde::ser::Serialize for crate::model::GetClientGatewayRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateClientGatewayRequest {
+impl serde::ser::Serialize for super::CreateClientGatewayRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -182,7 +182,7 @@ impl serde::ser::Serialize for crate::model::CreateClientGatewayRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteClientGatewayRequest {
+impl serde::ser::Serialize for super::DeleteClientGatewayRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -210,7 +210,7 @@ impl serde::ser::Serialize for crate::model::DeleteClientGatewayRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ClientGatewayOperationMetadata {
+impl serde::ser::Serialize for super::ClientGatewayOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

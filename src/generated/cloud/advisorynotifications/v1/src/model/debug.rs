@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Notification {
+impl std::fmt::Debug for super::Notification {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Notification");
         debug_struct.field("name", &self.name);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::Notification {
     }
 }
 
-impl std::fmt::Debug for crate::model::Text {
+impl std::fmt::Debug for super::Text {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Text");
         debug_struct.field("en_text", &self.en_text);
@@ -45,7 +45,7 @@ impl std::fmt::Debug for crate::model::Text {
     }
 }
 
-impl std::fmt::Debug for crate::model::Subject {
+impl std::fmt::Debug for super::Subject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Subject");
         debug_struct.field("text", &self.text);
@@ -56,7 +56,7 @@ impl std::fmt::Debug for crate::model::Subject {
     }
 }
 
-impl std::fmt::Debug for crate::model::Message {
+impl std::fmt::Debug for super::Message {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Message");
         debug_struct.field("body", &self.body);
@@ -70,7 +70,7 @@ impl std::fmt::Debug for crate::model::Message {
     }
 }
 
-impl std::fmt::Debug for crate::model::message::Body {
+impl std::fmt::Debug for super::message::Body {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Body");
         debug_struct.field("text", &self.text);
@@ -81,7 +81,7 @@ impl std::fmt::Debug for crate::model::message::Body {
     }
 }
 
-impl std::fmt::Debug for crate::model::Attachment {
+impl std::fmt::Debug for super::Attachment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Attachment");
         debug_struct.field("display_name", &self.display_name);
@@ -93,7 +93,7 @@ impl std::fmt::Debug for crate::model::Attachment {
     }
 }
 
-impl std::fmt::Debug for crate::model::Csv {
+impl std::fmt::Debug for super::Csv {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Csv");
         debug_struct.field("headers", &self.headers);
@@ -105,7 +105,7 @@ impl std::fmt::Debug for crate::model::Csv {
     }
 }
 
-impl std::fmt::Debug for crate::model::csv::CsvRow {
+impl std::fmt::Debug for super::csv::CsvRow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CsvRow");
         debug_struct.field("entries", &self.entries);
@@ -116,7 +116,7 @@ impl std::fmt::Debug for crate::model::csv::CsvRow {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNotificationsRequest {
+impl std::fmt::Debug for super::ListNotificationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNotificationsRequest");
         debug_struct.field("parent", &self.parent);
@@ -131,7 +131,7 @@ impl std::fmt::Debug for crate::model::ListNotificationsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNotificationsResponse {
+impl std::fmt::Debug for super::ListNotificationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNotificationsResponse");
         debug_struct.field("notifications", &self.notifications);
@@ -144,7 +144,7 @@ impl std::fmt::Debug for crate::model::ListNotificationsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetNotificationRequest {
+impl std::fmt::Debug for super::GetNotificationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetNotificationRequest");
         debug_struct.field("name", &self.name);
@@ -156,7 +156,7 @@ impl std::fmt::Debug for crate::model::GetNotificationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Settings {
+impl std::fmt::Debug for super::Settings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Settings");
         debug_struct.field("name", &self.name);
@@ -169,7 +169,7 @@ impl std::fmt::Debug for crate::model::Settings {
     }
 }
 
-impl std::fmt::Debug for crate::model::NotificationSettings {
+impl std::fmt::Debug for super::NotificationSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NotificationSettings");
         debug_struct.field("enabled", &self.enabled);
@@ -180,7 +180,7 @@ impl std::fmt::Debug for crate::model::NotificationSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetSettingsRequest {
+impl std::fmt::Debug for super::GetSettingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSettingsRequest");
         debug_struct.field("name", &self.name);
@@ -191,7 +191,7 @@ impl std::fmt::Debug for crate::model::GetSettingsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateSettingsRequest {
+impl std::fmt::Debug for super::UpdateSettingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSettingsRequest");
         debug_struct.field("settings", &self.settings);

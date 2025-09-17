@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Service {
+impl std::fmt::Debug for super::Service {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Service");
         debug_struct.field("name", &self.name);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::model::Service {
     }
 }
 
-impl std::fmt::Debug for crate::model::ServiceConfig {
+impl std::fmt::Debug for super::ServiceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServiceConfig");
         debug_struct.field("name", &self.name);
@@ -51,7 +51,7 @@ impl std::fmt::Debug for crate::model::ServiceConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("resource_names", &self.resource_names);
@@ -62,7 +62,7 @@ impl std::fmt::Debug for crate::model::OperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::EnableServiceRequest {
+impl std::fmt::Debug for super::EnableServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnableServiceRequest");
         debug_struct.field("name", &self.name);
@@ -73,7 +73,7 @@ impl std::fmt::Debug for crate::model::EnableServiceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::EnableServiceResponse {
+impl std::fmt::Debug for super::EnableServiceResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnableServiceResponse");
         debug_struct.field("service", &self.service);
@@ -84,7 +84,7 @@ impl std::fmt::Debug for crate::model::EnableServiceResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DisableServiceRequest {
+impl std::fmt::Debug for super::DisableServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DisableServiceRequest");
         debug_struct.field("name", &self.name);
@@ -103,7 +103,7 @@ impl std::fmt::Debug for crate::model::DisableServiceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DisableServiceResponse {
+impl std::fmt::Debug for super::DisableServiceResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DisableServiceResponse");
         debug_struct.field("service", &self.service);
@@ -114,7 +114,7 @@ impl std::fmt::Debug for crate::model::DisableServiceResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetServiceRequest {
+impl std::fmt::Debug for super::GetServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetServiceRequest");
         debug_struct.field("name", &self.name);
@@ -125,7 +125,7 @@ impl std::fmt::Debug for crate::model::GetServiceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListServicesRequest {
+impl std::fmt::Debug for super::ListServicesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServicesRequest");
         debug_struct.field("parent", &self.parent);
@@ -139,7 +139,7 @@ impl std::fmt::Debug for crate::model::ListServicesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListServicesResponse {
+impl std::fmt::Debug for super::ListServicesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServicesResponse");
         debug_struct.field("services", &self.services);
@@ -151,7 +151,7 @@ impl std::fmt::Debug for crate::model::ListServicesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchEnableServicesRequest {
+impl std::fmt::Debug for super::BatchEnableServicesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchEnableServicesRequest");
         debug_struct.field("parent", &self.parent);
@@ -163,7 +163,7 @@ impl std::fmt::Debug for crate::model::BatchEnableServicesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchEnableServicesResponse {
+impl std::fmt::Debug for super::BatchEnableServicesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchEnableServicesResponse");
         debug_struct.field("services", &self.services);
@@ -175,7 +175,7 @@ impl std::fmt::Debug for crate::model::BatchEnableServicesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::batch_enable_services_response::EnableFailure {
+impl std::fmt::Debug for super::batch_enable_services_response::EnableFailure {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnableFailure");
         debug_struct.field("service_id", &self.service_id);
@@ -187,7 +187,7 @@ impl std::fmt::Debug for crate::model::batch_enable_services_response::EnableFai
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchGetServicesRequest {
+impl std::fmt::Debug for super::BatchGetServicesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchGetServicesRequest");
         debug_struct.field("parent", &self.parent);
@@ -199,7 +199,7 @@ impl std::fmt::Debug for crate::model::BatchGetServicesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchGetServicesResponse {
+impl std::fmt::Debug for super::BatchGetServicesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchGetServicesResponse");
         debug_struct.field("services", &self.services);

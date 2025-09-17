@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Policy {
+impl serde::ser::Serialize for super::Policy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -82,7 +82,7 @@ impl serde::ser::Serialize for crate::model::Policy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AdmissionWhitelistPattern {
+impl serde::ser::Serialize for super::AdmissionWhitelistPattern {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -104,7 +104,7 @@ impl serde::ser::Serialize for crate::model::AdmissionWhitelistPattern {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AdmissionRule {
+impl serde::ser::Serialize for super::AdmissionRule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -132,7 +132,7 @@ impl serde::ser::Serialize for crate::model::AdmissionRule {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Attestor {
+impl serde::ser::Serialize for super::Attestor {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -163,7 +163,7 @@ impl serde::ser::Serialize for crate::model::Attestor {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UserOwnedGrafeasNote {
+impl serde::ser::Serialize for super::UserOwnedGrafeasNote {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -194,7 +194,7 @@ impl serde::ser::Serialize for crate::model::UserOwnedGrafeasNote {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PkixPublicKey {
+impl serde::ser::Serialize for super::PkixPublicKey {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -219,7 +219,7 @@ impl serde::ser::Serialize for crate::model::PkixPublicKey {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AttestorPublicKey {
+impl serde::ser::Serialize for super::AttestorPublicKey {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -250,7 +250,7 @@ impl serde::ser::Serialize for crate::model::AttestorPublicKey {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetPolicyRequest {
+impl serde::ser::Serialize for super::GetPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -272,7 +272,7 @@ impl serde::ser::Serialize for crate::model::GetPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdatePolicyRequest {
+impl serde::ser::Serialize for super::UpdatePolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -294,7 +294,7 @@ impl serde::ser::Serialize for crate::model::UpdatePolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateAttestorRequest {
+impl serde::ser::Serialize for super::CreateAttestorRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -322,7 +322,7 @@ impl serde::ser::Serialize for crate::model::CreateAttestorRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetAttestorRequest {
+impl serde::ser::Serialize for super::GetAttestorRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -344,7 +344,7 @@ impl serde::ser::Serialize for crate::model::GetAttestorRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateAttestorRequest {
+impl serde::ser::Serialize for super::UpdateAttestorRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -366,7 +366,7 @@ impl serde::ser::Serialize for crate::model::UpdateAttestorRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAttestorsRequest {
+impl serde::ser::Serialize for super::ListAttestorsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -403,7 +403,7 @@ impl serde::ser::Serialize for crate::model::ListAttestorsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAttestorsResponse {
+impl serde::ser::Serialize for super::ListAttestorsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -428,7 +428,7 @@ impl serde::ser::Serialize for crate::model::ListAttestorsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteAttestorRequest {
+impl serde::ser::Serialize for super::DeleteAttestorRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -450,7 +450,7 @@ impl serde::ser::Serialize for crate::model::DeleteAttestorRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSystemPolicyRequest {
+impl serde::ser::Serialize for super::GetSystemPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -472,7 +472,7 @@ impl serde::ser::Serialize for crate::model::GetSystemPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ValidateAttestationOccurrenceRequest {
+impl serde::ser::Serialize for super::ValidateAttestationOccurrenceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -503,7 +503,7 @@ impl serde::ser::Serialize for crate::model::ValidateAttestationOccurrenceReques
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ValidateAttestationOccurrenceResponse {
+impl serde::ser::Serialize for super::ValidateAttestationOccurrenceResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

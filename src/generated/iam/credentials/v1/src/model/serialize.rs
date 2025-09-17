@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateAccessTokenRequest {
+impl serde::ser::Serialize for super::GenerateAccessTokenRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -49,7 +49,7 @@ impl serde::ser::Serialize for crate::model::GenerateAccessTokenRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateAccessTokenResponse {
+impl serde::ser::Serialize for super::GenerateAccessTokenResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -74,7 +74,7 @@ impl serde::ser::Serialize for crate::model::GenerateAccessTokenResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SignBlobRequest {
+impl serde::ser::Serialize for super::SignBlobRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -111,7 +111,7 @@ impl serde::ser::Serialize for crate::model::SignBlobRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SignBlobResponse {
+impl serde::ser::Serialize for super::SignBlobResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -145,7 +145,7 @@ impl serde::ser::Serialize for crate::model::SignBlobResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SignJwtRequest {
+impl serde::ser::Serialize for super::SignJwtRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -173,7 +173,7 @@ impl serde::ser::Serialize for crate::model::SignJwtRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SignJwtResponse {
+impl serde::ser::Serialize for super::SignJwtResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -198,7 +198,7 @@ impl serde::ser::Serialize for crate::model::SignJwtResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateIdTokenRequest {
+impl serde::ser::Serialize for super::GenerateIdTokenRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -229,7 +229,7 @@ impl serde::ser::Serialize for crate::model::GenerateIdTokenRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateIdTokenResponse {
+impl serde::ser::Serialize for super::GenerateIdTokenResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

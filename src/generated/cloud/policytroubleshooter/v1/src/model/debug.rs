@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::TroubleshootIamPolicyRequest {
+impl std::fmt::Debug for super::TroubleshootIamPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TroubleshootIamPolicyRequest");
         debug_struct.field("access_tuple", &self.access_tuple);
@@ -28,7 +28,7 @@ impl std::fmt::Debug for crate::model::TroubleshootIamPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::TroubleshootIamPolicyResponse {
+impl std::fmt::Debug for super::TroubleshootIamPolicyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TroubleshootIamPolicyResponse");
         debug_struct.field("access", &self.access);
@@ -41,7 +41,7 @@ impl std::fmt::Debug for crate::model::TroubleshootIamPolicyResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessTuple {
+impl std::fmt::Debug for super::AccessTuple {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessTuple");
         debug_struct.field("principal", &self.principal);
@@ -54,7 +54,7 @@ impl std::fmt::Debug for crate::model::AccessTuple {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExplainedPolicy {
+impl std::fmt::Debug for super::ExplainedPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExplainedPolicy");
         debug_struct.field("access", &self.access);
@@ -69,7 +69,7 @@ impl std::fmt::Debug for crate::model::ExplainedPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::BindingExplanation {
+impl std::fmt::Debug for super::BindingExplanation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BindingExplanation");
         debug_struct.field("access", &self.access);
@@ -86,7 +86,7 @@ impl std::fmt::Debug for crate::model::BindingExplanation {
     }
 }
 
-impl std::fmt::Debug for crate::model::binding_explanation::AnnotatedMembership {
+impl std::fmt::Debug for super::binding_explanation::AnnotatedMembership {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotatedMembership");
         debug_struct.field("membership", &self.membership);

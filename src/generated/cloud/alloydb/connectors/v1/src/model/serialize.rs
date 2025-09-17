@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MetadataExchangeRequest {
+impl serde::ser::Serialize for super::MetadataExchangeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -46,7 +46,7 @@ impl serde::ser::Serialize for crate::model::MetadataExchangeRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MetadataExchangeResponse {
+impl serde::ser::Serialize for super::MetadataExchangeResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

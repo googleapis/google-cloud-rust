@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::PosixAccount {
+impl std::fmt::Debug for super::PosixAccount {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PosixAccount");
         debug_struct.field("primary", &self.primary);
@@ -38,7 +38,7 @@ impl std::fmt::Debug for crate::model::PosixAccount {
     }
 }
 
-impl std::fmt::Debug for crate::model::SshPublicKey {
+impl std::fmt::Debug for super::SshPublicKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SshPublicKey");
         debug_struct.field("key", &self.key);

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TroubleshootIamPolicyRequest {
+impl serde::ser::Serialize for super::TroubleshootIamPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -40,7 +40,7 @@ impl serde::ser::Serialize for crate::model::TroubleshootIamPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TroubleshootIamPolicyResponse {
+impl serde::ser::Serialize for super::TroubleshootIamPolicyResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -71,7 +71,7 @@ impl serde::ser::Serialize for crate::model::TroubleshootIamPolicyResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessTuple {
+impl serde::ser::Serialize for super::AccessTuple {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -105,7 +105,7 @@ impl serde::ser::Serialize for crate::model::AccessTuple {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ConditionContext {
+impl serde::ser::Serialize for super::ConditionContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -136,7 +136,7 @@ impl serde::ser::Serialize for crate::model::ConditionContext {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::condition_context::Resource {
+impl serde::ser::Serialize for super::condition_context::Resource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -164,7 +164,7 @@ impl serde::ser::Serialize for crate::model::condition_context::Resource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::condition_context::Peer {
+impl serde::ser::Serialize for super::condition_context::Peer {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -198,7 +198,7 @@ impl serde::ser::Serialize for crate::model::condition_context::Peer {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::condition_context::Request {
+impl serde::ser::Serialize for super::condition_context::Request {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -220,7 +220,7 @@ impl serde::ser::Serialize for crate::model::condition_context::Request {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::condition_context::EffectiveTag {
+impl serde::ser::Serialize for super::condition_context::EffectiveTag {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -257,7 +257,7 @@ impl serde::ser::Serialize for crate::model::condition_context::EffectiveTag {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AllowPolicyExplanation {
+impl serde::ser::Serialize for super::AllowPolicyExplanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -285,7 +285,7 @@ impl serde::ser::Serialize for crate::model::AllowPolicyExplanation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplainedAllowPolicy {
+impl serde::ser::Serialize for super::ExplainedAllowPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -319,7 +319,7 @@ impl serde::ser::Serialize for crate::model::ExplainedAllowPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AllowBindingExplanation {
+impl serde::ser::Serialize for super::AllowBindingExplanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -365,7 +365,7 @@ impl serde::ser::Serialize for crate::model::AllowBindingExplanation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::allow_binding_explanation::AnnotatedAllowMembership {
+impl serde::ser::Serialize for super::allow_binding_explanation::AnnotatedAllowMembership {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -390,7 +390,7 @@ impl serde::ser::Serialize for crate::model::allow_binding_explanation::Annotate
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DenyPolicyExplanation {
+impl serde::ser::Serialize for super::DenyPolicyExplanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -421,7 +421,7 @@ impl serde::ser::Serialize for crate::model::DenyPolicyExplanation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplainedDenyResource {
+impl serde::ser::Serialize for super::ExplainedDenyResource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -452,7 +452,7 @@ impl serde::ser::Serialize for crate::model::ExplainedDenyResource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplainedDenyPolicy {
+impl serde::ser::Serialize for super::ExplainedDenyPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -483,7 +483,7 @@ impl serde::ser::Serialize for crate::model::ExplainedDenyPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DenyRuleExplanation {
+impl serde::ser::Serialize for super::DenyRuleExplanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -544,7 +544,7 @@ impl serde::ser::Serialize for crate::model::DenyRuleExplanation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::deny_rule_explanation::AnnotatedPermissionMatching {
+impl serde::ser::Serialize for super::deny_rule_explanation::AnnotatedPermissionMatching {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -569,7 +569,7 @@ impl serde::ser::Serialize for crate::model::deny_rule_explanation::AnnotatedPer
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching {
+impl serde::ser::Serialize for super::deny_rule_explanation::AnnotatedDenyPrincipalMatching {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -594,7 +594,7 @@ impl serde::ser::Serialize for crate::model::deny_rule_explanation::AnnotatedDen
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ConditionExplanation {
+impl serde::ser::Serialize for super::ConditionExplanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -622,7 +622,7 @@ impl serde::ser::Serialize for crate::model::ConditionExplanation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::condition_explanation::EvaluationState {
+impl serde::ser::Serialize for super::condition_explanation::EvaluationState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

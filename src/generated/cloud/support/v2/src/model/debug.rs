@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Actor {
+impl std::fmt::Debug for super::Actor {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Actor");
         debug_struct.field("display_name", &self.display_name);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::model::Actor {
     }
 }
 
-impl std::fmt::Debug for crate::model::Attachment {
+impl std::fmt::Debug for super::Attachment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Attachment");
         debug_struct.field("name", &self.name);
@@ -47,7 +47,7 @@ impl std::fmt::Debug for crate::model::Attachment {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAttachmentsRequest {
+impl std::fmt::Debug for super::ListAttachmentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAttachmentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -60,7 +60,7 @@ impl std::fmt::Debug for crate::model::ListAttachmentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAttachmentsResponse {
+impl std::fmt::Debug for super::ListAttachmentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAttachmentsResponse");
         debug_struct.field("attachments", &self.attachments);
@@ -72,7 +72,7 @@ impl std::fmt::Debug for crate::model::ListAttachmentsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Case {
+impl std::fmt::Debug for super::Case {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Case");
         debug_struct.field("name", &self.name);
@@ -100,7 +100,7 @@ impl std::fmt::Debug for crate::model::Case {
     }
 }
 
-impl std::fmt::Debug for crate::model::CaseClassification {
+impl std::fmt::Debug for super::CaseClassification {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CaseClassification");
         debug_struct.field("id", &self.id);
@@ -112,7 +112,7 @@ impl std::fmt::Debug for crate::model::CaseClassification {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetCaseRequest {
+impl std::fmt::Debug for super::GetCaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCaseRequest");
         debug_struct.field("name", &self.name);
@@ -123,7 +123,7 @@ impl std::fmt::Debug for crate::model::GetCaseRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateCaseRequest {
+impl std::fmt::Debug for super::CreateCaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateCaseRequest");
         debug_struct.field("parent", &self.parent);
@@ -135,7 +135,7 @@ impl std::fmt::Debug for crate::model::CreateCaseRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCasesRequest {
+impl std::fmt::Debug for super::ListCasesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCasesRequest");
         debug_struct.field("parent", &self.parent);
@@ -149,7 +149,7 @@ impl std::fmt::Debug for crate::model::ListCasesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCasesResponse {
+impl std::fmt::Debug for super::ListCasesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCasesResponse");
         debug_struct.field("cases", &self.cases);
@@ -161,7 +161,7 @@ impl std::fmt::Debug for crate::model::ListCasesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchCasesRequest {
+impl std::fmt::Debug for super::SearchCasesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchCasesRequest");
         debug_struct.field("parent", &self.parent);
@@ -175,7 +175,7 @@ impl std::fmt::Debug for crate::model::SearchCasesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchCasesResponse {
+impl std::fmt::Debug for super::SearchCasesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchCasesResponse");
         debug_struct.field("cases", &self.cases);
@@ -187,7 +187,7 @@ impl std::fmt::Debug for crate::model::SearchCasesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::EscalateCaseRequest {
+impl std::fmt::Debug for super::EscalateCaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EscalateCaseRequest");
         debug_struct.field("name", &self.name);
@@ -199,7 +199,7 @@ impl std::fmt::Debug for crate::model::EscalateCaseRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateCaseRequest {
+impl std::fmt::Debug for super::UpdateCaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCaseRequest");
         debug_struct.field("case", &self.case);
@@ -211,7 +211,7 @@ impl std::fmt::Debug for crate::model::UpdateCaseRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloseCaseRequest {
+impl std::fmt::Debug for super::CloseCaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloseCaseRequest");
         debug_struct.field("name", &self.name);
@@ -222,7 +222,7 @@ impl std::fmt::Debug for crate::model::CloseCaseRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchCaseClassificationsRequest {
+impl std::fmt::Debug for super::SearchCaseClassificationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchCaseClassificationsRequest");
         debug_struct.field("query", &self.query);
@@ -235,7 +235,7 @@ impl std::fmt::Debug for crate::model::SearchCaseClassificationsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchCaseClassificationsResponse {
+impl std::fmt::Debug for super::SearchCaseClassificationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchCaseClassificationsResponse");
         debug_struct.field("case_classifications", &self.case_classifications);
@@ -247,7 +247,7 @@ impl std::fmt::Debug for crate::model::SearchCaseClassificationsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Comment {
+impl std::fmt::Debug for super::Comment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Comment");
         debug_struct.field("name", &self.name);
@@ -262,7 +262,7 @@ impl std::fmt::Debug for crate::model::Comment {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCommentsRequest {
+impl std::fmt::Debug for super::ListCommentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCommentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -275,7 +275,7 @@ impl std::fmt::Debug for crate::model::ListCommentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCommentsResponse {
+impl std::fmt::Debug for super::ListCommentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCommentsResponse");
         debug_struct.field("comments", &self.comments);
@@ -287,7 +287,7 @@ impl std::fmt::Debug for crate::model::ListCommentsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateCommentRequest {
+impl std::fmt::Debug for super::CreateCommentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateCommentRequest");
         debug_struct.field("parent", &self.parent);
@@ -299,7 +299,7 @@ impl std::fmt::Debug for crate::model::CreateCommentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Escalation {
+impl std::fmt::Debug for super::Escalation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Escalation");
         debug_struct.field("reason", &self.reason);

@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::SheetsAddOnManifest {
+impl std::fmt::Debug for super::SheetsAddOnManifest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SheetsAddOnManifest");
         debug_struct.field("homepage_trigger", &self.homepage_trigger);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::SheetsAddOnManifest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SheetsExtensionPoint {
+impl std::fmt::Debug for super::SheetsExtensionPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SheetsExtensionPoint");
         debug_struct.field("run_function", &self.run_function);

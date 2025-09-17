@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Policy {
+impl std::fmt::Debug for super::Policy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Policy");
         debug_struct.field("version", &self.version);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::Policy {
     }
 }
 
-impl std::fmt::Debug for crate::model::policy::ListPolicy {
+impl std::fmt::Debug for super::policy::ListPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPolicy");
         debug_struct.field("allowed_values", &self.allowed_values);
@@ -47,7 +47,7 @@ impl std::fmt::Debug for crate::model::policy::ListPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::policy::BooleanPolicy {
+impl std::fmt::Debug for super::policy::BooleanPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BooleanPolicy");
         debug_struct.field("enforced", &self.enforced);
@@ -58,7 +58,7 @@ impl std::fmt::Debug for crate::model::policy::BooleanPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::policy::RestoreDefault {
+impl std::fmt::Debug for super::policy::RestoreDefault {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RestoreDefault");
         if !self._unknown_fields.is_empty() {

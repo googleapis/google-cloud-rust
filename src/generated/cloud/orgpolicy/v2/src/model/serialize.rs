@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Constraint {
+impl serde::ser::Serialize for super::Constraint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -64,7 +64,7 @@ impl serde::ser::Serialize for crate::model::Constraint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::constraint::ListConstraint {
+impl serde::ser::Serialize for super::constraint::ListConstraint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -89,7 +89,7 @@ impl serde::ser::Serialize for crate::model::constraint::ListConstraint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::constraint::CustomConstraintDefinition {
+impl serde::ser::Serialize for super::constraint::CustomConstraintDefinition {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -123,7 +123,7 @@ impl serde::ser::Serialize for crate::model::constraint::CustomConstraintDefinit
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::constraint::custom_constraint_definition::Parameter {
+impl serde::ser::Serialize for super::constraint::custom_constraint_definition::Parameter {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -158,7 +158,7 @@ impl serde::ser::Serialize for crate::model::constraint::custom_constraint_defin
 
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::constraint::custom_constraint_definition::parameter::Metadata
+    for super::constraint::custom_constraint_definition::parameter::Metadata
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -181,7 +181,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::constraint::BooleanConstraint {
+impl serde::ser::Serialize for super::constraint::BooleanConstraint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -206,7 +206,7 @@ impl serde::ser::Serialize for crate::model::constraint::BooleanConstraint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CustomConstraint {
+impl serde::ser::Serialize for super::CustomConstraint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -249,7 +249,7 @@ impl serde::ser::Serialize for crate::model::CustomConstraint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Policy {
+impl serde::ser::Serialize for super::Policy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -283,7 +283,7 @@ impl serde::ser::Serialize for crate::model::Policy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AlternatePolicySpec {
+impl serde::ser::Serialize for super::AlternatePolicySpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -308,7 +308,7 @@ impl serde::ser::Serialize for crate::model::AlternatePolicySpec {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PolicySpec {
+impl serde::ser::Serialize for super::PolicySpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -342,7 +342,7 @@ impl serde::ser::Serialize for crate::model::PolicySpec {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::policy_spec::PolicyRule {
+impl serde::ser::Serialize for super::policy_spec::PolicyRule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -379,7 +379,7 @@ impl serde::ser::Serialize for crate::model::policy_spec::PolicyRule {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::policy_spec::policy_rule::StringValues {
+impl serde::ser::Serialize for super::policy_spec::policy_rule::StringValues {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -404,7 +404,7 @@ impl serde::ser::Serialize for crate::model::policy_spec::policy_rule::StringVal
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListConstraintsRequest {
+impl serde::ser::Serialize for super::ListConstraintsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -441,7 +441,7 @@ impl serde::ser::Serialize for crate::model::ListConstraintsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListConstraintsResponse {
+impl serde::ser::Serialize for super::ListConstraintsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -466,7 +466,7 @@ impl serde::ser::Serialize for crate::model::ListConstraintsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPoliciesRequest {
+impl serde::ser::Serialize for super::ListPoliciesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -503,7 +503,7 @@ impl serde::ser::Serialize for crate::model::ListPoliciesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPoliciesResponse {
+impl serde::ser::Serialize for super::ListPoliciesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -528,7 +528,7 @@ impl serde::ser::Serialize for crate::model::ListPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetPolicyRequest {
+impl serde::ser::Serialize for super::GetPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -550,7 +550,7 @@ impl serde::ser::Serialize for crate::model::GetPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetEffectivePolicyRequest {
+impl serde::ser::Serialize for super::GetEffectivePolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -572,7 +572,7 @@ impl serde::ser::Serialize for crate::model::GetEffectivePolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreatePolicyRequest {
+impl serde::ser::Serialize for super::CreatePolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -597,7 +597,7 @@ impl serde::ser::Serialize for crate::model::CreatePolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdatePolicyRequest {
+impl serde::ser::Serialize for super::UpdatePolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -622,7 +622,7 @@ impl serde::ser::Serialize for crate::model::UpdatePolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeletePolicyRequest {
+impl serde::ser::Serialize for super::DeletePolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -647,7 +647,7 @@ impl serde::ser::Serialize for crate::model::DeletePolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateCustomConstraintRequest {
+impl serde::ser::Serialize for super::CreateCustomConstraintRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -672,7 +672,7 @@ impl serde::ser::Serialize for crate::model::CreateCustomConstraintRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetCustomConstraintRequest {
+impl serde::ser::Serialize for super::GetCustomConstraintRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -694,7 +694,7 @@ impl serde::ser::Serialize for crate::model::GetCustomConstraintRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListCustomConstraintsRequest {
+impl serde::ser::Serialize for super::ListCustomConstraintsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -731,7 +731,7 @@ impl serde::ser::Serialize for crate::model::ListCustomConstraintsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListCustomConstraintsResponse {
+impl serde::ser::Serialize for super::ListCustomConstraintsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -756,7 +756,7 @@ impl serde::ser::Serialize for crate::model::ListCustomConstraintsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateCustomConstraintRequest {
+impl serde::ser::Serialize for super::UpdateCustomConstraintRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -778,7 +778,7 @@ impl serde::ser::Serialize for crate::model::UpdateCustomConstraintRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteCustomConstraintRequest {
+impl serde::ser::Serialize for super::DeleteCustomConstraintRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

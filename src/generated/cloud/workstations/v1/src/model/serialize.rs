@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WorkstationCluster {
+impl serde::ser::Serialize for super::WorkstationCluster {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -85,7 +85,7 @@ impl serde::ser::Serialize for crate::model::WorkstationCluster {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::workstation_cluster::PrivateClusterConfig {
+impl serde::ser::Serialize for super::workstation_cluster::PrivateClusterConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -116,7 +116,7 @@ impl serde::ser::Serialize for crate::model::workstation_cluster::PrivateCluster
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WorkstationConfig {
+impl serde::ser::Serialize for super::WorkstationConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -195,7 +195,7 @@ impl serde::ser::Serialize for crate::model::WorkstationConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::workstation_config::Host {
+impl serde::ser::Serialize for super::workstation_config::Host {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -217,7 +217,7 @@ impl serde::ser::Serialize for crate::model::workstation_config::Host {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::workstation_config::host::GceInstance {
+impl serde::ser::Serialize for super::workstation_config::host::GceInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -306,7 +306,7 @@ impl serde::ser::Serialize for crate::model::workstation_config::host::GceInstan
 
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig
+    for super::workstation_config::host::gce_instance::GceShieldedInstanceConfig
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -339,7 +339,7 @@ impl serde::ser::Serialize
 
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig
+    for super::workstation_config::host::gce_instance::GceConfidentialInstanceConfig
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -365,7 +365,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::workstation_config::PersistentDirectory {
+impl serde::ser::Serialize for super::workstation_config::PersistentDirectory {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -391,7 +391,7 @@ impl serde::ser::Serialize for crate::model::workstation_config::PersistentDirec
 
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk
+    for super::workstation_config::persistent_directory::GceRegionalPersistentDisk
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -435,7 +435,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::workstation_config::Container {
+impl serde::ser::Serialize for super::workstation_config::Container {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -481,7 +481,7 @@ impl serde::ser::Serialize for crate::model::workstation_config::Container {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::workstation_config::CustomerEncryptionKey {
+impl serde::ser::Serialize for super::workstation_config::CustomerEncryptionKey {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -506,7 +506,7 @@ impl serde::ser::Serialize for crate::model::workstation_config::CustomerEncrypt
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::workstation_config::ReadinessCheck {
+impl serde::ser::Serialize for super::workstation_config::ReadinessCheck {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -540,7 +540,7 @@ impl serde::ser::Serialize for crate::model::workstation_config::ReadinessCheck 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Workstation {
+impl serde::ser::Serialize for super::Workstation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -598,7 +598,7 @@ impl serde::ser::Serialize for crate::model::Workstation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetWorkstationClusterRequest {
+impl serde::ser::Serialize for super::GetWorkstationClusterRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -620,7 +620,7 @@ impl serde::ser::Serialize for crate::model::GetWorkstationClusterRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkstationClustersRequest {
+impl serde::ser::Serialize for super::ListWorkstationClustersRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -657,7 +657,7 @@ impl serde::ser::Serialize for crate::model::ListWorkstationClustersRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkstationClustersResponse {
+impl serde::ser::Serialize for super::ListWorkstationClustersResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -685,7 +685,7 @@ impl serde::ser::Serialize for crate::model::ListWorkstationClustersResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateWorkstationClusterRequest {
+impl serde::ser::Serialize for super::CreateWorkstationClusterRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -716,7 +716,7 @@ impl serde::ser::Serialize for crate::model::CreateWorkstationClusterRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateWorkstationClusterRequest {
+impl serde::ser::Serialize for super::UpdateWorkstationClusterRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -747,7 +747,7 @@ impl serde::ser::Serialize for crate::model::UpdateWorkstationClusterRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteWorkstationClusterRequest {
+impl serde::ser::Serialize for super::DeleteWorkstationClusterRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -778,7 +778,7 @@ impl serde::ser::Serialize for crate::model::DeleteWorkstationClusterRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetWorkstationConfigRequest {
+impl serde::ser::Serialize for super::GetWorkstationConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -800,7 +800,7 @@ impl serde::ser::Serialize for crate::model::GetWorkstationConfigRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkstationConfigsRequest {
+impl serde::ser::Serialize for super::ListWorkstationConfigsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -837,7 +837,7 @@ impl serde::ser::Serialize for crate::model::ListWorkstationConfigsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkstationConfigsResponse {
+impl serde::ser::Serialize for super::ListWorkstationConfigsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -865,7 +865,7 @@ impl serde::ser::Serialize for crate::model::ListWorkstationConfigsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListUsableWorkstationConfigsRequest {
+impl serde::ser::Serialize for super::ListUsableWorkstationConfigsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -902,7 +902,7 @@ impl serde::ser::Serialize for crate::model::ListUsableWorkstationConfigsRequest
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListUsableWorkstationConfigsResponse {
+impl serde::ser::Serialize for super::ListUsableWorkstationConfigsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -930,7 +930,7 @@ impl serde::ser::Serialize for crate::model::ListUsableWorkstationConfigsRespons
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateWorkstationConfigRequest {
+impl serde::ser::Serialize for super::CreateWorkstationConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -961,7 +961,7 @@ impl serde::ser::Serialize for crate::model::CreateWorkstationConfigRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateWorkstationConfigRequest {
+impl serde::ser::Serialize for super::UpdateWorkstationConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -992,7 +992,7 @@ impl serde::ser::Serialize for crate::model::UpdateWorkstationConfigRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteWorkstationConfigRequest {
+impl serde::ser::Serialize for super::DeleteWorkstationConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1023,7 +1023,7 @@ impl serde::ser::Serialize for crate::model::DeleteWorkstationConfigRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetWorkstationRequest {
+impl serde::ser::Serialize for super::GetWorkstationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1045,7 +1045,7 @@ impl serde::ser::Serialize for crate::model::GetWorkstationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkstationsRequest {
+impl serde::ser::Serialize for super::ListWorkstationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1082,7 +1082,7 @@ impl serde::ser::Serialize for crate::model::ListWorkstationsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkstationsResponse {
+impl serde::ser::Serialize for super::ListWorkstationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1110,7 +1110,7 @@ impl serde::ser::Serialize for crate::model::ListWorkstationsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListUsableWorkstationsRequest {
+impl serde::ser::Serialize for super::ListUsableWorkstationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1147,7 +1147,7 @@ impl serde::ser::Serialize for crate::model::ListUsableWorkstationsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListUsableWorkstationsResponse {
+impl serde::ser::Serialize for super::ListUsableWorkstationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1175,7 +1175,7 @@ impl serde::ser::Serialize for crate::model::ListUsableWorkstationsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateWorkstationRequest {
+impl serde::ser::Serialize for super::CreateWorkstationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1206,7 +1206,7 @@ impl serde::ser::Serialize for crate::model::CreateWorkstationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateWorkstationRequest {
+impl serde::ser::Serialize for super::UpdateWorkstationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1237,7 +1237,7 @@ impl serde::ser::Serialize for crate::model::UpdateWorkstationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteWorkstationRequest {
+impl serde::ser::Serialize for super::DeleteWorkstationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1265,7 +1265,7 @@ impl serde::ser::Serialize for crate::model::DeleteWorkstationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StartWorkstationRequest {
+impl serde::ser::Serialize for super::StartWorkstationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1293,7 +1293,7 @@ impl serde::ser::Serialize for crate::model::StartWorkstationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StopWorkstationRequest {
+impl serde::ser::Serialize for super::StopWorkstationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1321,7 +1321,7 @@ impl serde::ser::Serialize for crate::model::StopWorkstationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateAccessTokenRequest {
+impl serde::ser::Serialize for super::GenerateAccessTokenRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1349,7 +1349,7 @@ impl serde::ser::Serialize for crate::model::GenerateAccessTokenRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GenerateAccessTokenResponse {
+impl serde::ser::Serialize for super::GenerateAccessTokenResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1374,7 +1374,7 @@ impl serde::ser::Serialize for crate::model::GenerateAccessTokenResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationMetadata {
+impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

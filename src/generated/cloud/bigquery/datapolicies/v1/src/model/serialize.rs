@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateDataPolicyRequest {
+impl serde::ser::Serialize for super::CreateDataPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -43,7 +43,7 @@ impl serde::ser::Serialize for crate::model::CreateDataPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateDataPolicyRequest {
+impl serde::ser::Serialize for super::UpdateDataPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -68,7 +68,7 @@ impl serde::ser::Serialize for crate::model::UpdateDataPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RenameDataPolicyRequest {
+impl serde::ser::Serialize for super::RenameDataPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -93,7 +93,7 @@ impl serde::ser::Serialize for crate::model::RenameDataPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteDataPolicyRequest {
+impl serde::ser::Serialize for super::DeleteDataPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -115,7 +115,7 @@ impl serde::ser::Serialize for crate::model::DeleteDataPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetDataPolicyRequest {
+impl serde::ser::Serialize for super::GetDataPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -137,7 +137,7 @@ impl serde::ser::Serialize for crate::model::GetDataPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDataPoliciesRequest {
+impl serde::ser::Serialize for super::ListDataPoliciesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -177,7 +177,7 @@ impl serde::ser::Serialize for crate::model::ListDataPoliciesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDataPoliciesResponse {
+impl serde::ser::Serialize for super::ListDataPoliciesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -202,7 +202,7 @@ impl serde::ser::Serialize for crate::model::ListDataPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DataPolicy {
+impl serde::ser::Serialize for super::DataPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -236,7 +236,7 @@ impl serde::ser::Serialize for crate::model::DataPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DataMaskingPolicy {
+impl serde::ser::Serialize for super::DataMaskingPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

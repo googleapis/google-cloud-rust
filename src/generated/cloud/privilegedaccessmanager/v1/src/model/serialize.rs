@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CheckOnboardingStatusRequest {
+impl serde::ser::Serialize for super::CheckOnboardingStatusRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -40,7 +40,7 @@ impl serde::ser::Serialize for crate::model::CheckOnboardingStatusRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CheckOnboardingStatusResponse {
+impl serde::ser::Serialize for super::CheckOnboardingStatusResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -65,7 +65,7 @@ impl serde::ser::Serialize for crate::model::CheckOnboardingStatusResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::check_onboarding_status_response::Finding {
+impl serde::ser::Serialize for super::check_onboarding_status_response::Finding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -87,9 +87,7 @@ impl serde::ser::Serialize for crate::model::check_onboarding_status_response::F
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::check_onboarding_status_response::finding::IAMAccessDenied
-{
+impl serde::ser::Serialize for super::check_onboarding_status_response::finding::IAMAccessDenied {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -111,7 +109,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Entitlement {
+impl serde::ser::Serialize for super::Entitlement {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -169,7 +167,7 @@ impl serde::ser::Serialize for crate::model::Entitlement {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::entitlement::RequesterJustificationConfig {
+impl serde::ser::Serialize for super::entitlement::RequesterJustificationConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -194,9 +192,7 @@ impl serde::ser::Serialize for crate::model::entitlement::RequesterJustification
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::entitlement::requester_justification_config::NotMandatory
-{
+impl serde::ser::Serialize for super::entitlement::requester_justification_config::NotMandatory {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -215,9 +211,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::entitlement::requester_justification_config::Unstructured
-{
+impl serde::ser::Serialize for super::entitlement::requester_justification_config::Unstructured {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -236,7 +230,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::entitlement::AdditionalNotificationTargets {
+impl serde::ser::Serialize for super::entitlement::AdditionalNotificationTargets {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -261,7 +255,7 @@ impl serde::ser::Serialize for crate::model::entitlement::AdditionalNotification
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessControlEntry {
+impl serde::ser::Serialize for super::AccessControlEntry {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -283,7 +277,7 @@ impl serde::ser::Serialize for crate::model::AccessControlEntry {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ApprovalWorkflow {
+impl serde::ser::Serialize for super::ApprovalWorkflow {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -305,7 +299,7 @@ impl serde::ser::Serialize for crate::model::ApprovalWorkflow {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ManualApprovals {
+impl serde::ser::Serialize for super::ManualApprovals {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -333,7 +327,7 @@ impl serde::ser::Serialize for crate::model::ManualApprovals {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::manual_approvals::Step {
+impl serde::ser::Serialize for super::manual_approvals::Step {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -370,7 +364,7 @@ impl serde::ser::Serialize for crate::model::manual_approvals::Step {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PrivilegedAccess {
+impl serde::ser::Serialize for super::PrivilegedAccess {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -392,7 +386,7 @@ impl serde::ser::Serialize for crate::model::PrivilegedAccess {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::privileged_access::GcpIamAccess {
+impl serde::ser::Serialize for super::privileged_access::GcpIamAccess {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -420,7 +414,7 @@ impl serde::ser::Serialize for crate::model::privileged_access::GcpIamAccess {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::privileged_access::gcp_iam_access::RoleBinding {
+impl serde::ser::Serialize for super::privileged_access::gcp_iam_access::RoleBinding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -445,7 +439,7 @@ impl serde::ser::Serialize for crate::model::privileged_access::gcp_iam_access::
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListEntitlementsRequest {
+impl serde::ser::Serialize for super::ListEntitlementsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -488,7 +482,7 @@ impl serde::ser::Serialize for crate::model::ListEntitlementsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListEntitlementsResponse {
+impl serde::ser::Serialize for super::ListEntitlementsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -516,7 +510,7 @@ impl serde::ser::Serialize for crate::model::ListEntitlementsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchEntitlementsRequest {
+impl serde::ser::Serialize for super::SearchEntitlementsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -559,7 +553,7 @@ impl serde::ser::Serialize for crate::model::SearchEntitlementsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchEntitlementsResponse {
+impl serde::ser::Serialize for super::SearchEntitlementsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -584,7 +578,7 @@ impl serde::ser::Serialize for crate::model::SearchEntitlementsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetEntitlementRequest {
+impl serde::ser::Serialize for super::GetEntitlementRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -606,7 +600,7 @@ impl serde::ser::Serialize for crate::model::GetEntitlementRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateEntitlementRequest {
+impl serde::ser::Serialize for super::CreateEntitlementRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -637,7 +631,7 @@ impl serde::ser::Serialize for crate::model::CreateEntitlementRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteEntitlementRequest {
+impl serde::ser::Serialize for super::DeleteEntitlementRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -665,7 +659,7 @@ impl serde::ser::Serialize for crate::model::DeleteEntitlementRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateEntitlementRequest {
+impl serde::ser::Serialize for super::UpdateEntitlementRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -690,7 +684,7 @@ impl serde::ser::Serialize for crate::model::UpdateEntitlementRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Grant {
+impl serde::ser::Serialize for super::Grant {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -748,7 +742,7 @@ impl serde::ser::Serialize for crate::model::Grant {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::Timeline {
+impl serde::ser::Serialize for super::grant::Timeline {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -770,7 +764,7 @@ impl serde::ser::Serialize for crate::model::grant::Timeline {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::Event {
+impl serde::ser::Serialize for super::grant::timeline::Event {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -825,7 +819,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::Event {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::event::Requested {
+impl serde::ser::Serialize for super::grant::timeline::event::Requested {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -847,7 +841,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::event::Requested {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::event::Approved {
+impl serde::ser::Serialize for super::grant::timeline::event::Approved {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -872,7 +866,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::event::Approved {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::event::Denied {
+impl serde::ser::Serialize for super::grant::timeline::event::Denied {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -897,7 +891,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::event::Denied {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::event::Revoked {
+impl serde::ser::Serialize for super::grant::timeline::event::Revoked {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -922,7 +916,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::event::Revoked {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::event::Withdrawn {
+impl serde::ser::Serialize for super::grant::timeline::event::Withdrawn {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -941,7 +935,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::event::Withdrawn {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::event::Scheduled {
+impl serde::ser::Serialize for super::grant::timeline::event::Scheduled {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -963,7 +957,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::event::Scheduled {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::event::Activated {
+impl serde::ser::Serialize for super::grant::timeline::event::Activated {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -982,7 +976,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::event::Activated {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::event::ActivationFailed {
+impl serde::ser::Serialize for super::grant::timeline::event::ActivationFailed {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1004,7 +998,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::event::ActivationF
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::event::Expired {
+impl serde::ser::Serialize for super::grant::timeline::event::Expired {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1023,7 +1017,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::event::Expired {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::event::Ended {
+impl serde::ser::Serialize for super::grant::timeline::event::Ended {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1042,7 +1036,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::event::Ended {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::timeline::event::ExternallyModified {
+impl serde::ser::Serialize for super::grant::timeline::event::ExternallyModified {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1061,7 +1055,7 @@ impl serde::ser::Serialize for crate::model::grant::timeline::event::ExternallyM
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::grant::AuditTrail {
+impl serde::ser::Serialize for super::grant::AuditTrail {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1086,7 +1080,7 @@ impl serde::ser::Serialize for crate::model::grant::AuditTrail {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Justification {
+impl serde::ser::Serialize for super::Justification {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1108,7 +1102,7 @@ impl serde::ser::Serialize for crate::model::Justification {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListGrantsRequest {
+impl serde::ser::Serialize for super::ListGrantsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1151,7 +1145,7 @@ impl serde::ser::Serialize for crate::model::ListGrantsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListGrantsResponse {
+impl serde::ser::Serialize for super::ListGrantsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1179,7 +1173,7 @@ impl serde::ser::Serialize for crate::model::ListGrantsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchGrantsRequest {
+impl serde::ser::Serialize for super::SearchGrantsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1222,7 +1216,7 @@ impl serde::ser::Serialize for crate::model::SearchGrantsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchGrantsResponse {
+impl serde::ser::Serialize for super::SearchGrantsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1247,7 +1241,7 @@ impl serde::ser::Serialize for crate::model::SearchGrantsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetGrantRequest {
+impl serde::ser::Serialize for super::GetGrantRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1269,32 +1263,7 @@ impl serde::ser::Serialize for crate::model::GetGrantRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ApproveGrantRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.reason.is_empty() {
-            state.serialize_entry("reason", &self.reason)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DenyGrantRequest {
+impl serde::ser::Serialize for super::ApproveGrantRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1319,7 +1288,7 @@ impl serde::ser::Serialize for crate::model::DenyGrantRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RevokeGrantRequest {
+impl serde::ser::Serialize for super::DenyGrantRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1344,7 +1313,32 @@ impl serde::ser::Serialize for crate::model::RevokeGrantRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateGrantRequest {
+impl serde::ser::Serialize for super::RevokeGrantRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.reason.is_empty() {
+            state.serialize_entry("reason", &self.reason)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateGrantRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1372,7 +1366,7 @@ impl serde::ser::Serialize for crate::model::CreateGrantRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationMetadata {
+impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

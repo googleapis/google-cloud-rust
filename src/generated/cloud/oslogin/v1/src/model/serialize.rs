@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LoginProfile {
+impl serde::ser::Serialize for super::LoginProfile {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -46,7 +46,7 @@ impl serde::ser::Serialize for crate::model::LoginProfile {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateSshPublicKeyRequest {
+impl serde::ser::Serialize for super::CreateSshPublicKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -71,7 +71,7 @@ impl serde::ser::Serialize for crate::model::CreateSshPublicKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeletePosixAccountRequest {
+impl serde::ser::Serialize for super::DeletePosixAccountRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -93,7 +93,7 @@ impl serde::ser::Serialize for crate::model::DeletePosixAccountRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteSshPublicKeyRequest {
+impl serde::ser::Serialize for super::DeleteSshPublicKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -115,7 +115,7 @@ impl serde::ser::Serialize for crate::model::DeleteSshPublicKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetLoginProfileRequest {
+impl serde::ser::Serialize for super::GetLoginProfileRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -143,7 +143,7 @@ impl serde::ser::Serialize for crate::model::GetLoginProfileRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSshPublicKeyRequest {
+impl serde::ser::Serialize for super::GetSshPublicKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -165,7 +165,7 @@ impl serde::ser::Serialize for crate::model::GetSshPublicKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportSshPublicKeyRequest {
+impl serde::ser::Serialize for super::ImportSshPublicKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -196,7 +196,7 @@ impl serde::ser::Serialize for crate::model::ImportSshPublicKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportSshPublicKeyResponse {
+impl serde::ser::Serialize for super::ImportSshPublicKeyResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -221,7 +221,7 @@ impl serde::ser::Serialize for crate::model::ImportSshPublicKeyResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateSshPublicKeyRequest {
+impl serde::ser::Serialize for super::UpdateSshPublicKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

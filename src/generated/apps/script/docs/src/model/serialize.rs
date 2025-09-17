@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DocsAddOnManifest {
+impl serde::ser::Serialize for super::DocsAddOnManifest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -46,7 +46,7 @@ impl serde::ser::Serialize for crate::model::DocsAddOnManifest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DocsExtensionPoint {
+impl serde::ser::Serialize for super::DocsExtensionPoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

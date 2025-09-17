@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeviceMessage {
+impl serde::ser::Serialize for super::DeviceMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -46,7 +46,7 @@ impl serde::ser::Serialize for crate::model::DeviceMessage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AdbMessage {
+impl serde::ser::Serialize for super::AdbMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -71,7 +71,7 @@ impl serde::ser::Serialize for crate::model::AdbMessage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StatusUpdate {
+impl serde::ser::Serialize for super::StatusUpdate {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -99,7 +99,7 @@ impl serde::ser::Serialize for crate::model::StatusUpdate {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamStatus {
+impl serde::ser::Serialize for super::StreamStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -136,7 +136,7 @@ impl serde::ser::Serialize for crate::model::StreamStatus {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Open {
+impl serde::ser::Serialize for super::Open {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -170,7 +170,7 @@ impl serde::ser::Serialize for crate::model::Open {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamData {
+impl serde::ser::Serialize for super::StreamData {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -216,7 +216,7 @@ impl serde::ser::Serialize for crate::model::StreamData {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Okay {
+impl serde::ser::Serialize for super::Okay {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -235,7 +235,7 @@ impl serde::ser::Serialize for crate::model::Okay {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Fail {
+impl serde::ser::Serialize for super::Fail {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -257,7 +257,7 @@ impl serde::ser::Serialize for crate::model::Fail {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Close {
+impl serde::ser::Serialize for super::Close {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -276,7 +276,7 @@ impl serde::ser::Serialize for crate::model::Close {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateDeviceSessionRequest {
+impl serde::ser::Serialize for super::CreateDeviceSessionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -304,7 +304,7 @@ impl serde::ser::Serialize for crate::model::CreateDeviceSessionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDeviceSessionsRequest {
+impl serde::ser::Serialize for super::ListDeviceSessionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -344,7 +344,7 @@ impl serde::ser::Serialize for crate::model::ListDeviceSessionsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListDeviceSessionsResponse {
+impl serde::ser::Serialize for super::ListDeviceSessionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -369,7 +369,7 @@ impl serde::ser::Serialize for crate::model::ListDeviceSessionsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetDeviceSessionRequest {
+impl serde::ser::Serialize for super::GetDeviceSessionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -391,7 +391,7 @@ impl serde::ser::Serialize for crate::model::GetDeviceSessionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelDeviceSessionRequest {
+impl serde::ser::Serialize for super::CancelDeviceSessionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -413,7 +413,7 @@ impl serde::ser::Serialize for crate::model::CancelDeviceSessionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateDeviceSessionRequest {
+impl serde::ser::Serialize for super::UpdateDeviceSessionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -438,7 +438,7 @@ impl serde::ser::Serialize for crate::model::UpdateDeviceSessionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeviceSession {
+impl serde::ser::Serialize for super::DeviceSession {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -487,7 +487,7 @@ impl serde::ser::Serialize for crate::model::DeviceSession {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::device_session::SessionStateEvent {
+impl serde::ser::Serialize for super::device_session::SessionStateEvent {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -515,7 +515,7 @@ impl serde::ser::Serialize for crate::model::device_session::SessionStateEvent {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AndroidDevice {
+impl serde::ser::Serialize for super::AndroidDevice {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

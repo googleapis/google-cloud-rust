@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Endpoint {
+impl serde::ser::Serialize for super::Endpoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -70,7 +70,7 @@ impl serde::ser::Serialize for crate::model::Endpoint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListEndpointsRequest {
+impl serde::ser::Serialize for super::ListEndpointsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -113,7 +113,7 @@ impl serde::ser::Serialize for crate::model::ListEndpointsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListEndpointsResponse {
+impl serde::ser::Serialize for super::ListEndpointsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -141,7 +141,7 @@ impl serde::ser::Serialize for crate::model::ListEndpointsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetEndpointRequest {
+impl serde::ser::Serialize for super::GetEndpointRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -163,7 +163,7 @@ impl serde::ser::Serialize for crate::model::GetEndpointRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateEndpointRequest {
+impl serde::ser::Serialize for super::CreateEndpointRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -194,7 +194,7 @@ impl serde::ser::Serialize for crate::model::CreateEndpointRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteEndpointRequest {
+impl serde::ser::Serialize for super::DeleteEndpointRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -219,7 +219,7 @@ impl serde::ser::Serialize for crate::model::DeleteEndpointRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationMetadata {
+impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

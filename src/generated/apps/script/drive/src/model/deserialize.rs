@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DriveAddOnManifest {
+impl<'de> serde::de::Deserialize<'de> for super::DriveAddOnManifest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -64,7 +64,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DriveAddOnManifest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DriveAddOnManifest;
+            type Value = super::DriveAddOnManifest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DriveAddOnManifest")
             }
@@ -113,7 +113,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DriveAddOnManifest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DriveExtensionPoint {
+impl<'de> serde::de::Deserialize<'de> for super::DriveExtensionPoint {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -154,7 +154,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DriveExtensionPoint {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DriveExtensionPoint;
+            type Value = super::DriveExtensionPoint;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DriveExtensionPoint")
             }

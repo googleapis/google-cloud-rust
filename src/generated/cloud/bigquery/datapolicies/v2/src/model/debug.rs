@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CreateDataPolicyRequest {
+impl std::fmt::Debug for super::CreateDataPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateDataPolicyRequest");
         debug_struct.field("parent", &self.parent);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::CreateDataPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateDataPolicyRequest {
+impl std::fmt::Debug for super::UpdateDataPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateDataPolicyRequest");
         debug_struct.field("data_policy", &self.data_policy);
@@ -43,7 +43,7 @@ impl std::fmt::Debug for crate::model::UpdateDataPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AddGranteesRequest {
+impl std::fmt::Debug for super::AddGranteesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddGranteesRequest");
         debug_struct.field("data_policy", &self.data_policy);
@@ -55,7 +55,7 @@ impl std::fmt::Debug for crate::model::AddGranteesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RemoveGranteesRequest {
+impl std::fmt::Debug for super::RemoveGranteesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RemoveGranteesRequest");
         debug_struct.field("data_policy", &self.data_policy);
@@ -67,7 +67,7 @@ impl std::fmt::Debug for crate::model::RemoveGranteesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteDataPolicyRequest {
+impl std::fmt::Debug for super::DeleteDataPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDataPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -78,7 +78,7 @@ impl std::fmt::Debug for crate::model::DeleteDataPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetDataPolicyRequest {
+impl std::fmt::Debug for super::GetDataPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDataPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -89,7 +89,7 @@ impl std::fmt::Debug for crate::model::GetDataPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListDataPoliciesRequest {
+impl std::fmt::Debug for super::ListDataPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDataPoliciesRequest");
         debug_struct.field("parent", &self.parent);
@@ -103,7 +103,7 @@ impl std::fmt::Debug for crate::model::ListDataPoliciesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListDataPoliciesResponse {
+impl std::fmt::Debug for super::ListDataPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDataPoliciesResponse");
         debug_struct.field("data_policies", &self.data_policies);
@@ -115,7 +115,7 @@ impl std::fmt::Debug for crate::model::ListDataPoliciesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DataPolicy {
+impl std::fmt::Debug for super::DataPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataPolicy");
         debug_struct.field("name", &self.name);
@@ -133,7 +133,7 @@ impl std::fmt::Debug for crate::model::DataPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::DataMaskingPolicy {
+impl std::fmt::Debug for super::DataMaskingPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataMaskingPolicy");
         debug_struct.field("masking_expression", &self.masking_expression);

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::OperationMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::OperationMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -75,7 +75,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::OperationMetadata {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::OperationMetadata;
+            type Value = super::OperationMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct OperationMetadata")
             }
@@ -173,7 +173,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::OperationMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::PolicyBinding {
+impl<'de> serde::de::Deserialize<'de> for super::PolicyBinding {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -240,7 +240,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::PolicyBinding {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::PolicyBinding;
+            type Value = super::PolicyBinding;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct PolicyBinding")
             }
@@ -389,7 +389,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::PolicyBinding {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::policy_binding::Target {
+impl<'de> serde::de::Deserialize<'de> for super::policy_binding::Target {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -430,7 +430,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::policy_binding::Target {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::policy_binding::Target;
+            type Value = super::policy_binding::Target;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Target")
             }
@@ -478,7 +478,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::policy_binding::Target {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreatePolicyBindingRequest {
+impl<'de> serde::de::Deserialize<'de> for super::CreatePolicyBindingRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -527,7 +527,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreatePolicyBindingReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreatePolicyBindingRequest;
+            type Value = super::CreatePolicyBindingRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreatePolicyBindingRequest")
             }
@@ -596,7 +596,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreatePolicyBindingReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetPolicyBindingRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetPolicyBindingRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -636,7 +636,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetPolicyBindingRequest 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetPolicyBindingRequest;
+            type Value = super::GetPolicyBindingRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetPolicyBindingRequest")
             }
@@ -676,7 +676,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetPolicyBindingRequest 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::UpdatePolicyBindingRequest {
+impl<'de> serde::de::Deserialize<'de> for super::UpdatePolicyBindingRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -723,7 +723,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UpdatePolicyBindingReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::UpdatePolicyBindingRequest;
+            type Value = super::UpdatePolicyBindingRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct UpdatePolicyBindingRequest")
             }
@@ -781,7 +781,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UpdatePolicyBindingReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeletePolicyBindingRequest {
+impl<'de> serde::de::Deserialize<'de> for super::DeletePolicyBindingRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -826,7 +826,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeletePolicyBindingReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeletePolicyBindingRequest;
+            type Value = super::DeletePolicyBindingRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeletePolicyBindingRequest")
             }
@@ -886,7 +886,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeletePolicyBindingReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListPolicyBindingsRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListPolicyBindingsRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -934,7 +934,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListPolicyBindingsReques
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListPolicyBindingsRequest;
+            type Value = super::ListPolicyBindingsRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListPolicyBindingsRequest")
             }
@@ -1013,7 +1013,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListPolicyBindingsReques
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListPolicyBindingsResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListPolicyBindingsResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1057,7 +1057,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListPolicyBindingsRespon
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListPolicyBindingsResponse;
+            type Value = super::ListPolicyBindingsResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListPolicyBindingsResponse")
             }
@@ -1105,7 +1105,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListPolicyBindingsRespon
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SearchTargetPolicyBindingsRequest {
+impl<'de> serde::de::Deserialize<'de> for super::SearchTargetPolicyBindingsRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1153,7 +1153,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SearchTargetPolicyBindin
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SearchTargetPolicyBindingsRequest;
+            type Value = super::SearchTargetPolicyBindingsRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SearchTargetPolicyBindingsRequest")
             }
@@ -1232,7 +1232,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SearchTargetPolicyBindin
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SearchTargetPolicyBindingsResponse {
+impl<'de> serde::de::Deserialize<'de> for super::SearchTargetPolicyBindingsResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1276,7 +1276,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SearchTargetPolicyBindin
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SearchTargetPolicyBindingsResponse;
+            type Value = super::SearchTargetPolicyBindingsResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SearchTargetPolicyBindingsResponse")
             }
@@ -1324,7 +1324,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SearchTargetPolicyBindin
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreatePrincipalAccessBoundaryPolicyRequest {
+impl<'de> serde::de::Deserialize<'de> for super::CreatePrincipalAccessBoundaryPolicyRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1383,7 +1383,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreatePrincipalAccessBou
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreatePrincipalAccessBoundaryPolicyRequest;
+            type Value = super::CreatePrincipalAccessBoundaryPolicyRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreatePrincipalAccessBoundaryPolicyRequest")
             }
@@ -1454,7 +1454,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreatePrincipalAccessBou
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetPrincipalAccessBoundaryPolicyRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetPrincipalAccessBoundaryPolicyRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1495,7 +1495,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetPrincipalAccessBounda
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetPrincipalAccessBoundaryPolicyRequest;
+            type Value = super::GetPrincipalAccessBoundaryPolicyRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetPrincipalAccessBoundaryPolicyRequest")
             }
@@ -1535,7 +1535,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetPrincipalAccessBounda
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::UpdatePrincipalAccessBoundaryPolicyRequest {
+impl<'de> serde::de::Deserialize<'de> for super::UpdatePrincipalAccessBoundaryPolicyRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1588,7 +1588,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UpdatePrincipalAccessBou
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::UpdatePrincipalAccessBoundaryPolicyRequest;
+            type Value = super::UpdatePrincipalAccessBoundaryPolicyRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct UpdatePrincipalAccessBoundaryPolicyRequest")
             }
@@ -1648,7 +1648,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UpdatePrincipalAccessBou
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeletePrincipalAccessBoundaryPolicyRequest {
+impl<'de> serde::de::Deserialize<'de> for super::DeletePrincipalAccessBoundaryPolicyRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1697,7 +1697,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeletePrincipalAccessBou
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeletePrincipalAccessBoundaryPolicyRequest;
+            type Value = super::DeletePrincipalAccessBoundaryPolicyRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeletePrincipalAccessBoundaryPolicyRequest")
             }
@@ -1767,7 +1767,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeletePrincipalAccessBou
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListPrincipalAccessBoundaryPoliciesRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListPrincipalAccessBoundaryPoliciesRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1815,7 +1815,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListPrincipalAccessBound
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListPrincipalAccessBoundaryPoliciesRequest;
+            type Value = super::ListPrincipalAccessBoundaryPoliciesRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListPrincipalAccessBoundaryPoliciesRequest")
             }
@@ -1884,9 +1884,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListPrincipalAccessBound
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de>
-    for crate::model::ListPrincipalAccessBoundaryPoliciesResponse
-{
+impl<'de> serde::de::Deserialize<'de> for super::ListPrincipalAccessBoundaryPoliciesResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1936,7 +1934,7 @@ impl<'de> serde::de::Deserialize<'de>
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListPrincipalAccessBoundaryPoliciesResponse;
+            type Value = super::ListPrincipalAccessBoundaryPoliciesResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListPrincipalAccessBoundaryPoliciesResponse")
             }
@@ -1989,7 +1987,7 @@ impl<'de> serde::de::Deserialize<'de>
 
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de>
-    for crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest
+    for super::SearchPrincipalAccessBoundaryPolicyBindingsRequest
 {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -2038,7 +2036,7 @@ impl<'de> serde::de::Deserialize<'de>
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest;
+            type Value = super::SearchPrincipalAccessBoundaryPolicyBindingsRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SearchPrincipalAccessBoundaryPolicyBindingsRequest")
             }
@@ -2108,7 +2106,7 @@ impl<'de> serde::de::Deserialize<'de>
 
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de>
-    for crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse
+    for super::SearchPrincipalAccessBoundaryPolicyBindingsResponse
 {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -2155,7 +2153,7 @@ impl<'de> serde::de::Deserialize<'de>
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse;
+            type Value = super::SearchPrincipalAccessBoundaryPolicyBindingsResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SearchPrincipalAccessBoundaryPolicyBindingsResponse")
             }
@@ -2203,7 +2201,7 @@ impl<'de> serde::de::Deserialize<'de>
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::PrincipalAccessBoundaryPolicy {
+impl<'de> serde::de::Deserialize<'de> for super::PrincipalAccessBoundaryPolicy {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2260,7 +2258,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::PrincipalAccessBoundaryP
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::PrincipalAccessBoundaryPolicy;
+            type Value = super::PrincipalAccessBoundaryPolicy;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct PrincipalAccessBoundaryPolicy")
             }
@@ -2373,7 +2371,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::PrincipalAccessBoundaryP
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::PrincipalAccessBoundaryPolicyDetails {
+impl<'de> serde::de::Deserialize<'de> for super::PrincipalAccessBoundaryPolicyDetails {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2416,7 +2414,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::PrincipalAccessBoundaryP
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::PrincipalAccessBoundaryPolicyDetails;
+            type Value = super::PrincipalAccessBoundaryPolicyDetails;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct PrincipalAccessBoundaryPolicyDetails")
             }
@@ -2468,7 +2466,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::PrincipalAccessBoundaryP
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::PrincipalAccessBoundaryPolicyRule {
+impl<'de> serde::de::Deserialize<'de> for super::PrincipalAccessBoundaryPolicyRule {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2512,7 +2510,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::PrincipalAccessBoundaryP
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::PrincipalAccessBoundaryPolicyRule;
+            type Value = super::PrincipalAccessBoundaryPolicyRule;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct PrincipalAccessBoundaryPolicyRule")
             }

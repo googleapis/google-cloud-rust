@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::generated::test_protos::TestAllTypesProto3 {
+impl<'de> serde::de::Deserialize<'de> for super::TestAllTypesProto3 {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -515,7 +515,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::test_protos::TestAll
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::generated::test_protos::TestAllTypesProto3;
+            type Value = super::TestAllTypesProto3;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct TestAllTypesProto3")
             }
@@ -3366,9 +3366,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::test_protos::TestAll
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de>
-    for crate::generated::test_protos::test_all_types_proto_3::NestedMessage
-{
+impl<'de> serde::de::Deserialize<'de> for super::test_all_types_proto_3::NestedMessage {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3410,7 +3408,7 @@ impl<'de> serde::de::Deserialize<'de>
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::generated::test_protos::test_all_types_proto_3::NestedMessage;
+            type Value = super::test_all_types_proto_3::NestedMessage;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct NestedMessage")
             }
@@ -3469,7 +3467,7 @@ impl<'de> serde::de::Deserialize<'de>
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::generated::test_protos::ForeignMessage {
+impl<'de> serde::de::Deserialize<'de> for super::ForeignMessage {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3509,7 +3507,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::test_protos::Foreign
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::generated::test_protos::ForeignMessage;
+            type Value = super::ForeignMessage;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ForeignMessage")
             }
@@ -3558,7 +3556,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::test_protos::Foreign
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::generated::test_protos::NullHypothesisProto3 {
+impl<'de> serde::de::Deserialize<'de> for super::NullHypothesisProto3 {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3594,7 +3592,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::test_protos::NullHyp
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::generated::test_protos::NullHypothesisProto3;
+            type Value = super::NullHypothesisProto3;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct NullHypothesisProto3")
             }
@@ -3623,7 +3621,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::test_protos::NullHyp
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::generated::test_protos::EnumOnlyProto3 {
+impl<'de> serde::de::Deserialize<'de> for super::EnumOnlyProto3 {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3659,7 +3657,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::test_protos::EnumOnl
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::generated::test_protos::EnumOnlyProto3;
+            type Value = super::EnumOnlyProto3;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct EnumOnlyProto3")
             }

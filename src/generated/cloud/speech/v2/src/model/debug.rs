@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CreateRecognizerRequest {
+impl std::fmt::Debug for super::CreateRecognizerRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateRecognizerRequest");
         debug_struct.field("recognizer", &self.recognizer);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::model::CreateRecognizerRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("create_time", &self.create_time);
@@ -50,7 +50,7 @@ impl std::fmt::Debug for crate::model::OperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListRecognizersRequest {
+impl std::fmt::Debug for super::ListRecognizersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRecognizersRequest");
         debug_struct.field("parent", &self.parent);
@@ -64,7 +64,7 @@ impl std::fmt::Debug for crate::model::ListRecognizersRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListRecognizersResponse {
+impl std::fmt::Debug for super::ListRecognizersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRecognizersResponse");
         debug_struct.field("recognizers", &self.recognizers);
@@ -76,7 +76,7 @@ impl std::fmt::Debug for crate::model::ListRecognizersResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetRecognizerRequest {
+impl std::fmt::Debug for super::GetRecognizerRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRecognizerRequest");
         debug_struct.field("name", &self.name);
@@ -87,7 +87,7 @@ impl std::fmt::Debug for crate::model::GetRecognizerRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateRecognizerRequest {
+impl std::fmt::Debug for super::UpdateRecognizerRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateRecognizerRequest");
         debug_struct.field("recognizer", &self.recognizer);
@@ -100,7 +100,7 @@ impl std::fmt::Debug for crate::model::UpdateRecognizerRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteRecognizerRequest {
+impl std::fmt::Debug for super::DeleteRecognizerRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteRecognizerRequest");
         debug_struct.field("name", &self.name);
@@ -114,7 +114,7 @@ impl std::fmt::Debug for crate::model::DeleteRecognizerRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UndeleteRecognizerRequest {
+impl std::fmt::Debug for super::UndeleteRecognizerRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeleteRecognizerRequest");
         debug_struct.field("name", &self.name);
@@ -127,7 +127,7 @@ impl std::fmt::Debug for crate::model::UndeleteRecognizerRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Recognizer {
+impl std::fmt::Debug for super::Recognizer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Recognizer");
         debug_struct.field("name", &self.name);
@@ -156,7 +156,7 @@ impl std::fmt::Debug for crate::model::Recognizer {
     }
 }
 
-impl std::fmt::Debug for crate::model::AutoDetectDecodingConfig {
+impl std::fmt::Debug for super::AutoDetectDecodingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutoDetectDecodingConfig");
         if !self._unknown_fields.is_empty() {
@@ -166,7 +166,7 @@ impl std::fmt::Debug for crate::model::AutoDetectDecodingConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExplicitDecodingConfig {
+impl std::fmt::Debug for super::ExplicitDecodingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExplicitDecodingConfig");
         debug_struct.field("encoding", &self.encoding);
@@ -179,7 +179,7 @@ impl std::fmt::Debug for crate::model::ExplicitDecodingConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::SpeakerDiarizationConfig {
+impl std::fmt::Debug for super::SpeakerDiarizationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeakerDiarizationConfig");
         debug_struct.field("min_speaker_count", &self.min_speaker_count);
@@ -191,7 +191,7 @@ impl std::fmt::Debug for crate::model::SpeakerDiarizationConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::RecognitionFeatures {
+impl std::fmt::Debug for super::RecognitionFeatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecognitionFeatures");
         debug_struct.field("profanity_filter", &self.profanity_filter);
@@ -213,7 +213,7 @@ impl std::fmt::Debug for crate::model::RecognitionFeatures {
     }
 }
 
-impl std::fmt::Debug for crate::model::TranscriptNormalization {
+impl std::fmt::Debug for super::TranscriptNormalization {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TranscriptNormalization");
         debug_struct.field("entries", &self.entries);
@@ -224,7 +224,7 @@ impl std::fmt::Debug for crate::model::TranscriptNormalization {
     }
 }
 
-impl std::fmt::Debug for crate::model::transcript_normalization::Entry {
+impl std::fmt::Debug for super::transcript_normalization::Entry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Entry");
         debug_struct.field("search", &self.search);
@@ -237,7 +237,7 @@ impl std::fmt::Debug for crate::model::transcript_normalization::Entry {
     }
 }
 
-impl std::fmt::Debug for crate::model::TranslationConfig {
+impl std::fmt::Debug for super::TranslationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TranslationConfig");
         debug_struct.field("target_language", &self.target_language);
@@ -248,7 +248,7 @@ impl std::fmt::Debug for crate::model::TranslationConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::SpeechAdaptation {
+impl std::fmt::Debug for super::SpeechAdaptation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechAdaptation");
         debug_struct.field("phrase_sets", &self.phrase_sets);
@@ -260,7 +260,7 @@ impl std::fmt::Debug for crate::model::SpeechAdaptation {
     }
 }
 
-impl std::fmt::Debug for crate::model::speech_adaptation::AdaptationPhraseSet {
+impl std::fmt::Debug for super::speech_adaptation::AdaptationPhraseSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdaptationPhraseSet");
         debug_struct.field("value", &self.value);
@@ -271,7 +271,7 @@ impl std::fmt::Debug for crate::model::speech_adaptation::AdaptationPhraseSet {
     }
 }
 
-impl std::fmt::Debug for crate::model::DenoiserConfig {
+impl std::fmt::Debug for super::DenoiserConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DenoiserConfig");
         debug_struct.field("denoise_audio", &self.denoise_audio);
@@ -283,7 +283,7 @@ impl std::fmt::Debug for crate::model::DenoiserConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::RecognitionConfig {
+impl std::fmt::Debug for super::RecognitionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecognitionConfig");
         debug_struct.field("model", &self.model);
@@ -301,7 +301,7 @@ impl std::fmt::Debug for crate::model::RecognitionConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::RecognizeRequest {
+impl std::fmt::Debug for super::RecognizeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecognizeRequest");
         debug_struct.field("recognizer", &self.recognizer);
@@ -315,7 +315,7 @@ impl std::fmt::Debug for crate::model::RecognizeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RecognitionResponseMetadata {
+impl std::fmt::Debug for super::RecognitionResponseMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecognitionResponseMetadata");
         debug_struct.field("request_id", &self.request_id);
@@ -327,7 +327,7 @@ impl std::fmt::Debug for crate::model::RecognitionResponseMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::SpeechRecognitionAlternative {
+impl std::fmt::Debug for super::SpeechRecognitionAlternative {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechRecognitionAlternative");
         debug_struct.field("transcript", &self.transcript);
@@ -340,7 +340,7 @@ impl std::fmt::Debug for crate::model::SpeechRecognitionAlternative {
     }
 }
 
-impl std::fmt::Debug for crate::model::WordInfo {
+impl std::fmt::Debug for super::WordInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WordInfo");
         debug_struct.field("start_offset", &self.start_offset);
@@ -355,7 +355,7 @@ impl std::fmt::Debug for crate::model::WordInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::SpeechRecognitionResult {
+impl std::fmt::Debug for super::SpeechRecognitionResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechRecognitionResult");
         debug_struct.field("alternatives", &self.alternatives);
@@ -369,7 +369,7 @@ impl std::fmt::Debug for crate::model::SpeechRecognitionResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::RecognizeResponse {
+impl std::fmt::Debug for super::RecognizeResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecognizeResponse");
         debug_struct.field("results", &self.results);
@@ -381,7 +381,7 @@ impl std::fmt::Debug for crate::model::RecognizeResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamingRecognitionFeatures {
+impl std::fmt::Debug for super::StreamingRecognitionFeatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingRecognitionFeatures");
         debug_struct.field(
@@ -397,7 +397,7 @@ impl std::fmt::Debug for crate::model::StreamingRecognitionFeatures {
     }
 }
 
-impl std::fmt::Debug for crate::model::streaming_recognition_features::VoiceActivityTimeout {
+impl std::fmt::Debug for super::streaming_recognition_features::VoiceActivityTimeout {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VoiceActivityTimeout");
         debug_struct.field("speech_start_timeout", &self.speech_start_timeout);
@@ -409,7 +409,7 @@ impl std::fmt::Debug for crate::model::streaming_recognition_features::VoiceActi
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamingRecognitionConfig {
+impl std::fmt::Debug for super::StreamingRecognitionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingRecognitionConfig");
         debug_struct.field("config", &self.config);
@@ -422,7 +422,7 @@ impl std::fmt::Debug for crate::model::StreamingRecognitionConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamingRecognizeRequest {
+impl std::fmt::Debug for super::StreamingRecognizeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingRecognizeRequest");
         debug_struct.field("recognizer", &self.recognizer);
@@ -434,7 +434,7 @@ impl std::fmt::Debug for crate::model::StreamingRecognizeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchRecognizeRequest {
+impl std::fmt::Debug for super::BatchRecognizeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchRecognizeRequest");
         debug_struct.field("recognizer", &self.recognizer);
@@ -450,7 +450,7 @@ impl std::fmt::Debug for crate::model::BatchRecognizeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GcsOutputConfig {
+impl std::fmt::Debug for super::GcsOutputConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsOutputConfig");
         debug_struct.field("uri", &self.uri);
@@ -461,7 +461,7 @@ impl std::fmt::Debug for crate::model::GcsOutputConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::InlineOutputConfig {
+impl std::fmt::Debug for super::InlineOutputConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineOutputConfig");
         if !self._unknown_fields.is_empty() {
@@ -471,7 +471,7 @@ impl std::fmt::Debug for crate::model::InlineOutputConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::NativeOutputFileFormatConfig {
+impl std::fmt::Debug for super::NativeOutputFileFormatConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NativeOutputFileFormatConfig");
         if !self._unknown_fields.is_empty() {
@@ -481,7 +481,7 @@ impl std::fmt::Debug for crate::model::NativeOutputFileFormatConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::VttOutputFileFormatConfig {
+impl std::fmt::Debug for super::VttOutputFileFormatConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VttOutputFileFormatConfig");
         if !self._unknown_fields.is_empty() {
@@ -491,7 +491,7 @@ impl std::fmt::Debug for crate::model::VttOutputFileFormatConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::SrtOutputFileFormatConfig {
+impl std::fmt::Debug for super::SrtOutputFileFormatConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SrtOutputFileFormatConfig");
         if !self._unknown_fields.is_empty() {
@@ -501,7 +501,7 @@ impl std::fmt::Debug for crate::model::SrtOutputFileFormatConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::OutputFormatConfig {
+impl std::fmt::Debug for super::OutputFormatConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OutputFormatConfig");
         debug_struct.field("native", &self.native);
@@ -514,7 +514,7 @@ impl std::fmt::Debug for crate::model::OutputFormatConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::RecognitionOutputConfig {
+impl std::fmt::Debug for super::RecognitionOutputConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecognitionOutputConfig");
         debug_struct.field("output_format_config", &self.output_format_config);
@@ -526,7 +526,7 @@ impl std::fmt::Debug for crate::model::RecognitionOutputConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchRecognizeResponse {
+impl std::fmt::Debug for super::BatchRecognizeResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchRecognizeResponse");
         debug_struct.field("results", &self.results);
@@ -538,7 +538,7 @@ impl std::fmt::Debug for crate::model::BatchRecognizeResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchRecognizeResults {
+impl std::fmt::Debug for super::BatchRecognizeResults {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchRecognizeResults");
         debug_struct.field("results", &self.results);
@@ -550,7 +550,7 @@ impl std::fmt::Debug for crate::model::BatchRecognizeResults {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudStorageResult {
+impl std::fmt::Debug for super::CloudStorageResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudStorageResult");
         debug_struct.field("uri", &self.uri);
@@ -563,7 +563,7 @@ impl std::fmt::Debug for crate::model::CloudStorageResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::InlineResult {
+impl std::fmt::Debug for super::InlineResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineResult");
         debug_struct.field("transcript", &self.transcript);
@@ -576,7 +576,7 @@ impl std::fmt::Debug for crate::model::InlineResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchRecognizeFileResult {
+impl std::fmt::Debug for super::BatchRecognizeFileResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchRecognizeFileResult");
         debug_struct.field("error", &self.error);
@@ -591,7 +591,7 @@ impl std::fmt::Debug for crate::model::BatchRecognizeFileResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchRecognizeTranscriptionMetadata {
+impl std::fmt::Debug for super::BatchRecognizeTranscriptionMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchRecognizeTranscriptionMetadata");
         debug_struct.field("progress_percent", &self.progress_percent);
@@ -604,7 +604,7 @@ impl std::fmt::Debug for crate::model::BatchRecognizeTranscriptionMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchRecognizeMetadata {
+impl std::fmt::Debug for super::BatchRecognizeMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchRecognizeMetadata");
         debug_struct.field("transcription_metadata", &self.transcription_metadata);
@@ -615,7 +615,7 @@ impl std::fmt::Debug for crate::model::BatchRecognizeMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchRecognizeFileMetadata {
+impl std::fmt::Debug for super::BatchRecognizeFileMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchRecognizeFileMetadata");
         debug_struct.field("config", &self.config);
@@ -628,7 +628,7 @@ impl std::fmt::Debug for crate::model::BatchRecognizeFileMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamingRecognitionResult {
+impl std::fmt::Debug for super::StreamingRecognitionResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingRecognitionResult");
         debug_struct.field("alternatives", &self.alternatives);
@@ -644,7 +644,7 @@ impl std::fmt::Debug for crate::model::StreamingRecognitionResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamingRecognizeResponse {
+impl std::fmt::Debug for super::StreamingRecognizeResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingRecognizeResponse");
         debug_struct.field("results", &self.results);
@@ -658,7 +658,7 @@ impl std::fmt::Debug for crate::model::StreamingRecognizeResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Config {
+impl std::fmt::Debug for super::Config {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Config");
         debug_struct.field("name", &self.name);
@@ -671,7 +671,7 @@ impl std::fmt::Debug for crate::model::Config {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetConfigRequest {
+impl std::fmt::Debug for super::GetConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConfigRequest");
         debug_struct.field("name", &self.name);
@@ -682,7 +682,7 @@ impl std::fmt::Debug for crate::model::GetConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateConfigRequest {
+impl std::fmt::Debug for super::UpdateConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateConfigRequest");
         debug_struct.field("config", &self.config);
@@ -694,7 +694,7 @@ impl std::fmt::Debug for crate::model::UpdateConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CustomClass {
+impl std::fmt::Debug for super::CustomClass {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomClass");
         debug_struct.field("name", &self.name);
@@ -718,7 +718,7 @@ impl std::fmt::Debug for crate::model::CustomClass {
     }
 }
 
-impl std::fmt::Debug for crate::model::custom_class::ClassItem {
+impl std::fmt::Debug for super::custom_class::ClassItem {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClassItem");
         debug_struct.field("value", &self.value);
@@ -729,7 +729,7 @@ impl std::fmt::Debug for crate::model::custom_class::ClassItem {
     }
 }
 
-impl std::fmt::Debug for crate::model::PhraseSet {
+impl std::fmt::Debug for super::PhraseSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PhraseSet");
         debug_struct.field("name", &self.name);
@@ -754,7 +754,7 @@ impl std::fmt::Debug for crate::model::PhraseSet {
     }
 }
 
-impl std::fmt::Debug for crate::model::phrase_set::Phrase {
+impl std::fmt::Debug for super::phrase_set::Phrase {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Phrase");
         debug_struct.field("value", &self.value);
@@ -766,7 +766,7 @@ impl std::fmt::Debug for crate::model::phrase_set::Phrase {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateCustomClassRequest {
+impl std::fmt::Debug for super::CreateCustomClassRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateCustomClassRequest");
         debug_struct.field("custom_class", &self.custom_class);
@@ -780,7 +780,7 @@ impl std::fmt::Debug for crate::model::CreateCustomClassRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCustomClassesRequest {
+impl std::fmt::Debug for super::ListCustomClassesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCustomClassesRequest");
         debug_struct.field("parent", &self.parent);
@@ -794,7 +794,7 @@ impl std::fmt::Debug for crate::model::ListCustomClassesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCustomClassesResponse {
+impl std::fmt::Debug for super::ListCustomClassesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCustomClassesResponse");
         debug_struct.field("custom_classes", &self.custom_classes);
@@ -806,7 +806,7 @@ impl std::fmt::Debug for crate::model::ListCustomClassesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetCustomClassRequest {
+impl std::fmt::Debug for super::GetCustomClassRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCustomClassRequest");
         debug_struct.field("name", &self.name);
@@ -817,7 +817,7 @@ impl std::fmt::Debug for crate::model::GetCustomClassRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateCustomClassRequest {
+impl std::fmt::Debug for super::UpdateCustomClassRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCustomClassRequest");
         debug_struct.field("custom_class", &self.custom_class);
@@ -830,7 +830,7 @@ impl std::fmt::Debug for crate::model::UpdateCustomClassRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteCustomClassRequest {
+impl std::fmt::Debug for super::DeleteCustomClassRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteCustomClassRequest");
         debug_struct.field("name", &self.name);
@@ -844,7 +844,7 @@ impl std::fmt::Debug for crate::model::DeleteCustomClassRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UndeleteCustomClassRequest {
+impl std::fmt::Debug for super::UndeleteCustomClassRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeleteCustomClassRequest");
         debug_struct.field("name", &self.name);
@@ -857,7 +857,7 @@ impl std::fmt::Debug for crate::model::UndeleteCustomClassRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreatePhraseSetRequest {
+impl std::fmt::Debug for super::CreatePhraseSetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreatePhraseSetRequest");
         debug_struct.field("phrase_set", &self.phrase_set);
@@ -871,7 +871,7 @@ impl std::fmt::Debug for crate::model::CreatePhraseSetRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPhraseSetsRequest {
+impl std::fmt::Debug for super::ListPhraseSetsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPhraseSetsRequest");
         debug_struct.field("parent", &self.parent);
@@ -885,7 +885,7 @@ impl std::fmt::Debug for crate::model::ListPhraseSetsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPhraseSetsResponse {
+impl std::fmt::Debug for super::ListPhraseSetsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPhraseSetsResponse");
         debug_struct.field("phrase_sets", &self.phrase_sets);
@@ -897,7 +897,7 @@ impl std::fmt::Debug for crate::model::ListPhraseSetsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPhraseSetRequest {
+impl std::fmt::Debug for super::GetPhraseSetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPhraseSetRequest");
         debug_struct.field("name", &self.name);
@@ -908,7 +908,7 @@ impl std::fmt::Debug for crate::model::GetPhraseSetRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdatePhraseSetRequest {
+impl std::fmt::Debug for super::UpdatePhraseSetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdatePhraseSetRequest");
         debug_struct.field("phrase_set", &self.phrase_set);
@@ -921,7 +921,7 @@ impl std::fmt::Debug for crate::model::UpdatePhraseSetRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeletePhraseSetRequest {
+impl std::fmt::Debug for super::DeletePhraseSetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeletePhraseSetRequest");
         debug_struct.field("name", &self.name);
@@ -935,7 +935,7 @@ impl std::fmt::Debug for crate::model::DeletePhraseSetRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UndeletePhraseSetRequest {
+impl std::fmt::Debug for super::UndeletePhraseSetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeletePhraseSetRequest");
         debug_struct.field("name", &self.name);
@@ -948,7 +948,7 @@ impl std::fmt::Debug for crate::model::UndeletePhraseSetRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ModelFeature {
+impl std::fmt::Debug for super::ModelFeature {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModelFeature");
         debug_struct.field("feature", &self.feature);
@@ -960,7 +960,7 @@ impl std::fmt::Debug for crate::model::ModelFeature {
     }
 }
 
-impl std::fmt::Debug for crate::model::ModelFeatures {
+impl std::fmt::Debug for super::ModelFeatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModelFeatures");
         debug_struct.field("model_feature", &self.model_feature);
@@ -971,7 +971,7 @@ impl std::fmt::Debug for crate::model::ModelFeatures {
     }
 }
 
-impl std::fmt::Debug for crate::model::ModelMetadata {
+impl std::fmt::Debug for super::ModelMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModelMetadata");
         debug_struct.field("model_features", &self.model_features);
@@ -982,7 +982,7 @@ impl std::fmt::Debug for crate::model::ModelMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::LanguageMetadata {
+impl std::fmt::Debug for super::LanguageMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LanguageMetadata");
         debug_struct.field("models", &self.models);
@@ -993,7 +993,7 @@ impl std::fmt::Debug for crate::model::LanguageMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessMetadata {
+impl std::fmt::Debug for super::AccessMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessMetadata");
         debug_struct.field("constraint_type", &self.constraint_type);
@@ -1004,7 +1004,7 @@ impl std::fmt::Debug for crate::model::AccessMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::LocationsMetadata {
+impl std::fmt::Debug for super::LocationsMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LocationsMetadata");
         debug_struct.field("languages", &self.languages);

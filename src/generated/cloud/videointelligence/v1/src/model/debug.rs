@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::AnnotateVideoRequest {
+impl std::fmt::Debug for super::AnnotateVideoRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotateVideoRequest");
         debug_struct.field("input_uri", &self.input_uri);
@@ -33,7 +33,7 @@ impl std::fmt::Debug for crate::model::AnnotateVideoRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::VideoContext {
+impl std::fmt::Debug for super::VideoContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VideoContext");
         debug_struct.field("segments", &self.segments);
@@ -61,7 +61,7 @@ impl std::fmt::Debug for crate::model::VideoContext {
     }
 }
 
-impl std::fmt::Debug for crate::model::LabelDetectionConfig {
+impl std::fmt::Debug for super::LabelDetectionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LabelDetectionConfig");
         debug_struct.field("label_detection_mode", &self.label_detection_mode);
@@ -82,7 +82,7 @@ impl std::fmt::Debug for crate::model::LabelDetectionConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::ShotChangeDetectionConfig {
+impl std::fmt::Debug for super::ShotChangeDetectionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShotChangeDetectionConfig");
         debug_struct.field("model", &self.model);
@@ -93,7 +93,7 @@ impl std::fmt::Debug for crate::model::ShotChangeDetectionConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::ObjectTrackingConfig {
+impl std::fmt::Debug for super::ObjectTrackingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ObjectTrackingConfig");
         debug_struct.field("model", &self.model);
@@ -104,7 +104,7 @@ impl std::fmt::Debug for crate::model::ObjectTrackingConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::FaceDetectionConfig {
+impl std::fmt::Debug for super::FaceDetectionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FaceDetectionConfig");
         debug_struct.field("model", &self.model);
@@ -117,7 +117,7 @@ impl std::fmt::Debug for crate::model::FaceDetectionConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::PersonDetectionConfig {
+impl std::fmt::Debug for super::PersonDetectionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PersonDetectionConfig");
         debug_struct.field("include_bounding_boxes", &self.include_bounding_boxes);
@@ -130,7 +130,7 @@ impl std::fmt::Debug for crate::model::PersonDetectionConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExplicitContentDetectionConfig {
+impl std::fmt::Debug for super::ExplicitContentDetectionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExplicitContentDetectionConfig");
         debug_struct.field("model", &self.model);
@@ -141,7 +141,7 @@ impl std::fmt::Debug for crate::model::ExplicitContentDetectionConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::TextDetectionConfig {
+impl std::fmt::Debug for super::TextDetectionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextDetectionConfig");
         debug_struct.field("language_hints", &self.language_hints);
@@ -153,7 +153,7 @@ impl std::fmt::Debug for crate::model::TextDetectionConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::VideoSegment {
+impl std::fmt::Debug for super::VideoSegment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VideoSegment");
         debug_struct.field("start_time_offset", &self.start_time_offset);
@@ -165,7 +165,7 @@ impl std::fmt::Debug for crate::model::VideoSegment {
     }
 }
 
-impl std::fmt::Debug for crate::model::LabelSegment {
+impl std::fmt::Debug for super::LabelSegment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LabelSegment");
         debug_struct.field("segment", &self.segment);
@@ -177,7 +177,7 @@ impl std::fmt::Debug for crate::model::LabelSegment {
     }
 }
 
-impl std::fmt::Debug for crate::model::LabelFrame {
+impl std::fmt::Debug for super::LabelFrame {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LabelFrame");
         debug_struct.field("time_offset", &self.time_offset);
@@ -189,7 +189,7 @@ impl std::fmt::Debug for crate::model::LabelFrame {
     }
 }
 
-impl std::fmt::Debug for crate::model::Entity {
+impl std::fmt::Debug for super::Entity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Entity");
         debug_struct.field("entity_id", &self.entity_id);
@@ -202,7 +202,7 @@ impl std::fmt::Debug for crate::model::Entity {
     }
 }
 
-impl std::fmt::Debug for crate::model::LabelAnnotation {
+impl std::fmt::Debug for super::LabelAnnotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LabelAnnotation");
         debug_struct.field("entity", &self.entity);
@@ -217,7 +217,7 @@ impl std::fmt::Debug for crate::model::LabelAnnotation {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExplicitContentFrame {
+impl std::fmt::Debug for super::ExplicitContentFrame {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExplicitContentFrame");
         debug_struct.field("time_offset", &self.time_offset);
@@ -229,7 +229,7 @@ impl std::fmt::Debug for crate::model::ExplicitContentFrame {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExplicitContentAnnotation {
+impl std::fmt::Debug for super::ExplicitContentAnnotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExplicitContentAnnotation");
         debug_struct.field("frames", &self.frames);
@@ -241,7 +241,7 @@ impl std::fmt::Debug for crate::model::ExplicitContentAnnotation {
     }
 }
 
-impl std::fmt::Debug for crate::model::NormalizedBoundingBox {
+impl std::fmt::Debug for super::NormalizedBoundingBox {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NormalizedBoundingBox");
         debug_struct.field("left", &self.left);
@@ -255,7 +255,7 @@ impl std::fmt::Debug for crate::model::NormalizedBoundingBox {
     }
 }
 
-impl std::fmt::Debug for crate::model::FaceDetectionAnnotation {
+impl std::fmt::Debug for super::FaceDetectionAnnotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FaceDetectionAnnotation");
         debug_struct.field("tracks", &self.tracks);
@@ -268,7 +268,7 @@ impl std::fmt::Debug for crate::model::FaceDetectionAnnotation {
     }
 }
 
-impl std::fmt::Debug for crate::model::PersonDetectionAnnotation {
+impl std::fmt::Debug for super::PersonDetectionAnnotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PersonDetectionAnnotation");
         debug_struct.field("tracks", &self.tracks);
@@ -280,7 +280,7 @@ impl std::fmt::Debug for crate::model::PersonDetectionAnnotation {
     }
 }
 
-impl std::fmt::Debug for crate::model::FaceSegment {
+impl std::fmt::Debug for super::FaceSegment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FaceSegment");
         debug_struct.field("segment", &self.segment);
@@ -291,7 +291,7 @@ impl std::fmt::Debug for crate::model::FaceSegment {
     }
 }
 
-impl std::fmt::Debug for crate::model::FaceFrame {
+impl std::fmt::Debug for super::FaceFrame {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FaceFrame");
         debug_struct.field("normalized_bounding_boxes", &self.normalized_bounding_boxes);
@@ -303,7 +303,7 @@ impl std::fmt::Debug for crate::model::FaceFrame {
     }
 }
 
-impl std::fmt::Debug for crate::model::FaceAnnotation {
+impl std::fmt::Debug for super::FaceAnnotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FaceAnnotation");
         debug_struct.field("thumbnail", &self.thumbnail);
@@ -316,7 +316,7 @@ impl std::fmt::Debug for crate::model::FaceAnnotation {
     }
 }
 
-impl std::fmt::Debug for crate::model::TimestampedObject {
+impl std::fmt::Debug for super::TimestampedObject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TimestampedObject");
         debug_struct.field("normalized_bounding_box", &self.normalized_bounding_box);
@@ -330,7 +330,7 @@ impl std::fmt::Debug for crate::model::TimestampedObject {
     }
 }
 
-impl std::fmt::Debug for crate::model::Track {
+impl std::fmt::Debug for super::Track {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Track");
         debug_struct.field("segment", &self.segment);
@@ -344,7 +344,7 @@ impl std::fmt::Debug for crate::model::Track {
     }
 }
 
-impl std::fmt::Debug for crate::model::DetectedAttribute {
+impl std::fmt::Debug for super::DetectedAttribute {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DetectedAttribute");
         debug_struct.field("name", &self.name);
@@ -357,7 +357,7 @@ impl std::fmt::Debug for crate::model::DetectedAttribute {
     }
 }
 
-impl std::fmt::Debug for crate::model::DetectedLandmark {
+impl std::fmt::Debug for super::DetectedLandmark {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DetectedLandmark");
         debug_struct.field("name", &self.name);
@@ -370,7 +370,7 @@ impl std::fmt::Debug for crate::model::DetectedLandmark {
     }
 }
 
-impl std::fmt::Debug for crate::model::VideoAnnotationResults {
+impl std::fmt::Debug for super::VideoAnnotationResults {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VideoAnnotationResults");
         debug_struct.field("input_uri", &self.input_uri);
@@ -412,7 +412,7 @@ impl std::fmt::Debug for crate::model::VideoAnnotationResults {
     }
 }
 
-impl std::fmt::Debug for crate::model::AnnotateVideoResponse {
+impl std::fmt::Debug for super::AnnotateVideoResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotateVideoResponse");
         debug_struct.field("annotation_results", &self.annotation_results);
@@ -423,7 +423,7 @@ impl std::fmt::Debug for crate::model::AnnotateVideoResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::VideoAnnotationProgress {
+impl std::fmt::Debug for super::VideoAnnotationProgress {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VideoAnnotationProgress");
         debug_struct.field("input_uri", &self.input_uri);
@@ -439,7 +439,7 @@ impl std::fmt::Debug for crate::model::VideoAnnotationProgress {
     }
 }
 
-impl std::fmt::Debug for crate::model::AnnotateVideoProgress {
+impl std::fmt::Debug for super::AnnotateVideoProgress {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotateVideoProgress");
         debug_struct.field("annotation_progress", &self.annotation_progress);
@@ -450,7 +450,7 @@ impl std::fmt::Debug for crate::model::AnnotateVideoProgress {
     }
 }
 
-impl std::fmt::Debug for crate::model::SpeechTranscriptionConfig {
+impl std::fmt::Debug for super::SpeechTranscriptionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechTranscriptionConfig");
         debug_struct.field("language_code", &self.language_code);
@@ -475,7 +475,7 @@ impl std::fmt::Debug for crate::model::SpeechTranscriptionConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::SpeechContext {
+impl std::fmt::Debug for super::SpeechContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechContext");
         debug_struct.field("phrases", &self.phrases);
@@ -486,7 +486,7 @@ impl std::fmt::Debug for crate::model::SpeechContext {
     }
 }
 
-impl std::fmt::Debug for crate::model::SpeechTranscription {
+impl std::fmt::Debug for super::SpeechTranscription {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechTranscription");
         debug_struct.field("alternatives", &self.alternatives);
@@ -498,7 +498,7 @@ impl std::fmt::Debug for crate::model::SpeechTranscription {
     }
 }
 
-impl std::fmt::Debug for crate::model::SpeechRecognitionAlternative {
+impl std::fmt::Debug for super::SpeechRecognitionAlternative {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechRecognitionAlternative");
         debug_struct.field("transcript", &self.transcript);
@@ -511,7 +511,7 @@ impl std::fmt::Debug for crate::model::SpeechRecognitionAlternative {
     }
 }
 
-impl std::fmt::Debug for crate::model::WordInfo {
+impl std::fmt::Debug for super::WordInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WordInfo");
         debug_struct.field("start_time", &self.start_time);
@@ -526,7 +526,7 @@ impl std::fmt::Debug for crate::model::WordInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::NormalizedVertex {
+impl std::fmt::Debug for super::NormalizedVertex {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NormalizedVertex");
         debug_struct.field("x", &self.x);
@@ -538,7 +538,7 @@ impl std::fmt::Debug for crate::model::NormalizedVertex {
     }
 }
 
-impl std::fmt::Debug for crate::model::NormalizedBoundingPoly {
+impl std::fmt::Debug for super::NormalizedBoundingPoly {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NormalizedBoundingPoly");
         debug_struct.field("vertices", &self.vertices);
@@ -549,7 +549,7 @@ impl std::fmt::Debug for crate::model::NormalizedBoundingPoly {
     }
 }
 
-impl std::fmt::Debug for crate::model::TextSegment {
+impl std::fmt::Debug for super::TextSegment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextSegment");
         debug_struct.field("segment", &self.segment);
@@ -562,7 +562,7 @@ impl std::fmt::Debug for crate::model::TextSegment {
     }
 }
 
-impl std::fmt::Debug for crate::model::TextFrame {
+impl std::fmt::Debug for super::TextFrame {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextFrame");
         debug_struct.field("rotated_bounding_box", &self.rotated_bounding_box);
@@ -574,7 +574,7 @@ impl std::fmt::Debug for crate::model::TextFrame {
     }
 }
 
-impl std::fmt::Debug for crate::model::TextAnnotation {
+impl std::fmt::Debug for super::TextAnnotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextAnnotation");
         debug_struct.field("text", &self.text);
@@ -587,7 +587,7 @@ impl std::fmt::Debug for crate::model::TextAnnotation {
     }
 }
 
-impl std::fmt::Debug for crate::model::ObjectTrackingFrame {
+impl std::fmt::Debug for super::ObjectTrackingFrame {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ObjectTrackingFrame");
         debug_struct.field("normalized_bounding_box", &self.normalized_bounding_box);
@@ -599,7 +599,7 @@ impl std::fmt::Debug for crate::model::ObjectTrackingFrame {
     }
 }
 
-impl std::fmt::Debug for crate::model::ObjectTrackingAnnotation {
+impl std::fmt::Debug for super::ObjectTrackingAnnotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ObjectTrackingAnnotation");
         debug_struct.field("entity", &self.entity);
@@ -614,7 +614,7 @@ impl std::fmt::Debug for crate::model::ObjectTrackingAnnotation {
     }
 }
 
-impl std::fmt::Debug for crate::model::LogoRecognitionAnnotation {
+impl std::fmt::Debug for super::LogoRecognitionAnnotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LogoRecognitionAnnotation");
         debug_struct.field("entity", &self.entity);

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Color {
+impl serde::ser::Serialize for super::Color {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -87,7 +87,7 @@ impl serde::ser::Serialize for crate::model::Color {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Date {
+impl serde::ser::Serialize for super::Date {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -142,7 +142,7 @@ impl serde::ser::Serialize for crate::model::Date {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DateTime {
+impl serde::ser::Serialize for super::DateTime {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -251,7 +251,7 @@ impl serde::ser::Serialize for crate::model::DateTime {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TimeZone {
+impl serde::ser::Serialize for super::TimeZone {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -276,7 +276,7 @@ impl serde::ser::Serialize for crate::model::TimeZone {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Decimal {
+impl serde::ser::Serialize for super::Decimal {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -298,7 +298,7 @@ impl serde::ser::Serialize for crate::model::Decimal {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Expr {
+impl serde::ser::Serialize for super::Expr {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -329,7 +329,7 @@ impl serde::ser::Serialize for crate::model::Expr {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Fraction {
+impl serde::ser::Serialize for super::Fraction {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -372,7 +372,7 @@ impl serde::ser::Serialize for crate::model::Fraction {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Interval {
+impl serde::ser::Serialize for super::Interval {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -397,7 +397,7 @@ impl serde::ser::Serialize for crate::model::Interval {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LatLng {
+impl serde::ser::Serialize for super::LatLng {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -440,7 +440,7 @@ impl serde::ser::Serialize for crate::model::LatLng {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LocalizedText {
+impl serde::ser::Serialize for super::LocalizedText {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -465,7 +465,7 @@ impl serde::ser::Serialize for crate::model::LocalizedText {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Money {
+impl serde::ser::Serialize for super::Money {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -511,7 +511,7 @@ impl serde::ser::Serialize for crate::model::Money {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PhoneNumber {
+impl serde::ser::Serialize for super::PhoneNumber {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -539,7 +539,7 @@ impl serde::ser::Serialize for crate::model::PhoneNumber {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::phone_number::ShortCode {
+impl serde::ser::Serialize for super::phone_number::ShortCode {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -564,7 +564,7 @@ impl serde::ser::Serialize for crate::model::phone_number::ShortCode {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PostalAddress {
+impl serde::ser::Serialize for super::PostalAddress {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -625,7 +625,7 @@ impl serde::ser::Serialize for crate::model::PostalAddress {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Quaternion {
+impl serde::ser::Serialize for super::Quaternion {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -692,7 +692,7 @@ impl serde::ser::Serialize for crate::model::Quaternion {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TimeOfDay {
+impl serde::ser::Serialize for super::TimeOfDay {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

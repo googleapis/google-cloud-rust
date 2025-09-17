@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ListConnectionsRequest {
+impl std::fmt::Debug for super::ListConnectionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConnectionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::ListConnectionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListConnectionsResponse {
+impl std::fmt::Debug for super::ListConnectionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConnectionsResponse");
         debug_struct.field("connections", &self.connections);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::ListConnectionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Connection {
+impl std::fmt::Debug for super::Connection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Connection");
         debug_struct.field("endpoint", &self.endpoint);
@@ -55,7 +55,7 @@ impl std::fmt::Debug for crate::model::Connection {
     }
 }
 
-impl std::fmt::Debug for crate::model::Cluster {
+impl std::fmt::Debug for super::Cluster {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Cluster");
         debug_struct.field("name", &self.name);
@@ -67,7 +67,7 @@ impl std::fmt::Debug for crate::model::Cluster {
     }
 }
 
-impl std::fmt::Debug for crate::model::EgressRequest {
+impl std::fmt::Debug for super::EgressRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EgressRequest");
         debug_struct.field("id", &self.id);
@@ -83,7 +83,7 @@ impl std::fmt::Debug for crate::model::EgressRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Payload {
+impl std::fmt::Debug for super::Payload {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Payload");
         debug_struct.field("kind", &self.kind);
@@ -94,7 +94,7 @@ impl std::fmt::Debug for crate::model::Payload {
     }
 }
 
-impl std::fmt::Debug for crate::model::StreamInfo {
+impl std::fmt::Debug for super::StreamInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamInfo");
         debug_struct.field("id", &self.id);
@@ -105,7 +105,7 @@ impl std::fmt::Debug for crate::model::StreamInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::EgressResponse {
+impl std::fmt::Debug for super::EgressResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EgressResponse");
         debug_struct.field("id", &self.id);
@@ -122,7 +122,7 @@ impl std::fmt::Debug for crate::model::EgressResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::HttpRequest {
+impl std::fmt::Debug for super::HttpRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HttpRequest");
         debug_struct.field("id", &self.id);
@@ -137,7 +137,7 @@ impl std::fmt::Debug for crate::model::HttpRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Url {
+impl std::fmt::Debug for super::Url {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Url");
         debug_struct.field("scheme", &self.scheme);
@@ -150,7 +150,7 @@ impl std::fmt::Debug for crate::model::Url {
     }
 }
 
-impl std::fmt::Debug for crate::model::Header {
+impl std::fmt::Debug for super::Header {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Header");
         debug_struct.field("key", &self.key);
@@ -162,7 +162,7 @@ impl std::fmt::Debug for crate::model::Header {
     }
 }
 
-impl std::fmt::Debug for crate::model::HttpResponse {
+impl std::fmt::Debug for super::HttpResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HttpResponse");
         debug_struct.field("id", &self.id);

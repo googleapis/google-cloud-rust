@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Challenge {
+impl serde::ser::Serialize for super::Challenge {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -52,7 +52,7 @@ impl serde::ser::Serialize for crate::model::Challenge {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateChallengeRequest {
+impl serde::ser::Serialize for super::CreateChallengeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -77,7 +77,7 @@ impl serde::ser::Serialize for crate::model::CreateChallengeRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VerifyAttestationRequest {
+impl serde::ser::Serialize for super::VerifyAttestationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -120,7 +120,7 @@ impl serde::ser::Serialize for crate::model::VerifyAttestationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TdxCcelAttestation {
+impl serde::ser::Serialize for super::TdxCcelAttestation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -187,7 +187,7 @@ impl serde::ser::Serialize for crate::model::TdxCcelAttestation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SevSnpAttestation {
+impl serde::ser::Serialize for super::SevSnpAttestation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -230,7 +230,7 @@ impl serde::ser::Serialize for crate::model::SevSnpAttestation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VerifyAttestationResponse {
+impl serde::ser::Serialize for super::VerifyAttestationResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -255,7 +255,7 @@ impl serde::ser::Serialize for crate::model::VerifyAttestationResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GcpCredentials {
+impl serde::ser::Serialize for super::GcpCredentials {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -277,7 +277,7 @@ impl serde::ser::Serialize for crate::model::GcpCredentials {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TokenOptions {
+impl serde::ser::Serialize for super::TokenOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -308,7 +308,7 @@ impl serde::ser::Serialize for crate::model::TokenOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AwsPrincipalTagsOptions {
+impl serde::ser::Serialize for super::AwsPrincipalTagsOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -330,7 +330,7 @@ impl serde::ser::Serialize for crate::model::AwsPrincipalTagsOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::aws_principal_tags_options::AllowedPrincipalTags {
+impl serde::ser::Serialize for super::aws_principal_tags_options::AllowedPrincipalTags {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -353,7 +353,7 @@ impl serde::ser::Serialize for crate::model::aws_principal_tags_options::Allowed
 
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures
+    for super::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -376,7 +376,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TpmAttestation {
+impl serde::ser::Serialize for super::TpmAttestation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -448,7 +448,7 @@ impl serde::ser::Serialize for crate::model::TpmAttestation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::tpm_attestation::Quote {
+impl serde::ser::Serialize for super::tpm_attestation::Quote {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -517,7 +517,7 @@ impl serde::ser::Serialize for crate::model::tpm_attestation::Quote {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ConfidentialSpaceInfo {
+impl serde::ser::Serialize for super::ConfidentialSpaceInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -539,7 +539,7 @@ impl serde::ser::Serialize for crate::model::ConfidentialSpaceInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SignedEntity {
+impl serde::ser::Serialize for super::SignedEntity {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -561,7 +561,7 @@ impl serde::ser::Serialize for crate::model::SignedEntity {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ContainerImageSignature {
+impl serde::ser::Serialize for super::ContainerImageSignature {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -619,7 +619,7 @@ impl serde::ser::Serialize for crate::model::ContainerImageSignature {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VerifyConfidentialSpaceRequest {
+impl serde::ser::Serialize for super::VerifyConfidentialSpaceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -659,9 +659,7 @@ impl serde::ser::Serialize for crate::model::VerifyConfidentialSpaceRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::verify_confidential_space_request::ConfidentialSpaceOptions
-{
+impl serde::ser::Serialize for super::verify_confidential_space_request::ConfidentialSpaceOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -695,7 +693,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GceShieldedIdentity {
+impl serde::ser::Serialize for super::GceShieldedIdentity {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -740,7 +738,7 @@ impl serde::ser::Serialize for crate::model::GceShieldedIdentity {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VerifyConfidentialSpaceResponse {
+impl serde::ser::Serialize for super::VerifyConfidentialSpaceResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -765,7 +763,7 @@ impl serde::ser::Serialize for crate::model::VerifyConfidentialSpaceResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VerifyConfidentialGkeRequest {
+impl serde::ser::Serialize for super::VerifyConfidentialGkeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -790,7 +788,7 @@ impl serde::ser::Serialize for crate::model::VerifyConfidentialGkeRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VerifyConfidentialGkeResponse {
+impl serde::ser::Serialize for super::VerifyConfidentialGkeResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

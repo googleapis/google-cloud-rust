@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateConnectionRequest {
+impl serde::ser::Serialize for super::CreateConnectionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -46,7 +46,7 @@ impl serde::ser::Serialize for crate::model::CreateConnectionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetConnectionRequest {
+impl serde::ser::Serialize for super::GetConnectionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -68,7 +68,7 @@ impl serde::ser::Serialize for crate::model::GetConnectionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListConnectionsRequest {
+impl serde::ser::Serialize for super::ListConnectionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -105,7 +105,7 @@ impl serde::ser::Serialize for crate::model::ListConnectionsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListConnectionsResponse {
+impl serde::ser::Serialize for super::ListConnectionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -130,7 +130,7 @@ impl serde::ser::Serialize for crate::model::ListConnectionsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateConnectionRequest {
+impl serde::ser::Serialize for super::UpdateConnectionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -158,7 +158,7 @@ impl serde::ser::Serialize for crate::model::UpdateConnectionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteConnectionRequest {
+impl serde::ser::Serialize for super::DeleteConnectionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -180,7 +180,7 @@ impl serde::ser::Serialize for crate::model::DeleteConnectionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Connection {
+impl serde::ser::Serialize for super::Connection {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -256,7 +256,7 @@ impl serde::ser::Serialize for crate::model::Connection {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CloudSqlProperties {
+impl serde::ser::Serialize for super::CloudSqlProperties {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -290,7 +290,7 @@ impl serde::ser::Serialize for crate::model::CloudSqlProperties {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CloudSqlCredential {
+impl serde::ser::Serialize for super::CloudSqlCredential {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -315,7 +315,7 @@ impl serde::ser::Serialize for crate::model::CloudSqlCredential {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CloudSpannerProperties {
+impl serde::ser::Serialize for super::CloudSpannerProperties {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -361,7 +361,7 @@ impl serde::ser::Serialize for crate::model::CloudSpannerProperties {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AwsProperties {
+impl serde::ser::Serialize for super::AwsProperties {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -386,7 +386,7 @@ impl serde::ser::Serialize for crate::model::AwsProperties {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AwsCrossAccountRole {
+impl serde::ser::Serialize for super::AwsCrossAccountRole {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -414,7 +414,7 @@ impl serde::ser::Serialize for crate::model::AwsCrossAccountRole {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AwsAccessRole {
+impl serde::ser::Serialize for super::AwsAccessRole {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -439,7 +439,7 @@ impl serde::ser::Serialize for crate::model::AwsAccessRole {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AzureProperties {
+impl serde::ser::Serialize for super::AzureProperties {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -482,7 +482,7 @@ impl serde::ser::Serialize for crate::model::AzureProperties {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CloudResourceProperties {
+impl serde::ser::Serialize for super::CloudResourceProperties {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -504,7 +504,7 @@ impl serde::ser::Serialize for crate::model::CloudResourceProperties {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MetastoreServiceConfig {
+impl serde::ser::Serialize for super::MetastoreServiceConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -526,7 +526,7 @@ impl serde::ser::Serialize for crate::model::MetastoreServiceConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SparkHistoryServerConfig {
+impl serde::ser::Serialize for super::SparkHistoryServerConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -548,7 +548,7 @@ impl serde::ser::Serialize for crate::model::SparkHistoryServerConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SparkProperties {
+impl serde::ser::Serialize for super::SparkProperties {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -579,7 +579,7 @@ impl serde::ser::Serialize for crate::model::SparkProperties {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SalesforceDataCloudProperties {
+impl serde::ser::Serialize for super::SalesforceDataCloudProperties {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

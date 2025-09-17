@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SheetsAddOnManifest {
+impl serde::ser::Serialize for super::SheetsAddOnManifest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -46,7 +46,7 @@ impl serde::ser::Serialize for crate::model::SheetsAddOnManifest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SheetsExtensionPoint {
+impl serde::ser::Serialize for super::SheetsExtensionPoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

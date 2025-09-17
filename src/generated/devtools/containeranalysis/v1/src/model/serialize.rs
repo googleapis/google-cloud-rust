@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportSBOMRequest {
+impl serde::ser::Serialize for super::ExportSBOMRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -43,7 +43,7 @@ impl serde::ser::Serialize for crate::model::ExportSBOMRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::export_sbom_request::CloudStorageLocation {
+impl serde::ser::Serialize for super::export_sbom_request::CloudStorageLocation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -62,7 +62,7 @@ impl serde::ser::Serialize for crate::model::export_sbom_request::CloudStorageLo
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExportSBOMResponse {
+impl serde::ser::Serialize for super::ExportSBOMResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -84,7 +84,7 @@ impl serde::ser::Serialize for crate::model::ExportSBOMResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetVulnerabilityOccurrencesSummaryRequest {
+impl serde::ser::Serialize for super::GetVulnerabilityOccurrencesSummaryRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -109,7 +109,7 @@ impl serde::ser::Serialize for crate::model::GetVulnerabilityOccurrencesSummaryR
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VulnerabilityOccurrencesSummary {
+impl serde::ser::Serialize for super::VulnerabilityOccurrencesSummary {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -131,9 +131,7 @@ impl serde::ser::Serialize for crate::model::VulnerabilityOccurrencesSummary {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::vulnerability_occurrences_summary::FixableTotalByDigest
-{
+impl serde::ser::Serialize for super::vulnerability_occurrences_summary::FixableTotalByDigest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

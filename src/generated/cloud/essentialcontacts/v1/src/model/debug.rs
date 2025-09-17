@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Contact {
+impl std::fmt::Debug for super::Contact {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Contact");
         debug_struct.field("name", &self.name);
@@ -36,7 +36,7 @@ impl std::fmt::Debug for crate::model::Contact {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListContactsRequest {
+impl std::fmt::Debug for super::ListContactsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListContactsRequest");
         debug_struct.field("parent", &self.parent);
@@ -49,7 +49,7 @@ impl std::fmt::Debug for crate::model::ListContactsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListContactsResponse {
+impl std::fmt::Debug for super::ListContactsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListContactsResponse");
         debug_struct.field("contacts", &self.contacts);
@@ -61,7 +61,7 @@ impl std::fmt::Debug for crate::model::ListContactsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetContactRequest {
+impl std::fmt::Debug for super::GetContactRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetContactRequest");
         debug_struct.field("name", &self.name);
@@ -72,7 +72,7 @@ impl std::fmt::Debug for crate::model::GetContactRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteContactRequest {
+impl std::fmt::Debug for super::DeleteContactRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteContactRequest");
         debug_struct.field("name", &self.name);
@@ -83,7 +83,7 @@ impl std::fmt::Debug for crate::model::DeleteContactRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateContactRequest {
+impl std::fmt::Debug for super::CreateContactRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateContactRequest");
         debug_struct.field("parent", &self.parent);
@@ -95,7 +95,7 @@ impl std::fmt::Debug for crate::model::CreateContactRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateContactRequest {
+impl std::fmt::Debug for super::UpdateContactRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateContactRequest");
         debug_struct.field("contact", &self.contact);
@@ -107,7 +107,7 @@ impl std::fmt::Debug for crate::model::UpdateContactRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ComputeContactsRequest {
+impl std::fmt::Debug for super::ComputeContactsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ComputeContactsRequest");
         debug_struct.field("parent", &self.parent);
@@ -121,7 +121,7 @@ impl std::fmt::Debug for crate::model::ComputeContactsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ComputeContactsResponse {
+impl std::fmt::Debug for super::ComputeContactsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ComputeContactsResponse");
         debug_struct.field("contacts", &self.contacts);
@@ -133,7 +133,7 @@ impl std::fmt::Debug for crate::model::ComputeContactsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SendTestMessageRequest {
+impl std::fmt::Debug for super::SendTestMessageRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SendTestMessageRequest");
         debug_struct.field("contacts", &self.contacts);

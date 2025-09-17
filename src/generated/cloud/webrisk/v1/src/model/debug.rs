@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ComputeThreatListDiffRequest {
+impl std::fmt::Debug for super::ComputeThreatListDiffRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ComputeThreatListDiffRequest");
         debug_struct.field("threat_type", &self.threat_type);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::ComputeThreatListDiffRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::compute_threat_list_diff_request::Constraints {
+impl std::fmt::Debug for super::compute_threat_list_diff_request::Constraints {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Constraints");
         debug_struct.field("max_diff_entries", &self.max_diff_entries);
@@ -43,7 +43,7 @@ impl std::fmt::Debug for crate::model::compute_threat_list_diff_request::Constra
     }
 }
 
-impl std::fmt::Debug for crate::model::ComputeThreatListDiffResponse {
+impl std::fmt::Debug for super::ComputeThreatListDiffResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ComputeThreatListDiffResponse");
         debug_struct.field("response_type", &self.response_type);
@@ -59,7 +59,7 @@ impl std::fmt::Debug for crate::model::ComputeThreatListDiffResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::compute_threat_list_diff_response::Checksum {
+impl std::fmt::Debug for super::compute_threat_list_diff_response::Checksum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Checksum");
         debug_struct.field("sha256", &self.sha256);
@@ -70,7 +70,7 @@ impl std::fmt::Debug for crate::model::compute_threat_list_diff_response::Checks
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchUrisRequest {
+impl std::fmt::Debug for super::SearchUrisRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchUrisRequest");
         debug_struct.field("uri", &self.uri);
@@ -82,7 +82,7 @@ impl std::fmt::Debug for crate::model::SearchUrisRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchUrisResponse {
+impl std::fmt::Debug for super::SearchUrisResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchUrisResponse");
         debug_struct.field("threat", &self.threat);
@@ -93,7 +93,7 @@ impl std::fmt::Debug for crate::model::SearchUrisResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::search_uris_response::ThreatUri {
+impl std::fmt::Debug for super::search_uris_response::ThreatUri {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ThreatUri");
         debug_struct.field("threat_types", &self.threat_types);
@@ -105,7 +105,7 @@ impl std::fmt::Debug for crate::model::search_uris_response::ThreatUri {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchHashesRequest {
+impl std::fmt::Debug for super::SearchHashesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchHashesRequest");
         debug_struct.field("hash_prefix", &self.hash_prefix);
@@ -117,7 +117,7 @@ impl std::fmt::Debug for crate::model::SearchHashesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchHashesResponse {
+impl std::fmt::Debug for super::SearchHashesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchHashesResponse");
         debug_struct.field("threats", &self.threats);
@@ -129,7 +129,7 @@ impl std::fmt::Debug for crate::model::SearchHashesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::search_hashes_response::ThreatHash {
+impl std::fmt::Debug for super::search_hashes_response::ThreatHash {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ThreatHash");
         debug_struct.field("threat_types", &self.threat_types);
@@ -142,7 +142,7 @@ impl std::fmt::Debug for crate::model::search_hashes_response::ThreatHash {
     }
 }
 
-impl std::fmt::Debug for crate::model::ThreatEntryAdditions {
+impl std::fmt::Debug for super::ThreatEntryAdditions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ThreatEntryAdditions");
         debug_struct.field("raw_hashes", &self.raw_hashes);
@@ -154,7 +154,7 @@ impl std::fmt::Debug for crate::model::ThreatEntryAdditions {
     }
 }
 
-impl std::fmt::Debug for crate::model::ThreatEntryRemovals {
+impl std::fmt::Debug for super::ThreatEntryRemovals {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ThreatEntryRemovals");
         debug_struct.field("raw_indices", &self.raw_indices);
@@ -166,7 +166,7 @@ impl std::fmt::Debug for crate::model::ThreatEntryRemovals {
     }
 }
 
-impl std::fmt::Debug for crate::model::RawIndices {
+impl std::fmt::Debug for super::RawIndices {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RawIndices");
         debug_struct.field("indices", &self.indices);
@@ -177,7 +177,7 @@ impl std::fmt::Debug for crate::model::RawIndices {
     }
 }
 
-impl std::fmt::Debug for crate::model::RawHashes {
+impl std::fmt::Debug for super::RawHashes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RawHashes");
         debug_struct.field("prefix_size", &self.prefix_size);
@@ -189,7 +189,7 @@ impl std::fmt::Debug for crate::model::RawHashes {
     }
 }
 
-impl std::fmt::Debug for crate::model::RiceDeltaEncoding {
+impl std::fmt::Debug for super::RiceDeltaEncoding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RiceDeltaEncoding");
         debug_struct.field("first_value", &self.first_value);
@@ -203,7 +203,7 @@ impl std::fmt::Debug for crate::model::RiceDeltaEncoding {
     }
 }
 
-impl std::fmt::Debug for crate::model::Submission {
+impl std::fmt::Debug for super::Submission {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Submission");
         debug_struct.field("uri", &self.uri);
@@ -215,7 +215,7 @@ impl std::fmt::Debug for crate::model::Submission {
     }
 }
 
-impl std::fmt::Debug for crate::model::ThreatInfo {
+impl std::fmt::Debug for super::ThreatInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ThreatInfo");
         debug_struct.field("abuse_type", &self.abuse_type);
@@ -228,7 +228,7 @@ impl std::fmt::Debug for crate::model::ThreatInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::threat_info::Confidence {
+impl std::fmt::Debug for super::threat_info::Confidence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Confidence");
         debug_struct.field("value", &self.value);
@@ -239,7 +239,7 @@ impl std::fmt::Debug for crate::model::threat_info::Confidence {
     }
 }
 
-impl std::fmt::Debug for crate::model::threat_info::ThreatJustification {
+impl std::fmt::Debug for super::threat_info::ThreatJustification {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ThreatJustification");
         debug_struct.field("labels", &self.labels);
@@ -251,7 +251,7 @@ impl std::fmt::Debug for crate::model::threat_info::ThreatJustification {
     }
 }
 
-impl std::fmt::Debug for crate::model::ThreatDiscovery {
+impl std::fmt::Debug for super::ThreatDiscovery {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ThreatDiscovery");
         debug_struct.field("platform", &self.platform);
@@ -263,7 +263,7 @@ impl std::fmt::Debug for crate::model::ThreatDiscovery {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateSubmissionRequest {
+impl std::fmt::Debug for super::CreateSubmissionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateSubmissionRequest");
         debug_struct.field("parent", &self.parent);
@@ -275,7 +275,7 @@ impl std::fmt::Debug for crate::model::CreateSubmissionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SubmitUriRequest {
+impl std::fmt::Debug for super::SubmitUriRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SubmitUriRequest");
         debug_struct.field("parent", &self.parent);
@@ -289,7 +289,7 @@ impl std::fmt::Debug for crate::model::SubmitUriRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SubmitUriMetadata {
+impl std::fmt::Debug for super::SubmitUriMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SubmitUriMetadata");
         debug_struct.field("state", &self.state);

@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ListPrivateCloudsRequest {
+impl std::fmt::Debug for super::ListPrivateCloudsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPrivateCloudsRequest");
         debug_struct.field("parent", &self.parent);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::ListPrivateCloudsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPrivateCloudsResponse {
+impl std::fmt::Debug for super::ListPrivateCloudsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPrivateCloudsResponse");
         debug_struct.field("private_clouds", &self.private_clouds);
@@ -45,7 +45,7 @@ impl std::fmt::Debug for crate::model::ListPrivateCloudsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPrivateCloudRequest {
+impl std::fmt::Debug for super::GetPrivateCloudRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPrivateCloudRequest");
         debug_struct.field("name", &self.name);
@@ -56,7 +56,7 @@ impl std::fmt::Debug for crate::model::GetPrivateCloudRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreatePrivateCloudRequest {
+impl std::fmt::Debug for super::CreatePrivateCloudRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreatePrivateCloudRequest");
         debug_struct.field("parent", &self.parent);
@@ -71,7 +71,7 @@ impl std::fmt::Debug for crate::model::CreatePrivateCloudRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdatePrivateCloudRequest {
+impl std::fmt::Debug for super::UpdatePrivateCloudRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdatePrivateCloudRequest");
         debug_struct.field("private_cloud", &self.private_cloud);
@@ -84,7 +84,7 @@ impl std::fmt::Debug for crate::model::UpdatePrivateCloudRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeletePrivateCloudRequest {
+impl std::fmt::Debug for super::DeletePrivateCloudRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeletePrivateCloudRequest");
         debug_struct.field("name", &self.name);
@@ -98,7 +98,7 @@ impl std::fmt::Debug for crate::model::DeletePrivateCloudRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UndeletePrivateCloudRequest {
+impl std::fmt::Debug for super::UndeletePrivateCloudRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeletePrivateCloudRequest");
         debug_struct.field("name", &self.name);
@@ -110,7 +110,7 @@ impl std::fmt::Debug for crate::model::UndeletePrivateCloudRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListClustersRequest {
+impl std::fmt::Debug for super::ListClustersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListClustersRequest");
         debug_struct.field("parent", &self.parent);
@@ -125,7 +125,7 @@ impl std::fmt::Debug for crate::model::ListClustersRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListClustersResponse {
+impl std::fmt::Debug for super::ListClustersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListClustersResponse");
         debug_struct.field("clusters", &self.clusters);
@@ -138,7 +138,7 @@ impl std::fmt::Debug for crate::model::ListClustersResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetClusterRequest {
+impl std::fmt::Debug for super::GetClusterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetClusterRequest");
         debug_struct.field("name", &self.name);
@@ -149,7 +149,7 @@ impl std::fmt::Debug for crate::model::GetClusterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateClusterRequest {
+impl std::fmt::Debug for super::CreateClusterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateClusterRequest");
         debug_struct.field("parent", &self.parent);
@@ -164,7 +164,7 @@ impl std::fmt::Debug for crate::model::CreateClusterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateClusterRequest {
+impl std::fmt::Debug for super::UpdateClusterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateClusterRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -178,7 +178,7 @@ impl std::fmt::Debug for crate::model::UpdateClusterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteClusterRequest {
+impl std::fmt::Debug for super::DeleteClusterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteClusterRequest");
         debug_struct.field("name", &self.name);
@@ -190,7 +190,7 @@ impl std::fmt::Debug for crate::model::DeleteClusterRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNodesRequest {
+impl std::fmt::Debug for super::ListNodesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNodesRequest");
         debug_struct.field("parent", &self.parent);
@@ -203,7 +203,7 @@ impl std::fmt::Debug for crate::model::ListNodesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNodesResponse {
+impl std::fmt::Debug for super::ListNodesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNodesResponse");
         debug_struct.field("nodes", &self.nodes);
@@ -215,7 +215,7 @@ impl std::fmt::Debug for crate::model::ListNodesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetNodeRequest {
+impl std::fmt::Debug for super::GetNodeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetNodeRequest");
         debug_struct.field("name", &self.name);
@@ -226,7 +226,7 @@ impl std::fmt::Debug for crate::model::GetNodeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListExternalAddressesRequest {
+impl std::fmt::Debug for super::ListExternalAddressesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListExternalAddressesRequest");
         debug_struct.field("parent", &self.parent);
@@ -241,7 +241,7 @@ impl std::fmt::Debug for crate::model::ListExternalAddressesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListExternalAddressesResponse {
+impl std::fmt::Debug for super::ListExternalAddressesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListExternalAddressesResponse");
         debug_struct.field("external_addresses", &self.external_addresses);
@@ -254,7 +254,7 @@ impl std::fmt::Debug for crate::model::ListExternalAddressesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::FetchNetworkPolicyExternalAddressesRequest {
+impl std::fmt::Debug for super::FetchNetworkPolicyExternalAddressesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FetchNetworkPolicyExternalAddressesRequest");
         debug_struct.field("network_policy", &self.network_policy);
@@ -267,7 +267,7 @@ impl std::fmt::Debug for crate::model::FetchNetworkPolicyExternalAddressesReques
     }
 }
 
-impl std::fmt::Debug for crate::model::FetchNetworkPolicyExternalAddressesResponse {
+impl std::fmt::Debug for super::FetchNetworkPolicyExternalAddressesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FetchNetworkPolicyExternalAddressesResponse");
         debug_struct.field("external_addresses", &self.external_addresses);
@@ -279,7 +279,7 @@ impl std::fmt::Debug for crate::model::FetchNetworkPolicyExternalAddressesRespon
     }
 }
 
-impl std::fmt::Debug for crate::model::GetExternalAddressRequest {
+impl std::fmt::Debug for super::GetExternalAddressRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetExternalAddressRequest");
         debug_struct.field("name", &self.name);
@@ -290,7 +290,7 @@ impl std::fmt::Debug for crate::model::GetExternalAddressRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateExternalAddressRequest {
+impl std::fmt::Debug for super::CreateExternalAddressRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateExternalAddressRequest");
         debug_struct.field("parent", &self.parent);
@@ -304,7 +304,7 @@ impl std::fmt::Debug for crate::model::CreateExternalAddressRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateExternalAddressRequest {
+impl std::fmt::Debug for super::UpdateExternalAddressRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateExternalAddressRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -317,7 +317,7 @@ impl std::fmt::Debug for crate::model::UpdateExternalAddressRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteExternalAddressRequest {
+impl std::fmt::Debug for super::DeleteExternalAddressRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteExternalAddressRequest");
         debug_struct.field("name", &self.name);
@@ -329,7 +329,7 @@ impl std::fmt::Debug for crate::model::DeleteExternalAddressRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSubnetsRequest {
+impl std::fmt::Debug for super::ListSubnetsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSubnetsRequest");
         debug_struct.field("parent", &self.parent);
@@ -342,7 +342,7 @@ impl std::fmt::Debug for crate::model::ListSubnetsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSubnetsResponse {
+impl std::fmt::Debug for super::ListSubnetsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSubnetsResponse");
         debug_struct.field("subnets", &self.subnets);
@@ -355,7 +355,7 @@ impl std::fmt::Debug for crate::model::ListSubnetsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetSubnetRequest {
+impl std::fmt::Debug for super::GetSubnetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSubnetRequest");
         debug_struct.field("name", &self.name);
@@ -366,7 +366,7 @@ impl std::fmt::Debug for crate::model::GetSubnetRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateSubnetRequest {
+impl std::fmt::Debug for super::UpdateSubnetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSubnetRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -378,7 +378,7 @@ impl std::fmt::Debug for crate::model::UpdateSubnetRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListExternalAccessRulesRequest {
+impl std::fmt::Debug for super::ListExternalAccessRulesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListExternalAccessRulesRequest");
         debug_struct.field("parent", &self.parent);
@@ -393,7 +393,7 @@ impl std::fmt::Debug for crate::model::ListExternalAccessRulesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListExternalAccessRulesResponse {
+impl std::fmt::Debug for super::ListExternalAccessRulesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListExternalAccessRulesResponse");
         debug_struct.field("external_access_rules", &self.external_access_rules);
@@ -406,7 +406,7 @@ impl std::fmt::Debug for crate::model::ListExternalAccessRulesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetExternalAccessRuleRequest {
+impl std::fmt::Debug for super::GetExternalAccessRuleRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetExternalAccessRuleRequest");
         debug_struct.field("name", &self.name);
@@ -417,7 +417,7 @@ impl std::fmt::Debug for crate::model::GetExternalAccessRuleRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateExternalAccessRuleRequest {
+impl std::fmt::Debug for super::CreateExternalAccessRuleRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateExternalAccessRuleRequest");
         debug_struct.field("parent", &self.parent);
@@ -431,7 +431,7 @@ impl std::fmt::Debug for crate::model::CreateExternalAccessRuleRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateExternalAccessRuleRequest {
+impl std::fmt::Debug for super::UpdateExternalAccessRuleRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateExternalAccessRuleRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -444,7 +444,7 @@ impl std::fmt::Debug for crate::model::UpdateExternalAccessRuleRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteExternalAccessRuleRequest {
+impl std::fmt::Debug for super::DeleteExternalAccessRuleRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteExternalAccessRuleRequest");
         debug_struct.field("name", &self.name);
@@ -456,7 +456,7 @@ impl std::fmt::Debug for crate::model::DeleteExternalAccessRuleRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListLoggingServersRequest {
+impl std::fmt::Debug for super::ListLoggingServersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListLoggingServersRequest");
         debug_struct.field("parent", &self.parent);
@@ -471,7 +471,7 @@ impl std::fmt::Debug for crate::model::ListLoggingServersRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListLoggingServersResponse {
+impl std::fmt::Debug for super::ListLoggingServersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListLoggingServersResponse");
         debug_struct.field("logging_servers", &self.logging_servers);
@@ -484,7 +484,7 @@ impl std::fmt::Debug for crate::model::ListLoggingServersResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetLoggingServerRequest {
+impl std::fmt::Debug for super::GetLoggingServerRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetLoggingServerRequest");
         debug_struct.field("name", &self.name);
@@ -495,7 +495,7 @@ impl std::fmt::Debug for crate::model::GetLoggingServerRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateLoggingServerRequest {
+impl std::fmt::Debug for super::CreateLoggingServerRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateLoggingServerRequest");
         debug_struct.field("parent", &self.parent);
@@ -509,7 +509,7 @@ impl std::fmt::Debug for crate::model::CreateLoggingServerRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateLoggingServerRequest {
+impl std::fmt::Debug for super::UpdateLoggingServerRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateLoggingServerRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -522,7 +522,7 @@ impl std::fmt::Debug for crate::model::UpdateLoggingServerRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteLoggingServerRequest {
+impl std::fmt::Debug for super::DeleteLoggingServerRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteLoggingServerRequest");
         debug_struct.field("name", &self.name);
@@ -534,7 +534,7 @@ impl std::fmt::Debug for crate::model::DeleteLoggingServerRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("create_time", &self.create_time);
@@ -551,7 +551,7 @@ impl std::fmt::Debug for crate::model::OperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNodeTypesRequest {
+impl std::fmt::Debug for super::ListNodeTypesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNodeTypesRequest");
         debug_struct.field("parent", &self.parent);
@@ -565,7 +565,7 @@ impl std::fmt::Debug for crate::model::ListNodeTypesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNodeTypesResponse {
+impl std::fmt::Debug for super::ListNodeTypesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNodeTypesResponse");
         debug_struct.field("node_types", &self.node_types);
@@ -578,7 +578,7 @@ impl std::fmt::Debug for crate::model::ListNodeTypesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetNodeTypeRequest {
+impl std::fmt::Debug for super::GetNodeTypeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetNodeTypeRequest");
         debug_struct.field("name", &self.name);
@@ -589,7 +589,7 @@ impl std::fmt::Debug for crate::model::GetNodeTypeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ShowNsxCredentialsRequest {
+impl std::fmt::Debug for super::ShowNsxCredentialsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShowNsxCredentialsRequest");
         debug_struct.field("private_cloud", &self.private_cloud);
@@ -600,7 +600,7 @@ impl std::fmt::Debug for crate::model::ShowNsxCredentialsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ShowVcenterCredentialsRequest {
+impl std::fmt::Debug for super::ShowVcenterCredentialsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShowVcenterCredentialsRequest");
         debug_struct.field("private_cloud", &self.private_cloud);
@@ -612,7 +612,7 @@ impl std::fmt::Debug for crate::model::ShowVcenterCredentialsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResetNsxCredentialsRequest {
+impl std::fmt::Debug for super::ResetNsxCredentialsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResetNsxCredentialsRequest");
         debug_struct.field("private_cloud", &self.private_cloud);
@@ -624,7 +624,7 @@ impl std::fmt::Debug for crate::model::ResetNsxCredentialsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResetVcenterCredentialsRequest {
+impl std::fmt::Debug for super::ResetVcenterCredentialsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResetVcenterCredentialsRequest");
         debug_struct.field("private_cloud", &self.private_cloud);
@@ -637,7 +637,7 @@ impl std::fmt::Debug for crate::model::ResetVcenterCredentialsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListHcxActivationKeysResponse {
+impl std::fmt::Debug for super::ListHcxActivationKeysResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListHcxActivationKeysResponse");
         debug_struct.field("hcx_activation_keys", &self.hcx_activation_keys);
@@ -650,7 +650,7 @@ impl std::fmt::Debug for crate::model::ListHcxActivationKeysResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListHcxActivationKeysRequest {
+impl std::fmt::Debug for super::ListHcxActivationKeysRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListHcxActivationKeysRequest");
         debug_struct.field("parent", &self.parent);
@@ -663,7 +663,7 @@ impl std::fmt::Debug for crate::model::ListHcxActivationKeysRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetHcxActivationKeyRequest {
+impl std::fmt::Debug for super::GetHcxActivationKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetHcxActivationKeyRequest");
         debug_struct.field("name", &self.name);
@@ -674,7 +674,7 @@ impl std::fmt::Debug for crate::model::GetHcxActivationKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateHcxActivationKeyRequest {
+impl std::fmt::Debug for super::CreateHcxActivationKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateHcxActivationKeyRequest");
         debug_struct.field("parent", &self.parent);
@@ -688,7 +688,7 @@ impl std::fmt::Debug for crate::model::CreateHcxActivationKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetDnsForwardingRequest {
+impl std::fmt::Debug for super::GetDnsForwardingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDnsForwardingRequest");
         debug_struct.field("name", &self.name);
@@ -699,7 +699,7 @@ impl std::fmt::Debug for crate::model::GetDnsForwardingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateDnsForwardingRequest {
+impl std::fmt::Debug for super::UpdateDnsForwardingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateDnsForwardingRequest");
         debug_struct.field("dns_forwarding", &self.dns_forwarding);
@@ -712,7 +712,7 @@ impl std::fmt::Debug for crate::model::UpdateDnsForwardingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateNetworkPeeringRequest {
+impl std::fmt::Debug for super::CreateNetworkPeeringRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateNetworkPeeringRequest");
         debug_struct.field("parent", &self.parent);
@@ -726,7 +726,7 @@ impl std::fmt::Debug for crate::model::CreateNetworkPeeringRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteNetworkPeeringRequest {
+impl std::fmt::Debug for super::DeleteNetworkPeeringRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteNetworkPeeringRequest");
         debug_struct.field("name", &self.name);
@@ -738,7 +738,7 @@ impl std::fmt::Debug for crate::model::DeleteNetworkPeeringRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetNetworkPeeringRequest {
+impl std::fmt::Debug for super::GetNetworkPeeringRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetNetworkPeeringRequest");
         debug_struct.field("name", &self.name);
@@ -749,7 +749,7 @@ impl std::fmt::Debug for crate::model::GetNetworkPeeringRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNetworkPeeringsRequest {
+impl std::fmt::Debug for super::ListNetworkPeeringsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNetworkPeeringsRequest");
         debug_struct.field("parent", &self.parent);
@@ -764,7 +764,7 @@ impl std::fmt::Debug for crate::model::ListNetworkPeeringsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateNetworkPeeringRequest {
+impl std::fmt::Debug for super::UpdateNetworkPeeringRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateNetworkPeeringRequest");
         debug_struct.field("network_peering", &self.network_peering);
@@ -777,7 +777,7 @@ impl std::fmt::Debug for crate::model::UpdateNetworkPeeringRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNetworkPeeringsResponse {
+impl std::fmt::Debug for super::ListNetworkPeeringsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNetworkPeeringsResponse");
         debug_struct.field("network_peerings", &self.network_peerings);
@@ -790,7 +790,7 @@ impl std::fmt::Debug for crate::model::ListNetworkPeeringsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPeeringRoutesRequest {
+impl std::fmt::Debug for super::ListPeeringRoutesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPeeringRoutesRequest");
         debug_struct.field("parent", &self.parent);
@@ -804,7 +804,7 @@ impl std::fmt::Debug for crate::model::ListPeeringRoutesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPeeringRoutesResponse {
+impl std::fmt::Debug for super::ListPeeringRoutesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPeeringRoutesResponse");
         debug_struct.field("peering_routes", &self.peering_routes);
@@ -816,7 +816,7 @@ impl std::fmt::Debug for crate::model::ListPeeringRoutesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNetworkPoliciesRequest {
+impl std::fmt::Debug for super::ListNetworkPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNetworkPoliciesRequest");
         debug_struct.field("parent", &self.parent);
@@ -831,7 +831,7 @@ impl std::fmt::Debug for crate::model::ListNetworkPoliciesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListNetworkPoliciesResponse {
+impl std::fmt::Debug for super::ListNetworkPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListNetworkPoliciesResponse");
         debug_struct.field("network_policies", &self.network_policies);
@@ -844,7 +844,7 @@ impl std::fmt::Debug for crate::model::ListNetworkPoliciesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetNetworkPolicyRequest {
+impl std::fmt::Debug for super::GetNetworkPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetNetworkPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -855,7 +855,7 @@ impl std::fmt::Debug for crate::model::GetNetworkPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateNetworkPolicyRequest {
+impl std::fmt::Debug for super::UpdateNetworkPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateNetworkPolicyRequest");
         debug_struct.field("network_policy", &self.network_policy);
@@ -868,7 +868,7 @@ impl std::fmt::Debug for crate::model::UpdateNetworkPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateNetworkPolicyRequest {
+impl std::fmt::Debug for super::CreateNetworkPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateNetworkPolicyRequest");
         debug_struct.field("parent", &self.parent);
@@ -882,7 +882,7 @@ impl std::fmt::Debug for crate::model::CreateNetworkPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteNetworkPolicyRequest {
+impl std::fmt::Debug for super::DeleteNetworkPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteNetworkPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -894,7 +894,7 @@ impl std::fmt::Debug for crate::model::DeleteNetworkPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListManagementDnsZoneBindingsRequest {
+impl std::fmt::Debug for super::ListManagementDnsZoneBindingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListManagementDnsZoneBindingsRequest");
         debug_struct.field("parent", &self.parent);
@@ -909,7 +909,7 @@ impl std::fmt::Debug for crate::model::ListManagementDnsZoneBindingsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListManagementDnsZoneBindingsResponse {
+impl std::fmt::Debug for super::ListManagementDnsZoneBindingsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListManagementDnsZoneBindingsResponse");
         debug_struct.field(
@@ -925,7 +925,7 @@ impl std::fmt::Debug for crate::model::ListManagementDnsZoneBindingsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetManagementDnsZoneBindingRequest {
+impl std::fmt::Debug for super::GetManagementDnsZoneBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetManagementDnsZoneBindingRequest");
         debug_struct.field("name", &self.name);
@@ -936,7 +936,7 @@ impl std::fmt::Debug for crate::model::GetManagementDnsZoneBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateManagementDnsZoneBindingRequest {
+impl std::fmt::Debug for super::CreateManagementDnsZoneBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateManagementDnsZoneBindingRequest");
         debug_struct.field("parent", &self.parent);
@@ -956,7 +956,7 @@ impl std::fmt::Debug for crate::model::CreateManagementDnsZoneBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateManagementDnsZoneBindingRequest {
+impl std::fmt::Debug for super::UpdateManagementDnsZoneBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateManagementDnsZoneBindingRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -972,7 +972,7 @@ impl std::fmt::Debug for crate::model::UpdateManagementDnsZoneBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteManagementDnsZoneBindingRequest {
+impl std::fmt::Debug for super::DeleteManagementDnsZoneBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteManagementDnsZoneBindingRequest");
         debug_struct.field("name", &self.name);
@@ -984,7 +984,7 @@ impl std::fmt::Debug for crate::model::DeleteManagementDnsZoneBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RepairManagementDnsZoneBindingRequest {
+impl std::fmt::Debug for super::RepairManagementDnsZoneBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RepairManagementDnsZoneBindingRequest");
         debug_struct.field("name", &self.name);
@@ -996,7 +996,7 @@ impl std::fmt::Debug for crate::model::RepairManagementDnsZoneBindingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateVmwareEngineNetworkRequest {
+impl std::fmt::Debug for super::CreateVmwareEngineNetworkRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateVmwareEngineNetworkRequest");
         debug_struct.field("parent", &self.parent);
@@ -1010,7 +1010,7 @@ impl std::fmt::Debug for crate::model::CreateVmwareEngineNetworkRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateVmwareEngineNetworkRequest {
+impl std::fmt::Debug for super::UpdateVmwareEngineNetworkRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateVmwareEngineNetworkRequest");
         debug_struct.field("vmware_engine_network", &self.vmware_engine_network);
@@ -1023,7 +1023,7 @@ impl std::fmt::Debug for crate::model::UpdateVmwareEngineNetworkRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteVmwareEngineNetworkRequest {
+impl std::fmt::Debug for super::DeleteVmwareEngineNetworkRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteVmwareEngineNetworkRequest");
         debug_struct.field("name", &self.name);
@@ -1036,7 +1036,7 @@ impl std::fmt::Debug for crate::model::DeleteVmwareEngineNetworkRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetVmwareEngineNetworkRequest {
+impl std::fmt::Debug for super::GetVmwareEngineNetworkRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetVmwareEngineNetworkRequest");
         debug_struct.field("name", &self.name);
@@ -1047,7 +1047,7 @@ impl std::fmt::Debug for crate::model::GetVmwareEngineNetworkRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListVmwareEngineNetworksRequest {
+impl std::fmt::Debug for super::ListVmwareEngineNetworksRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListVmwareEngineNetworksRequest");
         debug_struct.field("parent", &self.parent);
@@ -1062,7 +1062,7 @@ impl std::fmt::Debug for crate::model::ListVmwareEngineNetworksRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListVmwareEngineNetworksResponse {
+impl std::fmt::Debug for super::ListVmwareEngineNetworksResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListVmwareEngineNetworksResponse");
         debug_struct.field("vmware_engine_networks", &self.vmware_engine_networks);
@@ -1075,7 +1075,7 @@ impl std::fmt::Debug for crate::model::ListVmwareEngineNetworksResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreatePrivateConnectionRequest {
+impl std::fmt::Debug for super::CreatePrivateConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreatePrivateConnectionRequest");
         debug_struct.field("parent", &self.parent);
@@ -1089,7 +1089,7 @@ impl std::fmt::Debug for crate::model::CreatePrivateConnectionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPrivateConnectionRequest {
+impl std::fmt::Debug for super::GetPrivateConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPrivateConnectionRequest");
         debug_struct.field("name", &self.name);
@@ -1100,7 +1100,7 @@ impl std::fmt::Debug for crate::model::GetPrivateConnectionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPrivateConnectionsRequest {
+impl std::fmt::Debug for super::ListPrivateConnectionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPrivateConnectionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -1115,7 +1115,7 @@ impl std::fmt::Debug for crate::model::ListPrivateConnectionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPrivateConnectionsResponse {
+impl std::fmt::Debug for super::ListPrivateConnectionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPrivateConnectionsResponse");
         debug_struct.field("private_connections", &self.private_connections);
@@ -1128,7 +1128,7 @@ impl std::fmt::Debug for crate::model::ListPrivateConnectionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdatePrivateConnectionRequest {
+impl std::fmt::Debug for super::UpdatePrivateConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdatePrivateConnectionRequest");
         debug_struct.field("private_connection", &self.private_connection);
@@ -1141,7 +1141,7 @@ impl std::fmt::Debug for crate::model::UpdatePrivateConnectionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeletePrivateConnectionRequest {
+impl std::fmt::Debug for super::DeletePrivateConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeletePrivateConnectionRequest");
         debug_struct.field("name", &self.name);
@@ -1153,7 +1153,7 @@ impl std::fmt::Debug for crate::model::DeletePrivateConnectionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPrivateConnectionPeeringRoutesRequest {
+impl std::fmt::Debug for super::ListPrivateConnectionPeeringRoutesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPrivateConnectionPeeringRoutesRequest");
         debug_struct.field("parent", &self.parent);
@@ -1166,7 +1166,7 @@ impl std::fmt::Debug for crate::model::ListPrivateConnectionPeeringRoutesRequest
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPrivateConnectionPeeringRoutesResponse {
+impl std::fmt::Debug for super::ListPrivateConnectionPeeringRoutesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPrivateConnectionPeeringRoutesResponse");
         debug_struct.field("peering_routes", &self.peering_routes);
@@ -1178,7 +1178,7 @@ impl std::fmt::Debug for crate::model::ListPrivateConnectionPeeringRoutesRespons
     }
 }
 
-impl std::fmt::Debug for crate::model::GrantDnsBindPermissionRequest {
+impl std::fmt::Debug for super::GrantDnsBindPermissionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GrantDnsBindPermissionRequest");
         debug_struct.field("name", &self.name);
@@ -1191,7 +1191,7 @@ impl std::fmt::Debug for crate::model::GrantDnsBindPermissionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RevokeDnsBindPermissionRequest {
+impl std::fmt::Debug for super::RevokeDnsBindPermissionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RevokeDnsBindPermissionRequest");
         debug_struct.field("name", &self.name);
@@ -1204,7 +1204,7 @@ impl std::fmt::Debug for crate::model::RevokeDnsBindPermissionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetDnsBindPermissionRequest {
+impl std::fmt::Debug for super::GetDnsBindPermissionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDnsBindPermissionRequest");
         debug_struct.field("name", &self.name);
@@ -1215,7 +1215,7 @@ impl std::fmt::Debug for crate::model::GetDnsBindPermissionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::NetworkConfig {
+impl std::fmt::Debug for super::NetworkConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworkConfig");
         debug_struct.field("management_cidr", &self.management_cidr);
@@ -1236,7 +1236,7 @@ impl std::fmt::Debug for crate::model::NetworkConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::NodeTypeConfig {
+impl std::fmt::Debug for super::NodeTypeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NodeTypeConfig");
         debug_struct.field("node_count", &self.node_count);
@@ -1248,7 +1248,7 @@ impl std::fmt::Debug for crate::model::NodeTypeConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::StretchedClusterConfig {
+impl std::fmt::Debug for super::StretchedClusterConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StretchedClusterConfig");
         debug_struct.field("preferred_location", &self.preferred_location);
@@ -1260,7 +1260,7 @@ impl std::fmt::Debug for crate::model::StretchedClusterConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::PrivateCloud {
+impl std::fmt::Debug for super::PrivateCloud {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrivateCloud");
         debug_struct.field("name", &self.name);
@@ -1284,7 +1284,7 @@ impl std::fmt::Debug for crate::model::PrivateCloud {
     }
 }
 
-impl std::fmt::Debug for crate::model::private_cloud::ManagementCluster {
+impl std::fmt::Debug for super::private_cloud::ManagementCluster {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManagementCluster");
         debug_struct.field("cluster_id", &self.cluster_id);
@@ -1297,7 +1297,7 @@ impl std::fmt::Debug for crate::model::private_cloud::ManagementCluster {
     }
 }
 
-impl std::fmt::Debug for crate::model::Cluster {
+impl std::fmt::Debug for super::Cluster {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Cluster");
         debug_struct.field("name", &self.name);
@@ -1316,7 +1316,7 @@ impl std::fmt::Debug for crate::model::Cluster {
     }
 }
 
-impl std::fmt::Debug for crate::model::Node {
+impl std::fmt::Debug for super::Node {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Node");
         debug_struct.field("name", &self.name);
@@ -1333,7 +1333,7 @@ impl std::fmt::Debug for crate::model::Node {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExternalAddress {
+impl std::fmt::Debug for super::ExternalAddress {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExternalAddress");
         debug_struct.field("name", &self.name);
@@ -1351,7 +1351,7 @@ impl std::fmt::Debug for crate::model::ExternalAddress {
     }
 }
 
-impl std::fmt::Debug for crate::model::Subnet {
+impl std::fmt::Debug for super::Subnet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Subnet");
         debug_struct.field("name", &self.name);
@@ -1367,7 +1367,7 @@ impl std::fmt::Debug for crate::model::Subnet {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExternalAccessRule {
+impl std::fmt::Debug for super::ExternalAccessRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExternalAccessRule");
         debug_struct.field("name", &self.name);
@@ -1390,7 +1390,7 @@ impl std::fmt::Debug for crate::model::ExternalAccessRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::external_access_rule::IpRange {
+impl std::fmt::Debug for super::external_access_rule::IpRange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IpRange");
         debug_struct.field("ip_range", &self.ip_range);
@@ -1401,7 +1401,7 @@ impl std::fmt::Debug for crate::model::external_access_rule::IpRange {
     }
 }
 
-impl std::fmt::Debug for crate::model::LoggingServer {
+impl std::fmt::Debug for super::LoggingServer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LoggingServer");
         debug_struct.field("name", &self.name);
@@ -1419,7 +1419,7 @@ impl std::fmt::Debug for crate::model::LoggingServer {
     }
 }
 
-impl std::fmt::Debug for crate::model::NodeType {
+impl std::fmt::Debug for super::NodeType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NodeType");
         debug_struct.field("name", &self.name);
@@ -1443,7 +1443,7 @@ impl std::fmt::Debug for crate::model::NodeType {
     }
 }
 
-impl std::fmt::Debug for crate::model::Credentials {
+impl std::fmt::Debug for super::Credentials {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Credentials");
         debug_struct.field("username", &self.username);
@@ -1455,7 +1455,7 @@ impl std::fmt::Debug for crate::model::Credentials {
     }
 }
 
-impl std::fmt::Debug for crate::model::HcxActivationKey {
+impl std::fmt::Debug for super::HcxActivationKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HcxActivationKey");
         debug_struct.field("name", &self.name);
@@ -1470,7 +1470,7 @@ impl std::fmt::Debug for crate::model::HcxActivationKey {
     }
 }
 
-impl std::fmt::Debug for crate::model::Hcx {
+impl std::fmt::Debug for super::Hcx {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Hcx");
         debug_struct.field("internal_ip", &self.internal_ip);
@@ -1484,7 +1484,7 @@ impl std::fmt::Debug for crate::model::Hcx {
     }
 }
 
-impl std::fmt::Debug for crate::model::Nsx {
+impl std::fmt::Debug for super::Nsx {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Nsx");
         debug_struct.field("internal_ip", &self.internal_ip);
@@ -1498,7 +1498,7 @@ impl std::fmt::Debug for crate::model::Nsx {
     }
 }
 
-impl std::fmt::Debug for crate::model::Vcenter {
+impl std::fmt::Debug for super::Vcenter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Vcenter");
         debug_struct.field("internal_ip", &self.internal_ip);
@@ -1512,7 +1512,7 @@ impl std::fmt::Debug for crate::model::Vcenter {
     }
 }
 
-impl std::fmt::Debug for crate::model::AutoscalingSettings {
+impl std::fmt::Debug for super::AutoscalingSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutoscalingSettings");
         debug_struct.field("autoscaling_policies", &self.autoscaling_policies);
@@ -1526,7 +1526,7 @@ impl std::fmt::Debug for crate::model::AutoscalingSettings {
     }
 }
 
-impl std::fmt::Debug for crate::model::autoscaling_settings::Thresholds {
+impl std::fmt::Debug for super::autoscaling_settings::Thresholds {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Thresholds");
         debug_struct.field("scale_out", &self.scale_out);
@@ -1538,7 +1538,7 @@ impl std::fmt::Debug for crate::model::autoscaling_settings::Thresholds {
     }
 }
 
-impl std::fmt::Debug for crate::model::autoscaling_settings::AutoscalingPolicy {
+impl std::fmt::Debug for super::autoscaling_settings::AutoscalingPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutoscalingPolicy");
         debug_struct.field("node_type_id", &self.node_type_id);
@@ -1557,7 +1557,7 @@ impl std::fmt::Debug for crate::model::autoscaling_settings::AutoscalingPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::DnsForwarding {
+impl std::fmt::Debug for super::DnsForwarding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DnsForwarding");
         debug_struct.field("name", &self.name);
@@ -1571,7 +1571,7 @@ impl std::fmt::Debug for crate::model::DnsForwarding {
     }
 }
 
-impl std::fmt::Debug for crate::model::dns_forwarding::ForwardingRule {
+impl std::fmt::Debug for super::dns_forwarding::ForwardingRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ForwardingRule");
         debug_struct.field("domain", &self.domain);
@@ -1583,7 +1583,7 @@ impl std::fmt::Debug for crate::model::dns_forwarding::ForwardingRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::NetworkPeering {
+impl std::fmt::Debug for super::NetworkPeering {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworkPeering");
         debug_struct.field("name", &self.name);
@@ -1615,7 +1615,7 @@ impl std::fmt::Debug for crate::model::NetworkPeering {
     }
 }
 
-impl std::fmt::Debug for crate::model::PeeringRoute {
+impl std::fmt::Debug for super::PeeringRoute {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PeeringRoute");
         debug_struct.field("dest_range", &self.dest_range);
@@ -1631,7 +1631,7 @@ impl std::fmt::Debug for crate::model::PeeringRoute {
     }
 }
 
-impl std::fmt::Debug for crate::model::NetworkPolicy {
+impl std::fmt::Debug for super::NetworkPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworkPolicy");
         debug_struct.field("name", &self.name);
@@ -1654,7 +1654,7 @@ impl std::fmt::Debug for crate::model::NetworkPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::network_policy::NetworkService {
+impl std::fmt::Debug for super::network_policy::NetworkService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworkService");
         debug_struct.field("enabled", &self.enabled);
@@ -1666,7 +1666,7 @@ impl std::fmt::Debug for crate::model::network_policy::NetworkService {
     }
 }
 
-impl std::fmt::Debug for crate::model::ManagementDnsZoneBinding {
+impl std::fmt::Debug for super::ManagementDnsZoneBinding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManagementDnsZoneBinding");
         debug_struct.field("name", &self.name);
@@ -1683,7 +1683,7 @@ impl std::fmt::Debug for crate::model::ManagementDnsZoneBinding {
     }
 }
 
-impl std::fmt::Debug for crate::model::VmwareEngineNetwork {
+impl std::fmt::Debug for super::VmwareEngineNetwork {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VmwareEngineNetwork");
         debug_struct.field("name", &self.name);
@@ -1702,7 +1702,7 @@ impl std::fmt::Debug for crate::model::VmwareEngineNetwork {
     }
 }
 
-impl std::fmt::Debug for crate::model::vmware_engine_network::VpcNetwork {
+impl std::fmt::Debug for super::vmware_engine_network::VpcNetwork {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VpcNetwork");
         debug_struct.field("r#type", &self.r#type);
@@ -1714,7 +1714,7 @@ impl std::fmt::Debug for crate::model::vmware_engine_network::VpcNetwork {
     }
 }
 
-impl std::fmt::Debug for crate::model::PrivateConnection {
+impl std::fmt::Debug for super::PrivateConnection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrivateConnection");
         debug_struct.field("name", &self.name);
@@ -1740,7 +1740,7 @@ impl std::fmt::Debug for crate::model::PrivateConnection {
     }
 }
 
-impl std::fmt::Debug for crate::model::LocationMetadata {
+impl std::fmt::Debug for super::LocationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LocationMetadata");
         debug_struct.field("capabilities", &self.capabilities);
@@ -1751,7 +1751,7 @@ impl std::fmt::Debug for crate::model::LocationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::DnsBindPermission {
+impl std::fmt::Debug for super::DnsBindPermission {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DnsBindPermission");
         debug_struct.field("name", &self.name);
@@ -1763,7 +1763,7 @@ impl std::fmt::Debug for crate::model::DnsBindPermission {
     }
 }
 
-impl std::fmt::Debug for crate::model::Principal {
+impl std::fmt::Debug for super::Principal {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Principal");
         debug_struct.field("principal", &self.principal);

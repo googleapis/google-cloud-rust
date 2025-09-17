@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Event {
+impl serde::ser::Serialize for super::Event {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -82,7 +82,7 @@ impl serde::ser::Serialize for crate::model::Event {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OrganizationEvent {
+impl serde::ser::Serialize for super::OrganizationEvent {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -143,7 +143,7 @@ impl serde::ser::Serialize for crate::model::OrganizationEvent {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EventUpdate {
+impl serde::ser::Serialize for super::EventUpdate {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -177,7 +177,7 @@ impl serde::ser::Serialize for crate::model::EventUpdate {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Location {
+impl serde::ser::Serialize for super::Location {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -199,7 +199,7 @@ impl serde::ser::Serialize for crate::model::Location {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Product {
+impl serde::ser::Serialize for super::Product {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -224,7 +224,7 @@ impl serde::ser::Serialize for crate::model::Product {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EventImpact {
+impl serde::ser::Serialize for super::EventImpact {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -249,7 +249,7 @@ impl serde::ser::Serialize for crate::model::EventImpact {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OrganizationImpact {
+impl serde::ser::Serialize for super::OrganizationImpact {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -280,7 +280,7 @@ impl serde::ser::Serialize for crate::model::OrganizationImpact {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Asset {
+impl serde::ser::Serialize for super::Asset {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -305,7 +305,7 @@ impl serde::ser::Serialize for crate::model::Asset {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListEventsRequest {
+impl serde::ser::Serialize for super::ListEventsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -348,7 +348,7 @@ impl serde::ser::Serialize for crate::model::ListEventsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListEventsResponse {
+impl serde::ser::Serialize for super::ListEventsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -376,7 +376,7 @@ impl serde::ser::Serialize for crate::model::ListEventsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetEventRequest {
+impl serde::ser::Serialize for super::GetEventRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -398,7 +398,7 @@ impl serde::ser::Serialize for crate::model::GetEventRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOrganizationEventsRequest {
+impl serde::ser::Serialize for super::ListOrganizationEventsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -441,7 +441,7 @@ impl serde::ser::Serialize for crate::model::ListOrganizationEventsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOrganizationEventsResponse {
+impl serde::ser::Serialize for super::ListOrganizationEventsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -469,7 +469,7 @@ impl serde::ser::Serialize for crate::model::ListOrganizationEventsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetOrganizationEventRequest {
+impl serde::ser::Serialize for super::GetOrganizationEventRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -491,7 +491,7 @@ impl serde::ser::Serialize for crate::model::GetOrganizationEventRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOrganizationImpactsRequest {
+impl serde::ser::Serialize for super::ListOrganizationImpactsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -531,7 +531,7 @@ impl serde::ser::Serialize for crate::model::ListOrganizationImpactsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOrganizationImpactsResponse {
+impl serde::ser::Serialize for super::ListOrganizationImpactsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -559,7 +559,7 @@ impl serde::ser::Serialize for crate::model::ListOrganizationImpactsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetOrganizationImpactRequest {
+impl serde::ser::Serialize for super::GetOrganizationImpactRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

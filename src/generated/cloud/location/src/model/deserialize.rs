@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListLocationsRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListLocationsRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -66,7 +66,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListLocationsRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListLocationsRequest;
+            type Value = super::ListLocationsRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListLocationsRequest")
             }
@@ -145,7 +145,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListLocationsRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListLocationsResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListLocationsResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -188,7 +188,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListLocationsResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListLocationsResponse;
+            type Value = super::ListLocationsResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListLocationsResponse")
             }
@@ -236,7 +236,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListLocationsResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetLocationRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetLocationRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -276,7 +276,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetLocationRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetLocationRequest;
+            type Value = super::GetLocationRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetLocationRequest")
             }
@@ -316,7 +316,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetLocationRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::Location {
+impl<'de> serde::de::Deserialize<'de> for super::Location {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -366,7 +366,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Location {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::Location;
+            type Value = super::Location;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Location")
             }

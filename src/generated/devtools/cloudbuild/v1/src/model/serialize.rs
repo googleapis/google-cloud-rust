@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RetryBuildRequest {
+impl serde::ser::Serialize for super::RetryBuildRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -46,7 +46,7 @@ impl serde::ser::Serialize for crate::model::RetryBuildRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RunBuildTriggerRequest {
+impl serde::ser::Serialize for super::RunBuildTriggerRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -77,7 +77,7 @@ impl serde::ser::Serialize for crate::model::RunBuildTriggerRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StorageSource {
+impl serde::ser::Serialize for super::StorageSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -117,7 +117,7 @@ impl serde::ser::Serialize for crate::model::StorageSource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GitSource {
+impl serde::ser::Serialize for super::GitSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -145,7 +145,7 @@ impl serde::ser::Serialize for crate::model::GitSource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RepoSource {
+impl serde::ser::Serialize for super::RepoSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -188,7 +188,7 @@ impl serde::ser::Serialize for crate::model::RepoSource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StorageSourceManifest {
+impl serde::ser::Serialize for super::StorageSourceManifest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -225,7 +225,7 @@ impl serde::ser::Serialize for crate::model::StorageSourceManifest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Source {
+impl serde::ser::Serialize for super::Source {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -256,7 +256,7 @@ impl serde::ser::Serialize for crate::model::Source {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BuiltImage {
+impl serde::ser::Serialize for super::BuiltImage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -284,7 +284,7 @@ impl serde::ser::Serialize for crate::model::BuiltImage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UploadedPythonPackage {
+impl serde::ser::Serialize for super::UploadedPythonPackage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -312,7 +312,7 @@ impl serde::ser::Serialize for crate::model::UploadedPythonPackage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UploadedMavenArtifact {
+impl serde::ser::Serialize for super::UploadedMavenArtifact {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -340,7 +340,7 @@ impl serde::ser::Serialize for crate::model::UploadedMavenArtifact {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UploadedGoModule {
+impl serde::ser::Serialize for super::UploadedGoModule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -368,7 +368,7 @@ impl serde::ser::Serialize for crate::model::UploadedGoModule {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UploadedNpmPackage {
+impl serde::ser::Serialize for super::UploadedNpmPackage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -396,7 +396,7 @@ impl serde::ser::Serialize for crate::model::UploadedNpmPackage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BuildStep {
+impl serde::ser::Serialize for super::BuildStep {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -489,7 +489,7 @@ impl serde::ser::Serialize for crate::model::BuildStep {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Volume {
+impl serde::ser::Serialize for super::Volume {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -514,7 +514,7 @@ impl serde::ser::Serialize for crate::model::Volume {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Results {
+impl serde::ser::Serialize for super::Results {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -583,7 +583,7 @@ impl serde::ser::Serialize for crate::model::Results {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ArtifactResult {
+impl serde::ser::Serialize for super::ArtifactResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -608,7 +608,7 @@ impl serde::ser::Serialize for crate::model::ArtifactResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Build {
+impl serde::ser::Serialize for super::Build {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -720,7 +720,7 @@ impl serde::ser::Serialize for crate::model::Build {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::build::Warning {
+impl serde::ser::Serialize for super::build::Warning {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -745,7 +745,7 @@ impl serde::ser::Serialize for crate::model::build::Warning {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::build::FailureInfo {
+impl serde::ser::Serialize for super::build::FailureInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -770,7 +770,7 @@ impl serde::ser::Serialize for crate::model::build::FailureInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Dependency {
+impl serde::ser::Serialize for super::Dependency {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -795,7 +795,7 @@ impl serde::ser::Serialize for crate::model::Dependency {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::dependency::GitSourceDependency {
+impl serde::ser::Serialize for super::dependency::GitSourceDependency {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -838,7 +838,7 @@ impl serde::ser::Serialize for crate::model::dependency::GitSourceDependency {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::dependency::GitSourceRepository {
+impl serde::ser::Serialize for super::dependency::GitSourceRepository {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -863,7 +863,7 @@ impl serde::ser::Serialize for crate::model::dependency::GitSourceRepository {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GitConfig {
+impl serde::ser::Serialize for super::GitConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -885,7 +885,7 @@ impl serde::ser::Serialize for crate::model::GitConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::git_config::HttpConfig {
+impl serde::ser::Serialize for super::git_config::HttpConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -907,7 +907,7 @@ impl serde::ser::Serialize for crate::model::git_config::HttpConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Artifacts {
+impl serde::ser::Serialize for super::Artifacts {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -944,7 +944,7 @@ impl serde::ser::Serialize for crate::model::Artifacts {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::artifacts::ArtifactObjects {
+impl serde::ser::Serialize for super::artifacts::ArtifactObjects {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -972,7 +972,7 @@ impl serde::ser::Serialize for crate::model::artifacts::ArtifactObjects {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::artifacts::MavenArtifact {
+impl serde::ser::Serialize for super::artifacts::MavenArtifact {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1006,7 +1006,7 @@ impl serde::ser::Serialize for crate::model::artifacts::MavenArtifact {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::artifacts::GoModule {
+impl serde::ser::Serialize for super::artifacts::GoModule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1043,7 +1043,7 @@ impl serde::ser::Serialize for crate::model::artifacts::GoModule {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::artifacts::PythonPackage {
+impl serde::ser::Serialize for super::artifacts::PythonPackage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1068,7 +1068,7 @@ impl serde::ser::Serialize for crate::model::artifacts::PythonPackage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::artifacts::NpmPackage {
+impl serde::ser::Serialize for super::artifacts::NpmPackage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1093,7 +1093,7 @@ impl serde::ser::Serialize for crate::model::artifacts::NpmPackage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TimeSpan {
+impl serde::ser::Serialize for super::TimeSpan {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1118,7 +1118,7 @@ impl serde::ser::Serialize for crate::model::TimeSpan {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BuildOperationMetadata {
+impl serde::ser::Serialize for super::BuildOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1140,7 +1140,7 @@ impl serde::ser::Serialize for crate::model::BuildOperationMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SourceProvenance {
+impl serde::ser::Serialize for super::SourceProvenance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1174,7 +1174,7 @@ impl serde::ser::Serialize for crate::model::SourceProvenance {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FileHashes {
+impl serde::ser::Serialize for super::FileHashes {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1196,7 +1196,7 @@ impl serde::ser::Serialize for crate::model::FileHashes {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Hash {
+impl serde::ser::Serialize for super::Hash {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1230,7 +1230,7 @@ impl serde::ser::Serialize for crate::model::Hash {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Secrets {
+impl serde::ser::Serialize for super::Secrets {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1255,7 +1255,7 @@ impl serde::ser::Serialize for crate::model::Secrets {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InlineSecret {
+impl serde::ser::Serialize for super::InlineSecret {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1291,7 +1291,7 @@ impl serde::ser::Serialize for crate::model::InlineSecret {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SecretManagerSecret {
+impl serde::ser::Serialize for super::SecretManagerSecret {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1316,7 +1316,7 @@ impl serde::ser::Serialize for crate::model::SecretManagerSecret {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Secret {
+impl serde::ser::Serialize for super::Secret {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1352,7 +1352,7 @@ impl serde::ser::Serialize for crate::model::Secret {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateBuildRequest {
+impl serde::ser::Serialize for super::CreateBuildRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1380,7 +1380,7 @@ impl serde::ser::Serialize for crate::model::CreateBuildRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetBuildRequest {
+impl serde::ser::Serialize for super::GetBuildRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1408,7 +1408,7 @@ impl serde::ser::Serialize for crate::model::GetBuildRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListBuildsRequest {
+impl serde::ser::Serialize for super::ListBuildsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1451,7 +1451,7 @@ impl serde::ser::Serialize for crate::model::ListBuildsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListBuildsResponse {
+impl serde::ser::Serialize for super::ListBuildsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1476,7 +1476,7 @@ impl serde::ser::Serialize for crate::model::ListBuildsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CancelBuildRequest {
+impl serde::ser::Serialize for super::CancelBuildRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1504,7 +1504,7 @@ impl serde::ser::Serialize for crate::model::CancelBuildRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ApproveBuildRequest {
+impl serde::ser::Serialize for super::ApproveBuildRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1529,7 +1529,7 @@ impl serde::ser::Serialize for crate::model::ApproveBuildRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BuildApproval {
+impl serde::ser::Serialize for super::BuildApproval {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1557,7 +1557,7 @@ impl serde::ser::Serialize for crate::model::BuildApproval {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ApprovalConfig {
+impl serde::ser::Serialize for super::ApprovalConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1579,7 +1579,7 @@ impl serde::ser::Serialize for crate::model::ApprovalConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ApprovalResult {
+impl serde::ser::Serialize for super::ApprovalResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1613,7 +1613,7 @@ impl serde::ser::Serialize for crate::model::ApprovalResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GitRepoSource {
+impl serde::ser::Serialize for super::GitRepoSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1647,7 +1647,7 @@ impl serde::ser::Serialize for crate::model::GitRepoSource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GitFileSource {
+impl serde::ser::Serialize for super::GitFileSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1684,7 +1684,7 @@ impl serde::ser::Serialize for crate::model::GitFileSource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BuildTrigger {
+impl serde::ser::Serialize for super::BuildTrigger {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1769,7 +1769,7 @@ impl serde::ser::Serialize for crate::model::BuildTrigger {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RepositoryEventConfig {
+impl serde::ser::Serialize for super::RepositoryEventConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1800,7 +1800,7 @@ impl serde::ser::Serialize for crate::model::RepositoryEventConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GitHubEventsConfig {
+impl serde::ser::Serialize for super::GitHubEventsConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1843,7 +1843,7 @@ impl serde::ser::Serialize for crate::model::GitHubEventsConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PubsubConfig {
+impl serde::ser::Serialize for super::PubsubConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1874,7 +1874,7 @@ impl serde::ser::Serialize for crate::model::PubsubConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WebhookConfig {
+impl serde::ser::Serialize for super::WebhookConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1899,7 +1899,7 @@ impl serde::ser::Serialize for crate::model::WebhookConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PullRequestFilter {
+impl serde::ser::Serialize for super::PullRequestFilter {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1927,7 +1927,7 @@ impl serde::ser::Serialize for crate::model::PullRequestFilter {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PushFilter {
+impl serde::ser::Serialize for super::PushFilter {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1955,7 +1955,7 @@ impl serde::ser::Serialize for crate::model::PushFilter {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateBuildTriggerRequest {
+impl serde::ser::Serialize for super::CreateBuildTriggerRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1983,7 +1983,7 @@ impl serde::ser::Serialize for crate::model::CreateBuildTriggerRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetBuildTriggerRequest {
+impl serde::ser::Serialize for super::GetBuildTriggerRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2011,7 +2011,7 @@ impl serde::ser::Serialize for crate::model::GetBuildTriggerRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListBuildTriggersRequest {
+impl serde::ser::Serialize for super::ListBuildTriggersRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2051,7 +2051,7 @@ impl serde::ser::Serialize for crate::model::ListBuildTriggersRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListBuildTriggersResponse {
+impl serde::ser::Serialize for super::ListBuildTriggersResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2076,7 +2076,7 @@ impl serde::ser::Serialize for crate::model::ListBuildTriggersResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteBuildTriggerRequest {
+impl serde::ser::Serialize for super::DeleteBuildTriggerRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2104,7 +2104,7 @@ impl serde::ser::Serialize for crate::model::DeleteBuildTriggerRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateBuildTriggerRequest {
+impl serde::ser::Serialize for super::UpdateBuildTriggerRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2135,7 +2135,7 @@ impl serde::ser::Serialize for crate::model::UpdateBuildTriggerRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BuildOptions {
+impl serde::ser::Serialize for super::BuildOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2214,7 +2214,7 @@ impl serde::ser::Serialize for crate::model::BuildOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::build_options::PoolOption {
+impl serde::ser::Serialize for super::build_options::PoolOption {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2236,7 +2236,7 @@ impl serde::ser::Serialize for crate::model::build_options::PoolOption {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReceiveTriggerWebhookRequest {
+impl serde::ser::Serialize for super::ReceiveTriggerWebhookRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2270,7 +2270,7 @@ impl serde::ser::Serialize for crate::model::ReceiveTriggerWebhookRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReceiveTriggerWebhookResponse {
+impl serde::ser::Serialize for super::ReceiveTriggerWebhookResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2289,7 +2289,7 @@ impl serde::ser::Serialize for crate::model::ReceiveTriggerWebhookResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GitHubEnterpriseConfig {
+impl serde::ser::Serialize for super::GitHubEnterpriseConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2344,7 +2344,7 @@ impl serde::ser::Serialize for crate::model::GitHubEnterpriseConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GitHubEnterpriseSecrets {
+impl serde::ser::Serialize for super::GitHubEnterpriseSecrets {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2381,7 +2381,7 @@ impl serde::ser::Serialize for crate::model::GitHubEnterpriseSecrets {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WorkerPool {
+impl serde::ser::Serialize for super::WorkerPool {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2430,7 +2430,7 @@ impl serde::ser::Serialize for crate::model::WorkerPool {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PrivatePoolV1Config {
+impl serde::ser::Serialize for super::PrivatePoolV1Config {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2458,7 +2458,7 @@ impl serde::ser::Serialize for crate::model::PrivatePoolV1Config {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::private_pool_v_1_config::WorkerConfig {
+impl serde::ser::Serialize for super::private_pool_v_1_config::WorkerConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2498,7 +2498,7 @@ impl serde::ser::Serialize for crate::model::private_pool_v_1_config::WorkerConf
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::private_pool_v_1_config::NetworkConfig {
+impl serde::ser::Serialize for super::private_pool_v_1_config::NetworkConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2526,7 +2526,7 @@ impl serde::ser::Serialize for crate::model::private_pool_v_1_config::NetworkCon
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::private_pool_v_1_config::PrivateServiceConnect {
+impl serde::ser::Serialize for super::private_pool_v_1_config::PrivateServiceConnect {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2554,7 +2554,7 @@ impl serde::ser::Serialize for crate::model::private_pool_v_1_config::PrivateSer
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateWorkerPoolRequest {
+impl serde::ser::Serialize for super::CreateWorkerPoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2585,7 +2585,7 @@ impl serde::ser::Serialize for crate::model::CreateWorkerPoolRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetWorkerPoolRequest {
+impl serde::ser::Serialize for super::GetWorkerPoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2607,7 +2607,7 @@ impl serde::ser::Serialize for crate::model::GetWorkerPoolRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteWorkerPoolRequest {
+impl serde::ser::Serialize for super::DeleteWorkerPoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2638,7 +2638,7 @@ impl serde::ser::Serialize for crate::model::DeleteWorkerPoolRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateWorkerPoolRequest {
+impl serde::ser::Serialize for super::UpdateWorkerPoolRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2666,7 +2666,7 @@ impl serde::ser::Serialize for crate::model::UpdateWorkerPoolRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkerPoolsRequest {
+impl serde::ser::Serialize for super::ListWorkerPoolsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2703,7 +2703,7 @@ impl serde::ser::Serialize for crate::model::ListWorkerPoolsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListWorkerPoolsResponse {
+impl serde::ser::Serialize for super::ListWorkerPoolsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2728,7 +2728,7 @@ impl serde::ser::Serialize for crate::model::ListWorkerPoolsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateWorkerPoolOperationMetadata {
+impl serde::ser::Serialize for super::CreateWorkerPoolOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2756,7 +2756,7 @@ impl serde::ser::Serialize for crate::model::CreateWorkerPoolOperationMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateWorkerPoolOperationMetadata {
+impl serde::ser::Serialize for super::UpdateWorkerPoolOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2784,7 +2784,7 @@ impl serde::ser::Serialize for crate::model::UpdateWorkerPoolOperationMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteWorkerPoolOperationMetadata {
+impl serde::ser::Serialize for super::DeleteWorkerPoolOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

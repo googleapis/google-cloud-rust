@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InputConfig {
+impl serde::ser::Serialize for super::InputConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -43,7 +43,7 @@ impl serde::ser::Serialize for crate::model::InputConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OutputConfig {
+impl serde::ser::Serialize for super::OutputConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -68,7 +68,7 @@ impl serde::ser::Serialize for crate::model::OutputConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GcsSource {
+impl serde::ser::Serialize for super::GcsSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -90,7 +90,7 @@ impl serde::ser::Serialize for crate::model::GcsSource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GcsDestination {
+impl serde::ser::Serialize for super::GcsDestination {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -112,7 +112,7 @@ impl serde::ser::Serialize for crate::model::GcsDestination {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AsyncModelMetadata {
+impl serde::ser::Serialize for super::AsyncModelMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -143,7 +143,7 @@ impl serde::ser::Serialize for crate::model::AsyncModelMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OptimizeToursRequest {
+impl serde::ser::Serialize for super::OptimizeToursRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -259,7 +259,7 @@ impl serde::ser::Serialize for crate::model::OptimizeToursRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OptimizeToursResponse {
+impl serde::ser::Serialize for super::OptimizeToursResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -305,7 +305,7 @@ impl serde::ser::Serialize for crate::model::OptimizeToursResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::optimize_tours_response::Metrics {
+impl serde::ser::Serialize for super::optimize_tours_response::Metrics {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -387,7 +387,7 @@ impl serde::ser::Serialize for crate::model::optimize_tours_response::Metrics {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchOptimizeToursRequest {
+impl serde::ser::Serialize for super::BatchOptimizeToursRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -412,7 +412,7 @@ impl serde::ser::Serialize for crate::model::BatchOptimizeToursRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::batch_optimize_tours_request::AsyncModelConfig {
+impl serde::ser::Serialize for super::batch_optimize_tours_request::AsyncModelConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -443,7 +443,7 @@ impl serde::ser::Serialize for crate::model::batch_optimize_tours_request::Async
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchOptimizeToursResponse {
+impl serde::ser::Serialize for super::BatchOptimizeToursResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -462,7 +462,7 @@ impl serde::ser::Serialize for crate::model::BatchOptimizeToursResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ShipmentModel {
+impl serde::ser::Serialize for super::ShipmentModel {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -555,7 +555,7 @@ impl serde::ser::Serialize for crate::model::ShipmentModel {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_model::DurationDistanceMatrix {
+impl serde::ser::Serialize for super::shipment_model::DurationDistanceMatrix {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -580,7 +580,7 @@ impl serde::ser::Serialize for crate::model::shipment_model::DurationDistanceMat
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_model::duration_distance_matrix::Row {
+impl serde::ser::Serialize for super::shipment_model::duration_distance_matrix::Row {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -616,7 +616,7 @@ impl serde::ser::Serialize for crate::model::shipment_model::duration_distance_m
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_model::PrecedenceRule {
+impl serde::ser::Serialize for super::shipment_model::PrecedenceRule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -672,7 +672,7 @@ impl serde::ser::Serialize for crate::model::shipment_model::PrecedenceRule {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_model::BreakRule {
+impl serde::ser::Serialize for super::shipment_model::BreakRule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -697,7 +697,7 @@ impl serde::ser::Serialize for crate::model::shipment_model::BreakRule {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_model::break_rule::BreakRequest {
+impl serde::ser::Serialize for super::shipment_model::break_rule::BreakRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -725,7 +725,7 @@ impl serde::ser::Serialize for crate::model::shipment_model::break_rule::BreakRe
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_model::break_rule::FrequencyConstraint {
+impl serde::ser::Serialize for super::shipment_model::break_rule::FrequencyConstraint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -750,7 +750,7 @@ impl serde::ser::Serialize for crate::model::shipment_model::break_rule::Frequen
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Shipment {
+impl serde::ser::Serialize for super::Shipment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -881,7 +881,7 @@ impl serde::ser::Serialize for crate::model::Shipment {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment::VisitRequest {
+impl serde::ser::Serialize for super::shipment::VisitRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -945,7 +945,7 @@ impl serde::ser::Serialize for crate::model::shipment::VisitRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment::Load {
+impl serde::ser::Serialize for super::shipment::Load {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -976,7 +976,7 @@ impl serde::ser::Serialize for crate::model::shipment::Load {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ShipmentTypeIncompatibility {
+impl serde::ser::Serialize for super::ShipmentTypeIncompatibility {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1001,7 +1001,7 @@ impl serde::ser::Serialize for crate::model::ShipmentTypeIncompatibility {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ShipmentTypeRequirement {
+impl serde::ser::Serialize for super::ShipmentTypeRequirement {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1032,7 +1032,7 @@ impl serde::ser::Serialize for crate::model::ShipmentTypeRequirement {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RouteModifiers {
+impl serde::ser::Serialize for super::RouteModifiers {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1063,7 +1063,7 @@ impl serde::ser::Serialize for crate::model::RouteModifiers {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Vehicle {
+impl serde::ser::Serialize for super::Vehicle {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1233,7 +1233,7 @@ impl serde::ser::Serialize for crate::model::Vehicle {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::vehicle::LoadLimit {
+impl serde::ser::Serialize for super::vehicle::LoadLimit {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1299,7 +1299,7 @@ impl serde::ser::Serialize for crate::model::vehicle::LoadLimit {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::vehicle::load_limit::Interval {
+impl serde::ser::Serialize for super::vehicle::load_limit::Interval {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1344,7 +1344,7 @@ impl serde::ser::Serialize for crate::model::vehicle::load_limit::Interval {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::vehicle::DurationLimit {
+impl serde::ser::Serialize for super::vehicle::DurationLimit {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1409,7 +1409,7 @@ impl serde::ser::Serialize for crate::model::vehicle::DurationLimit {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TimeWindow {
+impl serde::ser::Serialize for super::TimeWindow {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1474,7 +1474,7 @@ impl serde::ser::Serialize for crate::model::TimeWindow {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CapacityQuantity {
+impl serde::ser::Serialize for super::CapacityQuantity {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1508,7 +1508,7 @@ impl serde::ser::Serialize for crate::model::CapacityQuantity {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CapacityQuantityInterval {
+impl serde::ser::Serialize for super::CapacityQuantityInterval {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1558,7 +1558,7 @@ impl serde::ser::Serialize for crate::model::CapacityQuantityInterval {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DistanceLimit {
+impl serde::ser::Serialize for super::DistanceLimit {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1639,7 +1639,7 @@ impl serde::ser::Serialize for crate::model::DistanceLimit {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TransitionAttributes {
+impl serde::ser::Serialize for super::TransitionAttributes {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1700,7 +1700,7 @@ impl serde::ser::Serialize for crate::model::TransitionAttributes {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Waypoint {
+impl serde::ser::Serialize for super::Waypoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1728,7 +1728,7 @@ impl serde::ser::Serialize for crate::model::Waypoint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Location {
+impl serde::ser::Serialize for super::Location {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1764,7 +1764,7 @@ impl serde::ser::Serialize for crate::model::Location {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BreakRule {
+impl serde::ser::Serialize for super::BreakRule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1789,7 +1789,7 @@ impl serde::ser::Serialize for crate::model::BreakRule {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::break_rule::BreakRequest {
+impl serde::ser::Serialize for super::break_rule::BreakRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1817,7 +1817,7 @@ impl serde::ser::Serialize for crate::model::break_rule::BreakRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::break_rule::FrequencyConstraint {
+impl serde::ser::Serialize for super::break_rule::FrequencyConstraint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1842,7 +1842,7 @@ impl serde::ser::Serialize for crate::model::break_rule::FrequencyConstraint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ShipmentRoute {
+impl serde::ser::Serialize for super::ShipmentRoute {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1939,7 +1939,7 @@ impl serde::ser::Serialize for crate::model::ShipmentRoute {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_route::Delay {
+impl serde::ser::Serialize for super::shipment_route::Delay {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1964,7 +1964,7 @@ impl serde::ser::Serialize for crate::model::shipment_route::Delay {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_route::Visit {
+impl serde::ser::Serialize for super::shipment_route::Visit {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2034,7 +2034,7 @@ impl serde::ser::Serialize for crate::model::shipment_route::Visit {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_route::Transition {
+impl serde::ser::Serialize for super::shipment_route::Transition {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2098,7 +2098,7 @@ impl serde::ser::Serialize for crate::model::shipment_route::Transition {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_route::VehicleLoad {
+impl serde::ser::Serialize for super::shipment_route::VehicleLoad {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2129,7 +2129,7 @@ impl serde::ser::Serialize for crate::model::shipment_route::VehicleLoad {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_route::EncodedPolyline {
+impl serde::ser::Serialize for super::shipment_route::EncodedPolyline {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2151,7 +2151,7 @@ impl serde::ser::Serialize for crate::model::shipment_route::EncodedPolyline {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_route::Break {
+impl serde::ser::Serialize for super::shipment_route::Break {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2176,7 +2176,7 @@ impl serde::ser::Serialize for crate::model::shipment_route::Break {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::shipment_route::TravelStep {
+impl serde::ser::Serialize for super::shipment_route::TravelStep {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2216,7 +2216,7 @@ impl serde::ser::Serialize for crate::model::shipment_route::TravelStep {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SkippedShipment {
+impl serde::ser::Serialize for super::SkippedShipment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2253,7 +2253,7 @@ impl serde::ser::Serialize for crate::model::SkippedShipment {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::skipped_shipment::Reason {
+impl serde::ser::Serialize for super::skipped_shipment::Reason {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2295,7 +2295,7 @@ impl serde::ser::Serialize for crate::model::skipped_shipment::Reason {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AggregatedMetrics {
+impl serde::ser::Serialize for super::AggregatedMetrics {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2389,7 +2389,7 @@ impl serde::ser::Serialize for crate::model::AggregatedMetrics {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InjectedSolutionConstraint {
+impl serde::ser::Serialize for super::InjectedSolutionConstraint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2417,7 +2417,7 @@ impl serde::ser::Serialize for crate::model::InjectedSolutionConstraint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::injected_solution_constraint::ConstraintRelaxation {
+impl serde::ser::Serialize for super::injected_solution_constraint::ConstraintRelaxation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2454,7 +2454,7 @@ impl serde::ser::Serialize for crate::model::injected_solution_constraint::Const
 
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::injected_solution_constraint::constraint_relaxation::Relaxation
+    for super::injected_solution_constraint::constraint_relaxation::Relaxation
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2492,7 +2492,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OptimizeToursValidationError {
+impl serde::ser::Serialize for super::OptimizeToursValidationError {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2535,7 +2535,7 @@ impl serde::ser::Serialize for crate::model::OptimizeToursValidationError {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::optimize_tours_validation_error::FieldReference {
+impl serde::ser::Serialize for super::optimize_tours_validation_error::FieldReference {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

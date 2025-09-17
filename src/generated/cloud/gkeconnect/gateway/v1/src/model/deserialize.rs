@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateCredentialsRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GenerateCredentialsRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -69,7 +69,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateCredentialsReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GenerateCredentialsRequest;
+            type Value = super::GenerateCredentialsRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GenerateCredentialsRequest")
             }
@@ -151,7 +151,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateCredentialsReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateCredentialsResponse {
+impl<'de> serde::de::Deserialize<'de> for super::GenerateCredentialsResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -193,7 +193,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GenerateCredentialsRespo
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GenerateCredentialsResponse;
+            type Value = super::GenerateCredentialsResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GenerateCredentialsResponse")
             }

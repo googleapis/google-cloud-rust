@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnnotateVideoRequest {
+impl serde::ser::Serialize for super::AnnotateVideoRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -64,7 +64,7 @@ impl serde::ser::Serialize for crate::model::AnnotateVideoRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VideoContext {
+impl serde::ser::Serialize for super::VideoContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -119,7 +119,7 @@ impl serde::ser::Serialize for crate::model::VideoContext {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LabelDetectionConfig {
+impl serde::ser::Serialize for super::LabelDetectionConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -177,7 +177,7 @@ impl serde::ser::Serialize for crate::model::LabelDetectionConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ShotChangeDetectionConfig {
+impl serde::ser::Serialize for super::ShotChangeDetectionConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -199,7 +199,7 @@ impl serde::ser::Serialize for crate::model::ShotChangeDetectionConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ObjectTrackingConfig {
+impl serde::ser::Serialize for super::ObjectTrackingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -221,7 +221,7 @@ impl serde::ser::Serialize for crate::model::ObjectTrackingConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FaceDetectionConfig {
+impl serde::ser::Serialize for super::FaceDetectionConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -249,7 +249,7 @@ impl serde::ser::Serialize for crate::model::FaceDetectionConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PersonDetectionConfig {
+impl serde::ser::Serialize for super::PersonDetectionConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -277,7 +277,7 @@ impl serde::ser::Serialize for crate::model::PersonDetectionConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplicitContentDetectionConfig {
+impl serde::ser::Serialize for super::ExplicitContentDetectionConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -299,7 +299,7 @@ impl serde::ser::Serialize for crate::model::ExplicitContentDetectionConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TextDetectionConfig {
+impl serde::ser::Serialize for super::TextDetectionConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -324,7 +324,7 @@ impl serde::ser::Serialize for crate::model::TextDetectionConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VideoSegment {
+impl serde::ser::Serialize for super::VideoSegment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -349,7 +349,7 @@ impl serde::ser::Serialize for crate::model::VideoSegment {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LabelSegment {
+impl serde::ser::Serialize for super::LabelSegment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -383,7 +383,7 @@ impl serde::ser::Serialize for crate::model::LabelSegment {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LabelFrame {
+impl serde::ser::Serialize for super::LabelFrame {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -417,7 +417,7 @@ impl serde::ser::Serialize for crate::model::LabelFrame {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Entity {
+impl serde::ser::Serialize for super::Entity {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -445,7 +445,7 @@ impl serde::ser::Serialize for crate::model::Entity {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LabelAnnotation {
+impl serde::ser::Serialize for super::LabelAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -479,7 +479,7 @@ impl serde::ser::Serialize for crate::model::LabelAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplicitContentFrame {
+impl serde::ser::Serialize for super::ExplicitContentFrame {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -504,7 +504,7 @@ impl serde::ser::Serialize for crate::model::ExplicitContentFrame {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplicitContentAnnotation {
+impl serde::ser::Serialize for super::ExplicitContentAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -529,7 +529,7 @@ impl serde::ser::Serialize for crate::model::ExplicitContentAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NormalizedBoundingBox {
+impl serde::ser::Serialize for super::NormalizedBoundingBox {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -596,7 +596,7 @@ impl serde::ser::Serialize for crate::model::NormalizedBoundingBox {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FaceDetectionAnnotation {
+impl serde::ser::Serialize for super::FaceDetectionAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -633,7 +633,7 @@ impl serde::ser::Serialize for crate::model::FaceDetectionAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PersonDetectionAnnotation {
+impl serde::ser::Serialize for super::PersonDetectionAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -658,7 +658,7 @@ impl serde::ser::Serialize for crate::model::PersonDetectionAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FaceSegment {
+impl serde::ser::Serialize for super::FaceSegment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -680,7 +680,7 @@ impl serde::ser::Serialize for crate::model::FaceSegment {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FaceFrame {
+impl serde::ser::Serialize for super::FaceFrame {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -705,7 +705,7 @@ impl serde::ser::Serialize for crate::model::FaceFrame {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FaceAnnotation {
+impl serde::ser::Serialize for super::FaceAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -742,7 +742,7 @@ impl serde::ser::Serialize for crate::model::FaceAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TimestampedObject {
+impl serde::ser::Serialize for super::TimestampedObject {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -773,7 +773,7 @@ impl serde::ser::Serialize for crate::model::TimestampedObject {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Track {
+impl serde::ser::Serialize for super::Track {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -813,7 +813,7 @@ impl serde::ser::Serialize for crate::model::Track {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DetectedAttribute {
+impl serde::ser::Serialize for super::DetectedAttribute {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -850,7 +850,7 @@ impl serde::ser::Serialize for crate::model::DetectedAttribute {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DetectedLandmark {
+impl serde::ser::Serialize for super::DetectedLandmark {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -887,7 +887,7 @@ impl serde::ser::Serialize for crate::model::DetectedLandmark {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VideoAnnotationResults {
+impl serde::ser::Serialize for super::VideoAnnotationResults {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -969,7 +969,7 @@ impl serde::ser::Serialize for crate::model::VideoAnnotationResults {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnnotateVideoResponse {
+impl serde::ser::Serialize for super::AnnotateVideoResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -991,7 +991,7 @@ impl serde::ser::Serialize for crate::model::AnnotateVideoResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VideoAnnotationProgress {
+impl serde::ser::Serialize for super::VideoAnnotationProgress {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1037,7 +1037,7 @@ impl serde::ser::Serialize for crate::model::VideoAnnotationProgress {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnnotateVideoProgress {
+impl serde::ser::Serialize for super::AnnotateVideoProgress {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1059,7 +1059,7 @@ impl serde::ser::Serialize for crate::model::AnnotateVideoProgress {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SpeechTranscriptionConfig {
+impl serde::ser::Serialize for super::SpeechTranscriptionConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1140,7 +1140,7 @@ impl serde::ser::Serialize for crate::model::SpeechTranscriptionConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SpeechContext {
+impl serde::ser::Serialize for super::SpeechContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1162,7 +1162,7 @@ impl serde::ser::Serialize for crate::model::SpeechContext {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SpeechTranscription {
+impl serde::ser::Serialize for super::SpeechTranscription {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1187,7 +1187,7 @@ impl serde::ser::Serialize for crate::model::SpeechTranscription {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SpeechRecognitionAlternative {
+impl serde::ser::Serialize for super::SpeechRecognitionAlternative {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1224,7 +1224,7 @@ impl serde::ser::Serialize for crate::model::SpeechRecognitionAlternative {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WordInfo {
+impl serde::ser::Serialize for super::WordInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1276,7 +1276,7 @@ impl serde::ser::Serialize for crate::model::WordInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NormalizedVertex {
+impl serde::ser::Serialize for super::NormalizedVertex {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1319,7 +1319,7 @@ impl serde::ser::Serialize for crate::model::NormalizedVertex {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NormalizedBoundingPoly {
+impl serde::ser::Serialize for super::NormalizedBoundingPoly {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1341,7 +1341,7 @@ impl serde::ser::Serialize for crate::model::NormalizedBoundingPoly {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TextSegment {
+impl serde::ser::Serialize for super::TextSegment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1378,7 +1378,7 @@ impl serde::ser::Serialize for crate::model::TextSegment {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TextFrame {
+impl serde::ser::Serialize for super::TextFrame {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1403,7 +1403,7 @@ impl serde::ser::Serialize for crate::model::TextFrame {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TextAnnotation {
+impl serde::ser::Serialize for super::TextAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1431,7 +1431,7 @@ impl serde::ser::Serialize for crate::model::TextAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ObjectTrackingFrame {
+impl serde::ser::Serialize for super::ObjectTrackingFrame {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1456,7 +1456,7 @@ impl serde::ser::Serialize for crate::model::ObjectTrackingFrame {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ObjectTrackingAnnotation {
+impl serde::ser::Serialize for super::ObjectTrackingAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1511,7 +1511,7 @@ impl serde::ser::Serialize for crate::model::ObjectTrackingAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LogoRecognitionAnnotation {
+impl serde::ser::Serialize for super::LogoRecognitionAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

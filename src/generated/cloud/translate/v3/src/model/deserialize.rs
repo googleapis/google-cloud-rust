@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtDataset {
+impl<'de> serde::de::Deserialize<'de> for super::AdaptiveMtDataset {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -76,7 +76,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtDataset {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AdaptiveMtDataset;
+            type Value = super::AdaptiveMtDataset;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AdaptiveMtDataset")
             }
@@ -184,7 +184,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtDataset {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreateAdaptiveMtDatasetRequest {
+impl<'de> serde::de::Deserialize<'de> for super::CreateAdaptiveMtDatasetRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -227,7 +227,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateAdaptiveMtDatasetR
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreateAdaptiveMtDatasetRequest;
+            type Value = super::CreateAdaptiveMtDatasetRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreateAdaptiveMtDatasetRequest")
             }
@@ -277,7 +277,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateAdaptiveMtDatasetR
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteAdaptiveMtDatasetRequest {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteAdaptiveMtDatasetRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -317,7 +317,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteAdaptiveMtDatasetR
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteAdaptiveMtDatasetRequest;
+            type Value = super::DeleteAdaptiveMtDatasetRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteAdaptiveMtDatasetRequest")
             }
@@ -357,7 +357,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteAdaptiveMtDatasetR
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetAdaptiveMtDatasetRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetAdaptiveMtDatasetRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -397,7 +397,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetAdaptiveMtDatasetRequ
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetAdaptiveMtDatasetRequest;
+            type Value = super::GetAdaptiveMtDatasetRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetAdaptiveMtDatasetRequest")
             }
@@ -437,7 +437,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetAdaptiveMtDatasetRequ
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtDatasetsRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListAdaptiveMtDatasetsRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -485,7 +485,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtDatasetsRe
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListAdaptiveMtDatasetsRequest;
+            type Value = super::ListAdaptiveMtDatasetsRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListAdaptiveMtDatasetsRequest")
             }
@@ -564,7 +564,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtDatasetsRe
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtDatasetsResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListAdaptiveMtDatasetsResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -608,7 +608,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtDatasetsRe
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListAdaptiveMtDatasetsResponse;
+            type Value = super::ListAdaptiveMtDatasetsResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListAdaptiveMtDatasetsResponse")
             }
@@ -660,7 +660,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtDatasetsRe
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtTranslateRequest {
+impl<'de> serde::de::Deserialize<'de> for super::AdaptiveMtTranslateRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -714,7 +714,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtTranslateReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AdaptiveMtTranslateRequest;
+            type Value = super::AdaptiveMtTranslateRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AdaptiveMtTranslateRequest")
             }
@@ -792,7 +792,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtTranslateReque
 
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de>
-    for crate::model::adaptive_mt_translate_request::ReferenceSentencePair
+    for super::adaptive_mt_translate_request::ReferenceSentencePair
 {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -837,7 +837,7 @@ impl<'de> serde::de::Deserialize<'de>
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::adaptive_mt_translate_request::ReferenceSentencePair;
+            type Value = super::adaptive_mt_translate_request::ReferenceSentencePair;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ReferenceSentencePair")
             }
@@ -888,7 +888,7 @@ impl<'de> serde::de::Deserialize<'de>
 
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de>
-    for crate::model::adaptive_mt_translate_request::ReferenceSentencePairList
+    for super::adaptive_mt_translate_request::ReferenceSentencePairList
 {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -932,7 +932,7 @@ impl<'de> serde::de::Deserialize<'de>
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::adaptive_mt_translate_request::ReferenceSentencePairList;
+            type Value = super::adaptive_mt_translate_request::ReferenceSentencePairList;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ReferenceSentencePairList")
             }
@@ -971,7 +971,7 @@ impl<'de> serde::de::Deserialize<'de>
 
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de>
-    for crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig
+    for super::adaptive_mt_translate_request::ReferenceSentenceConfig
 {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1023,7 +1023,7 @@ impl<'de> serde::de::Deserialize<'de>
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig;
+            type Value = super::adaptive_mt_translate_request::ReferenceSentenceConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ReferenceSentenceConfig")
             }
@@ -1081,9 +1081,7 @@ impl<'de> serde::de::Deserialize<'de>
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de>
-    for crate::model::adaptive_mt_translate_request::GlossaryConfig
-{
+impl<'de> serde::de::Deserialize<'de> for super::adaptive_mt_translate_request::GlossaryConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1133,7 +1131,7 @@ impl<'de> serde::de::Deserialize<'de>
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::adaptive_mt_translate_request::GlossaryConfig;
+            type Value = super::adaptive_mt_translate_request::GlossaryConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GlossaryConfig")
             }
@@ -1193,7 +1191,7 @@ impl<'de> serde::de::Deserialize<'de>
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtTranslation {
+impl<'de> serde::de::Deserialize<'de> for super::AdaptiveMtTranslation {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1234,7 +1232,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtTranslation {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AdaptiveMtTranslation;
+            type Value = super::AdaptiveMtTranslation;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AdaptiveMtTranslation")
             }
@@ -1274,7 +1272,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtTranslation {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtTranslateResponse {
+impl<'de> serde::de::Deserialize<'de> for super::AdaptiveMtTranslateResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1320,7 +1318,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtTranslateRespo
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AdaptiveMtTranslateResponse;
+            type Value = super::AdaptiveMtTranslateResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AdaptiveMtTranslateResponse")
             }
@@ -1384,7 +1382,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtTranslateRespo
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtFile {
+impl<'de> serde::de::Deserialize<'de> for super::AdaptiveMtFile {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1436,7 +1434,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtFile {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AdaptiveMtFile;
+            type Value = super::AdaptiveMtFile;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AdaptiveMtFile")
             }
@@ -1523,7 +1521,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtFile {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetAdaptiveMtFileRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetAdaptiveMtFileRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1563,7 +1561,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetAdaptiveMtFileRequest
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetAdaptiveMtFileRequest;
+            type Value = super::GetAdaptiveMtFileRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetAdaptiveMtFileRequest")
             }
@@ -1603,7 +1601,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetAdaptiveMtFileRequest
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteAdaptiveMtFileRequest {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteAdaptiveMtFileRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1643,7 +1641,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteAdaptiveMtFileRequ
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteAdaptiveMtFileRequest;
+            type Value = super::DeleteAdaptiveMtFileRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteAdaptiveMtFileRequest")
             }
@@ -1683,7 +1681,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteAdaptiveMtFileRequ
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ImportAdaptiveMtFileRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ImportAdaptiveMtFileRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1729,7 +1727,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ImportAdaptiveMtFileRequ
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ImportAdaptiveMtFileRequest;
+            type Value = super::ImportAdaptiveMtFileRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ImportAdaptiveMtFileRequest")
             }
@@ -1803,7 +1801,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ImportAdaptiveMtFileRequ
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ImportAdaptiveMtFileResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ImportAdaptiveMtFileResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1844,7 +1842,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ImportAdaptiveMtFileResp
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ImportAdaptiveMtFileResponse;
+            type Value = super::ImportAdaptiveMtFileResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ImportAdaptiveMtFileResponse")
             }
@@ -1884,7 +1882,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ImportAdaptiveMtFileResp
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtFilesRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListAdaptiveMtFilesRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1930,7 +1928,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtFilesReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListAdaptiveMtFilesRequest;
+            type Value = super::ListAdaptiveMtFilesRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListAdaptiveMtFilesRequest")
             }
@@ -1999,7 +1997,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtFilesReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtFilesResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListAdaptiveMtFilesResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2043,7 +2041,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtFilesRespo
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListAdaptiveMtFilesResponse;
+            type Value = super::ListAdaptiveMtFilesResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListAdaptiveMtFilesResponse")
             }
@@ -2095,7 +2093,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtFilesRespo
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtSentence {
+impl<'de> serde::de::Deserialize<'de> for super::AdaptiveMtSentence {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2147,7 +2145,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtSentence {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AdaptiveMtSentence;
+            type Value = super::AdaptiveMtSentence;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AdaptiveMtSentence")
             }
@@ -2225,7 +2223,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AdaptiveMtSentence {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtSentencesRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListAdaptiveMtSentencesRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2271,7 +2269,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtSentencesR
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListAdaptiveMtSentencesRequest;
+            type Value = super::ListAdaptiveMtSentencesRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListAdaptiveMtSentencesRequest")
             }
@@ -2340,7 +2338,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtSentencesR
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtSentencesResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListAdaptiveMtSentencesResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2384,7 +2382,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtSentencesR
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListAdaptiveMtSentencesResponse;
+            type Value = super::ListAdaptiveMtSentencesResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListAdaptiveMtSentencesResponse")
             }
@@ -2436,7 +2434,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAdaptiveMtSentencesR
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ImportDataRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ImportDataRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2479,7 +2477,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ImportDataRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ImportDataRequest;
+            type Value = super::ImportDataRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ImportDataRequest")
             }
@@ -2528,7 +2526,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ImportDataRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DatasetInputConfig {
+impl<'de> serde::de::Deserialize<'de> for super::DatasetInputConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2569,7 +2567,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DatasetInputConfig {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DatasetInputConfig;
+            type Value = super::DatasetInputConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DatasetInputConfig")
             }
@@ -2611,7 +2609,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DatasetInputConfig {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::dataset_input_config::InputFile {
+impl<'de> serde::de::Deserialize<'de> for super::dataset_input_config::InputFile {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2654,7 +2652,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::dataset_input_config::In
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::dataset_input_config::InputFile;
+            type Value = super::dataset_input_config::InputFile;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct InputFile")
             }
@@ -2714,7 +2712,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::dataset_input_config::In
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ImportDataMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::ImportDataMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2762,7 +2760,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ImportDataMetadata {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ImportDataMetadata;
+            type Value = super::ImportDataMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ImportDataMetadata")
             }
@@ -2829,7 +2827,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ImportDataMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ExportDataRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ExportDataRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2872,7 +2870,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExportDataRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ExportDataRequest;
+            type Value = super::ExportDataRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ExportDataRequest")
             }
@@ -2921,7 +2919,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExportDataRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DatasetOutputConfig {
+impl<'de> serde::de::Deserialize<'de> for super::DatasetOutputConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -2962,7 +2960,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DatasetOutputConfig {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DatasetOutputConfig;
+            type Value = super::DatasetOutputConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DatasetOutputConfig")
             }
@@ -3012,7 +3010,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DatasetOutputConfig {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ExportDataMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::ExportDataMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3060,7 +3058,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExportDataMetadata {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ExportDataMetadata;
+            type Value = super::ExportDataMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ExportDataMetadata")
             }
@@ -3127,7 +3125,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExportDataMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteDatasetRequest {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteDatasetRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3167,7 +3165,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteDatasetRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteDatasetRequest;
+            type Value = super::DeleteDatasetRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteDatasetRequest")
             }
@@ -3207,7 +3205,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteDatasetRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteDatasetMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteDatasetMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3255,7 +3253,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteDatasetMetadata {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteDatasetMetadata;
+            type Value = super::DeleteDatasetMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteDatasetMetadata")
             }
@@ -3322,7 +3320,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteDatasetMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetDatasetRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetDatasetRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3362,7 +3360,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetDatasetRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetDatasetRequest;
+            type Value = super::GetDatasetRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetDatasetRequest")
             }
@@ -3402,7 +3400,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetDatasetRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListDatasetsRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListDatasetsRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3448,7 +3446,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListDatasetsRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListDatasetsRequest;
+            type Value = super::ListDatasetsRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListDatasetsRequest")
             }
@@ -3517,7 +3515,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListDatasetsRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListDatasetsResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListDatasetsResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3560,7 +3558,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListDatasetsResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListDatasetsResponse;
+            type Value = super::ListDatasetsResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListDatasetsResponse")
             }
@@ -3608,7 +3606,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListDatasetsResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreateDatasetRequest {
+impl<'de> serde::de::Deserialize<'de> for super::CreateDatasetRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3650,7 +3648,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateDatasetRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreateDatasetRequest;
+            type Value = super::CreateDatasetRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreateDatasetRequest")
             }
@@ -3699,7 +3697,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateDatasetRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreateDatasetMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::CreateDatasetMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3747,7 +3745,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateDatasetMetadata {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreateDatasetMetadata;
+            type Value = super::CreateDatasetMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreateDatasetMetadata")
             }
@@ -3814,7 +3812,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateDatasetMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListExamplesRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListExamplesRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3862,7 +3860,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListExamplesRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListExamplesRequest;
+            type Value = super::ListExamplesRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListExamplesRequest")
             }
@@ -3941,7 +3939,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListExamplesRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListExamplesResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListExamplesResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -3984,7 +3982,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListExamplesResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListExamplesResponse;
+            type Value = super::ListExamplesResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListExamplesResponse")
             }
@@ -4032,7 +4030,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListExamplesResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::Example {
+impl<'de> serde::de::Deserialize<'de> for super::Example {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -4080,7 +4078,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Example {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::Example;
+            type Value = super::Example;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Example")
             }
@@ -4150,7 +4148,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Example {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTransferResourcesResponse {
+impl<'de> serde::de::Deserialize<'de> for super::BatchTransferResourcesResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -4190,7 +4188,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTransferResourcesRe
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::BatchTransferResourcesResponse;
+            type Value = super::BatchTransferResourcesResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct BatchTransferResourcesResponse")
             }
@@ -4229,7 +4227,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTransferResourcesRe
 
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de>
-    for crate::model::batch_transfer_resources_response::TransferResourceResponse
+    for super::batch_transfer_resources_response::TransferResourceResponse
 {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -4274,7 +4272,7 @@ impl<'de> serde::de::Deserialize<'de>
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::batch_transfer_resources_response::TransferResourceResponse;
+            type Value = super::batch_transfer_resources_response::TransferResourceResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct TransferResourceResponse")
             }
@@ -4333,7 +4331,7 @@ impl<'de> serde::de::Deserialize<'de>
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::Dataset {
+impl<'de> serde::de::Deserialize<'de> for super::Dataset {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -4400,7 +4398,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Dataset {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::Dataset;
+            type Value = super::Dataset;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Dataset")
             }
@@ -4568,7 +4566,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Dataset {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreateModelRequest {
+impl<'de> serde::de::Deserialize<'de> for super::CreateModelRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -4610,7 +4608,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateModelRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreateModelRequest;
+            type Value = super::CreateModelRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreateModelRequest")
             }
@@ -4659,7 +4657,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateModelRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreateModelMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::CreateModelMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -4707,7 +4705,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateModelMetadata {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreateModelMetadata;
+            type Value = super::CreateModelMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreateModelMetadata")
             }
@@ -4774,7 +4772,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateModelMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListModelsRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListModelsRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -4822,7 +4820,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListModelsRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListModelsRequest;
+            type Value = super::ListModelsRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListModelsRequest")
             }
@@ -4901,7 +4899,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListModelsRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListModelsResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListModelsResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -4944,7 +4942,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListModelsResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListModelsResponse;
+            type Value = super::ListModelsResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListModelsResponse")
             }
@@ -4992,7 +4990,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListModelsResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetModelRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetModelRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -5032,7 +5030,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetModelRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetModelRequest;
+            type Value = super::GetModelRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetModelRequest")
             }
@@ -5072,7 +5070,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetModelRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteModelRequest {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteModelRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -5112,7 +5110,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteModelRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteModelRequest;
+            type Value = super::DeleteModelRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteModelRequest")
             }
@@ -5152,7 +5150,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteModelRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteModelMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteModelMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -5200,7 +5198,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteModelMetadata {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteModelMetadata;
+            type Value = super::DeleteModelMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteModelMetadata")
             }
@@ -5267,7 +5265,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteModelMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::Model {
+impl<'de> serde::de::Deserialize<'de> for super::Model {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -5333,7 +5331,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Model {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::Model;
+            type Value = super::Model;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Model")
             }
@@ -5491,7 +5489,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Model {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GcsInputSource {
+impl<'de> serde::de::Deserialize<'de> for super::GcsInputSource {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -5532,7 +5530,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GcsInputSource {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GcsInputSource;
+            type Value = super::GcsInputSource;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GcsInputSource")
             }
@@ -5572,7 +5570,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GcsInputSource {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::FileInputSource {
+impl<'de> serde::de::Deserialize<'de> for super::FileInputSource {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -5618,7 +5616,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::FileInputSource {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::FileInputSource;
+            type Value = super::FileInputSource;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct FileInputSource")
             }
@@ -5687,7 +5685,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::FileInputSource {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GcsOutputDestination {
+impl<'de> serde::de::Deserialize<'de> for super::GcsOutputDestination {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -5728,7 +5726,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GcsOutputDestination {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GcsOutputDestination;
+            type Value = super::GcsOutputDestination;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GcsOutputDestination")
             }
@@ -5768,7 +5766,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GcsOutputDestination {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GlossaryEntry {
+impl<'de> serde::de::Deserialize<'de> for super::GlossaryEntry {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -5816,7 +5814,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GlossaryEntry {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GlossaryEntry;
+            type Value = super::GlossaryEntry;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GlossaryEntry")
             }
@@ -5910,7 +5908,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GlossaryEntry {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::glossary_entry::GlossaryTermsPair {
+impl<'de> serde::de::Deserialize<'de> for super::glossary_entry::GlossaryTermsPair {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -5954,7 +5952,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::glossary_entry::Glossary
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::glossary_entry::GlossaryTermsPair;
+            type Value = super::glossary_entry::GlossaryTermsPair;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GlossaryTermsPair")
             }
@@ -6002,7 +6000,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::glossary_entry::Glossary
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::glossary_entry::GlossaryTermsSet {
+impl<'de> serde::de::Deserialize<'de> for super::glossary_entry::GlossaryTermsSet {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -6042,7 +6040,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::glossary_entry::Glossary
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::glossary_entry::GlossaryTermsSet;
+            type Value = super::glossary_entry::GlossaryTermsSet;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GlossaryTermsSet")
             }
@@ -6080,7 +6078,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::glossary_entry::Glossary
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GlossaryTerm {
+impl<'de> serde::de::Deserialize<'de> for super::GlossaryTerm {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -6123,7 +6121,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GlossaryTerm {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GlossaryTerm;
+            type Value = super::GlossaryTerm;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GlossaryTerm")
             }
@@ -6173,7 +6171,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GlossaryTerm {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::TransliterationConfig {
+impl<'de> serde::de::Deserialize<'de> for super::TransliterationConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -6214,7 +6212,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::TransliterationConfig {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::TransliterationConfig;
+            type Value = super::TransliterationConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct TransliterationConfig")
             }
@@ -6254,7 +6252,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::TransliterationConfig {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateTextRequest {
+impl<'de> serde::de::Deserialize<'de> for super::TranslateTextRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -6315,7 +6313,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateTextRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::TranslateTextRequest;
+            type Value = super::TranslateTextRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct TranslateTextRequest")
             }
@@ -6436,7 +6434,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateTextRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateTextResponse {
+impl<'de> serde::de::Deserialize<'de> for super::TranslateTextResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -6479,7 +6477,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateTextResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::TranslateTextResponse;
+            type Value = super::TranslateTextResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct TranslateTextResponse")
             }
@@ -6525,7 +6523,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateTextResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::Translation {
+impl<'de> serde::de::Deserialize<'de> for super::Translation {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -6574,7 +6572,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Translation {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::Translation;
+            type Value = super::Translation;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Translation")
             }
@@ -6643,7 +6641,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Translation {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::RomanizeTextRequest {
+impl<'de> serde::de::Deserialize<'de> for super::RomanizeTextRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -6688,7 +6686,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::RomanizeTextRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::RomanizeTextRequest;
+            type Value = super::RomanizeTextRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct RomanizeTextRequest")
             }
@@ -6746,7 +6744,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::RomanizeTextRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::Romanization {
+impl<'de> serde::de::Deserialize<'de> for super::Romanization {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -6790,7 +6788,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Romanization {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::Romanization;
+            type Value = super::Romanization;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Romanization")
             }
@@ -6840,7 +6838,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Romanization {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::RomanizeTextResponse {
+impl<'de> serde::de::Deserialize<'de> for super::RomanizeTextResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -6880,7 +6878,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::RomanizeTextResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::RomanizeTextResponse;
+            type Value = super::RomanizeTextResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct RomanizeTextResponse")
             }
@@ -6918,7 +6916,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::RomanizeTextResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DetectLanguageRequest {
+impl<'de> serde::de::Deserialize<'de> for super::DetectLanguageRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -6967,7 +6965,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DetectLanguageRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DetectLanguageRequest;
+            type Value = super::DetectLanguageRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DetectLanguageRequest")
             }
@@ -7060,7 +7058,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DetectLanguageRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DetectedLanguage {
+impl<'de> serde::de::Deserialize<'de> for super::DetectedLanguage {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -7103,7 +7101,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DetectedLanguage {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DetectedLanguage;
+            type Value = super::DetectedLanguage;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DetectedLanguage")
             }
@@ -7162,7 +7160,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DetectedLanguage {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DetectLanguageResponse {
+impl<'de> serde::de::Deserialize<'de> for super::DetectLanguageResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -7202,7 +7200,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DetectLanguageResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DetectLanguageResponse;
+            type Value = super::DetectLanguageResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DetectLanguageResponse")
             }
@@ -7244,7 +7242,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DetectLanguageResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetSupportedLanguagesRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetSupportedLanguagesRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -7289,7 +7287,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetSupportedLanguagesReq
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetSupportedLanguagesRequest;
+            type Value = super::GetSupportedLanguagesRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetSupportedLanguagesRequest")
             }
@@ -7349,7 +7347,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetSupportedLanguagesReq
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SupportedLanguages {
+impl<'de> serde::de::Deserialize<'de> for super::SupportedLanguages {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -7389,7 +7387,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SupportedLanguages {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SupportedLanguages;
+            type Value = super::SupportedLanguages;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SupportedLanguages")
             }
@@ -7431,7 +7429,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SupportedLanguages {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SupportedLanguage {
+impl<'de> serde::de::Deserialize<'de> for super::SupportedLanguage {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -7481,7 +7479,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SupportedLanguage {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SupportedLanguage;
+            type Value = super::SupportedLanguage;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SupportedLanguage")
             }
@@ -7551,7 +7549,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SupportedLanguage {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GcsSource {
+impl<'de> serde::de::Deserialize<'de> for super::GcsSource {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -7592,7 +7590,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GcsSource {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GcsSource;
+            type Value = super::GcsSource;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GcsSource")
             }
@@ -7632,7 +7630,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GcsSource {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::InputConfig {
+impl<'de> serde::de::Deserialize<'de> for super::InputConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -7676,7 +7674,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::InputConfig {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::InputConfig;
+            type Value = super::InputConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct InputConfig")
             }
@@ -7736,7 +7734,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::InputConfig {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GcsDestination {
+impl<'de> serde::de::Deserialize<'de> for super::GcsDestination {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -7777,7 +7775,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GcsDestination {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GcsDestination;
+            type Value = super::GcsDestination;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GcsDestination")
             }
@@ -7817,7 +7815,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GcsDestination {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::OutputConfig {
+impl<'de> serde::de::Deserialize<'de> for super::OutputConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -7858,7 +7856,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::OutputConfig {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::OutputConfig;
+            type Value = super::OutputConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct OutputConfig")
             }
@@ -7908,7 +7906,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::OutputConfig {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DocumentInputConfig {
+impl<'de> serde::de::Deserialize<'de> for super::DocumentInputConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -7954,7 +7952,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DocumentInputConfig {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DocumentInputConfig;
+            type Value = super::DocumentInputConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DocumentInputConfig")
             }
@@ -8042,7 +8040,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DocumentInputConfig {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DocumentOutputConfig {
+impl<'de> serde::de::Deserialize<'de> for super::DocumentOutputConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -8086,7 +8084,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DocumentOutputConfig {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DocumentOutputConfig;
+            type Value = super::DocumentOutputConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DocumentOutputConfig")
             }
@@ -8146,7 +8144,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DocumentOutputConfig {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateDocumentRequest {
+impl<'de> serde::de::Deserialize<'de> for super::TranslateDocumentRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -8229,7 +8227,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateDocumentRequest
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::TranslateDocumentRequest;
+            type Value = super::TranslateDocumentRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct TranslateDocumentRequest")
             }
@@ -8381,7 +8379,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateDocumentRequest
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DocumentTranslation {
+impl<'de> serde::de::Deserialize<'de> for super::DocumentTranslation {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -8428,7 +8426,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DocumentTranslation {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DocumentTranslation;
+            type Value = super::DocumentTranslation;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DocumentTranslation")
             }
@@ -8503,7 +8501,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DocumentTranslation {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateDocumentResponse {
+impl<'de> serde::de::Deserialize<'de> for super::TranslateDocumentResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -8556,7 +8554,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateDocumentRespons
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::TranslateDocumentResponse;
+            type Value = super::TranslateDocumentResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct TranslateDocumentResponse")
             }
@@ -8623,7 +8621,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateDocumentRespons
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateTextRequest {
+impl<'de> serde::de::Deserialize<'de> for super::BatchTranslateTextRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -8681,7 +8679,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateTextReques
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::BatchTranslateTextRequest;
+            type Value = super::BatchTranslateTextRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct BatchTranslateTextRequest")
             }
@@ -8801,7 +8799,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateTextReques
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::BatchTranslateMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -8853,7 +8851,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateMetadata {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::BatchTranslateMetadata;
+            type Value = super::BatchTranslateMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct BatchTranslateMetadata")
             }
@@ -8964,7 +8962,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateResponse {
+impl<'de> serde::de::Deserialize<'de> for super::BatchTranslateResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -9017,7 +9015,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::BatchTranslateResponse;
+            type Value = super::BatchTranslateResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct BatchTranslateResponse")
             }
@@ -9125,7 +9123,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GlossaryInputConfig {
+impl<'de> serde::de::Deserialize<'de> for super::GlossaryInputConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -9166,7 +9164,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GlossaryInputConfig {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GlossaryInputConfig;
+            type Value = super::GlossaryInputConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GlossaryInputConfig")
             }
@@ -9216,7 +9214,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GlossaryInputConfig {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::Glossary {
+impl<'de> serde::de::Deserialize<'de> for super::Glossary {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -9277,7 +9275,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Glossary {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::Glossary;
+            type Value = super::Glossary;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Glossary")
             }
@@ -9413,7 +9411,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Glossary {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::glossary::LanguageCodePair {
+impl<'de> serde::de::Deserialize<'de> for super::glossary::LanguageCodePair {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -9457,7 +9455,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::glossary::LanguageCodePa
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::glossary::LanguageCodePair;
+            type Value = super::glossary::LanguageCodePair;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct LanguageCodePair")
             }
@@ -9507,7 +9505,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::glossary::LanguageCodePa
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::glossary::LanguageCodesSet {
+impl<'de> serde::de::Deserialize<'de> for super::glossary::LanguageCodesSet {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -9548,7 +9546,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::glossary::LanguageCodesS
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::glossary::LanguageCodesSet;
+            type Value = super::glossary::LanguageCodesSet;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct LanguageCodesSet")
             }
@@ -9586,7 +9584,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::glossary::LanguageCodesS
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreateGlossaryRequest {
+impl<'de> serde::de::Deserialize<'de> for super::CreateGlossaryRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -9628,7 +9626,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateGlossaryRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreateGlossaryRequest;
+            type Value = super::CreateGlossaryRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreateGlossaryRequest")
             }
@@ -9677,7 +9675,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateGlossaryRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::UpdateGlossaryRequest {
+impl<'de> serde::de::Deserialize<'de> for super::UpdateGlossaryRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -9720,7 +9718,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UpdateGlossaryRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::UpdateGlossaryRequest;
+            type Value = super::UpdateGlossaryRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct UpdateGlossaryRequest")
             }
@@ -9768,7 +9766,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UpdateGlossaryRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetGlossaryRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetGlossaryRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -9808,7 +9806,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetGlossaryRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetGlossaryRequest;
+            type Value = super::GetGlossaryRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetGlossaryRequest")
             }
@@ -9848,7 +9846,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetGlossaryRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryRequest {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteGlossaryRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -9888,7 +9886,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteGlossaryRequest;
+            type Value = super::DeleteGlossaryRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteGlossaryRequest")
             }
@@ -9928,7 +9926,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossariesRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListGlossariesRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -9976,7 +9974,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossariesRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListGlossariesRequest;
+            type Value = super::ListGlossariesRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListGlossariesRequest")
             }
@@ -10055,7 +10053,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossariesRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossariesResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListGlossariesResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -10098,7 +10096,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossariesResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListGlossariesResponse;
+            type Value = super::ListGlossariesResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListGlossariesResponse")
             }
@@ -10146,7 +10144,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossariesResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetGlossaryEntryRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetGlossaryEntryRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -10186,7 +10184,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetGlossaryEntryRequest 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetGlossaryEntryRequest;
+            type Value = super::GetGlossaryEntryRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetGlossaryEntryRequest")
             }
@@ -10226,7 +10224,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetGlossaryEntryRequest 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryEntryRequest {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteGlossaryEntryRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -10266,7 +10264,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryEntryReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteGlossaryEntryRequest;
+            type Value = super::DeleteGlossaryEntryRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteGlossaryEntryRequest")
             }
@@ -10306,7 +10304,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryEntryReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossaryEntriesRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListGlossaryEntriesRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -10352,7 +10350,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossaryEntriesReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListGlossaryEntriesRequest;
+            type Value = super::ListGlossaryEntriesRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListGlossaryEntriesRequest")
             }
@@ -10421,7 +10419,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossaryEntriesReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossaryEntriesResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListGlossaryEntriesResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -10465,7 +10463,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossaryEntriesRespo
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListGlossaryEntriesResponse;
+            type Value = super::ListGlossaryEntriesResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListGlossaryEntriesResponse")
             }
@@ -10513,7 +10511,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListGlossaryEntriesRespo
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreateGlossaryEntryRequest {
+impl<'de> serde::de::Deserialize<'de> for super::CreateGlossaryEntryRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -10556,7 +10554,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateGlossaryEntryReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreateGlossaryEntryRequest;
+            type Value = super::CreateGlossaryEntryRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreateGlossaryEntryRequest")
             }
@@ -10605,7 +10603,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateGlossaryEntryReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::UpdateGlossaryEntryRequest {
+impl<'de> serde::de::Deserialize<'de> for super::UpdateGlossaryEntryRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -10646,7 +10644,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UpdateGlossaryEntryReque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::UpdateGlossaryEntryRequest;
+            type Value = super::UpdateGlossaryEntryRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct UpdateGlossaryEntryRequest")
             }
@@ -10685,7 +10683,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UpdateGlossaryEntryReque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreateGlossaryMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::CreateGlossaryMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -10730,7 +10728,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateGlossaryMetadata {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreateGlossaryMetadata;
+            type Value = super::CreateGlossaryMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreateGlossaryMetadata")
             }
@@ -10791,7 +10789,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateGlossaryMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::UpdateGlossaryMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::UpdateGlossaryMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -10836,7 +10834,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UpdateGlossaryMetadata {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::UpdateGlossaryMetadata;
+            type Value = super::UpdateGlossaryMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct UpdateGlossaryMetadata")
             }
@@ -10896,7 +10894,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::UpdateGlossaryMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteGlossaryMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -10941,7 +10939,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryMetadata {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteGlossaryMetadata;
+            type Value = super::DeleteGlossaryMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteGlossaryMetadata")
             }
@@ -11002,7 +11000,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryResponse {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteGlossaryResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -11048,7 +11046,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryResponse {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteGlossaryResponse;
+            type Value = super::DeleteGlossaryResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteGlossaryResponse")
             }
@@ -11106,7 +11104,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteGlossaryResponse {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateDocumentRequest {
+impl<'de> serde::de::Deserialize<'de> for super::BatchTranslateDocumentRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -11182,7 +11180,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateDocumentRe
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::BatchTranslateDocumentRequest;
+            type Value = super::BatchTranslateDocumentRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct BatchTranslateDocumentRequest")
             }
@@ -11336,7 +11334,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateDocumentRe
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::BatchDocumentInputConfig {
+impl<'de> serde::de::Deserialize<'de> for super::BatchDocumentInputConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -11377,7 +11375,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchDocumentInputConfig
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::BatchDocumentInputConfig;
+            type Value = super::BatchDocumentInputConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct BatchDocumentInputConfig")
             }
@@ -11427,7 +11425,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchDocumentInputConfig
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::BatchDocumentOutputConfig {
+impl<'de> serde::de::Deserialize<'de> for super::BatchDocumentOutputConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -11468,7 +11466,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchDocumentOutputConfi
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::BatchDocumentOutputConfig;
+            type Value = super::BatchDocumentOutputConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct BatchDocumentOutputConfig")
             }
@@ -11515,7 +11513,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchDocumentOutputConfi
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateDocumentResponse {
+impl<'de> serde::de::Deserialize<'de> for super::BatchTranslateDocumentResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -11587,7 +11585,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateDocumentRe
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::BatchTranslateDocumentResponse;
+            type Value = super::BatchTranslateDocumentResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct BatchTranslateDocumentResponse")
             }
@@ -11793,7 +11791,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateDocumentRe
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateDocumentMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::BatchTranslateDocumentMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -11864,7 +11862,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateDocumentMe
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::BatchTranslateDocumentMetadata;
+            type Value = super::BatchTranslateDocumentMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct BatchTranslateDocumentMetadata")
             }
@@ -12073,7 +12071,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::BatchTranslateDocumentMe
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateTextGlossaryConfig {
+impl<'de> serde::de::Deserialize<'de> for super::TranslateTextGlossaryConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -12123,7 +12121,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::TranslateTextGlossaryCon
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::TranslateTextGlossaryConfig;
+            type Value = super::TranslateTextGlossaryConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct TranslateTextGlossaryConfig")
             }

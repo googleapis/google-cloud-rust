@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DenyRule {
+impl serde::ser::Serialize for super::DenyRule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -52,7 +52,7 @@ impl serde::ser::Serialize for crate::model::DenyRule {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Policy {
+impl serde::ser::Serialize for super::Policy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -104,7 +104,7 @@ impl serde::ser::Serialize for crate::model::Policy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PolicyRule {
+impl serde::ser::Serialize for super::PolicyRule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -129,7 +129,7 @@ impl serde::ser::Serialize for crate::model::PolicyRule {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPoliciesRequest {
+impl serde::ser::Serialize for super::ListPoliciesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -166,7 +166,7 @@ impl serde::ser::Serialize for crate::model::ListPoliciesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListPoliciesResponse {
+impl serde::ser::Serialize for super::ListPoliciesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -191,7 +191,7 @@ impl serde::ser::Serialize for crate::model::ListPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetPolicyRequest {
+impl serde::ser::Serialize for super::GetPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -213,7 +213,7 @@ impl serde::ser::Serialize for crate::model::GetPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreatePolicyRequest {
+impl serde::ser::Serialize for super::CreatePolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -241,7 +241,7 @@ impl serde::ser::Serialize for crate::model::CreatePolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdatePolicyRequest {
+impl serde::ser::Serialize for super::UpdatePolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -263,7 +263,7 @@ impl serde::ser::Serialize for crate::model::UpdatePolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeletePolicyRequest {
+impl serde::ser::Serialize for super::DeletePolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -288,7 +288,7 @@ impl serde::ser::Serialize for crate::model::DeletePolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PolicyOperationMetadata {
+impl serde::ser::Serialize for super::PolicyOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

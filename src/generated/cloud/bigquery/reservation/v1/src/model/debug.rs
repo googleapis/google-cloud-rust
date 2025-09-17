@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Reservation {
+impl std::fmt::Debug for super::Reservation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reservation");
         debug_struct.field("name", &self.name);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::Reservation {
     }
 }
 
-impl std::fmt::Debug for crate::model::reservation::Autoscale {
+impl std::fmt::Debug for super::reservation::Autoscale {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Autoscale");
         debug_struct.field("current_slots", &self.current_slots);
@@ -54,7 +54,7 @@ impl std::fmt::Debug for crate::model::reservation::Autoscale {
     }
 }
 
-impl std::fmt::Debug for crate::model::reservation::ReplicationStatus {
+impl std::fmt::Debug for super::reservation::ReplicationStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplicationStatus");
         debug_struct.field("error", &self.error);
@@ -68,7 +68,7 @@ impl std::fmt::Debug for crate::model::reservation::ReplicationStatus {
     }
 }
 
-impl std::fmt::Debug for crate::model::CapacityCommitment {
+impl std::fmt::Debug for super::CapacityCommitment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CapacityCommitment");
         debug_struct.field("name", &self.name);
@@ -89,7 +89,7 @@ impl std::fmt::Debug for crate::model::CapacityCommitment {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateReservationRequest {
+impl std::fmt::Debug for super::CreateReservationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateReservationRequest");
         debug_struct.field("parent", &self.parent);
@@ -102,7 +102,7 @@ impl std::fmt::Debug for crate::model::CreateReservationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListReservationsRequest {
+impl std::fmt::Debug for super::ListReservationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListReservationsRequest");
         debug_struct.field("parent", &self.parent);
@@ -115,7 +115,7 @@ impl std::fmt::Debug for crate::model::ListReservationsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListReservationsResponse {
+impl std::fmt::Debug for super::ListReservationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListReservationsResponse");
         debug_struct.field("reservations", &self.reservations);
@@ -127,7 +127,7 @@ impl std::fmt::Debug for crate::model::ListReservationsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetReservationRequest {
+impl std::fmt::Debug for super::GetReservationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetReservationRequest");
         debug_struct.field("name", &self.name);
@@ -138,7 +138,7 @@ impl std::fmt::Debug for crate::model::GetReservationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteReservationRequest {
+impl std::fmt::Debug for super::DeleteReservationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteReservationRequest");
         debug_struct.field("name", &self.name);
@@ -149,7 +149,7 @@ impl std::fmt::Debug for crate::model::DeleteReservationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateReservationRequest {
+impl std::fmt::Debug for super::UpdateReservationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateReservationRequest");
         debug_struct.field("reservation", &self.reservation);
@@ -161,7 +161,7 @@ impl std::fmt::Debug for crate::model::UpdateReservationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::FailoverReservationRequest {
+impl std::fmt::Debug for super::FailoverReservationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FailoverReservationRequest");
         debug_struct.field("name", &self.name);
@@ -173,7 +173,7 @@ impl std::fmt::Debug for crate::model::FailoverReservationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateCapacityCommitmentRequest {
+impl std::fmt::Debug for super::CreateCapacityCommitmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateCapacityCommitmentRequest");
         debug_struct.field("parent", &self.parent);
@@ -190,7 +190,7 @@ impl std::fmt::Debug for crate::model::CreateCapacityCommitmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCapacityCommitmentsRequest {
+impl std::fmt::Debug for super::ListCapacityCommitmentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCapacityCommitmentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -203,7 +203,7 @@ impl std::fmt::Debug for crate::model::ListCapacityCommitmentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCapacityCommitmentsResponse {
+impl std::fmt::Debug for super::ListCapacityCommitmentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCapacityCommitmentsResponse");
         debug_struct.field("capacity_commitments", &self.capacity_commitments);
@@ -215,7 +215,7 @@ impl std::fmt::Debug for crate::model::ListCapacityCommitmentsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetCapacityCommitmentRequest {
+impl std::fmt::Debug for super::GetCapacityCommitmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCapacityCommitmentRequest");
         debug_struct.field("name", &self.name);
@@ -226,7 +226,7 @@ impl std::fmt::Debug for crate::model::GetCapacityCommitmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteCapacityCommitmentRequest {
+impl std::fmt::Debug for super::DeleteCapacityCommitmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteCapacityCommitmentRequest");
         debug_struct.field("name", &self.name);
@@ -238,7 +238,7 @@ impl std::fmt::Debug for crate::model::DeleteCapacityCommitmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateCapacityCommitmentRequest {
+impl std::fmt::Debug for super::UpdateCapacityCommitmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCapacityCommitmentRequest");
         debug_struct.field("capacity_commitment", &self.capacity_commitment);
@@ -250,7 +250,7 @@ impl std::fmt::Debug for crate::model::UpdateCapacityCommitmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SplitCapacityCommitmentRequest {
+impl std::fmt::Debug for super::SplitCapacityCommitmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SplitCapacityCommitmentRequest");
         debug_struct.field("name", &self.name);
@@ -262,7 +262,7 @@ impl std::fmt::Debug for crate::model::SplitCapacityCommitmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SplitCapacityCommitmentResponse {
+impl std::fmt::Debug for super::SplitCapacityCommitmentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SplitCapacityCommitmentResponse");
         debug_struct.field("first", &self.first);
@@ -274,7 +274,7 @@ impl std::fmt::Debug for crate::model::SplitCapacityCommitmentResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::MergeCapacityCommitmentsRequest {
+impl std::fmt::Debug for super::MergeCapacityCommitmentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MergeCapacityCommitmentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -286,7 +286,7 @@ impl std::fmt::Debug for crate::model::MergeCapacityCommitmentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Assignment {
+impl std::fmt::Debug for super::Assignment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Assignment");
         debug_struct.field("name", &self.name);
@@ -301,7 +301,7 @@ impl std::fmt::Debug for crate::model::Assignment {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateAssignmentRequest {
+impl std::fmt::Debug for super::CreateAssignmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateAssignmentRequest");
         debug_struct.field("parent", &self.parent);
@@ -314,7 +314,7 @@ impl std::fmt::Debug for crate::model::CreateAssignmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAssignmentsRequest {
+impl std::fmt::Debug for super::ListAssignmentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAssignmentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -327,7 +327,7 @@ impl std::fmt::Debug for crate::model::ListAssignmentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAssignmentsResponse {
+impl std::fmt::Debug for super::ListAssignmentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAssignmentsResponse");
         debug_struct.field("assignments", &self.assignments);
@@ -339,7 +339,7 @@ impl std::fmt::Debug for crate::model::ListAssignmentsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteAssignmentRequest {
+impl std::fmt::Debug for super::DeleteAssignmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAssignmentRequest");
         debug_struct.field("name", &self.name);
@@ -350,7 +350,7 @@ impl std::fmt::Debug for crate::model::DeleteAssignmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchAssignmentsRequest {
+impl std::fmt::Debug for super::SearchAssignmentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchAssignmentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -364,7 +364,7 @@ impl std::fmt::Debug for crate::model::SearchAssignmentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchAllAssignmentsRequest {
+impl std::fmt::Debug for super::SearchAllAssignmentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchAllAssignmentsRequest");
         debug_struct.field("parent", &self.parent);
@@ -378,7 +378,7 @@ impl std::fmt::Debug for crate::model::SearchAllAssignmentsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchAssignmentsResponse {
+impl std::fmt::Debug for super::SearchAssignmentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchAssignmentsResponse");
         debug_struct.field("assignments", &self.assignments);
@@ -390,7 +390,7 @@ impl std::fmt::Debug for crate::model::SearchAssignmentsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchAllAssignmentsResponse {
+impl std::fmt::Debug for super::SearchAllAssignmentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchAllAssignmentsResponse");
         debug_struct.field("assignments", &self.assignments);
@@ -402,7 +402,7 @@ impl std::fmt::Debug for crate::model::SearchAllAssignmentsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::MoveAssignmentRequest {
+impl std::fmt::Debug for super::MoveAssignmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MoveAssignmentRequest");
         debug_struct.field("name", &self.name);
@@ -415,7 +415,7 @@ impl std::fmt::Debug for crate::model::MoveAssignmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateAssignmentRequest {
+impl std::fmt::Debug for super::UpdateAssignmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateAssignmentRequest");
         debug_struct.field("assignment", &self.assignment);
@@ -427,7 +427,7 @@ impl std::fmt::Debug for crate::model::UpdateAssignmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::TableReference {
+impl std::fmt::Debug for super::TableReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TableReference");
         debug_struct.field("project_id", &self.project_id);
@@ -440,7 +440,7 @@ impl std::fmt::Debug for crate::model::TableReference {
     }
 }
 
-impl std::fmt::Debug for crate::model::BiReservation {
+impl std::fmt::Debug for super::BiReservation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BiReservation");
         debug_struct.field("name", &self.name);
@@ -454,7 +454,7 @@ impl std::fmt::Debug for crate::model::BiReservation {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetBiReservationRequest {
+impl std::fmt::Debug for super::GetBiReservationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetBiReservationRequest");
         debug_struct.field("name", &self.name);
@@ -465,7 +465,7 @@ impl std::fmt::Debug for crate::model::GetBiReservationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateBiReservationRequest {
+impl std::fmt::Debug for super::UpdateBiReservationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateBiReservationRequest");
         debug_struct.field("bi_reservation", &self.bi_reservation);

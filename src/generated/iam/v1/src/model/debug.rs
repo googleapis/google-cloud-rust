@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::SetIamPolicyRequest {
+impl std::fmt::Debug for super::SetIamPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SetIamPolicyRequest");
         debug_struct.field("resource", &self.resource);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::SetIamPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetIamPolicyRequest {
+impl std::fmt::Debug for super::GetIamPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
         debug_struct.field("resource", &self.resource);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::GetIamPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::TestIamPermissionsRequest {
+impl std::fmt::Debug for super::TestIamPermissionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
         debug_struct.field("resource", &self.resource);
@@ -54,7 +54,7 @@ impl std::fmt::Debug for crate::model::TestIamPermissionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::TestIamPermissionsResponse {
+impl std::fmt::Debug for super::TestIamPermissionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TestIamPermissionsResponse");
         debug_struct.field("permissions", &self.permissions);
@@ -65,7 +65,7 @@ impl std::fmt::Debug for crate::model::TestIamPermissionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPolicyOptions {
+impl std::fmt::Debug for super::GetPolicyOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPolicyOptions");
         debug_struct.field("requested_policy_version", &self.requested_policy_version);
@@ -76,7 +76,7 @@ impl std::fmt::Debug for crate::model::GetPolicyOptions {
     }
 }
 
-impl std::fmt::Debug for crate::model::Policy {
+impl std::fmt::Debug for super::Policy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Policy");
         debug_struct.field("version", &self.version);
@@ -90,7 +90,7 @@ impl std::fmt::Debug for crate::model::Policy {
     }
 }
 
-impl std::fmt::Debug for crate::model::Binding {
+impl std::fmt::Debug for super::Binding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Binding");
         debug_struct.field("role", &self.role);
@@ -103,7 +103,7 @@ impl std::fmt::Debug for crate::model::Binding {
     }
 }
 
-impl std::fmt::Debug for crate::model::AuditConfig {
+impl std::fmt::Debug for super::AuditConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuditConfig");
         debug_struct.field("service", &self.service);
@@ -115,7 +115,7 @@ impl std::fmt::Debug for crate::model::AuditConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::AuditLogConfig {
+impl std::fmt::Debug for super::AuditLogConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuditLogConfig");
         debug_struct.field("log_type", &self.log_type);
@@ -127,7 +127,7 @@ impl std::fmt::Debug for crate::model::AuditLogConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::PolicyDelta {
+impl std::fmt::Debug for super::PolicyDelta {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyDelta");
         debug_struct.field("binding_deltas", &self.binding_deltas);
@@ -139,7 +139,7 @@ impl std::fmt::Debug for crate::model::PolicyDelta {
     }
 }
 
-impl std::fmt::Debug for crate::model::BindingDelta {
+impl std::fmt::Debug for super::BindingDelta {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BindingDelta");
         debug_struct.field("action", &self.action);
@@ -153,7 +153,7 @@ impl std::fmt::Debug for crate::model::BindingDelta {
     }
 }
 
-impl std::fmt::Debug for crate::model::AuditConfigDelta {
+impl std::fmt::Debug for super::AuditConfigDelta {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuditConfigDelta");
         debug_struct.field("action", &self.action);
@@ -167,7 +167,7 @@ impl std::fmt::Debug for crate::model::AuditConfigDelta {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResourcePolicyMember {
+impl std::fmt::Debug for super::ResourcePolicyMember {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourcePolicyMember");
         debug_struct.field("iam_policy_name_principal", &self.iam_policy_name_principal);

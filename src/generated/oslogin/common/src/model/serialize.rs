@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PosixAccount {
+impl serde::ser::Serialize for super::PosixAccount {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -88,7 +88,7 @@ impl serde::ser::Serialize for crate::model::PosixAccount {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SshPublicKey {
+impl serde::ser::Serialize for super::SshPublicKey {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

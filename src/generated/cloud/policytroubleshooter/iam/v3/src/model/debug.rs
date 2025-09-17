@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::TroubleshootIamPolicyRequest {
+impl std::fmt::Debug for super::TroubleshootIamPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TroubleshootIamPolicyRequest");
         debug_struct.field("access_tuple", &self.access_tuple);
@@ -28,7 +28,7 @@ impl std::fmt::Debug for crate::model::TroubleshootIamPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::TroubleshootIamPolicyResponse {
+impl std::fmt::Debug for super::TroubleshootIamPolicyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TroubleshootIamPolicyResponse");
         debug_struct.field("overall_access_state", &self.overall_access_state);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::TroubleshootIamPolicyResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::AccessTuple {
+impl std::fmt::Debug for super::AccessTuple {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessTuple");
         debug_struct.field("principal", &self.principal);
@@ -57,7 +57,7 @@ impl std::fmt::Debug for crate::model::AccessTuple {
     }
 }
 
-impl std::fmt::Debug for crate::model::ConditionContext {
+impl std::fmt::Debug for super::ConditionContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConditionContext");
         debug_struct.field("resource", &self.resource);
@@ -71,7 +71,7 @@ impl std::fmt::Debug for crate::model::ConditionContext {
     }
 }
 
-impl std::fmt::Debug for crate::model::condition_context::Resource {
+impl std::fmt::Debug for super::condition_context::Resource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Resource");
         debug_struct.field("service", &self.service);
@@ -84,7 +84,7 @@ impl std::fmt::Debug for crate::model::condition_context::Resource {
     }
 }
 
-impl std::fmt::Debug for crate::model::condition_context::Peer {
+impl std::fmt::Debug for super::condition_context::Peer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Peer");
         debug_struct.field("ip", &self.ip);
@@ -96,7 +96,7 @@ impl std::fmt::Debug for crate::model::condition_context::Peer {
     }
 }
 
-impl std::fmt::Debug for crate::model::condition_context::Request {
+impl std::fmt::Debug for super::condition_context::Request {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Request");
         debug_struct.field("receive_time", &self.receive_time);
@@ -107,7 +107,7 @@ impl std::fmt::Debug for crate::model::condition_context::Request {
     }
 }
 
-impl std::fmt::Debug for crate::model::condition_context::EffectiveTag {
+impl std::fmt::Debug for super::condition_context::EffectiveTag {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EffectiveTag");
         debug_struct.field("tag_value", &self.tag_value);
@@ -123,7 +123,7 @@ impl std::fmt::Debug for crate::model::condition_context::EffectiveTag {
     }
 }
 
-impl std::fmt::Debug for crate::model::AllowPolicyExplanation {
+impl std::fmt::Debug for super::AllowPolicyExplanation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AllowPolicyExplanation");
         debug_struct.field("allow_access_state", &self.allow_access_state);
@@ -136,7 +136,7 @@ impl std::fmt::Debug for crate::model::AllowPolicyExplanation {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExplainedAllowPolicy {
+impl std::fmt::Debug for super::ExplainedAllowPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExplainedAllowPolicy");
         debug_struct.field("allow_access_state", &self.allow_access_state);
@@ -151,7 +151,7 @@ impl std::fmt::Debug for crate::model::ExplainedAllowPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::AllowBindingExplanation {
+impl std::fmt::Debug for super::AllowBindingExplanation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AllowBindingExplanation");
         debug_struct.field("allow_access_state", &self.allow_access_state);
@@ -170,7 +170,7 @@ impl std::fmt::Debug for crate::model::AllowBindingExplanation {
     }
 }
 
-impl std::fmt::Debug for crate::model::allow_binding_explanation::AnnotatedAllowMembership {
+impl std::fmt::Debug for super::allow_binding_explanation::AnnotatedAllowMembership {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotatedAllowMembership");
         debug_struct.field("membership", &self.membership);
@@ -182,7 +182,7 @@ impl std::fmt::Debug for crate::model::allow_binding_explanation::AnnotatedAllow
     }
 }
 
-impl std::fmt::Debug for crate::model::DenyPolicyExplanation {
+impl std::fmt::Debug for super::DenyPolicyExplanation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DenyPolicyExplanation");
         debug_struct.field("deny_access_state", &self.deny_access_state);
@@ -196,7 +196,7 @@ impl std::fmt::Debug for crate::model::DenyPolicyExplanation {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExplainedDenyResource {
+impl std::fmt::Debug for super::ExplainedDenyResource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExplainedDenyResource");
         debug_struct.field("deny_access_state", &self.deny_access_state);
@@ -210,7 +210,7 @@ impl std::fmt::Debug for crate::model::ExplainedDenyResource {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExplainedDenyPolicy {
+impl std::fmt::Debug for super::ExplainedDenyPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExplainedDenyPolicy");
         debug_struct.field("deny_access_state", &self.deny_access_state);
@@ -224,7 +224,7 @@ impl std::fmt::Debug for crate::model::ExplainedDenyPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::DenyRuleExplanation {
+impl std::fmt::Debug for super::DenyRuleExplanation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DenyRuleExplanation");
         debug_struct.field("deny_access_state", &self.deny_access_state);
@@ -255,7 +255,7 @@ impl std::fmt::Debug for crate::model::DenyRuleExplanation {
     }
 }
 
-impl std::fmt::Debug for crate::model::deny_rule_explanation::AnnotatedPermissionMatching {
+impl std::fmt::Debug for super::deny_rule_explanation::AnnotatedPermissionMatching {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotatedPermissionMatching");
         debug_struct.field("permission_matching_state", &self.permission_matching_state);
@@ -267,7 +267,7 @@ impl std::fmt::Debug for crate::model::deny_rule_explanation::AnnotatedPermissio
     }
 }
 
-impl std::fmt::Debug for crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching {
+impl std::fmt::Debug for super::deny_rule_explanation::AnnotatedDenyPrincipalMatching {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotatedDenyPrincipalMatching");
         debug_struct.field("membership", &self.membership);
@@ -279,7 +279,7 @@ impl std::fmt::Debug for crate::model::deny_rule_explanation::AnnotatedDenyPrinc
     }
 }
 
-impl std::fmt::Debug for crate::model::ConditionExplanation {
+impl std::fmt::Debug for super::ConditionExplanation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConditionExplanation");
         debug_struct.field("value", &self.value);
@@ -292,7 +292,7 @@ impl std::fmt::Debug for crate::model::ConditionExplanation {
     }
 }
 
-impl std::fmt::Debug for crate::model::condition_explanation::EvaluationState {
+impl std::fmt::Debug for super::condition_explanation::EvaluationState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EvaluationState");
         debug_struct.field("start", &self.start);

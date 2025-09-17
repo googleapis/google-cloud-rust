@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Span {
+impl std::fmt::Debug for super::Span {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Span");
         debug_struct.field("name", &self.name);
@@ -44,7 +44,7 @@ impl std::fmt::Debug for crate::model::Span {
     }
 }
 
-impl std::fmt::Debug for crate::model::span::Attributes {
+impl std::fmt::Debug for super::span::Attributes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Attributes");
         debug_struct.field("attribute_map", &self.attribute_map);
@@ -56,7 +56,7 @@ impl std::fmt::Debug for crate::model::span::Attributes {
     }
 }
 
-impl std::fmt::Debug for crate::model::span::TimeEvent {
+impl std::fmt::Debug for super::span::TimeEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TimeEvent");
         debug_struct.field("time", &self.time);
@@ -68,7 +68,7 @@ impl std::fmt::Debug for crate::model::span::TimeEvent {
     }
 }
 
-impl std::fmt::Debug for crate::model::span::time_event::Annotation {
+impl std::fmt::Debug for super::span::time_event::Annotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Annotation");
         debug_struct.field("description", &self.description);
@@ -80,7 +80,7 @@ impl std::fmt::Debug for crate::model::span::time_event::Annotation {
     }
 }
 
-impl std::fmt::Debug for crate::model::span::time_event::MessageEvent {
+impl std::fmt::Debug for super::span::time_event::MessageEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageEvent");
         debug_struct.field("r#type", &self.r#type);
@@ -94,7 +94,7 @@ impl std::fmt::Debug for crate::model::span::time_event::MessageEvent {
     }
 }
 
-impl std::fmt::Debug for crate::model::span::TimeEvents {
+impl std::fmt::Debug for super::span::TimeEvents {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TimeEvents");
         debug_struct.field("time_event", &self.time_event);
@@ -110,7 +110,7 @@ impl std::fmt::Debug for crate::model::span::TimeEvents {
     }
 }
 
-impl std::fmt::Debug for crate::model::span::Link {
+impl std::fmt::Debug for super::span::Link {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Link");
         debug_struct.field("trace_id", &self.trace_id);
@@ -124,7 +124,7 @@ impl std::fmt::Debug for crate::model::span::Link {
     }
 }
 
-impl std::fmt::Debug for crate::model::span::Links {
+impl std::fmt::Debug for super::span::Links {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Links");
         debug_struct.field("link", &self.link);
@@ -136,7 +136,7 @@ impl std::fmt::Debug for crate::model::span::Links {
     }
 }
 
-impl std::fmt::Debug for crate::model::AttributeValue {
+impl std::fmt::Debug for super::AttributeValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AttributeValue");
         debug_struct.field("value", &self.value);
@@ -147,7 +147,7 @@ impl std::fmt::Debug for crate::model::AttributeValue {
     }
 }
 
-impl std::fmt::Debug for crate::model::StackTrace {
+impl std::fmt::Debug for super::StackTrace {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StackTrace");
         debug_struct.field("stack_frames", &self.stack_frames);
@@ -159,7 +159,7 @@ impl std::fmt::Debug for crate::model::StackTrace {
     }
 }
 
-impl std::fmt::Debug for crate::model::stack_trace::StackFrame {
+impl std::fmt::Debug for super::stack_trace::StackFrame {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StackFrame");
         debug_struct.field("function_name", &self.function_name);
@@ -176,7 +176,7 @@ impl std::fmt::Debug for crate::model::stack_trace::StackFrame {
     }
 }
 
-impl std::fmt::Debug for crate::model::stack_trace::StackFrames {
+impl std::fmt::Debug for super::stack_trace::StackFrames {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StackFrames");
         debug_struct.field("frame", &self.frame);
@@ -188,7 +188,7 @@ impl std::fmt::Debug for crate::model::stack_trace::StackFrames {
     }
 }
 
-impl std::fmt::Debug for crate::model::Module {
+impl std::fmt::Debug for super::Module {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Module");
         debug_struct.field("module", &self.module);
@@ -200,7 +200,7 @@ impl std::fmt::Debug for crate::model::Module {
     }
 }
 
-impl std::fmt::Debug for crate::model::TruncatableString {
+impl std::fmt::Debug for super::TruncatableString {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TruncatableString");
         debug_struct.field("value", &self.value);
@@ -212,7 +212,7 @@ impl std::fmt::Debug for crate::model::TruncatableString {
     }
 }
 
-impl std::fmt::Debug for crate::model::BatchWriteSpansRequest {
+impl std::fmt::Debug for super::BatchWriteSpansRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchWriteSpansRequest");
         debug_struct.field("name", &self.name);

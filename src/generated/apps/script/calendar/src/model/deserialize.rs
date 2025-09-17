@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CalendarAddOnManifest {
+impl<'de> serde::de::Deserialize<'de> for super::CalendarAddOnManifest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -78,7 +78,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CalendarAddOnManifest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CalendarAddOnManifest;
+            type Value = super::CalendarAddOnManifest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CalendarAddOnManifest")
             }
@@ -170,7 +170,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CalendarAddOnManifest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ConferenceSolution {
+impl<'de> serde::de::Deserialize<'de> for super::ConferenceSolution {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -218,7 +218,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ConferenceSolution {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ConferenceSolution;
+            type Value = super::ConferenceSolution;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ConferenceSolution")
             }
@@ -288,7 +288,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ConferenceSolution {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CalendarExtensionPoint {
+impl<'de> serde::de::Deserialize<'de> for super::CalendarExtensionPoint {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -329,7 +329,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CalendarExtensionPoint {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CalendarExtensionPoint;
+            type Value = super::CalendarExtensionPoint;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CalendarExtensionPoint")
             }

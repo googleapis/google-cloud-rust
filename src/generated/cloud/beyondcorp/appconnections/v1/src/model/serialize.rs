@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAppConnectionsRequest {
+impl serde::ser::Serialize for super::ListAppConnectionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -61,7 +61,7 @@ impl serde::ser::Serialize for crate::model::ListAppConnectionsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAppConnectionsResponse {
+impl serde::ser::Serialize for super::ListAppConnectionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -89,7 +89,7 @@ impl serde::ser::Serialize for crate::model::ListAppConnectionsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetAppConnectionRequest {
+impl serde::ser::Serialize for super::GetAppConnectionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -111,7 +111,7 @@ impl serde::ser::Serialize for crate::model::GetAppConnectionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateAppConnectionRequest {
+impl serde::ser::Serialize for super::CreateAppConnectionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -145,7 +145,7 @@ impl serde::ser::Serialize for crate::model::CreateAppConnectionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateAppConnectionRequest {
+impl serde::ser::Serialize for super::UpdateAppConnectionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -179,7 +179,7 @@ impl serde::ser::Serialize for crate::model::UpdateAppConnectionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteAppConnectionRequest {
+impl serde::ser::Serialize for super::DeleteAppConnectionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -207,7 +207,7 @@ impl serde::ser::Serialize for crate::model::DeleteAppConnectionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResolveAppConnectionsRequest {
+impl serde::ser::Serialize for super::ResolveAppConnectionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -247,7 +247,7 @@ impl serde::ser::Serialize for crate::model::ResolveAppConnectionsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResolveAppConnectionsResponse {
+impl serde::ser::Serialize for super::ResolveAppConnectionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -275,9 +275,7 @@ impl serde::ser::Serialize for crate::model::ResolveAppConnectionsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::resolve_app_connections_response::AppConnectionDetails
-{
+impl serde::ser::Serialize for super::resolve_app_connections_response::AppConnectionDetails {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -302,7 +300,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AppConnection {
+impl serde::ser::Serialize for super::AppConnection {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -354,7 +352,7 @@ impl serde::ser::Serialize for crate::model::AppConnection {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::app_connection::ApplicationEndpoint {
+impl serde::ser::Serialize for super::app_connection::ApplicationEndpoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -388,7 +386,7 @@ impl serde::ser::Serialize for crate::model::app_connection::ApplicationEndpoint
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::app_connection::Gateway {
+impl serde::ser::Serialize for super::app_connection::Gateway {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -428,7 +426,7 @@ impl serde::ser::Serialize for crate::model::app_connection::Gateway {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AppConnectionOperationMetadata {
+impl serde::ser::Serialize for super::AppConnectionOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

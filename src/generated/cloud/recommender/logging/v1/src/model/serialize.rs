@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ActionLog {
+impl serde::ser::Serialize for super::ActionLog {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -49,7 +49,7 @@ impl serde::ser::Serialize for crate::model::ActionLog {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InsightActionLog {
+impl serde::ser::Serialize for super::InsightActionLog {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

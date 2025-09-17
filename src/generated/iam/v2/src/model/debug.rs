@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::DenyRule {
+impl std::fmt::Debug for super::DenyRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DenyRule");
         debug_struct.field("denied_principals", &self.denied_principals);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::DenyRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::Policy {
+impl std::fmt::Debug for super::Policy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Policy");
         debug_struct.field("name", &self.name);
@@ -53,7 +53,7 @@ impl std::fmt::Debug for crate::model::Policy {
     }
 }
 
-impl std::fmt::Debug for crate::model::PolicyRule {
+impl std::fmt::Debug for super::PolicyRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyRule");
         debug_struct.field("description", &self.description);
@@ -65,7 +65,7 @@ impl std::fmt::Debug for crate::model::PolicyRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPoliciesRequest {
+impl std::fmt::Debug for super::ListPoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPoliciesRequest");
         debug_struct.field("parent", &self.parent);
@@ -78,7 +78,7 @@ impl std::fmt::Debug for crate::model::ListPoliciesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListPoliciesResponse {
+impl std::fmt::Debug for super::ListPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPoliciesResponse");
         debug_struct.field("policies", &self.policies);
@@ -90,7 +90,7 @@ impl std::fmt::Debug for crate::model::ListPoliciesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPolicyRequest {
+impl std::fmt::Debug for super::GetPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -101,7 +101,7 @@ impl std::fmt::Debug for crate::model::GetPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreatePolicyRequest {
+impl std::fmt::Debug for super::CreatePolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreatePolicyRequest");
         debug_struct.field("parent", &self.parent);
@@ -114,7 +114,7 @@ impl std::fmt::Debug for crate::model::CreatePolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdatePolicyRequest {
+impl std::fmt::Debug for super::UpdatePolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdatePolicyRequest");
         debug_struct.field("policy", &self.policy);
@@ -125,7 +125,7 @@ impl std::fmt::Debug for crate::model::UpdatePolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeletePolicyRequest {
+impl std::fmt::Debug for super::DeletePolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeletePolicyRequest");
         debug_struct.field("name", &self.name);
@@ -137,7 +137,7 @@ impl std::fmt::Debug for crate::model::DeletePolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::PolicyOperationMetadata {
+impl std::fmt::Debug for super::PolicyOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyOperationMetadata");
         debug_struct.field("create_time", &self.create_time);

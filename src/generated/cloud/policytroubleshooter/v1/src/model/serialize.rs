@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TroubleshootIamPolicyRequest {
+impl serde::ser::Serialize for super::TroubleshootIamPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -40,7 +40,7 @@ impl serde::ser::Serialize for crate::model::TroubleshootIamPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TroubleshootIamPolicyResponse {
+impl serde::ser::Serialize for super::TroubleshootIamPolicyResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -68,7 +68,7 @@ impl serde::ser::Serialize for crate::model::TroubleshootIamPolicyResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessTuple {
+impl serde::ser::Serialize for super::AccessTuple {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -96,7 +96,7 @@ impl serde::ser::Serialize for crate::model::AccessTuple {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplainedPolicy {
+impl serde::ser::Serialize for super::ExplainedPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -130,7 +130,7 @@ impl serde::ser::Serialize for crate::model::ExplainedPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BindingExplanation {
+impl serde::ser::Serialize for super::BindingExplanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -170,7 +170,7 @@ impl serde::ser::Serialize for crate::model::BindingExplanation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::binding_explanation::AnnotatedMembership {
+impl serde::ser::Serialize for super::binding_explanation::AnnotatedMembership {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ClientConnectorService {
+impl serde::ser::Serialize for super::ClientConnectorService {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -58,7 +58,7 @@ impl serde::ser::Serialize for crate::model::ClientConnectorService {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::client_connector_service::Ingress {
+impl serde::ser::Serialize for super::client_connector_service::Ingress {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -80,7 +80,7 @@ impl serde::ser::Serialize for crate::model::client_connector_service::Ingress {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::client_connector_service::ingress::Config {
+impl serde::ser::Serialize for super::client_connector_service::ingress::Config {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -105,9 +105,7 @@ impl serde::ser::Serialize for crate::model::client_connector_service::ingress::
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::client_connector_service::ingress::config::DestinationRoute
-{
+impl serde::ser::Serialize for super::client_connector_service::ingress::config::DestinationRoute {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -132,7 +130,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::client_connector_service::Egress {
+impl serde::ser::Serialize for super::client_connector_service::Egress {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -154,7 +152,7 @@ impl serde::ser::Serialize for crate::model::client_connector_service::Egress {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::client_connector_service::egress::PeeredVpc {
+impl serde::ser::Serialize for super::client_connector_service::egress::PeeredVpc {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -176,7 +174,7 @@ impl serde::ser::Serialize for crate::model::client_connector_service::egress::P
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListClientConnectorServicesRequest {
+impl serde::ser::Serialize for super::ListClientConnectorServicesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -219,7 +217,7 @@ impl serde::ser::Serialize for crate::model::ListClientConnectorServicesRequest 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListClientConnectorServicesResponse {
+impl serde::ser::Serialize for super::ListClientConnectorServicesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -247,7 +245,7 @@ impl serde::ser::Serialize for crate::model::ListClientConnectorServicesResponse
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetClientConnectorServiceRequest {
+impl serde::ser::Serialize for super::GetClientConnectorServiceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -269,7 +267,7 @@ impl serde::ser::Serialize for crate::model::GetClientConnectorServiceRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateClientConnectorServiceRequest {
+impl serde::ser::Serialize for super::CreateClientConnectorServiceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -306,7 +304,7 @@ impl serde::ser::Serialize for crate::model::CreateClientConnectorServiceRequest
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateClientConnectorServiceRequest {
+impl serde::ser::Serialize for super::UpdateClientConnectorServiceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -340,7 +338,7 @@ impl serde::ser::Serialize for crate::model::UpdateClientConnectorServiceRequest
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteClientConnectorServiceRequest {
+impl serde::ser::Serialize for super::DeleteClientConnectorServiceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -368,7 +366,7 @@ impl serde::ser::Serialize for crate::model::DeleteClientConnectorServiceRequest
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ClientConnectorServiceOperationMetadata {
+impl serde::ser::Serialize for super::ClientConnectorServiceOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

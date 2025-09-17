@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Endpoint {
+impl std::fmt::Debug for super::Endpoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Endpoint");
         debug_struct.field("name", &self.name);
@@ -38,7 +38,7 @@ impl std::fmt::Debug for crate::model::Endpoint {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListEndpointsRequest {
+impl std::fmt::Debug for super::ListEndpointsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEndpointsRequest");
         debug_struct.field("parent", &self.parent);
@@ -53,7 +53,7 @@ impl std::fmt::Debug for crate::model::ListEndpointsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListEndpointsResponse {
+impl std::fmt::Debug for super::ListEndpointsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEndpointsResponse");
         debug_struct.field("endpoints", &self.endpoints);
@@ -66,7 +66,7 @@ impl std::fmt::Debug for crate::model::ListEndpointsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetEndpointRequest {
+impl std::fmt::Debug for super::GetEndpointRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEndpointRequest");
         debug_struct.field("name", &self.name);
@@ -77,7 +77,7 @@ impl std::fmt::Debug for crate::model::GetEndpointRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateEndpointRequest {
+impl std::fmt::Debug for super::CreateEndpointRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateEndpointRequest");
         debug_struct.field("parent", &self.parent);
@@ -91,7 +91,7 @@ impl std::fmt::Debug for crate::model::CreateEndpointRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteEndpointRequest {
+impl std::fmt::Debug for super::DeleteEndpointRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteEndpointRequest");
         debug_struct.field("name", &self.name);
@@ -103,7 +103,7 @@ impl std::fmt::Debug for crate::model::DeleteEndpointRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("create_time", &self.create_time);

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::PosixAccount {
+impl<'de> serde::de::Deserialize<'de> for super::PosixAccount {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -82,7 +82,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::PosixAccount {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::PosixAccount;
+            type Value = super::PosixAccount;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct PosixAccount")
             }
@@ -238,7 +238,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::PosixAccount {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SshPublicKey {
+impl<'de> serde::de::Deserialize<'de> for super::SshPublicKey {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -285,7 +285,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SshPublicKey {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SshPublicKey;
+            type Value = super::SshPublicKey;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SshPublicKey")
             }

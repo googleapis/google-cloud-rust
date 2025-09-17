@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Policy {
+impl serde::ser::Serialize for super::Policy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -76,7 +76,7 @@ impl serde::ser::Serialize for crate::model::Policy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::policy::ListPolicy {
+impl serde::ser::Serialize for super::policy::ListPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -110,7 +110,7 @@ impl serde::ser::Serialize for crate::model::policy::ListPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::policy::BooleanPolicy {
+impl serde::ser::Serialize for super::policy::BooleanPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -132,7 +132,7 @@ impl serde::ser::Serialize for crate::model::policy::BooleanPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::policy::RestoreDefault {
+impl serde::ser::Serialize for super::policy::RestoreDefault {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

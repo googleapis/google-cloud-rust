@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Connector {
+impl std::fmt::Debug for super::Connector {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Connector");
         debug_struct.field("name", &self.name);
@@ -38,7 +38,7 @@ impl std::fmt::Debug for crate::model::Connector {
     }
 }
 
-impl std::fmt::Debug for crate::model::connector::Subnet {
+impl std::fmt::Debug for super::connector::Subnet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Subnet");
         debug_struct.field("name", &self.name);
@@ -50,7 +50,7 @@ impl std::fmt::Debug for crate::model::connector::Subnet {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateConnectorRequest {
+impl std::fmt::Debug for super::CreateConnectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateConnectorRequest");
         debug_struct.field("parent", &self.parent);
@@ -63,7 +63,7 @@ impl std::fmt::Debug for crate::model::CreateConnectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetConnectorRequest {
+impl std::fmt::Debug for super::GetConnectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConnectorRequest");
         debug_struct.field("name", &self.name);
@@ -74,7 +74,7 @@ impl std::fmt::Debug for crate::model::GetConnectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListConnectorsRequest {
+impl std::fmt::Debug for super::ListConnectorsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConnectorsRequest");
         debug_struct.field("parent", &self.parent);
@@ -87,7 +87,7 @@ impl std::fmt::Debug for crate::model::ListConnectorsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListConnectorsResponse {
+impl std::fmt::Debug for super::ListConnectorsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConnectorsResponse");
         debug_struct.field("connectors", &self.connectors);
@@ -99,7 +99,7 @@ impl std::fmt::Debug for crate::model::ListConnectorsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteConnectorRequest {
+impl std::fmt::Debug for super::DeleteConnectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteConnectorRequest");
         debug_struct.field("name", &self.name);
@@ -110,7 +110,7 @@ impl std::fmt::Debug for crate::model::DeleteConnectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("method", &self.method);

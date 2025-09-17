@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::MembershipState {
+impl std::fmt::Debug for super::MembershipState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MembershipState");
         debug_struct.field("cluster_name", &self.cluster_name);
@@ -36,7 +36,7 @@ impl std::fmt::Debug for crate::model::MembershipState {
     }
 }
 
-impl std::fmt::Debug for crate::model::MembershipSpec {
+impl std::fmt::Debug for super::MembershipSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MembershipSpec");
         debug_struct.field("config_sync", &self.config_sync);
@@ -52,7 +52,7 @@ impl std::fmt::Debug for crate::model::MembershipSpec {
     }
 }
 
-impl std::fmt::Debug for crate::model::ConfigSync {
+impl std::fmt::Debug for super::ConfigSync {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfigSync");
         debug_struct.field("git", &self.git);
@@ -71,7 +71,7 @@ impl std::fmt::Debug for crate::model::ConfigSync {
     }
 }
 
-impl std::fmt::Debug for crate::model::GitConfig {
+impl std::fmt::Debug for super::GitConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GitConfig");
         debug_struct.field("sync_repo", &self.sync_repo);
@@ -89,7 +89,7 @@ impl std::fmt::Debug for crate::model::GitConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::OciConfig {
+impl std::fmt::Debug for super::OciConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OciConfig");
         debug_struct.field("sync_repo", &self.sync_repo);
@@ -104,7 +104,7 @@ impl std::fmt::Debug for crate::model::OciConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::PolicyController {
+impl std::fmt::Debug for super::PolicyController {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyController");
         debug_struct.field("enabled", &self.enabled);
@@ -123,7 +123,7 @@ impl std::fmt::Debug for crate::model::PolicyController {
     }
 }
 
-impl std::fmt::Debug for crate::model::HierarchyControllerConfig {
+impl std::fmt::Debug for super::HierarchyControllerConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HierarchyControllerConfig");
         debug_struct.field("enabled", &self.enabled);
@@ -139,7 +139,7 @@ impl std::fmt::Debug for crate::model::HierarchyControllerConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::HierarchyControllerDeploymentState {
+impl std::fmt::Debug for super::HierarchyControllerDeploymentState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HierarchyControllerDeploymentState");
         debug_struct.field("hnc", &self.hnc);
@@ -151,7 +151,7 @@ impl std::fmt::Debug for crate::model::HierarchyControllerDeploymentState {
     }
 }
 
-impl std::fmt::Debug for crate::model::HierarchyControllerVersion {
+impl std::fmt::Debug for super::HierarchyControllerVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HierarchyControllerVersion");
         debug_struct.field("hnc", &self.hnc);
@@ -163,7 +163,7 @@ impl std::fmt::Debug for crate::model::HierarchyControllerVersion {
     }
 }
 
-impl std::fmt::Debug for crate::model::HierarchyControllerState {
+impl std::fmt::Debug for super::HierarchyControllerState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HierarchyControllerState");
         debug_struct.field("version", &self.version);
@@ -175,7 +175,7 @@ impl std::fmt::Debug for crate::model::HierarchyControllerState {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperatorState {
+impl std::fmt::Debug for super::OperatorState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperatorState");
         debug_struct.field("version", &self.version);
@@ -188,7 +188,7 @@ impl std::fmt::Debug for crate::model::OperatorState {
     }
 }
 
-impl std::fmt::Debug for crate::model::InstallError {
+impl std::fmt::Debug for super::InstallError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstallError");
         debug_struct.field("error_message", &self.error_message);
@@ -199,7 +199,7 @@ impl std::fmt::Debug for crate::model::InstallError {
     }
 }
 
-impl std::fmt::Debug for crate::model::ConfigSyncState {
+impl std::fmt::Debug for super::ConfigSyncState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfigSyncState");
         debug_struct.field("version", &self.version);
@@ -216,7 +216,7 @@ impl std::fmt::Debug for crate::model::ConfigSyncState {
     }
 }
 
-impl std::fmt::Debug for crate::model::ConfigSyncError {
+impl std::fmt::Debug for super::ConfigSyncError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfigSyncError");
         debug_struct.field("error_message", &self.error_message);
@@ -227,7 +227,7 @@ impl std::fmt::Debug for crate::model::ConfigSyncError {
     }
 }
 
-impl std::fmt::Debug for crate::model::ConfigSyncVersion {
+impl std::fmt::Debug for super::ConfigSyncVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfigSyncVersion");
         debug_struct.field("importer", &self.importer);
@@ -244,7 +244,7 @@ impl std::fmt::Debug for crate::model::ConfigSyncVersion {
     }
 }
 
-impl std::fmt::Debug for crate::model::ConfigSyncDeploymentState {
+impl std::fmt::Debug for super::ConfigSyncDeploymentState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfigSyncDeploymentState");
         debug_struct.field("importer", &self.importer);
@@ -261,7 +261,7 @@ impl std::fmt::Debug for crate::model::ConfigSyncDeploymentState {
     }
 }
 
-impl std::fmt::Debug for crate::model::SyncState {
+impl std::fmt::Debug for super::SyncState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SyncState");
         debug_struct.field("source_token", &self.source_token);
@@ -278,7 +278,7 @@ impl std::fmt::Debug for crate::model::SyncState {
     }
 }
 
-impl std::fmt::Debug for crate::model::SyncError {
+impl std::fmt::Debug for super::SyncError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SyncError");
         debug_struct.field("code", &self.code);
@@ -291,7 +291,7 @@ impl std::fmt::Debug for crate::model::SyncError {
     }
 }
 
-impl std::fmt::Debug for crate::model::ErrorResource {
+impl std::fmt::Debug for super::ErrorResource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ErrorResource");
         debug_struct.field("source_path", &self.source_path);
@@ -305,7 +305,7 @@ impl std::fmt::Debug for crate::model::ErrorResource {
     }
 }
 
-impl std::fmt::Debug for crate::model::GroupVersionKind {
+impl std::fmt::Debug for super::GroupVersionKind {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GroupVersionKind");
         debug_struct.field("group", &self.group);
@@ -318,7 +318,7 @@ impl std::fmt::Debug for crate::model::GroupVersionKind {
     }
 }
 
-impl std::fmt::Debug for crate::model::PolicyControllerState {
+impl std::fmt::Debug for super::PolicyControllerState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyControllerState");
         debug_struct.field("version", &self.version);
@@ -330,7 +330,7 @@ impl std::fmt::Debug for crate::model::PolicyControllerState {
     }
 }
 
-impl std::fmt::Debug for crate::model::PolicyControllerVersion {
+impl std::fmt::Debug for super::PolicyControllerVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyControllerVersion");
         debug_struct.field("version", &self.version);
@@ -341,7 +341,7 @@ impl std::fmt::Debug for crate::model::PolicyControllerVersion {
     }
 }
 
-impl std::fmt::Debug for crate::model::GatekeeperDeploymentState {
+impl std::fmt::Debug for super::GatekeeperDeploymentState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GatekeeperDeploymentState");
         debug_struct.field(

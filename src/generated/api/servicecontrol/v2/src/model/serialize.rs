@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CheckRequest {
+impl serde::ser::Serialize for super::CheckRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -52,7 +52,7 @@ impl serde::ser::Serialize for crate::model::CheckRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResourceInfo {
+impl serde::ser::Serialize for super::ResourceInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -86,7 +86,7 @@ impl serde::ser::Serialize for crate::model::ResourceInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CheckResponse {
+impl serde::ser::Serialize for super::CheckResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -111,7 +111,7 @@ impl serde::ser::Serialize for crate::model::CheckResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReportRequest {
+impl serde::ser::Serialize for super::ReportRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -139,7 +139,7 @@ impl serde::ser::Serialize for crate::model::ReportRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReportResponse {
+impl serde::ser::Serialize for super::ReportResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -158,7 +158,7 @@ impl serde::ser::Serialize for crate::model::ReportResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResourceInfoList {
+impl serde::ser::Serialize for super::ResourceInfoList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

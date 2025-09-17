@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::MigrationWorkflow {
+impl std::fmt::Debug for super::MigrationWorkflow {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrationWorkflow");
         debug_struct.field("name", &self.name);
@@ -33,7 +33,7 @@ impl std::fmt::Debug for crate::model::MigrationWorkflow {
     }
 }
 
-impl std::fmt::Debug for crate::model::MigrationTask {
+impl std::fmt::Debug for super::MigrationTask {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrationTask");
         debug_struct.field("id", &self.id);
@@ -62,7 +62,7 @@ impl std::fmt::Debug for crate::model::MigrationTask {
     }
 }
 
-impl std::fmt::Debug for crate::model::MigrationSubtask {
+impl std::fmt::Debug for super::MigrationSubtask {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrationSubtask");
         debug_struct.field("name", &self.name);
@@ -82,7 +82,7 @@ impl std::fmt::Debug for crate::model::MigrationSubtask {
     }
 }
 
-impl std::fmt::Debug for crate::model::MigrationTaskResult {
+impl std::fmt::Debug for super::MigrationTaskResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrationTaskResult");
         debug_struct.field("details", &self.details);
@@ -93,7 +93,7 @@ impl std::fmt::Debug for crate::model::MigrationTaskResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::TranslationTaskResult {
+impl std::fmt::Debug for super::TranslationTaskResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TranslationTaskResult");
         debug_struct.field("translated_literals", &self.translated_literals);
@@ -105,7 +105,7 @@ impl std::fmt::Debug for crate::model::TranslationTaskResult {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResourceErrorDetail {
+impl std::fmt::Debug for super::ResourceErrorDetail {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceErrorDetail");
         debug_struct.field("resource_info", &self.resource_info);
@@ -118,7 +118,7 @@ impl std::fmt::Debug for crate::model::ResourceErrorDetail {
     }
 }
 
-impl std::fmt::Debug for crate::model::ErrorDetail {
+impl std::fmt::Debug for super::ErrorDetail {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ErrorDetail");
         debug_struct.field("location", &self.location);
@@ -130,7 +130,7 @@ impl std::fmt::Debug for crate::model::ErrorDetail {
     }
 }
 
-impl std::fmt::Debug for crate::model::ErrorLocation {
+impl std::fmt::Debug for super::ErrorLocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ErrorLocation");
         debug_struct.field("line", &self.line);
@@ -142,7 +142,7 @@ impl std::fmt::Debug for crate::model::ErrorLocation {
     }
 }
 
-impl std::fmt::Debug for crate::model::TimeSeries {
+impl std::fmt::Debug for super::TimeSeries {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TimeSeries");
         debug_struct.field("metric", &self.metric);
@@ -156,7 +156,7 @@ impl std::fmt::Debug for crate::model::TimeSeries {
     }
 }
 
-impl std::fmt::Debug for crate::model::Point {
+impl std::fmt::Debug for super::Point {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Point");
         debug_struct.field("interval", &self.interval);
@@ -168,7 +168,7 @@ impl std::fmt::Debug for crate::model::Point {
     }
 }
 
-impl std::fmt::Debug for crate::model::TimeInterval {
+impl std::fmt::Debug for super::TimeInterval {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TimeInterval");
         debug_struct.field("start_time", &self.start_time);
@@ -180,7 +180,7 @@ impl std::fmt::Debug for crate::model::TimeInterval {
     }
 }
 
-impl std::fmt::Debug for crate::model::TypedValue {
+impl std::fmt::Debug for super::TypedValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TypedValue");
         debug_struct.field("value", &self.value);
@@ -191,7 +191,7 @@ impl std::fmt::Debug for crate::model::TypedValue {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateMigrationWorkflowRequest {
+impl std::fmt::Debug for super::CreateMigrationWorkflowRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateMigrationWorkflowRequest");
         debug_struct.field("parent", &self.parent);
@@ -203,7 +203,7 @@ impl std::fmt::Debug for crate::model::CreateMigrationWorkflowRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetMigrationWorkflowRequest {
+impl std::fmt::Debug for super::GetMigrationWorkflowRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetMigrationWorkflowRequest");
         debug_struct.field("name", &self.name);
@@ -215,7 +215,7 @@ impl std::fmt::Debug for crate::model::GetMigrationWorkflowRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListMigrationWorkflowsRequest {
+impl std::fmt::Debug for super::ListMigrationWorkflowsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListMigrationWorkflowsRequest");
         debug_struct.field("parent", &self.parent);
@@ -229,7 +229,7 @@ impl std::fmt::Debug for crate::model::ListMigrationWorkflowsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListMigrationWorkflowsResponse {
+impl std::fmt::Debug for super::ListMigrationWorkflowsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListMigrationWorkflowsResponse");
         debug_struct.field("migration_workflows", &self.migration_workflows);
@@ -241,7 +241,7 @@ impl std::fmt::Debug for crate::model::ListMigrationWorkflowsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteMigrationWorkflowRequest {
+impl std::fmt::Debug for super::DeleteMigrationWorkflowRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteMigrationWorkflowRequest");
         debug_struct.field("name", &self.name);
@@ -252,7 +252,7 @@ impl std::fmt::Debug for crate::model::DeleteMigrationWorkflowRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::StartMigrationWorkflowRequest {
+impl std::fmt::Debug for super::StartMigrationWorkflowRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StartMigrationWorkflowRequest");
         debug_struct.field("name", &self.name);
@@ -263,7 +263,7 @@ impl std::fmt::Debug for crate::model::StartMigrationWorkflowRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetMigrationSubtaskRequest {
+impl std::fmt::Debug for super::GetMigrationSubtaskRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetMigrationSubtaskRequest");
         debug_struct.field("name", &self.name);
@@ -275,7 +275,7 @@ impl std::fmt::Debug for crate::model::GetMigrationSubtaskRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListMigrationSubtasksRequest {
+impl std::fmt::Debug for super::ListMigrationSubtasksRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListMigrationSubtasksRequest");
         debug_struct.field("parent", &self.parent);
@@ -290,7 +290,7 @@ impl std::fmt::Debug for crate::model::ListMigrationSubtasksRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListMigrationSubtasksResponse {
+impl std::fmt::Debug for super::ListMigrationSubtasksResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListMigrationSubtasksResponse");
         debug_struct.field("migration_subtasks", &self.migration_subtasks);
@@ -302,7 +302,7 @@ impl std::fmt::Debug for crate::model::ListMigrationSubtasksResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::TranslationConfigDetails {
+impl std::fmt::Debug for super::TranslationConfigDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TranslationConfigDetails");
         debug_struct.field("source_dialect", &self.source_dialect);
@@ -320,7 +320,7 @@ impl std::fmt::Debug for crate::model::TranslationConfigDetails {
     }
 }
 
-impl std::fmt::Debug for crate::model::Dialect {
+impl std::fmt::Debug for super::Dialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Dialect");
         debug_struct.field("dialect_value", &self.dialect_value);
@@ -331,7 +331,7 @@ impl std::fmt::Debug for crate::model::Dialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::BigQueryDialect {
+impl std::fmt::Debug for super::BigQueryDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigQueryDialect");
         if !self._unknown_fields.is_empty() {
@@ -341,7 +341,7 @@ impl std::fmt::Debug for crate::model::BigQueryDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::HiveQLDialect {
+impl std::fmt::Debug for super::HiveQLDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HiveQLDialect");
         if !self._unknown_fields.is_empty() {
@@ -351,7 +351,7 @@ impl std::fmt::Debug for crate::model::HiveQLDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::RedshiftDialect {
+impl std::fmt::Debug for super::RedshiftDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RedshiftDialect");
         if !self._unknown_fields.is_empty() {
@@ -361,7 +361,7 @@ impl std::fmt::Debug for crate::model::RedshiftDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::TeradataDialect {
+impl std::fmt::Debug for super::TeradataDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TeradataDialect");
         debug_struct.field("mode", &self.mode);
@@ -372,7 +372,7 @@ impl std::fmt::Debug for crate::model::TeradataDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::OracleDialect {
+impl std::fmt::Debug for super::OracleDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OracleDialect");
         if !self._unknown_fields.is_empty() {
@@ -382,7 +382,7 @@ impl std::fmt::Debug for crate::model::OracleDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::SparkSQLDialect {
+impl std::fmt::Debug for super::SparkSQLDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SparkSQLDialect");
         if !self._unknown_fields.is_empty() {
@@ -392,7 +392,7 @@ impl std::fmt::Debug for crate::model::SparkSQLDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::SnowflakeDialect {
+impl std::fmt::Debug for super::SnowflakeDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SnowflakeDialect");
         if !self._unknown_fields.is_empty() {
@@ -402,7 +402,7 @@ impl std::fmt::Debug for crate::model::SnowflakeDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::NetezzaDialect {
+impl std::fmt::Debug for super::NetezzaDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetezzaDialect");
         if !self._unknown_fields.is_empty() {
@@ -412,7 +412,7 @@ impl std::fmt::Debug for crate::model::NetezzaDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::AzureSynapseDialect {
+impl std::fmt::Debug for super::AzureSynapseDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AzureSynapseDialect");
         if !self._unknown_fields.is_empty() {
@@ -422,7 +422,7 @@ impl std::fmt::Debug for crate::model::AzureSynapseDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::VerticaDialect {
+impl std::fmt::Debug for super::VerticaDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VerticaDialect");
         if !self._unknown_fields.is_empty() {
@@ -432,7 +432,7 @@ impl std::fmt::Debug for crate::model::VerticaDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::SQLServerDialect {
+impl std::fmt::Debug for super::SQLServerDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SQLServerDialect");
         if !self._unknown_fields.is_empty() {
@@ -442,7 +442,7 @@ impl std::fmt::Debug for crate::model::SQLServerDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::PostgresqlDialect {
+impl std::fmt::Debug for super::PostgresqlDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PostgresqlDialect");
         if !self._unknown_fields.is_empty() {
@@ -452,7 +452,7 @@ impl std::fmt::Debug for crate::model::PostgresqlDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::PrestoDialect {
+impl std::fmt::Debug for super::PrestoDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrestoDialect");
         if !self._unknown_fields.is_empty() {
@@ -462,7 +462,7 @@ impl std::fmt::Debug for crate::model::PrestoDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::MySQLDialect {
+impl std::fmt::Debug for super::MySQLDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MySQLDialect");
         if !self._unknown_fields.is_empty() {
@@ -472,7 +472,7 @@ impl std::fmt::Debug for crate::model::MySQLDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::DB2Dialect {
+impl std::fmt::Debug for super::DB2Dialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DB2Dialect");
         if !self._unknown_fields.is_empty() {
@@ -482,7 +482,7 @@ impl std::fmt::Debug for crate::model::DB2Dialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::SQLiteDialect {
+impl std::fmt::Debug for super::SQLiteDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SQLiteDialect");
         if !self._unknown_fields.is_empty() {
@@ -492,7 +492,7 @@ impl std::fmt::Debug for crate::model::SQLiteDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::GreenplumDialect {
+impl std::fmt::Debug for super::GreenplumDialect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GreenplumDialect");
         if !self._unknown_fields.is_empty() {
@@ -502,7 +502,7 @@ impl std::fmt::Debug for crate::model::GreenplumDialect {
     }
 }
 
-impl std::fmt::Debug for crate::model::ObjectNameMappingList {
+impl std::fmt::Debug for super::ObjectNameMappingList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ObjectNameMappingList");
         debug_struct.field("name_map", &self.name_map);
@@ -513,7 +513,7 @@ impl std::fmt::Debug for crate::model::ObjectNameMappingList {
     }
 }
 
-impl std::fmt::Debug for crate::model::ObjectNameMapping {
+impl std::fmt::Debug for super::ObjectNameMapping {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ObjectNameMapping");
         debug_struct.field("source", &self.source);
@@ -525,7 +525,7 @@ impl std::fmt::Debug for crate::model::ObjectNameMapping {
     }
 }
 
-impl std::fmt::Debug for crate::model::NameMappingKey {
+impl std::fmt::Debug for super::NameMappingKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NameMappingKey");
         debug_struct.field("r#type", &self.r#type);
@@ -540,7 +540,7 @@ impl std::fmt::Debug for crate::model::NameMappingKey {
     }
 }
 
-impl std::fmt::Debug for crate::model::NameMappingValue {
+impl std::fmt::Debug for super::NameMappingValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NameMappingValue");
         debug_struct.field("database", &self.database);
@@ -554,7 +554,7 @@ impl std::fmt::Debug for crate::model::NameMappingValue {
     }
 }
 
-impl std::fmt::Debug for crate::model::SourceEnv {
+impl std::fmt::Debug for super::SourceEnv {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceEnv");
         debug_struct.field("default_database", &self.default_database);
@@ -567,7 +567,7 @@ impl std::fmt::Debug for crate::model::SourceEnv {
     }
 }
 
-impl std::fmt::Debug for crate::model::TranslationDetails {
+impl std::fmt::Debug for super::TranslationDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TranslationDetails");
         debug_struct.field("source_target_mapping", &self.source_target_mapping);
@@ -582,7 +582,7 @@ impl std::fmt::Debug for crate::model::TranslationDetails {
     }
 }
 
-impl std::fmt::Debug for crate::model::SourceTargetMapping {
+impl std::fmt::Debug for super::SourceTargetMapping {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceTargetMapping");
         debug_struct.field("source_spec", &self.source_spec);
@@ -594,7 +594,7 @@ impl std::fmt::Debug for crate::model::SourceTargetMapping {
     }
 }
 
-impl std::fmt::Debug for crate::model::SourceSpec {
+impl std::fmt::Debug for super::SourceSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceSpec");
         debug_struct.field("encoding", &self.encoding);
@@ -606,7 +606,7 @@ impl std::fmt::Debug for crate::model::SourceSpec {
     }
 }
 
-impl std::fmt::Debug for crate::model::TargetSpec {
+impl std::fmt::Debug for super::TargetSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TargetSpec");
         debug_struct.field("relative_path", &self.relative_path);
@@ -617,7 +617,7 @@ impl std::fmt::Debug for crate::model::TargetSpec {
     }
 }
 
-impl std::fmt::Debug for crate::model::Literal {
+impl std::fmt::Debug for super::Literal {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Literal");
         debug_struct.field("relative_path", &self.relative_path);
@@ -629,7 +629,7 @@ impl std::fmt::Debug for crate::model::Literal {
     }
 }
 
-impl std::fmt::Debug for crate::model::SourceEnvironment {
+impl std::fmt::Debug for super::SourceEnvironment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceEnvironment");
         debug_struct.field("default_database", &self.default_database);
@@ -642,7 +642,7 @@ impl std::fmt::Debug for crate::model::SourceEnvironment {
     }
 }
 
-impl std::fmt::Debug for crate::model::TranslationReportRecord {
+impl std::fmt::Debug for super::TranslationReportRecord {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TranslationReportRecord");
         debug_struct.field("severity", &self.severity);
@@ -657,7 +657,7 @@ impl std::fmt::Debug for crate::model::TranslationReportRecord {
     }
 }
 
-impl std::fmt::Debug for crate::model::GcsReportLogMessage {
+impl std::fmt::Debug for super::GcsReportLogMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsReportLogMessage");
         debug_struct.field("severity", &self.severity);

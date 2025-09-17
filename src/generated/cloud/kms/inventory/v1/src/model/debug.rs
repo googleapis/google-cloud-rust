@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ListCryptoKeysRequest {
+impl std::fmt::Debug for super::ListCryptoKeysRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCryptoKeysRequest");
         debug_struct.field("parent", &self.parent);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::ListCryptoKeysRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCryptoKeysResponse {
+impl std::fmt::Debug for super::ListCryptoKeysResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCryptoKeysResponse");
         debug_struct.field("crypto_keys", &self.crypto_keys);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::ListCryptoKeysResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetProtectedResourcesSummaryRequest {
+impl std::fmt::Debug for super::GetProtectedResourcesSummaryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetProtectedResourcesSummaryRequest");
         debug_struct.field("name", &self.name);
@@ -53,7 +53,7 @@ impl std::fmt::Debug for crate::model::GetProtectedResourcesSummaryRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ProtectedResourcesSummary {
+impl std::fmt::Debug for super::ProtectedResourcesSummary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProtectedResourcesSummary");
         debug_struct.field("name", &self.name);
@@ -69,7 +69,7 @@ impl std::fmt::Debug for crate::model::ProtectedResourcesSummary {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchProtectedResourcesRequest {
+impl std::fmt::Debug for super::SearchProtectedResourcesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchProtectedResourcesRequest");
         debug_struct.field("scope", &self.scope);
@@ -84,7 +84,7 @@ impl std::fmt::Debug for crate::model::SearchProtectedResourcesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchProtectedResourcesResponse {
+impl std::fmt::Debug for super::SearchProtectedResourcesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchProtectedResourcesResponse");
         debug_struct.field("protected_resources", &self.protected_resources);
@@ -96,7 +96,7 @@ impl std::fmt::Debug for crate::model::SearchProtectedResourcesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ProtectedResource {
+impl std::fmt::Debug for super::ProtectedResource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProtectedResource");
         debug_struct.field("name", &self.name);

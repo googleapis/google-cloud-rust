@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CreateConnectionRequest {
+impl std::fmt::Debug for super::CreateConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateConnectionRequest");
         debug_struct.field("parent", &self.parent);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::CreateConnectionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetConnectionRequest {
+impl std::fmt::Debug for super::GetConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConnectionRequest");
         debug_struct.field("name", &self.name);
@@ -41,7 +41,7 @@ impl std::fmt::Debug for crate::model::GetConnectionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListConnectionsRequest {
+impl std::fmt::Debug for super::ListConnectionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConnectionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -54,7 +54,7 @@ impl std::fmt::Debug for crate::model::ListConnectionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListConnectionsResponse {
+impl std::fmt::Debug for super::ListConnectionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConnectionsResponse");
         debug_struct.field("next_page_token", &self.next_page_token);
@@ -66,7 +66,7 @@ impl std::fmt::Debug for crate::model::ListConnectionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateConnectionRequest {
+impl std::fmt::Debug for super::UpdateConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateConnectionRequest");
         debug_struct.field("name", &self.name);
@@ -79,7 +79,7 @@ impl std::fmt::Debug for crate::model::UpdateConnectionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteConnectionRequest {
+impl std::fmt::Debug for super::DeleteConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteConnectionRequest");
         debug_struct.field("name", &self.name);
@@ -90,7 +90,7 @@ impl std::fmt::Debug for crate::model::DeleteConnectionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Connection {
+impl std::fmt::Debug for super::Connection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Connection");
         debug_struct.field("name", &self.name);
@@ -107,7 +107,7 @@ impl std::fmt::Debug for crate::model::Connection {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudSqlProperties {
+impl std::fmt::Debug for super::CloudSqlProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudSqlProperties");
         debug_struct.field("instance_id", &self.instance_id);
@@ -122,7 +122,7 @@ impl std::fmt::Debug for crate::model::CloudSqlProperties {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudSqlCredential {
+impl std::fmt::Debug for super::CloudSqlCredential {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudSqlCredential");
         debug_struct.field("username", &self.username);
@@ -134,7 +134,7 @@ impl std::fmt::Debug for crate::model::CloudSqlCredential {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudSpannerProperties {
+impl std::fmt::Debug for super::CloudSpannerProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudSpannerProperties");
         debug_struct.field("database", &self.database);
@@ -150,7 +150,7 @@ impl std::fmt::Debug for crate::model::CloudSpannerProperties {
     }
 }
 
-impl std::fmt::Debug for crate::model::AwsProperties {
+impl std::fmt::Debug for super::AwsProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AwsProperties");
         debug_struct.field("authentication_method", &self.authentication_method);
@@ -161,7 +161,7 @@ impl std::fmt::Debug for crate::model::AwsProperties {
     }
 }
 
-impl std::fmt::Debug for crate::model::AwsCrossAccountRole {
+impl std::fmt::Debug for super::AwsCrossAccountRole {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AwsCrossAccountRole");
         debug_struct.field("iam_role_id", &self.iam_role_id);
@@ -174,7 +174,7 @@ impl std::fmt::Debug for crate::model::AwsCrossAccountRole {
     }
 }
 
-impl std::fmt::Debug for crate::model::AwsAccessRole {
+impl std::fmt::Debug for super::AwsAccessRole {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AwsAccessRole");
         debug_struct.field("iam_role_id", &self.iam_role_id);
@@ -186,7 +186,7 @@ impl std::fmt::Debug for crate::model::AwsAccessRole {
     }
 }
 
-impl std::fmt::Debug for crate::model::AzureProperties {
+impl std::fmt::Debug for super::AzureProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AzureProperties");
         debug_struct.field("application", &self.application);
@@ -206,7 +206,7 @@ impl std::fmt::Debug for crate::model::AzureProperties {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudResourceProperties {
+impl std::fmt::Debug for super::CloudResourceProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudResourceProperties");
         debug_struct.field("service_account_id", &self.service_account_id);
@@ -217,7 +217,7 @@ impl std::fmt::Debug for crate::model::CloudResourceProperties {
     }
 }
 
-impl std::fmt::Debug for crate::model::MetastoreServiceConfig {
+impl std::fmt::Debug for super::MetastoreServiceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MetastoreServiceConfig");
         debug_struct.field("metastore_service", &self.metastore_service);
@@ -228,7 +228,7 @@ impl std::fmt::Debug for crate::model::MetastoreServiceConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::SparkHistoryServerConfig {
+impl std::fmt::Debug for super::SparkHistoryServerConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SparkHistoryServerConfig");
         debug_struct.field("dataproc_cluster", &self.dataproc_cluster);
@@ -239,7 +239,7 @@ impl std::fmt::Debug for crate::model::SparkHistoryServerConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::SparkProperties {
+impl std::fmt::Debug for super::SparkProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SparkProperties");
         debug_struct.field("service_account_id", &self.service_account_id);
@@ -255,7 +255,7 @@ impl std::fmt::Debug for crate::model::SparkProperties {
     }
 }
 
-impl std::fmt::Debug for crate::model::SalesforceDataCloudProperties {
+impl std::fmt::Debug for super::SalesforceDataCloudProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SalesforceDataCloudProperties");
         debug_struct.field("instance_uri", &self.instance_uri);

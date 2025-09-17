@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExternalAccountKey {
+impl serde::ser::Serialize for super::ExternalAccountKey {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -55,7 +55,7 @@ impl serde::ser::Serialize for crate::model::ExternalAccountKey {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateExternalAccountKeyRequest {
+impl serde::ser::Serialize for super::CreateExternalAccountKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

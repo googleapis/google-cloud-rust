@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DriveAddOnManifest {
+impl serde::ser::Serialize for super::DriveAddOnManifest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -43,7 +43,7 @@ impl serde::ser::Serialize for crate::model::DriveAddOnManifest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DriveExtensionPoint {
+impl serde::ser::Serialize for super::DriveExtensionPoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

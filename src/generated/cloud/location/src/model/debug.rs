@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ListLocationsRequest {
+impl std::fmt::Debug for super::ListLocationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListLocationsRequest");
         debug_struct.field("name", &self.name);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::model::ListLocationsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListLocationsResponse {
+impl std::fmt::Debug for super::ListLocationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListLocationsResponse");
         debug_struct.field("locations", &self.locations);
@@ -43,7 +43,7 @@ impl std::fmt::Debug for crate::model::ListLocationsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetLocationRequest {
+impl std::fmt::Debug for super::GetLocationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetLocationRequest");
         debug_struct.field("name", &self.name);
@@ -54,7 +54,7 @@ impl std::fmt::Debug for crate::model::GetLocationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Location {
+impl std::fmt::Debug for super::Location {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Location");
         debug_struct.field("name", &self.name);

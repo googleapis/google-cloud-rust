@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Process {
+impl serde::ser::Serialize for super::Process {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -49,7 +49,7 @@ impl serde::ser::Serialize for crate::model::Process {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Run {
+impl serde::ser::Serialize for super::Run {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -86,7 +86,7 @@ impl serde::ser::Serialize for crate::model::Run {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LineageEvent {
+impl serde::ser::Serialize for super::LineageEvent {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -117,7 +117,7 @@ impl serde::ser::Serialize for crate::model::LineageEvent {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EventLink {
+impl serde::ser::Serialize for super::EventLink {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -142,7 +142,7 @@ impl serde::ser::Serialize for crate::model::EventLink {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EntityReference {
+impl serde::ser::Serialize for super::EntityReference {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -164,7 +164,7 @@ impl serde::ser::Serialize for crate::model::EntityReference {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationMetadata {
+impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -201,7 +201,7 @@ impl serde::ser::Serialize for crate::model::OperationMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ProcessOpenLineageRunEventRequest {
+impl serde::ser::Serialize for super::ProcessOpenLineageRunEventRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -229,7 +229,7 @@ impl serde::ser::Serialize for crate::model::ProcessOpenLineageRunEventRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ProcessOpenLineageRunEventResponse {
+impl serde::ser::Serialize for super::ProcessOpenLineageRunEventResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -257,7 +257,7 @@ impl serde::ser::Serialize for crate::model::ProcessOpenLineageRunEventResponse 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateProcessRequest {
+impl serde::ser::Serialize for super::CreateProcessRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -285,7 +285,7 @@ impl serde::ser::Serialize for crate::model::CreateProcessRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateProcessRequest {
+impl serde::ser::Serialize for super::UpdateProcessRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -313,7 +313,7 @@ impl serde::ser::Serialize for crate::model::UpdateProcessRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetProcessRequest {
+impl serde::ser::Serialize for super::GetProcessRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -335,7 +335,7 @@ impl serde::ser::Serialize for crate::model::GetProcessRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListProcessesRequest {
+impl serde::ser::Serialize for super::ListProcessesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -372,7 +372,7 @@ impl serde::ser::Serialize for crate::model::ListProcessesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListProcessesResponse {
+impl serde::ser::Serialize for super::ListProcessesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -397,7 +397,7 @@ impl serde::ser::Serialize for crate::model::ListProcessesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteProcessRequest {
+impl serde::ser::Serialize for super::DeleteProcessRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -422,7 +422,7 @@ impl serde::ser::Serialize for crate::model::DeleteProcessRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateRunRequest {
+impl serde::ser::Serialize for super::CreateRunRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -450,7 +450,7 @@ impl serde::ser::Serialize for crate::model::CreateRunRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateRunRequest {
+impl serde::ser::Serialize for super::UpdateRunRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -478,7 +478,7 @@ impl serde::ser::Serialize for crate::model::UpdateRunRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetRunRequest {
+impl serde::ser::Serialize for super::GetRunRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -500,7 +500,7 @@ impl serde::ser::Serialize for crate::model::GetRunRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListRunsRequest {
+impl serde::ser::Serialize for super::ListRunsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -537,7 +537,7 @@ impl serde::ser::Serialize for crate::model::ListRunsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListRunsResponse {
+impl serde::ser::Serialize for super::ListRunsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -562,7 +562,7 @@ impl serde::ser::Serialize for crate::model::ListRunsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteRunRequest {
+impl serde::ser::Serialize for super::DeleteRunRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -587,7 +587,7 @@ impl serde::ser::Serialize for crate::model::DeleteRunRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateLineageEventRequest {
+impl serde::ser::Serialize for super::CreateLineageEventRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -615,7 +615,7 @@ impl serde::ser::Serialize for crate::model::CreateLineageEventRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetLineageEventRequest {
+impl serde::ser::Serialize for super::GetLineageEventRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -637,7 +637,7 @@ impl serde::ser::Serialize for crate::model::GetLineageEventRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListLineageEventsRequest {
+impl serde::ser::Serialize for super::ListLineageEventsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -674,7 +674,7 @@ impl serde::ser::Serialize for crate::model::ListLineageEventsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListLineageEventsResponse {
+impl serde::ser::Serialize for super::ListLineageEventsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -699,7 +699,7 @@ impl serde::ser::Serialize for crate::model::ListLineageEventsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteLineageEventRequest {
+impl serde::ser::Serialize for super::DeleteLineageEventRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -724,7 +724,7 @@ impl serde::ser::Serialize for crate::model::DeleteLineageEventRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchLinksRequest {
+impl serde::ser::Serialize for super::SearchLinksRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -767,7 +767,7 @@ impl serde::ser::Serialize for crate::model::SearchLinksRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SearchLinksResponse {
+impl serde::ser::Serialize for super::SearchLinksResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -792,7 +792,7 @@ impl serde::ser::Serialize for crate::model::SearchLinksResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Link {
+impl serde::ser::Serialize for super::Link {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -826,7 +826,7 @@ impl serde::ser::Serialize for crate::model::Link {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchSearchLinkProcessesRequest {
+impl serde::ser::Serialize for super::BatchSearchLinkProcessesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -866,7 +866,7 @@ impl serde::ser::Serialize for crate::model::BatchSearchLinkProcessesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchSearchLinkProcessesResponse {
+impl serde::ser::Serialize for super::BatchSearchLinkProcessesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -891,7 +891,7 @@ impl serde::ser::Serialize for crate::model::BatchSearchLinkProcessesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ProcessLinks {
+impl serde::ser::Serialize for super::ProcessLinks {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -916,7 +916,7 @@ impl serde::ser::Serialize for crate::model::ProcessLinks {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ProcessLinkInfo {
+impl serde::ser::Serialize for super::ProcessLinkInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -944,7 +944,7 @@ impl serde::ser::Serialize for crate::model::ProcessLinkInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Origin {
+impl serde::ser::Serialize for super::Origin {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

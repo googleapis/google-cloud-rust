@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::TestStatus {
+impl<'de> serde::de::Deserialize<'de> for super::TestStatus {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -64,7 +64,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::TestSt
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::generated::gapic::model::TestStatus;
+            type Value = super::TestStatus;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct TestStatus")
             }
@@ -124,7 +124,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::TestSt
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::FailureSet {
+impl<'de> serde::de::Deserialize<'de> for super::FailureSet {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -164,7 +164,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::Failur
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::generated::gapic::model::FailureSet;
+            type Value = super::FailureSet;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct FailureSet")
             }
@@ -206,7 +206,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::Failur
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::ConformanceRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ConformanceRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -271,7 +271,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::Confor
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::generated::gapic::model::ConformanceRequest;
+            type Value = super::ConformanceRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ConformanceRequest")
             }
@@ -430,7 +430,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::Confor
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::ConformanceResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ConformanceResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -494,7 +494,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::Confor
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::generated::gapic::model::ConformanceResponse;
+            type Value = super::ConformanceResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ConformanceResponse")
             }
@@ -688,7 +688,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::Confor
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::JspbEncodingConfig {
+impl<'de> serde::de::Deserialize<'de> for super::JspbEncodingConfig {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -731,7 +731,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::generated::gapic::model::JspbEn
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::generated::gapic::model::JspbEncodingConfig;
+            type Value = super::JspbEncodingConfig;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct JspbEncodingConfig")
             }

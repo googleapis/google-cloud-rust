@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Template {
+impl serde::ser::Serialize for super::Template {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -55,7 +55,7 @@ impl serde::ser::Serialize for crate::model::Template {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::template::TemplateMetadata {
+impl serde::ser::Serialize for super::template::TemplateMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -134,7 +134,7 @@ impl serde::ser::Serialize for crate::model::template::TemplateMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::template::template_metadata::MultiLanguageDetection {
+impl serde::ser::Serialize for super::template::template_metadata::MultiLanguageDetection {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -159,7 +159,7 @@ impl serde::ser::Serialize for crate::model::template::template_metadata::MultiL
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FloorSetting {
+impl serde::ser::Serialize for super::FloorSetting {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -205,7 +205,7 @@ impl serde::ser::Serialize for crate::model::FloorSetting {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::floor_setting::FloorSettingMetadata {
+impl serde::ser::Serialize for super::floor_setting::FloorSettingMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -228,7 +228,7 @@ impl serde::ser::Serialize for crate::model::floor_setting::FloorSettingMetadata
 
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection
+    for super::floor_setting::floor_setting_metadata::MultiLanguageDetection
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -254,7 +254,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AiPlatformFloorSetting {
+impl serde::ser::Serialize for super::AiPlatformFloorSetting {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -282,7 +282,7 @@ impl serde::ser::Serialize for crate::model::AiPlatformFloorSetting {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTemplatesRequest {
+impl serde::ser::Serialize for super::ListTemplatesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -325,7 +325,7 @@ impl serde::ser::Serialize for crate::model::ListTemplatesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListTemplatesResponse {
+impl serde::ser::Serialize for super::ListTemplatesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -353,7 +353,7 @@ impl serde::ser::Serialize for crate::model::ListTemplatesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetTemplateRequest {
+impl serde::ser::Serialize for super::GetTemplateRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -375,7 +375,7 @@ impl serde::ser::Serialize for crate::model::GetTemplateRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateTemplateRequest {
+impl serde::ser::Serialize for super::CreateTemplateRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -406,7 +406,7 @@ impl serde::ser::Serialize for crate::model::CreateTemplateRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateTemplateRequest {
+impl serde::ser::Serialize for super::UpdateTemplateRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -434,7 +434,7 @@ impl serde::ser::Serialize for crate::model::UpdateTemplateRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteTemplateRequest {
+impl serde::ser::Serialize for super::DeleteTemplateRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -459,7 +459,7 @@ impl serde::ser::Serialize for crate::model::DeleteTemplateRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetFloorSettingRequest {
+impl serde::ser::Serialize for super::GetFloorSettingRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -481,7 +481,7 @@ impl serde::ser::Serialize for crate::model::GetFloorSettingRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateFloorSettingRequest {
+impl serde::ser::Serialize for super::UpdateFloorSettingRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -506,7 +506,7 @@ impl serde::ser::Serialize for crate::model::UpdateFloorSettingRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FilterConfig {
+impl serde::ser::Serialize for super::FilterConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -543,7 +543,7 @@ impl serde::ser::Serialize for crate::model::FilterConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PiAndJailbreakFilterSettings {
+impl serde::ser::Serialize for super::PiAndJailbreakFilterSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -568,7 +568,7 @@ impl serde::ser::Serialize for crate::model::PiAndJailbreakFilterSettings {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MaliciousUriFilterSettings {
+impl serde::ser::Serialize for super::MaliciousUriFilterSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -590,7 +590,7 @@ impl serde::ser::Serialize for crate::model::MaliciousUriFilterSettings {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RaiFilterSettings {
+impl serde::ser::Serialize for super::RaiFilterSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -612,7 +612,7 @@ impl serde::ser::Serialize for crate::model::RaiFilterSettings {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rai_filter_settings::RaiFilter {
+impl serde::ser::Serialize for super::rai_filter_settings::RaiFilter {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -637,7 +637,7 @@ impl serde::ser::Serialize for crate::model::rai_filter_settings::RaiFilter {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SdpFilterSettings {
+impl serde::ser::Serialize for super::SdpFilterSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -662,7 +662,7 @@ impl serde::ser::Serialize for crate::model::SdpFilterSettings {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SdpBasicConfig {
+impl serde::ser::Serialize for super::SdpBasicConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -684,7 +684,7 @@ impl serde::ser::Serialize for crate::model::SdpBasicConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SdpAdvancedConfig {
+impl serde::ser::Serialize for super::SdpAdvancedConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -709,7 +709,7 @@ impl serde::ser::Serialize for crate::model::SdpAdvancedConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SanitizeUserPromptRequest {
+impl serde::ser::Serialize for super::SanitizeUserPromptRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -740,7 +740,7 @@ impl serde::ser::Serialize for crate::model::SanitizeUserPromptRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SanitizeModelResponseRequest {
+impl serde::ser::Serialize for super::SanitizeModelResponseRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -774,7 +774,7 @@ impl serde::ser::Serialize for crate::model::SanitizeModelResponseRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SanitizeUserPromptResponse {
+impl serde::ser::Serialize for super::SanitizeUserPromptResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -796,7 +796,7 @@ impl serde::ser::Serialize for crate::model::SanitizeUserPromptResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SanitizeModelResponseResponse {
+impl serde::ser::Serialize for super::SanitizeModelResponseResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -818,7 +818,7 @@ impl serde::ser::Serialize for crate::model::SanitizeModelResponseResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SanitizationResult {
+impl serde::ser::Serialize for super::SanitizationResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -849,7 +849,7 @@ impl serde::ser::Serialize for crate::model::SanitizationResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::sanitization_result::SanitizationMetadata {
+impl serde::ser::Serialize for super::sanitization_result::SanitizationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -889,7 +889,7 @@ impl serde::ser::Serialize for crate::model::sanitization_result::SanitizationMe
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MultiLanguageDetectionMetadata {
+impl serde::ser::Serialize for super::MultiLanguageDetectionMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -917,7 +917,7 @@ impl serde::ser::Serialize for crate::model::MultiLanguageDetectionMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FilterResult {
+impl serde::ser::Serialize for super::FilterResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -954,7 +954,7 @@ impl serde::ser::Serialize for crate::model::FilterResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RaiFilterResult {
+impl serde::ser::Serialize for super::RaiFilterResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -985,7 +985,7 @@ impl serde::ser::Serialize for crate::model::RaiFilterResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::rai_filter_result::RaiFilterTypeResult {
+impl serde::ser::Serialize for super::rai_filter_result::RaiFilterTypeResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1013,7 +1013,7 @@ impl serde::ser::Serialize for crate::model::rai_filter_result::RaiFilterTypeRes
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SdpFilterResult {
+impl serde::ser::Serialize for super::SdpFilterResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1038,7 +1038,7 @@ impl serde::ser::Serialize for crate::model::SdpFilterResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SdpInspectResult {
+impl serde::ser::Serialize for super::SdpInspectResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1072,7 +1072,7 @@ impl serde::ser::Serialize for crate::model::SdpInspectResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DataItem {
+impl serde::ser::Serialize for super::DataItem {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1097,7 +1097,7 @@ impl serde::ser::Serialize for crate::model::DataItem {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ByteDataItem {
+impl serde::ser::Serialize for super::ByteDataItem {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1131,7 +1131,7 @@ impl serde::ser::Serialize for crate::model::ByteDataItem {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SdpDeidentifyResult {
+impl serde::ser::Serialize for super::SdpDeidentifyResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1177,7 +1177,7 @@ impl serde::ser::Serialize for crate::model::SdpDeidentifyResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SdpFinding {
+impl serde::ser::Serialize for super::SdpFinding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1205,7 +1205,7 @@ impl serde::ser::Serialize for crate::model::SdpFinding {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::sdp_finding::SdpFindingLocation {
+impl serde::ser::Serialize for super::sdp_finding::SdpFindingLocation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1230,7 +1230,7 @@ impl serde::ser::Serialize for crate::model::sdp_finding::SdpFindingLocation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PiAndJailbreakFilterResult {
+impl serde::ser::Serialize for super::PiAndJailbreakFilterResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1261,7 +1261,7 @@ impl serde::ser::Serialize for crate::model::PiAndJailbreakFilterResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MaliciousUriFilterResult {
+impl serde::ser::Serialize for super::MaliciousUriFilterResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1295,7 +1295,7 @@ impl serde::ser::Serialize for crate::model::MaliciousUriFilterResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::malicious_uri_filter_result::MaliciousUriMatchedItem {
+impl serde::ser::Serialize for super::malicious_uri_filter_result::MaliciousUriMatchedItem {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1320,7 +1320,7 @@ impl serde::ser::Serialize for crate::model::malicious_uri_filter_result::Malici
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VirusScanFilterResult {
+impl serde::ser::Serialize for super::VirusScanFilterResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1368,7 +1368,7 @@ impl serde::ser::Serialize for crate::model::VirusScanFilterResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VirusDetail {
+impl serde::ser::Serialize for super::VirusDetail {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1396,7 +1396,7 @@ impl serde::ser::Serialize for crate::model::VirusDetail {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CsamFilterResult {
+impl serde::ser::Serialize for super::CsamFilterResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1424,7 +1424,7 @@ impl serde::ser::Serialize for crate::model::CsamFilterResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MessageItem {
+impl serde::ser::Serialize for super::MessageItem {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1449,7 +1449,7 @@ impl serde::ser::Serialize for crate::model::MessageItem {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RangeInfo {
+impl serde::ser::Serialize for super::RangeInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Document {
+impl std::fmt::Debug for super::Document {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Document");
         debug_struct.field("r#type", &self.r#type);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::Document {
     }
 }
 
-impl std::fmt::Debug for crate::model::Sentence {
+impl std::fmt::Debug for super::Sentence {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Sentence");
         debug_struct.field("text", &self.text);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::Sentence {
     }
 }
 
-impl std::fmt::Debug for crate::model::Entity {
+impl std::fmt::Debug for super::Entity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Entity");
         debug_struct.field("name", &self.name);
@@ -57,7 +57,7 @@ impl std::fmt::Debug for crate::model::Entity {
     }
 }
 
-impl std::fmt::Debug for crate::model::Sentiment {
+impl std::fmt::Debug for super::Sentiment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Sentiment");
         debug_struct.field("magnitude", &self.magnitude);
@@ -69,7 +69,7 @@ impl std::fmt::Debug for crate::model::Sentiment {
     }
 }
 
-impl std::fmt::Debug for crate::model::EntityMention {
+impl std::fmt::Debug for super::EntityMention {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EntityMention");
         debug_struct.field("text", &self.text);
@@ -83,7 +83,7 @@ impl std::fmt::Debug for crate::model::EntityMention {
     }
 }
 
-impl std::fmt::Debug for crate::model::TextSpan {
+impl std::fmt::Debug for super::TextSpan {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextSpan");
         debug_struct.field("content", &self.content);
@@ -95,7 +95,7 @@ impl std::fmt::Debug for crate::model::TextSpan {
     }
 }
 
-impl std::fmt::Debug for crate::model::ClassificationCategory {
+impl std::fmt::Debug for super::ClassificationCategory {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClassificationCategory");
         debug_struct.field("name", &self.name);
@@ -108,7 +108,7 @@ impl std::fmt::Debug for crate::model::ClassificationCategory {
     }
 }
 
-impl std::fmt::Debug for crate::model::AnalyzeSentimentRequest {
+impl std::fmt::Debug for super::AnalyzeSentimentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnalyzeSentimentRequest");
         debug_struct.field("document", &self.document);
@@ -120,7 +120,7 @@ impl std::fmt::Debug for crate::model::AnalyzeSentimentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AnalyzeSentimentResponse {
+impl std::fmt::Debug for super::AnalyzeSentimentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnalyzeSentimentResponse");
         debug_struct.field("document_sentiment", &self.document_sentiment);
@@ -134,7 +134,7 @@ impl std::fmt::Debug for crate::model::AnalyzeSentimentResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::AnalyzeEntitiesRequest {
+impl std::fmt::Debug for super::AnalyzeEntitiesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnalyzeEntitiesRequest");
         debug_struct.field("document", &self.document);
@@ -146,7 +146,7 @@ impl std::fmt::Debug for crate::model::AnalyzeEntitiesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AnalyzeEntitiesResponse {
+impl std::fmt::Debug for super::AnalyzeEntitiesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnalyzeEntitiesResponse");
         debug_struct.field("entities", &self.entities);
@@ -159,7 +159,7 @@ impl std::fmt::Debug for crate::model::AnalyzeEntitiesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ClassifyTextRequest {
+impl std::fmt::Debug for super::ClassifyTextRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClassifyTextRequest");
         debug_struct.field("document", &self.document);
@@ -170,7 +170,7 @@ impl std::fmt::Debug for crate::model::ClassifyTextRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ClassifyTextResponse {
+impl std::fmt::Debug for super::ClassifyTextResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClassifyTextResponse");
         debug_struct.field("categories", &self.categories);
@@ -183,7 +183,7 @@ impl std::fmt::Debug for crate::model::ClassifyTextResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ModerateTextRequest {
+impl std::fmt::Debug for super::ModerateTextRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModerateTextRequest");
         debug_struct.field("document", &self.document);
@@ -195,7 +195,7 @@ impl std::fmt::Debug for crate::model::ModerateTextRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ModerateTextResponse {
+impl std::fmt::Debug for super::ModerateTextResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModerateTextResponse");
         debug_struct.field("moderation_categories", &self.moderation_categories);
@@ -208,7 +208,7 @@ impl std::fmt::Debug for crate::model::ModerateTextResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::AnnotateTextRequest {
+impl std::fmt::Debug for super::AnnotateTextRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotateTextRequest");
         debug_struct.field("document", &self.document);
@@ -221,7 +221,7 @@ impl std::fmt::Debug for crate::model::AnnotateTextRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::annotate_text_request::Features {
+impl std::fmt::Debug for super::annotate_text_request::Features {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Features");
         debug_struct.field("extract_entities", &self.extract_entities);
@@ -238,7 +238,7 @@ impl std::fmt::Debug for crate::model::annotate_text_request::Features {
     }
 }
 
-impl std::fmt::Debug for crate::model::AnnotateTextResponse {
+impl std::fmt::Debug for super::AnnotateTextResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotateTextResponse");
         debug_struct.field("sentences", &self.sentences);

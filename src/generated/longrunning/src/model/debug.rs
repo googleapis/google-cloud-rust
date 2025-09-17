@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Operation {
+impl std::fmt::Debug for super::Operation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Operation");
         debug_struct.field("name", &self.name);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::model::Operation {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetOperationRequest {
+impl std::fmt::Debug for super::GetOperationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOperationRequest");
         debug_struct.field("name", &self.name);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::GetOperationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOperationsRequest {
+impl std::fmt::Debug for super::ListOperationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOperationsRequest");
         debug_struct.field("name", &self.name);
@@ -56,7 +56,7 @@ impl std::fmt::Debug for crate::model::ListOperationsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListOperationsResponse {
+impl std::fmt::Debug for super::ListOperationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListOperationsResponse");
         debug_struct.field("operations", &self.operations);
@@ -68,7 +68,7 @@ impl std::fmt::Debug for crate::model::ListOperationsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CancelOperationRequest {
+impl std::fmt::Debug for super::CancelOperationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelOperationRequest");
         debug_struct.field("name", &self.name);
@@ -79,7 +79,7 @@ impl std::fmt::Debug for crate::model::CancelOperationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteOperationRequest {
+impl std::fmt::Debug for super::DeleteOperationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteOperationRequest");
         debug_struct.field("name", &self.name);
@@ -90,7 +90,7 @@ impl std::fmt::Debug for crate::model::DeleteOperationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::WaitOperationRequest {
+impl std::fmt::Debug for super::WaitOperationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WaitOperationRequest");
         debug_struct.field("name", &self.name);
@@ -102,7 +102,7 @@ impl std::fmt::Debug for crate::model::WaitOperationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationInfo {
+impl std::fmt::Debug for super::OperationInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationInfo");
         debug_struct.field("response_type", &self.response_type);

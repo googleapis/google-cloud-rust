@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::DocsAddOnManifest {
+impl std::fmt::Debug for super::DocsAddOnManifest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocsAddOnManifest");
         debug_struct.field("homepage_trigger", &self.homepage_trigger);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::DocsAddOnManifest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DocsExtensionPoint {
+impl std::fmt::Debug for super::DocsExtensionPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocsExtensionPoint");
         debug_struct.field("run_function", &self.run_function);

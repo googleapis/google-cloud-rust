@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::Policy {
+impl<'de> serde::de::Deserialize<'de> for super::Policy {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -74,7 +74,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Policy {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::Policy;
+            type Value = super::Policy;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Policy")
             }
@@ -221,7 +221,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::Policy {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::policy::ListPolicy {
+impl<'de> serde::de::Deserialize<'de> for super::policy::ListPolicy {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -274,7 +274,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::policy::ListPolicy {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::policy::ListPolicy;
+            type Value = super::policy::ListPolicy;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListPolicy")
             }
@@ -352,7 +352,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::policy::ListPolicy {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::policy::BooleanPolicy {
+impl<'de> serde::de::Deserialize<'de> for super::policy::BooleanPolicy {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -392,7 +392,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::policy::BooleanPolicy {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::policy::BooleanPolicy;
+            type Value = super::policy::BooleanPolicy;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct BooleanPolicy")
             }
@@ -432,7 +432,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::policy::BooleanPolicy {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::policy::RestoreDefault {
+impl<'de> serde::de::Deserialize<'de> for super::policy::RestoreDefault {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -468,7 +468,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::policy::RestoreDefault {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::policy::RestoreDefault;
+            type Value = super::policy::RestoreDefault;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct RestoreDefault")
             }

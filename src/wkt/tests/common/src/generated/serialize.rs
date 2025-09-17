@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithEnum {
+impl serde::ser::Serialize for super::MessageWithEnum {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -49,7 +49,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithEnum {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithOneOf {
+impl serde::ser::Serialize for super::MessageWithOneOf {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -89,7 +89,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithOneOf {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::message_with_one_of::Message {
+impl serde::ser::Serialize for super::message_with_one_of::Message {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -111,7 +111,7 @@ impl serde::ser::Serialize for crate::generated::message_with_one_of::Message {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithComplexOneOf {
+impl serde::ser::Serialize for super::MessageWithComplexOneOf {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -223,7 +223,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithComplexOneOf {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::message_with_complex_one_of::Inner {
+impl serde::ser::Serialize for super::message_with_complex_one_of::Inner {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -245,7 +245,7 @@ impl serde::ser::Serialize for crate::generated::message_with_complex_one_of::In
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithF32 {
+impl serde::ser::Serialize for super::MessageWithF32 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -316,7 +316,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithF32 {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithF64 {
+impl serde::ser::Serialize for super::MessageWithF64 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -387,7 +387,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithF64 {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithI32 {
+impl serde::ser::Serialize for super::MessageWithI32 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -484,7 +484,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithI32 {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithU32 {
+impl serde::ser::Serialize for super::MessageWithU32 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -581,7 +581,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithU32 {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithI64 {
+impl serde::ser::Serialize for super::MessageWithI64 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -678,7 +678,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithI64 {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithU64 {
+impl serde::ser::Serialize for super::MessageWithU64 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -775,7 +775,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithU64 {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithBytes {
+impl serde::ser::Serialize for super::MessageWithBytes {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -848,7 +848,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithBytes {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithBool {
+impl serde::ser::Serialize for super::MessageWithBool {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -907,7 +907,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithBool {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithString {
+impl serde::ser::Serialize for super::MessageWithString {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -962,7 +962,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithString {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithRecursion {
+impl serde::ser::Serialize for super::MessageWithRecursion {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -993,7 +993,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithRecursion {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::message_with_recursion::Level0 {
+impl serde::ser::Serialize for super::message_with_recursion::Level0 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1018,7 +1018,7 @@ impl serde::ser::Serialize for crate::generated::message_with_recursion::Level0 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::message_with_recursion::Level1 {
+impl serde::ser::Serialize for super::message_with_recursion::Level1 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1040,7 +1040,7 @@ impl serde::ser::Serialize for crate::generated::message_with_recursion::Level1 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::message_with_recursion::NonRecursive {
+impl serde::ser::Serialize for super::message_with_recursion::NonRecursive {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1062,7 +1062,7 @@ impl serde::ser::Serialize for crate::generated::message_with_recursion::NonRecu
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithValue {
+impl serde::ser::Serialize for super::MessageWithValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1093,7 +1093,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithValue {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithStruct {
+impl serde::ser::Serialize for super::MessageWithStruct {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1124,7 +1124,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithStruct {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithListValue {
+impl serde::ser::Serialize for super::MessageWithListValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1155,7 +1155,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithListValue {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithNullValue {
+impl serde::ser::Serialize for super::MessageWithNullValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1186,7 +1186,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithNullValue {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithFieldMask {
+impl serde::ser::Serialize for super::MessageWithFieldMask {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1217,7 +1217,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithFieldMask {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithFloatValue {
+impl serde::ser::Serialize for super::MessageWithFloatValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1276,7 +1276,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithFloatValue {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithDoubleValue {
+impl serde::ser::Serialize for super::MessageWithDoubleValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1335,7 +1335,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithDoubleValue {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithInt32Value {
+impl serde::ser::Serialize for super::MessageWithInt32Value {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1394,7 +1394,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithInt32Value {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithUInt32Value {
+impl serde::ser::Serialize for super::MessageWithUInt32Value {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1453,7 +1453,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithUInt32Value {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithInt64Value {
+impl serde::ser::Serialize for super::MessageWithInt64Value {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1512,7 +1512,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithInt64Value {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithUInt64Value {
+impl serde::ser::Serialize for super::MessageWithUInt64Value {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1571,7 +1571,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithUInt64Value {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithBytesValue {
+impl serde::ser::Serialize for super::MessageWithBytesValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1632,7 +1632,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithBytesValue {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithBoolValue {
+impl serde::ser::Serialize for super::MessageWithBoolValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1660,7 +1660,7 @@ impl serde::ser::Serialize for crate::generated::MessageWithBoolValue {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::MessageWithStringValue {
+impl serde::ser::Serialize for super::MessageWithStringValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

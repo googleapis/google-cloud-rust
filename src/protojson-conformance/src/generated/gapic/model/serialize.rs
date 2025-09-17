@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::gapic::model::TestStatus {
+impl serde::ser::Serialize for super::TestStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -46,7 +46,7 @@ impl serde::ser::Serialize for crate::generated::gapic::model::TestStatus {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::gapic::model::FailureSet {
+impl serde::ser::Serialize for super::FailureSet {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -68,7 +68,7 @@ impl serde::ser::Serialize for crate::generated::gapic::model::FailureSet {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::gapic::model::ConformanceRequest {
+impl serde::ser::Serialize for super::ConformanceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -123,7 +123,7 @@ impl serde::ser::Serialize for crate::generated::gapic::model::ConformanceReques
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::gapic::model::ConformanceResponse {
+impl serde::ser::Serialize for super::ConformanceResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -178,7 +178,7 @@ impl serde::ser::Serialize for crate::generated::gapic::model::ConformanceRespon
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated::gapic::model::JspbEncodingConfig {
+impl serde::ser::Serialize for super::JspbEncodingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

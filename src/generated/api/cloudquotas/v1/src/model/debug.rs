@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ListQuotaInfosRequest {
+impl std::fmt::Debug for super::ListQuotaInfosRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListQuotaInfosRequest");
         debug_struct.field("parent", &self.parent);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::ListQuotaInfosRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListQuotaInfosResponse {
+impl std::fmt::Debug for super::ListQuotaInfosResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListQuotaInfosResponse");
         debug_struct.field("quota_infos", &self.quota_infos);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::ListQuotaInfosResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetQuotaInfoRequest {
+impl std::fmt::Debug for super::GetQuotaInfoRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetQuotaInfoRequest");
         debug_struct.field("name", &self.name);
@@ -53,7 +53,7 @@ impl std::fmt::Debug for crate::model::GetQuotaInfoRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListQuotaPreferencesRequest {
+impl std::fmt::Debug for super::ListQuotaPreferencesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListQuotaPreferencesRequest");
         debug_struct.field("parent", &self.parent);
@@ -68,7 +68,7 @@ impl std::fmt::Debug for crate::model::ListQuotaPreferencesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListQuotaPreferencesResponse {
+impl std::fmt::Debug for super::ListQuotaPreferencesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListQuotaPreferencesResponse");
         debug_struct.field("quota_preferences", &self.quota_preferences);
@@ -81,7 +81,7 @@ impl std::fmt::Debug for crate::model::ListQuotaPreferencesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetQuotaPreferenceRequest {
+impl std::fmt::Debug for super::GetQuotaPreferenceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetQuotaPreferenceRequest");
         debug_struct.field("name", &self.name);
@@ -92,7 +92,7 @@ impl std::fmt::Debug for crate::model::GetQuotaPreferenceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateQuotaPreferenceRequest {
+impl std::fmt::Debug for super::CreateQuotaPreferenceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateQuotaPreferenceRequest");
         debug_struct.field("parent", &self.parent);
@@ -106,7 +106,7 @@ impl std::fmt::Debug for crate::model::CreateQuotaPreferenceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateQuotaPreferenceRequest {
+impl std::fmt::Debug for super::UpdateQuotaPreferenceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateQuotaPreferenceRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -121,7 +121,7 @@ impl std::fmt::Debug for crate::model::UpdateQuotaPreferenceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::QuotaInfo {
+impl std::fmt::Debug for super::QuotaInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QuotaInfo");
         debug_struct.field("name", &self.name);
@@ -150,7 +150,7 @@ impl std::fmt::Debug for crate::model::QuotaInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::QuotaIncreaseEligibility {
+impl std::fmt::Debug for super::QuotaIncreaseEligibility {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QuotaIncreaseEligibility");
         debug_struct.field("is_eligible", &self.is_eligible);
@@ -162,7 +162,7 @@ impl std::fmt::Debug for crate::model::QuotaIncreaseEligibility {
     }
 }
 
-impl std::fmt::Debug for crate::model::QuotaPreference {
+impl std::fmt::Debug for super::QuotaPreference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QuotaPreference");
         debug_struct.field("name", &self.name);
@@ -183,7 +183,7 @@ impl std::fmt::Debug for crate::model::QuotaPreference {
     }
 }
 
-impl std::fmt::Debug for crate::model::QuotaConfig {
+impl std::fmt::Debug for super::QuotaConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QuotaConfig");
         debug_struct.field("preferred_value", &self.preferred_value);
@@ -199,7 +199,7 @@ impl std::fmt::Debug for crate::model::QuotaConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::DimensionsInfo {
+impl std::fmt::Debug for super::DimensionsInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DimensionsInfo");
         debug_struct.field("dimensions", &self.dimensions);
@@ -212,7 +212,7 @@ impl std::fmt::Debug for crate::model::DimensionsInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::QuotaDetails {
+impl std::fmt::Debug for super::QuotaDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QuotaDetails");
         debug_struct.field("value", &self.value);
@@ -224,7 +224,7 @@ impl std::fmt::Debug for crate::model::QuotaDetails {
     }
 }
 
-impl std::fmt::Debug for crate::model::RolloutInfo {
+impl std::fmt::Debug for super::RolloutInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RolloutInfo");
         debug_struct.field("ongoing_rollout", &self.ongoing_rollout);

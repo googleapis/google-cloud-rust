@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CloudLocation {
+impl std::fmt::Debug for super::CloudLocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudLocation");
         debug_struct.field("name", &self.name);
@@ -37,7 +37,7 @@ impl std::fmt::Debug for crate::model::CloudLocation {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCloudLocationsRequest {
+impl std::fmt::Debug for super::ListCloudLocationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCloudLocationsRequest");
         debug_struct.field("parent", &self.parent);
@@ -51,7 +51,7 @@ impl std::fmt::Debug for crate::model::ListCloudLocationsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCloudLocationsResponse {
+impl std::fmt::Debug for super::ListCloudLocationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCloudLocationsResponse");
         debug_struct.field("cloud_locations", &self.cloud_locations);
@@ -63,7 +63,7 @@ impl std::fmt::Debug for crate::model::ListCloudLocationsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetCloudLocationRequest {
+impl std::fmt::Debug for super::GetCloudLocationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCloudLocationRequest");
         debug_struct.field("name", &self.name);
@@ -74,7 +74,7 @@ impl std::fmt::Debug for crate::model::GetCloudLocationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchCloudLocationsRequest {
+impl std::fmt::Debug for super::SearchCloudLocationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchCloudLocationsRequest");
         debug_struct.field("parent", &self.parent);
@@ -89,7 +89,7 @@ impl std::fmt::Debug for crate::model::SearchCloudLocationsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SearchCloudLocationsResponse {
+impl std::fmt::Debug for super::SearchCloudLocationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchCloudLocationsResponse");
         debug_struct.field("cloud_locations", &self.cloud_locations);

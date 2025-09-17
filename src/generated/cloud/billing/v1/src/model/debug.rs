@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::BillingAccount {
+impl std::fmt::Debug for super::BillingAccount {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BillingAccount");
         debug_struct.field("name", &self.name);
@@ -33,7 +33,7 @@ impl std::fmt::Debug for crate::model::BillingAccount {
     }
 }
 
-impl std::fmt::Debug for crate::model::ProjectBillingInfo {
+impl std::fmt::Debug for super::ProjectBillingInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProjectBillingInfo");
         debug_struct.field("name", &self.name);
@@ -47,7 +47,7 @@ impl std::fmt::Debug for crate::model::ProjectBillingInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetBillingAccountRequest {
+impl std::fmt::Debug for super::GetBillingAccountRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetBillingAccountRequest");
         debug_struct.field("name", &self.name);
@@ -58,7 +58,7 @@ impl std::fmt::Debug for crate::model::GetBillingAccountRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListBillingAccountsRequest {
+impl std::fmt::Debug for super::ListBillingAccountsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListBillingAccountsRequest");
         debug_struct.field("page_size", &self.page_size);
@@ -72,7 +72,7 @@ impl std::fmt::Debug for crate::model::ListBillingAccountsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListBillingAccountsResponse {
+impl std::fmt::Debug for super::ListBillingAccountsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListBillingAccountsResponse");
         debug_struct.field("billing_accounts", &self.billing_accounts);
@@ -84,7 +84,7 @@ impl std::fmt::Debug for crate::model::ListBillingAccountsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateBillingAccountRequest {
+impl std::fmt::Debug for super::CreateBillingAccountRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateBillingAccountRequest");
         debug_struct.field("billing_account", &self.billing_account);
@@ -96,7 +96,7 @@ impl std::fmt::Debug for crate::model::CreateBillingAccountRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateBillingAccountRequest {
+impl std::fmt::Debug for super::UpdateBillingAccountRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateBillingAccountRequest");
         debug_struct.field("name", &self.name);
@@ -109,7 +109,7 @@ impl std::fmt::Debug for crate::model::UpdateBillingAccountRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListProjectBillingInfoRequest {
+impl std::fmt::Debug for super::ListProjectBillingInfoRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListProjectBillingInfoRequest");
         debug_struct.field("name", &self.name);
@@ -122,7 +122,7 @@ impl std::fmt::Debug for crate::model::ListProjectBillingInfoRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListProjectBillingInfoResponse {
+impl std::fmt::Debug for super::ListProjectBillingInfoResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListProjectBillingInfoResponse");
         debug_struct.field("project_billing_info", &self.project_billing_info);
@@ -134,7 +134,7 @@ impl std::fmt::Debug for crate::model::ListProjectBillingInfoResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetProjectBillingInfoRequest {
+impl std::fmt::Debug for super::GetProjectBillingInfoRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetProjectBillingInfoRequest");
         debug_struct.field("name", &self.name);
@@ -145,7 +145,7 @@ impl std::fmt::Debug for crate::model::GetProjectBillingInfoRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateProjectBillingInfoRequest {
+impl std::fmt::Debug for super::UpdateProjectBillingInfoRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateProjectBillingInfoRequest");
         debug_struct.field("name", &self.name);
@@ -157,7 +157,7 @@ impl std::fmt::Debug for crate::model::UpdateProjectBillingInfoRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::MoveBillingAccountRequest {
+impl std::fmt::Debug for super::MoveBillingAccountRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MoveBillingAccountRequest");
         debug_struct.field("name", &self.name);
@@ -169,7 +169,7 @@ impl std::fmt::Debug for crate::model::MoveBillingAccountRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Service {
+impl std::fmt::Debug for super::Service {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Service");
         debug_struct.field("name", &self.name);
@@ -183,7 +183,7 @@ impl std::fmt::Debug for crate::model::Service {
     }
 }
 
-impl std::fmt::Debug for crate::model::Sku {
+impl std::fmt::Debug for super::Sku {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Sku");
         debug_struct.field("name", &self.name);
@@ -201,7 +201,7 @@ impl std::fmt::Debug for crate::model::Sku {
     }
 }
 
-impl std::fmt::Debug for crate::model::Category {
+impl std::fmt::Debug for super::Category {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Category");
         debug_struct.field("service_display_name", &self.service_display_name);
@@ -215,7 +215,7 @@ impl std::fmt::Debug for crate::model::Category {
     }
 }
 
-impl std::fmt::Debug for crate::model::PricingInfo {
+impl std::fmt::Debug for super::PricingInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PricingInfo");
         debug_struct.field("effective_time", &self.effective_time);
@@ -230,7 +230,7 @@ impl std::fmt::Debug for crate::model::PricingInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::PricingExpression {
+impl std::fmt::Debug for super::PricingExpression {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PricingExpression");
         debug_struct.field("usage_unit", &self.usage_unit);
@@ -250,7 +250,7 @@ impl std::fmt::Debug for crate::model::PricingExpression {
     }
 }
 
-impl std::fmt::Debug for crate::model::pricing_expression::TierRate {
+impl std::fmt::Debug for super::pricing_expression::TierRate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TierRate");
         debug_struct.field("start_usage_amount", &self.start_usage_amount);
@@ -262,7 +262,7 @@ impl std::fmt::Debug for crate::model::pricing_expression::TierRate {
     }
 }
 
-impl std::fmt::Debug for crate::model::AggregationInfo {
+impl std::fmt::Debug for super::AggregationInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AggregationInfo");
         debug_struct.field("aggregation_level", &self.aggregation_level);
@@ -275,7 +275,7 @@ impl std::fmt::Debug for crate::model::AggregationInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::GeoTaxonomy {
+impl std::fmt::Debug for super::GeoTaxonomy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GeoTaxonomy");
         debug_struct.field("r#type", &self.r#type);
@@ -287,7 +287,7 @@ impl std::fmt::Debug for crate::model::GeoTaxonomy {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListServicesRequest {
+impl std::fmt::Debug for super::ListServicesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServicesRequest");
         debug_struct.field("page_size", &self.page_size);
@@ -299,7 +299,7 @@ impl std::fmt::Debug for crate::model::ListServicesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListServicesResponse {
+impl std::fmt::Debug for super::ListServicesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServicesResponse");
         debug_struct.field("services", &self.services);
@@ -311,7 +311,7 @@ impl std::fmt::Debug for crate::model::ListServicesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSkusRequest {
+impl std::fmt::Debug for super::ListSkusRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSkusRequest");
         debug_struct.field("parent", &self.parent);
@@ -327,7 +327,7 @@ impl std::fmt::Debug for crate::model::ListSkusRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSkusResponse {
+impl std::fmt::Debug for super::ListSkusResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSkusResponse");
         debug_struct.field("skus", &self.skus);

@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Vertex {
+impl serde::ser::Serialize for super::Vertex {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -61,7 +61,7 @@ impl serde::ser::Serialize for crate::model::Vertex {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::NormalizedVertex {
+impl serde::ser::Serialize for super::NormalizedVertex {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -104,7 +104,7 @@ impl serde::ser::Serialize for crate::model::NormalizedVertex {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BoundingPoly {
+impl serde::ser::Serialize for super::BoundingPoly {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -129,7 +129,7 @@ impl serde::ser::Serialize for crate::model::BoundingPoly {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Position {
+impl serde::ser::Serialize for super::Position {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -184,7 +184,7 @@ impl serde::ser::Serialize for crate::model::Position {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Feature {
+impl serde::ser::Serialize for super::Feature {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -221,7 +221,7 @@ impl serde::ser::Serialize for crate::model::Feature {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImageSource {
+impl serde::ser::Serialize for super::ImageSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -246,7 +246,7 @@ impl serde::ser::Serialize for crate::model::ImageSource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Image {
+impl serde::ser::Serialize for super::Image {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -280,7 +280,7 @@ impl serde::ser::Serialize for crate::model::Image {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::FaceAnnotation {
+impl serde::ser::Serialize for super::FaceAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -392,7 +392,7 @@ impl serde::ser::Serialize for crate::model::FaceAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::face_annotation::Landmark {
+impl serde::ser::Serialize for super::face_annotation::Landmark {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -417,7 +417,7 @@ impl serde::ser::Serialize for crate::model::face_annotation::Landmark {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LocationInfo {
+impl serde::ser::Serialize for super::LocationInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -439,7 +439,7 @@ impl serde::ser::Serialize for crate::model::LocationInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Property {
+impl serde::ser::Serialize for super::Property {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -476,7 +476,7 @@ impl serde::ser::Serialize for crate::model::Property {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EntityAnnotation {
+impl serde::ser::Serialize for super::EntityAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -549,7 +549,7 @@ impl serde::ser::Serialize for crate::model::EntityAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LocalizedObjectAnnotation {
+impl serde::ser::Serialize for super::LocalizedObjectAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -592,7 +592,7 @@ impl serde::ser::Serialize for crate::model::LocalizedObjectAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SafeSearchAnnotation {
+impl serde::ser::Serialize for super::SafeSearchAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -626,7 +626,7 @@ impl serde::ser::Serialize for crate::model::SafeSearchAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::LatLongRect {
+impl serde::ser::Serialize for super::LatLongRect {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -651,7 +651,7 @@ impl serde::ser::Serialize for crate::model::LatLongRect {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ColorInfo {
+impl serde::ser::Serialize for super::ColorInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -697,7 +697,7 @@ impl serde::ser::Serialize for crate::model::ColorInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DominantColorsAnnotation {
+impl serde::ser::Serialize for super::DominantColorsAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -719,7 +719,7 @@ impl serde::ser::Serialize for crate::model::DominantColorsAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImageProperties {
+impl serde::ser::Serialize for super::ImageProperties {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -741,7 +741,7 @@ impl serde::ser::Serialize for crate::model::ImageProperties {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CropHint {
+impl serde::ser::Serialize for super::CropHint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -787,7 +787,7 @@ impl serde::ser::Serialize for crate::model::CropHint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CropHintsAnnotation {
+impl serde::ser::Serialize for super::CropHintsAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -809,7 +809,7 @@ impl serde::ser::Serialize for crate::model::CropHintsAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CropHintsParams {
+impl serde::ser::Serialize for super::CropHintsParams {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -842,7 +842,7 @@ impl serde::ser::Serialize for crate::model::CropHintsParams {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WebDetectionParams {
+impl serde::ser::Serialize for super::WebDetectionParams {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -864,7 +864,7 @@ impl serde::ser::Serialize for crate::model::WebDetectionParams {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TextDetectionParams {
+impl serde::ser::Serialize for super::TextDetectionParams {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -892,7 +892,7 @@ impl serde::ser::Serialize for crate::model::TextDetectionParams {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImageContext {
+impl serde::ser::Serialize for super::ImageContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -929,7 +929,7 @@ impl serde::ser::Serialize for crate::model::ImageContext {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnnotateImageRequest {
+impl serde::ser::Serialize for super::AnnotateImageRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -957,7 +957,7 @@ impl serde::ser::Serialize for crate::model::AnnotateImageRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImageAnnotationContext {
+impl serde::ser::Serialize for super::ImageAnnotationContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -991,7 +991,7 @@ impl serde::ser::Serialize for crate::model::ImageAnnotationContext {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnnotateImageResponse {
+impl serde::ser::Serialize for super::AnnotateImageResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1058,7 +1058,7 @@ impl serde::ser::Serialize for crate::model::AnnotateImageResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchAnnotateImagesRequest {
+impl serde::ser::Serialize for super::BatchAnnotateImagesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1086,7 +1086,7 @@ impl serde::ser::Serialize for crate::model::BatchAnnotateImagesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchAnnotateImagesResponse {
+impl serde::ser::Serialize for super::BatchAnnotateImagesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1108,7 +1108,7 @@ impl serde::ser::Serialize for crate::model::BatchAnnotateImagesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnnotateFileRequest {
+impl serde::ser::Serialize for super::AnnotateFileRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1150,7 +1150,7 @@ impl serde::ser::Serialize for crate::model::AnnotateFileRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AnnotateFileResponse {
+impl serde::ser::Serialize for super::AnnotateFileResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1190,7 +1190,7 @@ impl serde::ser::Serialize for crate::model::AnnotateFileResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchAnnotateFilesRequest {
+impl serde::ser::Serialize for super::BatchAnnotateFilesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1218,7 +1218,7 @@ impl serde::ser::Serialize for crate::model::BatchAnnotateFilesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchAnnotateFilesResponse {
+impl serde::ser::Serialize for super::BatchAnnotateFilesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1240,7 +1240,7 @@ impl serde::ser::Serialize for crate::model::BatchAnnotateFilesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AsyncAnnotateFileRequest {
+impl serde::ser::Serialize for super::AsyncAnnotateFileRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1271,7 +1271,7 @@ impl serde::ser::Serialize for crate::model::AsyncAnnotateFileRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AsyncAnnotateFileResponse {
+impl serde::ser::Serialize for super::AsyncAnnotateFileResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1293,7 +1293,7 @@ impl serde::ser::Serialize for crate::model::AsyncAnnotateFileResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AsyncBatchAnnotateImagesRequest {
+impl serde::ser::Serialize for super::AsyncBatchAnnotateImagesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1324,7 +1324,7 @@ impl serde::ser::Serialize for crate::model::AsyncBatchAnnotateImagesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AsyncBatchAnnotateImagesResponse {
+impl serde::ser::Serialize for super::AsyncBatchAnnotateImagesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1346,7 +1346,7 @@ impl serde::ser::Serialize for crate::model::AsyncBatchAnnotateImagesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AsyncBatchAnnotateFilesRequest {
+impl serde::ser::Serialize for super::AsyncBatchAnnotateFilesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1374,7 +1374,7 @@ impl serde::ser::Serialize for crate::model::AsyncBatchAnnotateFilesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AsyncBatchAnnotateFilesResponse {
+impl serde::ser::Serialize for super::AsyncBatchAnnotateFilesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1396,7 +1396,7 @@ impl serde::ser::Serialize for crate::model::AsyncBatchAnnotateFilesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InputConfig {
+impl serde::ser::Serialize for super::InputConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1433,7 +1433,7 @@ impl serde::ser::Serialize for crate::model::InputConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OutputConfig {
+impl serde::ser::Serialize for super::OutputConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1467,7 +1467,7 @@ impl serde::ser::Serialize for crate::model::OutputConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GcsSource {
+impl serde::ser::Serialize for super::GcsSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1489,7 +1489,7 @@ impl serde::ser::Serialize for crate::model::GcsSource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GcsDestination {
+impl serde::ser::Serialize for super::GcsDestination {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1511,7 +1511,7 @@ impl serde::ser::Serialize for crate::model::GcsDestination {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationMetadata {
+impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1539,7 +1539,7 @@ impl serde::ser::Serialize for crate::model::OperationMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ProductSearchParams {
+impl serde::ser::Serialize for super::ProductSearchParams {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1570,7 +1570,7 @@ impl serde::ser::Serialize for crate::model::ProductSearchParams {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ProductSearchResults {
+impl serde::ser::Serialize for super::ProductSearchResults {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1598,7 +1598,7 @@ impl serde::ser::Serialize for crate::model::ProductSearchResults {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::product_search_results::Result {
+impl serde::ser::Serialize for super::product_search_results::Result {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1635,7 +1635,7 @@ impl serde::ser::Serialize for crate::model::product_search_results::Result {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::product_search_results::ObjectAnnotation {
+impl serde::ser::Serialize for super::product_search_results::ObjectAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1675,7 +1675,7 @@ impl serde::ser::Serialize for crate::model::product_search_results::ObjectAnnot
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::product_search_results::GroupedResult {
+impl serde::ser::Serialize for super::product_search_results::GroupedResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1703,7 +1703,7 @@ impl serde::ser::Serialize for crate::model::product_search_results::GroupedResu
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Product {
+impl serde::ser::Serialize for super::Product {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1737,7 +1737,7 @@ impl serde::ser::Serialize for crate::model::Product {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::product::KeyValue {
+impl serde::ser::Serialize for super::product::KeyValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1762,7 +1762,7 @@ impl serde::ser::Serialize for crate::model::product::KeyValue {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ProductSet {
+impl serde::ser::Serialize for super::ProductSet {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1793,7 +1793,7 @@ impl serde::ser::Serialize for crate::model::ProductSet {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReferenceImage {
+impl serde::ser::Serialize for super::ReferenceImage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1821,7 +1821,7 @@ impl serde::ser::Serialize for crate::model::ReferenceImage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateProductRequest {
+impl serde::ser::Serialize for super::CreateProductRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1849,7 +1849,7 @@ impl serde::ser::Serialize for crate::model::CreateProductRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListProductsRequest {
+impl serde::ser::Serialize for super::ListProductsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1886,7 +1886,7 @@ impl serde::ser::Serialize for crate::model::ListProductsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListProductsResponse {
+impl serde::ser::Serialize for super::ListProductsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1911,7 +1911,7 @@ impl serde::ser::Serialize for crate::model::ListProductsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetProductRequest {
+impl serde::ser::Serialize for super::GetProductRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1933,7 +1933,7 @@ impl serde::ser::Serialize for crate::model::GetProductRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateProductRequest {
+impl serde::ser::Serialize for super::UpdateProductRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1958,7 +1958,7 @@ impl serde::ser::Serialize for crate::model::UpdateProductRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteProductRequest {
+impl serde::ser::Serialize for super::DeleteProductRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1980,7 +1980,7 @@ impl serde::ser::Serialize for crate::model::DeleteProductRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateProductSetRequest {
+impl serde::ser::Serialize for super::CreateProductSetRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2008,7 +2008,7 @@ impl serde::ser::Serialize for crate::model::CreateProductSetRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListProductSetsRequest {
+impl serde::ser::Serialize for super::ListProductSetsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2045,7 +2045,7 @@ impl serde::ser::Serialize for crate::model::ListProductSetsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListProductSetsResponse {
+impl serde::ser::Serialize for super::ListProductSetsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2070,7 +2070,7 @@ impl serde::ser::Serialize for crate::model::ListProductSetsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetProductSetRequest {
+impl serde::ser::Serialize for super::GetProductSetRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2092,7 +2092,7 @@ impl serde::ser::Serialize for crate::model::GetProductSetRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateProductSetRequest {
+impl serde::ser::Serialize for super::UpdateProductSetRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2117,7 +2117,7 @@ impl serde::ser::Serialize for crate::model::UpdateProductSetRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteProductSetRequest {
+impl serde::ser::Serialize for super::DeleteProductSetRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2139,7 +2139,7 @@ impl serde::ser::Serialize for crate::model::DeleteProductSetRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateReferenceImageRequest {
+impl serde::ser::Serialize for super::CreateReferenceImageRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2167,7 +2167,7 @@ impl serde::ser::Serialize for crate::model::CreateReferenceImageRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListReferenceImagesRequest {
+impl serde::ser::Serialize for super::ListReferenceImagesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2204,7 +2204,7 @@ impl serde::ser::Serialize for crate::model::ListReferenceImagesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListReferenceImagesResponse {
+impl serde::ser::Serialize for super::ListReferenceImagesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2241,7 +2241,7 @@ impl serde::ser::Serialize for crate::model::ListReferenceImagesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetReferenceImageRequest {
+impl serde::ser::Serialize for super::GetReferenceImageRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2263,7 +2263,7 @@ impl serde::ser::Serialize for crate::model::GetReferenceImageRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteReferenceImageRequest {
+impl serde::ser::Serialize for super::DeleteReferenceImageRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2285,32 +2285,7 @@ impl serde::ser::Serialize for crate::model::DeleteReferenceImageRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddProductToProductSetRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.product.is_empty() {
-            state.serialize_entry("product", &self.product)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RemoveProductFromProductSetRequest {
+impl serde::ser::Serialize for super::AddProductToProductSetRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2335,7 +2310,32 @@ impl serde::ser::Serialize for crate::model::RemoveProductFromProductSetRequest 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListProductsInProductSetRequest {
+impl serde::ser::Serialize for super::RemoveProductFromProductSetRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.product.is_empty() {
+            state.serialize_entry("product", &self.product)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListProductsInProductSetRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2372,7 +2372,7 @@ impl serde::ser::Serialize for crate::model::ListProductsInProductSetRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListProductsInProductSetResponse {
+impl serde::ser::Serialize for super::ListProductsInProductSetResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2397,7 +2397,7 @@ impl serde::ser::Serialize for crate::model::ListProductsInProductSetResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportProductSetsGcsSource {
+impl serde::ser::Serialize for super::ImportProductSetsGcsSource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2419,7 +2419,7 @@ impl serde::ser::Serialize for crate::model::ImportProductSetsGcsSource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportProductSetsInputConfig {
+impl serde::ser::Serialize for super::ImportProductSetsInputConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2441,7 +2441,7 @@ impl serde::ser::Serialize for crate::model::ImportProductSetsInputConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportProductSetsRequest {
+impl serde::ser::Serialize for super::ImportProductSetsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2466,7 +2466,7 @@ impl serde::ser::Serialize for crate::model::ImportProductSetsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ImportProductSetsResponse {
+impl serde::ser::Serialize for super::ImportProductSetsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2491,7 +2491,7 @@ impl serde::ser::Serialize for crate::model::ImportProductSetsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BatchOperationMetadata {
+impl serde::ser::Serialize for super::BatchOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2519,7 +2519,7 @@ impl serde::ser::Serialize for crate::model::BatchOperationMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ProductSetPurgeConfig {
+impl serde::ser::Serialize for super::ProductSetPurgeConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2541,7 +2541,7 @@ impl serde::ser::Serialize for crate::model::ProductSetPurgeConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::PurgeProductsRequest {
+impl serde::ser::Serialize for super::PurgeProductsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2572,7 +2572,7 @@ impl serde::ser::Serialize for crate::model::PurgeProductsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::TextAnnotation {
+impl serde::ser::Serialize for super::TextAnnotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2597,7 +2597,7 @@ impl serde::ser::Serialize for crate::model::TextAnnotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::text_annotation::DetectedLanguage {
+impl serde::ser::Serialize for super::text_annotation::DetectedLanguage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2631,7 +2631,7 @@ impl serde::ser::Serialize for crate::model::text_annotation::DetectedLanguage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::text_annotation::DetectedBreak {
+impl serde::ser::Serialize for super::text_annotation::DetectedBreak {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2656,7 +2656,7 @@ impl serde::ser::Serialize for crate::model::text_annotation::DetectedBreak {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::text_annotation::TextProperty {
+impl serde::ser::Serialize for super::text_annotation::TextProperty {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2681,7 +2681,7 @@ impl serde::ser::Serialize for crate::model::text_annotation::TextProperty {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Page {
+impl serde::ser::Serialize for super::Page {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2742,7 +2742,7 @@ impl serde::ser::Serialize for crate::model::Page {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Block {
+impl serde::ser::Serialize for super::Block {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2785,7 +2785,7 @@ impl serde::ser::Serialize for crate::model::Block {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Paragraph {
+impl serde::ser::Serialize for super::Paragraph {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2825,7 +2825,7 @@ impl serde::ser::Serialize for crate::model::Paragraph {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Word {
+impl serde::ser::Serialize for super::Word {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2865,7 +2865,7 @@ impl serde::ser::Serialize for crate::model::Word {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Symbol {
+impl serde::ser::Serialize for super::Symbol {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2905,7 +2905,7 @@ impl serde::ser::Serialize for crate::model::Symbol {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::WebDetection {
+impl serde::ser::Serialize for super::WebDetection {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2942,7 +2942,7 @@ impl serde::ser::Serialize for crate::model::WebDetection {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::web_detection::WebEntity {
+impl serde::ser::Serialize for super::web_detection::WebEntity {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -2979,7 +2979,7 @@ impl serde::ser::Serialize for crate::model::web_detection::WebEntity {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::web_detection::WebImage {
+impl serde::ser::Serialize for super::web_detection::WebImage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3013,7 +3013,7 @@ impl serde::ser::Serialize for crate::model::web_detection::WebImage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::web_detection::WebPage {
+impl serde::ser::Serialize for super::web_detection::WebPage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -3056,7 +3056,7 @@ impl serde::ser::Serialize for crate::model::web_detection::WebPage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::web_detection::WebLabel {
+impl serde::ser::Serialize for super::web_detection::WebLabel {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

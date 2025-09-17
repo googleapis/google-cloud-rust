@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::FeatureSpec {
+impl std::fmt::Debug for super::FeatureSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FeatureSpec");
         debug_struct.field("config_membership", &self.config_membership);

@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::AppConnectorInstanceConfig {
+impl std::fmt::Debug for super::AppConnectorInstanceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AppConnectorInstanceConfig");
         debug_struct.field("sequence_number", &self.sequence_number);
@@ -31,7 +31,7 @@ impl std::fmt::Debug for crate::model::AppConnectorInstanceConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::NotificationConfig {
+impl std::fmt::Debug for super::NotificationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NotificationConfig");
         debug_struct.field("config", &self.config);
@@ -42,7 +42,7 @@ impl std::fmt::Debug for crate::model::NotificationConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::notification_config::CloudPubSubNotificationConfig {
+impl std::fmt::Debug for super::notification_config::CloudPubSubNotificationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudPubSubNotificationConfig");
         debug_struct.field("pubsub_subscription", &self.pubsub_subscription);
@@ -53,7 +53,7 @@ impl std::fmt::Debug for crate::model::notification_config::CloudPubSubNotificat
     }
 }
 
-impl std::fmt::Debug for crate::model::ImageConfig {
+impl std::fmt::Debug for super::ImageConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImageConfig");
         debug_struct.field("target_image", &self.target_image);
@@ -65,7 +65,7 @@ impl std::fmt::Debug for crate::model::ImageConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAppConnectorsRequest {
+impl std::fmt::Debug for super::ListAppConnectorsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAppConnectorsRequest");
         debug_struct.field("parent", &self.parent);
@@ -80,7 +80,7 @@ impl std::fmt::Debug for crate::model::ListAppConnectorsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAppConnectorsResponse {
+impl std::fmt::Debug for super::ListAppConnectorsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAppConnectorsResponse");
         debug_struct.field("app_connectors", &self.app_connectors);
@@ -93,7 +93,7 @@ impl std::fmt::Debug for crate::model::ListAppConnectorsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetAppConnectorRequest {
+impl std::fmt::Debug for super::GetAppConnectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAppConnectorRequest");
         debug_struct.field("name", &self.name);
@@ -104,7 +104,7 @@ impl std::fmt::Debug for crate::model::GetAppConnectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateAppConnectorRequest {
+impl std::fmt::Debug for super::CreateAppConnectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateAppConnectorRequest");
         debug_struct.field("parent", &self.parent);
@@ -119,7 +119,7 @@ impl std::fmt::Debug for crate::model::CreateAppConnectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateAppConnectorRequest {
+impl std::fmt::Debug for super::UpdateAppConnectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateAppConnectorRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -133,7 +133,7 @@ impl std::fmt::Debug for crate::model::UpdateAppConnectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteAppConnectorRequest {
+impl std::fmt::Debug for super::DeleteAppConnectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAppConnectorRequest");
         debug_struct.field("name", &self.name);
@@ -146,7 +146,7 @@ impl std::fmt::Debug for crate::model::DeleteAppConnectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ReportStatusRequest {
+impl std::fmt::Debug for super::ReportStatusRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReportStatusRequest");
         debug_struct.field("app_connector", &self.app_connector);
@@ -160,7 +160,7 @@ impl std::fmt::Debug for crate::model::ReportStatusRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AppConnector {
+impl std::fmt::Debug for super::AppConnector {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AppConnector");
         debug_struct.field("name", &self.name);
@@ -179,7 +179,7 @@ impl std::fmt::Debug for crate::model::AppConnector {
     }
 }
 
-impl std::fmt::Debug for crate::model::app_connector::PrincipalInfo {
+impl std::fmt::Debug for super::app_connector::PrincipalInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrincipalInfo");
         debug_struct.field("r#type", &self.r#type);
@@ -190,7 +190,7 @@ impl std::fmt::Debug for crate::model::app_connector::PrincipalInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::app_connector::principal_info::ServiceAccount {
+impl std::fmt::Debug for super::app_connector::principal_info::ServiceAccount {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServiceAccount");
         debug_struct.field("email", &self.email);
@@ -201,7 +201,7 @@ impl std::fmt::Debug for crate::model::app_connector::principal_info::ServiceAcc
     }
 }
 
-impl std::fmt::Debug for crate::model::AppConnectorOperationMetadata {
+impl std::fmt::Debug for super::AppConnectorOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AppConnectorOperationMetadata");
         debug_struct.field("create_time", &self.create_time);
@@ -218,7 +218,7 @@ impl std::fmt::Debug for crate::model::AppConnectorOperationMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResourceInfo {
+impl std::fmt::Debug for super::ResourceInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceInfo");
         debug_struct.field("id", &self.id);

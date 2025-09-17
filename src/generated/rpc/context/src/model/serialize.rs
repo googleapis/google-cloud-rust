@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AttributeContext {
+impl serde::ser::Serialize for super::AttributeContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -61,7 +61,7 @@ impl serde::ser::Serialize for crate::model::AttributeContext {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::attribute_context::Peer {
+impl serde::ser::Serialize for super::attribute_context::Peer {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -104,7 +104,7 @@ impl serde::ser::Serialize for crate::model::attribute_context::Peer {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::attribute_context::Api {
+impl serde::ser::Serialize for super::attribute_context::Api {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -135,7 +135,7 @@ impl serde::ser::Serialize for crate::model::attribute_context::Api {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::attribute_context::Auth {
+impl serde::ser::Serialize for super::attribute_context::Auth {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -169,7 +169,7 @@ impl serde::ser::Serialize for crate::model::attribute_context::Auth {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::attribute_context::Request {
+impl serde::ser::Serialize for super::attribute_context::Request {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -233,7 +233,7 @@ impl serde::ser::Serialize for crate::model::attribute_context::Request {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::attribute_context::Response {
+impl serde::ser::Serialize for super::attribute_context::Response {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -285,7 +285,7 @@ impl serde::ser::Serialize for crate::model::attribute_context::Response {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::attribute_context::Resource {
+impl serde::ser::Serialize for super::attribute_context::Resource {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -340,7 +340,7 @@ impl serde::ser::Serialize for crate::model::attribute_context::Resource {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AuditContext {
+impl serde::ser::Serialize for super::AuditContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

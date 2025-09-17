@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::GuestOsScan {
+impl std::fmt::Debug for super::GuestOsScan {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GuestOsScan");
         debug_struct.field("core_source", &self.core_source);
@@ -28,7 +28,7 @@ impl std::fmt::Debug for crate::model::GuestOsScan {
     }
 }
 
-impl std::fmt::Debug for crate::model::VSphereScan {
+impl std::fmt::Debug for super::VSphereScan {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VSphereScan");
         debug_struct.field("core_source", &self.core_source);
@@ -39,7 +39,7 @@ impl std::fmt::Debug for crate::model::VSphereScan {
     }
 }
 
-impl std::fmt::Debug for crate::model::Collector {
+impl std::fmt::Debug for super::Collector {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Collector");
         debug_struct.field("name", &self.name);
@@ -64,7 +64,7 @@ impl std::fmt::Debug for crate::model::Collector {
     }
 }
 
-impl std::fmt::Debug for crate::model::Annotation {
+impl std::fmt::Debug for super::Annotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Annotation");
         debug_struct.field("name", &self.name);
@@ -79,7 +79,7 @@ impl std::fmt::Debug for crate::model::Annotation {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateAnnotationRequest {
+impl std::fmt::Debug for super::CreateAnnotationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateAnnotationRequest");
         debug_struct.field("parent", &self.parent);
@@ -92,7 +92,7 @@ impl std::fmt::Debug for crate::model::CreateAnnotationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetAnnotationRequest {
+impl std::fmt::Debug for super::GetAnnotationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAnnotationRequest");
         debug_struct.field("name", &self.name);
@@ -103,7 +103,7 @@ impl std::fmt::Debug for crate::model::GetAnnotationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateCollectorRequest {
+impl std::fmt::Debug for super::CreateCollectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateCollectorRequest");
         debug_struct.field("parent", &self.parent);
@@ -117,7 +117,7 @@ impl std::fmt::Debug for crate::model::CreateCollectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCollectorsRequest {
+impl std::fmt::Debug for super::ListCollectorsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCollectorsRequest");
         debug_struct.field("parent", &self.parent);
@@ -132,7 +132,7 @@ impl std::fmt::Debug for crate::model::ListCollectorsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCollectorsResponse {
+impl std::fmt::Debug for super::ListCollectorsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCollectorsResponse");
         debug_struct.field("collectors", &self.collectors);
@@ -145,7 +145,7 @@ impl std::fmt::Debug for crate::model::ListCollectorsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetCollectorRequest {
+impl std::fmt::Debug for super::GetCollectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCollectorRequest");
         debug_struct.field("name", &self.name);
@@ -156,7 +156,7 @@ impl std::fmt::Debug for crate::model::GetCollectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteCollectorRequest {
+impl std::fmt::Debug for super::DeleteCollectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteCollectorRequest");
         debug_struct.field("name", &self.name);
@@ -168,7 +168,7 @@ impl std::fmt::Debug for crate::model::DeleteCollectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateCollectorRequest {
+impl std::fmt::Debug for super::UpdateCollectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCollectorRequest");
         debug_struct.field("update_mask", &self.update_mask);
@@ -181,7 +181,7 @@ impl std::fmt::Debug for crate::model::UpdateCollectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ResumeCollectorRequest {
+impl std::fmt::Debug for super::ResumeCollectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResumeCollectorRequest");
         debug_struct.field("name", &self.name);
@@ -193,7 +193,7 @@ impl std::fmt::Debug for crate::model::ResumeCollectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RegisterCollectorRequest {
+impl std::fmt::Debug for super::RegisterCollectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RegisterCollectorRequest");
         debug_struct.field("name", &self.name);
@@ -205,7 +205,7 @@ impl std::fmt::Debug for crate::model::RegisterCollectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::PauseCollectorRequest {
+impl std::fmt::Debug for super::PauseCollectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PauseCollectorRequest");
         debug_struct.field("name", &self.name);
@@ -217,7 +217,7 @@ impl std::fmt::Debug for crate::model::PauseCollectorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::OperationMetadata {
+impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("create_time", &self.create_time);

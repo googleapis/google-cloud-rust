@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CloudLocation {
+impl<'de> serde::de::Deserialize<'de> for super::CloudLocation {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -84,7 +84,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CloudLocation {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CloudLocation;
+            type Value = super::CloudLocation;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CloudLocation")
             }
@@ -197,7 +197,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CloudLocation {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListCloudLocationsRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListCloudLocationsRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -245,7 +245,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListCloudLocationsReques
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListCloudLocationsRequest;
+            type Value = super::ListCloudLocationsRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListCloudLocationsRequest")
             }
@@ -324,7 +324,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListCloudLocationsReques
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListCloudLocationsResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListCloudLocationsResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -368,7 +368,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListCloudLocationsRespon
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListCloudLocationsResponse;
+            type Value = super::ListCloudLocationsResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListCloudLocationsResponse")
             }
@@ -416,7 +416,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListCloudLocationsRespon
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetCloudLocationRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetCloudLocationRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -456,7 +456,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetCloudLocationRequest 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetCloudLocationRequest;
+            type Value = super::GetCloudLocationRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetCloudLocationRequest")
             }
@@ -496,7 +496,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetCloudLocationRequest 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SearchCloudLocationsRequest {
+impl<'de> serde::de::Deserialize<'de> for super::SearchCloudLocationsRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -547,7 +547,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SearchCloudLocationsRequ
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SearchCloudLocationsRequest;
+            type Value = super::SearchCloudLocationsRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SearchCloudLocationsRequest")
             }
@@ -636,7 +636,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SearchCloudLocationsRequ
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::SearchCloudLocationsResponse {
+impl<'de> serde::de::Deserialize<'de> for super::SearchCloudLocationsResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -680,7 +680,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::SearchCloudLocationsResp
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::SearchCloudLocationsResponse;
+            type Value = super::SearchCloudLocationsResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct SearchCloudLocationsResponse")
             }

@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::Api {
+impl std::fmt::Debug for super::Api {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Api");
         debug_struct.field("name", &self.name);
@@ -34,7 +34,7 @@ impl std::fmt::Debug for crate::Api {
     }
 }
 
-impl std::fmt::Debug for crate::Method {
+impl std::fmt::Debug for super::Method {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Method");
         debug_struct.field("name", &self.name);
@@ -51,7 +51,7 @@ impl std::fmt::Debug for crate::Method {
     }
 }
 
-impl std::fmt::Debug for crate::Mixin {
+impl std::fmt::Debug for super::Mixin {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Mixin");
         debug_struct.field("name", &self.name);
@@ -63,7 +63,7 @@ impl std::fmt::Debug for crate::Mixin {
     }
 }
 
-impl std::fmt::Debug for crate::FileDescriptorSet {
+impl std::fmt::Debug for super::FileDescriptorSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FileDescriptorSet");
         debug_struct.field("file", &self.file);
@@ -74,7 +74,7 @@ impl std::fmt::Debug for crate::FileDescriptorSet {
     }
 }
 
-impl std::fmt::Debug for crate::FileDescriptorProto {
+impl std::fmt::Debug for super::FileDescriptorProto {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FileDescriptorProto");
         debug_struct.field("name", &self.name);
@@ -97,7 +97,7 @@ impl std::fmt::Debug for crate::FileDescriptorProto {
     }
 }
 
-impl std::fmt::Debug for crate::DescriptorProto {
+impl std::fmt::Debug for super::DescriptorProto {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DescriptorProto");
         debug_struct.field("name", &self.name);
@@ -117,7 +117,7 @@ impl std::fmt::Debug for crate::DescriptorProto {
     }
 }
 
-impl std::fmt::Debug for crate::descriptor_proto::ExtensionRange {
+impl std::fmt::Debug for super::descriptor_proto::ExtensionRange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExtensionRange");
         debug_struct.field("start", &self.start);
@@ -130,7 +130,7 @@ impl std::fmt::Debug for crate::descriptor_proto::ExtensionRange {
     }
 }
 
-impl std::fmt::Debug for crate::descriptor_proto::ReservedRange {
+impl std::fmt::Debug for super::descriptor_proto::ReservedRange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReservedRange");
         debug_struct.field("start", &self.start);
@@ -142,7 +142,7 @@ impl std::fmt::Debug for crate::descriptor_proto::ReservedRange {
     }
 }
 
-impl std::fmt::Debug for crate::ExtensionRangeOptions {
+impl std::fmt::Debug for super::ExtensionRangeOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExtensionRangeOptions");
         debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
@@ -156,7 +156,7 @@ impl std::fmt::Debug for crate::ExtensionRangeOptions {
     }
 }
 
-impl std::fmt::Debug for crate::extension_range_options::Declaration {
+impl std::fmt::Debug for super::extension_range_options::Declaration {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Declaration");
         debug_struct.field("number", &self.number);
@@ -171,7 +171,7 @@ impl std::fmt::Debug for crate::extension_range_options::Declaration {
     }
 }
 
-impl std::fmt::Debug for crate::FieldDescriptorProto {
+impl std::fmt::Debug for super::FieldDescriptorProto {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FieldDescriptorProto");
         debug_struct.field("name", &self.name);
@@ -192,7 +192,7 @@ impl std::fmt::Debug for crate::FieldDescriptorProto {
     }
 }
 
-impl std::fmt::Debug for crate::OneofDescriptorProto {
+impl std::fmt::Debug for super::OneofDescriptorProto {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OneofDescriptorProto");
         debug_struct.field("name", &self.name);
@@ -204,7 +204,7 @@ impl std::fmt::Debug for crate::OneofDescriptorProto {
     }
 }
 
-impl std::fmt::Debug for crate::EnumDescriptorProto {
+impl std::fmt::Debug for super::EnumDescriptorProto {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnumDescriptorProto");
         debug_struct.field("name", &self.name);
@@ -219,7 +219,7 @@ impl std::fmt::Debug for crate::EnumDescriptorProto {
     }
 }
 
-impl std::fmt::Debug for crate::enum_descriptor_proto::EnumReservedRange {
+impl std::fmt::Debug for super::enum_descriptor_proto::EnumReservedRange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnumReservedRange");
         debug_struct.field("start", &self.start);
@@ -231,7 +231,7 @@ impl std::fmt::Debug for crate::enum_descriptor_proto::EnumReservedRange {
     }
 }
 
-impl std::fmt::Debug for crate::EnumValueDescriptorProto {
+impl std::fmt::Debug for super::EnumValueDescriptorProto {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnumValueDescriptorProto");
         debug_struct.field("name", &self.name);
@@ -244,7 +244,7 @@ impl std::fmt::Debug for crate::EnumValueDescriptorProto {
     }
 }
 
-impl std::fmt::Debug for crate::ServiceDescriptorProto {
+impl std::fmt::Debug for super::ServiceDescriptorProto {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServiceDescriptorProto");
         debug_struct.field("name", &self.name);
@@ -257,7 +257,7 @@ impl std::fmt::Debug for crate::ServiceDescriptorProto {
     }
 }
 
-impl std::fmt::Debug for crate::MethodDescriptorProto {
+impl std::fmt::Debug for super::MethodDescriptorProto {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MethodDescriptorProto");
         debug_struct.field("name", &self.name);
@@ -273,7 +273,7 @@ impl std::fmt::Debug for crate::MethodDescriptorProto {
     }
 }
 
-impl std::fmt::Debug for crate::FileOptions {
+impl std::fmt::Debug for super::FileOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FileOptions");
         debug_struct.field("java_package", &self.java_package);
@@ -307,7 +307,7 @@ impl std::fmt::Debug for crate::FileOptions {
     }
 }
 
-impl std::fmt::Debug for crate::MessageOptions {
+impl std::fmt::Debug for super::MessageOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageOptions");
         debug_struct.field("message_set_wire_format", &self.message_set_wire_format);
@@ -330,7 +330,7 @@ impl std::fmt::Debug for crate::MessageOptions {
     }
 }
 
-impl std::fmt::Debug for crate::FieldOptions {
+impl std::fmt::Debug for super::FieldOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FieldOptions");
         debug_struct.field("ctype", &self.ctype);
@@ -354,7 +354,7 @@ impl std::fmt::Debug for crate::FieldOptions {
     }
 }
 
-impl std::fmt::Debug for crate::field_options::EditionDefault {
+impl std::fmt::Debug for super::field_options::EditionDefault {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EditionDefault");
         debug_struct.field("edition", &self.edition);
@@ -366,7 +366,7 @@ impl std::fmt::Debug for crate::field_options::EditionDefault {
     }
 }
 
-impl std::fmt::Debug for crate::field_options::FeatureSupport {
+impl std::fmt::Debug for super::field_options::FeatureSupport {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FeatureSupport");
         debug_struct.field("edition_introduced", &self.edition_introduced);
@@ -380,7 +380,7 @@ impl std::fmt::Debug for crate::field_options::FeatureSupport {
     }
 }
 
-impl std::fmt::Debug for crate::OneofOptions {
+impl std::fmt::Debug for super::OneofOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OneofOptions");
         debug_struct.field("features", &self.features);
@@ -392,7 +392,7 @@ impl std::fmt::Debug for crate::OneofOptions {
     }
 }
 
-impl std::fmt::Debug for crate::EnumOptions {
+impl std::fmt::Debug for super::EnumOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnumOptions");
         debug_struct.field("allow_alias", &self.allow_alias);
@@ -410,7 +410,7 @@ impl std::fmt::Debug for crate::EnumOptions {
     }
 }
 
-impl std::fmt::Debug for crate::EnumValueOptions {
+impl std::fmt::Debug for super::EnumValueOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnumValueOptions");
         debug_struct.field("deprecated", &self.deprecated);
@@ -425,7 +425,7 @@ impl std::fmt::Debug for crate::EnumValueOptions {
     }
 }
 
-impl std::fmt::Debug for crate::ServiceOptions {
+impl std::fmt::Debug for super::ServiceOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServiceOptions");
         debug_struct.field("features", &self.features);
@@ -438,7 +438,7 @@ impl std::fmt::Debug for crate::ServiceOptions {
     }
 }
 
-impl std::fmt::Debug for crate::MethodOptions {
+impl std::fmt::Debug for super::MethodOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MethodOptions");
         debug_struct.field("deprecated", &self.deprecated);
@@ -452,7 +452,7 @@ impl std::fmt::Debug for crate::MethodOptions {
     }
 }
 
-impl std::fmt::Debug for crate::UninterpretedOption {
+impl std::fmt::Debug for super::UninterpretedOption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UninterpretedOption");
         debug_struct.field("name", &self.name);
@@ -469,7 +469,7 @@ impl std::fmt::Debug for crate::UninterpretedOption {
     }
 }
 
-impl std::fmt::Debug for crate::uninterpreted_option::NamePart {
+impl std::fmt::Debug for super::uninterpreted_option::NamePart {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NamePart");
         debug_struct.field("name_part", &self.name_part);
@@ -481,7 +481,7 @@ impl std::fmt::Debug for crate::uninterpreted_option::NamePart {
     }
 }
 
-impl std::fmt::Debug for crate::FeatureSet {
+impl std::fmt::Debug for super::FeatureSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FeatureSet");
         debug_struct.field("field_presence", &self.field_presence);
@@ -497,7 +497,7 @@ impl std::fmt::Debug for crate::FeatureSet {
     }
 }
 
-impl std::fmt::Debug for crate::FeatureSetDefaults {
+impl std::fmt::Debug for super::FeatureSetDefaults {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FeatureSetDefaults");
         debug_struct.field("defaults", &self.defaults);
@@ -510,7 +510,7 @@ impl std::fmt::Debug for crate::FeatureSetDefaults {
     }
 }
 
-impl std::fmt::Debug for crate::feature_set_defaults::FeatureSetEditionDefault {
+impl std::fmt::Debug for super::feature_set_defaults::FeatureSetEditionDefault {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FeatureSetEditionDefault");
         debug_struct.field("edition", &self.edition);
@@ -523,7 +523,7 @@ impl std::fmt::Debug for crate::feature_set_defaults::FeatureSetEditionDefault {
     }
 }
 
-impl std::fmt::Debug for crate::SourceCodeInfo {
+impl std::fmt::Debug for super::SourceCodeInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceCodeInfo");
         debug_struct.field("location", &self.location);
@@ -534,7 +534,7 @@ impl std::fmt::Debug for crate::SourceCodeInfo {
     }
 }
 
-impl std::fmt::Debug for crate::source_code_info::Location {
+impl std::fmt::Debug for super::source_code_info::Location {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Location");
         debug_struct.field("path", &self.path);
@@ -549,7 +549,7 @@ impl std::fmt::Debug for crate::source_code_info::Location {
     }
 }
 
-impl std::fmt::Debug for crate::GeneratedCodeInfo {
+impl std::fmt::Debug for super::GeneratedCodeInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GeneratedCodeInfo");
         debug_struct.field("annotation", &self.annotation);
@@ -560,7 +560,7 @@ impl std::fmt::Debug for crate::GeneratedCodeInfo {
     }
 }
 
-impl std::fmt::Debug for crate::generated_code_info::Annotation {
+impl std::fmt::Debug for super::generated_code_info::Annotation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Annotation");
         debug_struct.field("path", &self.path);
@@ -575,7 +575,7 @@ impl std::fmt::Debug for crate::generated_code_info::Annotation {
     }
 }
 
-impl std::fmt::Debug for crate::SourceContext {
+impl std::fmt::Debug for super::SourceContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceContext");
         debug_struct.field("file_name", &self.file_name);
@@ -586,7 +586,7 @@ impl std::fmt::Debug for crate::SourceContext {
     }
 }
 
-impl std::fmt::Debug for crate::Type {
+impl std::fmt::Debug for super::Type {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Type");
         debug_struct.field("name", &self.name);
@@ -603,7 +603,7 @@ impl std::fmt::Debug for crate::Type {
     }
 }
 
-impl std::fmt::Debug for crate::Field {
+impl std::fmt::Debug for super::Field {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Field");
         debug_struct.field("kind", &self.kind);
@@ -623,7 +623,7 @@ impl std::fmt::Debug for crate::Field {
     }
 }
 
-impl std::fmt::Debug for crate::Enum {
+impl std::fmt::Debug for super::Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Enum");
         debug_struct.field("name", &self.name);
@@ -639,7 +639,7 @@ impl std::fmt::Debug for crate::Enum {
     }
 }
 
-impl std::fmt::Debug for crate::EnumValue {
+impl std::fmt::Debug for super::EnumValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnumValue");
         debug_struct.field("name", &self.name);
@@ -652,7 +652,7 @@ impl std::fmt::Debug for crate::EnumValue {
     }
 }
 
-impl std::fmt::Debug for crate::Option {
+impl std::fmt::Debug for super::Option {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Option");
         debug_struct.field("name", &self.name);

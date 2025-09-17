@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListAppGatewaysRequest {
+impl<'de> serde::de::Deserialize<'de> for super::ListAppGatewaysRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -69,7 +69,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAppGatewaysRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListAppGatewaysRequest;
+            type Value = super::ListAppGatewaysRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListAppGatewaysRequest")
             }
@@ -158,7 +158,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAppGatewaysRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::ListAppGatewaysResponse {
+impl<'de> serde::de::Deserialize<'de> for super::ListAppGatewaysResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -204,7 +204,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAppGatewaysResponse 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::ListAppGatewaysResponse;
+            type Value = super::ListAppGatewaysResponse;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ListAppGatewaysResponse")
             }
@@ -260,7 +260,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ListAppGatewaysResponse 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::GetAppGatewayRequest {
+impl<'de> serde::de::Deserialize<'de> for super::GetAppGatewayRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -300,7 +300,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetAppGatewayRequest {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::GetAppGatewayRequest;
+            type Value = super::GetAppGatewayRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct GetAppGatewayRequest")
             }
@@ -340,7 +340,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::GetAppGatewayRequest {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::CreateAppGatewayRequest {
+impl<'de> serde::de::Deserialize<'de> for super::CreateAppGatewayRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -392,7 +392,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateAppGatewayRequest 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::CreateAppGatewayRequest;
+            type Value = super::CreateAppGatewayRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct CreateAppGatewayRequest")
             }
@@ -471,7 +471,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateAppGatewayRequest 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteAppGatewayRequest {
+impl<'de> serde::de::Deserialize<'de> for super::DeleteAppGatewayRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -517,7 +517,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteAppGatewayRequest 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::DeleteAppGatewayRequest;
+            type Value = super::DeleteAppGatewayRequest;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct DeleteAppGatewayRequest")
             }
@@ -577,7 +577,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::DeleteAppGatewayRequest 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AppGateway {
+impl<'de> serde::de::Deserialize<'de> for super::AppGateway {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -642,7 +642,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AppGateway {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AppGateway;
+            type Value = super::AppGateway;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AppGateway")
             }
@@ -784,7 +784,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AppGateway {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::app_gateway::AllocatedConnection {
+impl<'de> serde::de::Deserialize<'de> for super::app_gateway::AllocatedConnection {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -828,7 +828,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::app_gateway::AllocatedCo
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::app_gateway::AllocatedConnection;
+            type Value = super::app_gateway::AllocatedConnection;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AllocatedConnection")
             }
@@ -887,7 +887,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::app_gateway::AllocatedCo
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AppGatewayOperationMetadata {
+impl<'de> serde::de::Deserialize<'de> for super::AppGatewayOperationMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -944,7 +944,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AppGatewayOperationMetad
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AppGatewayOperationMetadata;
+            type Value = super::AppGatewayOperationMetadata;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AppGatewayOperationMetadata")
             }

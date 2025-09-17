@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Policy {
+impl std::fmt::Debug for super::Policy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Policy");
         debug_struct.field("name", &self.name);
@@ -52,7 +52,7 @@ impl std::fmt::Debug for crate::model::Policy {
     }
 }
 
-impl std::fmt::Debug for crate::model::AdmissionWhitelistPattern {
+impl std::fmt::Debug for super::AdmissionWhitelistPattern {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdmissionWhitelistPattern");
         debug_struct.field("name_pattern", &self.name_pattern);
@@ -63,7 +63,7 @@ impl std::fmt::Debug for crate::model::AdmissionWhitelistPattern {
     }
 }
 
-impl std::fmt::Debug for crate::model::AdmissionRule {
+impl std::fmt::Debug for super::AdmissionRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdmissionRule");
         debug_struct.field("evaluation_mode", &self.evaluation_mode);
@@ -76,7 +76,7 @@ impl std::fmt::Debug for crate::model::AdmissionRule {
     }
 }
 
-impl std::fmt::Debug for crate::model::Attestor {
+impl std::fmt::Debug for super::Attestor {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Attestor");
         debug_struct.field("name", &self.name);
@@ -90,7 +90,7 @@ impl std::fmt::Debug for crate::model::Attestor {
     }
 }
 
-impl std::fmt::Debug for crate::model::UserOwnedGrafeasNote {
+impl std::fmt::Debug for super::UserOwnedGrafeasNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserOwnedGrafeasNote");
         debug_struct.field("note_reference", &self.note_reference);
@@ -106,7 +106,7 @@ impl std::fmt::Debug for crate::model::UserOwnedGrafeasNote {
     }
 }
 
-impl std::fmt::Debug for crate::model::PkixPublicKey {
+impl std::fmt::Debug for super::PkixPublicKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PkixPublicKey");
         debug_struct.field("public_key_pem", &self.public_key_pem);
@@ -118,7 +118,7 @@ impl std::fmt::Debug for crate::model::PkixPublicKey {
     }
 }
 
-impl std::fmt::Debug for crate::model::AttestorPublicKey {
+impl std::fmt::Debug for super::AttestorPublicKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AttestorPublicKey");
         debug_struct.field("comment", &self.comment);
@@ -131,7 +131,7 @@ impl std::fmt::Debug for crate::model::AttestorPublicKey {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPolicyRequest {
+impl std::fmt::Debug for super::GetPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -142,7 +142,7 @@ impl std::fmt::Debug for crate::model::GetPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdatePolicyRequest {
+impl std::fmt::Debug for super::UpdatePolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdatePolicyRequest");
         debug_struct.field("policy", &self.policy);
@@ -153,7 +153,7 @@ impl std::fmt::Debug for crate::model::UpdatePolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateAttestorRequest {
+impl std::fmt::Debug for super::CreateAttestorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateAttestorRequest");
         debug_struct.field("parent", &self.parent);
@@ -166,7 +166,7 @@ impl std::fmt::Debug for crate::model::CreateAttestorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetAttestorRequest {
+impl std::fmt::Debug for super::GetAttestorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAttestorRequest");
         debug_struct.field("name", &self.name);
@@ -177,7 +177,7 @@ impl std::fmt::Debug for crate::model::GetAttestorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateAttestorRequest {
+impl std::fmt::Debug for super::UpdateAttestorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateAttestorRequest");
         debug_struct.field("attestor", &self.attestor);
@@ -188,7 +188,7 @@ impl std::fmt::Debug for crate::model::UpdateAttestorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAttestorsRequest {
+impl std::fmt::Debug for super::ListAttestorsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAttestorsRequest");
         debug_struct.field("parent", &self.parent);
@@ -201,7 +201,7 @@ impl std::fmt::Debug for crate::model::ListAttestorsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListAttestorsResponse {
+impl std::fmt::Debug for super::ListAttestorsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAttestorsResponse");
         debug_struct.field("attestors", &self.attestors);
@@ -213,7 +213,7 @@ impl std::fmt::Debug for crate::model::ListAttestorsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteAttestorRequest {
+impl std::fmt::Debug for super::DeleteAttestorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAttestorRequest");
         debug_struct.field("name", &self.name);
@@ -224,7 +224,7 @@ impl std::fmt::Debug for crate::model::DeleteAttestorRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetSystemPolicyRequest {
+impl std::fmt::Debug for super::GetSystemPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSystemPolicyRequest");
         debug_struct.field("name", &self.name);
@@ -235,7 +235,7 @@ impl std::fmt::Debug for crate::model::GetSystemPolicyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ValidateAttestationOccurrenceRequest {
+impl std::fmt::Debug for super::ValidateAttestationOccurrenceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ValidateAttestationOccurrenceRequest");
         debug_struct.field("attestor", &self.attestor);
@@ -249,7 +249,7 @@ impl std::fmt::Debug for crate::model::ValidateAttestationOccurrenceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ValidateAttestationOccurrenceResponse {
+impl std::fmt::Debug for super::ValidateAttestationOccurrenceResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ValidateAttestationOccurrenceResponse");
         debug_struct.field("result", &self.result);

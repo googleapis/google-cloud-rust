@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddressGroup {
+impl serde::ser::Serialize for super::AddressGroup {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -76,7 +76,7 @@ impl serde::ser::Serialize for crate::model::AddressGroup {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAddressGroupsRequest {
+impl serde::ser::Serialize for super::ListAddressGroupsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -116,7 +116,7 @@ impl serde::ser::Serialize for crate::model::ListAddressGroupsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAddressGroupsResponse {
+impl serde::ser::Serialize for super::ListAddressGroupsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -144,7 +144,7 @@ impl serde::ser::Serialize for crate::model::ListAddressGroupsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetAddressGroupRequest {
+impl serde::ser::Serialize for super::GetAddressGroupRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -166,7 +166,7 @@ impl serde::ser::Serialize for crate::model::GetAddressGroupRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateAddressGroupRequest {
+impl serde::ser::Serialize for super::CreateAddressGroupRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -197,7 +197,7 @@ impl serde::ser::Serialize for crate::model::CreateAddressGroupRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateAddressGroupRequest {
+impl serde::ser::Serialize for super::UpdateAddressGroupRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -225,7 +225,7 @@ impl serde::ser::Serialize for crate::model::UpdateAddressGroupRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteAddressGroupRequest {
+impl serde::ser::Serialize for super::DeleteAddressGroupRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -250,7 +250,7 @@ impl serde::ser::Serialize for crate::model::DeleteAddressGroupRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddAddressGroupItemsRequest {
+impl serde::ser::Serialize for super::AddAddressGroupItemsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -278,7 +278,7 @@ impl serde::ser::Serialize for crate::model::AddAddressGroupItemsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RemoveAddressGroupItemsRequest {
+impl serde::ser::Serialize for super::RemoveAddressGroupItemsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -306,7 +306,7 @@ impl serde::ser::Serialize for crate::model::RemoveAddressGroupItemsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CloneAddressGroupItemsRequest {
+impl serde::ser::Serialize for super::CloneAddressGroupItemsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -334,7 +334,7 @@ impl serde::ser::Serialize for crate::model::CloneAddressGroupItemsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAddressGroupReferencesRequest {
+impl serde::ser::Serialize for super::ListAddressGroupReferencesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -371,7 +371,7 @@ impl serde::ser::Serialize for crate::model::ListAddressGroupReferencesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAddressGroupReferencesResponse {
+impl serde::ser::Serialize for super::ListAddressGroupReferencesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -397,7 +397,7 @@ impl serde::ser::Serialize for crate::model::ListAddressGroupReferencesResponse 
 
 #[doc(hidden)]
 impl serde::ser::Serialize
-    for crate::model::list_address_group_references_response::AddressGroupReference
+    for super::list_address_group_references_response::AddressGroupReference
 {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -435,7 +435,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AuthorizationPolicy {
+impl serde::ser::Serialize for super::AuthorizationPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -475,7 +475,7 @@ impl serde::ser::Serialize for crate::model::AuthorizationPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::authorization_policy::Rule {
+impl serde::ser::Serialize for super::authorization_policy::Rule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -500,7 +500,7 @@ impl serde::ser::Serialize for crate::model::authorization_policy::Rule {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::authorization_policy::rule::Source {
+impl serde::ser::Serialize for super::authorization_policy::rule::Source {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -525,7 +525,7 @@ impl serde::ser::Serialize for crate::model::authorization_policy::rule::Source 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::authorization_policy::rule::Destination {
+impl serde::ser::Serialize for super::authorization_policy::rule::Destination {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -567,9 +567,7 @@ impl serde::ser::Serialize for crate::model::authorization_policy::rule::Destina
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::authorization_policy::rule::destination::HttpHeaderMatch
-{
+impl serde::ser::Serialize for super::authorization_policy::rule::destination::HttpHeaderMatch {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -594,7 +592,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAuthorizationPoliciesRequest {
+impl serde::ser::Serialize for super::ListAuthorizationPoliciesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -631,7 +629,7 @@ impl serde::ser::Serialize for crate::model::ListAuthorizationPoliciesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListAuthorizationPoliciesResponse {
+impl serde::ser::Serialize for super::ListAuthorizationPoliciesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -656,7 +654,7 @@ impl serde::ser::Serialize for crate::model::ListAuthorizationPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetAuthorizationPolicyRequest {
+impl serde::ser::Serialize for super::GetAuthorizationPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -678,7 +676,7 @@ impl serde::ser::Serialize for crate::model::GetAuthorizationPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateAuthorizationPolicyRequest {
+impl serde::ser::Serialize for super::CreateAuthorizationPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -706,7 +704,7 @@ impl serde::ser::Serialize for crate::model::CreateAuthorizationPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateAuthorizationPolicyRequest {
+impl serde::ser::Serialize for super::UpdateAuthorizationPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -731,7 +729,7 @@ impl serde::ser::Serialize for crate::model::UpdateAuthorizationPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteAuthorizationPolicyRequest {
+impl serde::ser::Serialize for super::DeleteAuthorizationPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -753,7 +751,7 @@ impl serde::ser::Serialize for crate::model::DeleteAuthorizationPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ClientTlsPolicy {
+impl serde::ser::Serialize for super::ClientTlsPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -796,7 +794,7 @@ impl serde::ser::Serialize for crate::model::ClientTlsPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListClientTlsPoliciesRequest {
+impl serde::ser::Serialize for super::ListClientTlsPoliciesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -833,7 +831,7 @@ impl serde::ser::Serialize for crate::model::ListClientTlsPoliciesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListClientTlsPoliciesResponse {
+impl serde::ser::Serialize for super::ListClientTlsPoliciesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -858,7 +856,7 @@ impl serde::ser::Serialize for crate::model::ListClientTlsPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetClientTlsPolicyRequest {
+impl serde::ser::Serialize for super::GetClientTlsPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -880,7 +878,7 @@ impl serde::ser::Serialize for crate::model::GetClientTlsPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateClientTlsPolicyRequest {
+impl serde::ser::Serialize for super::CreateClientTlsPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -908,7 +906,7 @@ impl serde::ser::Serialize for crate::model::CreateClientTlsPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateClientTlsPolicyRequest {
+impl serde::ser::Serialize for super::UpdateClientTlsPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -933,7 +931,7 @@ impl serde::ser::Serialize for crate::model::UpdateClientTlsPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteClientTlsPolicyRequest {
+impl serde::ser::Serialize for super::DeleteClientTlsPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -955,7 +953,7 @@ impl serde::ser::Serialize for crate::model::DeleteClientTlsPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationMetadata {
+impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -995,7 +993,7 @@ impl serde::ser::Serialize for crate::model::OperationMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ServerTlsPolicy {
+impl serde::ser::Serialize for super::ServerTlsPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1038,7 +1036,7 @@ impl serde::ser::Serialize for crate::model::ServerTlsPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::server_tls_policy::MTLSPolicy {
+impl serde::ser::Serialize for super::server_tls_policy::MTLSPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1060,7 +1058,7 @@ impl serde::ser::Serialize for crate::model::server_tls_policy::MTLSPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListServerTlsPoliciesRequest {
+impl serde::ser::Serialize for super::ListServerTlsPoliciesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1097,7 +1095,7 @@ impl serde::ser::Serialize for crate::model::ListServerTlsPoliciesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListServerTlsPoliciesResponse {
+impl serde::ser::Serialize for super::ListServerTlsPoliciesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1122,7 +1120,7 @@ impl serde::ser::Serialize for crate::model::ListServerTlsPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetServerTlsPolicyRequest {
+impl serde::ser::Serialize for super::GetServerTlsPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1144,7 +1142,7 @@ impl serde::ser::Serialize for crate::model::GetServerTlsPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateServerTlsPolicyRequest {
+impl serde::ser::Serialize for super::CreateServerTlsPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1172,7 +1170,7 @@ impl serde::ser::Serialize for crate::model::CreateServerTlsPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateServerTlsPolicyRequest {
+impl serde::ser::Serialize for super::UpdateServerTlsPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1197,7 +1195,7 @@ impl serde::ser::Serialize for crate::model::UpdateServerTlsPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteServerTlsPolicyRequest {
+impl serde::ser::Serialize for super::DeleteServerTlsPolicyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1219,7 +1217,7 @@ impl serde::ser::Serialize for crate::model::DeleteServerTlsPolicyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GrpcEndpoint {
+impl serde::ser::Serialize for super::GrpcEndpoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1241,7 +1239,7 @@ impl serde::ser::Serialize for crate::model::GrpcEndpoint {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ValidationCA {
+impl serde::ser::Serialize for super::ValidationCA {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1266,7 +1264,7 @@ impl serde::ser::Serialize for crate::model::ValidationCA {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CertificateProviderInstance {
+impl serde::ser::Serialize for super::CertificateProviderInstance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1288,7 +1286,7 @@ impl serde::ser::Serialize for crate::model::CertificateProviderInstance {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CertificateProvider {
+impl serde::ser::Serialize for super::CertificateProvider {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

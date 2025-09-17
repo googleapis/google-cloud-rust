@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Challenge {
+impl std::fmt::Debug for super::Challenge {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Challenge");
         debug_struct.field("name", &self.name);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::Challenge {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateChallengeRequest {
+impl std::fmt::Debug for super::CreateChallengeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateChallengeRequest");
         debug_struct.field("parent", &self.parent);
@@ -44,7 +44,7 @@ impl std::fmt::Debug for crate::model::CreateChallengeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::VerifyAttestationRequest {
+impl std::fmt::Debug for super::VerifyAttestationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VerifyAttestationRequest");
         debug_struct.field("challenge", &self.challenge);
@@ -61,7 +61,7 @@ impl std::fmt::Debug for crate::model::VerifyAttestationRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::TdxCcelAttestation {
+impl std::fmt::Debug for super::TdxCcelAttestation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TdxCcelAttestation");
         debug_struct.field("ccel_acpi_table", &self.ccel_acpi_table);
@@ -75,7 +75,7 @@ impl std::fmt::Debug for crate::model::TdxCcelAttestation {
     }
 }
 
-impl std::fmt::Debug for crate::model::SevSnpAttestation {
+impl std::fmt::Debug for super::SevSnpAttestation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SevSnpAttestation");
         debug_struct.field("report", &self.report);
@@ -87,7 +87,7 @@ impl std::fmt::Debug for crate::model::SevSnpAttestation {
     }
 }
 
-impl std::fmt::Debug for crate::model::VerifyAttestationResponse {
+impl std::fmt::Debug for super::VerifyAttestationResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VerifyAttestationResponse");
         debug_struct.field("oidc_claims_token", &self.oidc_claims_token);
@@ -99,7 +99,7 @@ impl std::fmt::Debug for crate::model::VerifyAttestationResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GcpCredentials {
+impl std::fmt::Debug for super::GcpCredentials {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcpCredentials");
         debug_struct.field("service_account_id_tokens", &self.service_account_id_tokens);
@@ -110,7 +110,7 @@ impl std::fmt::Debug for crate::model::GcpCredentials {
     }
 }
 
-impl std::fmt::Debug for crate::model::TokenOptions {
+impl std::fmt::Debug for super::TokenOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TokenOptions");
         debug_struct.field("audience", &self.audience);
@@ -124,7 +124,7 @@ impl std::fmt::Debug for crate::model::TokenOptions {
     }
 }
 
-impl std::fmt::Debug for crate::model::AwsPrincipalTagsOptions {
+impl std::fmt::Debug for super::AwsPrincipalTagsOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AwsPrincipalTagsOptions");
         debug_struct.field("allowed_principal_tags", &self.allowed_principal_tags);
@@ -135,7 +135,7 @@ impl std::fmt::Debug for crate::model::AwsPrincipalTagsOptions {
     }
 }
 
-impl std::fmt::Debug for crate::model::aws_principal_tags_options::AllowedPrincipalTags {
+impl std::fmt::Debug for super::aws_principal_tags_options::AllowedPrincipalTags {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AllowedPrincipalTags");
         debug_struct.field(
@@ -150,7 +150,7 @@ impl std::fmt::Debug for crate::model::aws_principal_tags_options::AllowedPrinci
 }
 
 impl std::fmt::Debug
-    for crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures
+    for super::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContainerImageSignatures");
@@ -162,7 +162,7 @@ impl std::fmt::Debug
     }
 }
 
-impl std::fmt::Debug for crate::model::TpmAttestation {
+impl std::fmt::Debug for super::TpmAttestation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TpmAttestation");
         debug_struct.field("quotes", &self.quotes);
@@ -177,7 +177,7 @@ impl std::fmt::Debug for crate::model::TpmAttestation {
     }
 }
 
-impl std::fmt::Debug for crate::model::tpm_attestation::Quote {
+impl std::fmt::Debug for super::tpm_attestation::Quote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Quote");
         debug_struct.field("hash_algo", &self.hash_algo);
@@ -191,7 +191,7 @@ impl std::fmt::Debug for crate::model::tpm_attestation::Quote {
     }
 }
 
-impl std::fmt::Debug for crate::model::ConfidentialSpaceInfo {
+impl std::fmt::Debug for super::ConfidentialSpaceInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfidentialSpaceInfo");
         debug_struct.field("signed_entities", &self.signed_entities);
@@ -202,7 +202,7 @@ impl std::fmt::Debug for crate::model::ConfidentialSpaceInfo {
     }
 }
 
-impl std::fmt::Debug for crate::model::SignedEntity {
+impl std::fmt::Debug for super::SignedEntity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SignedEntity");
         debug_struct.field(
@@ -216,7 +216,7 @@ impl std::fmt::Debug for crate::model::SignedEntity {
     }
 }
 
-impl std::fmt::Debug for crate::model::ContainerImageSignature {
+impl std::fmt::Debug for super::ContainerImageSignature {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContainerImageSignature");
         debug_struct.field("payload", &self.payload);
@@ -230,7 +230,7 @@ impl std::fmt::Debug for crate::model::ContainerImageSignature {
     }
 }
 
-impl std::fmt::Debug for crate::model::VerifyConfidentialSpaceRequest {
+impl std::fmt::Debug for super::VerifyConfidentialSpaceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VerifyConfidentialSpaceRequest");
         debug_struct.field("challenge", &self.challenge);
@@ -246,7 +246,7 @@ impl std::fmt::Debug for crate::model::VerifyConfidentialSpaceRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::verify_confidential_space_request::ConfidentialSpaceOptions {
+impl std::fmt::Debug for super::verify_confidential_space_request::ConfidentialSpaceOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfidentialSpaceOptions");
         debug_struct.field("audience", &self.audience);
@@ -261,7 +261,7 @@ impl std::fmt::Debug for crate::model::verify_confidential_space_request::Confid
     }
 }
 
-impl std::fmt::Debug for crate::model::GceShieldedIdentity {
+impl std::fmt::Debug for super::GceShieldedIdentity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GceShieldedIdentity");
         debug_struct.field("ak_cert", &self.ak_cert);
@@ -273,7 +273,7 @@ impl std::fmt::Debug for crate::model::GceShieldedIdentity {
     }
 }
 
-impl std::fmt::Debug for crate::model::VerifyConfidentialSpaceResponse {
+impl std::fmt::Debug for super::VerifyConfidentialSpaceResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VerifyConfidentialSpaceResponse");
         debug_struct.field("attestation_token", &self.attestation_token);
@@ -285,7 +285,7 @@ impl std::fmt::Debug for crate::model::VerifyConfidentialSpaceResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::VerifyConfidentialGkeRequest {
+impl std::fmt::Debug for super::VerifyConfidentialGkeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VerifyConfidentialGkeRequest");
         debug_struct.field("challenge", &self.challenge);
@@ -297,7 +297,7 @@ impl std::fmt::Debug for crate::model::VerifyConfidentialGkeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::VerifyConfidentialGkeResponse {
+impl std::fmt::Debug for super::VerifyConfidentialGkeResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VerifyConfidentialGkeResponse");
         debug_struct.field("attestation_token", &self.attestation_token);

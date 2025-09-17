@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Parameter {
+impl serde::ser::Serialize for super::Parameter {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -58,7 +58,7 @@ impl serde::ser::Serialize for crate::model::Parameter {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListParametersRequest {
+impl serde::ser::Serialize for super::ListParametersRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -101,7 +101,7 @@ impl serde::ser::Serialize for crate::model::ListParametersRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListParametersResponse {
+impl serde::ser::Serialize for super::ListParametersResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -129,7 +129,7 @@ impl serde::ser::Serialize for crate::model::ListParametersResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetParameterRequest {
+impl serde::ser::Serialize for super::GetParameterRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -151,7 +151,7 @@ impl serde::ser::Serialize for crate::model::GetParameterRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateParameterRequest {
+impl serde::ser::Serialize for super::CreateParameterRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -182,7 +182,7 @@ impl serde::ser::Serialize for crate::model::CreateParameterRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateParameterRequest {
+impl serde::ser::Serialize for super::UpdateParameterRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -210,7 +210,7 @@ impl serde::ser::Serialize for crate::model::UpdateParameterRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteParameterRequest {
+impl serde::ser::Serialize for super::DeleteParameterRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -235,7 +235,7 @@ impl serde::ser::Serialize for crate::model::DeleteParameterRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ParameterVersion {
+impl serde::ser::Serialize for super::ParameterVersion {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -272,7 +272,7 @@ impl serde::ser::Serialize for crate::model::ParameterVersion {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ParameterVersionPayload {
+impl serde::ser::Serialize for super::ParameterVersionPayload {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -303,7 +303,7 @@ impl serde::ser::Serialize for crate::model::ParameterVersionPayload {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListParameterVersionsRequest {
+impl serde::ser::Serialize for super::ListParameterVersionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -346,7 +346,7 @@ impl serde::ser::Serialize for crate::model::ListParameterVersionsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListParameterVersionsResponse {
+impl serde::ser::Serialize for super::ListParameterVersionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -374,7 +374,7 @@ impl serde::ser::Serialize for crate::model::ListParameterVersionsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetParameterVersionRequest {
+impl serde::ser::Serialize for super::GetParameterVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -399,7 +399,7 @@ impl serde::ser::Serialize for crate::model::GetParameterVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RenderParameterVersionRequest {
+impl serde::ser::Serialize for super::RenderParameterVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -421,7 +421,7 @@ impl serde::ser::Serialize for crate::model::RenderParameterVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RenderParameterVersionResponse {
+impl serde::ser::Serialize for super::RenderParameterVersionResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -458,7 +458,7 @@ impl serde::ser::Serialize for crate::model::RenderParameterVersionResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateParameterVersionRequest {
+impl serde::ser::Serialize for super::CreateParameterVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -489,7 +489,7 @@ impl serde::ser::Serialize for crate::model::CreateParameterVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateParameterVersionRequest {
+impl serde::ser::Serialize for super::UpdateParameterVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -517,7 +517,7 @@ impl serde::ser::Serialize for crate::model::UpdateParameterVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteParameterVersionRequest {
+impl serde::ser::Serialize for super::DeleteParameterVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

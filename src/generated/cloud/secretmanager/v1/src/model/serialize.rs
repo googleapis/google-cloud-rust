@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Secret {
+impl serde::ser::Serialize for super::Secret {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -91,7 +91,7 @@ impl serde::ser::Serialize for crate::model::Secret {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SecretVersion {
+impl serde::ser::Serialize for super::SecretVersion {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -143,7 +143,7 @@ impl serde::ser::Serialize for crate::model::SecretVersion {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Replication {
+impl serde::ser::Serialize for super::Replication {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -168,7 +168,7 @@ impl serde::ser::Serialize for crate::model::Replication {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::replication::Automatic {
+impl serde::ser::Serialize for super::replication::Automatic {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -193,7 +193,7 @@ impl serde::ser::Serialize for crate::model::replication::Automatic {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::replication::UserManaged {
+impl serde::ser::Serialize for super::replication::UserManaged {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -215,7 +215,7 @@ impl serde::ser::Serialize for crate::model::replication::UserManaged {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::replication::user_managed::Replica {
+impl serde::ser::Serialize for super::replication::user_managed::Replica {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -243,7 +243,7 @@ impl serde::ser::Serialize for crate::model::replication::user_managed::Replica 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CustomerManagedEncryption {
+impl serde::ser::Serialize for super::CustomerManagedEncryption {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -265,7 +265,7 @@ impl serde::ser::Serialize for crate::model::CustomerManagedEncryption {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReplicationStatus {
+impl serde::ser::Serialize for super::ReplicationStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -290,7 +290,7 @@ impl serde::ser::Serialize for crate::model::ReplicationStatus {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::replication_status::AutomaticStatus {
+impl serde::ser::Serialize for super::replication_status::AutomaticStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -315,7 +315,7 @@ impl serde::ser::Serialize for crate::model::replication_status::AutomaticStatus
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::replication_status::UserManagedStatus {
+impl serde::ser::Serialize for super::replication_status::UserManagedStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -337,9 +337,7 @@ impl serde::ser::Serialize for crate::model::replication_status::UserManagedStat
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize
-    for crate::model::replication_status::user_managed_status::ReplicaStatus
-{
+impl serde::ser::Serialize for super::replication_status::user_managed_status::ReplicaStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -367,7 +365,7 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CustomerManagedEncryptionStatus {
+impl serde::ser::Serialize for super::CustomerManagedEncryptionStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -389,7 +387,7 @@ impl serde::ser::Serialize for crate::model::CustomerManagedEncryptionStatus {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Topic {
+impl serde::ser::Serialize for super::Topic {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -411,7 +409,7 @@ impl serde::ser::Serialize for crate::model::Topic {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Rotation {
+impl serde::ser::Serialize for super::Rotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -436,7 +434,7 @@ impl serde::ser::Serialize for crate::model::Rotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SecretPayload {
+impl serde::ser::Serialize for super::SecretPayload {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -481,7 +479,7 @@ impl serde::ser::Serialize for crate::model::SecretPayload {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSecretsRequest {
+impl serde::ser::Serialize for super::ListSecretsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -521,7 +519,7 @@ impl serde::ser::Serialize for crate::model::ListSecretsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSecretsResponse {
+impl serde::ser::Serialize for super::ListSecretsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -558,7 +556,7 @@ impl serde::ser::Serialize for crate::model::ListSecretsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateSecretRequest {
+impl serde::ser::Serialize for super::CreateSecretRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -586,7 +584,7 @@ impl serde::ser::Serialize for crate::model::CreateSecretRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddSecretVersionRequest {
+impl serde::ser::Serialize for super::AddSecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -611,7 +609,7 @@ impl serde::ser::Serialize for crate::model::AddSecretVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSecretRequest {
+impl serde::ser::Serialize for super::GetSecretRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -633,7 +631,7 @@ impl serde::ser::Serialize for crate::model::GetSecretRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSecretVersionsRequest {
+impl serde::ser::Serialize for super::ListSecretVersionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -673,7 +671,7 @@ impl serde::ser::Serialize for crate::model::ListSecretVersionsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListSecretVersionsResponse {
+impl serde::ser::Serialize for super::ListSecretVersionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -710,7 +708,7 @@ impl serde::ser::Serialize for crate::model::ListSecretVersionsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetSecretVersionRequest {
+impl serde::ser::Serialize for super::GetSecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -732,7 +730,7 @@ impl serde::ser::Serialize for crate::model::GetSecretVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateSecretRequest {
+impl serde::ser::Serialize for super::UpdateSecretRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -757,7 +755,7 @@ impl serde::ser::Serialize for crate::model::UpdateSecretRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessSecretVersionRequest {
+impl serde::ser::Serialize for super::AccessSecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -779,7 +777,7 @@ impl serde::ser::Serialize for crate::model::AccessSecretVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessSecretVersionResponse {
+impl serde::ser::Serialize for super::AccessSecretVersionResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -804,7 +802,7 @@ impl serde::ser::Serialize for crate::model::AccessSecretVersionResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteSecretRequest {
+impl serde::ser::Serialize for super::DeleteSecretRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -829,7 +827,7 @@ impl serde::ser::Serialize for crate::model::DeleteSecretRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DisableSecretVersionRequest {
+impl serde::ser::Serialize for super::DisableSecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -854,7 +852,7 @@ impl serde::ser::Serialize for crate::model::DisableSecretVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::EnableSecretVersionRequest {
+impl serde::ser::Serialize for super::EnableSecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -879,7 +877,7 @@ impl serde::ser::Serialize for crate::model::EnableSecretVersionRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DestroySecretVersionRequest {
+impl serde::ser::Serialize for super::DestroySecretVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

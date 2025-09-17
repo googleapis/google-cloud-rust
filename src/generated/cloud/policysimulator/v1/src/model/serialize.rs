@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessTuple {
+impl serde::ser::Serialize for super::AccessTuple {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -46,7 +46,7 @@ impl serde::ser::Serialize for crate::model::AccessTuple {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplainedPolicy {
+impl serde::ser::Serialize for super::ExplainedPolicy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -80,7 +80,7 @@ impl serde::ser::Serialize for crate::model::ExplainedPolicy {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::BindingExplanation {
+impl serde::ser::Serialize for super::BindingExplanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -120,7 +120,7 @@ impl serde::ser::Serialize for crate::model::BindingExplanation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::binding_explanation::AnnotatedMembership {
+impl serde::ser::Serialize for super::binding_explanation::AnnotatedMembership {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -145,7 +145,7 @@ impl serde::ser::Serialize for crate::model::binding_explanation::AnnotatedMembe
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OrgPolicyViolationsPreview {
+impl serde::ser::Serialize for super::OrgPolicyViolationsPreview {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -194,7 +194,7 @@ impl serde::ser::Serialize for crate::model::OrgPolicyViolationsPreview {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::org_policy_violations_preview::ResourceCounts {
+impl serde::ser::Serialize for super::org_policy_violations_preview::ResourceCounts {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -273,7 +273,7 @@ impl serde::ser::Serialize for crate::model::org_policy_violations_preview::Reso
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OrgPolicyViolation {
+impl serde::ser::Serialize for super::OrgPolicyViolation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -304,7 +304,7 @@ impl serde::ser::Serialize for crate::model::OrgPolicyViolation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ResourceContext {
+impl serde::ser::Serialize for super::ResourceContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -332,7 +332,7 @@ impl serde::ser::Serialize for crate::model::ResourceContext {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OrgPolicyOverlay {
+impl serde::ser::Serialize for super::OrgPolicyOverlay {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -357,7 +357,7 @@ impl serde::ser::Serialize for crate::model::OrgPolicyOverlay {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::org_policy_overlay::PolicyOverlay {
+impl serde::ser::Serialize for super::org_policy_overlay::PolicyOverlay {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -382,7 +382,7 @@ impl serde::ser::Serialize for crate::model::org_policy_overlay::PolicyOverlay {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::org_policy_overlay::CustomConstraintOverlay {
+impl serde::ser::Serialize for super::org_policy_overlay::CustomConstraintOverlay {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -407,7 +407,7 @@ impl serde::ser::Serialize for crate::model::org_policy_overlay::CustomConstrain
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata {
+impl serde::ser::Serialize for super::CreateOrgPolicyViolationsPreviewOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -471,7 +471,7 @@ impl serde::ser::Serialize for crate::model::CreateOrgPolicyViolationsPreviewOpe
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOrgPolicyViolationsPreviewsRequest {
+impl serde::ser::Serialize for super::ListOrgPolicyViolationsPreviewsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -508,7 +508,7 @@ impl serde::ser::Serialize for crate::model::ListOrgPolicyViolationsPreviewsRequ
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOrgPolicyViolationsPreviewsResponse {
+impl serde::ser::Serialize for super::ListOrgPolicyViolationsPreviewsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -536,7 +536,7 @@ impl serde::ser::Serialize for crate::model::ListOrgPolicyViolationsPreviewsResp
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetOrgPolicyViolationsPreviewRequest {
+impl serde::ser::Serialize for super::GetOrgPolicyViolationsPreviewRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -558,7 +558,7 @@ impl serde::ser::Serialize for crate::model::GetOrgPolicyViolationsPreviewReques
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateOrgPolicyViolationsPreviewRequest {
+impl serde::ser::Serialize for super::CreateOrgPolicyViolationsPreviewRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -592,7 +592,7 @@ impl serde::ser::Serialize for crate::model::CreateOrgPolicyViolationsPreviewReq
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOrgPolicyViolationsRequest {
+impl serde::ser::Serialize for super::ListOrgPolicyViolationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -629,7 +629,7 @@ impl serde::ser::Serialize for crate::model::ListOrgPolicyViolationsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListOrgPolicyViolationsResponse {
+impl serde::ser::Serialize for super::ListOrgPolicyViolationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -654,7 +654,7 @@ impl serde::ser::Serialize for crate::model::ListOrgPolicyViolationsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Replay {
+impl serde::ser::Serialize for super::Replay {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -685,7 +685,7 @@ impl serde::ser::Serialize for crate::model::Replay {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::replay::ResultsSummary {
+impl serde::ser::Serialize for super::replay::ResultsSummary {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -758,7 +758,7 @@ impl serde::ser::Serialize for crate::model::replay::ResultsSummary {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReplayResult {
+impl serde::ser::Serialize for super::ReplayResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -795,7 +795,7 @@ impl serde::ser::Serialize for crate::model::ReplayResult {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateReplayRequest {
+impl serde::ser::Serialize for super::CreateReplayRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -820,7 +820,7 @@ impl serde::ser::Serialize for crate::model::CreateReplayRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReplayOperationMetadata {
+impl serde::ser::Serialize for super::ReplayOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -842,7 +842,7 @@ impl serde::ser::Serialize for crate::model::ReplayOperationMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetReplayRequest {
+impl serde::ser::Serialize for super::GetReplayRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -864,7 +864,7 @@ impl serde::ser::Serialize for crate::model::GetReplayRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListReplayResultsRequest {
+impl serde::ser::Serialize for super::ListReplayResultsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -901,7 +901,7 @@ impl serde::ser::Serialize for crate::model::ListReplayResultsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListReplayResultsResponse {
+impl serde::ser::Serialize for super::ListReplayResultsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -926,7 +926,7 @@ impl serde::ser::Serialize for crate::model::ListReplayResultsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReplayConfig {
+impl serde::ser::Serialize for super::ReplayConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -951,7 +951,7 @@ impl serde::ser::Serialize for crate::model::ReplayConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReplayDiff {
+impl serde::ser::Serialize for super::ReplayDiff {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -973,7 +973,7 @@ impl serde::ser::Serialize for crate::model::ReplayDiff {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AccessStateDiff {
+impl serde::ser::Serialize for super::AccessStateDiff {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1001,7 +1001,7 @@ impl serde::ser::Serialize for crate::model::AccessStateDiff {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExplainedAccess {
+impl serde::ser::Serialize for super::ExplainedAccess {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

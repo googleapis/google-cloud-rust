@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Insight {
+impl serde::ser::Serialize for super::Insight {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -76,7 +76,7 @@ impl serde::ser::Serialize for crate::model::Insight {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::insight::RecommendationReference {
+impl serde::ser::Serialize for super::insight::RecommendationReference {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -98,7 +98,7 @@ impl serde::ser::Serialize for crate::model::insight::RecommendationReference {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InsightStateInfo {
+impl serde::ser::Serialize for super::InsightStateInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -123,7 +123,7 @@ impl serde::ser::Serialize for crate::model::InsightStateInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InsightTypeConfig {
+impl serde::ser::Serialize for super::InsightTypeConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -166,7 +166,7 @@ impl serde::ser::Serialize for crate::model::InsightTypeConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::InsightTypeGenerationConfig {
+impl serde::ser::Serialize for super::InsightTypeGenerationConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -188,7 +188,7 @@ impl serde::ser::Serialize for crate::model::InsightTypeGenerationConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Recommendation {
+impl serde::ser::Serialize for super::Recommendation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -243,7 +243,7 @@ impl serde::ser::Serialize for crate::model::Recommendation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::recommendation::InsightReference {
+impl serde::ser::Serialize for super::recommendation::InsightReference {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -265,7 +265,7 @@ impl serde::ser::Serialize for crate::model::recommendation::InsightReference {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RecommendationContent {
+impl serde::ser::Serialize for super::RecommendationContent {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -290,7 +290,7 @@ impl serde::ser::Serialize for crate::model::RecommendationContent {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::OperationGroup {
+impl serde::ser::Serialize for super::OperationGroup {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -312,7 +312,7 @@ impl serde::ser::Serialize for crate::model::OperationGroup {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Operation {
+impl serde::ser::Serialize for super::Operation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -361,7 +361,7 @@ impl serde::ser::Serialize for crate::model::Operation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ValueMatcher {
+impl serde::ser::Serialize for super::ValueMatcher {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -383,7 +383,7 @@ impl serde::ser::Serialize for crate::model::ValueMatcher {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CostProjection {
+impl serde::ser::Serialize for super::CostProjection {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -411,7 +411,7 @@ impl serde::ser::Serialize for crate::model::CostProjection {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SecurityProjection {
+impl serde::ser::Serialize for super::SecurityProjection {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -433,7 +433,7 @@ impl serde::ser::Serialize for crate::model::SecurityProjection {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SustainabilityProjection {
+impl serde::ser::Serialize for super::SustainabilityProjection {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -467,7 +467,7 @@ impl serde::ser::Serialize for crate::model::SustainabilityProjection {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ReliabilityProjection {
+impl serde::ser::Serialize for super::ReliabilityProjection {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -492,7 +492,7 @@ impl serde::ser::Serialize for crate::model::ReliabilityProjection {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Impact {
+impl serde::ser::Serialize for super::Impact {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -526,7 +526,7 @@ impl serde::ser::Serialize for crate::model::Impact {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RecommendationStateInfo {
+impl serde::ser::Serialize for super::RecommendationStateInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -551,7 +551,7 @@ impl serde::ser::Serialize for crate::model::RecommendationStateInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RecommenderConfig {
+impl serde::ser::Serialize for super::RecommenderConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -594,7 +594,7 @@ impl serde::ser::Serialize for crate::model::RecommenderConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RecommenderGenerationConfig {
+impl serde::ser::Serialize for super::RecommenderGenerationConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -616,7 +616,7 @@ impl serde::ser::Serialize for crate::model::RecommenderGenerationConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListInsightsRequest {
+impl serde::ser::Serialize for super::ListInsightsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -656,7 +656,7 @@ impl serde::ser::Serialize for crate::model::ListInsightsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListInsightsResponse {
+impl serde::ser::Serialize for super::ListInsightsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -681,7 +681,7 @@ impl serde::ser::Serialize for crate::model::ListInsightsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetInsightRequest {
+impl serde::ser::Serialize for super::GetInsightRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -703,7 +703,7 @@ impl serde::ser::Serialize for crate::model::GetInsightRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MarkInsightAcceptedRequest {
+impl serde::ser::Serialize for super::MarkInsightAcceptedRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -731,7 +731,7 @@ impl serde::ser::Serialize for crate::model::MarkInsightAcceptedRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListRecommendationsRequest {
+impl serde::ser::Serialize for super::ListRecommendationsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -771,7 +771,7 @@ impl serde::ser::Serialize for crate::model::ListRecommendationsRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListRecommendationsResponse {
+impl serde::ser::Serialize for super::ListRecommendationsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -796,7 +796,7 @@ impl serde::ser::Serialize for crate::model::ListRecommendationsResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetRecommendationRequest {
+impl serde::ser::Serialize for super::GetRecommendationRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -818,7 +818,7 @@ impl serde::ser::Serialize for crate::model::GetRecommendationRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MarkRecommendationDismissedRequest {
+impl serde::ser::Serialize for super::MarkRecommendationDismissedRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -843,7 +843,7 @@ impl serde::ser::Serialize for crate::model::MarkRecommendationDismissedRequest 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MarkRecommendationClaimedRequest {
+impl serde::ser::Serialize for super::MarkRecommendationClaimedRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -871,7 +871,7 @@ impl serde::ser::Serialize for crate::model::MarkRecommendationClaimedRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MarkRecommendationSucceededRequest {
+impl serde::ser::Serialize for super::MarkRecommendationSucceededRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -899,7 +899,7 @@ impl serde::ser::Serialize for crate::model::MarkRecommendationSucceededRequest 
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MarkRecommendationFailedRequest {
+impl serde::ser::Serialize for super::MarkRecommendationFailedRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -927,7 +927,7 @@ impl serde::ser::Serialize for crate::model::MarkRecommendationFailedRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetRecommenderConfigRequest {
+impl serde::ser::Serialize for super::GetRecommenderConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -949,7 +949,7 @@ impl serde::ser::Serialize for crate::model::GetRecommenderConfigRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateRecommenderConfigRequest {
+impl serde::ser::Serialize for super::UpdateRecommenderConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -977,7 +977,7 @@ impl serde::ser::Serialize for crate::model::UpdateRecommenderConfigRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetInsightTypeConfigRequest {
+impl serde::ser::Serialize for super::GetInsightTypeConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -999,7 +999,7 @@ impl serde::ser::Serialize for crate::model::GetInsightTypeConfigRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateInsightTypeConfigRequest {
+impl serde::ser::Serialize for super::UpdateInsightTypeConfigRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

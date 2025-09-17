@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListQuotaInfosRequest {
+impl serde::ser::Serialize for super::ListQuotaInfosRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -55,7 +55,7 @@ impl serde::ser::Serialize for crate::model::ListQuotaInfosRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListQuotaInfosResponse {
+impl serde::ser::Serialize for super::ListQuotaInfosResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -80,7 +80,7 @@ impl serde::ser::Serialize for crate::model::ListQuotaInfosResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetQuotaInfoRequest {
+impl serde::ser::Serialize for super::GetQuotaInfoRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -102,7 +102,7 @@ impl serde::ser::Serialize for crate::model::GetQuotaInfoRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListQuotaPreferencesRequest {
+impl serde::ser::Serialize for super::ListQuotaPreferencesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -145,7 +145,7 @@ impl serde::ser::Serialize for crate::model::ListQuotaPreferencesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListQuotaPreferencesResponse {
+impl serde::ser::Serialize for super::ListQuotaPreferencesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -173,7 +173,7 @@ impl serde::ser::Serialize for crate::model::ListQuotaPreferencesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetQuotaPreferenceRequest {
+impl serde::ser::Serialize for super::GetQuotaPreferenceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -195,7 +195,7 @@ impl serde::ser::Serialize for crate::model::GetQuotaPreferenceRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateQuotaPreferenceRequest {
+impl serde::ser::Serialize for super::CreateQuotaPreferenceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -226,7 +226,7 @@ impl serde::ser::Serialize for crate::model::CreateQuotaPreferenceRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::UpdateQuotaPreferenceRequest {
+impl serde::ser::Serialize for super::UpdateQuotaPreferenceRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -260,7 +260,7 @@ impl serde::ser::Serialize for crate::model::UpdateQuotaPreferenceRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuotaInfo {
+impl serde::ser::Serialize for super::QuotaInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -327,7 +327,7 @@ impl serde::ser::Serialize for crate::model::QuotaInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuotaIncreaseEligibility {
+impl serde::ser::Serialize for super::QuotaIncreaseEligibility {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -352,7 +352,7 @@ impl serde::ser::Serialize for crate::model::QuotaIncreaseEligibility {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuotaPreference {
+impl serde::ser::Serialize for super::QuotaPreference {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -404,7 +404,7 @@ impl serde::ser::Serialize for crate::model::QuotaPreference {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuotaConfig {
+impl serde::ser::Serialize for super::QuotaConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -461,7 +461,7 @@ impl serde::ser::Serialize for crate::model::QuotaConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DimensionsInfo {
+impl serde::ser::Serialize for super::DimensionsInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -489,7 +489,7 @@ impl serde::ser::Serialize for crate::model::DimensionsInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::QuotaDetails {
+impl serde::ser::Serialize for super::QuotaDetails {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -523,7 +523,7 @@ impl serde::ser::Serialize for crate::model::QuotaDetails {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RolloutInfo {
+impl serde::ser::Serialize for super::RolloutInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

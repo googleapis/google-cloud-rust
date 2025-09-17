@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AttributeContext {
+impl<'de> serde::de::Deserialize<'de> for super::AttributeContext {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -72,7 +72,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AttributeContext {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AttributeContext;
+            type Value = super::AttributeContext;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AttributeContext")
             }
@@ -175,7 +175,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AttributeContext {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Peer {
+impl<'de> serde::de::Deserialize<'de> for super::attribute_context::Peer {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -224,7 +224,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Peer 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::attribute_context::Peer;
+            type Value = super::attribute_context::Peer;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Peer")
             }
@@ -318,7 +318,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Peer 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Api {
+impl<'de> serde::de::Deserialize<'de> for super::attribute_context::Api {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -364,7 +364,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Api {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::attribute_context::Api;
+            type Value = super::attribute_context::Api;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Api")
             }
@@ -434,7 +434,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Api {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Auth {
+impl<'de> serde::de::Deserialize<'de> for super::attribute_context::Auth {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -483,7 +483,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Auth 
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::attribute_context::Auth;
+            type Value = super::attribute_context::Auth;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Auth")
             }
@@ -557,7 +557,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Auth 
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Request {
+impl<'de> serde::de::Deserialize<'de> for super::attribute_context::Request {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -619,7 +619,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Reque
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::attribute_context::Request;
+            type Value = super::attribute_context::Request;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Request")
             }
@@ -781,7 +781,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Reque
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Response {
+impl<'de> serde::de::Deserialize<'de> for super::attribute_context::Response {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -830,7 +830,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Respo
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::attribute_context::Response;
+            type Value = super::attribute_context::Response;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Response")
             }
@@ -931,7 +931,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Respo
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Resource {
+impl<'de> serde::de::Deserialize<'de> for super::attribute_context::Resource {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -997,7 +997,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Resou
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::attribute_context::Resource;
+            type Value = super::attribute_context::Resource;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct Resource")
             }
@@ -1154,7 +1154,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::attribute_context::Resou
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for crate::model::AuditContext {
+impl<'de> serde::de::Deserialize<'de> for super::AuditContext {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -1211,7 +1211,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::AuditContext {
         }
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = crate::model::AuditContext;
+            type Value = super::AuditContext;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct AuditContext")
             }

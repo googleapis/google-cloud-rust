@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Environment {
+impl serde::ser::Serialize for super::Environment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -73,7 +73,7 @@ impl serde::ser::Serialize for crate::model::Environment {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::GetEnvironmentRequest {
+impl serde::ser::Serialize for super::GetEnvironmentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -95,7 +95,7 @@ impl serde::ser::Serialize for crate::model::GetEnvironmentRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateEnvironmentMetadata {
+impl serde::ser::Serialize for super::CreateEnvironmentMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -114,7 +114,7 @@ impl serde::ser::Serialize for crate::model::CreateEnvironmentMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::DeleteEnvironmentMetadata {
+impl serde::ser::Serialize for super::DeleteEnvironmentMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -133,7 +133,7 @@ impl serde::ser::Serialize for crate::model::DeleteEnvironmentMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StartEnvironmentRequest {
+impl serde::ser::Serialize for super::StartEnvironmentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -161,7 +161,7 @@ impl serde::ser::Serialize for crate::model::StartEnvironmentRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AuthorizeEnvironmentRequest {
+impl serde::ser::Serialize for super::AuthorizeEnvironmentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -192,7 +192,7 @@ impl serde::ser::Serialize for crate::model::AuthorizeEnvironmentRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AuthorizeEnvironmentResponse {
+impl serde::ser::Serialize for super::AuthorizeEnvironmentResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -211,7 +211,7 @@ impl serde::ser::Serialize for crate::model::AuthorizeEnvironmentResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AuthorizeEnvironmentMetadata {
+impl serde::ser::Serialize for super::AuthorizeEnvironmentMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -230,7 +230,7 @@ impl serde::ser::Serialize for crate::model::AuthorizeEnvironmentMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StartEnvironmentMetadata {
+impl serde::ser::Serialize for super::StartEnvironmentMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -252,7 +252,7 @@ impl serde::ser::Serialize for crate::model::StartEnvironmentMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StartEnvironmentResponse {
+impl serde::ser::Serialize for super::StartEnvironmentResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -274,7 +274,7 @@ impl serde::ser::Serialize for crate::model::StartEnvironmentResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddPublicKeyRequest {
+impl serde::ser::Serialize for super::AddPublicKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -299,7 +299,7 @@ impl serde::ser::Serialize for crate::model::AddPublicKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddPublicKeyResponse {
+impl serde::ser::Serialize for super::AddPublicKeyResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -321,7 +321,7 @@ impl serde::ser::Serialize for crate::model::AddPublicKeyResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AddPublicKeyMetadata {
+impl serde::ser::Serialize for super::AddPublicKeyMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -340,7 +340,7 @@ impl serde::ser::Serialize for crate::model::AddPublicKeyMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RemovePublicKeyRequest {
+impl serde::ser::Serialize for super::RemovePublicKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -365,7 +365,7 @@ impl serde::ser::Serialize for crate::model::RemovePublicKeyRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RemovePublicKeyResponse {
+impl serde::ser::Serialize for super::RemovePublicKeyResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -384,7 +384,7 @@ impl serde::ser::Serialize for crate::model::RemovePublicKeyResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::RemovePublicKeyMetadata {
+impl serde::ser::Serialize for super::RemovePublicKeyMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -403,7 +403,7 @@ impl serde::ser::Serialize for crate::model::RemovePublicKeyMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CloudShellErrorDetails {
+impl serde::ser::Serialize for super::CloudShellErrorDetails {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::Environment {
+impl std::fmt::Debug for super::Environment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Environment");
         debug_struct.field("name", &self.name);
@@ -36,7 +36,7 @@ impl std::fmt::Debug for crate::model::Environment {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetEnvironmentRequest {
+impl std::fmt::Debug for super::GetEnvironmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEnvironmentRequest");
         debug_struct.field("name", &self.name);
@@ -47,7 +47,7 @@ impl std::fmt::Debug for crate::model::GetEnvironmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateEnvironmentMetadata {
+impl std::fmt::Debug for super::CreateEnvironmentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateEnvironmentMetadata");
         if !self._unknown_fields.is_empty() {
@@ -57,7 +57,7 @@ impl std::fmt::Debug for crate::model::CreateEnvironmentMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteEnvironmentMetadata {
+impl std::fmt::Debug for super::DeleteEnvironmentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteEnvironmentMetadata");
         if !self._unknown_fields.is_empty() {
@@ -67,7 +67,7 @@ impl std::fmt::Debug for crate::model::DeleteEnvironmentMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::StartEnvironmentRequest {
+impl std::fmt::Debug for super::StartEnvironmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StartEnvironmentRequest");
         debug_struct.field("name", &self.name);
@@ -80,7 +80,7 @@ impl std::fmt::Debug for crate::model::StartEnvironmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AuthorizeEnvironmentRequest {
+impl std::fmt::Debug for super::AuthorizeEnvironmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuthorizeEnvironmentRequest");
         debug_struct.field("name", &self.name);
@@ -94,7 +94,7 @@ impl std::fmt::Debug for crate::model::AuthorizeEnvironmentRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AuthorizeEnvironmentResponse {
+impl std::fmt::Debug for super::AuthorizeEnvironmentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuthorizeEnvironmentResponse");
         if !self._unknown_fields.is_empty() {
@@ -104,7 +104,7 @@ impl std::fmt::Debug for crate::model::AuthorizeEnvironmentResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::AuthorizeEnvironmentMetadata {
+impl std::fmt::Debug for super::AuthorizeEnvironmentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuthorizeEnvironmentMetadata");
         if !self._unknown_fields.is_empty() {
@@ -114,7 +114,7 @@ impl std::fmt::Debug for crate::model::AuthorizeEnvironmentMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::StartEnvironmentMetadata {
+impl std::fmt::Debug for super::StartEnvironmentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StartEnvironmentMetadata");
         debug_struct.field("state", &self.state);
@@ -125,7 +125,7 @@ impl std::fmt::Debug for crate::model::StartEnvironmentMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::StartEnvironmentResponse {
+impl std::fmt::Debug for super::StartEnvironmentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StartEnvironmentResponse");
         debug_struct.field("environment", &self.environment);
@@ -136,7 +136,7 @@ impl std::fmt::Debug for crate::model::StartEnvironmentResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::AddPublicKeyRequest {
+impl std::fmt::Debug for super::AddPublicKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddPublicKeyRequest");
         debug_struct.field("environment", &self.environment);
@@ -148,7 +148,7 @@ impl std::fmt::Debug for crate::model::AddPublicKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AddPublicKeyResponse {
+impl std::fmt::Debug for super::AddPublicKeyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddPublicKeyResponse");
         debug_struct.field("key", &self.key);
@@ -159,7 +159,7 @@ impl std::fmt::Debug for crate::model::AddPublicKeyResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::AddPublicKeyMetadata {
+impl std::fmt::Debug for super::AddPublicKeyMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddPublicKeyMetadata");
         if !self._unknown_fields.is_empty() {
@@ -169,7 +169,7 @@ impl std::fmt::Debug for crate::model::AddPublicKeyMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::RemovePublicKeyRequest {
+impl std::fmt::Debug for super::RemovePublicKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RemovePublicKeyRequest");
         debug_struct.field("environment", &self.environment);
@@ -181,7 +181,7 @@ impl std::fmt::Debug for crate::model::RemovePublicKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RemovePublicKeyResponse {
+impl std::fmt::Debug for super::RemovePublicKeyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RemovePublicKeyResponse");
         if !self._unknown_fields.is_empty() {
@@ -191,7 +191,7 @@ impl std::fmt::Debug for crate::model::RemovePublicKeyResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::RemovePublicKeyMetadata {
+impl std::fmt::Debug for super::RemovePublicKeyMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RemovePublicKeyMetadata");
         if !self._unknown_fields.is_empty() {
@@ -201,7 +201,7 @@ impl std::fmt::Debug for crate::model::RemovePublicKeyMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::CloudShellErrorDetails {
+impl std::fmt::Debug for super::CloudShellErrorDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudShellErrorDetails");
         debug_struct.field("code", &self.code);

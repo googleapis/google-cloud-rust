@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CreateKeyHandleRequest {
+impl std::fmt::Debug for super::CreateKeyHandleRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateKeyHandleRequest");
         debug_struct.field("parent", &self.parent);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::CreateKeyHandleRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetKeyHandleRequest {
+impl std::fmt::Debug for super::GetKeyHandleRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetKeyHandleRequest");
         debug_struct.field("name", &self.name);
@@ -41,7 +41,7 @@ impl std::fmt::Debug for crate::model::GetKeyHandleRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::KeyHandle {
+impl std::fmt::Debug for super::KeyHandle {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KeyHandle");
         debug_struct.field("name", &self.name);
@@ -54,7 +54,7 @@ impl std::fmt::Debug for crate::model::KeyHandle {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateKeyHandleMetadata {
+impl std::fmt::Debug for super::CreateKeyHandleMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateKeyHandleMetadata");
         if !self._unknown_fields.is_empty() {
@@ -64,7 +64,7 @@ impl std::fmt::Debug for crate::model::CreateKeyHandleMetadata {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListKeyHandlesRequest {
+impl std::fmt::Debug for super::ListKeyHandlesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKeyHandlesRequest");
         debug_struct.field("parent", &self.parent);
@@ -78,7 +78,7 @@ impl std::fmt::Debug for crate::model::ListKeyHandlesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListKeyHandlesResponse {
+impl std::fmt::Debug for super::ListKeyHandlesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKeyHandlesResponse");
         debug_struct.field("key_handles", &self.key_handles);
@@ -90,7 +90,7 @@ impl std::fmt::Debug for crate::model::ListKeyHandlesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateAutokeyConfigRequest {
+impl std::fmt::Debug for super::UpdateAutokeyConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateAutokeyConfigRequest");
         debug_struct.field("autokey_config", &self.autokey_config);
@@ -102,7 +102,7 @@ impl std::fmt::Debug for crate::model::UpdateAutokeyConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetAutokeyConfigRequest {
+impl std::fmt::Debug for super::GetAutokeyConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAutokeyConfigRequest");
         debug_struct.field("name", &self.name);
@@ -113,7 +113,7 @@ impl std::fmt::Debug for crate::model::GetAutokeyConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AutokeyConfig {
+impl std::fmt::Debug for super::AutokeyConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutokeyConfig");
         debug_struct.field("name", &self.name);
@@ -127,7 +127,7 @@ impl std::fmt::Debug for crate::model::AutokeyConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::ShowEffectiveAutokeyConfigRequest {
+impl std::fmt::Debug for super::ShowEffectiveAutokeyConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShowEffectiveAutokeyConfigRequest");
         debug_struct.field("parent", &self.parent);
@@ -138,7 +138,7 @@ impl std::fmt::Debug for crate::model::ShowEffectiveAutokeyConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ShowEffectiveAutokeyConfigResponse {
+impl std::fmt::Debug for super::ShowEffectiveAutokeyConfigResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShowEffectiveAutokeyConfigResponse");
         debug_struct.field("key_project", &self.key_project);
@@ -149,7 +149,7 @@ impl std::fmt::Debug for crate::model::ShowEffectiveAutokeyConfigResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListEkmConnectionsRequest {
+impl std::fmt::Debug for super::ListEkmConnectionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEkmConnectionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -164,7 +164,7 @@ impl std::fmt::Debug for crate::model::ListEkmConnectionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListEkmConnectionsResponse {
+impl std::fmt::Debug for super::ListEkmConnectionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEkmConnectionsResponse");
         debug_struct.field("ekm_connections", &self.ekm_connections);
@@ -177,7 +177,7 @@ impl std::fmt::Debug for crate::model::ListEkmConnectionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetEkmConnectionRequest {
+impl std::fmt::Debug for super::GetEkmConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEkmConnectionRequest");
         debug_struct.field("name", &self.name);
@@ -188,7 +188,7 @@ impl std::fmt::Debug for crate::model::GetEkmConnectionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateEkmConnectionRequest {
+impl std::fmt::Debug for super::CreateEkmConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateEkmConnectionRequest");
         debug_struct.field("parent", &self.parent);
@@ -201,7 +201,7 @@ impl std::fmt::Debug for crate::model::CreateEkmConnectionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateEkmConnectionRequest {
+impl std::fmt::Debug for super::UpdateEkmConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateEkmConnectionRequest");
         debug_struct.field("ekm_connection", &self.ekm_connection);
@@ -213,7 +213,7 @@ impl std::fmt::Debug for crate::model::UpdateEkmConnectionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetEkmConfigRequest {
+impl std::fmt::Debug for super::GetEkmConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEkmConfigRequest");
         debug_struct.field("name", &self.name);
@@ -224,7 +224,7 @@ impl std::fmt::Debug for crate::model::GetEkmConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateEkmConfigRequest {
+impl std::fmt::Debug for super::UpdateEkmConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateEkmConfigRequest");
         debug_struct.field("ekm_config", &self.ekm_config);
@@ -236,7 +236,7 @@ impl std::fmt::Debug for crate::model::UpdateEkmConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::Certificate {
+impl std::fmt::Debug for super::Certificate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Certificate");
         debug_struct.field("raw_der", &self.raw_der);
@@ -258,7 +258,7 @@ impl std::fmt::Debug for crate::model::Certificate {
     }
 }
 
-impl std::fmt::Debug for crate::model::EkmConnection {
+impl std::fmt::Debug for super::EkmConnection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EkmConnection");
         debug_struct.field("name", &self.name);
@@ -274,7 +274,7 @@ impl std::fmt::Debug for crate::model::EkmConnection {
     }
 }
 
-impl std::fmt::Debug for crate::model::ekm_connection::ServiceResolver {
+impl std::fmt::Debug for super::ekm_connection::ServiceResolver {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServiceResolver");
         debug_struct.field("service_directory_service", &self.service_directory_service);
@@ -288,7 +288,7 @@ impl std::fmt::Debug for crate::model::ekm_connection::ServiceResolver {
     }
 }
 
-impl std::fmt::Debug for crate::model::EkmConfig {
+impl std::fmt::Debug for super::EkmConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EkmConfig");
         debug_struct.field("name", &self.name);
@@ -300,7 +300,7 @@ impl std::fmt::Debug for crate::model::EkmConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::VerifyConnectivityRequest {
+impl std::fmt::Debug for super::VerifyConnectivityRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VerifyConnectivityRequest");
         debug_struct.field("name", &self.name);
@@ -311,7 +311,7 @@ impl std::fmt::Debug for crate::model::VerifyConnectivityRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::VerifyConnectivityResponse {
+impl std::fmt::Debug for super::VerifyConnectivityResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VerifyConnectivityResponse");
         if !self._unknown_fields.is_empty() {
@@ -321,7 +321,7 @@ impl std::fmt::Debug for crate::model::VerifyConnectivityResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::KeyRing {
+impl std::fmt::Debug for super::KeyRing {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KeyRing");
         debug_struct.field("name", &self.name);
@@ -333,7 +333,7 @@ impl std::fmt::Debug for crate::model::KeyRing {
     }
 }
 
-impl std::fmt::Debug for crate::model::CryptoKey {
+impl std::fmt::Debug for super::CryptoKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CryptoKey");
         debug_struct.field("name", &self.name);
@@ -361,7 +361,7 @@ impl std::fmt::Debug for crate::model::CryptoKey {
     }
 }
 
-impl std::fmt::Debug for crate::model::CryptoKeyVersionTemplate {
+impl std::fmt::Debug for super::CryptoKeyVersionTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CryptoKeyVersionTemplate");
         debug_struct.field("protection_level", &self.protection_level);
@@ -373,7 +373,7 @@ impl std::fmt::Debug for crate::model::CryptoKeyVersionTemplate {
     }
 }
 
-impl std::fmt::Debug for crate::model::KeyOperationAttestation {
+impl std::fmt::Debug for super::KeyOperationAttestation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KeyOperationAttestation");
         debug_struct.field("format", &self.format);
@@ -386,7 +386,7 @@ impl std::fmt::Debug for crate::model::KeyOperationAttestation {
     }
 }
 
-impl std::fmt::Debug for crate::model::key_operation_attestation::CertificateChains {
+impl std::fmt::Debug for super::key_operation_attestation::CertificateChains {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CertificateChains");
         debug_struct.field("cavium_certs", &self.cavium_certs);
@@ -399,7 +399,7 @@ impl std::fmt::Debug for crate::model::key_operation_attestation::CertificateCha
     }
 }
 
-impl std::fmt::Debug for crate::model::CryptoKeyVersion {
+impl std::fmt::Debug for super::CryptoKeyVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CryptoKeyVersion");
         debug_struct.field("name", &self.name);
@@ -431,7 +431,7 @@ impl std::fmt::Debug for crate::model::CryptoKeyVersion {
     }
 }
 
-impl std::fmt::Debug for crate::model::ChecksummedData {
+impl std::fmt::Debug for super::ChecksummedData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChecksummedData");
         debug_struct.field("data", &self.data);
@@ -443,7 +443,7 @@ impl std::fmt::Debug for crate::model::ChecksummedData {
     }
 }
 
-impl std::fmt::Debug for crate::model::PublicKey {
+impl std::fmt::Debug for super::PublicKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PublicKey");
         debug_struct.field("pem", &self.pem);
@@ -460,7 +460,7 @@ impl std::fmt::Debug for crate::model::PublicKey {
     }
 }
 
-impl std::fmt::Debug for crate::model::ImportJob {
+impl std::fmt::Debug for super::ImportJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportJob");
         debug_struct.field("name", &self.name);
@@ -480,7 +480,7 @@ impl std::fmt::Debug for crate::model::ImportJob {
     }
 }
 
-impl std::fmt::Debug for crate::model::import_job::WrappingPublicKey {
+impl std::fmt::Debug for super::import_job::WrappingPublicKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WrappingPublicKey");
         debug_struct.field("pem", &self.pem);
@@ -491,7 +491,7 @@ impl std::fmt::Debug for crate::model::import_job::WrappingPublicKey {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExternalProtectionLevelOptions {
+impl std::fmt::Debug for super::ExternalProtectionLevelOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExternalProtectionLevelOptions");
         debug_struct.field("external_key_uri", &self.external_key_uri);
@@ -503,7 +503,7 @@ impl std::fmt::Debug for crate::model::ExternalProtectionLevelOptions {
     }
 }
 
-impl std::fmt::Debug for crate::model::KeyAccessJustificationsPolicy {
+impl std::fmt::Debug for super::KeyAccessJustificationsPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KeyAccessJustificationsPolicy");
         debug_struct.field("allowed_access_reasons", &self.allowed_access_reasons);
@@ -514,7 +514,7 @@ impl std::fmt::Debug for crate::model::KeyAccessJustificationsPolicy {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListKeyRingsRequest {
+impl std::fmt::Debug for super::ListKeyRingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKeyRingsRequest");
         debug_struct.field("parent", &self.parent);
@@ -529,7 +529,7 @@ impl std::fmt::Debug for crate::model::ListKeyRingsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCryptoKeysRequest {
+impl std::fmt::Debug for super::ListCryptoKeysRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCryptoKeysRequest");
         debug_struct.field("parent", &self.parent);
@@ -545,7 +545,7 @@ impl std::fmt::Debug for crate::model::ListCryptoKeysRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCryptoKeyVersionsRequest {
+impl std::fmt::Debug for super::ListCryptoKeyVersionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCryptoKeyVersionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -561,7 +561,7 @@ impl std::fmt::Debug for crate::model::ListCryptoKeyVersionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListImportJobsRequest {
+impl std::fmt::Debug for super::ListImportJobsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListImportJobsRequest");
         debug_struct.field("parent", &self.parent);
@@ -576,7 +576,7 @@ impl std::fmt::Debug for crate::model::ListImportJobsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListKeyRingsResponse {
+impl std::fmt::Debug for super::ListKeyRingsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKeyRingsResponse");
         debug_struct.field("key_rings", &self.key_rings);
@@ -589,7 +589,7 @@ impl std::fmt::Debug for crate::model::ListKeyRingsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCryptoKeysResponse {
+impl std::fmt::Debug for super::ListCryptoKeysResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCryptoKeysResponse");
         debug_struct.field("crypto_keys", &self.crypto_keys);
@@ -602,7 +602,7 @@ impl std::fmt::Debug for crate::model::ListCryptoKeysResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListCryptoKeyVersionsResponse {
+impl std::fmt::Debug for super::ListCryptoKeyVersionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCryptoKeyVersionsResponse");
         debug_struct.field("crypto_key_versions", &self.crypto_key_versions);
@@ -615,7 +615,7 @@ impl std::fmt::Debug for crate::model::ListCryptoKeyVersionsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListImportJobsResponse {
+impl std::fmt::Debug for super::ListImportJobsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListImportJobsResponse");
         debug_struct.field("import_jobs", &self.import_jobs);
@@ -628,7 +628,7 @@ impl std::fmt::Debug for crate::model::ListImportJobsResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetKeyRingRequest {
+impl std::fmt::Debug for super::GetKeyRingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetKeyRingRequest");
         debug_struct.field("name", &self.name);
@@ -639,7 +639,7 @@ impl std::fmt::Debug for crate::model::GetKeyRingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetCryptoKeyRequest {
+impl std::fmt::Debug for super::GetCryptoKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCryptoKeyRequest");
         debug_struct.field("name", &self.name);
@@ -650,7 +650,7 @@ impl std::fmt::Debug for crate::model::GetCryptoKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetCryptoKeyVersionRequest {
+impl std::fmt::Debug for super::GetCryptoKeyVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCryptoKeyVersionRequest");
         debug_struct.field("name", &self.name);
@@ -661,7 +661,7 @@ impl std::fmt::Debug for crate::model::GetCryptoKeyVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetPublicKeyRequest {
+impl std::fmt::Debug for super::GetPublicKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPublicKeyRequest");
         debug_struct.field("name", &self.name);
@@ -673,7 +673,7 @@ impl std::fmt::Debug for crate::model::GetPublicKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetImportJobRequest {
+impl std::fmt::Debug for super::GetImportJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetImportJobRequest");
         debug_struct.field("name", &self.name);
@@ -684,7 +684,7 @@ impl std::fmt::Debug for crate::model::GetImportJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateKeyRingRequest {
+impl std::fmt::Debug for super::CreateKeyRingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateKeyRingRequest");
         debug_struct.field("parent", &self.parent);
@@ -697,7 +697,7 @@ impl std::fmt::Debug for crate::model::CreateKeyRingRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateCryptoKeyRequest {
+impl std::fmt::Debug for super::CreateCryptoKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateCryptoKeyRequest");
         debug_struct.field("parent", &self.parent);
@@ -714,7 +714,7 @@ impl std::fmt::Debug for crate::model::CreateCryptoKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateCryptoKeyVersionRequest {
+impl std::fmt::Debug for super::CreateCryptoKeyVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateCryptoKeyVersionRequest");
         debug_struct.field("parent", &self.parent);
@@ -726,7 +726,7 @@ impl std::fmt::Debug for crate::model::CreateCryptoKeyVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ImportCryptoKeyVersionRequest {
+impl std::fmt::Debug for super::ImportCryptoKeyVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportCryptoKeyVersionRequest");
         debug_struct.field("parent", &self.parent);
@@ -742,7 +742,7 @@ impl std::fmt::Debug for crate::model::ImportCryptoKeyVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateImportJobRequest {
+impl std::fmt::Debug for super::CreateImportJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateImportJobRequest");
         debug_struct.field("parent", &self.parent);
@@ -755,7 +755,7 @@ impl std::fmt::Debug for crate::model::CreateImportJobRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateCryptoKeyRequest {
+impl std::fmt::Debug for super::UpdateCryptoKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCryptoKeyRequest");
         debug_struct.field("crypto_key", &self.crypto_key);
@@ -767,7 +767,7 @@ impl std::fmt::Debug for crate::model::UpdateCryptoKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateCryptoKeyVersionRequest {
+impl std::fmt::Debug for super::UpdateCryptoKeyVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCryptoKeyVersionRequest");
         debug_struct.field("crypto_key_version", &self.crypto_key_version);
@@ -779,7 +779,7 @@ impl std::fmt::Debug for crate::model::UpdateCryptoKeyVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateCryptoKeyPrimaryVersionRequest {
+impl std::fmt::Debug for super::UpdateCryptoKeyPrimaryVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCryptoKeyPrimaryVersionRequest");
         debug_struct.field("name", &self.name);
@@ -791,7 +791,7 @@ impl std::fmt::Debug for crate::model::UpdateCryptoKeyPrimaryVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DestroyCryptoKeyVersionRequest {
+impl std::fmt::Debug for super::DestroyCryptoKeyVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DestroyCryptoKeyVersionRequest");
         debug_struct.field("name", &self.name);
@@ -802,7 +802,7 @@ impl std::fmt::Debug for crate::model::DestroyCryptoKeyVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RestoreCryptoKeyVersionRequest {
+impl std::fmt::Debug for super::RestoreCryptoKeyVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RestoreCryptoKeyVersionRequest");
         debug_struct.field("name", &self.name);
@@ -813,7 +813,7 @@ impl std::fmt::Debug for crate::model::RestoreCryptoKeyVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::EncryptRequest {
+impl std::fmt::Debug for super::EncryptRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EncryptRequest");
         debug_struct.field("name", &self.name);
@@ -834,7 +834,7 @@ impl std::fmt::Debug for crate::model::EncryptRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DecryptRequest {
+impl std::fmt::Debug for super::DecryptRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DecryptRequest");
         debug_struct.field("name", &self.name);
@@ -855,7 +855,7 @@ impl std::fmt::Debug for crate::model::DecryptRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RawEncryptRequest {
+impl std::fmt::Debug for super::RawEncryptRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RawEncryptRequest");
         debug_struct.field("name", &self.name);
@@ -881,7 +881,7 @@ impl std::fmt::Debug for crate::model::RawEncryptRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::RawDecryptRequest {
+impl std::fmt::Debug for super::RawDecryptRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RawDecryptRequest");
         debug_struct.field("name", &self.name);
@@ -908,7 +908,7 @@ impl std::fmt::Debug for crate::model::RawDecryptRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AsymmetricSignRequest {
+impl std::fmt::Debug for super::AsymmetricSignRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AsymmetricSignRequest");
         debug_struct.field("name", &self.name);
@@ -923,7 +923,7 @@ impl std::fmt::Debug for crate::model::AsymmetricSignRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::AsymmetricDecryptRequest {
+impl std::fmt::Debug for super::AsymmetricDecryptRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AsymmetricDecryptRequest");
         debug_struct.field("name", &self.name);
@@ -936,7 +936,7 @@ impl std::fmt::Debug for crate::model::AsymmetricDecryptRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::MacSignRequest {
+impl std::fmt::Debug for super::MacSignRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MacSignRequest");
         debug_struct.field("name", &self.name);
@@ -949,7 +949,7 @@ impl std::fmt::Debug for crate::model::MacSignRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::MacVerifyRequest {
+impl std::fmt::Debug for super::MacVerifyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MacVerifyRequest");
         debug_struct.field("name", &self.name);
@@ -964,7 +964,7 @@ impl std::fmt::Debug for crate::model::MacVerifyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DecapsulateRequest {
+impl std::fmt::Debug for super::DecapsulateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DecapsulateRequest");
         debug_struct.field("name", &self.name);
@@ -977,7 +977,7 @@ impl std::fmt::Debug for crate::model::DecapsulateRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GenerateRandomBytesRequest {
+impl std::fmt::Debug for super::GenerateRandomBytesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateRandomBytesRequest");
         debug_struct.field("location", &self.location);
@@ -990,7 +990,7 @@ impl std::fmt::Debug for crate::model::GenerateRandomBytesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::EncryptResponse {
+impl std::fmt::Debug for super::EncryptResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EncryptResponse");
         debug_struct.field("name", &self.name);
@@ -1009,7 +1009,7 @@ impl std::fmt::Debug for crate::model::EncryptResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DecryptResponse {
+impl std::fmt::Debug for super::DecryptResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DecryptResponse");
         debug_struct.field("plaintext", &self.plaintext);
@@ -1023,7 +1023,7 @@ impl std::fmt::Debug for crate::model::DecryptResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::RawEncryptResponse {
+impl std::fmt::Debug for super::RawEncryptResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RawEncryptResponse");
         debug_struct.field("ciphertext", &self.ciphertext);
@@ -1052,7 +1052,7 @@ impl std::fmt::Debug for crate::model::RawEncryptResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::RawDecryptResponse {
+impl std::fmt::Debug for super::RawDecryptResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RawDecryptResponse");
         debug_struct.field("plaintext", &self.plaintext);
@@ -1077,7 +1077,7 @@ impl std::fmt::Debug for crate::model::RawDecryptResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::AsymmetricSignResponse {
+impl std::fmt::Debug for super::AsymmetricSignResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AsymmetricSignResponse");
         debug_struct.field("signature", &self.signature);
@@ -1093,7 +1093,7 @@ impl std::fmt::Debug for crate::model::AsymmetricSignResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::AsymmetricDecryptResponse {
+impl std::fmt::Debug for super::AsymmetricDecryptResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AsymmetricDecryptResponse");
         debug_struct.field("plaintext", &self.plaintext);
@@ -1110,7 +1110,7 @@ impl std::fmt::Debug for crate::model::AsymmetricDecryptResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::MacSignResponse {
+impl std::fmt::Debug for super::MacSignResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MacSignResponse");
         debug_struct.field("name", &self.name);
@@ -1125,7 +1125,7 @@ impl std::fmt::Debug for crate::model::MacSignResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::MacVerifyResponse {
+impl std::fmt::Debug for super::MacVerifyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MacVerifyResponse");
         debug_struct.field("name", &self.name);
@@ -1144,7 +1144,7 @@ impl std::fmt::Debug for crate::model::MacVerifyResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::DecapsulateResponse {
+impl std::fmt::Debug for super::DecapsulateResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DecapsulateResponse");
         debug_struct.field("name", &self.name);
@@ -1162,7 +1162,7 @@ impl std::fmt::Debug for crate::model::DecapsulateResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GenerateRandomBytesResponse {
+impl std::fmt::Debug for super::GenerateRandomBytesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateRandomBytesResponse");
         debug_struct.field("data", &self.data);
@@ -1174,7 +1174,7 @@ impl std::fmt::Debug for crate::model::GenerateRandomBytesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Digest {
+impl std::fmt::Debug for super::Digest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Digest");
         debug_struct.field("digest", &self.digest);
@@ -1185,7 +1185,7 @@ impl std::fmt::Debug for crate::model::Digest {
     }
 }
 
-impl std::fmt::Debug for crate::model::LocationMetadata {
+impl std::fmt::Debug for super::LocationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LocationMetadata");
         debug_struct.field("hsm_available", &self.hsm_available);

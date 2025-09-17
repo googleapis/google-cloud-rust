@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::GetSchemaRegistryRequest {
+impl std::fmt::Debug for super::GetSchemaRegistryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSchemaRegistryRequest");
         debug_struct.field("name", &self.name);
@@ -28,7 +28,7 @@ impl std::fmt::Debug for crate::model::GetSchemaRegistryRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSchemaRegistriesRequest {
+impl std::fmt::Debug for super::ListSchemaRegistriesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSchemaRegistriesRequest");
         debug_struct.field("parent", &self.parent);
@@ -39,7 +39,7 @@ impl std::fmt::Debug for crate::model::ListSchemaRegistriesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSchemaRegistriesResponse {
+impl std::fmt::Debug for super::ListSchemaRegistriesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSchemaRegistriesResponse");
         debug_struct.field("schema_registries", &self.schema_registries);
@@ -50,7 +50,7 @@ impl std::fmt::Debug for crate::model::ListSchemaRegistriesResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateSchemaRegistryRequest {
+impl std::fmt::Debug for super::CreateSchemaRegistryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateSchemaRegistryRequest");
         debug_struct.field("parent", &self.parent);
@@ -63,7 +63,7 @@ impl std::fmt::Debug for crate::model::CreateSchemaRegistryRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteSchemaRegistryRequest {
+impl std::fmt::Debug for super::DeleteSchemaRegistryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSchemaRegistryRequest");
         debug_struct.field("name", &self.name);
@@ -74,7 +74,7 @@ impl std::fmt::Debug for crate::model::DeleteSchemaRegistryRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetContextRequest {
+impl std::fmt::Debug for super::GetContextRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetContextRequest");
         debug_struct.field("name", &self.name);
@@ -85,7 +85,7 @@ impl std::fmt::Debug for crate::model::GetContextRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListContextsRequest {
+impl std::fmt::Debug for super::ListContextsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListContextsRequest");
         debug_struct.field("parent", &self.parent);
@@ -96,7 +96,7 @@ impl std::fmt::Debug for crate::model::ListContextsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetSchemaRequest {
+impl std::fmt::Debug for super::GetSchemaRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSchemaRequest");
         debug_struct.field("name", &self.name);
@@ -108,7 +108,7 @@ impl std::fmt::Debug for crate::model::GetSchemaRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSchemaTypesRequest {
+impl std::fmt::Debug for super::ListSchemaTypesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSchemaTypesRequest");
         debug_struct.field("parent", &self.parent);
@@ -119,7 +119,7 @@ impl std::fmt::Debug for crate::model::ListSchemaTypesRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSchemaVersionsRequest {
+impl std::fmt::Debug for super::ListSchemaVersionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSchemaVersionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -132,7 +132,7 @@ impl std::fmt::Debug for crate::model::ListSchemaVersionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSubjectsRequest {
+impl std::fmt::Debug for super::ListSubjectsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSubjectsRequest");
         debug_struct.field("parent", &self.parent);
@@ -145,7 +145,7 @@ impl std::fmt::Debug for crate::model::ListSubjectsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListSubjectsBySchemaIdRequest {
+impl std::fmt::Debug for super::ListSubjectsBySchemaIdRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSubjectsBySchemaIdRequest");
         debug_struct.field("parent", &self.parent);
@@ -158,7 +158,7 @@ impl std::fmt::Debug for crate::model::ListSubjectsBySchemaIdRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListVersionsRequest {
+impl std::fmt::Debug for super::ListVersionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListVersionsRequest");
         debug_struct.field("parent", &self.parent);
@@ -170,7 +170,7 @@ impl std::fmt::Debug for crate::model::ListVersionsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteSubjectRequest {
+impl std::fmt::Debug for super::DeleteSubjectRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSubjectRequest");
         debug_struct.field("name", &self.name);
@@ -182,7 +182,7 @@ impl std::fmt::Debug for crate::model::DeleteSubjectRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetVersionRequest {
+impl std::fmt::Debug for super::GetVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetVersionRequest");
         debug_struct.field("name", &self.name);
@@ -194,7 +194,7 @@ impl std::fmt::Debug for crate::model::GetVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateVersionRequest {
+impl std::fmt::Debug for super::CreateVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateVersionRequest");
         debug_struct.field("parent", &self.parent);
@@ -211,7 +211,7 @@ impl std::fmt::Debug for crate::model::CreateVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateVersionResponse {
+impl std::fmt::Debug for super::CreateVersionResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateVersionResponse");
         debug_struct.field("id", &self.id);
@@ -222,7 +222,7 @@ impl std::fmt::Debug for crate::model::CreateVersionResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::LookupVersionRequest {
+impl std::fmt::Debug for super::LookupVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LookupVersionRequest");
         debug_struct.field("parent", &self.parent);
@@ -238,7 +238,7 @@ impl std::fmt::Debug for crate::model::LookupVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteVersionRequest {
+impl std::fmt::Debug for super::DeleteVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteVersionRequest");
         debug_struct.field("name", &self.name);
@@ -250,7 +250,7 @@ impl std::fmt::Debug for crate::model::DeleteVersionRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListReferencedSchemasRequest {
+impl std::fmt::Debug for super::ListReferencedSchemasRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListReferencedSchemasRequest");
         debug_struct.field("parent", &self.parent);
@@ -261,7 +261,7 @@ impl std::fmt::Debug for crate::model::ListReferencedSchemasRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CheckCompatibilityRequest {
+impl std::fmt::Debug for super::CheckCompatibilityRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckCompatibilityRequest");
         debug_struct.field("name", &self.name);
@@ -276,7 +276,7 @@ impl std::fmt::Debug for crate::model::CheckCompatibilityRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CheckCompatibilityResponse {
+impl std::fmt::Debug for super::CheckCompatibilityResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckCompatibilityResponse");
         debug_struct.field("is_compatible", &self.is_compatible);
@@ -288,7 +288,7 @@ impl std::fmt::Debug for crate::model::CheckCompatibilityResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetSchemaConfigRequest {
+impl std::fmt::Debug for super::GetSchemaConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSchemaConfigRequest");
         debug_struct.field("name", &self.name);
@@ -300,7 +300,7 @@ impl std::fmt::Debug for crate::model::GetSchemaConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateSchemaConfigRequest {
+impl std::fmt::Debug for super::UpdateSchemaConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSchemaConfigRequest");
         debug_struct.field("name", &self.name);
@@ -313,7 +313,7 @@ impl std::fmt::Debug for crate::model::UpdateSchemaConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteSchemaConfigRequest {
+impl std::fmt::Debug for super::DeleteSchemaConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSchemaConfigRequest");
         debug_struct.field("name", &self.name);
@@ -324,7 +324,7 @@ impl std::fmt::Debug for crate::model::DeleteSchemaConfigRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetSchemaModeRequest {
+impl std::fmt::Debug for super::GetSchemaModeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSchemaModeRequest");
         debug_struct.field("name", &self.name);
@@ -335,7 +335,7 @@ impl std::fmt::Debug for crate::model::GetSchemaModeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateSchemaModeRequest {
+impl std::fmt::Debug for super::UpdateSchemaModeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSchemaModeRequest");
         debug_struct.field("name", &self.name);
@@ -347,7 +347,7 @@ impl std::fmt::Debug for crate::model::UpdateSchemaModeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteSchemaModeRequest {
+impl std::fmt::Debug for super::DeleteSchemaModeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSchemaModeRequest");
         debug_struct.field("name", &self.name);
@@ -358,7 +358,7 @@ impl std::fmt::Debug for crate::model::DeleteSchemaModeRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::SchemaRegistry {
+impl std::fmt::Debug for super::SchemaRegistry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SchemaRegistry");
         debug_struct.field("name", &self.name);
@@ -370,7 +370,7 @@ impl std::fmt::Debug for crate::model::SchemaRegistry {
     }
 }
 
-impl std::fmt::Debug for crate::model::Context {
+impl std::fmt::Debug for super::Context {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Context");
         debug_struct.field("name", &self.name);
@@ -382,7 +382,7 @@ impl std::fmt::Debug for crate::model::Context {
     }
 }
 
-impl std::fmt::Debug for crate::model::Schema {
+impl std::fmt::Debug for super::Schema {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Schema");
         debug_struct.field("schema_type", &self.schema_type);
@@ -395,7 +395,7 @@ impl std::fmt::Debug for crate::model::Schema {
     }
 }
 
-impl std::fmt::Debug for crate::model::schema::SchemaReference {
+impl std::fmt::Debug for super::schema::SchemaReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SchemaReference");
         debug_struct.field("name", &self.name);
@@ -408,7 +408,7 @@ impl std::fmt::Debug for crate::model::schema::SchemaReference {
     }
 }
 
-impl std::fmt::Debug for crate::model::SchemaSubject {
+impl std::fmt::Debug for super::SchemaSubject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SchemaSubject");
         debug_struct.field("name", &self.name);
@@ -420,7 +420,7 @@ impl std::fmt::Debug for crate::model::SchemaSubject {
     }
 }
 
-impl std::fmt::Debug for crate::model::SchemaVersion {
+impl std::fmt::Debug for super::SchemaVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SchemaVersion");
         debug_struct.field("subject", &self.subject);
@@ -436,7 +436,7 @@ impl std::fmt::Debug for crate::model::SchemaVersion {
     }
 }
 
-impl std::fmt::Debug for crate::model::SchemaConfig {
+impl std::fmt::Debug for super::SchemaConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SchemaConfig");
         debug_struct.field("compatibility", &self.compatibility);
@@ -449,7 +449,7 @@ impl std::fmt::Debug for crate::model::SchemaConfig {
     }
 }
 
-impl std::fmt::Debug for crate::model::SchemaMode {
+impl std::fmt::Debug for super::SchemaMode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SchemaMode");
         debug_struct.field("mode", &self.mode);

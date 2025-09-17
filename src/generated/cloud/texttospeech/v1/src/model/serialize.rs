@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListVoicesRequest {
+impl serde::ser::Serialize for super::ListVoicesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -40,7 +40,7 @@ impl serde::ser::Serialize for crate::model::ListVoicesRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ListVoicesResponse {
+impl serde::ser::Serialize for super::ListVoicesResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -62,7 +62,7 @@ impl serde::ser::Serialize for crate::model::ListVoicesResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::Voice {
+impl serde::ser::Serialize for super::Voice {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -105,7 +105,7 @@ impl serde::ser::Serialize for crate::model::Voice {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AdvancedVoiceOptions {
+impl serde::ser::Serialize for super::AdvancedVoiceOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -130,7 +130,7 @@ impl serde::ser::Serialize for crate::model::AdvancedVoiceOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SynthesizeSpeechRequest {
+impl serde::ser::Serialize for super::SynthesizeSpeechRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -161,7 +161,7 @@ impl serde::ser::Serialize for crate::model::SynthesizeSpeechRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CustomPronunciationParams {
+impl serde::ser::Serialize for super::CustomPronunciationParams {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -189,7 +189,7 @@ impl serde::ser::Serialize for crate::model::CustomPronunciationParams {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CustomPronunciations {
+impl serde::ser::Serialize for super::CustomPronunciations {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -211,7 +211,7 @@ impl serde::ser::Serialize for crate::model::CustomPronunciations {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::MultiSpeakerMarkup {
+impl serde::ser::Serialize for super::MultiSpeakerMarkup {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -233,7 +233,7 @@ impl serde::ser::Serialize for crate::model::MultiSpeakerMarkup {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::multi_speaker_markup::Turn {
+impl serde::ser::Serialize for super::multi_speaker_markup::Turn {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -258,7 +258,7 @@ impl serde::ser::Serialize for crate::model::multi_speaker_markup::Turn {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SynthesisInput {
+impl serde::ser::Serialize for super::SynthesisInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -295,7 +295,7 @@ impl serde::ser::Serialize for crate::model::SynthesisInput {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VoiceSelectionParams {
+impl serde::ser::Serialize for super::VoiceSelectionParams {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -332,7 +332,7 @@ impl serde::ser::Serialize for crate::model::VoiceSelectionParams {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::AudioConfig {
+impl serde::ser::Serialize for super::AudioConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -405,7 +405,7 @@ impl serde::ser::Serialize for crate::model::AudioConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CustomVoiceParams {
+impl serde::ser::Serialize for super::CustomVoiceParams {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -430,7 +430,7 @@ impl serde::ser::Serialize for crate::model::CustomVoiceParams {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::VoiceCloneParams {
+impl serde::ser::Serialize for super::VoiceCloneParams {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -452,7 +452,7 @@ impl serde::ser::Serialize for crate::model::VoiceCloneParams {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SynthesizeSpeechResponse {
+impl serde::ser::Serialize for super::SynthesizeSpeechResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -483,7 +483,7 @@ impl serde::ser::Serialize for crate::model::SynthesizeSpeechResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamingAudioConfig {
+impl serde::ser::Serialize for super::StreamingAudioConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -529,7 +529,7 @@ impl serde::ser::Serialize for crate::model::StreamingAudioConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamingSynthesizeConfig {
+impl serde::ser::Serialize for super::StreamingSynthesizeConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -557,7 +557,7 @@ impl serde::ser::Serialize for crate::model::StreamingSynthesizeConfig {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamingSynthesisInput {
+impl serde::ser::Serialize for super::StreamingSynthesisInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -585,7 +585,7 @@ impl serde::ser::Serialize for crate::model::StreamingSynthesisInput {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamingSynthesizeRequest {
+impl serde::ser::Serialize for super::StreamingSynthesizeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -610,7 +610,7 @@ impl serde::ser::Serialize for crate::model::StreamingSynthesizeRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::StreamingSynthesizeResponse {
+impl serde::ser::Serialize for super::StreamingSynthesizeResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -641,7 +641,7 @@ impl serde::ser::Serialize for crate::model::StreamingSynthesizeResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SynthesizeLongAudioRequest {
+impl serde::ser::Serialize for super::SynthesizeLongAudioRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -675,7 +675,7 @@ impl serde::ser::Serialize for crate::model::SynthesizeLongAudioRequest {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SynthesizeLongAudioResponse {
+impl serde::ser::Serialize for super::SynthesizeLongAudioResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -694,7 +694,7 @@ impl serde::ser::Serialize for crate::model::SynthesizeLongAudioResponse {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::SynthesizeLongAudioMetadata {
+impl serde::ser::Serialize for super::SynthesizeLongAudioMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

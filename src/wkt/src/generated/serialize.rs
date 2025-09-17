@@ -18,7 +18,7 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::Api {
+impl serde::ser::Serialize for super::Api {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -58,7 +58,7 @@ impl serde::ser::Serialize for crate::Api {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::Method {
+impl serde::ser::Serialize for super::Method {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -98,7 +98,7 @@ impl serde::ser::Serialize for crate::Method {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::Mixin {
+impl serde::ser::Serialize for super::Mixin {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -123,7 +123,7 @@ impl serde::ser::Serialize for crate::Mixin {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::FileDescriptorSet {
+impl serde::ser::Serialize for super::FileDescriptorSet {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -145,7 +145,7 @@ impl serde::ser::Serialize for crate::FileDescriptorSet {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::FileDescriptorProto {
+impl serde::ser::Serialize for super::FileDescriptorProto {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -225,7 +225,7 @@ impl serde::ser::Serialize for crate::FileDescriptorProto {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::DescriptorProto {
+impl serde::ser::Serialize for super::DescriptorProto {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -274,7 +274,7 @@ impl serde::ser::Serialize for crate::DescriptorProto {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::descriptor_proto::ExtensionRange {
+impl serde::ser::Serialize for super::descriptor_proto::ExtensionRange {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -320,7 +320,7 @@ impl serde::ser::Serialize for crate::descriptor_proto::ExtensionRange {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::descriptor_proto::ReservedRange {
+impl serde::ser::Serialize for super::descriptor_proto::ReservedRange {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -363,7 +363,7 @@ impl serde::ser::Serialize for crate::descriptor_proto::ReservedRange {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::ExtensionRangeOptions {
+impl serde::ser::Serialize for super::ExtensionRangeOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -394,7 +394,7 @@ impl serde::ser::Serialize for crate::ExtensionRangeOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::extension_range_options::Declaration {
+impl serde::ser::Serialize for super::extension_range_options::Declaration {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -437,7 +437,7 @@ impl serde::ser::Serialize for crate::extension_range_options::Declaration {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::FieldDescriptorProto {
+impl serde::ser::Serialize for super::FieldDescriptorProto {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -507,7 +507,7 @@ impl serde::ser::Serialize for crate::FieldDescriptorProto {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::OneofDescriptorProto {
+impl serde::ser::Serialize for super::OneofDescriptorProto {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -532,7 +532,7 @@ impl serde::ser::Serialize for crate::OneofDescriptorProto {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::EnumDescriptorProto {
+impl serde::ser::Serialize for super::EnumDescriptorProto {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -566,7 +566,7 @@ impl serde::ser::Serialize for crate::EnumDescriptorProto {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::enum_descriptor_proto::EnumReservedRange {
+impl serde::ser::Serialize for super::enum_descriptor_proto::EnumReservedRange {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -609,7 +609,7 @@ impl serde::ser::Serialize for crate::enum_descriptor_proto::EnumReservedRange {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::EnumValueDescriptorProto {
+impl serde::ser::Serialize for super::EnumValueDescriptorProto {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -646,7 +646,7 @@ impl serde::ser::Serialize for crate::EnumValueDescriptorProto {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::ServiceDescriptorProto {
+impl serde::ser::Serialize for super::ServiceDescriptorProto {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -674,7 +674,7 @@ impl serde::ser::Serialize for crate::ServiceDescriptorProto {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::MethodDescriptorProto {
+impl serde::ser::Serialize for super::MethodDescriptorProto {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -711,7 +711,7 @@ impl serde::ser::Serialize for crate::MethodDescriptorProto {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::FileOptions {
+impl serde::ser::Serialize for super::FileOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -796,7 +796,7 @@ impl serde::ser::Serialize for crate::FileOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::MessageOptions {
+impl serde::ser::Serialize for super::MessageOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -842,7 +842,7 @@ impl serde::ser::Serialize for crate::MessageOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::FieldOptions {
+impl serde::ser::Serialize for super::FieldOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -903,7 +903,7 @@ impl serde::ser::Serialize for crate::FieldOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::field_options::EditionDefault {
+impl serde::ser::Serialize for super::field_options::EditionDefault {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -928,7 +928,7 @@ impl serde::ser::Serialize for crate::field_options::EditionDefault {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::field_options::FeatureSupport {
+impl serde::ser::Serialize for super::field_options::FeatureSupport {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -959,7 +959,7 @@ impl serde::ser::Serialize for crate::field_options::FeatureSupport {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::OneofOptions {
+impl serde::ser::Serialize for super::OneofOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -984,7 +984,7 @@ impl serde::ser::Serialize for crate::OneofOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::EnumOptions {
+impl serde::ser::Serialize for super::EnumOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1021,7 +1021,7 @@ impl serde::ser::Serialize for crate::EnumOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::EnumValueOptions {
+impl serde::ser::Serialize for super::EnumValueOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1055,7 +1055,7 @@ impl serde::ser::Serialize for crate::EnumValueOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::ServiceOptions {
+impl serde::ser::Serialize for super::ServiceOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1083,7 +1083,7 @@ impl serde::ser::Serialize for crate::ServiceOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::MethodOptions {
+impl serde::ser::Serialize for super::MethodOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1114,7 +1114,7 @@ impl serde::ser::Serialize for crate::MethodOptions {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::UninterpretedOption {
+impl serde::ser::Serialize for super::UninterpretedOption {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1190,7 +1190,7 @@ impl serde::ser::Serialize for crate::UninterpretedOption {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::uninterpreted_option::NamePart {
+impl serde::ser::Serialize for super::uninterpreted_option::NamePart {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1215,7 +1215,7 @@ impl serde::ser::Serialize for crate::uninterpreted_option::NamePart {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::FeatureSet {
+impl serde::ser::Serialize for super::FeatureSet {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1252,7 +1252,7 @@ impl serde::ser::Serialize for crate::FeatureSet {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::FeatureSetDefaults {
+impl serde::ser::Serialize for super::FeatureSetDefaults {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1280,7 +1280,7 @@ impl serde::ser::Serialize for crate::FeatureSetDefaults {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::feature_set_defaults::FeatureSetEditionDefault {
+impl serde::ser::Serialize for super::feature_set_defaults::FeatureSetEditionDefault {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1308,7 +1308,7 @@ impl serde::ser::Serialize for crate::feature_set_defaults::FeatureSetEditionDef
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::SourceCodeInfo {
+impl serde::ser::Serialize for super::SourceCodeInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1330,7 +1330,7 @@ impl serde::ser::Serialize for crate::SourceCodeInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::source_code_info::Location {
+impl serde::ser::Serialize for super::source_code_info::Location {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1386,7 +1386,7 @@ impl serde::ser::Serialize for crate::source_code_info::Location {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::GeneratedCodeInfo {
+impl serde::ser::Serialize for super::GeneratedCodeInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1408,7 +1408,7 @@ impl serde::ser::Serialize for crate::GeneratedCodeInfo {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::generated_code_info::Annotation {
+impl serde::ser::Serialize for super::generated_code_info::Annotation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1471,7 +1471,7 @@ impl serde::ser::Serialize for crate::generated_code_info::Annotation {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::SourceContext {
+impl serde::ser::Serialize for super::SourceContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1493,7 +1493,7 @@ impl serde::ser::Serialize for crate::SourceContext {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::Type {
+impl serde::ser::Serialize for super::Type {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1533,7 +1533,7 @@ impl serde::ser::Serialize for crate::Type {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::Field {
+impl serde::ser::Serialize for super::Field {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1600,7 +1600,7 @@ impl serde::ser::Serialize for crate::Field {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::Enum {
+impl serde::ser::Serialize for super::Enum {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1637,7 +1637,7 @@ impl serde::ser::Serialize for crate::Enum {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::EnumValue {
+impl serde::ser::Serialize for super::EnumValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1674,7 +1674,7 @@ impl serde::ser::Serialize for crate::EnumValue {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::Option {
+impl serde::ser::Serialize for super::Option {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

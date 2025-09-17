@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::ExternalAccountKey {
+impl std::fmt::Debug for super::ExternalAccountKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExternalAccountKey");
         debug_struct.field("name", &self.name);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::ExternalAccountKey {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateExternalAccountKeyRequest {
+impl std::fmt::Debug for super::CreateExternalAccountKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateExternalAccountKeyRequest");
         debug_struct.field("parent", &self.parent);

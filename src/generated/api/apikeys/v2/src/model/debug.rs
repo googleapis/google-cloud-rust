@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::CreateKeyRequest {
+impl std::fmt::Debug for super::CreateKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateKeyRequest");
         debug_struct.field("parent", &self.parent);
@@ -30,7 +30,7 @@ impl std::fmt::Debug for crate::model::CreateKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListKeysRequest {
+impl std::fmt::Debug for super::ListKeysRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKeysRequest");
         debug_struct.field("parent", &self.parent);
@@ -44,7 +44,7 @@ impl std::fmt::Debug for crate::model::ListKeysRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::ListKeysResponse {
+impl std::fmt::Debug for super::ListKeysResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKeysResponse");
         debug_struct.field("keys", &self.keys);
@@ -56,7 +56,7 @@ impl std::fmt::Debug for crate::model::ListKeysResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetKeyRequest {
+impl std::fmt::Debug for super::GetKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetKeyRequest");
         debug_struct.field("name", &self.name);
@@ -67,7 +67,7 @@ impl std::fmt::Debug for crate::model::GetKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetKeyStringRequest {
+impl std::fmt::Debug for super::GetKeyStringRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetKeyStringRequest");
         debug_struct.field("name", &self.name);
@@ -78,7 +78,7 @@ impl std::fmt::Debug for crate::model::GetKeyStringRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GetKeyStringResponse {
+impl std::fmt::Debug for super::GetKeyStringResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetKeyStringResponse");
         debug_struct.field("key_string", &self.key_string);
@@ -89,7 +89,7 @@ impl std::fmt::Debug for crate::model::GetKeyStringResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::UpdateKeyRequest {
+impl std::fmt::Debug for super::UpdateKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateKeyRequest");
         debug_struct.field("key", &self.key);
@@ -101,7 +101,7 @@ impl std::fmt::Debug for crate::model::UpdateKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::DeleteKeyRequest {
+impl std::fmt::Debug for super::DeleteKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteKeyRequest");
         debug_struct.field("name", &self.name);
@@ -113,7 +113,7 @@ impl std::fmt::Debug for crate::model::DeleteKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UndeleteKeyRequest {
+impl std::fmt::Debug for super::UndeleteKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeleteKeyRequest");
         debug_struct.field("name", &self.name);
@@ -124,7 +124,7 @@ impl std::fmt::Debug for crate::model::UndeleteKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::LookupKeyRequest {
+impl std::fmt::Debug for super::LookupKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LookupKeyRequest");
         debug_struct.field("key_string", &self.key_string);
@@ -135,7 +135,7 @@ impl std::fmt::Debug for crate::model::LookupKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::LookupKeyResponse {
+impl std::fmt::Debug for super::LookupKeyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LookupKeyResponse");
         debug_struct.field("parent", &self.parent);
@@ -147,7 +147,7 @@ impl std::fmt::Debug for crate::model::LookupKeyResponse {
     }
 }
 
-impl std::fmt::Debug for crate::model::Key {
+impl std::fmt::Debug for super::Key {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Key");
         debug_struct.field("name", &self.name);
@@ -167,7 +167,7 @@ impl std::fmt::Debug for crate::model::Key {
     }
 }
 
-impl std::fmt::Debug for crate::model::Restrictions {
+impl std::fmt::Debug for super::Restrictions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Restrictions");
         debug_struct.field("api_targets", &self.api_targets);
@@ -179,7 +179,7 @@ impl std::fmt::Debug for crate::model::Restrictions {
     }
 }
 
-impl std::fmt::Debug for crate::model::BrowserKeyRestrictions {
+impl std::fmt::Debug for super::BrowserKeyRestrictions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BrowserKeyRestrictions");
         debug_struct.field("allowed_referrers", &self.allowed_referrers);
@@ -190,7 +190,7 @@ impl std::fmt::Debug for crate::model::BrowserKeyRestrictions {
     }
 }
 
-impl std::fmt::Debug for crate::model::ServerKeyRestrictions {
+impl std::fmt::Debug for super::ServerKeyRestrictions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServerKeyRestrictions");
         debug_struct.field("allowed_ips", &self.allowed_ips);
@@ -201,7 +201,7 @@ impl std::fmt::Debug for crate::model::ServerKeyRestrictions {
     }
 }
 
-impl std::fmt::Debug for crate::model::AndroidKeyRestrictions {
+impl std::fmt::Debug for super::AndroidKeyRestrictions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AndroidKeyRestrictions");
         debug_struct.field("allowed_applications", &self.allowed_applications);
@@ -212,7 +212,7 @@ impl std::fmt::Debug for crate::model::AndroidKeyRestrictions {
     }
 }
 
-impl std::fmt::Debug for crate::model::AndroidApplication {
+impl std::fmt::Debug for super::AndroidApplication {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AndroidApplication");
         debug_struct.field("sha1_fingerprint", &self.sha1_fingerprint);
@@ -224,7 +224,7 @@ impl std::fmt::Debug for crate::model::AndroidApplication {
     }
 }
 
-impl std::fmt::Debug for crate::model::IosKeyRestrictions {
+impl std::fmt::Debug for super::IosKeyRestrictions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IosKeyRestrictions");
         debug_struct.field("allowed_bundle_ids", &self.allowed_bundle_ids);
@@ -235,7 +235,7 @@ impl std::fmt::Debug for crate::model::IosKeyRestrictions {
     }
 }
 
-impl std::fmt::Debug for crate::model::ApiTarget {
+impl std::fmt::Debug for super::ApiTarget {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ApiTarget");
         debug_struct.field("service", &self.service);

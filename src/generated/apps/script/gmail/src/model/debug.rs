@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::GmailAddOnManifest {
+impl std::fmt::Debug for super::GmailAddOnManifest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GmailAddOnManifest");
         debug_struct.field("homepage_trigger", &self.homepage_trigger);
@@ -35,7 +35,7 @@ impl std::fmt::Debug for crate::model::GmailAddOnManifest {
     }
 }
 
-impl std::fmt::Debug for crate::model::UniversalAction {
+impl std::fmt::Debug for super::UniversalAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UniversalAction");
         debug_struct.field("text", &self.text);
@@ -47,7 +47,7 @@ impl std::fmt::Debug for crate::model::UniversalAction {
     }
 }
 
-impl std::fmt::Debug for crate::model::ComposeTrigger {
+impl std::fmt::Debug for super::ComposeTrigger {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ComposeTrigger");
         debug_struct.field("actions", &self.actions);
@@ -59,7 +59,7 @@ impl std::fmt::Debug for crate::model::ComposeTrigger {
     }
 }
 
-impl std::fmt::Debug for crate::model::ContextualTrigger {
+impl std::fmt::Debug for super::ContextualTrigger {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContextualTrigger");
         debug_struct.field("on_trigger_function", &self.on_trigger_function);
@@ -71,7 +71,7 @@ impl std::fmt::Debug for crate::model::ContextualTrigger {
     }
 }
 
-impl std::fmt::Debug for crate::model::UnconditionalTrigger {
+impl std::fmt::Debug for super::UnconditionalTrigger {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UnconditionalTrigger");
         if !self._unknown_fields.is_empty() {

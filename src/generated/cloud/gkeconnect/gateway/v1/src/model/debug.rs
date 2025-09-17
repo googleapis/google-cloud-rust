@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for crate::model::GenerateCredentialsRequest {
+impl std::fmt::Debug for super::GenerateCredentialsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateCredentialsRequest");
         debug_struct.field("name", &self.name);
@@ -32,7 +32,7 @@ impl std::fmt::Debug for crate::model::GenerateCredentialsRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::GenerateCredentialsResponse {
+impl std::fmt::Debug for super::GenerateCredentialsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateCredentialsResponse");
         debug_struct.field("kubeconfig", &self.kubeconfig);
