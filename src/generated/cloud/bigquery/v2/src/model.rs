@@ -14480,6 +14480,20 @@ impl wkt::message::Message for JobList {
 }
 
 #[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for JobList {
+    type PageItem = crate::model::ListFormatJob;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.jobs
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for JobList {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -65674,6 +65688,20 @@ impl wkt::message::Message for ListModelsResponse {
 }
 
 #[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListModelsResponse {
+    type PageItem = crate::model::Model;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.models
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for ListModelsResponse {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -74664,6 +74692,20 @@ impl ListRoutinesResponse {
 impl wkt::message::Message for ListRoutinesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.ListRoutinesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRoutinesResponse {
+    type PageItem = crate::model::Routine;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.routines
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -85409,6 +85451,20 @@ impl TableList {
 impl wkt::message::Message for TableList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.TableList"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for TableList {
+    type PageItem = crate::model::ListFormatTable;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.tables
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
