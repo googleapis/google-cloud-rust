@@ -19,6 +19,19 @@ pub type ClientConfig = gax::client_builder::internal::ClientConfig<Credentials>
 
 pub(crate) const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
 
+/// Information about the client library used for instrumentation.
+#[derive(Copy, Clone, Debug)]
+pub struct InstrumentationClientInfo {
+    /// The short service name, e.g., "appengine", "run", "firestore".
+    pub service_name: &'static str,
+    /// The version of the client library.
+    pub client_version: &'static str,
+    /// The name of the client library artifact (e.g., crate name).
+    pub client_artifact: &'static str,
+    /// The default hostname of the service.
+    pub default_host: &'static str,
+}
+
 // Returns true if the environment or client configuration enables tracing.
 pub fn tracing_enabled(config: &ClientConfig) -> bool {
     if config.tracing {
