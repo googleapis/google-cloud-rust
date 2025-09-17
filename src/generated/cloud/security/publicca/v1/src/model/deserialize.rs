@@ -130,43 +130,6 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExternalAccountKey {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for crate::model::ExternalAccountKey {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.key_id.is_empty() {
-            state.serialize_entry("keyId", &self.key_id)?;
-        }
-        if !self.b64_mac_key.is_empty() {
-            struct __With<'a>(&'a ::bytes::Bytes);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("b64MacKey", &__With(&self.b64_mac_key))?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for crate::model::CreateExternalAccountKeyRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -255,30 +218,5 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateExternalAccountKey
             }
         }
         deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for crate::model::CreateExternalAccountKeyRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if self.external_account_key.is_some() {
-            state.serialize_entry("externalAccountKey", &self.external_account_key)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
     }
 }
