@@ -294,21 +294,21 @@ async fn cleanup_stale_jobs(client: &bigquery::client::JobService, project_id: &
             match r {
                 Ok(r) => {
                     // Only delete jobs with testing label.
-                    if let Some(job_reference) = &r.job_reference
-                        && let Some(configuration) = &r.configuration
-                    {
-                        if configuration
-                            .labels
-                            .get(INSTANCE_LABEL)
-                            .is_some_and(|v| v == "true")
-                        {
-                            return Some(
-                                client
-                                    .delete_job()
-                                    .set_project_id(project_id)
-                                    .set_job_id(&job_reference.job_id)
-                                    .send(),
-                            );
+                    if let Some(job_reference) = &r.job_reference {
+                        if let Some(configuration) = &r.configuration {
+                            if configuration
+                                .labels
+                                .get(INSTANCE_LABEL)
+                                .is_some_and(|v| v == "true")
+                            {
+                                return Some(
+                                    client
+                                        .delete_job()
+                                        .set_project_id(project_id)
+                                        .set_job_id(&job_reference.job_id)
+                                        .send(),
+                                );
+                            }
                         }
                     }
                     None
