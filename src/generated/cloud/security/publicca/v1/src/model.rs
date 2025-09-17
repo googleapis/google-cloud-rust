@@ -53,7 +53,7 @@ pub struct ExternalAccountKey {
     /// when the ExternalAccountKey is created
     pub b64_mac_key: ::bytes::Bytes,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExternalAccountKey {
@@ -105,7 +105,7 @@ pub struct CreateExternalAccountKeyRequest {
     /// CreateExternalAccountKeyRequest, set it to a default/empty value.
     pub external_account_key: std::option::Option<crate::model::ExternalAccountKey>,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateExternalAccountKeyRequest {
