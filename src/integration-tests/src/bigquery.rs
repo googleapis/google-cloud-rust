@@ -293,23 +293,29 @@ async fn cleanup_stale_jobs(client: &bigquery::client::JobService, project_id: &
         .filter_map(|r| {
             match r {
                 Ok(r) => {
-                    // Only delete jobs with testing label.
-                    if let Some(job_reference) = &r.job_reference
-                        && let Some(configuration) = &r.configuration
-                        && configuration
-                            .labels
-                            .get(INSTANCE_LABEL)
-                            .is_some_and(|v| v == "true")
-                    {
-                        return Some(
-                            client
-                                .delete_job()
-                                .set_project_id(project_id)
-                                .set_job_id(&job_reference.job_id)
-                                .send(),
-                        );
+                    // Rust 1.85 does not like if let chains.
+                    // See: https://github.com/rust-lang/rust/issues/53667
+                    match &r.job_reference {
+                        Some(job_reference) => {
+                            // Only delete jobs with testing label.
+                            if let Some(configuration) = &r.configuration
+                                && configuration
+                                    .labels
+                                    .get(INSTANCE_LABEL)
+                                    .is_some_and(|v| v == "true")
+                            {
+                                return Some(
+                                    client
+                                        .delete_job()
+                                        .set_project_id(project_id)
+                                        .set_job_id(&job_reference.job_id)
+                                        .send(),
+                                );
+                            }
+                            None
+                        }
+                        None => None,
                     }
-                    None
                 }
                 Err(_) => None,
             }
