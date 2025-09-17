@@ -47,6 +47,18 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
+    #[test_case(pubsub::client::TopicAdmin::builder(); "default")]
+    #[test_case(pubsub::client::TopicAdmin::builder().with_tracing(); "with tracing enabled")]
+    #[test_case(pubsub::client::TopicAdmin::builder().with_retry_policy(retry_policy()); "with retry enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_pubsub_basic_topic(
+        builder: pubsub::builder::topic_admin::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::pubsub::basic_topic(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
     #[test_case(sm::client::SecretManagerService::builder(); "default")]
     #[test_case(sm::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
     #[test_case(sm::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]

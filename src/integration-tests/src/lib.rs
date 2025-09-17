@@ -19,6 +19,7 @@ pub type Result<T> = anyhow::Result<T>;
 pub mod bigquery;
 pub mod error_details;
 pub mod firestore;
+pub mod pubsub;
 pub mod secret_manager;
 pub mod showcase;
 pub mod sql;
