@@ -27,10 +27,20 @@ mod driver {
 
     #[test_case(bigquery::client::DatasetService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_bigquery(
+    async fn run_bigquery_dataset_service(
         builder: bigquery::builder::dataset_service::ClientBuilder,
     ) -> integration_tests::Result<()> {
         integration_tests::bigquery::dataset_admin(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(bigquery::client::JobService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_bigquery_job_service(
+        builder: bigquery::builder::job_service::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::bigquery::job_service(builder)
             .await
             .map_err(integration_tests::report_error)
     }
