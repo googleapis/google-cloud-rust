@@ -24,6 +24,10 @@ extern crate serde_with;
 extern crate std;
 extern crate wkt;
 
+mod debug;
+mod deserialize;
+mod serialize;
+
 /// The encryption state of the device.
 ///
 /// # Working with unknown values
