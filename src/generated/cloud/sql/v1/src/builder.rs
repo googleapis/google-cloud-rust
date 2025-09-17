@@ -365,7 +365,6 @@ pub mod sql_backup_runs_service {
                 .map(gax::response::Response::into_body)
         }
 
-        // NOWNOW
         /// Streams each page in the collection.
         pub fn by_page(
             self,

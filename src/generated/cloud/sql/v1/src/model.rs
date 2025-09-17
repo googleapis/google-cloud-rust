@@ -1625,7 +1625,6 @@ impl std::fmt::Debug for BackupRun {
     }
 }
 
-// NOWNOW
 /// Backup run list results.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
