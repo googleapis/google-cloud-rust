@@ -31,8 +31,6 @@ extern crate tracing;
 extern crate wkt;
 
 mod debug;
-
-#[doc(hidden)]
 mod implementations;
 
 /// A representation of an ExternalAccountKey used for [external account
