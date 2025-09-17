@@ -37,9 +37,6 @@
 #[allow(clippy::module_inception)]
 pub mod model;
 
-#[doc(hidden)]
-pub(crate) mod implementations;
-
 pub use gax::Result;
 pub use gax::error::Error;
 

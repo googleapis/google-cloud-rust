@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::*;
+
 impl<'de> serde::de::Deserialize<'de> for crate::model::ExternalAccountKey {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -162,19 +164,6 @@ impl serde::ser::Serialize for crate::model::ExternalAccountKey {
     }
 }
 
-impl std::fmt::Debug for crate::model::ExternalAccountKey {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ExternalAccountKey");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("key_id", &self.key_id);
-        debug_struct.field("b64_mac_key", &self.b64_mac_key);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 impl<'de> serde::de::Deserialize<'de> for crate::model::CreateExternalAccountKeyRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -290,14 +279,3 @@ impl serde::ser::Serialize for crate::model::CreateExternalAccountKeyRequest {
     }
 }
 
-impl std::fmt::Debug for crate::model::CreateExternalAccountKeyRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateExternalAccountKeyRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("external_account_key", &self.external_account_key);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
