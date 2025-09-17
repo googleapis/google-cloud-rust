@@ -12,5 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub(crate) mod gapic;
-pub(crate) mod gapic_internal;
+#[cfg(test)]
+mod tests {
+    use google_cloud_pubsub::{client::Publisher, model::PubsubMessage};
+
+    #[tokio::test]
+    async fn quickstart() -> anyhow::Result<()> {
+        let now = std::time::SystemTime::now();
+        let topic = "projects/TODO/topics/TODO";
+        let client = Publisher::new(topic.to_string()).await?;
+        let resp = client
+            .publish(PubsubMessage::new().set_data(format!("hello {:?}", now.elapsed())))
+            .await?;
+        println!("resp={resp:?}");
+        Ok(())
+    }
+}
