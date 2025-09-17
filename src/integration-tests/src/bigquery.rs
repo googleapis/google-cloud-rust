@@ -290,35 +290,28 @@ async fn cleanup_stale_jobs(client: &bigquery::client::JobService, project_id: &
     let pending_deletion = futures::future::join_all(pending_all_stale_jobs)
         .await
         .into_iter()
-        .filter_map(|r| {
-            match r {
-                Ok(r) => {
-                    if let Some(job_reference) = &r.job_reference {
-                        // Use match here as Rust 1.85 does not like if let chains.
-                        // See: https://github.com/rust-lang/rust/issues/53667
-                        match &r.configuration {
-                            Some(configuration) => {
-                                if configuration
-                                    .labels
-                                    .get(INSTANCE_LABEL)
-                                    .is_some_and(|v| v == "true")
-                                {
-                                    return Some(
-                                        client
-                                            .delete_job()
-                                            .set_project_id(project_id)
-                                            .set_job_id(&job_reference.job_id)
-                                            .send(),
-                                    );
-                                }
-                            }
-                            None => (),
+        .filter_map(|r| match r {
+            Ok(r) => {
+                if let Some(job_reference) = &r.job_reference {
+                    if let Some(configuration) = &r.configuration {
+                        if configuration
+                            .labels
+                            .get(INSTANCE_LABEL)
+                            .is_some_and(|v| v == "true")
+                        {
+                            return Some(
+                                client
+                                    .delete_job()
+                                    .set_project_id(project_id)
+                                    .set_job_id(&job_reference.job_id)
+                                    .send(),
+                            );
                         }
                     }
-                    None
                 }
-                Err(_) => None,
+                None
             }
+            Err(_) => None,
         })
         .collect::<Vec<_>>();
 
