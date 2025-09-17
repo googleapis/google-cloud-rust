@@ -33,7 +33,7 @@ extern crate wkt;
 mod debug;
 
 #[doc(hidden)]
-pub(crate) mod implementations;
+mod implementations;
 
 /// A representation of an ExternalAccountKey used for [external account
 /// binding](https://tools.ietf.org/html/rfc8555#section-7.3.4) within ACME.

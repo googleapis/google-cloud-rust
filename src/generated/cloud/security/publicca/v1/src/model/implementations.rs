@@ -14,6 +14,7 @@
 
 use super::*;
 
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for crate::model::ExternalAccountKey {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -128,6 +129,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::ExternalAccountKey {
     }
 }
 
+#[doc(hidden)]
 impl serde::ser::Serialize for crate::model::ExternalAccountKey {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -164,6 +166,7 @@ impl serde::ser::Serialize for crate::model::ExternalAccountKey {
     }
 }
 
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for crate::model::CreateExternalAccountKeyRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -255,6 +258,7 @@ impl<'de> serde::de::Deserialize<'de> for crate::model::CreateExternalAccountKey
     }
 }
 
+#[doc(hidden)]
 impl serde::ser::Serialize for crate::model::CreateExternalAccountKeyRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -278,4 +282,3 @@ impl serde::ser::Serialize for crate::model::CreateExternalAccountKeyRequest {
         state.end()
     }
 }
-
