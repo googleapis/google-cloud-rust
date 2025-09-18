@@ -66,12 +66,12 @@ pub async fn create_test_topic() -> Result<(TopicAdmin, Topic)> {
         .with_tracing()
         .build()
         .await?;
-    let topic_id = random_topic_name(project);
+    let topic_name = random_topic_name(project);
 
     tracing::info!("testing create_topic()");
     let topic = client
         .create_topic()
-        .set_name(topic_id)
+        .set_name(topic_name)
         .set_labels([("integration-test", "true")])
         .send()
         .await?;
