@@ -12,44 +12,84 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(dead_code)] // TODO(#3239): Remove once used in http.rs
+
 use crate::options::InstrumentationClientInfo;
 use gax::options::RequestOptions;
 
-/// Holds information extracted from HTTP requests and responses,
-/// formatted to align with OpenTelemetry semantic conventions for tracing.
-/// This struct is used to populate attributes on tracing spans.
+#[derive(Debug, Clone, PartialEq)]
+pub(crate) enum OtelStatus {
+    Unset,
+    Ok,
+    Error,
+}
+
+impl OtelStatus {
+    pub(crate) fn as_str(&self) -> &'static str {
+        match self {
+            OtelStatus::Unset => "Unset",
+            OtelStatus::Ok => "Ok",
+            OtelStatus::Error => "Error",
+        }
+    }
+}
+
+/// Populate attributes of tracing spans for HTTP requests.
+///
+/// OpenTelemetry recommends a number of semantic conventions for
+/// tracing HTTP requests. This type holds the information extracted
+/// from HTTP requests and responses, formatted to align with these
+/// OpenTelemetry semantic conventions.
+/// See [OpenTelemetry Semantic Conventions for HTTP](https://opentelemetry.io/docs/specs/semconv/http/http-spans/).
 #[derive(Debug, Clone)]
-#[allow(dead_code)] // TODO(#3239): Remove once used in http.rs
 pub(crate) struct HttpSpanInfo {
     // Attributes for OpenTelemetry SDK interop
-    otel_kind: String,   // "Client"
-    otel_name: String,   // "{METHOD} {url.template}" or "{METHOD}"
-    otel_status: String, // "Unset", "Ok", "Error"
+    /// Span Kind. Always CLIENT for a span representing an outbound HTTP request.
+    otel_kind: String,
+    /// Span Name. Recommended to be "{http.request.method} {url.template}" if url.template is available, otherwise "{http.request.method}".
+    otel_name: String,
+    /// Span Status. Set to Error in the event of an unrecoverable error, for example network error, 5xx status codes. Unset otherwise (including 4xx codes for CLIENT spans).
+    otel_status: OtelStatus,
 
     // OpenTelemetry Semantic Conventions
-    rpc_system: String, // "http"
+    /// Which RPC system is being used. Set to "http" for REST calls.
+    rpc_system: String,
+    /// The HTTP request method, for example GET; POST; HEAD.
     http_request_method: String,
-    server_address: Option<String>, // Host from URL
-    server_port: Option<i64>,       // Port from URL
+    /// The actual destination host name or IP address. May differ from the URL's host if overridden, for example myservice.googleapis.com; myservice-staging.sandbox.googleapis.com; 10.0.0.1.
+    server_address: String,
+    /// The actual destination port number. May differ from the URL's port if overridden, for example 443; 8080.
+    server_port: i64,
+    /// The absolute URL of the request, for example https://www.foo.bar/search?q=OpenTelemetry.
     url_full: String,
+    /// The URI scheme component identifying the used protocol, for example http; https.
     url_scheme: Option<String>,
-    url_template: Option<String>, // From RequestOptions.path_template
-    url_domain: Option<String>,   // Host from generator
+    /// The low-cardinality template of the absolute path, for example /v2/locations/{location}/projects/{project}/.
+    url_template: Option<String>,
+    /// The nominal domain from the original URL, representing the intended service, for example myservice.googleapis.com.
+    url_domain: Option<String>,
 
+    /// The numeric HTTP response status code, for example 200; 404; 500.
     http_response_status_code: Option<i64>,
+    /// A low cardinality a class of error the operation ended with.
+    /// For HTTP status codes >= 400, this is the status code as a string.
+    /// For network errors, a short identifier like TIMEOUT, CONNECTION_ERROR.
     error_type: Option<String>,
+    /// The ordinal number of times this request has been resent (e.g., due to retries or redirects). None for the first attempt.
     http_request_resend_count: Option<i64>,
 
     // Custom GCP Attributes
+    /// Identifies the Google Cloud service, for example appengine; run; firestore.
     gcp_client_service: Option<String>,
+    /// The version of the client library, for example v1.0.2.
     gcp_client_version: Option<String>,
-    gcp_client_repo: String, // "googleapis/google-cloud-rust"
+    /// The repository of the client library. Always "googleapis/google-cloud-rust".
+    gcp_client_repo: String,
+    /// The crate name of the client library, for example google-cloud-storage.
     gcp_client_artifact: Option<String>,
 }
 
 impl HttpSpanInfo {
-    // TODO(#3239): Remove once used in http.rs
-    #[allow(dead_code)]
     pub(crate) fn from_request(
         request: &reqwest::Request,
         options: &RequestOptions,
@@ -85,10 +125,10 @@ impl HttpSpanInfo {
             rpc_system: "http".to_string(),
             otel_kind: "Client".to_string(),
             otel_name,
-            otel_status: "Unset".to_string(),
+            otel_status: OtelStatus::Unset,
             http_request_method: method.to_string(),
-            server_address: url.host_str().map(String::from),
-            server_port: url.port_or_known_default().map(|p| p as i64),
+            server_address: url.host_str().map(String::from).unwrap_or_default(),
+            server_port: url.port_or_known_default().map(|p| p as i64).unwrap_or(0),
             url_full: url.to_string(),
             url_scheme: Some(url.scheme().to_string()),
             url_template: url_template.map(String::from),
@@ -104,9 +144,9 @@ impl HttpSpanInfo {
     }
 
     /// Updates the span info based on the outcome of the HTTP request.
-    /// This method should be called after the request has completed.
-    // TODO(#3239): Remove once used in http.rs
-    #[allow(dead_code)]
+    ///
+    /// This method should be called after the request has completed, it will fill in any parts of
+    /// the span that depend on the result of the request.
     pub(crate) fn update_from_response(
         &mut self,
         result: &Result<reqwest::Response, reqwest::Error>,
@@ -115,14 +155,14 @@ impl HttpSpanInfo {
             Ok(response) => {
                 self.http_response_status_code = Some(response.status().as_u16() as i64);
                 if response.status().is_success() {
-                    self.otel_status = "Ok".to_string();
+                    self.otel_status = OtelStatus::Ok;
                 } else {
-                    self.otel_status = "Error".to_string();
+                    self.otel_status = OtelStatus::Error;
                     self.error_type = Some(response.status().to_string());
                 }
             }
             Err(err) => {
-                self.otel_status = "Error".to_string();
+                self.otel_status = OtelStatus::Error;
                 if err.is_timeout() {
                     self.error_type = Some("TIMEOUT".to_string());
                 } else if err.is_connect() {
@@ -156,10 +196,10 @@ mod tests {
         assert_eq!(span_info.rpc_system, "http");
         assert_eq!(span_info.otel_kind, "Client");
         assert_eq!(span_info.otel_name, "GET");
-        assert_eq!(span_info.otel_status, "Unset");
+        assert_eq!(span_info.otel_status, OtelStatus::Unset);
         assert_eq!(span_info.http_request_method, "GET");
-        assert_eq!(span_info.server_address, Some("example.com".to_string()));
-        assert_eq!(span_info.server_port, Some(443));
+        assert_eq!(span_info.server_address, "example.com".to_string());
+        assert_eq!(span_info.server_port, 443);
         assert_eq!(span_info.url_full, "https://example.com/test");
         assert_eq!(span_info.url_scheme, Some("https".to_string()));
         assert_eq!(span_info.url_template, None);
@@ -199,11 +239,8 @@ mod tests {
             Some("google-cloud-test".to_string())
         );
         assert_eq!(span_info.url_domain, Some("test.service.dev".to_string()));
-        assert_eq!(
-            span_info.server_address,
-            Some("test.service.dev".to_string())
-        );
-        assert_eq!(span_info.server_port, Some(443));
+        assert_eq!(span_info.server_address, "test.service.dev".to_string());
+        assert_eq!(span_info.server_port, 443);
     }
 
     #[tokio::test]
@@ -252,7 +289,7 @@ mod tests {
             reqwest::Response::from(http::Response::builder().status(200).body("").unwrap());
         span_info.update_from_response(&Ok(response));
 
-        assert_eq!(span_info.otel_status, "Ok");
+        assert_eq!(span_info.otel_status, OtelStatus::Ok);
         assert_eq!(span_info.http_response_status_code, Some(200));
         assert_eq!(span_info.error_type, None);
     }
@@ -268,7 +305,7 @@ mod tests {
             reqwest::Response::from(http::Response::builder().status(404).body("").unwrap());
         span_info.update_from_response(&Ok(response));
 
-        assert_eq!(span_info.otel_status, "Error");
+        assert_eq!(span_info.otel_status, OtelStatus::Error);
         assert_eq!(span_info.http_response_status_code, Some(404));
         assert_eq!(span_info.error_type, Some("404 Not Found".to_string()));
     }
