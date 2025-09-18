@@ -163,15 +163,13 @@ impl HttpSpanInfo {
             }
             Err(err) => {
                 self.otel_status = OtelStatus::Error;
-                if err.is_timeout() {
-                    self.error_type = Some("TIMEOUT".to_string());
-                } else if err.is_connect() {
-                    self.error_type = Some("CONNECTION_ERROR".to_string());
-                } else if err.is_request() {
-                    self.error_type = Some("REQUEST_ERROR".to_string());
-                } else {
-                    self.error_type = Some("UNKNOWN".to_string());
-                }
+                let name = match err {
+                    e if e.is_timeout() => "TIMEOUT",
+                    e if e.is_connect() => "CONNECTION_ERROR",
+                    e if e.is_request() => "REQUEST_ERROR",
+                    _ => "UNKNOWN",
+                };
+                self.error_type = Some(name.to_string());
             }
         }
     }
