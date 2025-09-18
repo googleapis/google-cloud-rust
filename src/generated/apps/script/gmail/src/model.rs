@@ -25,6 +25,10 @@ extern crate serde_with;
 extern crate std;
 extern crate wkt;
 
+mod debug;
+mod deserialize;
+mod serialize;
+
 /// Properties customizing the appearance and execution of a Gmail add-on.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -61,7 +65,7 @@ pub struct GmailAddOnManifest {
     /// invocation of the add-on, in order to ensure a smooth user experience.
     pub authorization_check_function: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GmailAddOnManifest {
@@ -143,202 +147,6 @@ impl wkt::message::Message for GmailAddOnManifest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for GmailAddOnManifest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __homepage_trigger,
-            __contextual_triggers,
-            __universal_actions,
-            __compose_trigger,
-            __authorization_check_function,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for GmailAddOnManifest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "homepageTrigger" => Ok(__FieldTag::__homepage_trigger),
-                            "homepage_trigger" => Ok(__FieldTag::__homepage_trigger),
-                            "contextualTriggers" => Ok(__FieldTag::__contextual_triggers),
-                            "contextual_triggers" => Ok(__FieldTag::__contextual_triggers),
-                            "universalActions" => Ok(__FieldTag::__universal_actions),
-                            "universal_actions" => Ok(__FieldTag::__universal_actions),
-                            "composeTrigger" => Ok(__FieldTag::__compose_trigger),
-                            "compose_trigger" => Ok(__FieldTag::__compose_trigger),
-                            "authorizationCheckFunction" => {
-                                Ok(__FieldTag::__authorization_check_function)
-                            }
-                            "authorization_check_function" => {
-                                Ok(__FieldTag::__authorization_check_function)
-                            }
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = GmailAddOnManifest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct GmailAddOnManifest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__homepage_trigger => {
-                            if !fields.insert(__FieldTag::__homepage_trigger) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for homepage_trigger",
-                                ));
-                            }
-                            result.homepage_trigger = map.next_value::<std::option::Option<
-                                apps_script_type::model::HomepageExtensionPoint,
-                            >>()?;
-                        }
-                        __FieldTag::__contextual_triggers => {
-                            if !fields.insert(__FieldTag::__contextual_triggers) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for contextual_triggers",
-                                ));
-                            }
-                            result.contextual_triggers =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::ContextualTrigger>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__universal_actions => {
-                            if !fields.insert(__FieldTag::__universal_actions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for universal_actions",
-                                ));
-                            }
-                            result.universal_actions =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::UniversalAction>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__compose_trigger => {
-                            if !fields.insert(__FieldTag::__compose_trigger) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for compose_trigger",
-                                ));
-                            }
-                            result.compose_trigger = map
-                                .next_value::<std::option::Option<crate::model::ComposeTrigger>>(
-                                )?;
-                        }
-                        __FieldTag::__authorization_check_function => {
-                            if !fields.insert(__FieldTag::__authorization_check_function) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for authorization_check_function",
-                                ));
-                            }
-                            result.authorization_check_function = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for GmailAddOnManifest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.homepage_trigger.is_some() {
-            state.serialize_entry("homepageTrigger", &self.homepage_trigger)?;
-        }
-        if !self.contextual_triggers.is_empty() {
-            state.serialize_entry("contextualTriggers", &self.contextual_triggers)?;
-        }
-        if !self.universal_actions.is_empty() {
-            state.serialize_entry("universalActions", &self.universal_actions)?;
-        }
-        if self.compose_trigger.is_some() {
-            state.serialize_entry("composeTrigger", &self.compose_trigger)?;
-        }
-        if !self.authorization_check_function.is_empty() {
-            state.serialize_entry(
-                "authorizationCheckFunction",
-                &self.authorization_check_function,
-            )?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for GmailAddOnManifest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GmailAddOnManifest");
-        debug_struct.field("homepage_trigger", &self.homepage_trigger);
-        debug_struct.field("contextual_triggers", &self.contextual_triggers);
-        debug_struct.field("universal_actions", &self.universal_actions);
-        debug_struct.field("compose_trigger", &self.compose_trigger);
-        debug_struct.field(
-            "authorization_check_function",
-            &self.authorization_check_function,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// An action that is always available in the add-on toolbar menu regardless of
 /// message context.
 #[derive(Clone, Default, PartialEq)]
@@ -352,7 +160,7 @@ pub struct UniversalAction {
     /// invokes the action.
     pub action_type: std::option::Option<crate::model::universal_action::ActionType>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UniversalAction {
@@ -435,168 +243,6 @@ impl wkt::message::Message for UniversalAction {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for UniversalAction {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __text,
-            __open_link,
-            __run_function,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for UniversalAction")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "text" => Ok(__FieldTag::__text),
-                            "openLink" => Ok(__FieldTag::__open_link),
-                            "open_link" => Ok(__FieldTag::__open_link),
-                            "runFunction" => Ok(__FieldTag::__run_function),
-                            "run_function" => Ok(__FieldTag::__run_function),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = UniversalAction;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct UniversalAction")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__text => {
-                            if !fields.insert(__FieldTag::__text) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for text",
-                                ));
-                            }
-                            result.text = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__open_link => {
-                            if !fields.insert(__FieldTag::__open_link) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for open_link",
-                                ));
-                            }
-                            if result.action_type.is_some() {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `action_type`, a oneof with full ID .google.apps.script.type.gmail.UniversalAction.open_link, latest field was openLink",
-                                ));
-                            }
-                            result.action_type = std::option::Option::Some(
-                                crate::model::universal_action::ActionType::OpenLink(
-                                    map.next_value::<std::option::Option<std::string::String>>()?
-                                        .unwrap_or_default(),
-                                ),
-                            );
-                        }
-                        __FieldTag::__run_function => {
-                            if !fields.insert(__FieldTag::__run_function) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for run_function",
-                                ));
-                            }
-                            if result.action_type.is_some() {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `action_type`, a oneof with full ID .google.apps.script.type.gmail.UniversalAction.run_function, latest field was runFunction",
-                                ));
-                            }
-                            result.action_type = std::option::Option::Some(
-                                crate::model::universal_action::ActionType::RunFunction(
-                                    map.next_value::<std::option::Option<std::string::String>>()?
-                                        .unwrap_or_default(),
-                                ),
-                            );
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for UniversalAction {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.text.is_empty() {
-            state.serialize_entry("text", &self.text)?;
-        }
-        if let Some(value) = self.open_link() {
-            state.serialize_entry("openLink", value)?;
-        }
-        if let Some(value) = self.run_function() {
-            state.serialize_entry("runFunction", value)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for UniversalAction {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UniversalAction");
-        debug_struct.field("text", &self.text);
-        debug_struct.field("action_type", &self.action_type);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Defines additional types related to [UniversalAction].
 pub mod universal_action {
     #[allow(unused_imports)]
@@ -627,7 +273,7 @@ pub struct ComposeTrigger {
     /// Define the level of data access when a compose time addon is triggered.
     pub draft_access: crate::model::compose_trigger::DraftAccess,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComposeTrigger {
@@ -659,136 +305,6 @@ impl ComposeTrigger {
 impl wkt::message::Message for ComposeTrigger {
     fn typename() -> &'static str {
         "type.googleapis.com/google.apps.script.type.gmail.ComposeTrigger"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ComposeTrigger {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __actions,
-            __draft_access,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ComposeTrigger")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "actions" => Ok(__FieldTag::__actions),
-                            "draftAccess" => Ok(__FieldTag::__draft_access),
-                            "draft_access" => Ok(__FieldTag::__draft_access),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ComposeTrigger;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ComposeTrigger")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__actions => {
-                            if !fields.insert(__FieldTag::__actions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for actions",
-                                ));
-                            }
-                            result.actions = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<apps_script_type::model::MenuItemExtensionPoint>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__draft_access => {
-                            if !fields.insert(__FieldTag::__draft_access) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for draft_access",
-                                ));
-                            }
-                            result.draft_access = map.next_value::<std::option::Option<crate::model::compose_trigger::DraftAccess>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ComposeTrigger {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.actions.is_empty() {
-            state.serialize_entry("actions", &self.actions)?;
-        }
-        if !wkt::internal::is_default(&self.draft_access) {
-            state.serialize_entry("draftAccess", &self.draft_access)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ComposeTrigger {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ComposeTrigger");
-        debug_struct.field("actions", &self.actions);
-        debug_struct.field("draft_access", &self.draft_access);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -947,7 +463,7 @@ pub struct ContextualTrigger {
     /// add-on.
     pub trigger: std::option::Option<crate::model::contextual_trigger::Trigger>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ContextualTrigger {
@@ -1017,146 +533,6 @@ impl wkt::message::Message for ContextualTrigger {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ContextualTrigger {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __unconditional,
-            __on_trigger_function,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ContextualTrigger")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "unconditional" => Ok(__FieldTag::__unconditional),
-                            "onTriggerFunction" => Ok(__FieldTag::__on_trigger_function),
-                            "on_trigger_function" => Ok(__FieldTag::__on_trigger_function),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ContextualTrigger;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ContextualTrigger")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__unconditional => {
-                            if !fields.insert(__FieldTag::__unconditional) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for unconditional",
-                                ));
-                            }
-                            if result.trigger.is_some() {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `trigger`, a oneof with full ID .google.apps.script.type.gmail.ContextualTrigger.unconditional, latest field was unconditional",
-                                ));
-                            }
-                            result.trigger = std::option::Option::Some(
-                                crate::model::contextual_trigger::Trigger::Unconditional(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<crate::model::UnconditionalTrigger>,
-                                    >>()?
-                                    .unwrap_or_default(),
-                                ),
-                            );
-                        }
-                        __FieldTag::__on_trigger_function => {
-                            if !fields.insert(__FieldTag::__on_trigger_function) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for on_trigger_function",
-                                ));
-                            }
-                            result.on_trigger_function = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ContextualTrigger {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if let Some(value) = self.unconditional() {
-            state.serialize_entry("unconditional", value)?;
-        }
-        if !self.on_trigger_function.is_empty() {
-            state.serialize_entry("onTriggerFunction", &self.on_trigger_function)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ContextualTrigger {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ContextualTrigger");
-        debug_struct.field("on_trigger_function", &self.on_trigger_function);
-        debug_struct.field("trigger", &self.trigger);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Defines additional types related to [ContextualTrigger].
 pub mod contextual_trigger {
     #[allow(unused_imports)]
@@ -1176,7 +552,7 @@ pub mod contextual_trigger {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnconditionalTrigger {
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UnconditionalTrigger {
@@ -1188,99 +564,5 @@ impl UnconditionalTrigger {
 impl wkt::message::Message for UnconditionalTrigger {
     fn typename() -> &'static str {
         "type.googleapis.com/google.apps.script.type.gmail.UnconditionalTrigger"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for UnconditionalTrigger {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for UnconditionalTrigger")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        Ok(__FieldTag::Unknown(value.to_string()))
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = UnconditionalTrigger;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct UnconditionalTrigger")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for UnconditionalTrigger {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for UnconditionalTrigger {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UnconditionalTrigger");
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
